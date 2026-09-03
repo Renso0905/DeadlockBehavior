@@ -1,0 +1,210 @@
+{
+  "replay": "test",
+  "version": "TROOPER_GROUND_SOUL_PERSISTENT_RANGE_DIAGNOSTIC_V01",
+  "canonical": false,
+  "status": "PERSISTENT_RANGE_CASES_REMAIN_AFTER_ASSIGNEDGOLD_ANCHOR_TEST",
+  "purpose": [
+    "Take only the corrected Script 70b persistent 45m exception set.",
+    "Test raw player geometry at the actual Script 55 AssignedGold activation tick.",
+    "Compare Trooper death position against the matched AssignedGold activation position as the possible range reference point.",
+    "Test opposing-team alive players, any-team alive players, planar geometry, and the observed vacuum-target player separately.",
+    "Do not redefine the 45m mechanic from wider timing windows; +/-2s remains diagnostic only."
+  ],
+  "documentedMechanicTarget": {
+    "rangeMeters": 45,
+    "rangeInternalUnits": 1771.6499999999999
+  },
+  "inputs": {
+    "replay": "G:\\DeadlockBehavior\\replays\\test.dem",
+    "script70bSummary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_45m_window_resolution_v01.json",
+    "script70bCases": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_45m_window_resolution_cases_v01.jsonl",
+    "script55DeathStream": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_one_to_one_v01.jsonl",
+    "script55Summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_one_to_one_summary_v01.json",
+    "playerState": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl"
+  },
+  "counts": {
+    "persistentCasesInput": 7,
+    "persistentCasesJoined": 7,
+    "exactAssignedGoldActivation3DResolved": 0,
+    "assignedGoldActivationHalfSecond3DResolved": 0,
+    "assignedGoldActivationOneSecond3DResolved": 0,
+    "assignedGoldActivationTwoSecond3DResolvedDiagnosticOnly": 4,
+    "assignedGoldReferencePointCloserThanDeathPointAtActivation": 4,
+    "anyTeamOnlyResolved": 3,
+    "planarOnlyAtAssignedGoldActivation": 0,
+    "stillPersistent": 4
+  },
+  "resolutionCounts": {
+    "STILL_PERSISTENT_AFTER_ASSIGNEDGOLD_ANCHOR_TEST": 4,
+    "ANY_TEAM_ONLY_AT_ACTIVATION": 3
+  },
+  "interpretation": {
+    "assignedGoldAnchor": "If a case is inside 45m at the exact AssignedGold activation tick/position, the prior exception is best treated as a reference-time/reference-point problem rather than a true range exception.",
+    "anyTeam": "Any-team-only resolution is evidence that the current opposing-team eligibility assumption deserves direct validation; it is not proof that same-team players satisfy the mechanic.",
+    "planar": "Planar-only resolution keeps XY geometry alive as a hypothesis but does not establish engine implementation.",
+    "vacuumTarget": "m_hVacuumTarget-derived player identity remains an observed magnetic target, not validated soul acquisition or causal eligibility.",
+    "persistent": "Cases still outside after exact AssignedGold activation geometry remain the strongest candidates for a missing mechanic, incorrect 45m documentation/conversion, or a deeper source-linkage issue."
+  },
+  "cases": {
+    "stillPersistent": [
+      {
+        "deathIndex": 495,
+        "clock": "19:38",
+        "baseType": "MEDIC",
+        "deathTick": 77324,
+        "activationTick": 77324,
+        "activationTickDelta": 0,
+        "deathToAssignedGoldDistance3D": 4.03125,
+        "exactDeathReference3D": 1796.9219569951417,
+        "exactAssignedGoldReference3D": 1796.6205072497398,
+        "exactAssignedGoldReferenceXY": 1791.7394841065066,
+        "oneSecondAssignedGoldReference3D": 1796.4980148019924,
+        "vacuumTargetPlayer": "Goldinfer",
+        "resolutionCategory": "STILL_PERSISTENT_AFTER_ASSIGNEDGOLD_ANCHOR_TEST"
+      },
+      {
+        "deathIndex": 718,
+        "clock": "26:21",
+        "baseType": "RANGED",
+        "deathTick": 103165,
+        "activationTick": 103165,
+        "activationTickDelta": 0,
+        "deathToAssignedGoldDistance3D": 40.71951745247603,
+        "exactDeathReference3D": 2992.1169410740786,
+        "exactAssignedGoldReference3D": 2991.902873048825,
+        "exactAssignedGoldReferenceXY": 2990.6285842781554,
+        "oneSecondAssignedGoldReference3D": 2614.77122434527,
+        "vacuumTargetPlayer": "flem",
+        "resolutionCategory": "STILL_PERSISTENT_AFTER_ASSIGNEDGOLD_ANCHOR_TEST"
+      },
+      {
+        "deathIndex": 1347,
+        "clock": "43:29",
+        "baseType": "MEDIC",
+        "deathTick": 168914,
+        "activationTick": 168914,
+        "activationTickDelta": 0,
+        "deathToAssignedGoldDistance3D": 48.71317719891098,
+        "exactDeathReference3D": 2864.177281183355,
+        "exactAssignedGoldReference3D": 2851.248820589684,
+        "exactAssignedGoldReferenceXY": 2730.5657425548397,
+        "oneSecondAssignedGoldReference3D": 2809.904905704384,
+        "vacuumTargetPlayer": "viggoth 300",
+        "resolutionCategory": "STILL_PERSISTENT_AFTER_ASSIGNEDGOLD_ANCHOR_TEST"
+      },
+      {
+        "deathIndex": 1350,
+        "clock": "43:32",
+        "baseType": "MELEE",
+        "deathTick": 169119,
+        "activationTick": 169119,
+        "activationTickDelta": 0,
+        "deathToAssignedGoldDistance3D": 48.72624621610513,
+        "exactDeathReference3D": 2943.094764855844,
+        "exactAssignedGoldReference3D": 2916.1490112242313,
+        "exactAssignedGoldReferenceXY": 2376.4264221808053,
+        "oneSecondAssignedGoldReference3D": 2370.690119475366,
+        "vacuumTargetPlayer": "viggoth 300",
+        "resolutionCategory": "STILL_PERSISTENT_AFTER_ASSIGNEDGOLD_ANCHOR_TEST"
+      }
+    ],
+    "exactActivationResolved": [],
+    "anyTeamOnly": [
+      {
+        "deathIndex": 1539,
+        "clock": "47:28",
+        "baseType": "MELEE",
+        "deathTick": 184228,
+        "activationTick": 184228,
+        "activationTickDelta": 0,
+        "deathToAssignedGoldDistance3D": 48.74650428171747,
+        "exactDeathReference3D": 2447.552687523422,
+        "exactAssignedGoldReference3D": 2452.3863300699713,
+        "exactAssignedGoldReferenceXY": 2444.8416439643897,
+        "oneSecondAssignedGoldReference3D": 2036.5005749561858,
+        "vacuumTargetPlayer": null,
+        "resolutionCategory": "ANY_TEAM_ONLY_AT_ACTIVATION"
+      },
+      {
+        "deathIndex": 1541,
+        "clock": "47:29",
+        "baseType": "RANGED",
+        "deathTick": 184263,
+        "activationTick": 184263,
+        "activationTickDelta": 0,
+        "deathToAssignedGoldDistance3D": 48.71337767043566,
+        "exactDeathReference3D": 2433.912059239071,
+        "exactAssignedGoldReference3D": 2438.12796618475,
+        "exactAssignedGoldReferenceXY": 2419.9593556923896,
+        "oneSecondAssignedGoldReference3D": 2078.7514941459604,
+        "vacuumTargetPlayer": "Yosafire Worshipper [K]",
+        "resolutionCategory": "ANY_TEAM_ONLY_AT_ACTIVATION"
+      },
+      {
+        "deathIndex": 1542,
+        "clock": "47:29",
+        "baseType": "RANGED",
+        "deathTick": 184269,
+        "activationTick": 184269,
+        "activationTickDelta": 0,
+        "deathToAssignedGoldDistance3D": 48.725554768519565,
+        "exactDeathReference3D": 2531.3623458864745,
+        "exactAssignedGoldReference3D": 2537.6020826910835,
+        "exactAssignedGoldReferenceXY": 2519.2552426340335,
+        "oneSecondAssignedGoldReference3D": 2170.8399638014544,
+        "vacuumTargetPlayer": "Yosafire Worshipper [K]",
+        "resolutionCategory": "ANY_TEAM_ONLY_AT_ACTIVATION"
+      }
+    ],
+    "planarOnly": []
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script70bPassed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script55Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "persistentCountPreserved": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "expectedTestReplayPersistentCount": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "allPersistentCasesJoinedToScript55": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "rawReplayRelevantPacketsObserved": {
+        "actual": 1276,
+        "expected": ">0",
+        "pass": true
+      },
+      "exactActivationSnapshotsObservedForAll": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "classificationExhaustive": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_persistent_range_diagnostic_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_persistent_range_cases_v01.jsonl"
+  }
+}

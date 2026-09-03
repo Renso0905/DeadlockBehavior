@@ -1,0 +1,638 @@
+{
+  "replay": "test",
+  "version": "TROOPER_GROUND_SOUL_EXACT_LASTHIT_VALIDATION_V01",
+  "canonical": false,
+  "status": "EXACT_LASTHIT_GROUND_SOUL_ASSOCIATION_READY",
+  "purpose": [
+    "Validate the Script 72 exact-tick m_iLastHits observation using tick-by-team aggregation.",
+    "Avoid treating simultaneous Trooper deaths as independent per-death last-hit attributions.",
+    "Measure the exact-tick last-hit counter association among isolated single-death matched and unmatched cohorts.",
+    "Determine whether the rare unmatched exact-tick signals collide with matched Trooper deaths on the same tick.",
+    "Use nearby shifted ticks as negative controls for temporal specificity."
+  ],
+  "semanticLimit": {
+    "observedField": "m_iLastHits",
+    "targetAttributionValidated": false,
+    "causalMechanicValidated": false,
+    "statement": "This validates temporal/statistical association only. m_iLastHits remains a controller counter and not direct victim identity telemetry."
+  },
+  "sourceCounts": {
+    "deaths": 1727,
+    "matched": 1388,
+    "unmatched": 339,
+    "tickTeamGroups": 1472,
+    "isolatedSingleDeathGroups": 1338,
+    "isolatedMatched": 1003,
+    "isolatedUnmatched": 335,
+    "isolatedMatchedOutside45m": 13,
+    "isolatedUnmatchedOutside45m": 332,
+    "lastHitPositiveEvents": 2433,
+    "lastHitPositiveUnits": 2740
+  },
+  "exactTickAssociation": {
+    "isolatedMatched": {
+      "total": 1003,
+      "withSignal": 1003,
+      "rate": 1
+    },
+    "isolatedUnmatched": {
+      "total": 335,
+      "withSignal": 0,
+      "rate": 0
+    },
+    "matchedMinusUnmatchedRateDifference": 1,
+    "matchedVsUnmatchedRiskRatio": null
+  },
+  "outside45mIsolated": {
+    "matched": {
+      "total": 13,
+      "withExactSignal": 13,
+      "rate": 1
+    },
+    "unmatched": {
+      "total": 332,
+      "withExactSignal": 0,
+      "rate": 0
+    },
+    "rateDifference": 1,
+    "riskRatio": null
+  },
+  "shiftedTickNegativeControls": [
+    {
+      "offsetTicks": -8,
+      "matchedTotal": 1003,
+      "matchedWithSignal": 15,
+      "matchedSignalRate": 0.014955134596211365,
+      "unmatchedTotal": 335,
+      "unmatchedWithSignal": 2,
+      "unmatchedSignalRate": 0.005970149253731343
+    },
+    {
+      "offsetTicks": -4,
+      "matchedTotal": 1003,
+      "matchedWithSignal": 18,
+      "matchedSignalRate": 0.01794616151545364,
+      "unmatchedTotal": 335,
+      "unmatchedWithSignal": 0,
+      "unmatchedSignalRate": 0
+    },
+    {
+      "offsetTicks": -2,
+      "matchedTotal": 1003,
+      "matchedWithSignal": 23,
+      "matchedSignalRate": 0.022931206380857428,
+      "unmatchedTotal": 335,
+      "unmatchedWithSignal": 2,
+      "unmatchedSignalRate": 0.005970149253731343
+    },
+    {
+      "offsetTicks": -1,
+      "matchedTotal": 1003,
+      "matchedWithSignal": 23,
+      "matchedSignalRate": 0.022931206380857428,
+      "unmatchedTotal": 335,
+      "unmatchedWithSignal": 1,
+      "unmatchedSignalRate": 0.0029850746268656717
+    },
+    {
+      "offsetTicks": 0,
+      "matchedTotal": 1003,
+      "matchedWithSignal": 1003,
+      "matchedSignalRate": 1,
+      "unmatchedTotal": 335,
+      "unmatchedWithSignal": 0,
+      "unmatchedSignalRate": 0
+    },
+    {
+      "offsetTicks": 1,
+      "matchedTotal": 1003,
+      "matchedWithSignal": 30,
+      "matchedSignalRate": 0.02991026919242273,
+      "unmatchedTotal": 335,
+      "unmatchedWithSignal": 2,
+      "unmatchedSignalRate": 0.005970149253731343
+    },
+    {
+      "offsetTicks": 2,
+      "matchedTotal": 1003,
+      "matchedWithSignal": 28,
+      "matchedSignalRate": 0.027916251246261216,
+      "unmatchedTotal": 335,
+      "unmatchedWithSignal": 2,
+      "unmatchedSignalRate": 0.005970149253731343
+    },
+    {
+      "offsetTicks": 4,
+      "matchedTotal": 1003,
+      "matchedWithSignal": 16,
+      "matchedSignalRate": 0.015952143569292122,
+      "unmatchedTotal": 335,
+      "unmatchedWithSignal": 1,
+      "unmatchedSignalRate": 0.0029850746268656717
+    },
+    {
+      "offsetTicks": 8,
+      "matchedTotal": 1003,
+      "matchedWithSignal": 9,
+      "matchedSignalRate": 0.00897308075772682,
+      "unmatchedTotal": 335,
+      "unmatchedWithSignal": 1,
+      "unmatchedSignalRate": 0.0029850746268656717
+    }
+  ],
+  "tickTeamAccounting": {
+    "groups": 1472,
+    "groupsWithAnyExactCounterSignal": 1136,
+    "groupsWhereExactCounterUnitsEqualMatchedDeaths": 1459,
+    "equalityRateCounterUnitsVsMatchedDeaths": 0.9911684782608695,
+    "groupsWhereExactCounterUnitsEqualAllEconomicDeaths": 1121,
+    "equalityRateCounterUnitsVsAllEconomicDeaths": 0.7615489130434783,
+    "residualExactCounterUnitsMinusMatchedDeaths": {
+      "count": 1472,
+      "min": 0,
+      "median": 0,
+      "max": 2,
+      "mean": 0.010869565217391304
+    }
+  },
+  "unmatchedExactCases": [
+    {
+      "deathIndex": 607,
+      "deathKey": "3052|91823",
+      "clock": "23:24",
+      "baseType": "MELEE",
+      "rangeGroup": "UNMATCHED_OUTSIDE_45M",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 5,
+      "sameTickTeamMatchedCount": 4,
+      "sameTickTeamUnmatchedCount": 1,
+      "exactOpposingLastHitUnits": 4,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 91823,
+          "controllerEntityIndex": 13,
+          "playerName": "viggoth 300",
+          "team": 2,
+          "heroId": 18,
+          "delta": 4,
+          "previousValue": 90,
+          "currentValue": 94
+        }
+      ],
+      "collisionWithMatchedDeathSameTick": true
+    },
+    {
+      "deathIndex": 1582,
+      "deathKey": "2756|187609",
+      "clock": "48:21",
+      "baseType": "MEDIC",
+      "rangeGroup": "UNMATCHED_OUTSIDE_45M",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 2,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 1,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 187609,
+          "controllerEntityIndex": 2,
+          "playerName": "Nacho4Sure",
+          "team": 2,
+          "heroId": 2,
+          "delta": 1,
+          "previousValue": 204,
+          "currentValue": 205
+        }
+      ],
+      "collisionWithMatchedDeathSameTick": true
+    }
+  ],
+  "matchedOutside45mCases": [
+    {
+      "deathIndex": 495,
+      "deathKey": "2759|77324",
+      "clock": "19:38",
+      "baseType": "MEDIC",
+      "trooperTeam": 2,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 77324,
+          "controllerEntityIndex": 10,
+          "playerName": "Goldinfer",
+          "team": 3,
+          "heroId": 79,
+          "delta": 1,
+          "previousValue": 52,
+          "currentValue": 53
+        }
+      ]
+    },
+    {
+      "deathIndex": 718,
+      "deathKey": "2890|103165",
+      "clock": "26:21",
+      "baseType": "RANGED",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 103165,
+          "controllerEntityIndex": 4,
+          "playerName": "flem",
+          "team": 2,
+          "heroId": 1,
+          "delta": 1,
+          "previousValue": 110,
+          "currentValue": 111
+        }
+      ]
+    },
+    {
+      "deathIndex": 723,
+      "deathKey": "2758|103525",
+      "clock": "26:27",
+      "baseType": "MEDIC",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 103525,
+          "controllerEntityIndex": 4,
+          "playerName": "flem",
+          "team": 2,
+          "heroId": 1,
+          "delta": 1,
+          "previousValue": 111,
+          "currentValue": 112
+        }
+      ]
+    },
+    {
+      "deathIndex": 775,
+      "deathKey": "2757|110120",
+      "clock": "28:10",
+      "baseType": "MEDIC",
+      "trooperTeam": 2,
+      "sameTickTeamDeathCount": 2,
+      "sameTickTeamMatchedCount": 2,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": false,
+      "exactOpposingLastHitUnits": 2,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 110120,
+          "controllerEntityIndex": 10,
+          "playerName": "Goldinfer",
+          "team": 3,
+          "heroId": 79,
+          "delta": 2,
+          "previousValue": 101,
+          "currentValue": 103
+        }
+      ]
+    },
+    {
+      "deathIndex": 776,
+      "deathKey": "2835|110120",
+      "clock": "28:10",
+      "baseType": "RANGED",
+      "trooperTeam": 2,
+      "sameTickTeamDeathCount": 2,
+      "sameTickTeamMatchedCount": 2,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": false,
+      "exactOpposingLastHitUnits": 2,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 110120,
+          "controllerEntityIndex": 10,
+          "playerName": "Goldinfer",
+          "team": 3,
+          "heroId": 79,
+          "delta": 2,
+          "previousValue": 101,
+          "currentValue": 103
+        }
+      ]
+    },
+    {
+      "deathIndex": 973,
+      "deathKey": "2758|131615",
+      "clock": "33:46",
+      "baseType": "MEDIC",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 131615,
+          "controllerEntityIndex": 4,
+          "playerName": "flem",
+          "team": 2,
+          "heroId": 1,
+          "delta": 1,
+          "previousValue": 133,
+          "currentValue": 134
+        }
+      ]
+    },
+    {
+      "deathIndex": 1347,
+      "deathKey": "3178|168914",
+      "clock": "43:29",
+      "baseType": "MEDIC",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 168914,
+          "controllerEntityIndex": 4,
+          "playerName": "flem",
+          "team": 2,
+          "heroId": 1,
+          "delta": 1,
+          "previousValue": 166,
+          "currentValue": 167
+        }
+      ]
+    },
+    {
+      "deathIndex": 1350,
+      "deathKey": "3337|169119",
+      "clock": "43:32",
+      "baseType": "MELEE",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 169119,
+          "controllerEntityIndex": 4,
+          "playerName": "flem",
+          "team": 2,
+          "heroId": 1,
+          "delta": 1,
+          "previousValue": 167,
+          "currentValue": 168
+        }
+      ]
+    },
+    {
+      "deathIndex": 1446,
+      "deathKey": "3418|179237",
+      "clock": "46:10",
+      "baseType": "MELEE",
+      "trooperTeam": 2,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 179237,
+          "controllerEntityIndex": 10,
+          "playerName": "Goldinfer",
+          "team": 3,
+          "heroId": 79,
+          "delta": 1,
+          "previousValue": 190,
+          "currentValue": 191
+        }
+      ]
+    },
+    {
+      "deathIndex": 1529,
+      "deathKey": "2884|183084",
+      "clock": "47:10",
+      "baseType": "RANGED",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 183084,
+          "controllerEntityIndex": 2,
+          "playerName": "Nacho4Sure",
+          "team": 2,
+          "heroId": 2,
+          "delta": 1,
+          "previousValue": 194,
+          "currentValue": 195
+        }
+      ]
+    },
+    {
+      "deathIndex": 1530,
+      "deathKey": "2836|183124",
+      "clock": "47:11",
+      "baseType": "RANGED",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 183124,
+          "controllerEntityIndex": 2,
+          "playerName": "Nacho4Sure",
+          "team": 2,
+          "heroId": 2,
+          "delta": 1,
+          "previousValue": 197,
+          "currentValue": 198
+        }
+      ]
+    },
+    {
+      "deathIndex": 1539,
+      "deathKey": "3047|184228",
+      "clock": "47:28",
+      "baseType": "MELEE",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 184228,
+          "controllerEntityIndex": 2,
+          "playerName": "Nacho4Sure",
+          "team": 2,
+          "heroId": 2,
+          "delta": 1,
+          "previousValue": 198,
+          "currentValue": 199
+        }
+      ]
+    },
+    {
+      "deathIndex": 1541,
+      "deathKey": "2836|184263",
+      "clock": "47:29",
+      "baseType": "RANGED",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 184263,
+          "controllerEntityIndex": 2,
+          "playerName": "Nacho4Sure",
+          "team": 2,
+          "heroId": 2,
+          "delta": 1,
+          "previousValue": 199,
+          "currentValue": 200
+        }
+      ]
+    },
+    {
+      "deathIndex": 1542,
+      "deathKey": "2884|184269",
+      "clock": "47:29",
+      "baseType": "RANGED",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 184269,
+          "controllerEntityIndex": 2,
+          "playerName": "Nacho4Sure",
+          "team": 2,
+          "heroId": 2,
+          "delta": 1,
+          "previousValue": 200,
+          "currentValue": 201
+        }
+      ]
+    },
+    {
+      "deathIndex": 1581,
+      "deathKey": "2758|187607",
+      "clock": "48:21",
+      "baseType": "MEDIC",
+      "trooperTeam": 3,
+      "sameTickTeamDeathCount": 1,
+      "sameTickTeamMatchedCount": 1,
+      "sameTickTeamUnmatchedCount": 0,
+      "isolated": true,
+      "exactOpposingLastHitUnits": 1,
+      "exactOpposingLastHitEvents": [
+        {
+          "tick": 187607,
+          "controllerEntityIndex": 6,
+          "playerName": "Yosafire Worshipper [K]",
+          "team": 2,
+          "heroId": 50,
+          "delta": 1,
+          "previousValue": 187,
+          "currentValue": 188
+        }
+      ]
+    }
+  ],
+  "interpretation": {
+    "strongestTest": "The isolated single-death cohort is the cleanest evidence because no second same-team economic Trooper death shares the tick.",
+    "unmatchedCoincidenceTest": "If unmatched exact-signal cases occur only in groups that also contain matched deaths, their counter signal should not be interpreted as evidence that the unmatched death itself generated the last-hit increment.",
+    "shiftedControls": "A large signal-rate peak at offset 0 relative to +/- nearby ticks supports exact temporal coupling and argues against generic high-frequency farming coincidence.",
+    "mechanicCaution": "Even a near-perfect exact association would show that AssignedGold matches and m_iLastHits increments co-occur. It would not by itself prove whether last-hit credit causes AssignedGold, AssignedGold causes the counter, or both derive from a common underlying kill event."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script55Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script72Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "deathCount": {
+        "actual": 1727,
+        "expected": 1727,
+        "pass": true
+      },
+      "matchedCount": {
+        "actual": 1388,
+        "expected": 1388,
+        "pass": true
+      },
+      "unmatchedCount": {
+        "actual": 339,
+        "expected": 339,
+        "pass": true
+      },
+      "matchedOutsideCount": {
+        "actual": 15,
+        "expected": 15,
+        "pass": true
+      },
+      "positiveEventCountAgreesWith72": {
+        "actual": 2433,
+        "expected": 2433,
+        "pass": true
+      },
+      "positiveUnitsAgreeWith72": {
+        "actual": 2740,
+        "expected": 2740,
+        "pass": true
+      },
+      "controllerCount": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      },
+      "exactOffsetIncluded": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_exact_lasthit_validation_v01.json",
+    "groups": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_exact_lasthit_groups_v01.jsonl",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_exact_lasthit_cases_v01.jsonl"
+  }
+}

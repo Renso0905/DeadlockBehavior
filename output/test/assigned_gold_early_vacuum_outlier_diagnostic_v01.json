@@ -1,0 +1,495 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_EARLY_VACUUM_OUTLIER_DIAGNOSTIC_V01",
+  "canonical": false,
+  "status": "SCRIPT78_PACKET_COUNTER_CLOSED_EARLY_OUTLIERS_ISOLATED",
+  "script78Closure": {
+    "originalValidationPass": false,
+    "failedChecks": [
+      "requestedTicksObserved"
+    ],
+    "requestedUniqueTickKeys": 22958,
+    "rawRequestedPacketHits": 22966,
+    "uniqueRequestedTicksSeen": 22958,
+    "duplicateRequestedPacketHits": 8,
+    "missingRequestedTicks": [],
+    "closed": true,
+    "explanation": "Script 78 counted DEMO_PACKET hits rather than unique requested replay ticks. Duplicate DEMO_PACKET records sharing requested ticks can make the raw hit count exceed the unique requested-tick key count."
+  },
+  "delayBuckets": {
+    "GT_0_25_TO_0_50": {
+      "count": 41,
+      "targetDelaySeconds": {
+        "count": 41,
+        "min": 0.28125,
+        "p25": 0.375,
+        "median": 0.4375,
+        "p75": 0.46875,
+        "p95": 0.5,
+        "p99": 0.5,
+        "max": 0.5,
+        "mean": 0.4138719512195122
+      },
+      "onsetXY": {
+        "count": 41,
+        "min": 21.147939652895268,
+        "p25": 155.98750450757265,
+        "median": 409.36311289993506,
+        "p75": 600.270109285447,
+        "p95": 726.8435538393476,
+        "p99": 756.7452273289155,
+        "max": 776.4582230038603,
+        "mean": 396.16392887130525
+      },
+      "over729": 1,
+      "over732": 1,
+      "over735": 1,
+      "over740": 1,
+      "over750": 1,
+      "over775": 1,
+      "over800": 0
+    },
+    "GT_0_50_TO_LT_1_00": {
+      "count": 286,
+      "targetDelaySeconds": {
+        "count": 286,
+        "min": 0.515625,
+        "p25": 0.515625,
+        "median": 0.546875,
+        "p75": 0.578125,
+        "p95": 0.75,
+        "p99": 0.9398437499999996,
+        "max": 0.984375,
+        "mean": 0.5746284965034965
+      },
+      "onsetXY": {
+        "count": 286,
+        "min": 13.246793538909708,
+        "p25": 170.15931546356978,
+        "median": 312.48310229045944,
+        "p75": 552.8002802428229,
+        "p95": 727.0293188731081,
+        "p99": 730.9012909731864,
+        "max": 731.5319682063201,
+        "mean": 358.33431930741136
+      },
+      "over729": 11,
+      "over732": 0,
+      "over735": 0,
+      "over740": 0,
+      "over750": 0,
+      "over775": 0,
+      "over800": 0
+    },
+    "GE_1_00": {
+      "count": 131,
+      "targetDelaySeconds": {
+        "count": 131,
+        "min": 1.03125,
+        "p25": 1.703125,
+        "median": 2.796875,
+        "p75": 9.8359375,
+        "p95": 25.9921875,
+        "p99": 36.38124999999988,
+        "max": 39.765625,
+        "mean": 6.973640267175573
+      },
+      "onsetXY": {
+        "count": 131,
+        "min": 90.379073646088,
+        "p25": 710.4034399187528,
+        "median": 724.2661924859706,
+        "p75": 727.5001193354626,
+        "p95": 730.6279564536819,
+        "p99": 731.5599272964889,
+        "max": 734.168575376468,
+        "mean": 674.7566824430914
+      },
+      "over729": 21,
+      "over732": 1,
+      "over735": 0,
+      "over740": 0,
+      "over750": 0,
+      "over775": 0,
+      "over800": 0
+    }
+  },
+  "stableDelayedEnvelope": {
+    "minimumDelaySeconds": 1,
+    "count": 131,
+    "onsetXY": {
+      "count": 131,
+      "min": 90.379073646088,
+      "p25": 710.4034399187528,
+      "median": 724.2661924859706,
+      "p75": 727.5001193354626,
+      "p95": 730.6279564536819,
+      "p99": 731.5599272964889,
+      "max": 734.168575376468,
+      "mean": 674.7566824430914
+    },
+    "maximumXYHU": 734.168575376468,
+    "maximumXYMeters": 18.647919110400508,
+    "smallestWholeHUContainingAllStableDelayedOnsets": 735,
+    "interpretation": "Empirical center-to-center XY envelope for stable delayed target assignment in one replay, not an engine radius."
+  },
+  "onsetOver735XY": {
+    "count": 1,
+    "cases": [
+      {
+        "deathIndex": 5,
+        "clock": "0:47",
+        "baseType": "MEDIC",
+        "creditedPlayerName": "Zaeleth",
+        "targetPlayerName": "Zaeleth",
+        "targetDelaySeconds": 0.5,
+        "onsetDistanceXY": 776.4582230038603,
+        "onsetDistance3D": 776.8626010927302,
+        "minimumPreOnsetXY": 767.5023265691528,
+        "maximumPreOnsetXY": 842.5040621424697,
+        "rawPriorDistanceXY": 774.3517960859666,
+        "rawOnsetDistanceXY": 776.4582230038603,
+        "rawPriorDistance3D": 774.7572736075555,
+        "rawOnsetDistance3D": 776.8626010927302,
+        "rawMovementDirectionXY": "OUTWARD",
+        "rawMovementDirection3D": "OUTWARD",
+        "activationIndex": 12,
+        "activationId": "2920|3",
+        "activationTick": 4939,
+        "activationStartSignals": [
+          "BECAME_ACTIVE",
+          "BECAME_NONINTERACTIVE",
+          "VACUUM_TARGET_CHANGED",
+          "POSITION_JUMP"
+        ],
+        "activationState": {
+          "team": 3,
+          "subclassId": 607220400,
+          "position": {
+            "x": -131.4375,
+            "y": -267.71875,
+            "z": 288.71875
+          },
+          "active": true,
+          "interactive": false
+        },
+        "activationEndReason": "BECAME_INACTIVE",
+        "activationDurationSeconds": 1.375,
+        "firstInteractiveTick": 4971,
+        "firstValidVacuumTarget": {
+          "tick": 4971,
+          "timeSeconds": 47.671875,
+          "clock": "0:47",
+          "handle": "7503956",
+          "decodedEntityIndex": 84,
+          "player": {
+            "playerName": "Zaeleth",
+            "heroId": 77,
+            "team": 3,
+            "pawnEntityIndex": 84,
+            "controllerEntityIndex": 5
+          }
+        },
+        "vacuumTargetTransitions": [
+          {
+            "tick": 4971,
+            "timeSeconds": 47.671875,
+            "clock": "0:47",
+            "handle": "7503956",
+            "decodedEntityIndex": 84,
+            "player": {
+              "playerName": "Zaeleth",
+              "heroId": 77,
+              "team": 3,
+              "pawnEntityIndex": 84,
+              "controllerEntityIndex": 5
+            }
+          }
+        ],
+        "activationToOnsetSoulXY": 47.73226519478203,
+        "activationToOnsetSoul3D": 50.21488006246256,
+        "outlierTrace": [
+          {
+            "tick": 4947,
+            "ticksBeforeOnset": -24,
+            "distanceXY": 803.5588401419727,
+            "distance3D": 804.7269662651893,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4948,
+            "ticksBeforeOnset": -23,
+            "distanceXY": 798.8778127884295,
+            "distance3D": 800.0527735279014,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4949,
+            "ticksBeforeOnset": -22,
+            "distanceXY": 794.4745524263977,
+            "distance3D": 795.65091400257,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4950,
+            "ticksBeforeOnset": -21,
+            "distanceXY": 790.3942307728862,
+            "distance3D": 791.5664336903836,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4951,
+            "ticksBeforeOnset": -20,
+            "distanceXY": 786.6639535286017,
+            "distance3D": 787.8280814603526,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4952,
+            "ticksBeforeOnset": -19,
+            "distanceXY": 783.2368784808974,
+            "distance3D": 784.3874059028883,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4953,
+            "ticksBeforeOnset": -18,
+            "distanceXY": 780.1941170962278,
+            "distance3D": 781.3288322727026,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4954,
+            "ticksBeforeOnset": -17,
+            "distanceXY": 777.4777359402727,
+            "distance3D": 778.589538795555,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4955,
+            "ticksBeforeOnset": -16,
+            "distanceXY": 775.0877495685569,
+            "distance3D": 776.1730367693872,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4956,
+            "ticksBeforeOnset": -15,
+            "distanceXY": 773.0773940729107,
+            "distance3D": 774.1326257597111,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4957,
+            "ticksBeforeOnset": -14,
+            "distanceXY": 771.360590860599,
+            "distance3D": 772.382509016339,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4958,
+            "ticksBeforeOnset": -13,
+            "distanceXY": 770.007572126932,
+            "distance3D": 770.9914331813698,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4959,
+            "ticksBeforeOnset": -12,
+            "distanceXY": 768.9323627703707,
+            "distance3D": 769.8753875171536,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4960,
+            "ticksBeforeOnset": -11,
+            "distanceXY": 768.1644651425972,
+            "distance3D": 769.0625672998751,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4961,
+            "ticksBeforeOnset": -10,
+            "distanceXY": 767.687580141248,
+            "distance3D": 768.5385449781862,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4962,
+            "ticksBeforeOnset": -9,
+            "distanceXY": 767.5023265691528,
+            "distance3D": 768.3042317846005,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4963,
+            "ticksBeforeOnset": -8,
+            "distanceXY": 767.6093735687606,
+            "distance3D": 768.3606095884845,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4964,
+            "ticksBeforeOnset": -7,
+            "distanceXY": 767.9514685237684,
+            "distance3D": 768.6494783110261,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4965,
+            "ticksBeforeOnset": -6,
+            "distanceXY": 768.5698391533784,
+            "distance3D": 769.2138063521822,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4966,
+            "ticksBeforeOnset": -5,
+            "distanceXY": 769.4069125438843,
+            "distance3D": 769.9964368068936,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4967,
+            "ticksBeforeOnset": -4,
+            "distanceXY": 770.4515575550889,
+            "distance3D": 770.9866205976762,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4968,
+            "ticksBeforeOnset": -3,
+            "distanceXY": 771.704339686272,
+            "distance3D": 772.1842061595066,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4969,
+            "ticksBeforeOnset": -2,
+            "distanceXY": 773.1367148718347,
+            "distance3D": 773.5622942251483,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4970,
+            "ticksBeforeOnset": -1,
+            "distanceXY": 774.3517960859666,
+            "distance3D": 774.7572736075555,
+            "rawTargetPawnEntityIndex": null,
+            "soulActive": true
+          },
+          {
+            "tick": 4971,
+            "ticksBeforeOnset": 0,
+            "distanceXY": 776.4582230038603,
+            "distance3D": 776.8626010927302,
+            "rawTargetPawnEntityIndex": 84,
+            "soulActive": true
+          }
+        ]
+      }
+    ]
+  },
+  "activationStartSignals": {
+    "allDelayedCases": {
+      "BECAME_ACTIVE": 458,
+      "BECAME_NONINTERACTIVE": 458,
+      "POSITION_JUMP": 458,
+      "VACUUM_TARGET_CHANGED": 436
+    },
+    "shortDelayUnder1Second": {
+      "BECAME_ACTIVE": 327,
+      "BECAME_NONINTERACTIVE": 327,
+      "POSITION_JUMP": 327,
+      "VACUUM_TARGET_CHANGED": 310
+    },
+    "stableDelayAtLeast1Second": {
+      "BECAME_ACTIVE": 131,
+      "BECAME_NONINTERACTIVE": 131,
+      "POSITION_JUMP": 131,
+      "VACUUM_TARGET_CHANGED": 126
+    }
+  },
+  "interpretation": {
+    "currentCandidate": "The stable delayed cohort strongly supports an operational XY target-acquisition envelope near 735 HU (~18.67 m).",
+    "exactRadiusCaution": "735 HU should not yet be called the exact engine vacuum radius. Entity-origin distances can differ from collision/proximity geometry, and the lone early outlier must be explained.",
+    "earlyOutlier": "If the >735 HU case is tied to activation-start, reuse, first-observation, or position-jump behavior and occurs before a stable floor-persistent phase, it should be treated separately from approach-triggered delayed vacuum.",
+    "next": "If the early outlier has a distinct activation signature, promote ~735 HU as the single-replay stable-floor vacuum-target envelope and then diagnose the structured targetless lifetime schedule."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script78FailureOnlyRequestedTickCounter": {
+        "actual": [
+          "requestedTicksObserved"
+        ],
+        "expected": [
+          "requestedTicksObserved"
+        ],
+        "pass": true
+      },
+      "requestedUniqueTickCoverage": {
+        "actual": 22958,
+        "expected": 22958,
+        "pass": true
+      },
+      "noRequestedTicksMissing": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "duplicatePacketHitsExplainOvercount": {
+        "actual": 8,
+        "expected": ">=0",
+        "pass": true
+      },
+      "caseCount": {
+        "actual": 458,
+        "expected": 458,
+        "pass": true
+      },
+      "exactGeometryJoin": {
+        "actual": 458,
+        "expected": 458,
+        "pass": true
+      },
+      "activationJoin": {
+        "actual": 458,
+        "expected": 458,
+        "pass": true
+      },
+      "stableDelayedObserved": {
+        "actual": 131,
+        "expected": 131,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_early_vacuum_outlier_diagnostic_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_early_vacuum_outlier_cases_v01.jsonl"
+  }
+}

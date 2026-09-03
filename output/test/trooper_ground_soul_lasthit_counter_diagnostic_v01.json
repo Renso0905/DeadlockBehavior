@@ -1,0 +1,1518 @@
+{
+  "replay": "test",
+  "version": "TROOPER_GROUND_SOUL_LASTHIT_COUNTER_DIAGNOSTIC_V01",
+  "canonical": false,
+  "status": "LASTHIT_COUNTER_EXCEPTION_DIAGNOSTIC_READY",
+  "purpose": [
+    "Test whether controller m_iLastHits increments are temporally associated with ordinary economic Trooper deaths.",
+    "Test whether a unique opposing-player m_iLastHits signal explains matched ground-soul deaths outside the Script 57 documented 45m range.",
+    "Compare the matched-outside exception set against the much larger unmatched-outside control group.",
+    "Preserve ambiguity when one counter event can correspond to multiple nearby Trooper deaths.",
+    "Do not treat m_iLastHits as direct lethal-target attribution without separate validation."
+  ],
+  "semanticLimit": {
+    "directTargetAttribution": false,
+    "observedField": "m_iLastHits",
+    "statement": "A positive m_iLastHits delta is an observed controller counter signal. This artifact does not assert that the player delivered the lethal hit to a specific Trooper unless a future direct target field validates that interpretation."
+  },
+  "inputs": {
+    "replay": "G:\\DeadlockBehavior\\replays\\test.dem",
+    "playerState": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl",
+    "deathStream": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_one_to_one_v01.jsonl",
+    "script55Summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_one_to_one_summary_v01.json",
+    "script57Summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_range_validation_v01.json",
+    "script57Outliers": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_range_outliers_v01.jsonl"
+  },
+  "documentedRange": {
+    "meters": 45,
+    "internalUnits": 1771.6499999999999
+  },
+  "sourceCounts": {
+    "economicDeaths": 1727,
+    "matchedDeaths": 1388,
+    "unmatchedDeaths": 339,
+    "rangeGroups": {
+      "MATCHED_INSIDE_45M": 1373,
+      "UNMATCHED_OUTSIDE_45M": 336,
+      "MATCHED_OUTSIDE_45M": 15,
+      "UNMATCHED_RANGE_UNRESOLVED": 3
+    },
+    "players": 12,
+    "controllerIndexes": 12,
+    "playerTimelines": 12
+  },
+  "lastHitCounterTelemetry": {
+    "field": "m_iLastHits",
+    "controllerEntityEvents": 263146,
+    "finiteReads": 263146,
+    "explicitFieldMentions": 3093,
+    "allDeltaEvents": 2433,
+    "positiveDeltaEvents": 2433,
+    "negativeDeltaEvents": 0,
+    "positiveCounterUnits": 2740,
+    "positiveDeltaDistribution": {
+      "count": 2433,
+      "min": 1,
+      "p10": 1,
+      "p25": 1,
+      "median": 1,
+      "p75": 1,
+      "p90": 1,
+      "max": 9,
+      "mean": 1.1261816687217427
+    },
+    "negativeDeltaDistribution": {
+      "count": 0,
+      "min": null,
+      "p10": null,
+      "p25": null,
+      "median": null,
+      "p75": null,
+      "p90": null,
+      "max": null,
+      "mean": null
+    }
+  },
+  "associationModel": {
+    "primaryWindow": {
+      "id": "M2_P6",
+      "minOffsetTicks": -2,
+      "maxOffsetTicks": 6,
+      "primary": true
+    },
+    "sensitivityWindows": [
+      {
+        "id": "EXACT",
+        "minOffsetTicks": 0,
+        "maxOffsetTicks": 0
+      },
+      {
+        "id": "M1_P1",
+        "minOffsetTicks": -1,
+        "maxOffsetTicks": 1
+      },
+      {
+        "id": "M2_P2",
+        "minOffsetTicks": -2,
+        "maxOffsetTicks": 2
+      },
+      {
+        "id": "M2_P4",
+        "minOffsetTicks": -2,
+        "maxOffsetTicks": 4
+      },
+      {
+        "id": "M2_P6",
+        "minOffsetTicks": -2,
+        "maxOffsetTicks": 6,
+        "primary": true
+      },
+      {
+        "id": "M4_P8",
+        "minOffsetTicks": -4,
+        "maxOffsetTicks": 8
+      },
+      {
+        "id": "M8_P16",
+        "minOffsetTicks": -8,
+        "maxOffsetTicks": 16
+      }
+    ],
+    "strictUniqueDefinition": "Exactly one opposing-team positive m_iLastHits event in the window; that event has delta=+1; and that same event has exactly one eligible opposing-team economic Trooper death candidate under the same window.",
+    "uniquePlayerDefinition": "All opposing positive m_iLastHits events in the death window belong to one player. This is weaker than strict uniqueness.",
+    "ambiguityRule": "Multiple candidate events, delta > 1, or an event linked to multiple candidate deaths prevents strict per-death counter attribution."
+  },
+  "windowSensitivity": [
+    {
+      "window": {
+        "id": "EXACT",
+        "minOffsetTicks": 0,
+        "maxOffsetTicks": 0
+      },
+      "totalDeaths": 1727,
+      "groups": {
+        "MATCHED_INSIDE_45M": {
+          "total": 1373,
+          "anySignal": 1373,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 1357,
+          "uniquePlayerSignalRate": 0.9883466860888566,
+          "strictUniqueSignal": 978,
+          "strictUniqueSignalRate": 0.7123088128186453
+        },
+        "MATCHED_OUTSIDE_45M": {
+          "total": 15,
+          "anySignal": 15,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 15,
+          "uniquePlayerSignalRate": 1,
+          "strictUniqueSignal": 13,
+          "strictUniqueSignalRate": 0.8666666666666667
+        },
+        "UNMATCHED_INSIDE_45M": {
+          "total": 0,
+          "anySignal": 0,
+          "anySignalRate": null,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": null,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": null
+        },
+        "UNMATCHED_OUTSIDE_45M": {
+          "total": 336,
+          "anySignal": 2,
+          "anySignalRate": 0.005952380952380952,
+          "uniquePlayerSignal": 2,
+          "uniquePlayerSignalRate": 0.005952380952380952,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": 0
+        },
+        "UNMATCHED_RANGE_UNRESOLVED": {
+          "total": 3,
+          "anySignal": 0,
+          "anySignalRate": 0,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": 0,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": 0
+        }
+      }
+    },
+    {
+      "window": {
+        "id": "M1_P1",
+        "minOffsetTicks": -1,
+        "maxOffsetTicks": 1
+      },
+      "totalDeaths": 1727,
+      "groups": {
+        "MATCHED_INSIDE_45M": {
+          "total": 1373,
+          "anySignal": 1373,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 1344,
+          "uniquePlayerSignalRate": 0.9788783685360525,
+          "strictUniqueSignal": 934,
+          "strictUniqueSignalRate": 0.6802621995630007
+        },
+        "MATCHED_OUTSIDE_45M": {
+          "total": 15,
+          "anySignal": 15,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 15,
+          "uniquePlayerSignalRate": 1,
+          "strictUniqueSignal": 13,
+          "strictUniqueSignalRate": 0.8666666666666667
+        },
+        "UNMATCHED_INSIDE_45M": {
+          "total": 0,
+          "anySignal": 0,
+          "anySignalRate": null,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": null,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": null
+        },
+        "UNMATCHED_OUTSIDE_45M": {
+          "total": 336,
+          "anySignal": 5,
+          "anySignalRate": 0.01488095238095238,
+          "uniquePlayerSignal": 5,
+          "uniquePlayerSignalRate": 0.01488095238095238,
+          "strictUniqueSignal": 1,
+          "strictUniqueSignalRate": 0.002976190476190476
+        },
+        "UNMATCHED_RANGE_UNRESOLVED": {
+          "total": 3,
+          "anySignal": 0,
+          "anySignalRate": 0,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": 0,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": 0
+        }
+      }
+    },
+    {
+      "window": {
+        "id": "M2_P2",
+        "minOffsetTicks": -2,
+        "maxOffsetTicks": 2
+      },
+      "totalDeaths": 1727,
+      "groups": {
+        "MATCHED_INSIDE_45M": {
+          "total": 1373,
+          "anySignal": 1373,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 1323,
+          "uniquePlayerSignalRate": 0.9635833940276766,
+          "strictUniqueSignal": 909,
+          "strictUniqueSignalRate": 0.662053896576839
+        },
+        "MATCHED_OUTSIDE_45M": {
+          "total": 15,
+          "anySignal": 15,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 14,
+          "uniquePlayerSignalRate": 0.9333333333333333,
+          "strictUniqueSignal": 12,
+          "strictUniqueSignalRate": 0.8
+        },
+        "UNMATCHED_INSIDE_45M": {
+          "total": 0,
+          "anySignal": 0,
+          "anySignalRate": null,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": null,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": null
+        },
+        "UNMATCHED_OUTSIDE_45M": {
+          "total": 336,
+          "anySignal": 8,
+          "anySignalRate": 0.023809523809523808,
+          "uniquePlayerSignal": 6,
+          "uniquePlayerSignalRate": 0.017857142857142856,
+          "strictUniqueSignal": 1,
+          "strictUniqueSignalRate": 0.002976190476190476
+        },
+        "UNMATCHED_RANGE_UNRESOLVED": {
+          "total": 3,
+          "anySignal": 0,
+          "anySignalRate": 0,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": 0,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": 0
+        }
+      }
+    },
+    {
+      "window": {
+        "id": "M2_P4",
+        "minOffsetTicks": -2,
+        "maxOffsetTicks": 4
+      },
+      "totalDeaths": 1727,
+      "groups": {
+        "MATCHED_INSIDE_45M": {
+          "total": 1373,
+          "anySignal": 1373,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 1315,
+          "uniquePlayerSignalRate": 0.9577567370721048,
+          "strictUniqueSignal": 883,
+          "strictUniqueSignalRate": 0.6431172614712308
+        },
+        "MATCHED_OUTSIDE_45M": {
+          "total": 15,
+          "anySignal": 15,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 14,
+          "uniquePlayerSignalRate": 0.9333333333333333,
+          "strictUniqueSignal": 12,
+          "strictUniqueSignalRate": 0.8
+        },
+        "UNMATCHED_INSIDE_45M": {
+          "total": 0,
+          "anySignal": 0,
+          "anySignalRate": null,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": null,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": null
+        },
+        "UNMATCHED_OUTSIDE_45M": {
+          "total": 336,
+          "anySignal": 11,
+          "anySignalRate": 0.03273809523809524,
+          "uniquePlayerSignal": 9,
+          "uniquePlayerSignalRate": 0.026785714285714284,
+          "strictUniqueSignal": 2,
+          "strictUniqueSignalRate": 0.005952380952380952
+        },
+        "UNMATCHED_RANGE_UNRESOLVED": {
+          "total": 3,
+          "anySignal": 0,
+          "anySignalRate": 0,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": 0,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": 0
+        }
+      }
+    },
+    {
+      "window": {
+        "id": "M2_P6",
+        "minOffsetTicks": -2,
+        "maxOffsetTicks": 6,
+        "primary": true
+      },
+      "totalDeaths": 1727,
+      "groups": {
+        "MATCHED_INSIDE_45M": {
+          "total": 1373,
+          "anySignal": 1373,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 1298,
+          "uniquePlayerSignalRate": 0.945375091041515,
+          "strictUniqueSignal": 841,
+          "strictUniqueSignalRate": 0.6125273124544792
+        },
+        "MATCHED_OUTSIDE_45M": {
+          "total": 15,
+          "anySignal": 15,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 12,
+          "uniquePlayerSignalRate": 0.8,
+          "strictUniqueSignal": 10,
+          "strictUniqueSignalRate": 0.6666666666666666
+        },
+        "UNMATCHED_INSIDE_45M": {
+          "total": 0,
+          "anySignal": 0,
+          "anySignalRate": null,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": null,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": null
+        },
+        "UNMATCHED_OUTSIDE_45M": {
+          "total": 336,
+          "anySignal": 15,
+          "anySignalRate": 0.044642857142857144,
+          "uniquePlayerSignal": 13,
+          "uniquePlayerSignalRate": 0.03869047619047619,
+          "strictUniqueSignal": 4,
+          "strictUniqueSignalRate": 0.011904761904761904
+        },
+        "UNMATCHED_RANGE_UNRESOLVED": {
+          "total": 3,
+          "anySignal": 0,
+          "anySignalRate": 0,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": 0,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": 0
+        }
+      }
+    },
+    {
+      "window": {
+        "id": "M4_P8",
+        "minOffsetTicks": -4,
+        "maxOffsetTicks": 8
+      },
+      "totalDeaths": 1727,
+      "groups": {
+        "MATCHED_INSIDE_45M": {
+          "total": 1373,
+          "anySignal": 1373,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 1273,
+          "uniquePlayerSignalRate": 0.9271667880553532,
+          "strictUniqueSignal": 801,
+          "strictUniqueSignalRate": 0.5833940276766205
+        },
+        "MATCHED_OUTSIDE_45M": {
+          "total": 15,
+          "anySignal": 15,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 12,
+          "uniquePlayerSignalRate": 0.8,
+          "strictUniqueSignal": 10,
+          "strictUniqueSignalRate": 0.6666666666666666
+        },
+        "UNMATCHED_INSIDE_45M": {
+          "total": 0,
+          "anySignal": 0,
+          "anySignalRate": null,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": null,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": null
+        },
+        "UNMATCHED_OUTSIDE_45M": {
+          "total": 336,
+          "anySignal": 19,
+          "anySignalRate": 0.05654761904761905,
+          "uniquePlayerSignal": 17,
+          "uniquePlayerSignalRate": 0.050595238095238096,
+          "strictUniqueSignal": 7,
+          "strictUniqueSignalRate": 0.020833333333333332
+        },
+        "UNMATCHED_RANGE_UNRESOLVED": {
+          "total": 3,
+          "anySignal": 0,
+          "anySignalRate": 0,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": 0,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": 0
+        }
+      }
+    },
+    {
+      "window": {
+        "id": "M8_P16",
+        "minOffsetTicks": -8,
+        "maxOffsetTicks": 16
+      },
+      "totalDeaths": 1727,
+      "groups": {
+        "MATCHED_INSIDE_45M": {
+          "total": 1373,
+          "anySignal": 1373,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 1190,
+          "uniquePlayerSignalRate": 0.8667152221412965,
+          "strictUniqueSignal": 711,
+          "strictUniqueSignalRate": 0.5178441369264385
+        },
+        "MATCHED_OUTSIDE_45M": {
+          "total": 15,
+          "anySignal": 15,
+          "anySignalRate": 1,
+          "uniquePlayerSignal": 11,
+          "uniquePlayerSignalRate": 0.7333333333333333,
+          "strictUniqueSignal": 9,
+          "strictUniqueSignalRate": 0.6
+        },
+        "UNMATCHED_INSIDE_45M": {
+          "total": 0,
+          "anySignal": 0,
+          "anySignalRate": null,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": null,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": null
+        },
+        "UNMATCHED_OUTSIDE_45M": {
+          "total": 336,
+          "anySignal": 29,
+          "anySignalRate": 0.08630952380952381,
+          "uniquePlayerSignal": 27,
+          "uniquePlayerSignalRate": 0.08035714285714286,
+          "strictUniqueSignal": 10,
+          "strictUniqueSignalRate": 0.02976190476190476
+        },
+        "UNMATCHED_RANGE_UNRESOLVED": {
+          "total": 3,
+          "anySignal": 0,
+          "anySignalRate": 0,
+          "uniquePlayerSignal": 0,
+          "uniquePlayerSignalRate": 0,
+          "strictUniqueSignal": 0,
+          "strictUniqueSignalRate": 0
+        }
+      }
+    }
+  ],
+  "broadTimingDiagnostic": {
+    "window": {
+      "id": "BROAD_M8_P64",
+      "minOffsetTicks": -8,
+      "maxOffsetTicks": 64
+    },
+    "strictUniqueAssociations": 373,
+    "offsetHistogramTicks": {
+      "0": 357,
+      "3": 1,
+      "5": 1,
+      "6": 1,
+      "12": 1,
+      "19": 1,
+      "25": 1,
+      "36": 1,
+      "40": 1,
+      "43": 1,
+      "44": 1,
+      "47": 1,
+      "48": 1,
+      "53": 1,
+      "56": 1,
+      "57": 1,
+      "64": 1
+    },
+    "offsetDistributionTicks": {
+      "count": 373,
+      "min": 0,
+      "p10": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0,
+      "p90": 0,
+      "max": 64,
+      "mean": 1.4959785522788205
+    },
+    "note": "Broad timing is descriptive only and must not be used as direct target attribution."
+  },
+  "primaryWindowResults": {
+    "byRangeGroup": {
+      "MATCHED_INSIDE_45M": {
+        "total": 1373,
+        "anySignal": 1373,
+        "anySignalRate": 1,
+        "uniquePlayerSignal": 1298,
+        "uniquePlayerSignalRate": 0.945375091041515,
+        "strictUniqueSignal": 841,
+        "strictUniqueSignalRate": 0.6125273124544792,
+        "strictUniquePlayerInside45m": 837,
+        "strictUniquePlayerOutside45m": 3,
+        "strictUniquePlayerPositionUnresolved": 1,
+        "strictUniquePlayerDistance3D": {
+          "count": 840,
+          "min": 13.536930292739498,
+          "p10": 82.17382957477025,
+          "p25": 165.1033279050308,
+          "median": 418.3993233677479,
+          "p75": 811.5530521706269,
+          "p90": 1195.8455019785652,
+          "max": 2658.4425132502406,
+          "mean": 539.9073564830152
+        },
+        "strictUniqueOffsetTicks": {
+          "count": 841,
+          "min": 0,
+          "p10": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        }
+      },
+      "MATCHED_OUTSIDE_45M": {
+        "total": 15,
+        "anySignal": 15,
+        "anySignalRate": 1,
+        "uniquePlayerSignal": 12,
+        "uniquePlayerSignalRate": 0.8,
+        "strictUniqueSignal": 10,
+        "strictUniqueSignalRate": 0.6666666666666666,
+        "strictUniquePlayerInside45m": 0,
+        "strictUniquePlayerOutside45m": 10,
+        "strictUniquePlayerPositionUnresolved": 0,
+        "strictUniquePlayerDistance3D": {
+          "count": 10,
+          "min": 1802.7454774509147,
+          "p10": 1802.8337092019071,
+          "p25": 1852.4193293512917,
+          "median": 2071.818106373741,
+          "p75": 2854.9172087339803,
+          "p90": 3765.407801983018,
+          "max": 3793.265079479129,
+          "mean": 2446.416771219216
+        },
+        "strictUniqueOffsetTicks": {
+          "count": 10,
+          "min": 0,
+          "p10": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        }
+      },
+      "UNMATCHED_INSIDE_45M": {
+        "total": 0,
+        "anySignal": 0,
+        "anySignalRate": null,
+        "uniquePlayerSignal": 0,
+        "uniquePlayerSignalRate": null,
+        "strictUniqueSignal": 0,
+        "strictUniqueSignalRate": null,
+        "strictUniquePlayerInside45m": 0,
+        "strictUniquePlayerOutside45m": 0,
+        "strictUniquePlayerPositionUnresolved": 0,
+        "strictUniquePlayerDistance3D": {
+          "count": 0,
+          "min": null,
+          "p10": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p90": null,
+          "max": null,
+          "mean": null
+        },
+        "strictUniqueOffsetTicks": {
+          "count": 0,
+          "min": null,
+          "p10": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p90": null,
+          "max": null,
+          "mean": null
+        }
+      },
+      "UNMATCHED_OUTSIDE_45M": {
+        "total": 336,
+        "anySignal": 15,
+        "anySignalRate": 0.044642857142857144,
+        "uniquePlayerSignal": 13,
+        "uniquePlayerSignalRate": 0.03869047619047619,
+        "strictUniqueSignal": 4,
+        "strictUniqueSignalRate": 0.011904761904761904,
+        "strictUniquePlayerInside45m": 0,
+        "strictUniquePlayerOutside45m": 4,
+        "strictUniquePlayerPositionUnresolved": 0,
+        "strictUniquePlayerDistance3D": {
+          "count": 4,
+          "min": 7710.365800623142,
+          "p10": 7909.516817074731,
+          "p25": 8208.243341752113,
+          "median": 10148.184681240233,
+          "p75": 12106.011934906699,
+          "p90": 12436.93310510511,
+          "max": 12657.547218570717,
+          "mean": 10166.070595418581
+        },
+        "strictUniqueOffsetTicks": {
+          "count": 4,
+          "min": 2,
+          "p10": 2.3,
+          "p25": 2.75,
+          "median": 4,
+          "p75": 5.25,
+          "p90": 5.7,
+          "max": 6,
+          "mean": 4
+        }
+      },
+      "UNMATCHED_RANGE_UNRESOLVED": {
+        "total": 3,
+        "anySignal": 0,
+        "anySignalRate": 0,
+        "uniquePlayerSignal": 0,
+        "uniquePlayerSignalRate": 0,
+        "strictUniqueSignal": 0,
+        "strictUniqueSignalRate": 0,
+        "strictUniquePlayerInside45m": 0,
+        "strictUniquePlayerOutside45m": 0,
+        "strictUniquePlayerPositionUnresolved": 0,
+        "strictUniquePlayerDistance3D": {
+          "count": 0,
+          "min": null,
+          "p10": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p90": null,
+          "max": null,
+          "mean": null
+        },
+        "strictUniqueOffsetTicks": {
+          "count": 0,
+          "min": null,
+          "p10": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p90": null,
+          "max": null,
+          "mean": null
+        }
+      }
+    },
+    "outside45mComparison": {
+      "matchedOutsideTotal": 15,
+      "unmatchedOutsideTotal": 336,
+      "matchedOutsideStrictUniquePlayerOutside45m": 10,
+      "unmatchedOutsideStrictUniquePlayerOutside45m": 4,
+      "matchedOutsideRate": 0.6666666666666666,
+      "unmatchedOutsideRate": 0.011904761904761904,
+      "rateDifferenceMatchedMinusUnmatched": 0.6547619047619048,
+      "riskRatioMatchedVsUnmatched": 56,
+      "interpretationRule": "A true player-counter exception hypothesis should produce strong enrichment among MATCHED_OUTSIDE_45M versus UNMATCHED_OUTSIDE_45M. Similar rates in the two groups argue against the hypothesis."
+    }
+  },
+  "matchedOutside45mCases": [
+    {
+      "deathIndex": 495,
+      "deathKey": "2759|77324",
+      "clock": "19:38",
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "team": 2,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "Goldinfer",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 969,
+        "tick": 77324,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "Goldinfer",
+        "team": 3,
+        "heroId": 79,
+        "delta": 1,
+        "previousValue": 52,
+        "currentValue": 53,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "Goldinfer",
+        "team": 3,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.0625,
+          "timeSeconds": 1178.1875,
+          "position": {
+            "x": 7837.1328125,
+            "y": -36.46875,
+            "z": 428.4140625
+          }
+        },
+        "distanceAtDeath3D": 1802.7454774509147,
+        "distanceAtDeathXY": 1797.5768300748573,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 77324,
+          "timeSeconds": 1178.1875,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.0625,
+          "position": {
+            "x": 7837.1328125,
+            "y": -36.46875,
+            "z": 428.4140625
+          }
+        },
+        "distanceAtCounter3D": 1802.7454774509147,
+        "distanceAtCounterXY": 1797.5768300748573
+      }
+    },
+    {
+      "deathIndex": 718,
+      "deathKey": "2890|103165",
+      "clock": "26:21",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "flem",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 1324,
+        "tick": 103165,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "flem",
+        "team": 2,
+        "heroId": 1,
+        "delta": 1,
+        "previousValue": 110,
+        "currentValue": 111,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "flem",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.046875,
+          "timeSeconds": 1581.953125,
+          "position": {
+            "x": -169.26953125,
+            "y": -2248.41015625,
+            "z": 375.90234375
+          }
+        },
+        "distanceAtDeath3D": 2990.738011827926,
+        "distanceAtDeathXY": 2988.0031524038986,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 103165,
+          "timeSeconds": 1581.953125,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.046875,
+          "position": {
+            "x": -169.26953125,
+            "y": -2248.41015625,
+            "z": 375.90234375
+          }
+        },
+        "distanceAtCounter3D": 2990.738011827926,
+        "distanceAtCounterXY": 2988.0031524038986
+      }
+    },
+    {
+      "deathIndex": 723,
+      "deathKey": "2758|103525",
+      "clock": "26:27",
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "flem",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 1332,
+        "tick": 103525,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "flem",
+        "team": 2,
+        "heroId": 1,
+        "delta": 1,
+        "previousValue": 111,
+        "currentValue": 112,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "flem",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.078125,
+          "timeSeconds": 1587.578125,
+          "position": {
+            "x": 97.251953125,
+            "y": -1025.8046875,
+            "z": 378.521484375
+          }
+        },
+        "distanceAtDeath3D": 1876.919445662732,
+        "distanceAtDeathXY": 1875.5275092765585,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 103525,
+          "timeSeconds": 1587.578125,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.078125,
+          "position": {
+            "x": 97.251953125,
+            "y": -1025.8046875,
+            "z": 378.521484375
+          }
+        },
+        "distanceAtCounter3D": 1876.919445662732,
+        "distanceAtCounterXY": 1875.5275092765585
+      }
+    },
+    {
+      "deathIndex": 775,
+      "deathKey": "2757|110120",
+      "clock": "28:10",
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "team": 2,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "MULTI_PLAYER_AMBIGUOUS_LASTHIT_SIGNAL",
+      "candidateEventCount": 2,
+      "candidatePlayerCount": 2,
+      "uniquePlayerName": null,
+      "strictUniqueEvent": null,
+      "uniquePlayerGeometry": null
+    },
+    {
+      "deathIndex": 776,
+      "deathKey": "2835|110120",
+      "clock": "28:10",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "team": 2,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "MULTI_PLAYER_AMBIGUOUS_LASTHIT_SIGNAL",
+      "candidateEventCount": 2,
+      "candidatePlayerCount": 2,
+      "uniquePlayerName": null,
+      "strictUniqueEvent": null,
+      "uniquePlayerGeometry": null
+    },
+    {
+      "deathIndex": 973,
+      "deathKey": "2758|131615",
+      "clock": "33:46",
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "flem",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 1606,
+        "tick": 131615,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "flem",
+        "team": 2,
+        "heroId": 1,
+        "delta": 1,
+        "previousValue": 133,
+        "currentValue": 134,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "flem",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.015625,
+          "timeSeconds": 2026.484375,
+          "position": {
+            "x": 576.716796875,
+            "y": 3008.064453125,
+            "z": 569.9921875
+          }
+        },
+        "distanceAtDeath3D": 1802.843512729795,
+        "distanceAtDeathXY": 1801.9115575177457,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 131615,
+          "timeSeconds": 2026.484375,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.015625,
+          "position": {
+            "x": 576.716796875,
+            "y": 3008.064453125,
+            "z": 569.9921875
+          }
+        },
+        "distanceAtCounter3D": 1802.843512729795,
+        "distanceAtCounterXY": 1801.9115575177457
+      }
+    },
+    {
+      "deathIndex": 1347,
+      "deathKey": "3178|168914",
+      "clock": "43:29",
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "flem",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 2046,
+        "tick": 168914,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "flem",
+        "team": 2,
+        "heroId": 1,
+        "delta": 1,
+        "previousValue": 166,
+        "currentValue": 167,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "flem",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.03125,
+          "timeSeconds": 2609.28125,
+          "position": {
+            "x": 409.4375,
+            "y": -9030.9296875,
+            "z": 1655.828125
+          }
+        },
+        "distanceAtDeath3D": 3793.265079479129,
+        "distanceAtDeathXY": 3614.1698800604318,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 168914,
+          "timeSeconds": 2609.28125,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.03125,
+          "position": {
+            "x": 409.4375,
+            "y": -9030.9296875,
+            "z": 1655.828125
+          }
+        },
+        "distanceAtCounter3D": 3793.265079479129,
+        "distanceAtCounterXY": 3614.1698800604318
+      }
+    },
+    {
+      "deathIndex": 1350,
+      "deathKey": "3337|169119",
+      "clock": "43:32",
+      "baseType": "MELEE",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "flem",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 2048,
+        "tick": 169119,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "flem",
+        "team": 2,
+        "heroId": 1,
+        "delta": 1,
+        "previousValue": 167,
+        "currentValue": 168,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "flem",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.015625,
+          "timeSeconds": 2612.484375,
+          "position": {
+            "x": 74.6875,
+            "y": -9754.65625,
+            "z": 1166.21875
+          }
+        },
+        "distanceAtDeath3D": 3762.3125489278946,
+        "distanceAtDeathXY": 3725.0964685757217,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 169119,
+          "timeSeconds": 2612.484375,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.015625,
+          "position": {
+            "x": 74.6875,
+            "y": -9754.65625,
+            "z": 1166.21875
+          }
+        },
+        "distanceAtCounter3D": 3762.3125489278946,
+        "distanceAtCounterXY": 3725.0964685757217
+      }
+    },
+    {
+      "deathIndex": 1446,
+      "deathKey": "3418|179237",
+      "clock": "46:10",
+      "baseType": "MELEE",
+      "variantLabel": "NORMAL",
+      "team": 2,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "Goldinfer",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 2154,
+        "tick": 179237,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "Goldinfer",
+        "team": 3,
+        "heroId": 79,
+        "delta": 1,
+        "previousValue": 190,
+        "currentValue": 191,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "Goldinfer",
+        "team": 3,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.078125,
+          "timeSeconds": 2770.578125,
+          "position": {
+            "x": 532.78515625,
+            "y": 8791.34765625,
+            "z": 1637.5546875
+          }
+        },
+        "distanceAtDeath3D": 1844.252623914145,
+        "distanceAtDeathXY": 1577.2271242271054,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 179237,
+          "timeSeconds": 2770.578125,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.078125,
+          "position": {
+            "x": 532.78515625,
+            "y": 8791.34765625,
+            "z": 1637.5546875
+          }
+        },
+        "distanceAtCounter3D": 1844.252623914145,
+        "distanceAtCounterXY": 1577.2271242271054
+      }
+    },
+    {
+      "deathIndex": 1529,
+      "deathKey": "2884|183084",
+      "clock": "47:10",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "Nacho4Sure",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 2232,
+        "tick": 183084,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "heroId": 2,
+        "delta": 1,
+        "previousValue": 194,
+        "currentValue": 195,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.0625,
+          "timeSeconds": 2830.6875,
+          "position": {
+            "x": -474.125,
+            "y": 8537.34375,
+            "z": 2634.5390625
+          }
+        },
+        "distanceAtDeath3D": 1950.062109027541,
+        "distanceAtDeathXY": 909.3857607825529,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 183084,
+          "timeSeconds": 2830.6875,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.0625,
+          "position": {
+            "x": -474.125,
+            "y": 8537.34375,
+            "z": 2634.5390625
+          }
+        },
+        "distanceAtCounter3D": 1950.062109027541,
+        "distanceAtCounterXY": 909.3857607825529
+      }
+    },
+    {
+      "deathIndex": 1530,
+      "deathKey": "2836|183124",
+      "clock": "47:11",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "Nacho4Sure",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 2234,
+        "tick": 183124,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "heroId": 2,
+        "delta": 1,
+        "previousValue": 197,
+        "currentValue": 198,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.0625,
+          "timeSeconds": 2831.3125,
+          "position": {
+            "x": -387.6484375,
+            "y": 8640.8203125,
+            "z": 2683.046875
+          }
+        },
+        "distanceAtDeath3D": 2193.574103719941,
+        "distanceAtDeathXY": 1336.2359712726086,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 183124,
+          "timeSeconds": 2831.3125,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.0625,
+          "position": {
+            "x": -387.6484375,
+            "y": 8640.8203125,
+            "z": 2683.046875
+          }
+        },
+        "distanceAtCounter3D": 2193.574103719941,
+        "distanceAtCounterXY": 1336.2359712726086
+      }
+    },
+    {
+      "deathIndex": 1539,
+      "deathKey": "3047|184228",
+      "clock": "47:28",
+      "baseType": "MELEE",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "STRICT_UNIQUE_LASTHIT_COUNTER_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "Nacho4Sure",
+      "strictUniqueEvent": {
+        "positiveEventIndex": 2248,
+        "tick": 184228,
+        "offsetTicks": 0,
+        "offsetSeconds": 0,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "heroId": 2,
+        "delta": 1,
+        "previousValue": 198,
+        "currentValue": 199,
+        "explicitlyChanged": true,
+        "candidateEconomicDeaths": 1
+      },
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.0625,
+          "timeSeconds": 2848.5625,
+          "position": {
+            "x": -550.375,
+            "y": 4176.625,
+            "z": 508.234375
+          }
+        },
+        "distanceAtDeath3D": 2447.4547994521427,
+        "distanceAtDeathXY": 2443.018343356546,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 184228,
+          "timeSeconds": 2848.5625,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.0625,
+          "position": {
+            "x": -550.375,
+            "y": 4176.625,
+            "z": 508.234375
+          }
+        },
+        "distanceAtCounter3D": 2447.4547994521427,
+        "distanceAtCounterXY": 2443.018343356546
+      }
+    },
+    {
+      "deathIndex": 1541,
+      "deathKey": "2836|184263",
+      "clock": "47:29",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "UNIQUE_PLAYER_AMBIGUOUS_LASTHIT_SIGNAL",
+      "candidateEventCount": 2,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "Nacho4Sure",
+      "strictUniqueEvent": null,
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.109375,
+          "timeSeconds": 2849.109375,
+          "position": {
+            "x": -501.03515625,
+            "y": 3977.560546875,
+            "z": 411.501953125
+          }
+        },
+        "distanceAtDeath3D": 2431.8324874907134,
+        "distanceAtDeathXY": 2421.070756439202,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 184263,
+          "timeSeconds": 2849.109375,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.109375,
+          "position": {
+            "x": -501.03515625,
+            "y": 3977.560546875,
+            "z": 411.501953125
+          }
+        },
+        "distanceAtCounter3D": 2431.8324874907134,
+        "distanceAtCounterXY": 2421.070756439202
+      }
+    },
+    {
+      "deathIndex": 1542,
+      "deathKey": "2884|184269",
+      "clock": "47:29",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "UNIQUE_PLAYER_AMBIGUOUS_LASTHIT_SIGNAL",
+      "candidateEventCount": 1,
+      "candidatePlayerCount": 1,
+      "uniquePlayerName": "Nacho4Sure",
+      "strictUniqueEvent": null,
+      "uniquePlayerGeometry": {
+        "resolved": true,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "deathTimeState": {
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.046875,
+          "timeSeconds": 2849.203125,
+          "position": {
+            "x": -496.13671875,
+            "y": 3945.228515625,
+            "z": 393.208984375
+          }
+        },
+        "distanceAtDeath3D": 2530.0003525488687,
+        "distanceAtDeathXY": 2517.9318007223987,
+        "inside45mAtDeath3D": false,
+        "counterEventState": {
+          "tick": 184269,
+          "timeSeconds": 2849.203125,
+          "method": "LINEAR_INTERPOLATION",
+          "sourceTimeDelta": 0.046875,
+          "position": {
+            "x": -496.13671875,
+            "y": 3945.228515625,
+            "z": 393.208984375
+          }
+        },
+        "distanceAtCounter3D": 2530.0003525488687,
+        "distanceAtCounterXY": 2517.9318007223987
+      }
+    },
+    {
+      "deathIndex": 1581,
+      "deathKey": "2758|187607",
+      "clock": "48:21",
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "team": 3,
+      "rangeGroup": "MATCHED_OUTSIDE_45M",
+      "associationStatus": "MULTI_PLAYER_AMBIGUOUS_LASTHIT_SIGNAL",
+      "candidateEventCount": 2,
+      "candidatePlayerCount": 2,
+      "uniquePlayerName": null,
+      "strictUniqueEvent": null,
+      "uniquePlayerGeometry": null
+    }
+  ],
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script55Pass": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "economicDeaths": {
+        "actual": 1727,
+        "expected": 1727,
+        "pass": true
+      },
+      "matchedDeaths": {
+        "actual": 1388,
+        "expected": 1388,
+        "pass": true
+      },
+      "unmatchedDeaths": {
+        "actual": 339,
+        "expected": 339,
+        "pass": true
+      },
+      "matchedOutside45m": {
+        "actual": 15,
+        "expected": 15,
+        "pass": true
+      },
+      "unmatchedOutside45m": {
+        "actual": 336,
+        "expected": 336,
+        "pass": true
+      },
+      "unmatchedUnresolved": {
+        "actual": 3,
+        "expected": 3,
+        "pass": true
+      },
+      "playerControllers": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      },
+      "positiveLastHitEventsObserved": {
+        "actual": 2433,
+        "expected": ">0",
+        "pass": true
+      },
+      "primaryRowsPreserved": {
+        "actual": 1727,
+        "expected": 1727,
+        "pass": true
+      },
+      "primaryWindowExists": {
+        "actual": "M2_P6",
+        "expected": "M2_P6",
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_lasthit_counter_diagnostic_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_lasthit_counter_cases_v01.jsonl"
+  }
+}

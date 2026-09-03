@@ -1,0 +1,1046 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_VACUUM_THRESHOLD_AUDIT_V01",
+  "canonical": false,
+  "status": "AUDIT_VALIDATION_FAILURE",
+  "script76Correction": {
+    "originalPipelinePass": false,
+    "failedChecks": [
+      "snapshotCountPreserved"
+    ],
+    "rawSnapshotRows": 274740,
+    "preActivationPaddingRows": 2742,
+    "postActivationRows": 271998,
+    "exactActivationRows": 1388,
+    "script76EpisodeSnapshotSum": 271998,
+    "explanation": "Script 75 captured pre-activation padding snapshots. Script 76 intentionally filtered to tick >= activationTick before episode analysis, but its validation incorrectly compared that post-activation total with the raw Script 75 snapshot count."
+  },
+  "transitionCounts": {
+    "all": 1334,
+    "immediate": 647,
+    "delayed": 663,
+    "resolved3D": 1310
+  },
+  "targetOnsetDistance3D": {
+    "all": {
+      "count": 1310,
+      "min": 23.44173594533603,
+      "p10": 93.73292899726532,
+      "p25": 180.60173651791428,
+      "median": 389.1975781465274,
+      "p75": 622.2350364039544,
+      "p90": 726.732866316306,
+      "p95": 730.3836489531293,
+      "p99": 739.2428652283019,
+      "max": 2887.9317008631106,
+      "mean": 401.9486831408795
+    },
+    "immediate": {
+      "count": 647,
+      "min": 37.19681669581748,
+      "p10": 86.2308259217845,
+      "p25": 151.92720964909944,
+      "median": 306.04896924001554,
+      "p75": 523.0574751653332,
+      "p90": 638.5607320577697,
+      "p95": 696.3059036075626,
+      "p99": 731.8643867487818,
+      "max": 2887.9317008631106,
+      "mean": 343.1138933589895
+    },
+    "delayed": {
+      "count": 663,
+      "min": 23.44173594533603,
+      "p10": 110.1730246651603,
+      "p25": 225.20515776419364,
+      "median": 501.2044983452658,
+      "p75": 720.0992268318917,
+      "p90": 729.6633733723963,
+      "p95": 732.2392285417286,
+      "p99": 740.1130531449986,
+      "max": 782.450492655333,
+      "mean": 459.3636288254678
+    },
+    "delayedP95": 732.2392285417286,
+    "delayedP99": 740.1130531449986,
+    "delayedMaximum": 782.450492655333,
+    "delayedMaximumMeters": 19.874282262009984
+  },
+  "delayedTargetPriorDistance3D": {
+    "count": 663,
+    "min": 24.690316264157516,
+    "p10": 111.59440124467127,
+    "p25": 226.33214046768586,
+    "median": 500.5503764833096,
+    "p75": 727.8167962955629,
+    "p90": 734.4114101034659,
+    "p95": 737.1790329713871,
+    "p99": 745.0075077892802,
+    "max": 780.833045346571,
+    "mean": 461.1539970678792
+  },
+  "delayedTargetOnsetDistanceXY": {
+    "count": 663,
+    "min": 7.840232516363563,
+    "p10": 102.03847992892287,
+    "p25": 215.98334439329125,
+    "median": 459.41873158009815,
+    "p75": 699.7695146100434,
+    "p90": 726.8440101814602,
+    "p95": 729.4466217231654,
+    "p99": 733.9030782930586,
+    "max": 782.0490039315462,
+    "mean": 441.1232182772774
+  },
+  "thresholdCoverage": [
+    {
+      "thresholdHU": 500,
+      "thresholdMeters": 12.700025400050801,
+      "all": {
+        "supported": 802,
+        "total": 1310,
+        "rate": 0.6122137404580152
+      },
+      "immediate": {
+        "supported": 471,
+        "total": 647,
+        "rate": 0.7279752704791345
+      },
+      "delayed": {
+        "supported": 331,
+        "total": 663,
+        "rate": 0.49924585218702866
+      }
+    },
+    {
+      "thresholdHU": 550,
+      "thresholdMeters": 13.97002794005588,
+      "all": {
+        "supported": 873,
+        "total": 1310,
+        "rate": 0.666412213740458
+      },
+      "immediate": {
+        "supported": 510,
+        "total": 647,
+        "rate": 0.7882534775888718
+      },
+      "delayed": {
+        "supported": 363,
+        "total": 663,
+        "rate": 0.5475113122171946
+      }
+    },
+    {
+      "thresholdHU": 600,
+      "thresholdMeters": 15.24003048006096,
+      "all": {
+        "supported": 953,
+        "total": 1310,
+        "rate": 0.7274809160305343
+      },
+      "immediate": {
+        "supported": 553,
+        "total": 647,
+        "rate": 0.8547140649149922
+      },
+      "delayed": {
+        "supported": 400,
+        "total": 663,
+        "rate": 0.6033182503770739
+      }
+    },
+    {
+      "thresholdHU": 625,
+      "thresholdMeters": 15.875031750063501,
+      "all": {
+        "supported": 987,
+        "total": 1310,
+        "rate": 0.7534351145038168
+      },
+      "immediate": {
+        "supported": 573,
+        "total": 647,
+        "rate": 0.8856259659969088
+      },
+      "delayed": {
+        "supported": 414,
+        "total": 663,
+        "rate": 0.6244343891402715
+      }
+    },
+    {
+      "thresholdHU": 650,
+      "thresholdMeters": 16.51003302006604,
+      "all": {
+        "supported": 1020,
+        "total": 1310,
+        "rate": 0.7786259541984732
+      },
+      "immediate": {
+        "supported": 589,
+        "total": 647,
+        "rate": 0.910355486862442
+      },
+      "delayed": {
+        "supported": 431,
+        "total": 663,
+        "rate": 0.6500754147812972
+      }
+    },
+    {
+      "thresholdHU": 675,
+      "thresholdMeters": 17.14503429006858,
+      "all": {
+        "supported": 1047,
+        "total": 1310,
+        "rate": 0.7992366412213741
+      },
+      "immediate": {
+        "supported": 602,
+        "total": 647,
+        "rate": 0.9304482225656878
+      },
+      "delayed": {
+        "supported": 445,
+        "total": 663,
+        "rate": 0.6711915535444947
+      }
+    },
+    {
+      "thresholdHU": 700,
+      "thresholdMeters": 17.78003556007112,
+      "all": {
+        "supported": 1075,
+        "total": 1310,
+        "rate": 0.8206106870229007
+      },
+      "immediate": {
+        "supported": 617,
+        "total": 647,
+        "rate": 0.9536321483771252
+      },
+      "delayed": {
+        "supported": 458,
+        "total": 663,
+        "rate": 0.6907993966817496
+      }
+    },
+    {
+      "thresholdHU": 710,
+      "thresholdMeters": 18.034036068072137,
+      "all": {
+        "supported": 1089,
+        "total": 1310,
+        "rate": 0.8312977099236641
+      },
+      "immediate": {
+        "supported": 621,
+        "total": 647,
+        "rate": 0.9598145285935085
+      },
+      "delayed": {
+        "supported": 468,
+        "total": 663,
+        "rate": 0.7058823529411765
+      }
+    },
+    {
+      "thresholdHU": 720,
+      "thresholdMeters": 18.288036576073154,
+      "all": {
+        "supported": 1126,
+        "total": 1310,
+        "rate": 0.8595419847328244
+      },
+      "immediate": {
+        "supported": 631,
+        "total": 647,
+        "rate": 0.9752704791344667
+      },
+      "delayed": {
+        "supported": 495,
+        "total": 663,
+        "rate": 0.746606334841629
+      }
+    },
+    {
+      "thresholdHU": 725,
+      "thresholdMeters": 18.41503683007366,
+      "all": {
+        "supported": 1159,
+        "total": 1310,
+        "rate": 0.8847328244274809
+      },
+      "immediate": {
+        "supported": 632,
+        "total": 647,
+        "rate": 0.9768160741885626
+      },
+      "delayed": {
+        "supported": 527,
+        "total": 663,
+        "rate": 0.7948717948717948
+      }
+    },
+    {
+      "thresholdHU": 730,
+      "thresholdMeters": 18.54203708407417,
+      "all": {
+        "supported": 1239,
+        "total": 1310,
+        "rate": 0.9458015267175572
+      },
+      "immediate": {
+        "supported": 639,
+        "total": 647,
+        "rate": 0.9876352395672334
+      },
+      "delayed": {
+        "supported": 600,
+        "total": 663,
+        "rate": 0.9049773755656109
+      }
+    },
+    {
+      "thresholdHU": 735,
+      "thresholdMeters": 18.669037338074677,
+      "all": {
+        "supported": 1286,
+        "total": 1310,
+        "rate": 0.981679389312977
+      },
+      "immediate": {
+        "supported": 642,
+        "total": 647,
+        "rate": 0.9922720247295209
+      },
+      "delayed": {
+        "supported": 644,
+        "total": 663,
+        "rate": 0.971342383107089
+      }
+    },
+    {
+      "thresholdHU": 740,
+      "thresholdMeters": 18.796037592075184,
+      "all": {
+        "supported": 1298,
+        "total": 1310,
+        "rate": 0.9908396946564886
+      },
+      "immediate": {
+        "supported": 642,
+        "total": 647,
+        "rate": 0.9922720247295209
+      },
+      "delayed": {
+        "supported": 656,
+        "total": 663,
+        "rate": 0.9894419306184012
+      }
+    },
+    {
+      "thresholdHU": 750,
+      "thresholdMeters": 19.0500381000762,
+      "all": {
+        "supported": 1303,
+        "total": 1310,
+        "rate": 0.9946564885496183
+      },
+      "immediate": {
+        "supported": 644,
+        "total": 647,
+        "rate": 0.9953632148377125
+      },
+      "delayed": {
+        "supported": 659,
+        "total": 663,
+        "rate": 0.9939668174962293
+      }
+    },
+    {
+      "thresholdHU": 775,
+      "thresholdMeters": 19.68503937007874,
+      "all": {
+        "supported": 1307,
+        "total": 1310,
+        "rate": 0.9977099236641221
+      },
+      "immediate": {
+        "supported": 645,
+        "total": 647,
+        "rate": 0.9969088098918083
+      },
+      "delayed": {
+        "supported": 662,
+        "total": 663,
+        "rate": 0.9984917043740573
+      }
+    },
+    {
+      "thresholdHU": 800,
+      "thresholdMeters": 20.32004064008128,
+      "all": {
+        "supported": 1308,
+        "total": 1310,
+        "rate": 0.9984732824427481
+      },
+      "immediate": {
+        "supported": 645,
+        "total": 647,
+        "rate": 0.9969088098918083
+      },
+      "delayed": {
+        "supported": 663,
+        "total": 663,
+        "rate": 1
+      }
+    },
+    {
+      "thresholdHU": 850,
+      "thresholdMeters": 21.59004318008636,
+      "all": {
+        "supported": 1308,
+        "total": 1310,
+        "rate": 0.9984732824427481
+      },
+      "immediate": {
+        "supported": 645,
+        "total": 647,
+        "rate": 0.9969088098918083
+      },
+      "delayed": {
+        "supported": 663,
+        "total": 663,
+        "rate": 1
+      }
+    },
+    {
+      "thresholdHU": 900,
+      "thresholdMeters": 22.860045720091442,
+      "all": {
+        "supported": 1309,
+        "total": 1310,
+        "rate": 0.999236641221374
+      },
+      "immediate": {
+        "supported": 646,
+        "total": 647,
+        "rate": 0.9984544049459042
+      },
+      "delayed": {
+        "supported": 663,
+        "total": 663,
+        "rate": 1
+      }
+    },
+    {
+      "thresholdHU": 1000,
+      "thresholdMeters": 25.400050800101603,
+      "all": {
+        "supported": 1309,
+        "total": 1310,
+        "rate": 0.999236641221374
+      },
+      "immediate": {
+        "supported": 646,
+        "total": 647,
+        "rate": 0.9984544049459042
+      },
+      "delayed": {
+        "supported": 663,
+        "total": 663,
+        "rate": 1
+      }
+    },
+    {
+      "thresholdHU": 1200,
+      "thresholdMeters": 30.48006096012192,
+      "all": {
+        "supported": 1309,
+        "total": 1310,
+        "rate": 0.999236641221374
+      },
+      "immediate": {
+        "supported": 646,
+        "total": 647,
+        "rate": 0.9984544049459042
+      },
+      "delayed": {
+        "supported": 663,
+        "total": 663,
+        "rate": 1
+      }
+    },
+    {
+      "thresholdHU": 1500,
+      "thresholdMeters": 38.1000762001524,
+      "all": {
+        "supported": 1309,
+        "total": 1310,
+        "rate": 0.999236641221374
+      },
+      "immediate": {
+        "supported": 646,
+        "total": 647,
+        "rate": 0.9984544049459042
+      },
+      "delayed": {
+        "supported": 663,
+        "total": 663,
+        "rate": 1
+      }
+    },
+    {
+      "thresholdHU": 1771.6499999999999,
+      "thresholdMeters": 45,
+      "all": {
+        "supported": 1309,
+        "total": 1310,
+        "rate": 0.999236641221374
+      },
+      "immediate": {
+        "supported": 646,
+        "total": 647,
+        "rate": 0.9984544049459042
+      },
+      "delayed": {
+        "supported": 663,
+        "total": 663,
+        "rate": 1
+      }
+    }
+  ],
+  "onsetOutside45m": {
+    "count": 1,
+    "cases": [
+      {
+        "deathIndex": 780,
+        "clock": "28:31",
+        "baseType": "RANGED",
+        "creditedPlayerName": "flem",
+        "targetPlayerName": "flem",
+        "targetDelaySeconds": 0.015625,
+        "distanceAtOnset3D": 2887.9317008631106,
+        "distanceAtOnsetXY": 2882.6638793837733,
+        "distanceBeforeOnset3D": 2654.8524427434063,
+        "distanceBeforeOnsetXY": 2650.239731524679
+      }
+    ]
+  },
+  "largestDelayedTransitions": [
+    {
+      "deathIndex": 5,
+      "clock": "0:47",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Zaeleth",
+      "targetPlayerName": "Zaeleth",
+      "targetDelaySeconds": 0.5,
+      "distanceAtOnset3D": 782.450492655333,
+      "distanceAtOnsetXY": 782.0490039315462,
+      "distanceBeforeOnset3D": 780.833045346571,
+      "distanceBeforeOnsetXY": 780.4307245354646
+    },
+    {
+      "deathIndex": 1278,
+      "clock": "41:58",
+      "baseType": "RANGED",
+      "creditedPlayerName": "Nebula",
+      "targetPlayerName": "renso",
+      "targetDelaySeconds": 14.828125,
+      "distanceAtOnset3D": 772.3694753453897,
+      "distanceAtOnsetXY": 511.18842557838934,
+      "distanceBeforeOnset3D": 778.8560502880571,
+      "distanceBeforeOnsetXY": 511.18842557838934
+    },
+    {
+      "deathIndex": 1398,
+      "clock": "44:34",
+      "baseType": "RANGED",
+      "creditedPlayerName": "Nacho4Sure",
+      "targetPlayerName": "Snazzy314",
+      "targetDelaySeconds": 2.59375,
+      "distanceAtOnset3D": 760.5766299262219,
+      "distanceAtOnsetXY": 758.6359121832955,
+      "distanceBeforeOnset3D": 767.0396776343645,
+      "distanceBeforeOnsetXY": 764.3904592752039
+    },
+    {
+      "deathIndex": 1279,
+      "clock": "42:00",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "blooop354",
+      "targetPlayerName": "renso",
+      "targetDelaySeconds": 13.09375,
+      "distanceAtOnset3D": 755.4816460895162,
+      "distanceAtOnsetXY": 675.043078052477,
+      "distanceBeforeOnset3D": 759.3934629957154,
+      "distanceBeforeOnsetXY": 675.043078052477
+    },
+    {
+      "deathIndex": 651,
+      "clock": "24:43",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "renso",
+      "targetPlayerName": "renso",
+      "targetDelaySeconds": 0.671875,
+      "distanceAtOnset3D": 743.1201074103891,
+      "distanceAtOnsetXY": 668.1910756766298,
+      "distanceBeforeOnset3D": 765.0977296722995,
+      "distanceBeforeOnsetXY": 684.2294524525495
+    },
+    {
+      "deathIndex": 40,
+      "clock": "2:40",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Nebula",
+      "targetPlayerName": "Nebula",
+      "targetDelaySeconds": 1.75,
+      "distanceAtOnset3D": 741.6236694493743,
+      "distanceAtOnsetXY": 724.0072166678589,
+      "distanceBeforeOnset3D": 745.4553997020521,
+      "distanceBeforeOnsetXY": 727.9290964685184
+    },
+    {
+      "deathIndex": 290,
+      "clock": "11:49",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Nebula",
+      "targetPlayerName": "TheWoogler",
+      "targetDelaySeconds": 5.765625,
+      "distanceAtOnset3D": 740.575853685668,
+      "distanceAtOnsetXY": 720.9020938613758,
+      "distanceBeforeOnset3D": 743.9573769358058,
+      "distanceBeforeOnsetXY": 724.4891344102052
+    },
+    {
+      "deathIndex": 497,
+      "clock": "19:41",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "flem",
+      "targetPlayerName": "flem",
+      "targetDelaySeconds": 2.78125,
+      "distanceAtOnset3D": 739.8294012007174,
+      "distanceAtOnsetXY": 733.7672243374402,
+      "distanceBeforeOnset3D": 744.0148347175513,
+      "distanceBeforeOnsetXY": 737.6234483959516
+    },
+    {
+      "deathIndex": 1002,
+      "clock": "34:23",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Snazzy314",
+      "targetPlayerName": "Snazzy314",
+      "targetDelaySeconds": 1.609375,
+      "distanceAtOnset3D": 739.2463227104137,
+      "distanceAtOnsetXY": 724.0722569716644,
+      "distanceBeforeOnset3D": 742.0162363512338,
+      "distanceBeforeOnsetXY": 726.9003953481059
+    },
+    {
+      "deathIndex": 1625,
+      "clock": "49:33",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "flem",
+      "targetPlayerName": "viggoth 300",
+      "targetDelaySeconds": 5.984375,
+      "distanceAtOnset3D": 739.2079062425051,
+      "distanceAtOnsetXY": 738.1920636880338,
+      "distanceBeforeOnset3D": 746.4074310529762,
+      "distanceBeforeOnsetXY": 745.4031250691903
+    },
+    {
+      "deathIndex": 1607,
+      "clock": "49:08",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "renso",
+      "targetPlayerName": "blooop354",
+      "targetDelaySeconds": 11.34375,
+      "distanceAtOnset3D": 739.2004913377987,
+      "distanceAtOnsetXY": 738.7006369169078,
+      "distanceBeforeOnset3D": 742.824500002802,
+      "distanceBeforeOnsetXY": 742.3207009018175
+    },
+    {
+      "deathIndex": 1001,
+      "clock": "34:21",
+      "baseType": "MELEE",
+      "creditedPlayerName": "Snazzy314",
+      "targetPlayerName": "Snazzy314",
+      "targetDelaySeconds": 1.734375,
+      "distanceAtOnset3D": 738.942445831538,
+      "distanceAtOnsetXY": 723.7298220679415,
+      "distanceBeforeOnset3D": 744.2606275041237,
+      "distanceBeforeOnsetXY": 729.0941662663962
+    },
+    {
+      "deathIndex": 64,
+      "clock": "3:46",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Yosafire Worshipper [K]",
+      "targetPlayerName": "Snazzy314",
+      "targetDelaySeconds": 1.109375,
+      "distanceAtOnset3D": 738.4364983925179,
+      "distanceAtOnsetXY": 718.9109746706841,
+      "distanceBeforeOnset3D": 741.7995098216272,
+      "distanceBeforeOnsetXY": 722.3648940219592
+    },
+    {
+      "deathIndex": 220,
+      "clock": "9:20",
+      "baseType": "RANGED",
+      "creditedPlayerName": "Nebula",
+      "targetPlayerName": "Goldinfer",
+      "targetDelaySeconds": 1.671875,
+      "distanceAtOnset3D": 737.4662943544186,
+      "distanceAtOnsetXY": 694.7611551120197,
+      "distanceBeforeOnset3D": 739.2154333800984,
+      "distanceBeforeOnsetXY": 696.6175308525308
+    },
+    {
+      "deathIndex": 1454,
+      "clock": "46:24",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Goldinfer",
+      "targetPlayerName": "Nebula",
+      "targetDelaySeconds": 0.828125,
+      "distanceAtOnset3D": 737.3712324688672,
+      "distanceAtOnsetXY": 736.319186119482,
+      "distanceBeforeOnset3D": 743.750973612685,
+      "distanceBeforeOnsetXY": 742.707964226059
+    },
+    {
+      "deathIndex": 56,
+      "clock": "3:17",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Nacho4Sure",
+      "targetPlayerName": "flem",
+      "targetDelaySeconds": 4.609375,
+      "distanceAtOnset3D": 737.1215158567456,
+      "distanceAtOnsetXY": 731.4721328449175,
+      "distanceBeforeOnset3D": 742.5286278237476,
+      "distanceBeforeOnsetXY": 736.921663600889
+    },
+    {
+      "deathIndex": 724,
+      "clock": "26:29",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "flem",
+      "targetPlayerName": "flem",
+      "targetDelaySeconds": 0.34375,
+      "distanceAtOnset3D": 735.6526860733791,
+      "distanceAtOnsetXY": 719.9986309568317,
+      "distanceBeforeOnset3D": 740.1870516107552,
+      "distanceBeforeOnsetXY": 724.4268364910118
+    },
+    {
+      "deathIndex": 44,
+      "clock": "2:51",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Nacho4Sure",
+      "targetPlayerName": "flem",
+      "targetDelaySeconds": 11.78125,
+      "distanceAtOnset3D": 735.355712674004,
+      "distanceAtOnsetXY": 717.3413712601886,
+      "distanceBeforeOnset3D": 740.3935425635971,
+      "distanceBeforeOnsetXY": 722.4969487637303
+    },
+    {
+      "deathIndex": 185,
+      "clock": "8:20",
+      "baseType": "MELEE",
+      "creditedPlayerName": "flem",
+      "targetPlayerName": "flem",
+      "targetDelaySeconds": 1.734375,
+      "distanceAtOnset3D": 735.0423224687898,
+      "distanceAtOnsetXY": 718.011137214502,
+      "distanceBeforeOnset3D": 743.1520084462016,
+      "distanceBeforeOnsetXY": 726.2597843843913
+    },
+    {
+      "deathIndex": 1522,
+      "clock": "47:05",
+      "baseType": "MELEE",
+      "creditedPlayerName": "Nebula",
+      "targetPlayerName": "Goldinfer",
+      "targetDelaySeconds": 0.625,
+      "distanceAtOnset3D": 734.942646018003,
+      "distanceAtOnsetXY": 734.5087681137262,
+      "distanceBeforeOnset3D": 738.9109292353063,
+      "distanceBeforeOnsetXY": 738.4783136570912
+    },
+    {
+      "deathIndex": 774,
+      "clock": "28:07",
+      "baseType": "MELEE",
+      "creditedPlayerName": "TheWoogler",
+      "targetPlayerName": "TheWoogler",
+      "targetDelaySeconds": 0.640625,
+      "distanceAtOnset3D": 734.8701002694419,
+      "distanceAtOnsetXY": 722.5612848497832,
+      "distanceBeforeOnset3D": 728.5988521494634,
+      "distanceBeforeOnsetXY": 716.1822627287454
+    },
+    {
+      "deathIndex": 346,
+      "clock": "14:02",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Goldinfer",
+      "targetPlayerName": "Nebula",
+      "targetDelaySeconds": 6.109375,
+      "distanceAtOnset3D": 734.6358268995378,
+      "distanceAtOnsetXY": 458.0086671475568,
+      "distanceBeforeOnset3D": 741.4874226383804,
+      "distanceBeforeOnsetXY": 470.1110407555419
+    },
+    {
+      "deathIndex": 9,
+      "clock": "1:15",
+      "baseType": "MEDIC",
+      "creditedPlayerName": "Zaeleth",
+      "targetPlayerName": "Zaeleth",
+      "targetDelaySeconds": 1.296875,
+      "distanceAtOnset3D": 734.6276979005795,
+      "distanceAtOnsetXY": 725.1497872148244,
+      "distanceBeforeOnset3D": 738.9631310842698,
+      "distanceBeforeOnsetXY": 729.3872341721865
+    },
+    {
+      "deathIndex": 99,
+      "clock": "5:09",
+      "baseType": "RANGED",
+      "creditedPlayerName": "flem",
+      "targetPlayerName": "Nacho4Sure",
+      "targetDelaySeconds": 9.734375,
+      "distanceAtOnset3D": 734.3302261689687,
+      "distanceAtOnsetXY": 734.1247347469621,
+      "distanceBeforeOnset3D": 737.2269198432411,
+      "distanceBeforeOnsetXY": 737.0204830351257
+    },
+    {
+      "deathIndex": 1679,
+      "clock": "50:41",
+      "baseType": "MELEE",
+      "creditedPlayerName": "Nebula",
+      "targetPlayerName": "renso",
+      "targetDelaySeconds": 19.46875,
+      "distanceAtOnset3D": 734.2592979416532,
+      "distanceAtOnsetXY": 731.3347792818328,
+      "distanceBeforeOnset3D": 738.5103852427047,
+      "distanceBeforeOnsetXY": 735.602767725058
+    }
+  ],
+  "targetToInactiveSeconds": {
+    "count": 1334,
+    "min": 0.234375,
+    "p10": 0.46875,
+    "p25": 0.53125,
+    "median": 0.640625,
+    "p75": 0.734375,
+    "p90": 0.828125,
+    "p95": 0.875,
+    "p99": 1.0104687500000011,
+    "max": 7.453125,
+    "mean": 0.6483203710644677
+  },
+  "targetIdentity": {
+    "comparable": 1310,
+    "sameAsCredited": 976,
+    "sameAsCreditedRate": 0.7450381679389313,
+    "differentSameTeam": 334,
+    "differentSameTeamRate": 0.2549618320610687,
+    "differentTeam": 0,
+    "differentTeamRate": 0
+  },
+  "targetlessTermination": {
+    "targetless": 54,
+    "targetlessInactive": 53,
+    "exact40SecondCandidates": 42,
+    "exact40SecondRate": 0.7924528301886793,
+    "non40Second": 11,
+    "non40SecondCases": [
+      {
+        "deathIndex": 87,
+        "clock": "4:43",
+        "baseType": "RANGED",
+        "creditedPlayer": "Eriansan",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 954.21220753652,
+        "durationSeconds": 18,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 90,
+        "clock": "4:48",
+        "baseType": "RANGED",
+        "creditedPlayer": "Yosafire Worshipper [K]",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 1063.3677489456227,
+        "durationSeconds": 18,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 93,
+        "clock": "4:55",
+        "baseType": "RANGED",
+        "creditedPlayer": "Yosafire Worshipper [K]",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 1607.4349154809734,
+        "durationSeconds": 18,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 115,
+        "clock": "5:51",
+        "baseType": "MEDIC",
+        "creditedPlayer": "blooop354",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 1092.5352951877935,
+        "durationSeconds": 17.984375,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 165,
+        "clock": "7:38",
+        "baseType": "MEDIC",
+        "creditedPlayer": "Snazzy314",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 1505.0374577014595,
+        "durationSeconds": 17.984375,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 204,
+        "clock": "8:45",
+        "baseType": "MEDIC",
+        "creditedPlayer": "Yosafire Worshipper [K]",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 1047.574619863778,
+        "durationSeconds": 17.984375,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 257,
+        "clock": "10:31",
+        "baseType": "RANGED",
+        "creditedPlayer": "flem",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 1346.0366971368435,
+        "durationSeconds": 24.203125,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 308,
+        "clock": "12:36",
+        "baseType": "RANGED",
+        "creditedPlayer": "flem",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 1468.551815605983,
+        "durationSeconds": 32.546875,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 310,
+        "clock": "12:41",
+        "baseType": "MEDIC",
+        "creditedPlayer": "Nebula",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 1483.4425022514226,
+        "durationSeconds": 32.84375,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 354,
+        "clock": "14:16",
+        "baseType": "RANGED",
+        "creditedPlayer": "blooop354",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 1412.6678670399817,
+        "durationSeconds": 39.1875,
+        "endReason": "BECAME_INACTIVE"
+      },
+      {
+        "deathIndex": 1516,
+        "clock": "47:00",
+        "baseType": "MELEE",
+        "creditedPlayer": "Nacho4Sure",
+        "creditedDistanceBand": "WITHIN_45M",
+        "creditedDistance3D": 951.8729796740706,
+        "durationSeconds": 2.078125,
+        "endReason": "BECAME_INACTIVE"
+      }
+    ]
+  },
+  "interpretation": {
+    "movement": "The ~0.3-0.4 second 32-HU movement observed in Script 75 is not treated as vacuum onset.",
+    "targetField": "The null-to-player m_hVacuumTarget transition remains the strongest current candidate for vacuum-target acquisition.",
+    "fortySeconds": "Targetless termination at ~40 seconds is a strong expiration candidate but remains provisional until the non-40-second targetless cases are resolved.",
+    "range": "45m should not be promoted as the vacuum-target acquisition radius merely because nearly all target onsets occur inside it. The delayed-onset distance envelope is much tighter and must be investigated directly.",
+    "thresholdCaution": "The maximum or high quantiles of observed target-onset distance are not automatically the engine threshold because target assignment may occur after a player has already crossed the actual trigger boundary."
+  },
+  "validation": {
+    "pass": false,
+    "checks": {
+      "script75Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script76FailedOnlyExpectedSnapshotCheck": {
+        "actual": [
+          "snapshotCountPreserved"
+        ],
+        "expected": [
+          "snapshotCountPreserved"
+        ],
+        "pass": true
+      },
+      "rawSnapshotCountAgreesWith75": {
+        "actual": 274740,
+        "expected": 274740,
+        "pass": true
+      },
+      "rawSnapshotRowsFullyJoined": {
+        "actual": 274740,
+        "expected": 274740,
+        "pass": true
+      },
+      "prePlusPostEqualsRaw": {
+        "actual": 274740,
+        "expected": 274740,
+        "pass": true
+      },
+      "script76AnalyzedSnapshotCountEqualsPostActivation": {
+        "actual": 271998,
+        "expected": 271998,
+        "pass": true
+      },
+      "snapshotMismatchFullyExplainedByPreActivationPadding": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "episodeCount": {
+        "actual": 1388,
+        "expected": 1388,
+        "pass": true
+      },
+      "transitionCount": {
+        "actual": 1334,
+        "expected": 947,
+        "pass": false
+      },
+      "geometryResolvedForAllTransitions": {
+        "actual": 1310,
+        "expected": 1334,
+        "pass": false
+      },
+      "immediateDelayedPartition": {
+        "actual": 1310,
+        "expected": 1310,
+        "pass": true
+      }
+    }
+  }
+}

@@ -1,0 +1,712 @@
+{
+  "replay": "test",
+  "version": "TROOPER_GROUND_SOUL_45M_OUTLIER_DIAGNOSTIC_V01",
+  "canonical": false,
+  "status": "MIXED_3D_AND_PLANAR_GEOMETRY_EXPLANATIONS_REQUIRE_FURTHER_VALIDATION",
+  "purpose": [
+    "Investigate Script 57 matched ground-soul deaths reconstructed outside the documented 45m eligibility range.",
+    "Rescan raw replay player-pawn positions at the exact Trooper death tick instead of relying only on the 4 Hz player_state stream.",
+    "Separate 3D-range failures from planar-XY-only cases.",
+    "Identify local Script 55 one-to-one matching ambiguity without assuming ambiguous matches are wrong.",
+    "Preserve persistent unexplained cases for further mechanic discovery rather than forcing them into the 45m model."
+  ],
+  "documentedMechanicTarget": {
+    "rangeMeters": 45,
+    "rangeInternalUnits": 1771.6499999999999
+  },
+  "inputs": {
+    "replay": "G:\\DeadlockBehavior\\replays\\test.dem",
+    "script57Summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_range_validation_v01.json",
+    "script57Outliers": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_range_outliers_v01.jsonl",
+    "script55DeathStream": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_one_to_one_v01.jsonl",
+    "script55Summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_one_to_one_summary_v01.json",
+    "playerState": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl"
+  },
+  "sourceCounts": {
+    "script57MatchedOutside45m": 15,
+    "deathStreamRows": 1727,
+    "rawReplayDemoPacketsInspected": 204690,
+    "rawReplayRelevantDemoPackets": 1502
+  },
+  "results": {
+    "primaryCategoryCounts": {
+      "PERSISTENT_RAW_3D_OUTLIER": 7,
+      "RAW_HALF_SECOND_3D_RESOLVED": 4,
+      "PLANAR_XY_ONLY_EXACT_TICK": 3,
+      "SCRIPT55_MATCHING_AMBIGUITY_CANDIDATE": 1
+    },
+    "diagnosticFlagCounts": {
+      "PERSISTENT_RAW_3D_OUTLIER": 11,
+      "RAW_TEMPORAL_ENVELOPE_3D_RESOLUTION": 4,
+      "PLANAR_XY_ONLY_AT_EXACT_TICK": 3,
+      "MULTIPLE_ELIGIBLE_DEATHS_SAME_TICK": 2,
+      "SCRIPT55_MATCH_AMBIGUITY": 2
+    },
+    "rawExactTick3DResolved": 0,
+    "rawHalfSecond3DResolvedAdditional": 4,
+    "planarOnlyCases": 3,
+    "script55MatchAmbiguityCases": 2,
+    "largeTrooperDeathPositionShiftCases": 0,
+    "persistentRaw3DOutliers": 11
+  },
+  "distributions": {
+    "script57DistanceBeyond45mHU": {
+      "count": 15,
+      "min": 22.14341478928577,
+      "p10": 31.13469156246697,
+      "p25": 88.93603478843863,
+      "median": 383.166324178336,
+      "p75": 717.0775760005058,
+      "p90": 1139.6961391941313,
+      "max": 1219.0880118279263,
+      "mean": 466.1456905774591
+    },
+    "rawExactNearest3D": {
+      "count": 15,
+      "min": 1796.3870022127053,
+      "p10": 1799.4595147175328,
+      "p25": 1861.521941939575,
+      "median": 2156.819439980938,
+      "p75": 2489.457516704948,
+      "p90": 2911.527771386848,
+      "max": 2992.1169410740786,
+      "mean": 2238.4195530612737
+    },
+    "rawHalfSecondMinimum3D": {
+      "count": 15,
+      "min": 1325.964017676149,
+      "p10": 1686.9811545541986,
+      "p25": 1796.6544796039234,
+      "median": 1943.51472953159,
+      "p75": 2247.4431629043293,
+      "p90": 2754.083003595134,
+      "max": 2839.0534367975865,
+      "mean": 2077.174942372312
+    }
+  },
+  "interpretation": {
+    "range": "MIXED_3D_AND_PLANAR_GEOMETRY_EXPLANATIONS_REQUIRE_FURTHER_VALIDATION",
+    "exactTick": "If an outlier is <=45m in raw exact-tick replay state, the Script 57 violation is best treated as a 4 Hz sampling/interpolation artifact.",
+    "temporalEnvelope": "If exact-tick 3D remains outside but raw ±0.5 s crosses inside, timing and state-transition granularity remain plausible explanations.",
+    "planarGeometry": "XY-only resolution is evidence that vertical geometry deserves explicit testing; it is not proof that the engine mechanic is planar.",
+    "matchAmbiguity": "A Script 55 ambiguous candidate component is a matching-quality flag only. It does not invalidate a ground-soul match by itself.",
+    "persistent": "Persistent raw 3D outliers should remain explicit exceptions until their AssignedGold linkage, entity state, or mechanic-specific geometry is independently explained."
+  },
+  "examples": {
+    "exactTick3DResolved": [],
+    "envelope3DResolved": [
+      {
+        "deathIndex": 723,
+        "deathKey": "2758|103525",
+        "clock": "26:27",
+        "baseType": "MEDIC",
+        "primaryDiagnosticCategory": "RAW_HALF_SECOND_3D_RESOLVED",
+        "diagnosticFlags": [
+          "RAW_TEMPORAL_ENVELOPE_3D_RESOLUTION"
+        ],
+        "script57Nearest3D": 1876.919445662732,
+        "rawExactStored3D": 1877.093259401937,
+        "rawExactRawTrooper3D": 1877.093259401937,
+        "rawHalfSecondStored3D": 1738.5035338213652,
+        "rawHalfSecondRawTrooper3D": 1738.5035338213652,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 40.728438026304175,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 775,
+        "deathKey": "2757|110120",
+        "clock": "28:10",
+        "baseType": "MEDIC",
+        "primaryDiagnosticCategory": "RAW_HALF_SECOND_3D_RESOLVED",
+        "diagnosticFlags": [
+          "RAW_TEMPORAL_ENVELOPE_3D_RESOLUTION",
+          "SCRIPT55_MATCH_AMBIGUITY",
+          "MULTIPLE_ELIGIBLE_DEATHS_SAME_TICK"
+        ],
+        "script57Nearest3D": 1793.7934147892856,
+        "rawExactStored3D": 1796.3870022127053,
+        "rawExactRawTrooper3D": 1796.3870022127053,
+        "rawHalfSecondStored3D": 1646.3924545070695,
+        "rawHalfSecondRawTrooper3D": 1796.3870022127053,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": true,
+          "flags": [
+            "MULTIPLE_ELIGIBLE_DEATHS_SAME_TICK"
+          ],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 4.03125,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 2,
+          "sameTickMatchedDeaths": 2
+        }
+      },
+      {
+        "deathIndex": 973,
+        "deathKey": "2758|131615",
+        "clock": "33:46",
+        "baseType": "MEDIC",
+        "primaryDiagnosticCategory": "RAW_HALF_SECOND_3D_RESOLVED",
+        "diagnosticFlags": [
+          "RAW_TEMPORAL_ENVELOPE_3D_RESOLUTION"
+        ],
+        "script57Nearest3D": 1802.843512729795,
+        "rawExactStored3D": 1803.2658513011193,
+        "rawExactRawTrooper3D": 1803.2658513011193,
+        "rawHalfSecondStored3D": 1652.6329017094208,
+        "rawHalfSecondRawTrooper3D": 1652.6329017094208,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 40.71395309427101,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1581,
+        "deathKey": "2758|187607",
+        "clock": "48:21",
+        "baseType": "MEDIC",
+        "primaryDiagnosticCategory": "RAW_HALF_SECOND_3D_RESOLVED",
+        "diagnosticFlags": [
+          "RAW_TEMPORAL_ENVELOPE_3D_RESOLUTION"
+        ],
+        "script57Nearest3D": 2154.816324178336,
+        "rawExactStored3D": 2156.819439980938,
+        "rawExactRawTrooper3D": 2156.819439980938,
+        "rawHalfSecondStored3D": 2126.017592291836,
+        "rawHalfSecondRawTrooper3D": 1325.964017676149,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 51.02703021438735,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      }
+    ],
+    "planarOnly": [
+      {
+        "deathIndex": 1446,
+        "deathKey": "3418|179237",
+        "clock": "46:10",
+        "baseType": "MELEE",
+        "primaryDiagnosticCategory": "PLANAR_XY_ONLY_EXACT_TICK",
+        "diagnosticFlags": [
+          "PLANAR_XY_ONLY_AT_EXACT_TICK",
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 1844.252623914145,
+        "rawExactStored3D": 1845.950624477213,
+        "rawExactRawTrooper3D": 1845.950624477213,
+        "rawHalfSecondStored3D": 1820.7780587588957,
+        "rawHalfSecondRawTrooper3D": 1809.8786879883344,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 13.40625,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1529,
+        "deathKey": "2884|183084",
+        "clock": "47:10",
+        "baseType": "RANGED",
+        "primaryDiagnosticCategory": "PLANAR_XY_ONLY_EXACT_TICK",
+        "diagnosticFlags": [
+          "PLANAR_XY_ONLY_AT_EXACT_TICK",
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 1950.062109027541,
+        "rawExactStored3D": 1950.053557958409,
+        "rawExactRawTrooper3D": 1950.053557958409,
+        "rawHalfSecondStored3D": 1939.194843640412,
+        "rawHalfSecondRawTrooper3D": 1939.194843640412,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 48.74089458234738,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1530,
+        "deathKey": "2836|183124",
+        "clock": "47:11",
+        "baseType": "RANGED",
+        "primaryDiagnosticCategory": "PLANAR_XY_ONLY_EXACT_TICK",
+        "diagnosticFlags": [
+          "PLANAR_XY_ONLY_AT_EXACT_TICK",
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 2193.574103719941,
+        "rawExactStored3D": 2194.0707942978106,
+        "rawExactRawTrooper3D": 2194.0707942978106,
+        "rawHalfSecondStored3D": 2185.3992146834553,
+        "rawHalfSecondRawTrooper3D": 2149.510206973396,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 48.74260761259085,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      }
+    ],
+    "matchAmbiguous": [
+      {
+        "deathIndex": 775,
+        "deathKey": "2757|110120",
+        "clock": "28:10",
+        "baseType": "MEDIC",
+        "primaryDiagnosticCategory": "RAW_HALF_SECOND_3D_RESOLVED",
+        "diagnosticFlags": [
+          "RAW_TEMPORAL_ENVELOPE_3D_RESOLUTION",
+          "SCRIPT55_MATCH_AMBIGUITY",
+          "MULTIPLE_ELIGIBLE_DEATHS_SAME_TICK"
+        ],
+        "script57Nearest3D": 1793.7934147892856,
+        "rawExactStored3D": 1796.3870022127053,
+        "rawExactRawTrooper3D": 1796.3870022127053,
+        "rawHalfSecondStored3D": 1646.3924545070695,
+        "rawHalfSecondRawTrooper3D": 1796.3870022127053,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": true,
+          "flags": [
+            "MULTIPLE_ELIGIBLE_DEATHS_SAME_TICK"
+          ],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 4.03125,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 2,
+          "sameTickMatchedDeaths": 2
+        }
+      },
+      {
+        "deathIndex": 776,
+        "deathKey": "2835|110120",
+        "clock": "28:10",
+        "baseType": "RANGED",
+        "primaryDiagnosticCategory": "SCRIPT55_MATCHING_AMBIGUITY_CANDIDATE",
+        "diagnosticFlags": [
+          "SCRIPT55_MATCH_AMBIGUITY",
+          "MULTIPLE_ELIGIBLE_DEATHS_SAME_TICK",
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 1941.126944571479,
+        "rawExactStored3D": 1943.51472953159,
+        "rawExactRawTrooper3D": 1943.51472953159,
+        "rawHalfSecondStored3D": 1791.65036550845,
+        "rawHalfSecondRawTrooper3D": 1943.51472953159,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": true,
+          "flags": [
+            "MULTIPLE_ELIGIBLE_DEATHS_SAME_TICK"
+          ],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 4.03125,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 2,
+          "sameTickMatchedDeaths": 2
+        }
+      }
+    ],
+    "persistent": [
+      {
+        "deathIndex": 495,
+        "deathKey": "2759|77324",
+        "clock": "19:38",
+        "baseType": "MEDIC",
+        "primaryDiagnosticCategory": "PERSISTENT_RAW_3D_OUTLIER",
+        "diagnosticFlags": [
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 1802.7454774509147,
+        "rawExactStored3D": 1796.9219569951417,
+        "rawExactRawTrooper3D": 1796.9219569951417,
+        "rawHalfSecondStored3D": 1796.799134539755,
+        "rawHalfSecondRawTrooper3D": 1796.9219569951417,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 4.03125,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 718,
+        "deathKey": "2890|103165",
+        "clock": "26:21",
+        "baseType": "RANGED",
+        "primaryDiagnosticCategory": "PERSISTENT_RAW_3D_OUTLIER",
+        "diagnosticFlags": [
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 2990.738011827926,
+        "rawExactStored3D": 2992.1169410740786,
+        "rawExactRawTrooper3D": 2992.1169410740786,
+        "rawHalfSecondStored3D": 2800.94756723757,
+        "rawHalfSecondRawTrooper3D": 2800.94756723757,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 40.71951745247603,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 776,
+        "deathKey": "2835|110120",
+        "clock": "28:10",
+        "baseType": "RANGED",
+        "primaryDiagnosticCategory": "SCRIPT55_MATCHING_AMBIGUITY_CANDIDATE",
+        "diagnosticFlags": [
+          "SCRIPT55_MATCH_AMBIGUITY",
+          "MULTIPLE_ELIGIBLE_DEATHS_SAME_TICK",
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 1941.126944571479,
+        "rawExactStored3D": 1943.51472953159,
+        "rawExactRawTrooper3D": 1943.51472953159,
+        "rawHalfSecondStored3D": 1791.65036550845,
+        "rawHalfSecondRawTrooper3D": 1943.51472953159,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": true,
+          "flags": [
+            "MULTIPLE_ELIGIBLE_DEATHS_SAME_TICK"
+          ],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 4.03125,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 2,
+          "sameTickMatchedDeaths": 2
+        }
+      },
+      {
+        "deathIndex": 1347,
+        "deathKey": "3178|168914",
+        "clock": "43:29",
+        "baseType": "MEDIC",
+        "primaryDiagnosticCategory": "PERSISTENT_RAW_3D_OUTLIER",
+        "diagnosticFlags": [
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 2863.5965579235344,
+        "rawExactStored3D": 2864.177281183355,
+        "rawExactRawTrooper3D": 2864.177281183355,
+        "rawHalfSecondStored3D": 2839.0534367975865,
+        "rawHalfSecondRawTrooper3D": 2839.0534367975865,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 48.71317719891098,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1350,
+        "deathKey": "3337|169119",
+        "clock": "43:32",
+        "baseType": "MELEE",
+        "primaryDiagnosticCategory": "PERSISTENT_RAW_3D_OUTLIER",
+        "diagnosticFlags": [
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 2943.179193374529,
+        "rawExactStored3D": 2943.094764855844,
+        "rawExactRawTrooper3D": 2943.094764855844,
+        "rawHalfSecondStored3D": 2683.786158131479,
+        "rawHalfSecondRawTrooper3D": 2683.786158131479,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 48.72624621610513,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1446,
+        "deathKey": "3418|179237",
+        "clock": "46:10",
+        "baseType": "MELEE",
+        "primaryDiagnosticCategory": "PLANAR_XY_ONLY_EXACT_TICK",
+        "diagnosticFlags": [
+          "PLANAR_XY_ONLY_AT_EXACT_TICK",
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 1844.252623914145,
+        "rawExactStored3D": 1845.950624477213,
+        "rawExactRawTrooper3D": 1845.950624477213,
+        "rawHalfSecondStored3D": 1820.7780587588957,
+        "rawHalfSecondRawTrooper3D": 1809.8786879883344,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 13.40625,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1529,
+        "deathKey": "2884|183084",
+        "clock": "47:10",
+        "baseType": "RANGED",
+        "primaryDiagnosticCategory": "PLANAR_XY_ONLY_EXACT_TICK",
+        "diagnosticFlags": [
+          "PLANAR_XY_ONLY_AT_EXACT_TICK",
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 1950.062109027541,
+        "rawExactStored3D": 1950.053557958409,
+        "rawExactRawTrooper3D": 1950.053557958409,
+        "rawHalfSecondStored3D": 1939.194843640412,
+        "rawHalfSecondRawTrooper3D": 1939.194843640412,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 48.74089458234738,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1530,
+        "deathKey": "2836|183124",
+        "clock": "47:11",
+        "baseType": "RANGED",
+        "primaryDiagnosticCategory": "PLANAR_XY_ONLY_EXACT_TICK",
+        "diagnosticFlags": [
+          "PLANAR_XY_ONLY_AT_EXACT_TICK",
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 2193.574103719941,
+        "rawExactStored3D": 2194.0707942978106,
+        "rawExactRawTrooper3D": 2194.0707942978106,
+        "rawHalfSecondStored3D": 2185.3992146834553,
+        "rawHalfSecondRawTrooper3D": 2149.510206973396,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 48.74260761259085,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1539,
+        "deathKey": "3047|184228",
+        "clock": "47:28",
+        "baseType": "MELEE",
+        "primaryDiagnosticCategory": "PERSISTENT_RAW_3D_OUTLIER",
+        "diagnosticFlags": [
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 2447.4547994521427,
+        "rawExactStored3D": 2447.552687523422,
+        "rawExactRawTrooper3D": 2447.552687523422,
+        "rawHalfSecondStored3D": 2247.000043895332,
+        "rawHalfSecondRawTrooper3D": 2186.4427670608743,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 48.74650428171747,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1541,
+        "deathKey": "2836|184263",
+        "clock": "47:29",
+        "baseType": "RANGED",
+        "primaryDiagnosticCategory": "PERSISTENT_RAW_3D_OUTLIER",
+        "diagnosticFlags": [
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 2431.8324874907134,
+        "rawExactStored3D": 2433.912059239071,
+        "rawExactRawTrooper3D": 2433.912059239071,
+        "rawHalfSecondStored3D": 2264.08308694919,
+        "rawHalfSecondRawTrooper3D": 2200.4903366476497,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 48.71337767043566,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      },
+      {
+        "deathIndex": 1542,
+        "deathKey": "2884|184269",
+        "clock": "47:29",
+        "baseType": "RANGED",
+        "primaryDiagnosticCategory": "PERSISTENT_RAW_3D_OUTLIER",
+        "diagnosticFlags": [
+          "PERSISTENT_RAW_3D_OUTLIER"
+        ],
+        "script57Nearest3D": 2530.0003525488687,
+        "rawExactStored3D": 2531.3623458864745,
+        "rawExactRawTrooper3D": 2531.3623458864745,
+        "rawHalfSecondStored3D": 2353.7211935637683,
+        "rawHalfSecondRawTrooper3D": 2294.395989161009,
+        "matchDiagnostic": {
+          "available": true,
+          "ambiguous": false,
+          "flags": [],
+          "deathCandidateCount": 1,
+          "activationCandidateCount": 1,
+          "tickDelta": 0,
+          "matchDistance3D": 48.725554768519565,
+          "confidence": "VERY_HIGH",
+          "sameTickEligibleDeaths": 1,
+          "sameTickMatchedDeaths": 1
+        }
+      }
+    ]
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script55Pass": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script57OutlierCountPreserved": {
+        "actual": 15,
+        "expected": 15,
+        "pass": true
+      },
+      "expectedOutlierCountForTestReplay": {
+        "actual": 15,
+        "expected": 15,
+        "pass": true
+      },
+      "deathStreamRowsAvailable": {
+        "actual": 1727,
+        "expected": ">0",
+        "pass": true
+      },
+      "allOutliersJoinedToDeathStream": {
+        "actual": 15,
+        "expected": 15,
+        "pass": true
+      },
+      "rawReplayRelevantPacketsObserved": {
+        "actual": 1502,
+        "expected": ">0",
+        "pass": true
+      },
+      "exactTickPlayerStateObservedForMostOutliers": {
+        "actual": 15,
+        "expected": ">=80% of outliers",
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_45m_outlier_diagnostic_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_45m_outlier_cases_v01.jsonl"
+  }
+}

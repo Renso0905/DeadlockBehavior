@@ -1,0 +1,331 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_LIFECYCLE_DISCOVERY_V02",
+  "canonical": false,
+  "artifactRole": "CURRENT_DIAGNOSTIC",
+  "status": "ASSIGNED_GOLD_LIFECYCLE_DISCOVERY_READY",
+  "supersedes": "ASSIGNED_GOLD_LIFECYCLE_DISCOVERY_V01",
+  "purpose": [
+    "Separate AssignedGold production from immediate vacuuming, delayed vacuuming, persistence, and termination.",
+    "Use exact m_iLastHits player identity only in clean isolated single-unit Script 73 groups.",
+    "Measure credited-player distance at Trooper death rather than nearest-opponent distance.",
+    "Sample raw CCitadel_Pickup_AssignedGold state on DEMO_PACKET ticks rather than depending on entity-mutation class-name filtering.",
+    "Discover lifecycle signatures before formal 45m vacuum-radius validation."
+  ],
+  "correctionFromV01": {
+    "cleanCreditDenominator": "V01 incorrectly expected all 1003 isolated matched groups to satisfy the stricter single-event +1 player-credit definition. The clean player-identity cohort is derived independently from Script 73 groups and is 991 in test.dem.",
+    "rawSampling": "V01 returned zero raw AssignedGold events because its class-name helper could return an entity instance name before calling getClassName(). V02 avoids that failure by sampling demo.getEntitiesByClassName(\"CCitadel_Pickup_AssignedGold\") directly.",
+    "validationPath": "V01 checked entityIndex and activationTick at the episode top level even though analyzed episodes store them under assignedGold. V02 validates the correct nested paths.",
+    "positionReconstruction": "V02 follows Script 55 world-position behavior and allows missing Z telemetry to fall back to z=0 instead of discarding the position entirely."
+  },
+  "semanticLimits": {
+    "production": "Script 55 death-to-AssignedGold matching is operational evidence of an AssignedGold episode associated with a Trooper death.",
+    "lastHitPlayer": "Clean isolated exact m_iLastHits credit is a strongly associated player-credit signal, not direct victim-target telemetry.",
+    "movement": "Observed AssignedGold displacement is not automatically equivalent to successful acquisition.",
+    "vacuumTarget": "m_hVacuumTarget remains magnetic-target telemetry only.",
+    "inactive": "BECAME_INACTIVE / m_bActive=false is a lifecycle termination signal; collection versus expiration is not yet distinguished.",
+    "floorState": "PERSISTENT_FLOOR_STATE_CANDIDATE remains an operational discovery label."
+  },
+  "candidateRange": {
+    "meters": 45,
+    "internalUnits": 1771.6499999999999,
+    "currentInterpretation": "Candidate vacuum/proximity radius, not a soul-production radius."
+  },
+  "discoveryThresholds": {
+    "movementThresholdsHU": [
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "immediateSignalSeconds": 0.25,
+    "fallbackMaximumEpisodeSeconds": 60
+  },
+  "sourceCounts": {
+    "script55MatchedDeaths": 1388,
+    "script55ActivationRows": 2176,
+    "script73Groups": 1472,
+    "script73IsolatedMatchedGroups": 1003,
+    "cleanSingleUnitCreditedEpisodes": 991,
+    "cleanInside45m": 974,
+    "cleanOutside45m": 16,
+    "cleanDistanceUnresolved": 1,
+    "demoPackets": 204690,
+    "assignedGoldSnapshotsObserved": 274740,
+    "capturedSnapshotRows": 274740,
+    "episodesWithRawSnapshots": 1388,
+    "episodesWithRawPosition": 1388
+  },
+  "candidateLifecycleSignatures": {
+    "allMatchedEpisodes": {
+      "DELAYED_VACUUM_SIGNAL_CANDIDATE": 728,
+      "IMMEDIATE_VACUUM_SIGNAL_CANDIDATE": 659,
+      "PERSISTENT_FLOOR_STATE_CANDIDATE": 1
+    },
+    "cleanCreditedEpisodes": {
+      "DELAYED_VACUUM_SIGNAL_CANDIDATE": 501,
+      "IMMEDIATE_VACUUM_SIGNAL_CANDIDATE": 489,
+      "PERSISTENT_FLOOR_STATE_CANDIDATE": 1
+    },
+    "cleanCreditedInside45m": {
+      "IMMEDIATE_VACUUM_SIGNAL_CANDIDATE": 488,
+      "DELAYED_VACUUM_SIGNAL_CANDIDATE": 485,
+      "PERSISTENT_FLOOR_STATE_CANDIDATE": 1
+    },
+    "cleanCreditedOutside45m": {
+      "DELAYED_VACUUM_SIGNAL_CANDIDATE": 15,
+      "IMMEDIATE_VACUUM_SIGNAL_CANDIDATE": 1
+    }
+  },
+  "immediateSignalComparison": {
+    "inside45m": {
+      "total": 974,
+      "immediateSignal": 488,
+      "immediateSignalRate": 0.5010266940451745,
+      "delayedSignal": 485,
+      "persistentFloorCandidate": 1
+    },
+    "outside45m": {
+      "total": 16,
+      "immediateSignal": 1,
+      "immediateSignalRate": 0.0625,
+      "delayedSignal": 15,
+      "persistentFloorCandidate": 0
+    },
+    "immediateRateDifferenceInsideMinusOutside": 0.4385266940451745
+  },
+  "timingDistributions": {
+    "first32HUMovementSeconds": {
+      "inside45m": {
+        "count": 952,
+        "min": 0.28125,
+        "p10": 0.296875,
+        "p25": 0.34375,
+        "median": 0.375,
+        "p75": 0.4375,
+        "p90": 0.5,
+        "max": 0.5625,
+        "mean": 0.38747373949579833
+      },
+      "outside45m": {
+        "count": 16,
+        "min": 0.28125,
+        "p10": 0.3046875,
+        "p25": 0.33984375,
+        "median": 0.34375,
+        "p75": 0.359375,
+        "p90": 0.3671875,
+        "max": 0.4375,
+        "mean": 0.345703125
+      }
+    },
+    "firstValidVacuumTargetSeconds": {
+      "inside45m": {
+        "count": 936,
+        "min": 0.015625,
+        "p10": 0.015625,
+        "p25": 0.015625,
+        "median": 0.0703125,
+        "p75": 0.578125,
+        "p90": 1.6328125,
+        "max": 29.140625,
+        "mean": 1.0171274038461537
+      },
+      "outside45m": {
+        "count": 10,
+        "min": 0.015625,
+        "p10": 0.775,
+        "p25": 4.11328125,
+        "median": 9.78125,
+        "p75": 21.35546875,
+        "p90": 39.5125,
+        "max": 39.765625,
+        "mean": 15.140625
+      }
+    },
+    "firstActiveFalseSeconds": {
+      "inside45m": {
+        "count": 973,
+        "min": 0.359375,
+        "p10": 0.5,
+        "p25": 0.59375,
+        "median": 0.9375,
+        "p75": 1.3125,
+        "p90": 3.5750000000000117,
+        "max": 40,
+        "mean": 2.9492869989722506
+      },
+      "outside45m": {
+        "count": 16,
+        "min": 1.59375,
+        "p10": 2.8125,
+        "p25": 9.83203125,
+        "median": 31.5078125,
+        "p75": 40,
+        "p90": 40,
+        "max": 40,
+        "mean": 24.97265625
+      }
+    },
+    "script55EpisodeDurationSeconds": {
+      "inside45m": {
+        "count": 974,
+        "min": 0.359375,
+        "p10": 0.5,
+        "p25": 0.59375,
+        "median": 0.9375,
+        "p75": 1.3125,
+        "p90": 3.642187500000002,
+        "max": 40,
+        "mean": 2.9608893737166326
+      },
+      "outside45m": {
+        "count": 16,
+        "min": 1.59375,
+        "p10": 2.8125,
+        "p25": 9.83203125,
+        "median": 31.5078125,
+        "p75": 40,
+        "p90": 40,
+        "max": 40,
+        "mean": 24.97265625
+      }
+    }
+  },
+  "creditedPlayerDistanceDistributions": {
+    "allCleanCredited": {
+      "count": 990,
+      "min": 13.536930292739498,
+      "p10": 84.26861469158825,
+      "p25": 166.9310492665568,
+      "median": 413.69602257717725,
+      "p75": 804.4106413159724,
+      "p90": 1212.4242471935752,
+      "max": 3793.265079479129,
+      "mean": 550.2426393271743
+    },
+    "immediateSignalCandidate": {
+      "count": 489,
+      "min": 13.536930292739498,
+      "p10": 75.05479211274451,
+      "p25": 123.29571386469023,
+      "median": 272.55489503379823,
+      "p75": 529.6903445835308,
+      "p90": 718.8252093391557,
+      "max": 2658.4425132502406,
+      "mean": 360.0859534441485
+    },
+    "delayedOrPersistentCandidate": {
+      "count": 501,
+      "min": 28.734031422123458,
+      "p10": 99.73171374371005,
+      "p25": 244.82487636092873,
+      "median": 664.2737716222986,
+      "p75": 1063.3677489456227,
+      "p90": 1468.551815605983,
+      "max": 3793.265079479129,
+      "mean": 735.8446740513247
+    }
+  },
+  "script55EndReasons": {
+    "allMatchedEpisodes": {
+      "BECAME_INACTIVE": 1387,
+      "REPLAY_END_OR_LAST_OBSERVATION": 1
+    },
+    "cleanInside45m": {
+      "BECAME_INACTIVE": 973,
+      "REPLAY_END_OR_LAST_OBSERVATION": 1
+    },
+    "cleanOutside45m": {
+      "BECAME_INACTIVE": 16
+    }
+  },
+  "interpretationGuide": {
+    "strongestAlreadyObservedSignal": "If the V01 duration separation reproduces, short inside-range lifetimes versus long outside-range lifetimes strongly support different post-production lifecycle states even before movement semantics are fully validated.",
+    "expectedVacuumSignature": "Inside-range credited players should show earlier movement, target assignment, or inactivity than outside-range credited players.",
+    "expirationCandidate": "Long approximately stationary episodes terminating around a common upper lifetime become candidates for uncollected expiration, but require separate validation.",
+    "nextStep": "If V02 passes and distance strongly separates lifecycle timing, Script 76 should formally classify immediate-vacuum versus floor-drop episodes and estimate the vacuum threshold."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script55Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script73Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "matchedEpisodeCount": {
+        "actual": 1388,
+        "expected": 1388,
+        "pass": true
+      },
+      "expectedTestMatchedEpisodeCount": {
+        "actual": 1388,
+        "expected": 1388,
+        "pass": true
+      },
+      "script73IsolatedMatchedCount": {
+        "actual": 1003,
+        "expected": 1003,
+        "pass": true
+      },
+      "cleanSingleUnitCreditCount": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "expectedTestCleanSingleUnitCreditCount": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "allEpisodesHaveEntityAndActivationTick": {
+        "actual": 1388,
+        "expected": 1388,
+        "pass": true
+      },
+      "demoPacketsObserved": {
+        "actual": 204690,
+        "expected": ">0",
+        "pass": true
+      },
+      "assignedGoldSnapshotsObserved": {
+        "actual": 274740,
+        "expected": ">0",
+        "pass": true
+      },
+      "rawEpisodeCoverage": {
+        "actual": 1388,
+        "expected": ">=95% of 1388",
+        "pass": true
+      },
+      "rawPositionCoverage": {
+        "actual": 1388,
+        "expected": ">=90% of 1388",
+        "pass": true
+      },
+      "cleanCreditPositionCoverage": {
+        "actual": 991,
+        "expected": ">=90% of 991",
+        "pass": true
+      },
+      "cleanDistancePartitionExhaustive": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_lifecycle_discovery_v02.json",
+    "episodes": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_lifecycle_episodes_v02.jsonl",
+    "snapshots": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_lifecycle_snapshots_v02.jsonl"
+  }
+}

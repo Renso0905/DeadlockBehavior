@@ -1,0 +1,447 @@
+{
+  "replay": "test",
+  "version": "TROOPER_GROUND_SOUL_PREDEATH_RANGE_VALIDATION_V01",
+  "canonical": false,
+  "status": "PREDEATH_RANGE_WINDOW_DIAGNOSTIC_READY",
+  "purpose": [
+    "Test the pre-death proximity-cache hypothesis globally across all economic Trooper deaths.",
+    "Determine whether trailing 45m proximity windows rescue matched ground-soul deaths without creating large numbers of unmatched false positives.",
+    "Require the exact-time reconstruction to reproduce Script 57 before trusting the exploratory windows.",
+    "Do not infer that the empirically best window is an engine constant."
+  ],
+  "documentedTarget": {
+    "meters": 45,
+    "internalUnits": 1771.6499999999999
+  },
+  "inputs": {
+    "deathStream": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_one_to_one_v01.jsonl",
+    "playerState": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl",
+    "script57": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_range_validation_v01.json"
+  },
+  "sourceCounts": {
+    "deaths": 1727,
+    "matched": 1388,
+    "unmatched": 339,
+    "playerStateRows": 153420,
+    "playerTimelines": 12
+  },
+  "reconstruction": {
+    "maxInterpolationGapSeconds": 0.3,
+    "maxNearestFallbackDeltaSeconds": 0.15,
+    "lookbackWindowsSeconds": [
+      0,
+      0.25,
+      0.5,
+      1,
+      1.5,
+      2,
+      3,
+      4,
+      5
+    ],
+    "note": "Trailing windows use observed 4 Hz positions plus reconstructed start/end boundary states."
+  },
+  "threeDimensional": {
+    "evaluations": [
+      {
+        "seconds": 0,
+        "tp": 1373,
+        "fp": 0,
+        "tn": 336,
+        "fn": 15,
+        "unresolved": 3,
+        "sensitivity": 0.989193083573487,
+        "specificity": 1,
+        "precision": 1,
+        "accuracy": 0.9912993039443155,
+        "mcc": 0.9730980808087977,
+        "deltaFromExact": {
+          "matchedRescued": 0,
+          "newFalsePositives": 0,
+          "falseNegativesRemoved": 0
+        }
+      },
+      {
+        "seconds": 0.25,
+        "tp": 1375,
+        "fp": 3,
+        "tn": 333,
+        "fn": 13,
+        "unresolved": 3,
+        "sensitivity": 0.9906340057636888,
+        "specificity": 0.9910714285714286,
+        "precision": 0.997822931785196,
+        "accuracy": 0.9907192575406032,
+        "mcc": 0.9709187959745037,
+        "deltaFromExact": {
+          "matchedRescued": 2,
+          "newFalsePositives": 3,
+          "falseNegativesRemoved": 2
+        }
+      },
+      {
+        "seconds": 0.5,
+        "tp": 1375,
+        "fp": 8,
+        "tn": 328,
+        "fn": 13,
+        "unresolved": 3,
+        "sensitivity": 0.9906340057636888,
+        "specificity": 0.9761904761904762,
+        "precision": 0.9942154736080984,
+        "accuracy": 0.9878190255220418,
+        "mcc": 0.9614434194930394,
+        "deltaFromExact": {
+          "matchedRescued": 2,
+          "newFalsePositives": 8,
+          "falseNegativesRemoved": 2
+        }
+      },
+      {
+        "seconds": 1,
+        "tp": 1376,
+        "fp": 15,
+        "tn": 321,
+        "fn": 12,
+        "unresolved": 3,
+        "sensitivity": 0.9913544668587896,
+        "specificity": 0.9553571428571429,
+        "precision": 0.9892163910855499,
+        "accuracy": 0.984338747099768,
+        "mcc": 0.9499404761765494,
+        "deltaFromExact": {
+          "matchedRescued": 3,
+          "newFalsePositives": 15,
+          "falseNegativesRemoved": 3
+        }
+      },
+      {
+        "seconds": 1.5,
+        "tp": 1376,
+        "fp": 17,
+        "tn": 319,
+        "fn": 12,
+        "unresolved": 3,
+        "sensitivity": 0.9913544668587896,
+        "specificity": 0.9494047619047619,
+        "precision": 0.9877961234745154,
+        "accuracy": 0.9831786542923434,
+        "mcc": 0.9461354261080767,
+        "deltaFromExact": {
+          "matchedRescued": 3,
+          "newFalsePositives": 17,
+          "falseNegativesRemoved": 3
+        }
+      },
+      {
+        "seconds": 2,
+        "tp": 1380,
+        "fp": 20,
+        "tn": 316,
+        "fn": 8,
+        "unresolved": 3,
+        "sensitivity": 0.9942363112391931,
+        "specificity": 0.9404761904761905,
+        "precision": 0.9857142857142858,
+        "accuracy": 0.9837587006960556,
+        "mcc": 0.9477764213919773,
+        "deltaFromExact": {
+          "matchedRescued": 7,
+          "newFalsePositives": 20,
+          "falseNegativesRemoved": 7
+        }
+      },
+      {
+        "seconds": 3,
+        "tp": 1381,
+        "fp": 22,
+        "tn": 314,
+        "fn": 7,
+        "unresolved": 3,
+        "sensitivity": 0.9949567723342939,
+        "specificity": 0.9345238095238095,
+        "precision": 0.9843193157519601,
+        "accuracy": 0.9831786542923434,
+        "mcc": 0.9458523369865377,
+        "deltaFromExact": {
+          "matchedRescued": 8,
+          "newFalsePositives": 22,
+          "falseNegativesRemoved": 8
+        }
+      },
+      {
+        "seconds": 4,
+        "tp": 1382,
+        "fp": 28,
+        "tn": 308,
+        "fn": 6,
+        "unresolved": 3,
+        "sensitivity": 0.9956772334293948,
+        "specificity": 0.9166666666666666,
+        "precision": 0.9801418439716312,
+        "accuracy": 0.9802784222737819,
+        "mcc": 0.9363723135829314,
+        "deltaFromExact": {
+          "matchedRescued": 9,
+          "newFalsePositives": 28,
+          "falseNegativesRemoved": 9
+        }
+      },
+      {
+        "seconds": 5,
+        "tp": 1383,
+        "fp": 30,
+        "tn": 306,
+        "fn": 5,
+        "unresolved": 3,
+        "sensitivity": 0.9963976945244957,
+        "specificity": 0.9107142857142857,
+        "precision": 0.9787685774946921,
+        "accuracy": 0.9796983758700696,
+        "mcc": 0.9344885813278786,
+        "deltaFromExact": {
+          "matchedRescued": 10,
+          "newFalsePositives": 30,
+          "falseNegativesRemoved": 10
+        }
+      }
+    ],
+    "exploratorySelections": {
+      "bestZeroFalsePositive": {
+        "seconds": 0,
+        "tp": 1373,
+        "fp": 0,
+        "tn": 336,
+        "fn": 15,
+        "unresolved": 3,
+        "sensitivity": 0.989193083573487,
+        "specificity": 1,
+        "precision": 1,
+        "accuracy": 0.9912993039443155,
+        "mcc": 0.9730980808087977,
+        "deltaFromExact": {
+          "matchedRescued": 0,
+          "newFalsePositives": 0,
+          "falseNegativesRemoved": 0
+        }
+      },
+      "bestAtLeast99Specific": {
+        "seconds": 0.25,
+        "tp": 1375,
+        "fp": 3,
+        "tn": 333,
+        "fn": 13,
+        "unresolved": 3,
+        "sensitivity": 0.9906340057636888,
+        "specificity": 0.9910714285714286,
+        "precision": 0.997822931785196,
+        "accuracy": 0.9907192575406032,
+        "mcc": 0.9709187959745037,
+        "deltaFromExact": {
+          "matchedRescued": 2,
+          "newFalsePositives": 3,
+          "falseNegativesRemoved": 2
+        }
+      },
+      "bestMcc": {
+        "seconds": 0,
+        "tp": 1373,
+        "fp": 0,
+        "tn": 336,
+        "fn": 15,
+        "unresolved": 3,
+        "sensitivity": 0.989193083573487,
+        "specificity": 1,
+        "precision": 1,
+        "accuracy": 0.9912993039443155,
+        "mcc": 0.9730980808087977,
+        "deltaFromExact": {
+          "matchedRescued": 0,
+          "newFalsePositives": 0,
+          "falseNegativesRemoved": 0
+        }
+      }
+    }
+  },
+  "planarXY": {
+    "evaluations": [
+      {
+        "seconds": 0,
+        "tp": 1376,
+        "fp": 2,
+        "tn": 334,
+        "fn": 12,
+        "unresolved": 3,
+        "sensitivity": 0.9913544668587896,
+        "specificity": 0.9940476190476191,
+        "precision": 0.9985486211901307,
+        "accuracy": 0.9918793503480279,
+        "mcc": 0.9745748300221977
+      },
+      {
+        "seconds": 0.25,
+        "tp": 1378,
+        "fp": 6,
+        "tn": 330,
+        "fn": 10,
+        "unresolved": 3,
+        "sensitivity": 0.9927953890489913,
+        "specificity": 0.9821428571428571,
+        "precision": 0.9956647398843931,
+        "accuracy": 0.9907192575406032,
+        "mcc": 0.9705858957342174
+      },
+      {
+        "seconds": 0.5,
+        "tp": 1378,
+        "fp": 9,
+        "tn": 327,
+        "fn": 10,
+        "unresolved": 3,
+        "sensitivity": 0.9927953890489913,
+        "specificity": 0.9732142857142857,
+        "precision": 0.9935111751982696,
+        "accuracy": 0.9889791183294664,
+        "mcc": 0.964923018543292
+      },
+      {
+        "seconds": 1,
+        "tp": 1379,
+        "fp": 15,
+        "tn": 321,
+        "fn": 9,
+        "unresolved": 3,
+        "sensitivity": 0.9935158501440923,
+        "specificity": 0.9553571428571429,
+        "precision": 0.9892395982783357,
+        "accuracy": 0.9860788863109049,
+        "mcc": 0.9553975005510139
+      },
+      {
+        "seconds": 1.5,
+        "tp": 1380,
+        "fp": 18,
+        "tn": 318,
+        "fn": 8,
+        "unresolved": 3,
+        "sensitivity": 0.9942363112391931,
+        "specificity": 0.9464285714285714,
+        "precision": 0.9871244635193133,
+        "accuracy": 0.9849187935034803,
+        "mcc": 0.9515616201030871
+      },
+      {
+        "seconds": 2,
+        "tp": 1384,
+        "fp": 20,
+        "tn": 316,
+        "fn": 4,
+        "unresolved": 3,
+        "sensitivity": 0.9971181556195965,
+        "specificity": 0.9404761904761905,
+        "precision": 0.9857549857549858,
+        "accuracy": 0.9860788863109049,
+        "mcc": 0.9552582749986573
+      },
+      {
+        "seconds": 3,
+        "tp": 1385,
+        "fp": 24,
+        "tn": 312,
+        "fn": 3,
+        "unresolved": 3,
+        "sensitivity": 0.9978386167146974,
+        "specificity": 0.9285714285714286,
+        "precision": 0.9829666430092264,
+        "accuracy": 0.984338747099768,
+        "mcc": 0.9496353086594242
+      },
+      {
+        "seconds": 4,
+        "tp": 1386,
+        "fp": 28,
+        "tn": 308,
+        "fn": 2,
+        "unresolved": 3,
+        "sensitivity": 0.9985590778097982,
+        "specificity": 0.9166666666666666,
+        "precision": 0.9801980198019802,
+        "accuracy": 0.9825986078886311,
+        "mcc": 0.9440327219885946
+      },
+      {
+        "seconds": 5,
+        "tp": 1387,
+        "fp": 30,
+        "tn": 306,
+        "fn": 1,
+        "unresolved": 3,
+        "sensitivity": 0.9992795389048992,
+        "specificity": 0.9107142857142857,
+        "precision": 0.9788285109386027,
+        "accuracy": 0.9820185614849188,
+        "mcc": 0.9422121581944589
+      }
+    ]
+  },
+  "interpretation": {
+    "mainQuestion": "Does permitting pre-death proximity materially reduce matched false negatives while preserving the strong unmatched separation observed by Script 57?",
+    "timingCacheEvidence": "A short lookback that rescues several matched deaths with zero or very few new false positives supports a cached/earlier eligibility-check hypothesis.",
+    "falsification": "If modest lookbacks rapidly create unmatched false positives, a simple pre-death any-time-within-45m rule is not supported.",
+    "scope": "All window selection is exploratory within test.dem and requires replication on other replays."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "deathCount": {
+        "actual": 1727,
+        "expected": 1727,
+        "pass": true
+      },
+      "timelineCount": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      },
+      "exact3Dtp": {
+        "actual": 1373,
+        "expected": 1373,
+        "pass": true
+      },
+      "exact3Dfp": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "exact3Dtn": {
+        "actual": 336,
+        "expected": 336,
+        "pass": true
+      },
+      "exact3Dfn": {
+        "actual": 15,
+        "expected": 15,
+        "pass": true
+      },
+      "exact3Dunresolved": {
+        "actual": 3,
+        "expected": 3,
+        "pass": true
+      },
+      "exactXYtp": {
+        "actual": 1376,
+        "expected": 1376,
+        "pass": true
+      },
+      "exactXYfp": {
+        "actual": 2,
+        "expected": 2,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_predeath_range_validation_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_predeath_range_cases_v01.jsonl"
+  }
+}

@@ -1,0 +1,276 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_VACUUM_LIFECYCLE_VALIDATION_V01",
+  "canonical": false,
+  "status": "DIAGNOSTIC_PIPELINE_FAILURE",
+  "purpose": [
+    "Test null-to-player m_hVacuumTarget transitions as the candidate onset of AssignedGold vacuum behavior.",
+    "Test whether the target player is approximately within 45m of the AssignedGold object when that transition occurs.",
+    "Test whether delayed target transitions cross from outside to inside the candidate 45m threshold.",
+    "Measure the interval from vacuum-target acquisition to m_bActive=false.",
+    "Test whether targetless AssignedGold episodes terminate near 40 seconds as an expiration signature.",
+    "Determine whether the eventual vacuum target is the credited last-hitter or another player."
+  ],
+  "semanticLimits": {
+    "vacuumOnset": "A null-to-valid-player m_hVacuumTarget transition is treated as candidate vacuum onset, not yet an engine-documented guarantee.",
+    "acquisition": "m_bActive=false shortly after target acquisition is a termination signature and is not by itself proof of successful economic collection.",
+    "expiration": "A targetless episode terminating near 40 seconds is classified as an expiration candidate, not yet canonical expiration telemetry.",
+    "creditedPlayer": "Credited-player identity remains based on the clean isolated exact m_iLastHits association rather than direct lethal-target telemetry."
+  },
+  "candidateVacuumRange": {
+    "meters": 45,
+    "internalUnits": 1771.6499999999999
+  },
+  "sourceCounts": {
+    "allEpisodes": 1388,
+    "cleanCreditedEpisodes": 991,
+    "cleanInside45m": 974,
+    "cleanOutside45m": 16,
+    "cleanDistanceUnresolved": 1,
+    "cleanNullToPlayerTransitions": 947,
+    "cleanPlayerTargetValidAtFirstSnapshot": 0,
+    "cleanNoPlayerTarget": 44,
+    "cleanUnresolvedTarget": 0
+  },
+  "targetTiming": {
+    "allCleanTransitions": {
+      "count": 947,
+      "min": 0.015625,
+      "p10": 0.015625,
+      "p25": 0.015625,
+      "median": 0.09375,
+      "p75": 0.578125,
+      "p90": 1.7406249999999996,
+      "max": 39.765625,
+      "mean": 1.1672716473072862
+    },
+    "creditedInside45m": {
+      "count": 936,
+      "min": 0.015625,
+      "p10": 0.015625,
+      "p25": 0.015625,
+      "median": 0.0703125,
+      "p75": 0.578125,
+      "p90": 1.6328125,
+      "max": 29.140625,
+      "mean": 1.0171274038461537
+    },
+    "creditedOutside45m": {
+      "count": 10,
+      "min": 0.015625,
+      "p10": 0.775,
+      "p25": 4.11328125,
+      "median": 9.78125,
+      "p75": 21.35546875,
+      "p90": 39.5125,
+      "max": 39.765625,
+      "mean": 15.140625
+    },
+    "immediateTransitions": 489,
+    "delayedTransitions": 458
+  },
+  "targetPlayerGeometryAtOnset": {
+    "resolved": 947,
+    "inside45m3D": 946,
+    "outside45m3D": 1,
+    "inside45m3DRate": 0.9989440337909187,
+    "inside45mXY": 946,
+    "inside45mXYRate": 0.9989440337909187,
+    "distance3D": {
+      "count": 947,
+      "min": 23.44173594533603,
+      "p10": 88.88882739839823,
+      "p25": 172.1508947822117,
+      "median": 379.4502126329454,
+      "p75": 637.5890839744379,
+      "p90": 727.5044593844591,
+      "max": 2887.9317008631106,
+      "mean": 402.02501445935764
+    },
+    "distanceXY": {
+      "count": 947,
+      "min": 14.085162403279481,
+      "p10": 78.91496058524697,
+      "p25": 164.47475331988446,
+      "median": 361.0507285543544,
+      "p75": 607.0533048480149,
+      "p90": 724.0623429413341,
+      "max": 2882.6638793837733,
+      "mean": 386.2642382339753
+    }
+  },
+  "delayedThresholdCrossingTest": {
+    "comparableTransitions": 458,
+    "priorOutside45m": 0,
+    "priorOutside45mRate": 0,
+    "onsetInside45m": 458,
+    "onsetInside45mRate": 1,
+    "crossedOutsideToInside45m": 0,
+    "crossingRate": 0,
+    "priorDistance3D": {
+      "count": 458,
+      "min": 24.690316264157516,
+      "p10": 112.71642599585701,
+      "p25": 228.82143681212753,
+      "median": 542.430364265472,
+      "p75": 730.3940593409286,
+      "p90": 735.2950786382257,
+      "max": 780.833045346571,
+      "mean": 477.0357468414313
+    },
+    "onsetDistance3D": {
+      "count": 458,
+      "min": 23.44173594533603,
+      "p10": 112.6846445631262,
+      "p25": 227.39965991549934,
+      "median": 542.4009069146455,
+      "p75": 724.9169134863843,
+      "p90": 730.8712482517417,
+      "max": 782.450492655333,
+      "mean": 475.0916477438292
+    }
+  },
+  "targetToInactiveTiming": {
+    "allCleanTransitions": {
+      "count": 947,
+      "min": 0.234375,
+      "p10": 0.46250000000000013,
+      "p25": 0.53125,
+      "median": 0.640625,
+      "p75": 0.734375,
+      "p90": 0.828125,
+      "max": 7.453125,
+      "mean": 0.6441723864836325
+    },
+    "immediateTransitions": {
+      "count": 489,
+      "min": 0.34375,
+      "p10": 0.4375,
+      "p25": 0.484375,
+      "median": 0.578125,
+      "p75": 0.6875,
+      "p90": 0.78125,
+      "max": 7.453125,
+      "mean": 0.6153502044989775
+    },
+    "delayedTransitions": {
+      "count": 458,
+      "min": 0.234375,
+      "p10": 0.484375,
+      "p25": 0.578125,
+      "median": 0.671875,
+      "p75": 0.75,
+      "p90": 0.84375,
+      "max": 1.109375,
+      "mean": 0.6749454148471615
+    }
+  },
+  "targetIdentity": {
+    "comparable": 947,
+    "sameAsCreditedLastHitPlayer": 715,
+    "sameAsCreditedRate": 0.7550158394931362,
+    "differentPlayerSameTeam": 232,
+    "differentPlayerSameTeamRate": 0.24498416050686378,
+    "differentTeam": 0,
+    "differentTeamRate": 0
+  },
+  "targetlessTermination": {
+    "noPlayerTargetEpisodes": 44,
+    "noTargetWithActiveFalse": 43,
+    "expiration40SecondCandidates": 33,
+    "expirationCandidateRateAmongNoTargetInactive": 0.7674418604651163,
+    "noTargetNon40SecondTermination": 10,
+    "durationDistribution": {
+      "count": 44,
+      "min": 14.25,
+      "p10": 18,
+      "p25": 39.78515625,
+      "median": 40,
+      "p75": 40,
+      "p90": 40,
+      "max": 40,
+      "mean": 35.70099431818182
+    },
+    "expirationCandidatesInside45mAtDeath": 27,
+    "expirationCandidatesOutside45mAtDeath": 6
+  },
+  "creditedDistanceOutcomeComparison": {
+    "inside45m": {
+      "total": 974,
+      "nullToPlayerTargetTransition": 936,
+      "noPlayerTarget": 38
+    },
+    "outside45m": {
+      "total": 16,
+      "nullToPlayerTargetTransition": 10,
+      "noPlayerTarget": 6
+    }
+  },
+  "interpretationGuide": {
+    "vacuumTargetSupport": "High 45m containment of the actual target player at null-to-player target onset would strongly support m_hVacuumTarget as meaningful vacuum telemetry.",
+    "thresholdCrossingSupport": "Delayed transitions that move from >45m immediately before target acquisition to <=45m at acquisition provide within-episode evidence for a proximity threshold.",
+    "collectionTravelSupport": "A compact positive target-to-inactive interval supports a target-acquisition -> travel/collection lifecycle sequence.",
+    "expirationSupport": "Targetless episodes clustering almost exactly at 40 seconds support a fixed uncollected lifetime.",
+    "targetOwnership": "If the vacuum target frequently differs from the credited last-hitter but remains on the same team, other allied players may be able to trigger/receive the vacuum. This remains observational until independently validated."
+  },
+  "validation": {
+    "pass": false,
+    "checks": {
+      "script75Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "episodeCountPreserved": {
+        "actual": 1388,
+        "expected": 1388,
+        "pass": true
+      },
+      "expectedTestEpisodeCount": {
+        "actual": 1388,
+        "expected": 1388,
+        "pass": true
+      },
+      "cleanCreditCountPreserved": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "expectedTestCleanCreditCount": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "snapshotCountPreserved": {
+        "actual": 271998,
+        "expected": 274740,
+        "pass": false
+      },
+      "cleanTargetPartitionExhaustive": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "cleanDistancePartitionExhaustive": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "targetTransitionsObserved": {
+        "actual": 947,
+        "expected": ">0",
+        "pass": true
+      },
+      "inactiveSignalsObserved": {
+        "actual": 1387,
+        "expected": ">0",
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_vacuum_lifecycle_validation_v01.json",
+    "episodes": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_vacuum_lifecycle_episodes_v01.jsonl",
+    "transitions": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_vacuum_target_transitions_v01.jsonl"
+  }
+}

@@ -1,0 +1,385 @@
+{
+  "replay": "test",
+  "version": "TROOPER_GROUND_SOUL_PERSISTENT_CONTEXT_V01",
+  "canonical": false,
+  "status": "PERSISTENT_RANGE_CONTEXT_CLASSIFIED",
+  "purpose": [
+    "Inspect the seven Script 70c persistent-range cases without another replay rescan.",
+    "Determine whether the +/-2 second opposing-player crossings occur before or after AssignedGold activation.",
+    "Identify which team supplies the three any-team-only exact-range cases.",
+    "Inspect the observed vacuum-target player at activation when available.",
+    "Avoid treating post-spawn player movement as evidence for the eligibility condition."
+  ],
+  "documentedMechanicTarget": {
+    "rangeMeters": 45,
+    "rangeInternalUnits": 1771.6499999999999
+  },
+  "counts": {
+    "cases": 7,
+    "script70cAnyTeamOnly": 3,
+    "script70cPersistent": 4,
+    "anyTeamOnlySameTrooperTeam": 3,
+    "anyTeamOnlyOpposingTrooperTeam": 0,
+    "opposingWithin45mThrough2s": 4,
+    "opposingWithin45mThrough2sPreActivation": 4,
+    "opposingWithin45mThrough2sExactActivation": 0,
+    "opposingWithin45mThrough2sPostActivation": 0,
+    "vacuumTargetKnownAtActivation": 6,
+    "vacuumTargetInside45mAtActivation": 0
+  },
+  "anyTeamOnlyPlayerCounts": {
+    "TheWoogler": 3
+  },
+  "vacuumTargetPlayerCounts": {
+    "viggoth 300": 2,
+    "Yosafire Worshipper [K]": 2,
+    "flem": 1,
+    "Goldinfer": 1
+  },
+  "interpretation": {
+    "twoSecondTiming": "A pre-activation crossing can plausibly indicate an earlier range-check time. A post-activation crossing cannot explain why the AssignedGold object already existed and should not be counted as eligibility evidence.",
+    "anyTeam": "The three any-team-only cases are selected outliers and are not independent evidence for an any-team mechanic, especially if they share the same nearby player or temporal cluster.",
+    "vacuumTarget": "The vacuum target is retained as observed targeting telemetry. It is not automatically treated as the eligibility-causing player.",
+    "next": "If the large persistent cases remain outside range before activation and their vacuum targets are also outside, the next investigation should focus on the 45m documentation/conversion and on whether a different engine-space metric or source entity determines eligibility."
+  },
+  "anyTeamOnlyCases": [
+    {
+      "deathIndex": 1539,
+      "clock": "47:28",
+      "baseType": "MELEE",
+      "trooperTeam": 3,
+      "assignedGoldTeam": 2,
+      "script70cCategory": "ANY_TEAM_ONLY_AT_ACTIVATION",
+      "nearestOpposingAtActivation": {
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "distance3D": 2452.3863300699713,
+        "within45m3D": false
+      },
+      "nearestAnyAtActivation": {
+        "playerName": "TheWoogler",
+        "team": 3,
+        "distance3D": 679.7012793143489,
+        "teamRelationToTrooper": "SAME_AS_TROOPER",
+        "within45m3D": true
+      },
+      "opposingResolutionThrough2s": {
+        "resolved": true,
+        "label": "WITHIN_2000MS",
+        "windowSeconds": 2,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "distance3D": 1616.0658456210292,
+        "activationTickDelta": -128,
+        "timingDirection": "PRE_ACTIVATION"
+      },
+      "vacuumTarget": {
+        "observedAtActivation": false,
+        "playerName": null,
+        "team": null,
+        "distance3D": null,
+        "distanceXY": null,
+        "teamRelationToTrooper": "UNKNOWN",
+        "within45m3D": false,
+        "within45mXY": false
+      }
+    },
+    {
+      "deathIndex": 1541,
+      "clock": "47:29",
+      "baseType": "RANGED",
+      "trooperTeam": 3,
+      "assignedGoldTeam": 2,
+      "script70cCategory": "ANY_TEAM_ONLY_AT_ACTIVATION",
+      "nearestOpposingAtActivation": {
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "distance3D": 2438.12796618475,
+        "within45m3D": false
+      },
+      "nearestAnyAtActivation": {
+        "playerName": "TheWoogler",
+        "team": 3,
+        "distance3D": 965.5491419434913,
+        "teamRelationToTrooper": "SAME_AS_TROOPER",
+        "within45m3D": true
+      },
+      "opposingResolutionThrough2s": {
+        "resolved": true,
+        "label": "WITHIN_2000MS",
+        "windowSeconds": 2,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "distance3D": 1586.6547922240363,
+        "activationTickDelta": -128,
+        "timingDirection": "PRE_ACTIVATION"
+      },
+      "vacuumTarget": {
+        "observedAtActivation": true,
+        "playerName": "Yosafire Worshipper [K]",
+        "team": 2,
+        "distance3D": 16207.59374572201,
+        "distanceXY": 16179.043002796183,
+        "teamRelationToTrooper": "OPPOSING_TROOPER",
+        "within45m3D": false,
+        "within45mXY": false
+      }
+    },
+    {
+      "deathIndex": 1542,
+      "clock": "47:29",
+      "baseType": "RANGED",
+      "trooperTeam": 3,
+      "assignedGoldTeam": 2,
+      "script70cCategory": "ANY_TEAM_ONLY_AT_ACTIVATION",
+      "nearestOpposingAtActivation": {
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "distance3D": 2537.6020826910835,
+        "within45m3D": false
+      },
+      "nearestAnyAtActivation": {
+        "playerName": "TheWoogler",
+        "team": 3,
+        "distance3D": 812.0247768887659,
+        "teamRelationToTrooper": "SAME_AS_TROOPER",
+        "within45m3D": true
+      },
+      "opposingResolutionThrough2s": {
+        "resolved": true,
+        "label": "WITHIN_2000MS",
+        "windowSeconds": 2,
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "distance3D": 1718.768607001554,
+        "activationTickDelta": -128,
+        "timingDirection": "PRE_ACTIVATION"
+      },
+      "vacuumTarget": {
+        "observedAtActivation": true,
+        "playerName": "Yosafire Worshipper [K]",
+        "team": 2,
+        "distance3D": 16418.376689257424,
+        "distanceXY": 16393.16808012182,
+        "teamRelationToTrooper": "OPPOSING_TROOPER",
+        "within45m3D": false,
+        "within45mXY": false
+      }
+    }
+  ],
+  "persistentCases": [
+    {
+      "deathIndex": 495,
+      "clock": "19:38",
+      "baseType": "MEDIC",
+      "trooperTeam": 2,
+      "assignedGoldTeam": 3,
+      "script70cCategory": "STILL_PERSISTENT_AFTER_ASSIGNEDGOLD_ANCHOR_TEST",
+      "nearestOpposingAtActivation": {
+        "playerName": "Goldinfer",
+        "team": 3,
+        "distance3D": 1796.6205072497398,
+        "within45m3D": false
+      },
+      "nearestAnyAtActivation": {
+        "playerName": "Goldinfer",
+        "team": 3,
+        "distance3D": 1796.6205072497398,
+        "teamRelationToTrooper": "OPPOSING_TROOPER",
+        "within45m3D": false
+      },
+      "opposingResolutionThrough2s": {
+        "resolved": false,
+        "label": null,
+        "windowSeconds": null,
+        "playerName": "Goldinfer",
+        "team": 3,
+        "distance3D": 1791.8883809340812,
+        "activationTickDelta": 128,
+        "timingDirection": "POST_ACTIVATION"
+      },
+      "vacuumTarget": {
+        "observedAtActivation": true,
+        "playerName": "Goldinfer",
+        "team": 3,
+        "distance3D": 1796.6205072497398,
+        "distanceXY": 1791.7394841065066,
+        "teamRelationToTrooper": "OPPOSING_TROOPER",
+        "within45m3D": false,
+        "within45mXY": false
+      }
+    },
+    {
+      "deathIndex": 718,
+      "clock": "26:21",
+      "baseType": "RANGED",
+      "trooperTeam": 3,
+      "assignedGoldTeam": 2,
+      "script70cCategory": "STILL_PERSISTENT_AFTER_ASSIGNEDGOLD_ANCHOR_TEST",
+      "nearestOpposingAtActivation": {
+        "playerName": "flem",
+        "team": 2,
+        "distance3D": 2991.902873048825,
+        "within45m3D": false
+      },
+      "nearestAnyAtActivation": {
+        "playerName": "Zaeleth",
+        "team": 3,
+        "distance3D": 2187.6587087515645,
+        "teamRelationToTrooper": "SAME_AS_TROOPER",
+        "within45m3D": false
+      },
+      "opposingResolutionThrough2s": {
+        "resolved": false,
+        "label": null,
+        "windowSeconds": null,
+        "playerName": "flem",
+        "team": 2,
+        "distance3D": 2222.918127366944,
+        "activationTickDelta": 128,
+        "timingDirection": "POST_ACTIVATION"
+      },
+      "vacuumTarget": {
+        "observedAtActivation": true,
+        "playerName": "flem",
+        "team": 2,
+        "distance3D": 2991.902873048825,
+        "distanceXY": 2990.6285842781554,
+        "teamRelationToTrooper": "OPPOSING_TROOPER",
+        "within45m3D": false,
+        "within45mXY": false
+      }
+    },
+    {
+      "deathIndex": 1347,
+      "clock": "43:29",
+      "baseType": "MEDIC",
+      "trooperTeam": 3,
+      "assignedGoldTeam": 2,
+      "script70cCategory": "STILL_PERSISTENT_AFTER_ASSIGNEDGOLD_ANCHOR_TEST",
+      "nearestOpposingAtActivation": {
+        "playerName": "viggoth 300",
+        "team": 2,
+        "distance3D": 2851.248820589684,
+        "within45m3D": false
+      },
+      "nearestAnyAtActivation": {
+        "playerName": "viggoth 300",
+        "team": 2,
+        "distance3D": 2851.248820589684,
+        "teamRelationToTrooper": "OPPOSING_TROOPER",
+        "within45m3D": false
+      },
+      "opposingResolutionThrough2s": {
+        "resolved": true,
+        "label": "WITHIN_2000MS",
+        "windowSeconds": 2,
+        "playerName": "Eriansan",
+        "team": 2,
+        "distance3D": 1461.0494121574482,
+        "activationTickDelta": -128,
+        "timingDirection": "PRE_ACTIVATION"
+      },
+      "vacuumTarget": {
+        "observedAtActivation": true,
+        "playerName": "viggoth 300",
+        "team": 2,
+        "distance3D": 2851.248820589684,
+        "distanceXY": 2730.5657425548397,
+        "teamRelationToTrooper": "OPPOSING_TROOPER",
+        "within45m3D": false,
+        "within45mXY": false
+      }
+    },
+    {
+      "deathIndex": 1350,
+      "clock": "43:32",
+      "baseType": "MELEE",
+      "trooperTeam": 3,
+      "assignedGoldTeam": 2,
+      "script70cCategory": "STILL_PERSISTENT_AFTER_ASSIGNEDGOLD_ANCHOR_TEST",
+      "nearestOpposingAtActivation": {
+        "playerName": "viggoth 300",
+        "team": 2,
+        "distance3D": 2916.1490112242313,
+        "within45m3D": false
+      },
+      "nearestAnyAtActivation": {
+        "playerName": "viggoth 300",
+        "team": 2,
+        "distance3D": 2916.1490112242313,
+        "teamRelationToTrooper": "OPPOSING_TROOPER",
+        "within45m3D": false
+      },
+      "opposingResolutionThrough2s": {
+        "resolved": false,
+        "label": null,
+        "windowSeconds": null,
+        "playerName": "viggoth 300",
+        "team": 2,
+        "distance3D": 2111.827427604911,
+        "activationTickDelta": -128,
+        "timingDirection": "PRE_ACTIVATION"
+      },
+      "vacuumTarget": {
+        "observedAtActivation": true,
+        "playerName": "viggoth 300",
+        "team": 2,
+        "distance3D": 2916.1490112242313,
+        "distanceXY": 2376.4264221808053,
+        "teamRelationToTrooper": "OPPOSING_TROOPER",
+        "within45m3D": false,
+        "within45mXY": false
+      }
+    }
+  ],
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script70cPassed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "validCaseCountPreserved": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "persistentCountPreserved": {
+        "actual": 4,
+        "expected": 4,
+        "pass": true
+      },
+      "anyTeamOnlyCountPreserved": {
+        "actual": 3,
+        "expected": 3,
+        "pass": true
+      },
+      "expectedTestReplayInputCount": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "everyCaseHasExactActivationGeometry": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "everyCaseHasTwoSecondGeometry": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "partitionPreserved": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_persistent_context_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_persistent_context_cases_v01.jsonl"
+  }
+}

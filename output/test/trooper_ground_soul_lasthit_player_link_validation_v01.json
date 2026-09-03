@@ -1,0 +1,740 @@
+{
+  "replay": "test",
+  "version": "TROOPER_GROUND_SOUL_LASTHIT_PLAYER_LINK_VALIDATION_V01",
+  "canonical": false,
+  "status": "LASTHIT_ASSIGNEDGOLD_LINKAGE_REFINED",
+  "purpose": [
+    "Refine Script 73 by inspecting the 13 tick-team groups where exact opposing m_iLastHits counter units do not equal matched AssignedGold deaths.",
+    "Test whether the player receiving the exact m_iLastHits increment matches Script 55 m_hVacuumTarget-derived player identity when that target is resolved.",
+    "Separate count equivalence from player-recipient equivalence.",
+    "Do not promote m_hVacuumTarget to validated acquisition or recipient identity unless the comparison supports it."
+  ],
+  "semanticLimits": {
+    "lastHitCounter": "m_iLastHits is observed controller bookkeeping and remains non-target-attributed telemetry.",
+    "vacuumTarget": "m_hVacuumTarget is an observed magnetic target from Script 55 and is not assumed to be the player that caused or economically received the ground soul.",
+    "causalDirection": "This script tests correspondence only. It does not establish whether last-hit bookkeeping causes AssignedGold, AssignedGold causes bookkeeping, or both are emitted by a common kill-credit event."
+  },
+  "sourceCounts": {
+    "groups": 1472,
+    "deaths": 1727,
+    "countEquivalentGroups": 1459,
+    "residualGroups": 13,
+    "counterExcessGroups": 13,
+    "counterDeficitGroups": 0,
+    "isolatedMatchedGroups": 1003,
+    "isolatedMatchedSingleCounterPlayer": 991,
+    "isolatedMatchedResolvedVacuumTarget": 947,
+    "matchedOutside45mCases": 15
+  },
+  "countAccounting": {
+    "exactCounterUnitsEqualMatchedDeaths": {
+      "groups": 1459,
+      "totalGroups": 1472,
+      "rate": 0.9911684782608695
+    },
+    "residualGroups": {
+      "total": 13,
+      "counterExcess": 13,
+      "counterDeficit": 0,
+      "reasonCounts": {
+        "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE": 9,
+        "COUNTER_EXCESS_OTHER_LASTHIT_SOURCE_CANDIDATE": 4
+      },
+      "residualDistribution": {
+        "count": 13,
+        "min": 1,
+        "median": 1,
+        "max": 2,
+        "mean": 1.2307692307692308
+      }
+    }
+  },
+  "playerLinkage": {
+    "isolatedMatchedResolvedTarget": {
+      "total": 947,
+      "exactPlayerAgreement": 715,
+      "disagreement": 232,
+      "agreementRate": 0.7550158394931362
+    },
+    "allFullyResolvedCountEquivalentGroups": {
+      "total": 1073,
+      "exactPlayerMultisetAgreement": 798,
+      "disagreement": 275,
+      "agreementRate": 0.7437092264678472
+    },
+    "interpretation": "High agreement would support m_hVacuumTarget as a useful player-link field. Low agreement would show that the field is stale, downstream, or semantically different from last-hit player credit."
+  },
+  "matchedOutside45m": {
+    "cases": [
+      {
+        "deathIndex": 495,
+        "clock": "19:38",
+        "baseType": "MEDIC",
+        "tick": 77324,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "Goldinfer": 1
+        },
+        "vacuumTargetPlayer": "Goldinfer",
+        "resolvedVacuumTarget": true,
+        "playerMultisetExactMatch": true
+      },
+      {
+        "deathIndex": 718,
+        "clock": "26:21",
+        "baseType": "RANGED",
+        "tick": 103165,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "flem": 1
+        },
+        "vacuumTargetPlayer": "flem",
+        "resolvedVacuumTarget": true,
+        "playerMultisetExactMatch": true
+      },
+      {
+        "deathIndex": 723,
+        "clock": "26:27",
+        "baseType": "MEDIC",
+        "tick": 103525,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "flem": 1
+        },
+        "vacuumTargetPlayer": "flem",
+        "resolvedVacuumTarget": true,
+        "playerMultisetExactMatch": true
+      },
+      {
+        "deathIndex": 775,
+        "clock": "28:10",
+        "baseType": "MEDIC",
+        "tick": 110120,
+        "isolated": false,
+        "groupDeathCount": 2,
+        "groupMatchedCount": 2,
+        "exactCounterUnits": 2,
+        "counterPlayerUnits": {
+          "Goldinfer": 2
+        },
+        "vacuumTargetPlayer": null,
+        "resolvedVacuumTarget": false,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 776,
+        "clock": "28:10",
+        "baseType": "RANGED",
+        "tick": 110120,
+        "isolated": false,
+        "groupDeathCount": 2,
+        "groupMatchedCount": 2,
+        "exactCounterUnits": 2,
+        "counterPlayerUnits": {
+          "Goldinfer": 2
+        },
+        "vacuumTargetPlayer": null,
+        "resolvedVacuumTarget": false,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 973,
+        "clock": "33:46",
+        "baseType": "MEDIC",
+        "tick": 131615,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "flem": 1
+        },
+        "vacuumTargetPlayer": null,
+        "resolvedVacuumTarget": false,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 1347,
+        "clock": "43:29",
+        "baseType": "MEDIC",
+        "tick": 168914,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "flem": 1
+        },
+        "vacuumTargetPlayer": "viggoth 300",
+        "resolvedVacuumTarget": true,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 1350,
+        "clock": "43:32",
+        "baseType": "MELEE",
+        "tick": 169119,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "flem": 1
+        },
+        "vacuumTargetPlayer": "viggoth 300",
+        "resolvedVacuumTarget": true,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 1446,
+        "clock": "46:10",
+        "baseType": "MELEE",
+        "tick": 179237,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "Goldinfer": 1
+        },
+        "vacuumTargetPlayer": "Goldinfer",
+        "resolvedVacuumTarget": true,
+        "playerMultisetExactMatch": true
+      },
+      {
+        "deathIndex": 1529,
+        "clock": "47:10",
+        "baseType": "RANGED",
+        "tick": 183084,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "Nacho4Sure": 1
+        },
+        "vacuumTargetPlayer": null,
+        "resolvedVacuumTarget": false,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 1530,
+        "clock": "47:11",
+        "baseType": "RANGED",
+        "tick": 183124,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "Nacho4Sure": 1
+        },
+        "vacuumTargetPlayer": null,
+        "resolvedVacuumTarget": false,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 1539,
+        "clock": "47:28",
+        "baseType": "MELEE",
+        "tick": 184228,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "Nacho4Sure": 1
+        },
+        "vacuumTargetPlayer": null,
+        "resolvedVacuumTarget": false,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 1541,
+        "clock": "47:29",
+        "baseType": "RANGED",
+        "tick": 184263,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "Nacho4Sure": 1
+        },
+        "vacuumTargetPlayer": "Yosafire Worshipper [K]",
+        "resolvedVacuumTarget": true,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 1542,
+        "clock": "47:29",
+        "baseType": "RANGED",
+        "tick": 184269,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "Nacho4Sure": 1
+        },
+        "vacuumTargetPlayer": "Yosafire Worshipper [K]",
+        "resolvedVacuumTarget": true,
+        "playerMultisetExactMatch": false
+      },
+      {
+        "deathIndex": 1581,
+        "clock": "48:21",
+        "baseType": "MEDIC",
+        "tick": 187607,
+        "isolated": true,
+        "groupDeathCount": 1,
+        "groupMatchedCount": 1,
+        "exactCounterUnits": 1,
+        "counterPlayerUnits": {
+          "Yosafire Worshipper [K]": 1
+        },
+        "vacuumTargetPlayer": null,
+        "resolvedVacuumTarget": false,
+        "playerMultisetExactMatch": false
+      }
+    ],
+    "resolvedVacuumTargets": 8,
+    "playerAgreementCases": 4
+  },
+  "residualGroups": [
+    {
+      "tick": 28925,
+      "trooperTeam": 3,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "Yosafire Worshipper [K]": 2
+      },
+      "targetUnitsByPlayer": {
+        "Yosafire Worshipper [K]": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 150,
+          "clock": "7:01",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "Yosafire Worshipper [K]"
+        }
+      ]
+    },
+    {
+      "tick": 53064,
+      "trooperTeam": 2,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "Goldinfer": 2
+      },
+      "targetUnitsByPlayer": {
+        "TheWoogler": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 329,
+          "clock": "13:19",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "TheWoogler"
+        }
+      ]
+    },
+    {
+      "tick": 54125,
+      "trooperTeam": 2,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "Goldinfer": 2
+      },
+      "targetUnitsByPlayer": {
+        "TheWoogler": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 334,
+          "clock": "13:35",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "TheWoogler"
+        }
+      ]
+    },
+    {
+      "tick": 64324,
+      "trooperTeam": 2,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_OTHER_LASTHIT_SOURCE_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "renso": 1,
+        "TheWoogler": 1
+      },
+      "targetUnitsByPlayer": {
+        "TheWoogler": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 404,
+          "clock": "16:15",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "TheWoogler"
+        }
+      ]
+    },
+    {
+      "tick": 75768,
+      "trooperTeam": 2,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_OTHER_LASTHIT_SOURCE_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "blooop354": 1,
+        "renso": 1
+      },
+      "targetUnitsByPlayer": {
+        "blooop354": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 490,
+          "clock": "19:13",
+          "baseType": "MEDIC",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "blooop354"
+        }
+      ]
+    },
+    {
+      "tick": 78813,
+      "trooperTeam": 3,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "Yosafire Worshipper [K]": 2
+      },
+      "targetUnitsByPlayer": {
+        "Eriansan": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 504,
+          "clock": "20:01",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "Eriansan"
+        }
+      ]
+    },
+    {
+      "tick": 89706,
+      "trooperTeam": 2,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_OTHER_LASTHIT_SOURCE_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "renso": 1,
+        "TheWoogler": 1
+      },
+      "targetUnitsByPlayer": {
+        "renso": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 591,
+          "clock": "22:51",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "renso"
+        }
+      ]
+    },
+    {
+      "tick": 99476,
+      "trooperTeam": 3,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_OTHER_LASTHIT_SOURCE_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "flem": 1,
+        "viggoth 300": 1
+      },
+      "targetUnitsByPlayer": {
+        "viggoth 300": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 679,
+          "clock": "25:24",
+          "baseType": "MEDIC",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "viggoth 300"
+        }
+      ]
+    },
+    {
+      "tick": 107667,
+      "trooperTeam": 3,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 3,
+      "residualCounterMinusMatched": 2,
+      "residualClassification": "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "viggoth 300": 3
+      },
+      "targetUnitsByPlayer": {
+        "viggoth 300": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 757,
+          "clock": "27:32",
+          "baseType": "MEDIC",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "viggoth 300"
+        }
+      ]
+    },
+    {
+      "tick": 139743,
+      "trooperTeam": 3,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "flem": 2
+      },
+      "targetUnitsByPlayer": {
+        "flem": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 1042,
+          "clock": "35:53",
+          "baseType": "MEDIC",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "flem"
+        }
+      ]
+    },
+    {
+      "tick": 161997,
+      "trooperTeam": 3,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 2,
+      "residualCounterMinusMatched": 1,
+      "residualClassification": "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "Snazzy314": 2
+      },
+      "targetUnitsByPlayer": {
+        "Snazzy314": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 1269,
+          "clock": "41:41",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "Snazzy314"
+        }
+      ]
+    },
+    {
+      "tick": 181174,
+      "trooperTeam": 2,
+      "deathCount": 1,
+      "matchedCount": 1,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 3,
+      "residualCounterMinusMatched": 2,
+      "residualClassification": "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "Nebula": 3
+      },
+      "targetUnitsByPlayer": {
+        "Nebula": 1
+      },
+      "deaths": [
+        {
+          "deathIndex": 1477,
+          "clock": "46:40",
+          "baseType": "MEDIC",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "Nebula"
+        }
+      ]
+    },
+    {
+      "tick": 198616,
+      "trooperTeam": 3,
+      "deathCount": 5,
+      "matchedCount": 5,
+      "unmatchedCount": 0,
+      "exactCounterUnits": 7,
+      "residualCounterMinusMatched": 2,
+      "residualClassification": "COUNTER_EXCESS_BATCHED_DELTA_CANDIDATE",
+      "counterUnitsByPlayer": {
+        "Nacho4Sure": 1,
+        "Yosafire Worshipper [K]": 6
+      },
+      "targetUnitsByPlayer": {
+        "Yosafire Worshipper [K]": 5
+      },
+      "deaths": [
+        {
+          "deathIndex": 1688,
+          "clock": "51:13",
+          "baseType": "MEDIC",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "Yosafire Worshipper [K]"
+        },
+        {
+          "deathIndex": 1689,
+          "clock": "51:13",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "Yosafire Worshipper [K]"
+        },
+        {
+          "deathIndex": 1690,
+          "clock": "51:13",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "Yosafire Worshipper [K]"
+        },
+        {
+          "deathIndex": 1691,
+          "clock": "51:13",
+          "baseType": "RANGED",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "Yosafire Worshipper [K]"
+        },
+        {
+          "deathIndex": 1692,
+          "clock": "51:13",
+          "baseType": "MELEE",
+          "groundSoulMatched": true,
+          "rangeGroup": "MATCHED_INSIDE_45M",
+          "vacuumTargetPlayer": "Yosafire Worshipper [K]"
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script73Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "groupCountPreserved": {
+        "actual": 1472,
+        "expected": 1472,
+        "pass": true
+      },
+      "deathCountPreserved": {
+        "actual": 1727,
+        "expected": 1727,
+        "pass": true
+      },
+      "allGroupDeathsJoinedToScript55": {
+        "actual": 1727,
+        "expected": 1727,
+        "pass": true
+      },
+      "countEquivalentGroupsAgreeWith73": {
+        "actual": 1459,
+        "expected": 1459,
+        "pass": true
+      },
+      "isolatedMatchedCountAgreesWith73": {
+        "actual": 1003,
+        "expected": 1003,
+        "pass": true
+      },
+      "matchedOutsideCount": {
+        "actual": 15,
+        "expected": 15,
+        "pass": true
+      },
+      "residualPartitionExhaustive": {
+        "actual": 13,
+        "expected": 13,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_lasthit_player_link_validation_v01.json",
+    "groups": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_lasthit_player_link_groups_v01.jsonl",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_lasthit_player_link_cases_v01.jsonl"
+  }
+}
