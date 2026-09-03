@@ -1,0 +1,461 @@
+{
+  "replay": "test",
+  "version": "CITEMXP_AUTO_AWARD_PLACEBO_VALIDATION_V01",
+  "canonical": false,
+  "status": "TROOPER_AUTO_AWARD_NEGATIVE_CONTROL_SUPPORTED_URN_UNVALIDATED",
+  "purpose": [
+    "Challenge Script 69 v02 Trooper automatic-award evidence with matched nearby negative-control windows.",
+    "Exclude placebo windows that overlap another CItemXP resolution or a LastHit/Deny/Kill/Assist counter event.",
+    "Correct Script 69 v02 Urn burst cleanliness so LastHit, Deny, Kill, and Assist activity all prevent a burst from being treated as clean.",
+    "Preserve Script 69 v02 as historical evidence rather than silently overwriting it."
+  ],
+  "inputs": {
+    "replay": "G:\\DeadlockBehavior\\replays\\test.dem",
+    "playerState": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl",
+    "script62CorrectedOutcomes": "G:\\DeadlockBehavior\\output\\test\\citemxp_corrected_shot_outcomes_v01.jsonl",
+    "script69V02Summary": "G:\\DeadlockBehavior\\output\\test\\citemxp_auto_award_resolution_validation_v02.json",
+    "script69V02Units": "G:\\DeadlockBehavior\\output\\test\\citemxp_auto_award_units_v02.jsonl",
+    "script69V02UrnBursts": "G:\\DeadlockBehavior\\output\\test\\citemxp_auto_award_urn_bursts_v02.jsonl"
+  },
+  "inheritedCalibration": {
+    "selectedWindow": {
+      "id": "P0_P6",
+      "before": 0,
+      "after": 6
+    },
+    "winnerDeltaFloor": 52
+  },
+  "trooperPlaceboValidation": {
+    "offsetsTicks": [
+      -512,
+      -256,
+      -128,
+      128,
+      256,
+      512
+    ],
+    "offsetsSeconds": [
+      -8,
+      -4,
+      -2,
+      2,
+      4,
+      8
+    ],
+    "thresholds": {
+      "minimumActualCleanEvents": 100,
+      "minimumEligiblePlaceboWindows": 500,
+      "maximumPlaceboDirectionalFloorRate": 0.3,
+      "minimumActualMinusPlaceboRateDifference": 0.5,
+      "minimumActualVsPlaceboRiskRatio": 3
+    },
+    "evidence": {
+      "winnerDeltaFloor": 52,
+      "actualCleanEvents": 554,
+      "actualDirectionalFloorSupport": 537,
+      "actualDirectionalFloorSupportRate": 0.9693140794223827,
+      "actualReverseDirectionalFloorSupport": 12,
+      "actualReverseDirectionalFloorSupportRate": 0.021660649819494584,
+      "placeboWindowsGenerated": 3324,
+      "placeboEligibleWindows": 2764,
+      "placeboExcludedNearCItemXP": 272,
+      "placeboExcludedCounterConfound": 288,
+      "placeboExcludedOutsideTelemetry": 0,
+      "placeboDirectionalFloorSupport": 164,
+      "placeboDirectionalFloorSupportRate": 0.059334298118668596,
+      "placeboReverseDirectionalFloorSupport": 112,
+      "placeboReverseDirectionalFloorSupportRate": 0.04052098408104197,
+      "actualMinusPlaceboRateDifference": 0.909979781303714,
+      "actualVsPlaceboRiskRatio": 16.336488509289424,
+      "actualVsPlaceboRiskRatioForCheck": 16.336488509289424,
+      "placeboRateZero": false,
+      "byOffset": {
+        "128": {
+          "offsetTicks": 128,
+          "offsetSeconds": 2,
+          "generated": 554,
+          "eligible": 454,
+          "directionalFloorSupport": 32,
+          "directionalFloorSupportRate": 0.07048458149779736,
+          "reverseDirectionalFloorSupport": 23,
+          "reverseDirectionalFloorSupportRate": 0.05066079295154185
+        },
+        "256": {
+          "offsetTicks": 256,
+          "offsetSeconds": 4,
+          "generated": 554,
+          "eligible": 468,
+          "directionalFloorSupport": 26,
+          "directionalFloorSupportRate": 0.05555555555555555,
+          "reverseDirectionalFloorSupport": 25,
+          "reverseDirectionalFloorSupportRate": 0.053418803418803416
+        },
+        "512": {
+          "offsetTicks": 512,
+          "offsetSeconds": 8,
+          "generated": 554,
+          "eligible": 461,
+          "directionalFloorSupport": 24,
+          "directionalFloorSupportRate": 0.052060737527114966,
+          "reverseDirectionalFloorSupport": 19,
+          "reverseDirectionalFloorSupportRate": 0.04121475054229935
+        },
+        "-512": {
+          "offsetTicks": -512,
+          "offsetSeconds": -8,
+          "generated": 554,
+          "eligible": 464,
+          "directionalFloorSupport": 28,
+          "directionalFloorSupportRate": 0.0603448275862069,
+          "reverseDirectionalFloorSupport": 13,
+          "reverseDirectionalFloorSupportRate": 0.028017241379310345
+        },
+        "-256": {
+          "offsetTicks": -256,
+          "offsetSeconds": -4,
+          "generated": 554,
+          "eligible": 457,
+          "directionalFloorSupport": 20,
+          "directionalFloorSupportRate": 0.0437636761487965,
+          "reverseDirectionalFloorSupport": 14,
+          "reverseDirectionalFloorSupportRate": 0.030634573304157548
+        },
+        "-128": {
+          "offsetTicks": -128,
+          "offsetSeconds": -2,
+          "generated": 554,
+          "eligible": 460,
+          "directionalFloorSupport": 34,
+          "directionalFloorSupportRate": 0.07391304347826087,
+          "reverseDirectionalFloorSupport": 18,
+          "reverseDirectionalFloorSupportRate": 0.0391304347826087
+        }
+      }
+    },
+    "checks": {
+      "actualCleanEvents": {
+        "actual": 554,
+        "expected": ">=100",
+        "pass": true
+      },
+      "eligiblePlaceboWindows": {
+        "actual": 2764,
+        "expected": ">=500",
+        "pass": true
+      },
+      "placeboDirectionalFloorRate": {
+        "actual": 0.059334298118668596,
+        "expected": "<=0.3",
+        "pass": true
+      },
+      "actualMinusPlaceboRateDifference": {
+        "actual": 0.909979781303714,
+        "expected": ">=0.5",
+        "pass": true
+      },
+      "actualVsPlaceboRiskRatio": {
+        "actual": 16.336488509289424,
+        "expected": ">=3",
+        "pass": true
+      }
+    },
+    "pass": true,
+    "mechanicConclusion": "Script 69 v02 Trooper automatic-award result survives matched nearby negative-control testing in this replay."
+  },
+  "urnCorrection": {
+    "thresholds": {
+      "minimumCleanAllNoShotBursts": 2,
+      "minimumCleanSupportRate": 1
+    },
+    "allNoShotBursts": 3,
+    "cleanAllNoShotBursts": 1,
+    "confoundedAllNoShotBursts": 2,
+    "cleanSupportiveBursts": 1,
+    "cleanSupportRate": 1,
+    "checks": {
+      "cleanAllNoShotBursts": {
+        "actual": 1,
+        "expected": ">=2",
+        "pass": false
+      },
+      "cleanSupportRate": {
+        "actual": 1,
+        "expected": ">=1",
+        "pass": true
+      }
+    },
+    "pass": false,
+    "unitStatusCounts": {
+      "ECONOMY_COLLISION": 30,
+      "AUTO_AWARD_PROBABLE": 10
+    },
+    "note": "Urn automatic payout remains unvalidated. Only no-shot units inside a clean supportive burst are retained as PROBABLE."
+  },
+  "controllerTelemetry": {
+    "players": [
+      {
+        "playerName": "Eriansan",
+        "team": 2,
+        "heroId": 69,
+        "controllerEntityIndex": 12,
+        "pawnEntityIndex": 88
+      },
+      {
+        "playerName": "flem",
+        "team": 2,
+        "heroId": 1,
+        "controllerEntityIndex": 4,
+        "pawnEntityIndex": 79
+      },
+      {
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "heroId": 2,
+        "controllerEntityIndex": 2,
+        "pawnEntityIndex": 78
+      },
+      {
+        "playerName": "Snazzy314",
+        "team": 2,
+        "heroId": 4,
+        "controllerEntityIndex": 8,
+        "pawnEntityIndex": 90
+      },
+      {
+        "playerName": "viggoth 300",
+        "team": 2,
+        "heroId": 18,
+        "controllerEntityIndex": 13,
+        "pawnEntityIndex": 91
+      },
+      {
+        "playerName": "Yosafire Worshipper [K]",
+        "team": 2,
+        "heroId": 50,
+        "controllerEntityIndex": 6,
+        "pawnEntityIndex": 89
+      },
+      {
+        "playerName": "blooop354",
+        "team": 3,
+        "heroId": 58,
+        "controllerEntityIndex": 3,
+        "pawnEntityIndex": 81
+      },
+      {
+        "playerName": "Goldinfer",
+        "team": 3,
+        "heroId": 79,
+        "controllerEntityIndex": 10,
+        "pawnEntityIndex": 80
+      },
+      {
+        "playerName": "Nebula",
+        "team": 3,
+        "heroId": 25,
+        "controllerEntityIndex": 7,
+        "pawnEntityIndex": 87
+      },
+      {
+        "playerName": "renso",
+        "team": 3,
+        "heroId": 31,
+        "controllerEntityIndex": 11,
+        "pawnEntityIndex": 86
+      },
+      {
+        "playerName": "TheWoogler",
+        "team": 3,
+        "heroId": 52,
+        "controllerEntityIndex": 9,
+        "pawnEntityIndex": 77
+      },
+      {
+        "playerName": "Zaeleth",
+        "team": 3,
+        "heroId": 77,
+        "controllerEntityIndex": 5,
+        "pawnEntityIndex": 84
+      }
+    ],
+    "controllerEntityEvents": 263146,
+    "deltaEvents": 41939,
+    "fields": {
+      "m_iGoldNetWorth": {
+        "fieldName": "m_iGoldNetWorth",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 39760,
+        "explicitDeltaCount": 39100,
+        "deltaCount": 39100,
+        "positiveDeltaCount": 39068,
+        "negativeDeltaCount": 32,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 39100,
+          "min": -1628,
+          "p05": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 5,
+          "p95": 83,
+          "max": 2960,
+          "mean": 19.337340153452686
+        }
+      },
+      "m_iDenies": {
+        "fieldName": "m_iDenies",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 716,
+        "explicitDeltaCount": 56,
+        "deltaCount": 56,
+        "positiveDeltaCount": 56,
+        "negativeDeltaCount": 0,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 56,
+          "min": 1,
+          "p05": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "max": 4,
+          "mean": 1.0714285714285714
+        }
+      },
+      "m_iLastHits": {
+        "fieldName": "m_iLastHits",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 3093,
+        "explicitDeltaCount": 2433,
+        "deltaCount": 2433,
+        "positiveDeltaCount": 2433,
+        "negativeDeltaCount": 0,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 2433,
+          "min": 1,
+          "p05": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 2,
+          "max": 9,
+          "mean": 1.1261816687217427
+        }
+      },
+      "m_iPlayerKills": {
+        "fieldName": "m_iPlayerKills",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 773,
+        "explicitDeltaCount": 113,
+        "deltaCount": 113,
+        "positiveDeltaCount": 113,
+        "negativeDeltaCount": 0,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 113,
+          "min": 1,
+          "p05": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "max": 1,
+          "mean": 1
+        }
+      },
+      "m_iPlayerAssists": {
+        "fieldName": "m_iPlayerAssists",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 897,
+        "explicitDeltaCount": 237,
+        "deltaCount": 237,
+        "positiveDeltaCount": 237,
+        "negativeDeltaCount": 0,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 237,
+          "min": 1,
+          "p05": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "max": 1,
+          "mean": 1
+        }
+      }
+    }
+  },
+  "pipelineValidation": {
+    "pass": true,
+    "checks": {
+      "script69V02PipelinePassed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script69V02TrooperMechanicPassed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "cleanTrooperRowsAvailable": {
+        "actual": 554,
+        "expected": ">0",
+        "pass": true
+      },
+      "allAnchorTicksAvailable": {
+        "actual": 1239,
+        "expected": ">=1239 expected for this replay",
+        "pass": true
+      },
+      "controllerTelemetryObserved": {
+        "actual": 41939,
+        "expected": ">0",
+        "pass": true
+      },
+      "urnBurstsPreserved": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "urnUnitsPreserved": {
+        "actual": 40,
+        "expected": 40,
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "trooper": "The Trooper no-shot automatic-award mechanic has now survived direct shot calibration, a held-out control test, a large clean no-shot cohort test, and matched nearby placebo windows within this replay.",
+    "urn": "Urn remains unresolved at mechanic level because there are too few clean all-no-shot bursts after correcting the confound gate.",
+    "scope": "All conclusions remain single-replay observational validation and require cross-replay replication before canonicalization."
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\citemxp_auto_award_placebo_validation_v01.json",
+    "placeboWindows": "G:\\DeadlockBehavior\\output\\test\\citemxp_auto_award_placebo_windows_v01.jsonl",
+    "urnReclassification": "G:\\DeadlockBehavior\\output\\test\\citemxp_auto_award_urn_reclassification_v01.jsonl"
+  }
+}
