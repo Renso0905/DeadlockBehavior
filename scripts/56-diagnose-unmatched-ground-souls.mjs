@@ -1,17 +1,18 @@
 import {
-    createReadStream,
-    existsSync,
-    mkdirSync,
-    writeFileSync
+  createReadStream,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync
 } from 'node:fs';
 
 import {
-    dirname,
-    resolve
+  dirname,
+  resolve
 } from 'node:path';
 
 import {
-    createInterface
+  createInterface
 } from 'node:readline';
 
 
@@ -20,100 +21,94 @@ import {
 // ============================================================
 
 const replayName =
-    process.argv[2] ?? 'test';
-
+  process.argv[2] ??
+  'test';
 
 const TICK_RATE =
-    64;
+  64;
 
 
 // ============================================================
-// DIRECT MELEE WINDOWS
+// VERIFIED MELEE ASSOCIATION
 //
-// We do not yet assume attack_trigger_time is exactly the
-// damage/final-blow instant.
+// Script 16 does NOT identify the target entity for each melee
+// attack. Its trustworthy direct fields are instead:
 //
-// Instead, evaluate several windows.
+//   hit
+//   hitObservedTick
+//   hitObservedMatchTimeSeconds
+//   hitPosition
+//   playerName
+//   team
+//   attackType
+//
+// hitPosition is the attacker's position when the direct
+// HoldMelee ability first reports m_bHitWithThisAttack=true.
+//
+// Therefore this script tests SPATIOTEMPORAL ASSOCIATION only.
+// It never calls a melee event target-attributed.
 // ============================================================
 
-const MELEE_WINDOWS_SECONDS =
-    [
-        0.125,
-        0.250,
-        0.500,
-        0.750,
-        1.000
-    ];
+const CORE_MELEE_WINDOW_SECONDS =
+  0.250;
+
+const CORE_MELEE_DISTANCE_HU =
+  300;
+
+const MELEE_WINDOWS_SECONDS = [
+  0.0625,
+  0.125,
+  0.250,
+  0.500,
+  0.750,
+  1.000
+];
+
+const MELEE_DISTANCE_THRESHOLDS_HU = [
+  100,
+  150,
+  200,
+  250,
+  300,
+  400,
+  500,
+  750
+];
+
+const MAX_MELEE_SEARCH_SECONDS =
+  Math.max(
+    ...MELEE_WINDOWS_SECONDS
+  );
 
 
 // ============================================================
-// PLAYER PROXIMITY THRESHOLDS
-//
-// Empirical diagnostic only.
-//
-// Do not assign gameplay meaning to any particular threshold
-// until matched vs unmatched distributions are inspected.
+// PLAYER PROXIMITY
 // ============================================================
 
-const PLAYER_DISTANCE_THRESHOLDS =
-    [
-        250,
-        500,
-        750,
-        1000,
-        1250,
-        1500,
-        1750,
-        1800,
-        2000,
-        2250,
-        2500,
-        3000
-    ];
-
-
-// ============================================================
-// PLAYER STATE TIMING
-//
-// player_state is sampled every 0.25 sec.
-//
-// Search ±0.5 sec and choose each player's temporally closest
-// row to the Trooper death.
-// ============================================================
+const PLAYER_DISTANCE_THRESHOLDS = [
+  250,
+  500,
+  750,
+  1000,
+  1250,
+  1500,
+  1750,
+  1771.65,
+  1800,
+  2000,
+  2250,
+  2500,
+  3000
+];
 
 const PLAYER_STATE_BUCKET_HZ =
-    4;
-
+  4;
 
 const PLAYER_STATE_SEARCH_BUCKETS =
-    2;
-
-
-// ============================================================
-// MELEE CLOCK ALIGNMENT
-//
-// Earlier telemetry used both demo-time and match-time forms.
-//
-// We automatically choose the offset that produces the most
-// direct target-attributed temporal coincidences.
-//
-// raw + offset = match time
-// ============================================================
-
-const MELEE_TIME_OFFSET_CANDIDATES =
-    [
-        0,
-        -30,
-        30
-    ];
-
-
-// ============================================================
-// OUTPUT LIMITS
-// ============================================================
+  2;
 
 const MAX_EXAMPLES_PER_GROUP =
-    100;
+  100;
 
 
 // ============================================================
@@ -121,35 +116,46 @@ const MAX_EXAMPLES_PER_GROUP =
 // ============================================================
 
 const deathStreamPath =
-    resolve(
-        'output',
-        replayName,
-        'trooper_ground_soul_one_to_one_v01.jsonl'
-    );
-
+  resolve(
+    'output',
+    replayName,
+    'trooper_ground_soul_one_to_one_v01.jsonl'
+  );
 
 const meleePath =
-    resolve(
-        'output',
-        replayName,
-        'verified_melee_events.jsonl'
-    );
+  resolve(
+    'output',
+    replayName,
+    'verified_melee_events.jsonl'
+  );
 
+const meleeSummaryPath =
+  resolve(
+    'output',
+    replayName,
+    'melee_verification_summary.json'
+  );
 
 const playerStatePath =
-    resolve(
-        'output',
-        replayName,
-        'player_state.jsonl'
-    );
-
+  resolve(
+    'output',
+    replayName,
+    'player_state.jsonl'
+  );
 
 const outputPath =
-    resolve(
-        'output',
-        replayName,
-        'trooper_ground_soul_unmatched_diagnostic_v01.json'
-    );
+  resolve(
+    'output',
+    replayName,
+    'trooper_ground_soul_unmatched_diagnostic_v02.json'
+  );
+
+const outputCandidatePath =
+  resolve(
+    'output',
+    replayName,
+    'trooper_ground_soul_melee_candidates_v02.jsonl'
+  );
 
 
 // ============================================================
@@ -157,440 +163,127 @@ const outputPath =
 // ============================================================
 
 for (
-    const path
-    of [
-        deathStreamPath,
-        meleePath,
-        playerStatePath
-    ]
+  const path
+  of [
+    deathStreamPath,
+    meleePath,
+    meleeSummaryPath,
+    playerStatePath
+  ]
 ) {
-
-    if (
-        !existsSync(
-            path
-        )
-    ) {
-
-        throw new Error(
-            `Missing required input:\n${path}`
-        );
-    }
+  if (
+    !existsSync(
+      path
+    )
+  ) {
+    throw new Error(
+      `Missing required input:\n${path}`
+    );
+  }
 }
 
 
 // ============================================================
-// LOAD TROOPER ECONOMY DEATH STREAM
+// LOAD TROOPER DEATH STREAM
 // ============================================================
 
 console.log('');
-
 console.log(
-    'Loading one-to-one Trooper death stream...'
+  'Loading one-to-one Trooper death stream...'
 );
 
+const rawDeaths =
+  await loadJsonl(
+    deathStreamPath
+  );
 
 const deaths =
-    await loadJsonl(
-        deathStreamPath
+  rawDeaths
+    .map(
+      normalizeDeath
+    )
+    .filter(
+      Boolean
     );
 
-
-const normalizedDeaths =
-    deaths
-
-        .map(
-            normalizeDeath
-        )
-
-        .filter(
-            Boolean
-        );
-
-
 console.log(
-    `Eligible death rows: ${normalizedDeaths.length}`
+  `Eligible economic Trooper deaths: ${deaths.length}`
 );
 
 
 // ============================================================
-// INDEX DEATHS BY TROOPER ENTITY
-// ============================================================
-
-const deathsByEntity =
-    new Map();
-
-
-for (
-    const death
-    of normalizedDeaths
-) {
-
-    if (
-        !deathsByEntity.has(
-            death.entityIndex
-        )
-    ) {
-
-        deathsByEntity.set(
-            death.entityIndex,
-            []
-        );
-    }
-
-
-    deathsByEntity
-        .get(
-            death.entityIndex
-        )
-        .push(
-            death
-        );
-}
-
-
-for (
-    const rows
-    of deathsByEntity.values()
-) {
-
-    rows.sort(
-        (
-            a,
-            b
-        ) =>
-            a.timeSeconds -
-            b.timeSeconds
-    );
-}
-
-
-// ============================================================
-// LOAD + NORMALIZE MELEE EVENTS
+// LOAD SCRIPT 16 VERIFIED MELEE
 // ============================================================
 
 console.log(
-    'Loading verified melee events...'
+  'Loading Script 16 verified melee events...'
 );
 
+const meleeSummary =
+  JSON.parse(
+    readFileSync(
+      meleeSummaryPath,
+      'utf8'
+    )
+  );
 
 const rawMelee =
-    await loadJsonl(
-        meleePath
-    );
-
+  await loadJsonl(
+    meleePath
+  );
 
 const melee =
-    rawMelee
-
-        .map(
-            (
-                row,
-                index
-            ) =>
-                normalizeMelee(
-                    row,
-                    index
-                )
+  rawMelee
+    .map(
+      (
+        row,
+        index
+      ) =>
+        normalizeVerifiedMelee(
+          row,
+          index
         )
-
-        .filter(
-            Boolean
-        );
-
-
-console.log(
-    `Melee rows loaded: ${rawMelee.length}`
-);
-
-console.log(
-    `Melee rows normalized: ${melee.length}`
-);
-
-
-const meleeWithTarget =
-    melee.filter(
-        row =>
-            row.targetEntityIndex !==
-            null
+    )
+    .filter(
+      Boolean
     );
 
-
-console.log(
-    `Melee rows with attributed target: ${meleeWithTarget.length}`
-);
-
-
-// ============================================================
-// DETECT MELEE TIME OFFSET
-// ============================================================
-
-const meleeOffsetDiagnostics =
-    [];
-
-
-for (
-    const offset
-    of MELEE_TIME_OFFSET_CANDIDATES
-) {
-
-    let directTargetMatches125 =
-        0;
-
-
-    let directTargetMatches250 =
-        0;
-
-
-    let directTargetMatches500 =
-        0;
-
-
-    const deltas =
-        [];
-
-
-    for (
-        const attack
-        of meleeWithTarget
-    ) {
-
-        if (
-            attack.rawTime ===
-            null
-        ) {
-
-            continue;
-        }
-
-
-        const candidateDeaths =
-            deathsByEntity.get(
-                attack.targetEntityIndex
-            )
-            ??
-            [];
-
-
-        if (
-            candidateDeaths.length ===
-            0
-        ) {
-
-            continue;
-        }
-
-
-        const attackTime =
-            attack.rawTime +
-            offset;
-
-
-        const nearest =
-            findNearestByTime(
-                candidateDeaths,
-                attackTime
-            );
-
-
-        if (
-            !nearest
-        ) {
-
-            continue;
-        }
-
-
-        const delta =
-            attackTime -
-            nearest.timeSeconds;
-
-
-        deltas.push(
-            delta
-        );
-
-
-        if (
-            Math.abs(
-                delta
-            ) <=
-            0.125
-        ) {
-
-            directTargetMatches125++;
-        }
-
-
-        if (
-            Math.abs(
-                delta
-            ) <=
-            0.250
-        ) {
-
-            directTargetMatches250++;
-        }
-
-
-        if (
-            Math.abs(
-                delta
-            ) <=
-            0.500
-        ) {
-
-            directTargetMatches500++;
-        }
-    }
-
-
-    const score =
-        directTargetMatches125 *
-            100
-        +
-        directTargetMatches250 *
-            10
-        +
-        directTargetMatches500;
-
-
-    meleeOffsetDiagnostics.push({
-
-        offsetSeconds:
-            offset,
-
-        score,
-
-        directTargetMatchesWithin125ms:
-            directTargetMatches125,
-
-        directTargetMatchesWithin250ms:
-            directTargetMatches250,
-
-        directTargetMatchesWithin500ms:
-            directTargetMatches500,
-
-        nearestDeathDelta:
-            summarizeNumbers(
-                deltas
-            )
-    });
-}
-
-
-meleeOffsetDiagnostics.sort(
-    (
+const confirmedHits =
+  melee
+    .filter(
+      row =>
+        row.hit ===
+          true
+        &&
+        Number.isFinite(
+          row.hitTimeSeconds
+        )
+        &&
+        row.hitPosition
+    )
+    .sort(
+      (
         a,
         b
-    ) =>
-        b.score -
-        a.score
-);
-
-
-const selectedMeleeTimeOffset =
-    meleeOffsetDiagnostics[
-        0
-    ]
-    ?.offsetSeconds
-    ??
-    0;
-
-
-for (
-    const attack
-    of melee
-) {
-
-    attack.matchTimeSeconds =
-        attack.rawTime !==
-            null
-
-            ? attack.rawTime +
-                selectedMeleeTimeOffset
-
-            : (
-                attack.rawTick !==
-                    null
-
-                    ? (
-                        attack.rawTick /
-                        TICK_RATE
-                    )
-                    - 30
-
-                    : null
-            );
-}
-
+      ) =>
+        a.hitTimeSeconds -
+        b.hitTimeSeconds
+        ||
+        a.meleeIndex -
+        b.meleeIndex
+    );
 
 console.log(
-    `Selected melee time offset: ${selectedMeleeTimeOffset}s`
+  `Raw Script 16 melee rows: ${rawMelee.length}`
 );
 
+console.log(
+  `Normalized Script 16 melee rows: ${melee.length}`
+);
 
-// ============================================================
-// INDEX TARGET-ATTRIBUTED MELEE EVENTS
-// ============================================================
-
-const meleeByTargetEntity =
-    new Map();
-
-
-for (
-    const attack
-    of melee
-) {
-
-    if (
-        attack.targetEntityIndex ===
-            null
-        ||
-        attack.matchTimeSeconds ===
-            null
-    ) {
-
-        continue;
-    }
-
-
-    if (
-        !meleeByTargetEntity.has(
-            attack.targetEntityIndex
-        )
-    ) {
-
-        meleeByTargetEntity.set(
-            attack.targetEntityIndex,
-            []
-        );
-    }
-
-
-    meleeByTargetEntity
-        .get(
-            attack.targetEntityIndex
-        )
-        .push(
-            attack
-        );
-}
-
-
-for (
-    const rows
-    of meleeByTargetEntity.values()
-) {
-
-    rows.sort(
-        (
-            a,
-            b
-        ) =>
-            a.matchTimeSeconds -
-            b.matchTimeSeconds
-    );
-}
+console.log(
+  `Confirmed hits with direct time + position: ${confirmedHits.length}`
+);
 
 
 // ============================================================
@@ -598,527 +291,489 @@ for (
 // ============================================================
 
 console.log(
-    'Loading player-state proximity buckets...'
+  'Loading player-state proximity buckets...'
 );
-
 
 const playerBuckets =
-    new Map();
-
+  new Map();
 
 let playerRows =
-    0;
-
+  0;
 
 let usablePlayerRows =
-    0;
-
+  0;
 
 const playerReader =
-    createInterface({
+  createInterface({
+    input:
+      createReadStream(
+        playerStatePath,
+        {
+          encoding:
+            'utf8'
+        }
+      ),
 
-        input:
-            createReadStream(
-                playerStatePath,
-                {
-                    encoding:
-                        'utf8'
-                }
-            ),
-
-        crlfDelay:
-            Infinity
-    });
-
+    crlfDelay:
+      Infinity
+  });
 
 for await (
-    const line
-    of playerReader
+  const line
+  of playerReader
 ) {
-
-    if (
-        !line.trim()
-    ) {
-
-        continue;
-    }
-
-
-    playerRows++;
-
-
-    let row;
-
-
-    try {
-
-        row =
-            JSON.parse(
-                line
-            );
-
-    } catch {
-
-        continue;
-    }
-
-
-    const timeSeconds =
-        finite(
-            row
-                ?.matchTimeSeconds
-        );
-
-
-    const team =
-        finite(
-            row
-                ?.controller
-                ?.team
-        );
-
-
-    const playerName =
-        row
-            ?.controller
-            ?.playerName
-        ??
-        null;
-
-
-    const pawnEntityIndex =
-        finite(
-            row
-                ?.pawn
-                ?.entityIndex
-        );
-
-
-    const alive =
-        row
-            ?.controller
-            ?.alive ===
-        true;
-
-
-    const movementValid =
-        row
-            ?.pawn
-            ?.positionValidForMovement ===
-        true;
-
-
-    const position =
-        normalizePosition(
-            row
-                ?.pawn
-                ?.positionWorld
-        );
-
-
-    if (
-        timeSeconds ===
-            null
-        ||
-        team ===
-            null
-        ||
-        !playerName
-        ||
-        pawnEntityIndex ===
-            null
-        ||
-        !alive
-        ||
-        !movementValid
-        ||
-        !position
-    ) {
-
-        continue;
-    }
-
-
-    usablePlayerRows++;
-
-
-    const bucket =
-        Math.round(
-            timeSeconds *
-            PLAYER_STATE_BUCKET_HZ
-        );
-
-
-    if (
-        !playerBuckets.has(
-            bucket
-        )
-    ) {
-
-        playerBuckets.set(
-            bucket,
-            []
-        );
-    }
-
-
-    playerBuckets
-        .get(
-            bucket
-        )
-        .push({
-
-            timeSeconds,
-
-            team,
-
-            playerName,
-
-            pawnEntityIndex,
-
-            position
-        });
-}
-
-
-console.log(
-    `Player rows: ${playerRows}`
-);
-
-console.log(
-    `Usable spatial player rows: ${usablePlayerRows}`
-);
-
-
-// ============================================================
-// ENRICH EACH DEATH
-// ============================================================
-
-for (
-    const death
-    of normalizedDeaths
-) {
-
-    // ========================================================
-    // DIRECT TARGET-ATTRIBUTED MELEE
-    // ========================================================
-
-    const attacks =
-        meleeByTargetEntity.get(
-            death.entityIndex
-        )
-        ??
-        [];
-
-
-    const nearbyMelee =
-        [];
-
-
-    for (
-        const attack
-        of attacks
-    ) {
-
-        const delta =
-            attack.matchTimeSeconds -
-            death.timeSeconds;
-
-
-        if (
-            Math.abs(
-                delta
-            ) >
-            1.0
-        ) {
-
-            continue;
-        }
-
-
-        nearbyMelee.push({
-
-            meleeIndex:
-                attack.meleeIndex,
-
-            playerName:
-                attack.playerName,
-
-            playerTeam:
-                attack.playerTeam,
-
-            attackType:
-                attack.attackType,
-
-            hit:
-                attack.hit,
-
-            attackTimeSeconds:
-                attack.matchTimeSeconds,
-
-            timeDeltaSeconds:
-                delta,
-
-            absoluteTimeDeltaSeconds:
-                Math.abs(
-                    delta
-                ),
-
-            targetEntityIndex:
-                attack.targetEntityIndex,
-
-            position:
-                attack.position
-        });
-    }
-
-
-    nearbyMelee.sort(
-        (
-            a,
-            b
-        ) =>
-            a.absoluteTimeDeltaSeconds -
-            b.absoluteTimeDeltaSeconds
+  if (
+    !line.trim()
+  ) {
+    continue;
+  }
+
+  playerRows++;
+
+  let row;
+
+  try {
+    row =
+      JSON.parse(
+        line
+      );
+  } catch {
+    continue;
+  }
+
+  const timeSeconds =
+    finite(
+      row
+        ?.matchTimeSeconds
     );
 
+  const team =
+    finite(
+      row
+        ?.controller
+        ?.team
+    );
 
-    death.targetAttributedMeleeWithin1s =
-        nearbyMelee;
+  const playerName =
+    row
+      ?.controller
+      ?.playerName ??
+    null;
+
+  const pawnEntityIndex =
+    finite(
+      row
+        ?.pawn
+        ?.entityIndex
+    );
+
+  const alive =
+    row
+      ?.controller
+      ?.alive ===
+    true;
+
+  const movementValid =
+    row
+      ?.pawn
+      ?.positionValidForMovement ===
+    true;
+
+  const position =
+    normalizePosition(
+      row
+        ?.pawn
+        ?.positionWorld
+    );
+
+  if (
+    timeSeconds ===
+      null
+    ||
+    team ===
+      null
+    ||
+    !playerName
+    ||
+    pawnEntityIndex ===
+      null
+    ||
+    !alive
+    ||
+    !movementValid
+    ||
+    !position
+  ) {
+    continue;
+  }
+
+  usablePlayerRows++;
+
+  const bucket =
+    Math.round(
+      timeSeconds *
+      PLAYER_STATE_BUCKET_HZ
+    );
+
+  if (
+    !playerBuckets.has(
+      bucket
+    )
+  ) {
+    playerBuckets.set(
+      bucket,
+      []
+    );
+  }
+
+  playerBuckets
+    .get(
+      bucket
+    )
+    .push({
+      timeSeconds,
+      team,
+      playerName,
+      pawnEntityIndex,
+      position
+    });
+}
+
+console.log(
+  `Player-state rows: ${playerRows}`
+);
+
+console.log(
+  `Usable spatial player rows: ${usablePlayerRows}`
+);
 
 
-    death.nearestTargetAttributedMelee =
-        nearbyMelee[
-            0
-        ]
-        ??
-        null;
+// ============================================================
+// ENRICH DEATHS
+// ============================================================
 
+console.log(
+  'Associating verified melee hits and opposing-player geometry...'
+);
 
-    // ========================================================
-    // PLAYER PROXIMITY AT DEATH
-    // ========================================================
+for (
+  const death
+  of deaths
+) {
+  death.verifiedMeleeHitsWithin1s =
+    findNearbyVerifiedMeleeHits(
+      death
+    );
 
-    death.playerProximity =
-        findOpposingPlayerProximity(
-            death
-        );
+  death.nearestVerifiedMeleeHit =
+    death
+      .verifiedMeleeHitsWithin1s[0] ??
+    null;
+
+  death.coreMeleeAssociation =
+    death
+      .verifiedMeleeHitsWithin1s
+      .find(
+        candidate =>
+          candidate.absoluteTimeDeltaSeconds <=
+            CORE_MELEE_WINDOW_SECONDS
+          &&
+          candidate.distance3D <=
+            CORE_MELEE_DISTANCE_HU
+      ) ??
+    null;
+
+  death.playerProximity =
+    findOpposingPlayerProximity(
+      death
+    );
 }
 
 
 // ============================================================
-// MATCHED / UNMATCHED GROUPS
+// PARTITION
 // ============================================================
 
 const matched =
-    normalizedDeaths.filter(
-        row =>
-            row.groundSoulMatched
-    );
-
+  deaths.filter(
+    row =>
+      row.groundSoulMatched
+  );
 
 const unmatched =
-    normalizedDeaths.filter(
+  deaths.filter(
+    row =>
+      !row.groundSoulMatched
+  );
+
+
+// ============================================================
+// VERIFIED MELEE SENSITIVITY MATRIX
+// ============================================================
+
+const meleeAssociationMatrix =
+  [];
+
+for (
+  const windowSeconds
+  of MELEE_WINDOWS_SECONDS
+) {
+  for (
+    const distanceHu
+    of MELEE_DISTANCE_THRESHOLDS_HU
+  ) {
+    const matchedAssociated =
+      matched.filter(
         row =>
-            !row.groundSoulMatched
-    );
+          hasVerifiedMeleeAssociation(
+            row,
+            windowSeconds,
+            distanceHu
+          )
+      ).length;
 
-
-// ============================================================
-// MELEE WINDOW MATRIX
-// ============================================================
-
-const meleeWindowMatrix =
-    [];
-
-
-for (
-    const windowSeconds
-    of MELEE_WINDOWS_SECONDS
-) {
-
-    const matchedWithMelee =
-        matched.filter(
-            row =>
-                hasTargetMeleeWithin(
-                    row,
-                    windowSeconds
-                )
-        );
-
-
-    const unmatchedWithMelee =
-        unmatched.filter(
-            row =>
-                hasTargetMeleeWithin(
-                    row,
-                    windowSeconds
-                )
-        );
-
-
-    meleeWindowMatrix.push({
-
-        windowSeconds,
-
-        matched:
-            {
-
-                total:
-                    matched.length,
-
-                withTargetAttributedMelee:
-                    matchedWithMelee.length,
-
-                rate:
-                    rate(
-                        matchedWithMelee.length,
-                        matched.length
-                    )
-            },
-
-        unmatched:
-            {
-
-                total:
-                    unmatched.length,
-
-                withTargetAttributedMelee:
-                    unmatchedWithMelee.length,
-
-                rate:
-                    rate(
-                        unmatchedWithMelee.length,
-                        unmatched.length
-                    )
-            },
-
-        rateRatioUnmatchedVsMatched:
-            safeRatio(
-                rate(
-                    unmatchedWithMelee.length,
-                    unmatched.length
-                ),
-                rate(
-                    matchedWithMelee.length,
-                    matched.length
-                )
-            )
-    });
-}
-
-
-// ============================================================
-// BEST MELEE DIAGNOSTIC WINDOW
-//
-// Purely descriptive:
-// choose the window with greatest unmatched-vs-matched
-// percentage-point separation.
-// ============================================================
-
-let bestMeleeWindow =
-    null;
-
-
-for (
-    const row
-    of meleeWindowMatrix
-) {
+    const unmatchedAssociated =
+      unmatched.filter(
+        row =>
+          hasVerifiedMeleeAssociation(
+            row,
+            windowSeconds,
+            distanceHu
+          )
+      ).length;
 
     const matchedRate =
-        row
-            ?.matched
-            ?.rate;
-
+      rate(
+        matchedAssociated,
+        matched.length
+      );
 
     const unmatchedRate =
-        row
-            ?.unmatched
-            ?.rate;
+      rate(
+        unmatchedAssociated,
+        unmatched.length
+      );
 
+    meleeAssociationMatrix.push({
+      windowSeconds,
+      distanceHu,
 
-    if (
-        !Number.isFinite(
+      matched: {
+        associated:
+          matchedAssociated,
+        total:
+          matched.length,
+        rate:
+          matchedRate
+      },
+
+      unmatched: {
+        associated:
+          unmatchedAssociated,
+        total:
+          unmatched.length,
+        rate:
+          unmatchedRate
+      },
+
+      unmatchedMinusMatchedRate:
+        Number.isFinite(
+          unmatchedRate
+        )
+        &&
+        Number.isFinite(
+          matchedRate
+        )
+          ? unmatchedRate -
             matchedRate
+          : null,
+
+      rateRatioUnmatchedVsMatched:
+        safeRatio(
+          unmatchedRate,
+          matchedRate
         )
-        ||
-        !Number.isFinite(
-            unmatchedRate
-        )
-    ) {
-
-        continue;
-    }
-
-
-    const separation =
-        unmatchedRate -
-        matchedRate;
-
-
-    if (
-        !bestMeleeWindow
-        ||
-        separation >
-        bestMeleeWindow.separation
-    ) {
-
-        bestMeleeWindow =
-            {
-
-                windowSeconds:
-                    row.windowSeconds,
-
-                separation
-            };
-    }
+    });
+  }
 }
+
+const positiveSeparationCells =
+  meleeAssociationMatrix
+    .filter(
+      row =>
+        Number.isFinite(
+          row.unmatchedMinusMatchedRate
+        )
+        &&
+        row.unmatchedMinusMatchedRate >
+          0
+    )
+    .sort(
+      (
+        a,
+        b
+      ) =>
+        b.unmatchedMinusMatchedRate -
+        a.unmatchedMinusMatchedRate
+        ||
+        a.windowSeconds -
+        b.windowSeconds
+        ||
+        a.distanceHu -
+        b.distanceHu
+    );
+
+const strongestPositiveSeparation =
+  positiveSeparationCells[0] ??
+  null;
+
+
+// ============================================================
+// CORE PREDECLARED MELEE ASSOCIATION
+// ============================================================
+
+const matchedCoreMelee =
+  matched.filter(
+    row =>
+      Boolean(
+        row.coreMeleeAssociation
+      )
+  );
+
+const unmatchedCoreMelee =
+  unmatched.filter(
+    row =>
+      Boolean(
+        row.coreMeleeAssociation
+      )
+  );
+
+const matchedCoreRate =
+  rate(
+    matchedCoreMelee.length,
+    matched.length
+  );
+
+const unmatchedCoreRate =
+  rate(
+    unmatchedCoreMelee.length,
+    unmatched.length
+  );
+
+const coreRateDifference =
+  Number.isFinite(
+    unmatchedCoreRate
+  )
+  &&
+  Number.isFinite(
+    matchedCoreRate
+  )
+    ? unmatchedCoreRate -
+      matchedCoreRate
+    : null;
+
+const coreRateRatio =
+  safeRatio(
+    unmatchedCoreRate,
+    matchedCoreRate
+  );
 
 
 // ============================================================
 // MELEE ATTACK TYPE DISTRIBUTION
 // ============================================================
 
-const chosenMeleeWindow =
-    bestMeleeWindow
-        ?.windowSeconds
-    ??
-    0.5;
+const matchedCoreMeleeTypes =
+  countByObject(
+    matchedCoreMelee,
+    row =>
+      row
+        .coreMeleeAssociation
+        ?.attackType ??
+      'UNKNOWN'
+  );
+
+const unmatchedCoreMeleeTypes =
+  countByObject(
+    unmatchedCoreMelee,
+    row =>
+      row
+        .coreMeleeAssociation
+        ?.attackType ??
+      'UNKNOWN'
+  );
+
+const unmatchedCoreMeleePlayers =
+  countByObject(
+    unmatchedCoreMelee,
+    row =>
+      row
+        .coreMeleeAssociation
+        ?.playerName ??
+      'UNKNOWN'
+  );
 
 
-const matchedMeleeTypes =
-    countBy(
-        matched.filter(
-            row =>
-                hasTargetMeleeWithin(
-                    row,
-                    chosenMeleeWindow
-                )
-        ),
-        row =>
-            row
-                .nearestTargetAttributedMelee
-                ?.attackType
-            ??
-            'UNKNOWN'
+// ============================================================
+// NEAREST VERIFIED HIT DISTRIBUTIONS
+// ============================================================
+
+const matchedNearestMeleeTimeDelta =
+  matched
+    .map(
+      row =>
+        row
+          ?.nearestVerifiedMeleeHit
+          ?.absoluteTimeDeltaSeconds
+    )
+    .filter(
+      Number.isFinite
     );
 
+const unmatchedNearestMeleeTimeDelta =
+  unmatched
+    .map(
+      row =>
+        row
+          ?.nearestVerifiedMeleeHit
+          ?.absoluteTimeDeltaSeconds
+    )
+    .filter(
+      Number.isFinite
+    );
 
-const unmatchedMeleeTypes =
-    countBy(
-        unmatched.filter(
-            row =>
-                hasTargetMeleeWithin(
-                    row,
-                    chosenMeleeWindow
-                )
-        ),
-        row =>
-            row
-                .nearestTargetAttributedMelee
-                ?.attackType
-            ??
-            'UNKNOWN'
+const matchedNearbyMeleeDistance =
+  matched
+    .flatMap(
+      row =>
+        row
+          .verifiedMeleeHitsWithin1s
+          .filter(
+            candidate =>
+              candidate.absoluteTimeDeltaSeconds <=
+              CORE_MELEE_WINDOW_SECONDS
+          )
+          .map(
+            candidate =>
+              candidate.distance3D
+          )
+    );
+
+const unmatchedNearbyMeleeDistance =
+  unmatched
+    .flatMap(
+      row =>
+        row
+          .verifiedMeleeHitsWithin1s
+          .filter(
+            candidate =>
+              candidate.absoluteTimeDeltaSeconds <=
+              CORE_MELEE_WINDOW_SECONDS
+          )
+          .map(
+            candidate =>
+              candidate.distance3D
+          )
     );
 
 
@@ -1127,938 +782,900 @@ const unmatchedMeleeTypes =
 // ============================================================
 
 const matchedNearest3D =
-    matched
-
-        .map(
-            row =>
-                row
-                    ?.playerProximity
-                    ?.nearestDistance3D
-        )
-
-        .filter(
-            Number.isFinite
-        );
-
+  matched
+    .map(
+      row =>
+        row
+          ?.playerProximity
+          ?.nearestDistance3D
+    )
+    .filter(
+      Number.isFinite
+    );
 
 const unmatchedNearest3D =
-    unmatched
-
-        .map(
-            row =>
-                row
-                    ?.playerProximity
-                    ?.nearestDistance3D
-        )
-
-        .filter(
-            Number.isFinite
-        );
-
+  unmatched
+    .map(
+      row =>
+        row
+          ?.playerProximity
+          ?.nearestDistance3D
+    )
+    .filter(
+      Number.isFinite
+    );
 
 const matchedNearestXY =
-    matched
-
-        .map(
-            row =>
-                row
-                    ?.playerProximity
-                    ?.nearestDistanceXY
-        )
-
-        .filter(
-            Number.isFinite
-        );
-
+  matched
+    .map(
+      row =>
+        row
+          ?.playerProximity
+          ?.nearestDistanceXY
+    )
+    .filter(
+      Number.isFinite
+    );
 
 const unmatchedNearestXY =
-    unmatched
-
-        .map(
-            row =>
-                row
-                    ?.playerProximity
-                    ?.nearestDistanceXY
-        )
-
-        .filter(
-            Number.isFinite
-        );
+  unmatched
+    .map(
+      row =>
+        row
+          ?.playerProximity
+          ?.nearestDistanceXY
+    )
+    .filter(
+      Number.isFinite
+    );
 
 
 // ============================================================
-// DISTANCE THRESHOLD MATRIX
+// PLAYER DISTANCE THRESHOLD MATRIX
 // ============================================================
 
 const distanceThresholdMatrix =
-    [];
-
-
-for (
-    const threshold
-    of PLAYER_DISTANCE_THRESHOLDS
-) {
-
-    const matchedInside =
+  PLAYER_DISTANCE_THRESHOLDS.map(
+    threshold => {
+      const matchedInside =
         matched.filter(
-            row =>
-                Number.isFinite(
-                    row
-                        ?.playerProximity
-                        ?.nearestDistance3D
-                )
-                &&
-                row
-                    .playerProximity
-                    .nearestDistance3D <=
-                    threshold
+          row =>
+            Number.isFinite(
+              row
+                ?.playerProximity
+                ?.nearestDistance3D
+            )
+            &&
+            row
+              .playerProximity
+              .nearestDistance3D <=
+              threshold
         ).length;
 
-
-    const unmatchedInside =
+      const unmatchedInside =
         unmatched.filter(
-            row =>
-                Number.isFinite(
-                    row
-                        ?.playerProximity
-                        ?.nearestDistance3D
-                )
-                &&
-                row
-                    .playerProximity
-                    .nearestDistance3D <=
-                    threshold
+          row =>
+            Number.isFinite(
+              row
+                ?.playerProximity
+                ?.nearestDistance3D
+            )
+            &&
+            row
+              .playerProximity
+              .nearestDistance3D <=
+              threshold
         ).length;
 
-
-    distanceThresholdMatrix.push({
-
+      return {
         threshold,
 
-        matched:
-            {
+        matched: {
+          inside:
+            matchedInside,
+          total:
+            matched.length,
+          rate:
+            rate(
+              matchedInside,
+              matched.length
+            )
+        },
 
-                inside:
-                    matchedInside,
-
-                total:
-                    matched.length,
-
-                rate:
-                    rate(
-                        matchedInside,
-                        matched.length
-                    )
-            },
-
-        unmatched:
-            {
-
-                inside:
-                    unmatchedInside,
-
-                total:
-                    unmatched.length,
-
-                rate:
-                    rate(
-                        unmatchedInside,
-                        unmatched.length
-                    )
-            }
-    });
-}
+        unmatched: {
+          inside:
+            unmatchedInside,
+          total:
+            unmatched.length,
+          rate:
+            rate(
+              unmatchedInside,
+              unmatched.length
+            )
+        }
+      };
+    }
+  );
 
 
 // ============================================================
-// TYPE-SPECIFIC OUTCOME
+// BY BASE TYPE
 // ============================================================
 
 const byBaseType =
-    [];
-
-
-for (
-    const baseType
-    of [
-        'RANGED',
-        'MEDIC',
-        'MELEE'
-    ]
-) {
-
-    const rows =
-        normalizedDeaths.filter(
-            row =>
-                row.baseType ===
-                baseType
+  [
+    'RANGED',
+    'MEDIC',
+    'MELEE'
+  ].map(
+    baseType => {
+      const rows =
+        deaths.filter(
+          row =>
+            row.baseType ===
+            baseType
         );
 
-
-    const typeMatched =
+      const typeMatched =
         rows.filter(
-            row =>
-                row.groundSoulMatched
+          row =>
+            row.groundSoulMatched
         );
 
-
-    const typeUnmatched =
+      const typeUnmatched =
         rows.filter(
-            row =>
-                !row.groundSoulMatched
+          row =>
+            !row.groundSoulMatched
         );
 
-
-    const unmatchedWithMelee =
-        typeUnmatched.filter(
-            row =>
-                hasTargetMeleeWithin(
-                    row,
-                    chosenMeleeWindow
-                )
-        );
-
-
-    const matchedWithMelee =
+      const typeMatchedCore =
         typeMatched.filter(
-            row =>
-                hasTargetMeleeWithin(
-                    row,
-                    chosenMeleeWindow
-                )
+          row =>
+            Boolean(
+              row.coreMeleeAssociation
+            )
         );
 
+      const typeUnmatchedCore =
+        typeUnmatched.filter(
+          row =>
+            Boolean(
+              row.coreMeleeAssociation
+            )
+        );
 
-    byBaseType.push({
-
+      return {
         baseType,
 
         total:
-            rows.length,
+          rows.length,
 
         matched:
-            typeMatched.length,
+          typeMatched.length,
 
         unmatched:
-            typeUnmatched.length,
+          typeUnmatched.length,
 
         matchRate:
+          rate(
+            typeMatched.length,
+            rows.length
+          ),
+
+        coreMeleeAssociation: {
+          windowSeconds:
+            CORE_MELEE_WINDOW_SECONDS,
+
+          distanceHu:
+            CORE_MELEE_DISTANCE_HU,
+
+          matched:
+            typeMatchedCore.length,
+
+          matchedRate:
             rate(
-                typeMatched.length,
-                rows.length
+              typeMatchedCore.length,
+              typeMatched.length
             ),
 
-        targetMeleeWithinChosenWindow:
-            {
+          unmatched:
+            typeUnmatchedCore.length,
 
-                windowSeconds:
-                    chosenMeleeWindow,
+          unmatchedRate:
+            rate(
+              typeUnmatchedCore.length,
+              typeUnmatched.length
+            )
+        },
 
-                matched:
-                    matchedWithMelee.length,
+        proximity: {
+          matchedNearest3D:
+            summarizeNumbers(
+              typeMatched
+                .map(
+                  row =>
+                    row
+                      ?.playerProximity
+                      ?.nearestDistance3D
+                )
+                .filter(
+                  Number.isFinite
+                )
+            ),
 
-                matchedRate:
-                    rate(
-                        matchedWithMelee.length,
-                        typeMatched.length
-                    ),
-
-                unmatched:
-                    unmatchedWithMelee.length,
-
-                unmatchedRate:
-                    rate(
-                        unmatchedWithMelee.length,
-                        typeUnmatched.length
-                    )
-            },
-
-        proximity:
-            {
-
-                matchedNearest3D:
-                    summarizeNumbers(
-                        typeMatched
-                            .map(
-                                row =>
-                                    row
-                                        ?.playerProximity
-                                        ?.nearestDistance3D
-                            )
-                    ),
-
-                unmatchedNearest3D:
-                    summarizeNumbers(
-                        typeUnmatched
-                            .map(
-                                row =>
-                                    row
-                                        ?.playerProximity
-                                        ?.nearestDistance3D
-                            )
-                    )
-            }
-    });
-}
+          unmatchedNearest3D:
+            summarizeNumbers(
+              typeUnmatched
+                .map(
+                  row =>
+                    row
+                      ?.playerProximity
+                      ?.nearestDistance3D
+                )
+                .filter(
+                  Number.isFinite
+                )
+            )
+        }
+      };
+    }
+  );
 
 
 // ============================================================
-// CANDIDATE-ACTIVATION STATUS AMONG UNMATCHED
+// UNMATCHED CANDIDATE ACTIVATIONS
 // ============================================================
 
 const unmatchedCandidateActivationCounts =
-    countBy(
-        unmatched,
-        row =>
-            String(
-                row.candidateActivationCount
-                ??
-                0
-            )
-    );
+  countByObject(
+    unmatched,
+    row =>
+      String(
+        row.candidateActivationCount ??
+        0
+      )
+  );
 
 
 // ============================================================
-// MELEE-EXPLAINED CANDIDATE SET
-//
-// Still diagnostic, not canonical.
-//
-// This means:
-// a verified target-attributed melee attack occurred close in
-// time to the same Trooper death.
-//
-// It does NOT yet assert that melee was definitively the
-// lethal damage source.
+// REMAINING UNMATCHED AFTER CORE MELEE ASSOCIATIONS
 // ============================================================
 
-const meleeAssociatedUnmatched =
-    unmatched.filter(
-        row =>
-            hasTargetMeleeWithin(
-                row,
-                chosenMeleeWindow
-            )
-    );
-
-
-const nonMeleeAssociatedUnmatched =
-    unmatched.filter(
-        row =>
-            !hasTargetMeleeWithin(
-                row,
-                chosenMeleeWindow
-            )
-    );
-
-
-// ============================================================
-// REMAINING UNMATCHED PROXIMITY
-// ============================================================
+const nonCoreMeleeUnmatched =
+  unmatched.filter(
+    row =>
+      !row.coreMeleeAssociation
+  );
 
 const remainingNearest3D =
-    nonMeleeAssociatedUnmatched
-
-        .map(
-            row =>
-                row
-                    ?.playerProximity
-                    ?.nearestDistance3D
-        );
+  nonCoreMeleeUnmatched
+    .map(
+      row =>
+        row
+          ?.playerProximity
+          ?.nearestDistance3D
+    )
+    .filter(
+      Number.isFinite
+    );
 
 
 // ============================================================
-// COMBINED MATRIX
+// PRODUCER / CONSUMER CONTRACT VALIDATION
 // ============================================================
 
-const combinedMatrix =
-    [];
+const expectedDirectAttacks =
+  finite(
+    meleeSummary
+      ?.totalDirectAttacks
+  );
+
+const expectedConfirmedHits =
+  finite(
+    meleeSummary
+      ?.confirmedHits
+  );
+
+const rawConfirmedHitCount =
+  melee.filter(
+    row =>
+      row.hit ===
+      true
+  ).length;
+
+const meleeContract = {
+  source:
+    'SCRIPT_16_CCitadel_Ability_HoldMelee',
+
+  targetAttributionAvailable:
+    false,
+
+  targetAttributionUsed:
+    false,
+
+  associationBasis: [
+    'hitObservedMatchTimeSeconds',
+    'hitPosition',
+    'opposing player team',
+    'Trooper death time and position'
+  ],
+
+  checks: {
+    rawRowsMatchProducerSummary:
+      check(
+        rawMelee.length,
+        expectedDirectAttacks,
+        expectedDirectAttacks ===
+          null
+          ? rawMelee.length >
+            0
+          : rawMelee.length ===
+            expectedDirectAttacks
+      ),
+
+    normalizedRowsPreserved:
+      check(
+        melee.length,
+        rawMelee.length,
+        melee.length ===
+          rawMelee.length
+      ),
+
+    producerConfirmedHitCountPreserved:
+      check(
+        rawConfirmedHitCount,
+        expectedConfirmedHits,
+        expectedConfirmedHits ===
+          null
+          ? rawConfirmedHitCount >
+            0
+          : rawConfirmedHitCount ===
+            expectedConfirmedHits
+      ),
+
+    confirmedHitsHaveUsableDirectTelemetry:
+      check(
+        confirmedHits.length,
+        '>0',
+        confirmedHits.length >
+          0
+      )
+  }
+};
+
+meleeContract.pass =
+  Object
+    .values(
+      meleeContract.checks
+    )
+    .every(
+      row =>
+        row.pass
+    );
 
 
-for (
-    const threshold
-    of PLAYER_DISTANCE_THRESHOLDS
+// ============================================================
+// GLOBAL VALIDATION
+// ============================================================
+
+const validationChecks = {
+  deathRowsLoaded:
+    check(
+      deaths.length,
+      replayName ===
+        'test'
+        ? 1727
+        : '>0',
+      replayName ===
+        'test'
+        ? deaths.length ===
+          1727
+        : deaths.length >
+          0
+    ),
+
+  matchedDeaths:
+    check(
+      matched.length,
+      replayName ===
+        'test'
+        ? 1388
+        : '>0',
+      replayName ===
+        'test'
+        ? matched.length ===
+          1388
+        : matched.length >
+          0
+    ),
+
+  unmatchedDeaths:
+    check(
+      unmatched.length,
+      replayName ===
+        'test'
+        ? 339
+        : '>=0',
+      replayName ===
+        'test'
+        ? unmatched.length ===
+          339
+        : unmatched.length >=
+          0
+    ),
+
+  meleeProducerConsumerContract:
+    check(
+      meleeContract.pass,
+      true,
+      meleeContract.pass
+    ),
+
+  usablePlayerSpatialRows:
+    check(
+      usablePlayerRows,
+      '>0',
+      usablePlayerRows >
+        0
+    ),
+
+  matchedPlayerProximityResolved:
+    check(
+      matchedNearest3D.length,
+      matched.length,
+      matchedNearest3D.length ===
+        matched.length
+    ),
+
+  unmatchedPlayerProximityMostlyResolved:
+    check(
+      unmatchedNearest3D.length,
+      '>=95% of unmatched',
+      unmatchedNearest3D.length >=
+        Math.floor(
+          unmatched.length *
+          0.95
+        )
+    )
+};
+
+const validationPass =
+  Object
+    .values(
+      validationChecks
+    )
+    .every(
+      row =>
+        row.pass
+    );
+
+
+// ============================================================
+// MELEE HYPOTHESIS INTERPRETATION
+//
+// This is descriptive only. We do not declare a lethal melee
+// source from association alone.
+// ============================================================
+
+let meleeHypothesisStatus =
+  'NO_ENRICHMENT_SIGNAL';
+
+if (
+  unmatchedCoreMelee.length >
+    0
+  &&
+  Number.isFinite(
+    coreRateDifference
+  )
+  &&
+  coreRateDifference >
+    0
 ) {
+  meleeHypothesisStatus =
+    'UNMATCHED_ENRICHED_FOR_VERIFIED_MELEE_ASSOCIATION';
+}
 
-    let meleeAssociated =
-        0;
-
-
-    let noMeleeInside =
-        0;
-
-
-    let noMeleeOutside =
-        0;
-
-
-    let noSpatial =
-        0;
-
-
-    for (
-        const death
-        of unmatched
-    ) {
-
-        if (
-            hasTargetMeleeWithin(
-                death,
-                chosenMeleeWindow
-            )
-        ) {
-
-            meleeAssociated++;
-
-
-            continue;
-        }
-
-
-        const distance =
-            death
-                ?.playerProximity
-                ?.nearestDistance3D;
-
-
-        if (
-            !Number.isFinite(
-                distance
-            )
-        ) {
-
-            noSpatial++;
-
-
-            continue;
-        }
-
-
-        if (
-            distance <=
-            threshold
-        ) {
-
-            noMeleeInside++;
-
-        } else {
-
-            noMeleeOutside++;
-        }
-    }
-
-
-    combinedMatrix.push({
-
-        distanceThreshold:
-            threshold,
-
-        totalUnmatched:
-            unmatched.length,
-
-        meleeAssociated,
-
-        noMeleeInsideDistance:
-            noMeleeInside,
-
-        noMeleeOutsideDistance:
-            noMeleeOutside,
-
-        noUsablePlayerSpatialState:
-            noSpatial
-    });
+if (
+  unmatchedCoreMelee.length ===
+  0
+) {
+  meleeHypothesisStatus =
+    'NO_CORE_VERIFIED_MELEE_ASSOCIATION_AMONG_UNMATCHED';
 }
 
 
 // ============================================================
-// PLAYER TARGET COUNTS FOR MELEE-ASSOCIATED UNMATCHED
+// CANDIDATE STREAM
+//
+// Only deaths with at least one verified opposing-team melee hit
+// within the broad ±1 s temporal window are written here.
 // ============================================================
 
-const meleePlayersUnmatched =
-    countBy(
-        meleeAssociatedUnmatched,
-        row =>
-            row
-                ?.nearestTargetAttributedMelee
-                ?.playerName
-            ??
-            'UNKNOWN'
+const candidateRows =
+  deaths
+    .filter(
+      row =>
+        row
+          .verifiedMeleeHitsWithin1s
+          .length >
+        0
+    )
+    .map(
+      row => ({
+        schemaVersion:
+          2,
+
+        canonical:
+          false,
+
+        deathIndex:
+          row.deathIndex,
+
+        deathKey:
+          row.deathKey,
+
+        entityIndex:
+          row.entityIndex,
+
+        baseType:
+          row.baseType,
+
+        trooperTeam:
+          row.team,
+
+        groundSoulMatched:
+          row.groundSoulMatched,
+
+        tick:
+          row.tick,
+
+        timeSeconds:
+          row.timeSeconds,
+
+        clock:
+          row.clock,
+
+        deathPosition:
+          row.position,
+
+        coreMeleeAssociation:
+          row.coreMeleeAssociation,
+
+        nearestVerifiedMeleeHit:
+          row.nearestVerifiedMeleeHit,
+
+        verifiedMeleeHitsWithin1s:
+          row.verifiedMeleeHitsWithin1s,
+
+        playerProximity:
+          row.playerProximity
+      })
     );
-
-
-// ============================================================
-// VALIDATION
-// ============================================================
-
-const matchedCount =
-    matched.length;
-
-
-const unmatchedCount =
-    unmatched.length;
-
-
-const sourceTotal =
-    matchedCount +
-    unmatchedCount;
-
-
-const validation =
-    {
-
-        deathRowsLoaded:
-            {
-
-                actual:
-                    normalizedDeaths.length,
-
-                expected:
-                    replayName ===
-                        'test'
-                        ? 1727
-                        : '>0',
-
-                pass:
-                    replayName ===
-                        'test'
-
-                        ? normalizedDeaths.length ===
-                            1727
-
-                        : normalizedDeaths.length >
-                            0
-            },
-
-        matchedDeaths:
-            {
-
-                actual:
-                    matchedCount,
-
-                expected:
-                    replayName ===
-                        'test'
-                        ? 1388
-                        : '>0',
-
-                pass:
-                    replayName ===
-                        'test'
-
-                        ? matchedCount ===
-                            1388
-
-                        : matchedCount >
-                            0
-            },
-
-        unmatchedDeaths:
-            {
-
-                actual:
-                    unmatchedCount,
-
-                expected:
-                    replayName ===
-                        'test'
-                        ? 339
-                        : '>=0',
-
-                pass:
-                    replayName ===
-                        'test'
-
-                        ? unmatchedCount ===
-                            339
-
-                        : unmatchedCount >=
-                            0
-            },
-
-        partitionIdentity:
-            {
-
-                actual:
-                    sourceTotal,
-
-                expected:
-                    normalizedDeaths.length,
-
-                pass:
-                    sourceTotal ===
-                    normalizedDeaths.length
-            },
-
-        meleeRowsLoaded:
-            {
-
-                actual:
-                    melee.length,
-
-                expected:
-                    '>0',
-
-                pass:
-                    melee.length >
-                    0
-            },
-
-        meleeTargetRowsObserved:
-            {
-
-                actual:
-                    meleeWithTarget.length,
-
-                expected:
-                    '>0',
-
-                pass:
-                    meleeWithTarget.length >
-                    0
-            },
-
-        playerSpatialRowsLoaded:
-            {
-
-                actual:
-                    usablePlayerRows,
-
-                expected:
-                    '>0',
-
-                pass:
-                    usablePlayerRows >
-                    0
-            },
-
-        matchedPlayerProximityResolved:
-            {
-
-                actual:
-                    matchedNearest3D.length,
-
-                expected:
-                    '>0',
-
-                pass:
-                    matchedNearest3D.length >
-                    0
-            },
-
-        unmatchedPlayerProximityResolved:
-            {
-
-                actual:
-                    unmatchedNearest3D.length,
-
-                expected:
-                    '>0',
-
-                pass:
-                    unmatchedNearest3D.length >
-                    0
-            }
-    };
-
-
-const validationPass =
-    Object
-        .values(
-            validation
-        )
-        .every(
-            row =>
-                row.pass
-        );
 
 
 // ============================================================
 // SUMMARY
 // ============================================================
 
-const summary =
-    {
+const summary = {
+  replay:
+    replayName,
 
-        replay:
-            replayName,
+  version:
+    'TROOPER_GROUND_SOUL_UNMATCHED_DIAGNOSTIC_V02',
 
-        version:
-            'TROOPER_GROUND_SOUL_UNMATCHED_DIAGNOSTIC_V01',
+  canonical:
+    false,
 
-        canonical:
-            false,
+  status:
+    validationPass
+      ? meleeHypothesisStatus
+      : 'DIAGNOSTIC_PIPELINE_FAILURE',
 
-        purpose:
-            [
+  supersedes: {
+    output:
+      'trooper_ground_soul_unmatched_diagnostic_v01.json',
 
-                'Explain ordinary economic Trooper deaths that did not receive a one-to-one CCitadel_Pickup_AssignedGold match.',
+    reason:
+      'V01 expected target-attribution fields that Script 16 never emitted, causing zero normalized melee rows. V02 consumes Script 16 direct hit timing and hit-position fields instead.'
+  },
 
-                'Test verified target-attributed melee attacks as a candidate explanation.',
+  purpose: [
+    'Repair the Script 16 -> Script 56 melee schema mismatch.',
+    'Test whether unmatched ordinary economic Trooper deaths are enriched for verified melee-hit spatiotemporal associations.',
+    'Retain nearest opposing-player distance as an independent ground-soul eligibility diagnostic.',
+    'Do not infer lethal melee damage, missed farm, or player opportunity from association alone.'
+  ],
 
-                'Test nearest opposing-player distance as a candidate ground-soul eligibility condition.',
+  inputs: {
+    deathStream:
+      deathStreamPath,
 
-                'Do not classify unmatched deaths as missed farm.'
-            ],
+    verifiedMeleeEvents:
+      meleePath,
 
-        sourceCounts:
-            {
+    meleeVerificationSummary:
+      meleeSummaryPath,
 
-                economicTrooperDeaths:
-                    normalizedDeaths.length,
+    playerState:
+      playerStatePath
+  },
 
-                matchedGroundSoulDeaths:
-                    matched.length,
+  sourceCounts: {
+    economicTrooperDeaths:
+      deaths.length,
 
-                unmatchedGroundSoulDeaths:
-                    unmatched.length,
+    matchedGroundSoulDeaths:
+      matched.length,
 
-                meleeRows:
-                    melee.length,
+    unmatchedGroundSoulDeaths:
+      unmatched.length,
 
-                meleeRowsWithTargetAttribution:
-                    meleeWithTarget.length,
+    rawVerifiedMeleeRows:
+      rawMelee.length,
 
-                playerStateRows:
-                    playerRows,
+    normalizedVerifiedMeleeRows:
+      melee.length,
 
-                usablePlayerSpatialRows:
-                    usablePlayerRows
-            },
+    rawConfirmedHitRows:
+      rawConfirmedHitCount,
 
-        existingGroundSoulResult:
-            {
+    confirmedHitsWithDirectTimeAndPosition:
+      confirmedHits.length,
 
-                matched:
-                    matched.length,
+    playerStateRows:
+      playerRows,
 
-                unmatched:
-                    unmatched.length,
+    usablePlayerSpatialRows:
+      usablePlayerRows
+  },
 
-                matchRate:
-                    rate(
-                        matched.length,
-                        normalizedDeaths.length
-                    ),
+  meleeProducerConsumerContract:
+    meleeContract,
 
-                interpretation:
-                    'The previous one-to-one matcher is not modified here.'
-            },
+  meleeAssociation: {
+    semanticLimit:
+      'Script 16 confirms that a melee attack hit something, but does not identify which entity was hit. Every association here is spatiotemporal candidate evidence only.',
 
-        meleeTimeAlignment:
-            {
+    timeAlignment:
+      'Uses Script 16 hitObservedMatchTimeSeconds directly. No ±30 second offset fitting is performed.',
 
-                selectedOffsetSeconds:
-                    selectedMeleeTimeOffset,
+    coreOperationalDefinition: {
+      absoluteHitToDeathTimeSeconds:
+        `<=${CORE_MELEE_WINDOW_SECONDS}`,
 
-                candidateOffsets:
-                    meleeOffsetDiagnostics,
+      attackerHitPositionToTrooperDeathDistanceHu:
+        `<=${CORE_MELEE_DISTANCE_HU}`,
 
-                interpretation:
-                    'Offset is selected solely by target-attributed melee/Trooper temporal coincidence.'
-            },
+      opposingTeamRequired:
+        true,
 
-        meleeAssociation:
-            {
+      note:
+        'The 300-HU spatial gate is intentionally broad and diagnostic; it is not asserted to be the engine melee radius.'
+    },
 
-                windowMatrix:
-                    meleeWindowMatrix,
+    coreResult: {
+      matched: {
+        associated:
+          matchedCoreMelee.length,
 
-                selectedDiagnosticWindowSeconds:
-                    chosenMeleeWindow,
+        total:
+          matched.length,
 
-                selectedWindowReason:
-                    'Largest unmatched-minus-matched association-rate separation.',
+        rate:
+          matchedCoreRate
+      },
 
-                matchedDeathsWithTargetAttributedMelee:
-                    matched.filter(
-                        row =>
-                            hasTargetMeleeWithin(
-                                row,
-                                chosenMeleeWindow
-                            )
-                    ).length,
+      unmatched: {
+        associated:
+          unmatchedCoreMelee.length,
 
-                unmatchedDeathsWithTargetAttributedMelee:
-                    meleeAssociatedUnmatched.length,
+        total:
+          unmatched.length,
 
-                unmatchedAssociationRate:
-                    rate(
-                        meleeAssociatedUnmatched.length,
-                        unmatched.length
-                    ),
+        rate:
+          unmatchedCoreRate
+      },
 
-                matchedAttackTypes:
-                    mapToSortedObject(
-                        matchedMeleeTypes
-                    ),
+      unmatchedMinusMatchedRate:
+        coreRateDifference,
 
-                unmatchedAttackTypes:
-                    mapToSortedObject(
-                        unmatchedMeleeTypes
-                    ),
+      rateRatioUnmatchedVsMatched:
+        coreRateRatio,
 
-                unmatchedPlayers:
-                    mapToSortedObject(
-                        meleePlayersUnmatched
-                    ),
+      hypothesisStatus:
+        meleeHypothesisStatus,
 
-                interpretation:
-                    'A temporal target-attributed melee association is evidence for the melee-finisher hypothesis, but is not yet canonical proof of lethal melee damage.'
-            },
+      matchedAttackTypes:
+        matchedCoreMeleeTypes,
 
-        proximity:
-            {
+      unmatchedAttackTypes:
+        unmatchedCoreMeleeTypes,
 
-                matchedNearestOpponent:
-                    {
+      unmatchedPlayers:
+        unmatchedCoreMeleePlayers
+    },
 
-                        distance3D:
-                            summarizeNumbers(
-                                matchedNearest3D
-                            ),
+    sensitivityMatrix:
+      meleeAssociationMatrix,
 
-                        distanceXY:
-                            summarizeNumbers(
-                                matchedNearestXY
-                            )
-                    },
+    strongestPositiveSeparation:
+      strongestPositiveSeparation,
 
-                unmatchedNearestOpponent:
-                    {
+    nearestHitTiming: {
+      matched:
+        summarizeNumbers(
+          matchedNearestMeleeTimeDelta
+        ),
 
-                        distance3D:
-                            summarizeNumbers(
-                                unmatchedNearest3D
-                            ),
+      unmatched:
+        summarizeNumbers(
+          unmatchedNearestMeleeTimeDelta
+        )
+    },
 
-                        distanceXY:
-                            summarizeNumbers(
-                                unmatchedNearestXY
-                            )
-                    },
+    hitDistanceWithinCoreTimeWindow: {
+      matched:
+        summarizeNumbers(
+          matchedNearbyMeleeDistance
+        ),
 
-                thresholdMatrix:
-                    distanceThresholdMatrix,
+      unmatched:
+        summarizeNumbers(
+          unmatchedNearbyMeleeDistance
+        )
+    },
 
-                interpretation:
-                    'Distance is measured from Trooper death position to the nearest alive opposing-team player state within ±0.5 sec.'
-            },
+    interpretation:
+      unmatchedCoreMelee.length ===
+        0
+        ? 'No unmatched death has a verified opposing-team melee hit both within ±0.25 s and within 300 HU. This replay does not support melee-finisher suppression as an explanation for the unmatched ground-soul group under the core operational definition.'
+        : coreRateDifference >
+            0
+          ? 'Unmatched deaths are more frequently associated with verified melee hits than matched deaths under the core diagnostic definition. This supports a focused lethal-damage-source validation, but does not establish melee causation.'
+          : 'Verified melee associations occur, but unmatched deaths are not enriched relative to matched deaths under the core diagnostic definition.'
+  },
 
-        afterRemovingMeleeAssociatedUnmatched:
-            {
+  proximity: {
+    matchedNearestOpponent: {
+      distance3D:
+        summarizeNumbers(
+          matchedNearest3D
+        ),
 
-                total:
-                    nonMeleeAssociatedUnmatched.length,
+      distanceXY:
+        summarizeNumbers(
+          matchedNearestXY
+        )
+    },
 
-                nearestOpponentDistance3D:
-                    summarizeNumbers(
-                        remainingNearest3D
-                    ),
+    unmatchedNearestOpponent: {
+      distance3D:
+        summarizeNumbers(
+          unmatchedNearest3D
+        ),
 
-                combinedThresholdMatrix:
-                    combinedMatrix
-            },
+      distanceXY:
+        summarizeNumbers(
+          unmatchedNearestXY
+        )
+    },
 
-        byBaseType,
+    thresholdMatrix:
+      distanceThresholdMatrix,
 
-        unmatchedCandidateActivationCounts:
-            mapToNumericKeyObject(
-                unmatchedCandidateActivationCounts
-            ),
+    interpretation:
+      'Distance is measured from Trooper death position to the temporally closest alive opposing-team player state within approximately ±0.5 s.'
+  },
 
-        examples:
-            {
+  afterRemovingCoreMeleeAssociatedUnmatched: {
+    total:
+      nonCoreMeleeUnmatched.length,
 
-                unmatchedWithTargetAttributedMelee:
-                    meleeAssociatedUnmatched
-                        .slice(
-                            0,
-                            MAX_EXAMPLES_PER_GROUP
-                        )
-                        .map(
-                            compactDeathExample
-                        ),
+    nearestOpponentDistance3D:
+      summarizeNumbers(
+        remainingNearest3D
+      )
+  },
 
-                unmatchedWithoutTargetAttributedMelee:
-                    nonMeleeAssociatedUnmatched
-                        .slice(
-                            0,
-                            MAX_EXAMPLES_PER_GROUP
-                        )
-                        .map(
-                            compactDeathExample
-                        ),
+  byBaseType,
 
-                matchedWithTargetAttributedMelee:
-                    matched
-                        .filter(
-                            row =>
-                                hasTargetMeleeWithin(
-                                    row,
-                                    chosenMeleeWindow
-                                )
-                        )
-                        .slice(
-                            0,
-                            MAX_EXAMPLES_PER_GROUP
-                        )
-                        .map(
-                            compactDeathExample
-                        )
-            },
+  unmatchedCandidateActivationCounts,
 
-        interpretationRules:
-            {
+  examples: {
+    unmatchedWithCoreMeleeAssociation:
+      unmatchedCoreMelee
+        .slice(
+          0,
+          MAX_EXAMPLES_PER_GROUP
+        )
+        .map(
+          compactDeathExample
+        ),
 
-                doNotCallUnmatchedMissedSoul:
-                    true,
+    unmatchedWithoutCoreMeleeAssociation:
+      nonCoreMeleeUnmatched
+        .slice(
+          0,
+          MAX_EXAMPLES_PER_GROUP
+        )
+        .map(
+          compactDeathExample
+        ),
 
-                ifMeleeAssociationIsStrong:
-                    'Promote melee final-blow suppression to the next validation target using lethal damage telemetry.',
+    matchedWithCoreMeleeAssociation:
+      matchedCoreMelee
+        .slice(
+          0,
+          MAX_EXAMPLES_PER_GROUP
+        )
+        .map(
+          compactDeathExample
+        )
+  },
 
-                ifDistanceSeparationIsStrong:
-                    'Calibrate a player-presence eligibility radius from the empirical transition rather than importing a public value.',
+  interpretationRules: {
+    noTargetAttributionClaim:
+      true,
 
-                ifBothAreWeak:
-                    'Return to entity/message discovery around unmatched deaths because AssignedGold may encode an additional unresolved mechanic.'
-            },
+    doNotCallUnmatchedMissedSoul:
+      true,
 
-        validation:
-            {
+    ifUnmatchedMeleeEnriched:
+      'Build direct lethal-damage-source validation before promoting melee as causal.',
 
-                pass:
-                    validationPass,
+    ifUnmatchedMeleeNotEnriched:
+      'Do not use melee final blows to explain the unmatched group. Continue with the validated ground-soul range/timing model.',
 
-                checks:
-                    validation
-            }
-    };
+    ifNoUnmatchedCoreMelee:
+      'Treat melee-finisher suppression as unsupported for this replay under the core spatiotemporal definition.'
+  },
+
+  validation: {
+    pass:
+      validationPass,
+
+    checks:
+      validationChecks
+  },
+
+  outputs: {
+    summary:
+      outputPath,
+
+    meleeCandidateStream:
+      outputCandidatePath
+  }
+};
 
 
 // ============================================================
-// WRITE
+// WRITE OUTPUTS
 // ============================================================
 
 mkdirSync(
-    dirname(
-        outputPath
-    ),
-    {
-        recursive: true
-    }
+  dirname(
+    outputPath
+  ),
+  {
+    recursive:
+      true
+  }
 );
 
-
 writeFileSync(
+  outputPath,
+  JSON.stringify(
+    summary,
+    null,
+    2
+  ),
+  'utf8'
+);
 
-    outputPath,
-
-    JSON.stringify(
-        summary,
-        null,
-        2
-    ),
-
-    'utf8'
+await writeJsonl(
+  outputCandidatePath,
+  candidateRows
 );
 
 
@@ -2067,2052 +1684,1637 @@ writeFileSync(
 // ============================================================
 
 console.log('');
-
 console.log(
-    '========================================='
+  '========================================================'
 );
-
 console.log(
-    'UNMATCHED GROUND SOUL DIAGNOSTIC V0.1'
+  'UNMATCHED GROUND SOUL DIAGNOSTIC V0.2'
 );
-
 console.log(
-    '========================================='
+  '========================================================'
 );
-
 console.log('');
 
 console.log(
-    'GROUND SOUL'
+  'SCRIPT 16 -> SCRIPT 56 CONTRACT'
 );
-
 console.log(
-    '-----------'
+  '------------------------------'
 );
-
-console.log(
-    `Matched: ${matched.length}`
-);
-
-console.log(
-    `Unmatched: ${unmatched.length}`
-);
-
-console.log(
-    `Match rate: ${formatPercent(
-        rate(
-            matched.length,
-            normalizedDeaths.length
-        )
-    )}`
-);
-
-console.log('');
-
-console.log(
-    'MELEE TIME ALIGNMENT'
-);
-
-console.log(
-    '--------------------'
-);
-
 
 for (
-    const row
-    of meleeOffsetDiagnostics
+  const [
+    name,
+    row
+  ]
+  of Object.entries(
+    meleeContract.checks
+  )
 ) {
-
-    console.log(
-        `offset=${
-            String(
-                row.offsetSeconds
-            ).padStart(
-                4
-            )
-        }s  <=125ms=${
-            String(
-                row.directTargetMatchesWithin125ms
-            ).padStart(
-                4
-            )
-        }  <=250ms=${
-            String(
-                row.directTargetMatchesWithin250ms
-            ).padStart(
-                4
-            )
-        }  <=500ms=${
-            String(
-                row.directTargetMatchesWithin500ms
-            ).padStart(
-                4
-            )
-        }`
-    );
+  console.log(
+    `${row.pass ? 'PASS' : 'FAIL'}  ${name.padEnd(40)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`
+  );
 }
 
+console.log('');
+console.log(
+  'GROUND SOUL'
+);
+console.log(
+  '-----------'
+);
+console.log(
+  `Matched: ${matched.length}`
+);
+console.log(
+  `Unmatched: ${unmatched.length}`
+);
+console.log(
+  `Match rate: ${formatPercent(rate(matched.length, deaths.length))}`
+);
 
 console.log('');
-
 console.log(
-    `Selected offset: ${selectedMeleeTimeOffset}s`
+  'CORE VERIFIED MELEE ASSOCIATION'
+);
+console.log(
+  '-------------------------------'
+);
+console.log(
+  `Definition: ±${CORE_MELEE_WINDOW_SECONDS.toFixed(3)}s and <=${CORE_MELEE_DISTANCE_HU} HU, opposing-team confirmed hit`
+);
+console.log(
+  `Matched:   ${matchedCoreMelee.length}/${matched.length} = ${formatPercent(matchedCoreRate)}`
+);
+console.log(
+  `Unmatched: ${unmatchedCoreMelee.length}/${unmatched.length} = ${formatPercent(unmatchedCoreRate)}`
+);
+console.log(
+  `Rate difference unmatched-matched: ${formatPercent(coreRateDifference)}`
+);
+console.log(
+  `Rate ratio unmatched/matched: ${formatNumber(coreRateRatio)}`
+);
+console.log(
+  `Melee hypothesis: ${meleeHypothesisStatus}`
 );
 
 console.log('');
-
 console.log(
-    'MELEE ASSOCIATION MATRIX'
+  'MELEE SENSITIVITY MATRIX'
 );
-
 console.log(
-    '------------------------'
+  '------------------------'
 );
-
 
 for (
-    const row
-    of meleeWindowMatrix
+  const windowSeconds
+  of MELEE_WINDOWS_SECONDS
 ) {
+  const rowParts =
+    [];
 
-    console.log(
-        `±${
-            row.windowSeconds.toFixed(
-                3
-            )
-        }s | matched ${
-            String(
-                row.matched.withTargetAttributedMelee
-            ).padStart(
-                4
-            )
-        }/${
-            String(
-                row.matched.total
-            ).padStart(
-                4
-            )
-        } ${
-            formatPercent(
-                row.matched.rate
-            ).padStart(
-                7
-            )
-        } | unmatched ${
-            String(
-                row.unmatched.withTargetAttributedMelee
-            ).padStart(
-                4
-            )
-        }/${
-            String(
-                row.unmatched.total
-            ).padStart(
-                3
-            )
-        } ${
-            formatPercent(
-                row.unmatched.rate
-            ).padStart(
-                7
-            )
-        }`
+  for (
+    const distanceHu
+    of MELEE_DISTANCE_THRESHOLDS_HU
+  ) {
+    const row =
+      meleeAssociationMatrix.find(
+        candidate =>
+          candidate.windowSeconds ===
+            windowSeconds
+          &&
+          candidate.distanceHu ===
+            distanceHu
+      );
+
+    rowParts.push(
+      `${distanceHu}HU:${row?.unmatched.associated ?? 0}/${row?.matched.associated ?? 0}`
     );
+  }
+
+  console.log(
+    `±${windowSeconds.toFixed(4)}s  ${rowParts.join('  ')}`
+  );
 }
 
-
 console.log('');
-
 console.log(
-    `Chosen diagnostic melee window: ±${chosenMeleeWindow.toFixed(
-        3
-    )}s`
+  'NEAREST OPPOSING PLAYER'
 );
-
 console.log(
-    `Unmatched melee-associated: ${meleeAssociatedUnmatched.length}/${unmatched.length} = ${formatPercent(
-        rate(
-            meleeAssociatedUnmatched.length,
-            unmatched.length
-        )
-    )}`
+  '-----------------------'
 );
-
-console.log('');
-
 console.log(
-    'NEAREST OPPOSING PLAYER'
+  `Matched median 3D: ${formatNumber(summarizeNumbers(matchedNearest3D).median)}`
 );
-
 console.log(
-    '-----------------------'
+  `Unmatched median 3D: ${formatNumber(summarizeNumbers(unmatchedNearest3D).median)}`
 );
-
 console.log(
-    `Matched median 3D: ${formatNumber(
-        summarizeNumbers(
-            matchedNearest3D
-        ).median
-    )}`
-);
-
-console.log(
-    `Matched p90 3D: ${formatNumber(
-        summarizeNumbers(
-            matchedNearest3D
-        ).p90
-    )}`
-);
-
-console.log(
-    `Unmatched median 3D: ${formatNumber(
-        summarizeNumbers(
-            unmatchedNearest3D
-        ).median
-    )}`
-);
-
-console.log(
-    `Unmatched p90 3D: ${formatNumber(
-        summarizeNumbers(
-            unmatchedNearest3D
-        ).p90
-    )}`
+  `Unmatched minimum 3D: ${formatNumber(summarizeNumbers(unmatchedNearest3D).min)}`
 );
 
 console.log('');
-
 console.log(
-    'DISTANCE THRESHOLDS'
+  'VALIDATION'
 );
-
 console.log(
-    '-------------------'
+  '----------'
 );
-
 
 for (
-    const row
-    of distanceThresholdMatrix
+  const [
+    name,
+    row
+  ]
+  of Object.entries(
+    validationChecks
+  )
 ) {
-
-    console.log(
-        `<=${
-            String(
-                row.threshold
-            ).padStart(
-                4
-            )
-        } | matched ${
-            formatPercent(
-                row.matched.rate
-            ).padStart(
-                7
-            )
-        } | unmatched ${
-            formatPercent(
-                row.unmatched.rate
-            ).padStart(
-                7
-            )
-        }`
-    );
+  console.log(
+    `${row.pass ? 'PASS' : 'FAIL'}  ${name.padEnd(40)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`
+  );
 }
 
-
 console.log('');
-
 console.log(
-    'BY TROOPER TYPE'
+  `OVERALL PIPELINE: ${validationPass ? 'PASS' : 'FAIL'}`
 );
-
-console.log(
-    '---------------'
-);
-
-
-for (
-    const row
-    of byBaseType
-) {
-
-    console.log(
-        `${
-            row.baseType.padEnd(
-                8
-            )
-        } matched=${
-            String(
-                row.matched
-            ).padStart(
-                4
-            )
-        }/${
-            String(
-                row.total
-            ).padStart(
-                4
-            )
-        } ${
-            formatPercent(
-                row.matchRate
-            ).padStart(
-                7
-            )
-        } | unmatched melee=${
-            String(
-                row
-                    .targetMeleeWithinChosenWindow
-                    .unmatched
-            ).padStart(
-                3
-            )
-        }/${
-            String(
-                row.unmatched
-            ).padStart(
-                3
-            )
-        }`
-    );
-}
-
-
 console.log('');
-
 console.log(
-    'VALIDATION'
+  `Summary:\n${outputPath}`
 );
-
-console.log(
-    '----------'
-);
-
-
-for (
-    const [
-        key,
-        check
-    ]
-    of Object.entries(
-        validation
-    )
-) {
-
-    console.log(
-        `${
-            check.pass
-                ? 'PASS'
-                : 'FAIL'
-        }  ${
-            key.padEnd(
-                36
-            )
-        } actual=${
-            JSON.stringify(
-                check.actual
-            )
-        } expected=${
-            JSON.stringify(
-                check.expected
-            )
-        }`
-    );
-}
-
-
 console.log('');
-
 console.log(
-    `OVERALL: ${
-        validationPass
-            ? 'PASS'
-            : 'FAIL'
-    }`
+  `Melee candidates:\n${outputCandidatePath}`
 );
-
-console.log('');
-
-console.log(
-    `Output:\n${outputPath}`
-);
-
 console.log('');
 
 
 // ============================================================
-// NORMALIZE DEATH
+// DEATH NORMALIZATION
 // ============================================================
 
 function normalizeDeath(
-    row
+  row
 ) {
-
-    const entityIndex =
-        finite(
-            row
-                ?.trooper
-                ?.entityIndex
-        );
-
-
-    const timeSeconds =
-        finite(
-            row
-                ?.timing
-                ?.timeSeconds
-        );
-
-
-    const tick =
-        finite(
-            row
-                ?.timing
-                ?.tick
-        );
-
-
-    const position =
-        normalizePosition(
-            row
-                ?.trooper
-                ?.position
-        );
-
-
-    if (
-        entityIndex ===
-            null
-        ||
-        timeSeconds ===
-            null
-        ||
-        tick ===
-            null
-        ||
-        !position
-    ) {
-
-        return null;
-    }
-
-
-    const matchStatus =
-        row
-            ?.match
-            ?.status
-        ??
-        null;
-
-
-    const groundSoulMatched =
-        matchStatus ===
-            'ONE_TO_ONE_ASSIGNED_GOLD_MATCH'
-        ||
-        Boolean(
-            row.groundSoul
-        );
-
-
-    return {
-
-        deathIndex:
-            finite(
-                row.deathIndex
-            ),
-
-        deathKey:
-            row.deathKey
-            ??
-            null,
-
-        lifeId:
-            row.lifeId
-            ??
-            null,
-
-        entityIndex,
-
-        baseType:
-            row
-                ?.trooper
-                ?.baseType
-            ??
-            'UNKNOWN',
-
-        variantLabel:
-            row
-                ?.trooper
-                ?.variantLabel
-            ??
-            'UNKNOWN',
-
-        isSuper:
-            row
-                ?.trooper
-                ?.isSuper ===
-            true,
-
-        isRift:
-            row
-                ?.trooper
-                ?.isRift ===
-            true,
-
-        team:
-            finite(
-                row
-                    ?.trooper
-                    ?.team
-            ),
-
-        lane:
-            finite(
-                row
-                    ?.trooper
-                    ?.lane
-            ),
-
-        maxHealth:
-            finite(
-                row
-                    ?.trooper
-                    ?.maxHealth
-            ),
-
-        position,
-
-        tick,
-
-        timeSeconds,
-
-        clock:
-            row
-                ?.timing
-                ?.clock
-            ??
-            formatClock(
-                timeSeconds
-            ),
-
-        groundSoulMatched,
-
-        candidateActivationCount:
-            finite(
-                row
-                    ?.match
-                    ?.candidateActivationCount
-                ??
-                row
-                    ?.match
-                    ?.deathCandidateCount
-            )
-            ??
-            0,
-
-        targetAttributedMeleeWithin1s:
-            [],
-
-        nearestTargetAttributedMelee:
-            null,
-
-        playerProximity:
-            null
-    };
-}
-
-
-// ============================================================
-// NORMALIZE MELEE
-// ============================================================
-
-function normalizeMelee(
-    row,
-    index
-) {
-
-    const rawTime =
-        firstFinite(
-            [
-
-                row
-                    ?.attack_trigger_time,
-
-                row
-                    ?.attackTriggerTime,
-
-                row
-                    ?.attack_time,
-
-                row
-                    ?.attackTime,
-
-                row
-                    ?.trigger_time,
-
-                row
-                    ?.triggerTime,
-
-                row
-                    ?.matchTimeSeconds,
-
-                row
-                    ?.timeSeconds,
-
-                row
-                    ?.time
-            ]
-        );
-
-
-    const rawTick =
-        firstFinite(
-            [
-
-                row
-                    ?.attack_trigger_tick,
-
-                row
-                    ?.attackTriggerTick,
-
-                row
-                    ?.tick,
-
-                row
-                    ?.demoTick
-            ]
-        );
-
-
-    const targetEntityIndex =
-        extractTargetEntityIndex(
-            row
-                ?.target_if_attributed
-            ??
-            row
-                ?.targetIfAttributed
-            ??
-            row
-                ?.target
-            ??
-            row
-                ?.targetEntity
-            ??
-            null
-        );
-
-
-    const playerName =
-        firstString(
-            [
-
-                row
-                    ?.player
-                    ?.playerName,
-
-                row
-                    ?.player
-                    ?.name,
-
-                row
-                    ?.playerName,
-
-                typeof row?.player ===
-                    'string'
-                    ? row.player
-                    : null
-            ]
-        );
-
-
-    const playerTeam =
-        firstFinite(
-            [
-
-                row
-                    ?.player
-                    ?.team,
-
-                row
-                    ?.team,
-
-                row
-                    ?.playerTeam
-            ]
-        );
-
-
-    const attackType =
-        String(
-            row
-                ?.attack_type
-            ??
-            row
-                ?.attackType
-            ??
-            'UNKNOWN'
-        );
-
-
-    const hit =
-        normalizeBoolean(
-            row?.hit
-        );
-
-
-    const position =
-        normalizePosition(
-            row?.position
-            ??
-            row?.playerPosition
-            ??
-            row?.attackPosition
-            ??
-            null
-        );
-
-
-    if (
-        rawTime ===
-            null
-        &&
-        rawTick ===
-            null
-    ) {
-
-        return null;
-    }
-
-
-    return {
-
-        meleeIndex:
-            index,
-
-        rawTime,
-
-        rawTick,
-
-        matchTimeSeconds:
-            null,
-
-        targetEntityIndex,
-
-        playerName,
-
-        playerTeam,
-
-        attackType,
-
-        hit,
-
-        position
-    };
-}
-
-
-// ============================================================
-// TARGET ENTITY INDEX
-// ============================================================
-
-function extractTargetEntityIndex(
-    value
-) {
-
-    if (
-        value ===
-            null
-        ||
-        value ===
-            undefined
-    ) {
-
-        return null;
-    }
-
-
-    const direct =
-        finite(
-            value
-        );
-
-
-    if (
-        direct !==
-        null
-    ) {
-
-        return direct;
-    }
-
-
-    if (
-        typeof value ===
-        'string'
-    ) {
-
-        const match =
-            value.match(
-                /(?:entity|index|target)[^0-9]*(\d+)/i
-            );
-
-
-        if (
-            match
-        ) {
-
-            return finite(
-                match[1]
-            );
-        }
-
-
-        return null;
-    }
-
-
-    if (
-        typeof value ===
-        'object'
-    ) {
-
-        const aliases =
-            [
-
-                'entityIndex',
-                'entity_index',
-                'targetEntityIndex',
-                'target_entity_index',
-                'index',
-                'targetIndex',
-                'target_index',
-                'entity'
-            ];
-
-
-        for (
-            const key
-            of aliases
-        ) {
-
-            const candidate =
-                finite(
-                    value?.[
-                        key
-                    ]
-                );
-
-
-            if (
-                candidate !==
-                null
-            ) {
-
-                return candidate;
-            }
-        }
-
-
-        for (
-            const nestedKey
-            of [
-                'target',
-                'entity',
-                'victim'
-            ]
-        ) {
-
-            if (
-                value?.[
-                    nestedKey
-                ]
-                &&
-                value[
-                    nestedKey
-                ] !==
-                value
-            ) {
-
-                const nested =
-                    extractTargetEntityIndex(
-                        value[
-                            nestedKey
-                        ]
-                    );
-
-
-                if (
-                    nested !==
-                    null
-                ) {
-
-                    return nested;
-                }
-            }
-        }
-    }
-
-
+  const entityIndex =
+    finite(
+      row
+        ?.trooper
+        ?.entityIndex
+    );
+
+  const timeSeconds =
+    finite(
+      row
+        ?.timing
+        ?.timeSeconds
+    );
+
+  const tick =
+    finite(
+      row
+        ?.timing
+        ?.tick
+    );
+
+  const position =
+    normalizePosition(
+      row
+        ?.trooper
+        ?.position
+    );
+
+  if (
+    entityIndex ===
+      null
+    ||
+    timeSeconds ===
+      null
+    ||
+    tick ===
+      null
+    ||
+    !position
+  ) {
     return null;
+  }
+
+  const matchStatus =
+    row
+      ?.match
+      ?.status ??
+    null;
+
+  const groundSoulMatched =
+    matchStatus ===
+      'ONE_TO_ONE_ASSIGNED_GOLD_MATCH'
+    ||
+    Boolean(
+      row.groundSoul
+    );
+
+  return {
+    deathIndex:
+      finite(
+        row.deathIndex
+      ),
+
+    deathKey:
+      row.deathKey ??
+      null,
+
+    lifeId:
+      row.lifeId ??
+      null,
+
+    entityIndex,
+
+    baseType:
+      row
+        ?.trooper
+        ?.baseType ??
+      'UNKNOWN',
+
+    variantLabel:
+      row
+        ?.trooper
+        ?.variantLabel ??
+      'UNKNOWN',
+
+    isSuper:
+      row
+        ?.trooper
+        ?.isSuper ===
+      true,
+
+    isRift:
+      row
+        ?.trooper
+        ?.isRift ===
+      true,
+
+    team:
+      finite(
+        row
+          ?.trooper
+          ?.team
+      ),
+
+    lane:
+      finite(
+        row
+          ?.trooper
+          ?.lane
+      ),
+
+    maxHealth:
+      finite(
+        row
+          ?.trooper
+          ?.maxHealth
+      ),
+
+    position,
+
+    tick,
+
+    timeSeconds,
+
+    clock:
+      row
+        ?.timing
+        ?.clock ??
+      formatClock(
+        timeSeconds
+      ),
+
+    groundSoulMatched,
+
+    candidateActivationCount:
+      finite(
+        row
+          ?.match
+          ?.candidateActivationCount ??
+        row
+          ?.match
+          ?.deathCandidateCount
+      ) ??
+      0,
+
+    verifiedMeleeHitsWithin1s:
+      [],
+
+    nearestVerifiedMeleeHit:
+      null,
+
+    coreMeleeAssociation:
+      null,
+
+    playerProximity:
+      null
+  };
 }
 
 
 // ============================================================
-// FIND NEAREST OPPOSING PLAYER
+// SCRIPT 16 VERIFIED MELEE NORMALIZATION
+// ============================================================
+
+function normalizeVerifiedMelee(
+  row,
+  index
+) {
+  const firstObservedTick =
+    firstFinite([
+      row?.firstObservedTick,
+      row?.tick
+    ]);
+
+  const firstObservedMatchTimeSeconds =
+    firstFinite([
+      row?.firstObservedMatchTimeSeconds,
+      Number.isFinite(
+        firstObservedTick
+      )
+        ? firstObservedTick /
+          TICK_RATE -
+          30
+        : null
+    ]);
+
+  const hitObservedTick =
+    firstFinite([
+      row?.hitObservedTick
+    ]);
+
+  const hitObservedMatchTimeSeconds =
+    firstFinite([
+      row?.hitObservedMatchTimeSeconds,
+      Number.isFinite(
+        hitObservedTick
+      )
+        ? hitObservedTick /
+          TICK_RATE -
+          30
+        : null
+    ]);
+
+  const attackTriggeredTime =
+    firstFinite([
+      row?.attackTriggeredTime,
+      row?.attack_trigger_time,
+      row?.attackTriggerTime
+    ]);
+
+  const playerName =
+    firstString([
+      row?.playerName,
+      row?.player?.playerName,
+      row?.player?.name
+    ]);
+
+  const playerTeam =
+    firstFinite([
+      row?.team,
+      row?.playerTeam,
+      row?.player?.team
+    ]);
+
+  const attackType =
+    String(
+      row?.attackType ??
+      row?.attack_type ??
+      'UNKNOWN'
+    );
+
+  const hit =
+    row?.hit ===
+    true;
+
+  const attackPosition =
+    normalizePosition(
+      row?.attackPosition ??
+      row?.position ??
+      null
+    );
+
+  const hitPosition =
+    normalizePosition(
+      row?.hitPosition ??
+      null
+    ) ??
+    attackPosition;
+
+  return {
+    meleeIndex:
+      index,
+
+    key:
+      row?.key ??
+      null,
+
+    abilityEntityIndex:
+      finite(
+        row?.abilityEntityIndex
+      ),
+
+    pawnEntityIndex:
+      finite(
+        row?.pawnEntityIndex
+      ),
+
+    controllerEntityIndex:
+      finite(
+        row?.controllerEntityIndex
+      ),
+
+    playerName,
+
+    playerTeam,
+
+    heroId:
+      finite(
+        row?.heroId
+      ),
+
+    attackTypeCode:
+      finite(
+        row?.attackTypeCode
+      ),
+
+    attackType,
+
+    attackTriggeredTime,
+
+    firstObservedTick,
+
+    firstObservedMatchTimeSeconds,
+
+    attackPosition,
+
+    hit,
+
+    hitObservedTick,
+
+    hitObservedMatchTimeSeconds,
+
+    hitTimeSeconds:
+      hitObservedMatchTimeSeconds,
+
+    hitPosition
+  };
+}
+
+
+// ============================================================
+// VERIFIED MELEE ASSOCIATION SEARCH
+// ============================================================
+
+function findNearbyVerifiedMeleeHits(
+  death
+) {
+  if (
+    death.team !==
+      2
+    &&
+    death.team !==
+      3
+  ) {
+    return [];
+  }
+
+  const opposingTeam =
+    death.team ===
+      2
+      ? 3
+      : 2;
+
+  const minTime =
+    death.timeSeconds -
+    MAX_MELEE_SEARCH_SECONDS;
+
+  const maxTime =
+    death.timeSeconds +
+    MAX_MELEE_SEARCH_SECONDS;
+
+  const start =
+    lowerBoundByHitTime(
+      confirmedHits,
+      minTime
+    );
+
+  const candidates =
+    [];
+
+  for (
+    let i =
+      start;
+
+    i <
+      confirmedHits.length
+      &&
+      confirmedHits[i].hitTimeSeconds <=
+        maxTime;
+
+    i++
+  ) {
+    const attack =
+      confirmedHits[i];
+
+    if (
+      attack.playerTeam !==
+      opposingTeam
+    ) {
+      continue;
+    }
+
+    const deltaSeconds =
+      attack.hitTimeSeconds -
+      death.timeSeconds;
+
+    const distance3D =
+      getDistance3D(
+        death.position,
+        attack.hitPosition
+      );
+
+    const distanceXY =
+      getDistanceXY(
+        death.position,
+        attack.hitPosition
+      );
+
+    candidates.push({
+      meleeIndex:
+        attack.meleeIndex,
+
+      playerName:
+        attack.playerName,
+
+      playerTeam:
+        attack.playerTeam,
+
+      heroId:
+        attack.heroId,
+
+      attackType:
+        attack.attackType,
+
+      attackTypeCode:
+        attack.attackTypeCode,
+
+      hitObservedTick:
+        attack.hitObservedTick,
+
+      hitObservedMatchTimeSeconds:
+        attack.hitObservedMatchTimeSeconds,
+
+      hitObservedClock:
+        formatClock(
+          attack.hitObservedMatchTimeSeconds
+        ),
+
+      timeDeltaSeconds:
+        deltaSeconds,
+
+      absoluteTimeDeltaSeconds:
+        Math.abs(
+          deltaSeconds
+        ),
+
+      distance3D,
+
+      distanceXY,
+
+      attackerHitPosition:
+        attack.hitPosition,
+
+      associationOnly:
+        true
+    });
+  }
+
+  candidates.sort(
+    (
+      a,
+      b
+    ) =>
+      a.absoluteTimeDeltaSeconds -
+      b.absoluteTimeDeltaSeconds
+      ||
+      a.distance3D -
+      b.distance3D
+      ||
+      a.meleeIndex -
+      b.meleeIndex
+  );
+
+  return candidates;
+}
+
+
+function lowerBoundByHitTime(
+  rows,
+  timeSeconds
+) {
+  let low =
+    0;
+
+  let high =
+    rows.length;
+
+  while (
+    low <
+    high
+  ) {
+    const mid =
+      Math.floor(
+        (
+          low +
+          high
+        ) /
+        2
+      );
+
+    if (
+      rows[mid].hitTimeSeconds <
+      timeSeconds
+    ) {
+      low =
+        mid +
+        1;
+    } else {
+      high =
+        mid;
+    }
+  }
+
+  return low;
+}
+
+
+function hasVerifiedMeleeAssociation(
+  death,
+  windowSeconds,
+  distanceHu
+) {
+  return death
+    .verifiedMeleeHitsWithin1s
+    .some(
+      candidate =>
+        candidate.absoluteTimeDeltaSeconds <=
+          windowSeconds
+        &&
+        candidate.distance3D <=
+          distanceHu
+    );
+}
+
+
+// ============================================================
+// PLAYER PROXIMITY AT DEATH
 // ============================================================
 
 function findOpposingPlayerProximity(
-    death
+  death
 ) {
+  if (
+    death.team !==
+      2
+    &&
+    death.team !==
+      3
+  ) {
+    return {
+      resolved:
+        false,
 
-    if (
-        death.team !==
-            2
-        &&
-        death.team !==
-            3
-    ) {
+      reason:
+        'INVALID_TROOPER_TEAM'
+    };
+  }
 
-        return {
+  const opposingTeam =
+    death.team ===
+      2
+      ? 3
+      : 2;
 
-            resolved:
-                false,
-
-            reason:
-                'INVALID_TROOPER_TEAM'
-        };
-    }
-
-
-    const opposingTeam =
-        death.team ===
-            2
-            ? 3
-            : 2;
-
-
-    const centerBucket =
-        Math.round(
-            death.timeSeconds *
-            PLAYER_STATE_BUCKET_HZ
-        );
-
-
-    const nearestByPlayer =
-        new Map();
-
-
-    for (
-        let offset =
-            -PLAYER_STATE_SEARCH_BUCKETS;
-
-        offset <=
-            PLAYER_STATE_SEARCH_BUCKETS;
-
-        offset++
-    ) {
-
-        const rows =
-            playerBuckets.get(
-                centerBucket +
-                offset
-            )
-            ??
-            [];
-
-
-        for (
-            const row
-            of rows
-        ) {
-
-            if (
-                row.team !==
-                opposingTeam
-            ) {
-
-                continue;
-            }
-
-
-            const timeDelta =
-                Math.abs(
-                    row.timeSeconds -
-                    death.timeSeconds
-                );
-
-
-            const existing =
-                nearestByPlayer.get(
-                    row.playerName
-                );
-
-
-            if (
-                !existing
-                ||
-                timeDelta <
-                    existing.timeDelta
-            ) {
-
-                nearestByPlayer.set(
-                    row.playerName,
-                    {
-
-                        ...row,
-
-                        timeDelta
-                    }
-                );
-            }
-        }
-    }
-
-
-    const candidates =
-        [];
-
-
-    for (
-        const row
-        of nearestByPlayer.values()
-    ) {
-
-        const distance3D =
-            getDistance3D(
-                death.position,
-                row.position
-            );
-
-
-        const distanceXY =
-            getDistanceXY(
-                death.position,
-                row.position
-            );
-
-
-        candidates.push({
-
-            playerName:
-                row.playerName,
-
-            pawnEntityIndex:
-                row.pawnEntityIndex,
-
-            team:
-                row.team,
-
-            playerStateTimeSeconds:
-                row.timeSeconds,
-
-            absoluteTimeDeltaSeconds:
-                row.timeDelta,
-
-            distance3D,
-
-            distanceXY,
-
-            position:
-                row.position
-        });
-    }
-
-
-    candidates.sort(
-        (
-            a,
-            b
-        ) =>
-            a.distance3D -
-            b.distance3D
+  const centerBucket =
+    Math.round(
+      death.timeSeconds *
+      PLAYER_STATE_BUCKET_HZ
     );
 
+  const nearestByPlayer =
+    new Map();
 
-    const nearest =
-        candidates[
-            0
-        ]
-        ??
-        null;
+  for (
+    let offset =
+      -PLAYER_STATE_SEARCH_BUCKETS;
 
+    offset <=
+      PLAYER_STATE_SEARCH_BUCKETS;
 
-    const withinThresholds =
-        {};
-
+    offset++
+  ) {
+    const rows =
+      playerBuckets.get(
+        centerBucket +
+        offset
+      ) ??
+      [];
 
     for (
-        const threshold
-        of PLAYER_DISTANCE_THRESHOLDS
+      const row
+      of rows
     ) {
+      if (
+        row.team !==
+        opposingTeam
+      ) {
+        continue;
+      }
 
-        withinThresholds[
-            threshold
-        ] =
-            candidates.filter(
-                row =>
-                    row.distance3D <=
-                    threshold
-            ).length;
-    }
-
-
-    return {
-
-        resolved:
-            Boolean(
-                nearest
-            ),
-
-        opposingTeam,
-
-        nearestPlayer:
-            nearest,
-
-        nearestDistance3D:
-            nearest
-                ?.distance3D
-            ??
-            null,
-
-        nearestDistanceXY:
-            nearest
-                ?.distanceXY
-            ??
-            null,
-
-        opposingPlayersResolved:
-            candidates.length,
-
-        playersWithinThresholds:
-            withinThresholds
-    };
-}
-
-
-// ============================================================
-// TARGET MELEE WINDOW
-// ============================================================
-
-function hasTargetMeleeWithin(
-    death,
-    windowSeconds
-) {
-
-    return death
-        .targetAttributedMeleeWithin1s
-        .some(
-            row =>
-                row.hit !==
-                    false
-                &&
-                row.absoluteTimeDeltaSeconds <=
-                    windowSeconds
+      const timeDelta =
+        Math.abs(
+          row.timeSeconds -
+          death.timeSeconds
         );
+
+      const existing =
+        nearestByPlayer.get(
+          row.playerName
+        );
+
+      if (
+        !existing
+        ||
+        timeDelta <
+          existing.timeDelta
+      ) {
+        nearestByPlayer.set(
+          row.playerName,
+          {
+            ...row,
+            timeDelta
+          }
+        );
+      }
+    }
+  }
+
+  const candidates =
+    [];
+
+  for (
+    const row
+    of nearestByPlayer.values()
+  ) {
+    const distance3D =
+      getDistance3D(
+        death.position,
+        row.position
+      );
+
+    const distanceXY =
+      getDistanceXY(
+        death.position,
+        row.position
+      );
+
+    candidates.push({
+      playerName:
+        row.playerName,
+
+      pawnEntityIndex:
+        row.pawnEntityIndex,
+
+      team:
+        row.team,
+
+      playerStateTimeSeconds:
+        row.timeSeconds,
+
+      absoluteTimeDeltaSeconds:
+        row.timeDelta,
+
+      distance3D,
+
+      distanceXY,
+
+      position:
+        row.position
+    });
+  }
+
+  candidates.sort(
+    (
+      a,
+      b
+    ) =>
+      a.distance3D -
+      b.distance3D
+  );
+
+  const nearest =
+    candidates[0] ??
+    null;
+
+  const withinThresholds =
+    {};
+
+  for (
+    const threshold
+    of PLAYER_DISTANCE_THRESHOLDS
+  ) {
+    withinThresholds[
+      String(
+        threshold
+      )
+    ] =
+      candidates.filter(
+        row =>
+          row.distance3D <=
+          threshold
+      ).length;
+  }
+
+  return {
+    resolved:
+      Boolean(
+        nearest
+      ),
+
+    opposingTeam,
+
+    nearestPlayer:
+      nearest,
+
+    nearestDistance3D:
+      nearest?.distance3D ??
+      null,
+
+    nearestDistanceXY:
+      nearest?.distanceXY ??
+      null,
+
+    opposingPlayersResolved:
+      candidates.length,
+
+    playersWithinThresholds:
+      withinThresholds
+  };
 }
 
 
 // ============================================================
-// COMPACT EXAMPLE
+// OUTPUT EXAMPLE
 // ============================================================
 
 function compactDeathExample(
-    death
+  row
 ) {
+  return {
+    deathIndex:
+      row.deathIndex,
 
-    return {
+    deathKey:
+      row.deathKey,
 
-        deathIndex:
-            death.deathIndex,
+    entityIndex:
+      row.entityIndex,
 
-        deathKey:
-            death.deathKey,
+    baseType:
+      row.baseType,
 
-        entityIndex:
-            death.entityIndex,
+    variantLabel:
+      row.variantLabel,
 
-        clock:
-            death.clock,
+    team:
+      row.team,
 
-        timeSeconds:
-            death.timeSeconds,
+    tick:
+      row.tick,
 
-        baseType:
-            death.baseType,
+    timeSeconds:
+      row.timeSeconds,
 
-        variantLabel:
-            death.variantLabel,
+    clock:
+      row.clock,
 
-        team:
-            death.team,
+    groundSoulMatched:
+      row.groundSoulMatched,
 
-        lane:
-            death.lane,
+    candidateActivationCount:
+      row.candidateActivationCount,
 
-        groundSoulMatched:
-            death.groundSoulMatched,
+    deathPosition:
+      row.position,
 
-        candidateActivationCount:
-            death.candidateActivationCount,
+    coreMeleeAssociation:
+      row.coreMeleeAssociation,
 
-        nearestTargetAttributedMelee:
-            death.nearestTargetAttributedMelee,
+    nearestVerifiedMeleeHit:
+      row.nearestVerifiedMeleeHit,
 
-        playerProximity:
-            {
+    nearestOpponent:
+      row
+        ?.playerProximity
+        ?.nearestPlayer ??
+      null,
 
-                nearestDistance3D:
-                    death
-                        ?.playerProximity
-                        ?.nearestDistance3D
-                    ??
-                    null,
-
-                nearestDistanceXY:
-                    death
-                        ?.playerProximity
-                        ?.nearestDistanceXY
-                    ??
-                    null,
-
-                nearestPlayer:
-                    death
-                        ?.playerProximity
-                        ?.nearestPlayer
-                    ??
-                    null
-            }
-    };
+    nearestOpponentDistance3D:
+      row
+        ?.playerProximity
+        ?.nearestDistance3D ??
+      null
+  };
 }
 
 
 // ============================================================
-// NEAREST BY TIME
-// ============================================================
-
-function findNearestByTime(
-    rows,
-    timeSeconds
-) {
-
-    let best =
-        null;
-
-
-    let bestDelta =
-        Infinity;
-
-
-    for (
-        const row
-        of rows
-    ) {
-
-        const delta =
-            Math.abs(
-                row.timeSeconds -
-                timeSeconds
-            );
-
-
-        if (
-            delta <
-            bestDelta
-        ) {
-
-            bestDelta =
-                delta;
-
-
-            best =
-                row;
-        }
-    }
-
-
-    return best;
-}
-
-
-// ============================================================
-// LOAD JSONL
-// ============================================================
-
-async function loadJsonl(
-    path
-) {
-
-    const rows =
-        [];
-
-
-    const reader =
-        createInterface({
-
-            input:
-                createReadStream(
-                    path,
-                    {
-                        encoding:
-                            'utf8'
-                    }
-                ),
-
-            crlfDelay:
-                Infinity
-        });
-
-
-    for await (
-        const line
-        of reader
-    ) {
-
-        if (
-            !line.trim()
-        ) {
-
-            continue;
-        }
-
-
-        try {
-
-            rows.push(
-                JSON.parse(
-                    line
-                )
-            );
-
-        } catch {
-
-            // Ignore malformed lines.
-        }
-    }
-
-
-    return rows;
-}
-
-
-// ============================================================
-// POSITION
+// POSITION HELPERS
 // ============================================================
 
 function normalizePosition(
-    value
+  value
 ) {
+  if (
+    !value
+  ) {
+    return null;
+  }
 
-    if (
-        !value
-        ||
-        typeof value !==
-            'object'
-    ) {
-
-        return null;
-    }
-
-
+  if (
+    Array.isArray(
+      value
+    )
+  ) {
     const x =
-        finite(
-            value.x
-        );
-
+      finite(
+        value[0]
+      );
 
     const y =
-        finite(
-            value.y
-        );
-
+      finite(
+        value[1]
+      );
 
     const z =
-        finite(
-            value.z
-        )
-        ??
-        0;
-
+      finite(
+        value[2]
+      );
 
     if (
-        x ===
-            null
-        ||
-        y ===
-            null
+      x ===
+        null
+      ||
+      y ===
+        null
+      ||
+      z ===
+        null
     ) {
-
-        return null;
+      return null;
     }
 
+    return {
+      x,
+      y,
+      z
+    };
+  }
+
+  if (
+    typeof value ===
+    'object'
+  ) {
+    const x =
+      firstFinite([
+        value.x,
+        value.X,
+        value[0]
+      ]);
+
+    const y =
+      firstFinite([
+        value.y,
+        value.Y,
+        value[1]
+      ]);
+
+    const z =
+      firstFinite([
+        value.z,
+        value.Z,
+        value[2]
+      ]);
+
+    if (
+      x ===
+        null
+      ||
+      y ===
+        null
+      ||
+      z ===
+        null
+    ) {
+      return null;
+    }
 
     return {
-        x,
-        y,
-        z
+      x,
+      y,
+      z
     };
+  }
+
+  return null;
 }
 
 
-// ============================================================
-// DISTANCE
-// ============================================================
-
 function getDistance3D(
-    a,
-    b
+  a,
+  b
 ) {
+  const dx =
+    a.x -
+    b.x;
 
-    const dx =
-        a.x -
-        b.x;
+  const dy =
+    a.y -
+    b.y;
 
+  const dz =
+    a.z -
+    b.z;
 
-    const dy =
-        a.y -
-        b.y;
-
-
-    const dz =
-        (
-            a.z
-            ??
-            0
-        )
-        -
-        (
-            b.z
-            ??
-            0
-        );
-
-
-    return Math.sqrt(
-        dx *
-        dx
-        +
-        dy *
-        dy
-        +
-        dz *
-        dz
-    );
+  return Math.sqrt(
+    dx * dx +
+    dy * dy +
+    dz * dz
+  );
 }
 
 
 function getDistanceXY(
-    a,
-    b
+  a,
+  b
 ) {
+  const dx =
+    a.x -
+    b.x;
 
-    const dx =
-        a.x -
-        b.x;
+  const dy =
+    a.y -
+    b.y;
 
-
-    const dy =
-        a.y -
-        b.y;
-
-
-    return Math.sqrt(
-        dx *
-        dx
-        +
-        dy *
-        dy
-    );
+  return Math.sqrt(
+    dx * dx +
+    dy * dy
+  );
 }
 
 
 // ============================================================
-// COUNTS
+// FILE HELPERS
 // ============================================================
 
-function countBy(
-    rows,
-    keyFn
+async function loadJsonl(
+  path
 ) {
+  const rows =
+    [];
 
-    const map =
-        new Map();
+  const reader =
+    createInterface({
+      input:
+        createReadStream(
+          path,
+          {
+            encoding:
+              'utf8'
+          }
+        ),
 
+      crlfDelay:
+        Infinity
+    });
 
-    for (
-        const row
-        of rows
-    ) {
-
-        increment(
-            map,
-            keyFn(
-                row
-            )
-        );
-    }
-
-
-    return map;
-}
-
-
-function increment(
-    map,
-    key
-) {
-
-    map.set(
-        key,
-        (
-            map.get(
-                key
-            )
-            ??
-            0
-        )
-        +
-        1
-    );
-}
-
-
-function mapToSortedObject(
-    map
-) {
-
-    return Object.fromEntries(
-        [
-            ...map.entries()
-        ]
-        .sort(
-            (
-                a,
-                b
-            ) =>
-                b[1] -
-                a[1]
-        )
-    );
-}
-
-
-function mapToNumericKeyObject(
-    map
-) {
-
-    return Object.fromEntries(
-        [
-            ...map.entries()
-        ]
-        .sort(
-            (
-                a,
-                b
-            ) =>
-                Number(
-                    a[0]
-                )
-                -
-                Number(
-                    b[0]
-                )
-        )
-    );
-}
-
-
-// ============================================================
-// NUMBER SUMMARY
-// ============================================================
-
-function summarizeNumbers(
-    values
-) {
-
-    const clean =
-        values
-            .filter(
-                Number.isFinite
-            )
-            .sort(
-                (
-                    a,
-                    b
-                ) =>
-                    a -
-                    b
-            );
-
-
+  for await (
+    const line
+    of reader
+  ) {
     if (
-        clean.length ===
-        0
+      !line.trim()
     ) {
-
-        return {
-
-            count:
-                0,
-
-            min:
-                null,
-
-            p10:
-                null,
-
-            p25:
-                null,
-
-            median:
-                null,
-
-            p75:
-                null,
-
-            p90:
-                null,
-
-            p95:
-                null,
-
-            max:
-                null,
-
-            mean:
-                null
-        };
+      continue;
     }
 
+    try {
+      rows.push(
+        JSON.parse(
+          line
+        )
+      );
+    } catch {}
+  }
 
-    const total =
-        clean.reduce(
-            (
-                sum,
-                value
-            ) =>
-                sum +
-                value,
-            0
-        );
-
-
-    return {
-
-        count:
-            clean.length,
-
-        min:
-            clean[0],
-
-        p10:
-            percentile(
-                clean,
-                0.10
-            ),
-
-        p25:
-            percentile(
-                clean,
-                0.25
-            ),
-
-        median:
-            percentile(
-                clean,
-                0.50
-            ),
-
-        p75:
-            percentile(
-                clean,
-                0.75
-            ),
-
-        p90:
-            percentile(
-                clean,
-                0.90
-            ),
-
-        p95:
-            percentile(
-                clean,
-                0.95
-            ),
-
-        max:
-            clean[
-                clean.length -
-                1
-            ],
-
-        mean:
-            total /
-            clean.length
-    };
+  return rows;
 }
 
 
-function percentile(
-    sorted,
-    proportion
+async function writeJsonl(
+  path,
+  rows
 ) {
-
-    if (
-        sorted.length ===
-        1
-    ) {
-
-        return sorted[0];
-    }
-
-
-    const position =
-        (
-            sorted.length -
-            1
-        )
-        *
-        proportion;
-
-
-    const lower =
-        Math.floor(
-            position
-        );
-
-
-    const upper =
-        Math.ceil(
-            position
-        );
-
-
-    if (
-        lower ===
-        upper
-    ) {
-
-        return sorted[
-            lower
-        ];
-    }
-
-
-    const weight =
-        position -
-        lower;
-
-
-    return (
-        sorted[
-            lower
-        ]
-        *
-        (
-            1 -
-            weight
-        )
-        +
-        sorted[
-            upper
-        ]
-        *
-        weight
+  const {
+    createWriteStream
+  } =
+    await import(
+      'node:fs'
     );
+
+  const writer =
+    createWriteStream(
+      path,
+      {
+        encoding:
+          'utf8'
+      }
+    );
+
+  for (
+    const row
+    of rows
+  ) {
+    writer.write(
+      `${JSON.stringify(row)}\n`
+    );
+  }
+
+  await new Promise(
+    (
+      accept,
+      reject
+    ) => {
+      writer.on(
+        'error',
+        reject
+      );
+
+      writer.end(
+        accept
+      );
+    }
+  );
 }
 
 
 // ============================================================
-// VALUES
+// GENERIC HELPERS
 // ============================================================
 
 function finite(
-    value
+  value
 ) {
+  if (
+    value ===
+      null
+    ||
+    value ===
+      undefined
+    ||
+    value ===
+      ''
+  ) {
+    return null;
+  }
 
-    if (
-        value ===
-            null
-        ||
-        value ===
-            undefined
-        ||
-        value ===
-            ''
-    ) {
+  const number =
+    Number(
+      value
+    );
 
-        return null;
-    }
-
-
-    const number =
-        Number(
-            value
-        );
-
-
-    return Number.isFinite(
-        number
-    )
-        ? number
-        : null;
+  return Number.isFinite(
+    number
+  )
+    ? number
+    : null;
 }
 
 
 function firstFinite(
-    values
+  values
 ) {
+  for (
+    const value
+    of values
+  ) {
+    const number =
+      finite(
+        value
+      );
 
-    for (
-        const value
-        of values
+    if (
+      number !==
+      null
     ) {
-
-        const number =
-            finite(
-                value
-            );
-
-
-        if (
-            number !==
-            null
-        ) {
-
-            return number;
-        }
+      return number;
     }
+  }
 
-
-    return null;
+  return null;
 }
 
 
 function firstString(
-    values
+  values
 ) {
-
-    for (
-        const value
-        of values
-    ) {
-
-        if (
-            typeof value ===
-                'string'
-        &&
-            value.length >
-                0
-        ) {
-
-            return value;
-        }
-    }
-
-
-    return null;
-}
-
-
-function normalizeBoolean(
-    value
-) {
-
+  for (
+    const value
+    of values
+  ) {
     if (
-        value ===
-            true
-        ||
-        value ===
-            false
+      typeof value ===
+        'string'
+      &&
+      value.length >
+        0
     ) {
-
-        return value;
+      return value;
     }
+  }
 
-
-    if (
-        value ===
-            1
-        ||
-        value ===
-            '1'
-    ) {
-
-        return true;
-    }
-
-
-    if (
-        value ===
-            0
-        ||
-        value ===
-            '0'
-    ) {
-
-        return false;
-    }
-
-
-    return null;
+  return null;
 }
 
 
 function rate(
-    numerator,
-    denominator
+  numerator,
+  denominator
 ) {
+  if (
+    !Number.isFinite(
+      numerator
+    )
+    ||
+    !Number.isFinite(
+      denominator
+    )
+    ||
+    denominator <=
+      0
+  ) {
+    return null;
+  }
 
-    if (
-        !Number.isFinite(
-            numerator
-        )
-        ||
-        !Number.isFinite(
-            denominator
-        )
-        ||
-        denominator ===
-            0
-    ) {
-
-        return null;
-    }
-
-
-    return numerator /
-        denominator;
+  return numerator /
+    denominator;
 }
 
 
 function safeRatio(
-    numerator,
-    denominator
+  numerator,
+  denominator
 ) {
+  if (
+    !Number.isFinite(
+      numerator
+    )
+    ||
+    !Number.isFinite(
+      denominator
+    )
+  ) {
+    return null;
+  }
 
-    if (
-        !Number.isFinite(
-            numerator
+  if (
+    denominator ===
+    0
+  ) {
+    return null;
+  }
+
+  return numerator /
+    denominator;
+}
+
+
+function countByObject(
+  rows,
+  selector
+) {
+  const map =
+    new Map();
+
+  for (
+    const row
+    of rows
+  ) {
+    const key =
+      String(
+        selector(
+          row
         )
+      );
+
+    map.set(
+      key,
+      (
+        map.get(
+          key
+        ) ??
+        0
+      ) +
+      1
+    );
+  }
+
+  return Object.fromEntries(
+    [
+      ...map.entries()
+    ].sort(
+      (
+        a,
+        b
+      ) =>
+        b[1] -
+        a[1]
         ||
-        !Number.isFinite(
-            denominator
+        a[0].localeCompare(
+          b[0]
         )
-        ||
-        denominator ===
-            0
-    ) {
-
-        return null;
-    }
+    )
+  );
+}
 
 
-    return numerator /
-        denominator;
+function summarizeNumbers(
+  values
+) {
+  const clean =
+    values
+      .filter(
+        Number.isFinite
+      )
+      .sort(
+        (
+          a,
+          b
+        ) =>
+          a -
+          b
+      );
+
+  if (
+    clean.length ===
+    0
+  ) {
+    return {
+      count:
+        0,
+
+      min:
+        null,
+
+      p10:
+        null,
+
+      p25:
+        null,
+
+      median:
+        null,
+
+      p75:
+        null,
+
+      p90:
+        null,
+
+      p95:
+        null,
+
+      max:
+        null,
+
+      mean:
+        null
+    };
+  }
+
+  return {
+    count:
+      clean.length,
+
+    min:
+      clean[0],
+
+    p10:
+      quantile(
+        clean,
+        0.10
+      ),
+
+    p25:
+      quantile(
+        clean,
+        0.25
+      ),
+
+    median:
+      quantile(
+        clean,
+        0.50
+      ),
+
+    p75:
+      quantile(
+        clean,
+        0.75
+      ),
+
+    p90:
+      quantile(
+        clean,
+        0.90
+      ),
+
+    p95:
+      quantile(
+        clean,
+        0.95
+      ),
+
+    max:
+      clean[
+        clean.length -
+        1
+      ],
+
+    mean:
+      clean.reduce(
+        (
+          total,
+          value
+        ) =>
+          total +
+          value,
+        0
+      ) /
+      clean.length
+  };
+}
+
+
+function quantile(
+  values,
+  q
+) {
+  if (
+    values.length ===
+    0
+  ) {
+    return null;
+  }
+
+  if (
+    values.length ===
+    1
+  ) {
+    return values[0];
+  }
+
+  const position =
+    (
+      values.length -
+      1
+    ) *
+    q;
+
+  const lower =
+    Math.floor(
+      position
+    );
+
+  const upper =
+    Math.ceil(
+      position
+    );
+
+  if (
+    lower ===
+    upper
+  ) {
+    return values[
+      lower
+    ];
+  }
+
+  const weight =
+    position -
+    lower;
+
+  return values[
+    lower
+  ] *
+    (
+      1 -
+      weight
+    )
+    +
+    values[
+      upper
+    ] *
+    weight;
+}
+
+
+function check(
+  actual,
+  expected,
+  pass
+) {
+  return {
+    actual,
+    expected,
+    pass:
+      Boolean(
+        pass
+      )
+  };
 }
 
 
 function formatPercent(
-    value
+  value
 ) {
-
-    if (
-        !Number.isFinite(
-            value
-        )
-    ) {
-
-        return 'n/a';
-    }
-
-
-    return (
-        value *
-        100
-    ).toFixed(
-        2
-    )
-    +
-    '%';
+  return Number.isFinite(
+    value
+  )
+    ? `${(
+      value *
+      100
+    ).toFixed(2)}%`
+    : 'n/a';
 }
 
 
 function formatNumber(
-    value
+  value
 ) {
-
-    if (
-        !Number.isFinite(
-            value
-        )
-    ) {
-
-        return 'n/a';
-    }
-
-
-    return value.toFixed(
-        2
-    );
+  return Number.isFinite(
+    value
+  )
+    ? Number(
+      value.toFixed(
+        3
+      )
+    ).toString()
+    : 'n/a';
 }
 
 
-// ============================================================
-// CLOCK
-// ============================================================
-
 function formatClock(
-    seconds
+  timeSeconds
 ) {
-
-    if (
-        !Number.isFinite(
-            seconds
-        )
-    ) {
-
-        return null;
-    }
-
-
-    const negative =
-        seconds <
-        0;
-
-
-    const absolute =
-        Math.abs(
-            seconds
-        );
-
-
-    const minutes =
-        Math.floor(
-            absolute /
-            60
-        );
-
-
-    const secs =
-        Math.floor(
-            absolute %
-            60
-        );
-
-
-    return (
-        negative
-            ? '-'
-            : ''
+  if (
+    !Number.isFinite(
+      timeSeconds
     )
-    +
-    `${minutes}:${
-        String(
-            secs
-        ).padStart(
-            2,
-            '0'
-        )
-    }`;
+  ) {
+    return null;
+  }
+
+  const sign =
+    timeSeconds <
+      0
+      ? '-'
+      : '';
+
+  const absolute =
+    Math.abs(
+      timeSeconds
+    );
+
+  const minutes =
+    Math.floor(
+      absolute /
+      60
+    );
+
+  const seconds =
+    Math.floor(
+      absolute %
+      60
+    );
+
+  return `${sign}${minutes}:${String(seconds).padStart(2, '0')}`;
 }
