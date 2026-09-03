@@ -1,0 +1,978 @@
+{
+  "replay": "test",
+  "version": "BEHAVIORAL_RESOURCE_FEATURES_V01",
+  "canonical": false,
+  "status": "PROVISIONAL_SINGLE_REPLAY_CALIBRATION",
+  "methodology": {
+    "broadExposure": "Inherited from Behavioral Metrics v0.1 broad spatial episode envelopes.",
+    "breakableCloseAccess": "At least one synchronous sample with XY <= 300 and |Z| <= 64.",
+    "breakableCoreAccess": "At least one synchronous sample with XY <= 250 and |Z| <= 32.",
+    "campCloseAccess": "At least one synchronous sample with XY <= 300 and |Z| <= 64.",
+    "campCoreProximity": "At least one synchronous sample with XY <= 200 and |Z| <= 64.",
+    "directInteraction": "Breakable SELF_BREAK remains based only on canonical action attribution, not proximity.",
+    "bulletInteraction": "Canonical BULLET_RAY breaks remain valid even if the player never entered a close-access band.",
+    "campClearCaution": "CAMP_CLEARED_DURING_EPISODE means the environmental camp state cleared while the player was spatially exposed. It does not establish that the player caused the clear."
+  },
+  "thresholds": {
+    "breakable": {
+      "broadEnvelope": {
+        "source": "Behavioral Metrics v0.1",
+        "approximate3DRadius": 500
+      },
+      "closeAccess": {
+        "xy": 300,
+        "vertical": 64
+      },
+      "coreAccess": {
+        "xy": 250,
+        "vertical": 32
+      }
+    },
+    "camp": {
+      "broadEnvelope": {
+        "source": "Behavioral Metrics v0.1",
+        "approximate3DRadius": 800
+      },
+      "closeAccess": {
+        "xy": 300,
+        "vertical": 64
+      },
+      "coreProximity": {
+        "xy": 200,
+        "vertical": 64
+      }
+    }
+  },
+  "calibrationEvidence": {
+    "breakableClose": {
+      "basis": "300 XY / 64 Z",
+      "meleeBreakCapture": 0.9597701149425287,
+      "meleeBreakCapturePercent": 95.97701149425288,
+      "note": "Selected as a slightly more robust same-level band than the automatic 300/32 candidate."
+    },
+    "breakableCore": {
+      "basis": "250 XY / 32 Z",
+      "meleeBreakCapture": 0.9080459770114943,
+      "meleeBreakCapturePercent": 90.80459770114942,
+      "note": "Tighter high-concentration close-contact band."
+    },
+    "campCore": {
+      "basis": "200 XY / 64 Z",
+      "observedClearEpisodesCaptured": 116,
+      "totalObservedClearEpisodes": 145,
+      "clearCaptureRate": 0.8,
+      "clearShareWithinBand": 0.7341772151898734,
+      "note": "Vertical limits 16, 32, and 64 classified exactly the same episodes in the calibration replay; 64 retained as the more robust provisional gate."
+    }
+  },
+  "counts": {
+    "totalEpisodes": 9573,
+    "breakableEpisodes": 8752,
+    "campEpisodes": 821,
+    "breakableCloseAccess": 2168,
+    "breakableCoreAccess": 1576,
+    "campCloseAccess": 182,
+    "campCoreProximity": 158,
+    "knownSelfBreaks": 601,
+    "knownBulletBreaks": 79,
+    "bulletBreaksOutsideCloseAccess": 53,
+    "campClearedDuringEpisode": 145
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "sourceCalibrationPass": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "featureRows": {
+        "actual": 9573,
+        "expected": 9573,
+        "pass": true
+      },
+      "breakableRows": {
+        "actual": 8752,
+        "expected": 8752,
+        "pass": true
+      },
+      "campRows": {
+        "actual": 821,
+        "expected": 821,
+        "pass": true
+      },
+      "players": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      },
+      "closeBreakableRowsProduced": {
+        "actual": 2168,
+        "expected": ">0",
+        "pass": true
+      },
+      "coreCampRowsProduced": {
+        "actual": 158,
+        "expected": ">0",
+        "pass": true
+      }
+    }
+  },
+  "players": [
+    {
+      "playerName": "blooop354",
+      "totalEpisodes": 833,
+      "outcomes": {
+        "LEFT_AVAILABLE": 731,
+        "SELF_BREAK": 28,
+        "CAMP_CLEARED_DURING_EPISODE": 14,
+        "BREAK_ATTRIBUTION_UNKNOWN": 33,
+        "PLAYER_DEAD": 11,
+        "OTHER_PLAYER_BREAK": 12,
+        "POSITION_INVALID": 4
+      },
+      "breakables": {
+        "broadEpisodes": 755,
+        "closeAccessEpisodes": 200,
+        "coreAccessEpisodes": 137,
+        "bySubtype": {
+          "GOLDEN_STATUE": 189,
+          "CRATE": 566
+        },
+        "closeAccessOutcomes": {
+          "LEFT_AVAILABLE": 147,
+          "SELF_BREAK": 21,
+          "PLAYER_DEAD": 2,
+          "BREAK_ATTRIBUTION_UNKNOWN": 23,
+          "OTHER_PLAYER_BREAK": 5,
+          "POSITION_INVALID": 2
+        },
+        "coreAccessOutcomes": {
+          "LEFT_AVAILABLE": 95,
+          "SELF_BREAK": 20,
+          "BREAK_ATTRIBUTION_UNKNOWN": 17,
+          "POSITION_INVALID": 2,
+          "OTHER_PLAYER_BREAK": 2,
+          "PLAYER_DEAD": 1
+        },
+        "knownSelfBreaks": 28,
+        "knownBulletBreaks": 10,
+        "bulletBreaksOutsideCloseAccess": 6,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 18,
+          "BULLET_RAY": 10
+        },
+        "closeAccessShareOfBroad": 0.26490066225165565,
+        "coreAccessShareOfBroad": 0.1814569536423841,
+        "selfBreakShareOfCloseAccess": 0.105,
+        "anyBreakShareOfCloseAccess": 0.245,
+        "selfBreakShareOfCoreAccess": 0.145985401459854,
+        "bulletBreakOutsideCloseShare": 0.6
+      },
+      "camps": {
+        "broadEpisodes": 78,
+        "closeAccessEpisodes": 21,
+        "coreProximityEpisodes": 21,
+        "byTier": {
+          "SMALL": 19,
+          "MEDIUM": 36,
+          "LARGE": 23
+        },
+        "closeAccessOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 13,
+          "LEFT_AVAILABLE": 8
+        },
+        "coreProximityOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 13,
+          "LEFT_AVAILABLE": 8
+        },
+        "clearDuringEpisode": 14,
+        "closeAccessShareOfBroad": 0.2692307692307692,
+        "coreProximityShareOfBroad": 0.2692307692307692,
+        "clearShareOfCoreProximity": 0.6190476190476191
+      }
+    },
+    {
+      "playerName": "Eriansan",
+      "totalEpisodes": 897,
+      "outcomes": {
+        "CAMP_CLEARED_DURING_EPISODE": 5,
+        "LEFT_AVAILABLE": 787,
+        "OTHER_PLAYER_BREAK": 15,
+        "SELF_BREAK": 53,
+        "BREAK_ATTRIBUTION_UNKNOWN": 36,
+        "POSITION_INVALID": 1
+      },
+      "breakables": {
+        "broadEpisodes": 845,
+        "closeAccessEpisodes": 163,
+        "coreAccessEpisodes": 103,
+        "bySubtype": {
+          "CRATE": 666,
+          "GOLDEN_STATUE": 179
+        },
+        "closeAccessOutcomes": {
+          "OTHER_PLAYER_BREAK": 2,
+          "SELF_BREAK": 42,
+          "BREAK_ATTRIBUTION_UNKNOWN": 15,
+          "LEFT_AVAILABLE": 104
+        },
+        "coreAccessOutcomes": {
+          "SELF_BREAK": 38,
+          "BREAK_ATTRIBUTION_UNKNOWN": 13,
+          "LEFT_AVAILABLE": 51,
+          "OTHER_PLAYER_BREAK": 1
+        },
+        "knownSelfBreaks": 53,
+        "knownBulletBreaks": 13,
+        "bulletBreaksOutsideCloseAccess": 9,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 40,
+          "BULLET_RAY": 13
+        },
+        "closeAccessShareOfBroad": 0.19289940828402366,
+        "coreAccessShareOfBroad": 0.12189349112426036,
+        "selfBreakShareOfCloseAccess": 0.25766871165644173,
+        "anyBreakShareOfCloseAccess": 0.3619631901840491,
+        "selfBreakShareOfCoreAccess": 0.36893203883495146,
+        "bulletBreakOutsideCloseShare": 0.6923076923076923
+      },
+      "camps": {
+        "broadEpisodes": 52,
+        "closeAccessEpisodes": 5,
+        "coreProximityEpisodes": 5,
+        "byTier": {
+          "SMALL": 19,
+          "MEDIUM": 17,
+          "LARGE": 16
+        },
+        "closeAccessOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 3,
+          "LEFT_AVAILABLE": 2
+        },
+        "coreProximityOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 3,
+          "LEFT_AVAILABLE": 2
+        },
+        "clearDuringEpisode": 5,
+        "closeAccessShareOfBroad": 0.09615384615384616,
+        "coreProximityShareOfBroad": 0.09615384615384616,
+        "clearShareOfCoreProximity": 0.6
+      }
+    },
+    {
+      "playerName": "flem",
+      "totalEpisodes": 806,
+      "outcomes": {
+        "LEFT_AVAILABLE": 701,
+        "OTHER_PLAYER_BREAK": 9,
+        "BREAK_ATTRIBUTION_UNKNOWN": 25,
+        "POSITION_INVALID": 7,
+        "SELF_BREAK": 47,
+        "CAMP_CLEARED_DURING_EPISODE": 9,
+        "PLAYER_DEAD": 5,
+        "REPLAY_END": 3
+      },
+      "breakables": {
+        "broadEpisodes": 749,
+        "closeAccessEpisodes": 163,
+        "coreAccessEpisodes": 102,
+        "bySubtype": {
+          "GOLDEN_STATUE": 177,
+          "CRATE": 572
+        },
+        "closeAccessOutcomes": {
+          "SELF_BREAK": 46,
+          "BREAK_ATTRIBUTION_UNKNOWN": 16,
+          "LEFT_AVAILABLE": 100,
+          "OTHER_PLAYER_BREAK": 1
+        },
+        "coreAccessOutcomes": {
+          "SELF_BREAK": 40,
+          "BREAK_ATTRIBUTION_UNKNOWN": 11,
+          "LEFT_AVAILABLE": 51
+        },
+        "knownSelfBreaks": 47,
+        "knownBulletBreaks": 2,
+        "bulletBreaksOutsideCloseAccess": 1,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 45,
+          "BULLET_RAY": 2
+        },
+        "closeAccessShareOfBroad": 0.21762349799732977,
+        "coreAccessShareOfBroad": 0.13618157543391188,
+        "selfBreakShareOfCloseAccess": 0.2822085889570552,
+        "anyBreakShareOfCloseAccess": 0.38650306748466257,
+        "selfBreakShareOfCoreAccess": 0.39215686274509803,
+        "bulletBreakOutsideCloseShare": 0.5
+      },
+      "camps": {
+        "broadEpisodes": 57,
+        "closeAccessEpisodes": 11,
+        "coreProximityEpisodes": 9,
+        "byTier": {
+          "SMALL": 19,
+          "MEDIUM": 22,
+          "LARGE": 16
+        },
+        "closeAccessOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 9,
+          "LEFT_AVAILABLE": 2
+        },
+        "coreProximityOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 9
+        },
+        "clearDuringEpisode": 9,
+        "closeAccessShareOfBroad": 0.19298245614035087,
+        "coreProximityShareOfBroad": 0.15789473684210525,
+        "clearShareOfCoreProximity": 1
+      }
+    },
+    {
+      "playerName": "Goldinfer",
+      "totalEpisodes": 756,
+      "outcomes": {
+        "CAMP_CLEARED_DURING_EPISODE": 11,
+        "LEFT_AVAILABLE": 619,
+        "OTHER_PLAYER_BREAK": 16,
+        "SELF_BREAK": 66,
+        "BREAK_ATTRIBUTION_UNKNOWN": 30,
+        "PLAYER_DEAD": 11,
+        "POSITION_INVALID": 3
+      },
+      "breakables": {
+        "broadEpisodes": 688,
+        "closeAccessEpisodes": 162,
+        "coreAccessEpisodes": 122,
+        "bySubtype": {
+          "CRATE": 499,
+          "GOLDEN_STATUE": 189
+        },
+        "closeAccessOutcomes": {
+          "OTHER_PLAYER_BREAK": 10,
+          "SELF_BREAK": 53,
+          "BREAK_ATTRIBUTION_UNKNOWN": 9,
+          "LEFT_AVAILABLE": 89,
+          "POSITION_INVALID": 1
+        },
+        "coreAccessOutcomes": {
+          "OTHER_PLAYER_BREAK": 8,
+          "SELF_BREAK": 49,
+          "BREAK_ATTRIBUTION_UNKNOWN": 3,
+          "LEFT_AVAILABLE": 62
+        },
+        "knownSelfBreaks": 66,
+        "knownBulletBreaks": 11,
+        "bulletBreaksOutsideCloseAccess": 9,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 55,
+          "BULLET_RAY": 11
+        },
+        "closeAccessShareOfBroad": 0.23546511627906977,
+        "coreAccessShareOfBroad": 0.17732558139534885,
+        "selfBreakShareOfCloseAccess": 0.3271604938271605,
+        "anyBreakShareOfCloseAccess": 0.4444444444444444,
+        "selfBreakShareOfCoreAccess": 0.4016393442622951,
+        "bulletBreakOutsideCloseShare": 0.8181818181818182
+      },
+      "camps": {
+        "broadEpisodes": 68,
+        "closeAccessEpisodes": 17,
+        "coreProximityEpisodes": 11,
+        "byTier": {
+          "SMALL": 19,
+          "MEDIUM": 28,
+          "LARGE": 21
+        },
+        "closeAccessOutcomes": {
+          "LEFT_AVAILABLE": 8,
+          "CAMP_CLEARED_DURING_EPISODE": 9
+        },
+        "coreProximityOutcomes": {
+          "LEFT_AVAILABLE": 4,
+          "CAMP_CLEARED_DURING_EPISODE": 7
+        },
+        "clearDuringEpisode": 11,
+        "closeAccessShareOfBroad": 0.25,
+        "coreProximityShareOfBroad": 0.16176470588235295,
+        "clearShareOfCoreProximity": 0.6363636363636364
+      }
+    },
+    {
+      "playerName": "Nacho4Sure",
+      "totalEpisodes": 658,
+      "outcomes": {
+        "LEFT_AVAILABLE": 535,
+        "PLAYER_DEAD": 16,
+        "OTHER_PLAYER_BREAK": 12,
+        "CAMP_CLEARED_DURING_EPISODE": 13,
+        "SELF_BREAK": 30,
+        "BREAK_ATTRIBUTION_UNKNOWN": 48,
+        "POSITION_INVALID": 1,
+        "REPLAY_END": 3
+      },
+      "breakables": {
+        "broadEpisodes": 603,
+        "closeAccessEpisodes": 165,
+        "coreAccessEpisodes": 123,
+        "bySubtype": {
+          "GOLDEN_STATUE": 155,
+          "CRATE": 448
+        },
+        "closeAccessOutcomes": {
+          "LEFT_AVAILABLE": 94,
+          "PLAYER_DEAD": 3,
+          "OTHER_PLAYER_BREAK": 5,
+          "SELF_BREAK": 28,
+          "BREAK_ATTRIBUTION_UNKNOWN": 34,
+          "POSITION_INVALID": 1
+        },
+        "coreAccessOutcomes": {
+          "PLAYER_DEAD": 2,
+          "OTHER_PLAYER_BREAK": 4,
+          "SELF_BREAK": 28,
+          "LEFT_AVAILABLE": 60,
+          "BREAK_ATTRIBUTION_UNKNOWN": 28,
+          "POSITION_INVALID": 1
+        },
+        "knownSelfBreaks": 30,
+        "knownBulletBreaks": 4,
+        "bulletBreaksOutsideCloseAccess": 2,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 26,
+          "BULLET_RAY": 4
+        },
+        "closeAccessShareOfBroad": 0.2736318407960199,
+        "coreAccessShareOfBroad": 0.20398009950248755,
+        "selfBreakShareOfCloseAccess": 0.1696969696969697,
+        "anyBreakShareOfCloseAccess": 0.40606060606060607,
+        "selfBreakShareOfCoreAccess": 0.22764227642276422,
+        "bulletBreakOutsideCloseShare": 0.5
+      },
+      "camps": {
+        "broadEpisodes": 55,
+        "closeAccessEpisodes": 20,
+        "coreProximityEpisodes": 13,
+        "byTier": {
+          "SMALL": 9,
+          "MEDIUM": 25,
+          "LARGE": 21
+        },
+        "closeAccessOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 11,
+          "LEFT_AVAILABLE": 9
+        },
+        "coreProximityOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 7,
+          "LEFT_AVAILABLE": 6
+        },
+        "clearDuringEpisode": 13,
+        "closeAccessShareOfBroad": 0.36363636363636365,
+        "coreProximityShareOfBroad": 0.23636363636363636,
+        "clearShareOfCoreProximity": 0.5384615384615384
+      }
+    },
+    {
+      "playerName": "Nebula",
+      "totalEpisodes": 779,
+      "outcomes": {
+        "CAMP_CLEARED_DURING_EPISODE": 11,
+        "LEFT_AVAILABLE": 654,
+        "SELF_BREAK": 54,
+        "POSITION_INVALID": 6,
+        "BREAK_ATTRIBUTION_UNKNOWN": 41,
+        "OTHER_PLAYER_BREAK": 7,
+        "PLAYER_DEAD": 6
+      },
+      "breakables": {
+        "broadEpisodes": 705,
+        "closeAccessEpisodes": 176,
+        "coreAccessEpisodes": 128,
+        "bySubtype": {
+          "CRATE": 508,
+          "GOLDEN_STATUE": 197
+        },
+        "closeAccessOutcomes": {
+          "SELF_BREAK": 42,
+          "LEFT_AVAILABLE": 106,
+          "BREAK_ATTRIBUTION_UNKNOWN": 23,
+          "OTHER_PLAYER_BREAK": 5
+        },
+        "coreAccessOutcomes": {
+          "LEFT_AVAILABLE": 67,
+          "SELF_BREAK": 39,
+          "BREAK_ATTRIBUTION_UNKNOWN": 20,
+          "OTHER_PLAYER_BREAK": 2
+        },
+        "knownSelfBreaks": 54,
+        "knownBulletBreaks": 14,
+        "bulletBreaksOutsideCloseAccess": 6,
+        "selfBreakMethods": {
+          "BULLET_RAY": 14,
+          "MELEE_DIRECT": 40
+        },
+        "closeAccessShareOfBroad": 0.24964539007092199,
+        "coreAccessShareOfBroad": 0.18156028368794327,
+        "selfBreakShareOfCloseAccess": 0.23863636363636365,
+        "anyBreakShareOfCloseAccess": 0.3977272727272727,
+        "selfBreakShareOfCoreAccess": 0.3046875,
+        "bulletBreakOutsideCloseShare": 0.42857142857142855
+      },
+      "camps": {
+        "broadEpisodes": 74,
+        "closeAccessEpisodes": 14,
+        "coreProximityEpisodes": 13,
+        "byTier": {
+          "SMALL": 16,
+          "MEDIUM": 39,
+          "LARGE": 19
+        },
+        "closeAccessOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 9,
+          "LEFT_AVAILABLE": 4,
+          "PLAYER_DEAD": 1
+        },
+        "coreProximityOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 9,
+          "LEFT_AVAILABLE": 3,
+          "PLAYER_DEAD": 1
+        },
+        "clearDuringEpisode": 11,
+        "closeAccessShareOfBroad": 0.1891891891891892,
+        "coreProximityShareOfBroad": 0.17567567567567569,
+        "clearShareOfCoreProximity": 0.6923076923076923
+      }
+    },
+    {
+      "playerName": "renso",
+      "totalEpisodes": 775,
+      "outcomes": {
+        "LEFT_AVAILABLE": 666,
+        "CAMP_CLEARED_DURING_EPISODE": 13,
+        "OTHER_PLAYER_BREAK": 10,
+        "BREAK_ATTRIBUTION_UNKNOWN": 25,
+        "POSITION_INVALID": 4,
+        "SELF_BREAK": 41,
+        "PLAYER_DEAD": 16
+      },
+      "breakables": {
+        "broadEpisodes": 706,
+        "closeAccessEpisodes": 157,
+        "coreAccessEpisodes": 117,
+        "bySubtype": {
+          "CRATE": 516,
+          "GOLDEN_STATUE": 190
+        },
+        "closeAccessOutcomes": {
+          "LEFT_AVAILABLE": 101,
+          "BREAK_ATTRIBUTION_UNKNOWN": 16,
+          "POSITION_INVALID": 1,
+          "SELF_BREAK": 34,
+          "PLAYER_DEAD": 5
+        },
+        "coreAccessOutcomes": {
+          "LEFT_AVAILABLE": 66,
+          "BREAK_ATTRIBUTION_UNKNOWN": 14,
+          "POSITION_INVALID": 1,
+          "SELF_BREAK": 32,
+          "PLAYER_DEAD": 4
+        },
+        "knownSelfBreaks": 41,
+        "knownBulletBreaks": 6,
+        "bulletBreaksOutsideCloseAccess": 4,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 35,
+          "BULLET_RAY": 6
+        },
+        "closeAccessShareOfBroad": 0.22237960339943344,
+        "coreAccessShareOfBroad": 0.16572237960339944,
+        "selfBreakShareOfCloseAccess": 0.21656050955414013,
+        "anyBreakShareOfCloseAccess": 0.3184713375796178,
+        "selfBreakShareOfCoreAccess": 0.27350427350427353,
+        "bulletBreakOutsideCloseShare": 0.6666666666666666
+      },
+      "camps": {
+        "broadEpisodes": 69,
+        "closeAccessEpisodes": 18,
+        "coreProximityEpisodes": 17,
+        "byTier": {
+          "SMALL": 15,
+          "MEDIUM": 35,
+          "LARGE": 19
+        },
+        "closeAccessOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 13,
+          "LEFT_AVAILABLE": 5
+        },
+        "coreProximityOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 13,
+          "LEFT_AVAILABLE": 4
+        },
+        "clearDuringEpisode": 13,
+        "closeAccessShareOfBroad": 0.2608695652173913,
+        "coreProximityShareOfBroad": 0.2463768115942029,
+        "clearShareOfCoreProximity": 0.7647058823529411
+      }
+    },
+    {
+      "playerName": "Snazzy314",
+      "totalEpisodes": 798,
+      "outcomes": {
+        "LEFT_AVAILABLE": 601,
+        "CAMP_CLEARED_DURING_EPISODE": 24,
+        "SELF_BREAK": 79,
+        "BREAK_ATTRIBUTION_UNKNOWN": 57,
+        "OTHER_PLAYER_BREAK": 11,
+        "PLAYER_DEAD": 16,
+        "POSITION_INVALID": 10
+      },
+      "breakables": {
+        "broadEpisodes": 712,
+        "closeAccessEpisodes": 235,
+        "coreAccessEpisodes": 182,
+        "bySubtype": {
+          "CRATE": 549,
+          "GOLDEN_STATUE": 163
+        },
+        "closeAccessOutcomes": {
+          "SELF_BREAK": 75,
+          "BREAK_ATTRIBUTION_UNKNOWN": 49,
+          "PLAYER_DEAD": 8,
+          "LEFT_AVAILABLE": 100,
+          "POSITION_INVALID": 1,
+          "OTHER_PLAYER_BREAK": 2
+        },
+        "coreAccessOutcomes": {
+          "SELF_BREAK": 72,
+          "BREAK_ATTRIBUTION_UNKNOWN": 42,
+          "PLAYER_DEAD": 4,
+          "LEFT_AVAILABLE": 62,
+          "POSITION_INVALID": 1,
+          "OTHER_PLAYER_BREAK": 1
+        },
+        "knownSelfBreaks": 79,
+        "knownBulletBreaks": 4,
+        "bulletBreaksOutsideCloseAccess": 2,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 75,
+          "BULLET_RAY": 4
+        },
+        "closeAccessShareOfBroad": 0.3300561797752809,
+        "coreAccessShareOfBroad": 0.2556179775280899,
+        "selfBreakShareOfCloseAccess": 0.3191489361702128,
+        "anyBreakShareOfCloseAccess": 0.5361702127659574,
+        "selfBreakShareOfCoreAccess": 0.3956043956043956,
+        "bulletBreakOutsideCloseShare": 0.5
+      },
+      "camps": {
+        "broadEpisodes": 86,
+        "closeAccessEpisodes": 24,
+        "coreProximityEpisodes": 23,
+        "byTier": {
+          "SMALL": 20,
+          "MEDIUM": 51,
+          "LARGE": 15
+        },
+        "closeAccessOutcomes": {
+          "PLAYER_DEAD": 1,
+          "LEFT_AVAILABLE": 4,
+          "CAMP_CLEARED_DURING_EPISODE": 19
+        },
+        "coreProximityOutcomes": {
+          "PLAYER_DEAD": 1,
+          "LEFT_AVAILABLE": 3,
+          "CAMP_CLEARED_DURING_EPISODE": 19
+        },
+        "clearDuringEpisode": 24,
+        "closeAccessShareOfBroad": 0.27906976744186046,
+        "coreProximityShareOfBroad": 0.26744186046511625,
+        "clearShareOfCoreProximity": 0.8260869565217391
+      }
+    },
+    {
+      "playerName": "TheWoogler",
+      "totalEpisodes": 405,
+      "outcomes": {
+        "LEFT_AVAILABLE": 338,
+        "BREAK_ATTRIBUTION_UNKNOWN": 21,
+        "CAMP_CLEARED_DURING_EPISODE": 10,
+        "OTHER_PLAYER_BREAK": 6,
+        "POSITION_INVALID": 10,
+        "SELF_BREAK": 16,
+        "PLAYER_DEAD": 4
+      },
+      "breakables": {
+        "broadEpisodes": 362,
+        "closeAccessEpisodes": 102,
+        "coreAccessEpisodes": 73,
+        "bySubtype": {
+          "CRATE": 272,
+          "GOLDEN_STATUE": 90
+        },
+        "closeAccessOutcomes": {
+          "BREAK_ATTRIBUTION_UNKNOWN": 13,
+          "LEFT_AVAILABLE": 70,
+          "OTHER_PLAYER_BREAK": 2,
+          "SELF_BREAK": 15,
+          "POSITION_INVALID": 2
+        },
+        "coreAccessOutcomes": {
+          "BREAK_ATTRIBUTION_UNKNOWN": 7,
+          "LEFT_AVAILABLE": 50,
+          "OTHER_PLAYER_BREAK": 1,
+          "SELF_BREAK": 14,
+          "POSITION_INVALID": 1
+        },
+        "knownSelfBreaks": 16,
+        "knownBulletBreaks": 2,
+        "bulletBreaksOutsideCloseAccess": 1,
+        "selfBreakMethods": {
+          "BULLET_RAY": 2,
+          "MELEE_DIRECT": 14
+        },
+        "closeAccessShareOfBroad": 0.281767955801105,
+        "coreAccessShareOfBroad": 0.20165745856353592,
+        "selfBreakShareOfCloseAccess": 0.14705882352941177,
+        "anyBreakShareOfCloseAccess": 0.29411764705882354,
+        "selfBreakShareOfCoreAccess": 0.1917808219178082,
+        "bulletBreakOutsideCloseShare": 0.5
+      },
+      "camps": {
+        "broadEpisodes": 43,
+        "closeAccessEpisodes": 9,
+        "coreProximityEpisodes": 9,
+        "byTier": {
+          "SMALL": 20,
+          "MEDIUM": 17,
+          "LARGE": 6
+        },
+        "closeAccessOutcomes": {
+          "LEFT_AVAILABLE": 1,
+          "CAMP_CLEARED_DURING_EPISODE": 7,
+          "POSITION_INVALID": 1
+        },
+        "coreProximityOutcomes": {
+          "LEFT_AVAILABLE": 1,
+          "CAMP_CLEARED_DURING_EPISODE": 7,
+          "POSITION_INVALID": 1
+        },
+        "clearDuringEpisode": 10,
+        "closeAccessShareOfBroad": 0.20930232558139536,
+        "coreProximityShareOfBroad": 0.20930232558139536,
+        "clearShareOfCoreProximity": 0.7777777777777778
+      }
+    },
+    {
+      "playerName": "viggoth 300",
+      "totalEpisodes": 876,
+      "outcomes": {
+        "CAMP_CLEARED_DURING_EPISODE": 17,
+        "SELF_BREAK": 71,
+        "LEFT_AVAILABLE": 702,
+        "BREAK_ATTRIBUTION_UNKNOWN": 57,
+        "OTHER_PLAYER_BREAK": 17,
+        "PLAYER_DEAD": 2,
+        "POSITION_INVALID": 1,
+        "REPLAY_END": 9
+      },
+      "breakables": {
+        "broadEpisodes": 788,
+        "closeAccessEpisodes": 181,
+        "coreAccessEpisodes": 124,
+        "bySubtype": {
+          "CRATE": 601,
+          "GOLDEN_STATUE": 187
+        },
+        "closeAccessOutcomes": {
+          "SELF_BREAK": 61,
+          "LEFT_AVAILABLE": 87,
+          "BREAK_ATTRIBUTION_UNKNOWN": 23,
+          "OTHER_PLAYER_BREAK": 6,
+          "REPLAY_END": 4
+        },
+        "coreAccessOutcomes": {
+          "SELF_BREAK": 51,
+          "BREAK_ATTRIBUTION_UNKNOWN": 11,
+          "LEFT_AVAILABLE": 56,
+          "OTHER_PLAYER_BREAK": 3,
+          "REPLAY_END": 3
+        },
+        "knownSelfBreaks": 71,
+        "knownBulletBreaks": 10,
+        "bulletBreaksOutsideCloseAccess": 10,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 61,
+          "BULLET_RAY": 10
+        },
+        "closeAccessShareOfBroad": 0.2296954314720812,
+        "coreAccessShareOfBroad": 0.15736040609137056,
+        "selfBreakShareOfCloseAccess": 0.3370165745856354,
+        "anyBreakShareOfCloseAccess": 0.4972375690607735,
+        "selfBreakShareOfCoreAccess": 0.4112903225806452,
+        "bulletBreakOutsideCloseShare": 1
+      },
+      "camps": {
+        "broadEpisodes": 88,
+        "closeAccessEpisodes": 20,
+        "coreProximityEpisodes": 17,
+        "byTier": {
+          "SMALL": 26,
+          "MEDIUM": 39,
+          "LARGE": 23
+        },
+        "closeAccessOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 15,
+          "LEFT_AVAILABLE": 5
+        },
+        "coreProximityOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 14,
+          "LEFT_AVAILABLE": 3
+        },
+        "clearDuringEpisode": 17,
+        "closeAccessShareOfBroad": 0.22727272727272727,
+        "coreProximityShareOfBroad": 0.19318181818181818,
+        "clearShareOfCoreProximity": 0.8235294117647058
+      }
+    },
+    {
+      "playerName": "Yosafire Worshipper [K]",
+      "totalEpisodes": 973,
+      "outcomes": {
+        "PLAYER_DEAD": 5,
+        "CAMP_CLEARED_DURING_EPISODE": 9,
+        "OTHER_PLAYER_BREAK": 9,
+        "LEFT_AVAILABLE": 762,
+        "BREAK_ATTRIBUTION_UNKNOWN": 76,
+        "SELF_BREAK": 107,
+        "POSITION_INVALID": 5
+      },
+      "breakables": {
+        "broadEpisodes": 886,
+        "closeAccessEpisodes": 309,
+        "coreAccessEpisodes": 249,
+        "bySubtype": {
+          "CRATE": 659,
+          "GOLDEN_STATUE": 227
+        },
+        "closeAccessOutcomes": {
+          "LEFT_AVAILABLE": 150,
+          "BREAK_ATTRIBUTION_UNKNOWN": 55,
+          "SELF_BREAK": 102,
+          "OTHER_PLAYER_BREAK": 2
+        },
+        "coreAccessOutcomes": {
+          "LEFT_AVAILABLE": 102,
+          "BREAK_ATTRIBUTION_UNKNOWN": 48,
+          "SELF_BREAK": 98,
+          "OTHER_PLAYER_BREAK": 1
+        },
+        "knownSelfBreaks": 107,
+        "knownBulletBreaks": 2,
+        "bulletBreaksOutsideCloseAccess": 2,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 105,
+          "BULLET_RAY": 2
+        },
+        "closeAccessShareOfBroad": 0.34875846501128666,
+        "coreAccessShareOfBroad": 0.28103837471783294,
+        "selfBreakShareOfCloseAccess": 0.3300970873786408,
+        "anyBreakShareOfCloseAccess": 0.5145631067961165,
+        "selfBreakShareOfCoreAccess": 0.39357429718875503,
+        "bulletBreakOutsideCloseShare": 1
+      },
+      "camps": {
+        "broadEpisodes": 87,
+        "closeAccessEpisodes": 10,
+        "coreProximityEpisodes": 10,
+        "byTier": {
+          "SMALL": 30,
+          "MEDIUM": 38,
+          "LARGE": 19
+        },
+        "closeAccessOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 6,
+          "LEFT_AVAILABLE": 4
+        },
+        "coreProximityOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 6,
+          "LEFT_AVAILABLE": 4
+        },
+        "clearDuringEpisode": 9,
+        "closeAccessShareOfBroad": 0.11494252873563218,
+        "coreProximityShareOfBroad": 0.11494252873563218,
+        "clearShareOfCoreProximity": 0.6
+      }
+    },
+    {
+      "playerName": "Zaeleth",
+      "totalEpisodes": 1017,
+      "outcomes": {
+        "LEFT_AVAILABLE": 958,
+        "BREAK_ATTRIBUTION_UNKNOWN": 22,
+        "CAMP_CLEARED_DURING_EPISODE": 9,
+        "SELF_BREAK": 9,
+        "PLAYER_DEAD": 9,
+        "OTHER_PLAYER_BREAK": 7,
+        "POSITION_INVALID": 3
+      },
+      "breakables": {
+        "broadEpisodes": 953,
+        "closeAccessEpisodes": 155,
+        "coreAccessEpisodes": 116,
+        "bySubtype": {
+          "GOLDEN_STATUE": 277,
+          "CRATE": 676
+        },
+        "closeAccessOutcomes": {
+          "LEFT_AVAILABLE": 130,
+          "BREAK_ATTRIBUTION_UNKNOWN": 10,
+          "SELF_BREAK": 8,
+          "OTHER_PLAYER_BREAK": 5,
+          "POSITION_INVALID": 2
+        },
+        "coreAccessOutcomes": {
+          "LEFT_AVAILABLE": 94,
+          "BREAK_ATTRIBUTION_UNKNOWN": 8,
+          "SELF_BREAK": 8,
+          "OTHER_PLAYER_BREAK": 4,
+          "POSITION_INVALID": 2
+        },
+        "knownSelfBreaks": 9,
+        "knownBulletBreaks": 1,
+        "bulletBreaksOutsideCloseAccess": 1,
+        "selfBreakMethods": {
+          "MELEE_DIRECT": 8,
+          "BULLET_RAY": 1
+        },
+        "closeAccessShareOfBroad": 0.1626442812172088,
+        "coreAccessShareOfBroad": 0.12172088142707241,
+        "selfBreakShareOfCloseAccess": 0.05161290322580645,
+        "anyBreakShareOfCloseAccess": 0.14838709677419354,
+        "selfBreakShareOfCoreAccess": 0.06896551724137931,
+        "bulletBreakOutsideCloseShare": 1
+      },
+      "camps": {
+        "broadEpisodes": 64,
+        "closeAccessEpisodes": 13,
+        "coreProximityEpisodes": 10,
+        "byTier": {
+          "SMALL": 23,
+          "MEDIUM": 23,
+          "LARGE": 18
+        },
+        "closeAccessOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 9,
+          "LEFT_AVAILABLE": 4
+        },
+        "coreProximityOutcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 9,
+          "LEFT_AVAILABLE": 1
+        },
+        "clearDuringEpisode": 9,
+        "closeAccessShareOfBroad": 0.203125,
+        "coreProximityShareOfBroad": 0.15625,
+        "clearShareOfCoreProximity": 0.9
+      }
+    }
+  ]
+}

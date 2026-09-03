@@ -1,0 +1,4505 @@
+{
+  "replay": "test",
+  "method": [
+    "initial spawn-time cohort",
+    "XY/Z spatial geometry",
+    "direct health/life-state transitions",
+    "full-group tier-timer validation",
+    "creation-time subcohorts",
+    "proper-subset tier-timer diagnostics",
+    "map rotational symmetry"
+  ],
+  "rules": {
+    "validatedSingleCamp": "The full geometric group was observed fully dead and the entire group returned after the exact expected camp timer.",
+    "probableSingleCamp": "No direct full-cycle validation was observed, but the group has coherent geometry/creation structure and no strong evidence requiring a split.",
+    "validatedSplit": "At least two disjoint proper subsets independently demonstrate exact tier-timer cycles. This is intentionally difficult to achieve.",
+    "unresolvedConflictingSubsetSignal": "A proper creation-time subset demonstrates an exact tier-timer cycle, but evidence is insufficient to prove the full geometric group should be split.",
+    "sinnerSpecial": "8-minute neutral group without a Large unit. Handle jointly with nearby Sinner state rather than applying ordinary camp logic."
+  },
+  "importantCaution": "Replay/PVS behavior can cause incomplete or misleading individual DEAD -> ALIVE observations. Full-group synchronized timer validation is weighted much more strongly than isolated subset returns.",
+  "summary": {
+    "geometricGroupCount": 42,
+    "regularGeometricGroupCount": 38,
+    "sinnerAssociatedGroupCount": 4,
+    "byBaseClassification": {
+      "SMALL_CAMP_CANDIDATE": 4,
+      "MEDIUM_CAMP_CANDIDATE": 22,
+      "LARGE_CAMP_CANDIDATE": 12,
+      "SINNER_NEUTRAL_CANDIDATE": 4
+    },
+    "byStatus": {
+      "VALIDATED_SINGLE_CAMP": 11,
+      "PROBABLE_SINGLE_CAMP": 26,
+      "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL": 1,
+      "SINNER_SPECIAL": 4
+    },
+    "mediumGeometricGroupCount": 22,
+    "mediumGroupsByStatus": {
+      "PROBABLE_SINGLE_CAMP": 17,
+      "VALIDATED_SINGLE_CAMP": 4,
+      "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL": 1
+    },
+    "validatedSingleCampCount": 11,
+    "probableSingleCampCount": 26,
+    "validatedSplitCount": 0,
+    "unresolvedConflictingCount": 1
+  },
+  "groups": [
+    {
+      "groupId": "SPAWN_0001",
+      "baseClassification": "SMALL_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 85,
+      "firstObservedMatchTimeSeconds": 120.0625,
+      "centroid": {
+        "x": -7168,
+        "y": -1322.6666666666667,
+        "z": 256.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        2959,
+        2960,
+        2961
+      ],
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3
+      },
+      "rawCreateTimeMin": 181.203125,
+      "rawCreateTimeMax": 181.21875,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2959,
+          2960,
+          2961
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 181.203125,
+          "maxCreateTime": 181.203125,
+          "memberCount": 3,
+          "entityIndexes": [
+            2959,
+            2960,
+            2961
+          ],
+          "centroid": {
+            "x": -7168,
+            "y": -1322.6666666666667,
+            "z": 256.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 1,
+      "observedFullRespawnCount": 1,
+      "fullGroupExactRespawnCount": 1,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 35021,
+          "clearMatchTimeSeconds": 517.203125,
+          "clearClock": "8:37",
+          "respawnTick": 40462,
+          "respawnMatchTimeSeconds": 602.21875,
+          "respawnClock": "10:02",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 261.8125,
+          "firstTime": 261.8125,
+          "lastTime": 261.8125,
+          "members": [
+            2961
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 445.3125,
+          "firstTime": 445.3125,
+          "lastTime": 445.3125,
+          "members": [
+            2959,
+            2960
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 602.21875,
+          "firstTime": 602.21875,
+          "lastTime": 602.21875,
+          "members": [
+            2959,
+            2960,
+            2961
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 702.234375,
+          "firstTime": 702.234375,
+          "lastTime": 702.234375,
+          "members": [
+            2961
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1041.921875,
+          "firstTime": 1041.921875,
+          "lastTime": 1041.921875,
+          "members": [
+            2960
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1212.640625,
+          "firstTime": 1212.640625,
+          "lastTime": 1212.640625,
+          "members": [
+            2960,
+            2961
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1652.46875,
+          "firstTime": 1652.46875,
+          "lastTime": 1652.46875,
+          "members": [
+            2959,
+            2961
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1793.078125,
+          "firstTime": 1793.078125,
+          "lastTime": 1793.078125,
+          "members": [
+            2959,
+            2961
+          ],
+          "memberCount": 2
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0002",
+        "rotation180ErrorXY": 0,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0002",
+      "baseClassification": "SMALL_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 85,
+      "firstObservedMatchTimeSeconds": 120.0625,
+      "centroid": {
+        "x": 7168,
+        "y": 1322.6666666666667,
+        "z": 256.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        2962,
+        2963,
+        2964
+      ],
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3
+      },
+      "rawCreateTimeMin": 181.203125,
+      "rawCreateTimeMax": 181.21875,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2962,
+          2963,
+          2964
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 181.203125,
+          "maxCreateTime": 181.203125,
+          "memberCount": 3,
+          "entityIndexes": [
+            2962,
+            2963,
+            2964
+          ],
+          "centroid": {
+            "x": 7168,
+            "y": 1322.6666666666667,
+            "z": 256.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 5,
+      "observedFullRespawnCount": 5,
+      "fullGroupExactRespawnCount": 5,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 27450,
+          "clearMatchTimeSeconds": 398.90625,
+          "clearClock": "6:38",
+          "respawnTick": 32891,
+          "respawnMatchTimeSeconds": 483.921875,
+          "respawnClock": "8:03",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 70729,
+          "clearMatchTimeSeconds": 1075.140625,
+          "clearClock": "17:55",
+          "respawnTick": 76170,
+          "respawnMatchTimeSeconds": 1160.15625,
+          "respawnClock": "19:20",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 110382,
+          "clearMatchTimeSeconds": 1694.71875,
+          "clearClock": "28:14",
+          "respawnTick": 115823,
+          "respawnMatchTimeSeconds": 1779.734375,
+          "respawnClock": "29:39",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 120598,
+          "clearMatchTimeSeconds": 1854.34375,
+          "clearClock": "30:54",
+          "respawnTick": 126039,
+          "respawnMatchTimeSeconds": 1939.359375,
+          "respawnClock": "32:19",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 160565,
+          "clearMatchTimeSeconds": 2478.828125,
+          "clearClock": "41:18",
+          "respawnTick": 166006,
+          "respawnMatchTimeSeconds": 2563.84375,
+          "respawnClock": "42:43",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 323.40625,
+          "firstTime": 323.40625,
+          "lastTime": 323.40625,
+          "members": [
+            2963,
+            2964
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 483.921875,
+          "firstTime": 483.921875,
+          "lastTime": 483.921875,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 651.453125,
+          "firstTime": 651.453125,
+          "lastTime": 651.453125,
+          "members": [
+            2963
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1044.09375,
+          "firstTime": 1044.09375,
+          "lastTime": 1044.09375,
+          "members": [
+            2964
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1160.15625,
+          "firstTime": 1160.15625,
+          "lastTime": 1160.15625,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1320.984375,
+          "firstTime": 1320.984375,
+          "lastTime": 1320.984375,
+          "members": [
+            2963
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1459.09375,
+          "firstTime": 1459.09375,
+          "lastTime": 1459.09375,
+          "members": [
+            2963,
+            2964
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1779.734375,
+          "firstTime": 1779.734375,
+          "lastTime": 1779.734375,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1939.359375,
+          "firstTime": 1939.359375,
+          "lastTime": 1939.359375,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2563.84375,
+          "firstTime": 2563.84375,
+          "lastTime": 2563.84375,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0001",
+        "rotation180ErrorXY": 0,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0003",
+      "baseClassification": "SMALL_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 85,
+      "firstObservedMatchTimeSeconds": 120.0625,
+      "centroid": {
+        "x": -1386.6666666666667,
+        "y": 896,
+        "z": 384.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        2965,
+        2966,
+        2967
+      ],
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3
+      },
+      "rawCreateTimeMin": 181.203125,
+      "rawCreateTimeMax": 181.21875,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2965,
+          2966,
+          2967
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 181.21875,
+          "maxCreateTime": 181.21875,
+          "memberCount": 3,
+          "entityIndexes": [
+            2965,
+            2966,
+            2967
+          ],
+          "centroid": {
+            "x": -1386.6666666666667,
+            "y": 896,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 9,
+      "observedFullRespawnCount": 9,
+      "fullGroupExactRespawnCount": 9,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 22550,
+          "clearMatchTimeSeconds": 322.34375,
+          "clearClock": "5:22",
+          "respawnTick": 27991,
+          "respawnMatchTimeSeconds": 407.359375,
+          "respawnClock": "6:47",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 52752,
+          "clearMatchTimeSeconds": 794.25,
+          "clearClock": "13:14",
+          "respawnTick": 58193,
+          "respawnMatchTimeSeconds": 879.265625,
+          "respawnClock": "14:39",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 61371,
+          "clearMatchTimeSeconds": 928.921875,
+          "clearClock": "15:28",
+          "respawnTick": 66812,
+          "respawnMatchTimeSeconds": 1013.9375,
+          "respawnClock": "16:53",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 78390,
+          "clearMatchTimeSeconds": 1194.84375,
+          "clearClock": "19:54",
+          "respawnTick": 83831,
+          "respawnMatchTimeSeconds": 1279.859375,
+          "respawnClock": "21:19",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 87827,
+          "clearMatchTimeSeconds": 1342.296875,
+          "clearClock": "22:22",
+          "respawnTick": 93268,
+          "respawnMatchTimeSeconds": 1427.3125,
+          "respawnClock": "23:47",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 99175,
+          "clearMatchTimeSeconds": 1519.609375,
+          "clearClock": "25:19",
+          "respawnTick": 104616,
+          "respawnMatchTimeSeconds": 1604.625,
+          "respawnClock": "26:44",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 139108,
+          "clearMatchTimeSeconds": 2143.5625,
+          "clearClock": "35:43",
+          "respawnTick": 144549,
+          "respawnMatchTimeSeconds": 2228.578125,
+          "respawnClock": "37:08",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 150744,
+          "clearMatchTimeSeconds": 2325.375,
+          "clearClock": "38:45",
+          "respawnTick": 156185,
+          "respawnMatchTimeSeconds": 2410.390625,
+          "respawnClock": "40:10",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 170797,
+          "clearMatchTimeSeconds": 2638.703125,
+          "clearClock": "43:58",
+          "respawnTick": 176238,
+          "respawnMatchTimeSeconds": 2723.71875,
+          "respawnClock": "45:23",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 301.53125,
+          "firstTime": 301.53125,
+          "lastTime": 301.53125,
+          "members": [
+            2965,
+            2966
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 407.359375,
+          "firstTime": 407.359375,
+          "lastTime": 407.359375,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 602.546875,
+          "firstTime": 602.546875,
+          "lastTime": 602.546875,
+          "members": [
+            2965,
+            2966
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 712.078125,
+          "firstTime": 712.078125,
+          "lastTime": 712.078125,
+          "members": [
+            2966
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 879.265625,
+          "firstTime": 879.265625,
+          "lastTime": 879.265625,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1013.9375,
+          "firstTime": 1013.9375,
+          "lastTime": 1013.9375,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1160.84375,
+          "firstTime": 1160.84375,
+          "lastTime": 1160.84375,
+          "members": [
+            2965,
+            2967
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1279.859375,
+          "firstTime": 1279.859375,
+          "lastTime": 1279.859375,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1427.3125,
+          "firstTime": 1427.3125,
+          "lastTime": 1427.3125,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1604.625,
+          "firstTime": 1604.625,
+          "lastTime": 1604.625,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2228.578125,
+          "firstTime": 2228.578125,
+          "lastTime": 2228.578125,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2410.390625,
+          "firstTime": 2410.390625,
+          "lastTime": 2410.390625,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2723.71875,
+          "firstTime": 2723.71875,
+          "lastTime": 2723.71875,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0004",
+        "rotation180ErrorXY": 75.77566488582522,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0004",
+      "baseClassification": "SMALL_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 85,
+      "firstObservedMatchTimeSeconds": 120.0625,
+      "centroid": {
+        "x": 1373.75,
+        "y": -970.6666666666666,
+        "z": 384.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        2968,
+        2969,
+        2970
+      ],
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3
+      },
+      "rawCreateTimeMin": 181.203125,
+      "rawCreateTimeMax": 181.21875,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2968,
+          2969,
+          2970
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 181.21875,
+          "maxCreateTime": 181.21875,
+          "memberCount": 3,
+          "entityIndexes": [
+            2968,
+            2969,
+            2970
+          ],
+          "centroid": {
+            "x": 1373.75,
+            "y": -970.6666666666666,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 6,
+      "observedFullRespawnCount": 6,
+      "fullGroupExactRespawnCount": 6,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 10557,
+          "clearMatchTimeSeconds": 134.953125,
+          "clearClock": "2:14",
+          "respawnTick": 15998,
+          "respawnMatchTimeSeconds": 219.96875,
+          "respawnClock": "3:39",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 22720,
+          "clearMatchTimeSeconds": 325,
+          "clearClock": "5:25",
+          "respawnTick": 28161,
+          "respawnMatchTimeSeconds": 410.015625,
+          "respawnClock": "6:50",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 55108,
+          "clearMatchTimeSeconds": 831.0625,
+          "clearClock": "13:51",
+          "respawnTick": 60549,
+          "respawnMatchTimeSeconds": 916.078125,
+          "respawnClock": "15:16",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 62946,
+          "clearMatchTimeSeconds": 953.53125,
+          "clearClock": "15:53",
+          "respawnTick": 68387,
+          "respawnMatchTimeSeconds": 1038.546875,
+          "respawnClock": "17:18",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 87770,
+          "clearMatchTimeSeconds": 1341.40625,
+          "clearClock": "22:21",
+          "respawnTick": 93211,
+          "respawnMatchTimeSeconds": 1426.421875,
+          "respawnClock": "23:46",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 160492,
+          "clearMatchTimeSeconds": 2477.6875,
+          "clearClock": "41:17",
+          "respawnTick": 165933,
+          "respawnMatchTimeSeconds": 2562.703125,
+          "respawnClock": "42:42",
+          "respawnDelaySeconds": 85.015625,
+          "expectedRespawnSeconds": 85,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 219.96875,
+          "firstTime": 219.96875,
+          "lastTime": 219.96875,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 410.015625,
+          "firstTime": 410.015625,
+          "lastTime": 410.015625,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 576.546875,
+          "firstTime": 576.546875,
+          "lastTime": 576.546875,
+          "members": [
+            2969
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 713.328125,
+          "firstTime": 713.328125,
+          "lastTime": 713.328125,
+          "members": [
+            2969
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 916.078125,
+          "firstTime": 916.078125,
+          "lastTime": 916.078125,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1038.546875,
+          "firstTime": 1038.546875,
+          "lastTime": 1038.546875,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1426.421875,
+          "firstTime": 1426.421875,
+          "lastTime": 1426.421875,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1914.234375,
+          "firstTime": 1914.234375,
+          "lastTime": 1914.234375,
+          "members": [
+            2969
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 2562.703125,
+          "firstTime": 2562.703125,
+          "lastTime": 2562.703125,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0003",
+        "rotation180ErrorXY": 75.77566488582522,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0005",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.0625,
+      "centroid": {
+        "x": -7897.6,
+        "y": 4531.2,
+        "z": 640.03125
+      },
+      "memberCount": 5,
+      "entityIndexes": [
+        2515,
+        2516,
+        2517,
+        2518,
+        3071
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        5
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2515,
+          2516,
+          2517,
+          2518,
+          3071
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.203125,
+          "maxCreateTime": 361.203125,
+          "memberCount": 5,
+          "entityIndexes": [
+            2515,
+            2516,
+            2517,
+            2518,
+            3071
+          ],
+          "centroid": {
+            "x": -7897.6,
+            "y": 4531.2,
+            "z": 640.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0006",
+        "rotation180ErrorXY": 25.599999999999454,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0006",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.0625,
+      "centroid": {
+        "x": 7923.2,
+        "y": -4531.2,
+        "z": 640.03125
+      },
+      "memberCount": 5,
+      "entityIndexes": [
+        2519,
+        2520,
+        2521,
+        2522,
+        2523
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        5
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2519,
+          2520,
+          2521,
+          2522,
+          2523
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.203125,
+          "maxCreateTime": 361.203125,
+          "memberCount": 5,
+          "entityIndexes": [
+            2519,
+            2520,
+            2521,
+            2522,
+            2523
+          ],
+          "centroid": {
+            "x": 7923.2,
+            "y": -4531.2,
+            "z": 640.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1535.234375,
+          "firstTime": 1535.234375,
+          "lastTime": 1535.234375,
+          "members": [
+            2519,
+            2520,
+            2521,
+            2523
+          ],
+          "memberCount": 4
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0005",
+        "rotation180ErrorXY": 25.599999999999454,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0008",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.0625,
+      "centroid": {
+        "x": 7942.4,
+        "y": -2315.2,
+        "z": 256.23125
+      },
+      "memberCount": 5,
+      "entityIndexes": [
+        2913,
+        2938,
+        2940,
+        2942,
+        2947
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1,
+        "SMALL_UNIT": 4
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        5
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2913,
+          2938,
+          2940,
+          2942,
+          2947
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.21875,
+          "maxCreateTime": 361.21875,
+          "memberCount": 5,
+          "entityIndexes": [
+            2913,
+            2938,
+            2940,
+            2942,
+            2947
+          ],
+          "centroid": {
+            "x": 7942.4,
+            "y": -2315.2,
+            "z": 256.23125
+          }
+        }
+      ],
+      "observedFullClearCount": 1,
+      "observedFullRespawnCount": 1,
+      "fullGroupExactRespawnCount": 1,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 162342,
+          "clearMatchTimeSeconds": 2506.59375,
+          "clearClock": "41:46",
+          "respawnTick": 180903,
+          "respawnMatchTimeSeconds": 2796.609375,
+          "respawnClock": "46:36",
+          "respawnDelaySeconds": 290.015625,
+          "expectedRespawnSeconds": 290,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 678.828125,
+          "firstTime": 678.828125,
+          "lastTime": 678.828125,
+          "members": [
+            2938,
+            2940,
+            2942,
+            2947
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 1290.625,
+          "firstTime": 1290.625,
+          "lastTime": 1290.625,
+          "members": [
+            2913,
+            2938,
+            2942,
+            2947
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 1727.421875,
+          "firstTime": 1727.421875,
+          "lastTime": 1727.421875,
+          "members": [
+            2913,
+            2940,
+            2942,
+            2947
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 2796.609375,
+          "firstTime": 2796.609375,
+          "lastTime": 2796.609375,
+          "members": [
+            2913,
+            2938,
+            2940,
+            2942,
+            2947
+          ],
+          "memberCount": 5
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0010",
+        "rotation180ErrorXY": 190.50753265947216,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0010",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.125,
+      "centroid": {
+        "x": -7936,
+        "y": 2124.8,
+        "z": 256.03125
+      },
+      "memberCount": 5,
+      "entityIndexes": [
+        2971,
+        2972,
+        2973,
+        2978,
+        3038
+      ],
+      "unitTypeCounts": {
+        "SMALL_UNIT": 4,
+        "MEDIUM_UNIT": 1
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        5
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2971,
+          2972,
+          2973,
+          2978,
+          3038
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.234375,
+          "maxCreateTime": 361.234375,
+          "memberCount": 5,
+          "entityIndexes": [
+            2971,
+            2972,
+            2973,
+            2978,
+            3038
+          ],
+          "centroid": {
+            "x": -7936,
+            "y": 2124.8,
+            "z": 256.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1177.953125,
+          "firstTime": 1177.953125,
+          "lastTime": 1177.953125,
+          "members": [
+            2973
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1495.734375,
+          "firstTime": 1495.734375,
+          "lastTime": 1495.734375,
+          "members": [
+            2971,
+            2972,
+            2978,
+            3038
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 1837.765625,
+          "firstTime": 1837.765625,
+          "lastTime": 1837.765625,
+          "members": [
+            2972,
+            2978,
+            3038
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2617.78125,
+          "firstTime": 2617.78125,
+          "lastTime": 2617.78125,
+          "members": [
+            2971,
+            2978
+          ],
+          "memberCount": 2
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0008",
+        "rotation180ErrorXY": 190.50753265947216,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0011",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.125,
+      "centroid": {
+        "x": -4979.333333333333,
+        "y": -1565.4375,
+        "z": -63.96875
+      },
+      "memberCount": 6,
+      "entityIndexes": [
+        2976,
+        2979,
+        2980,
+        2981,
+        2982,
+        2999
+      ],
+      "unitTypeCounts": {
+        "SMALL_UNIT": 4,
+        "MEDIUM_UNIT": 2
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        6
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2976,
+          2979,
+          2980,
+          2981,
+          2982,
+          2999
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.25,
+          "maxCreateTime": 361.25,
+          "memberCount": 6,
+          "entityIndexes": [
+            2976,
+            2979,
+            2980,
+            2981,
+            2982,
+            2999
+          ],
+          "centroid": {
+            "x": -4979.333333333333,
+            "y": -1565.4375,
+            "z": -63.96875
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1351.4375,
+          "firstTime": 1351.4375,
+          "lastTime": 1351.4375,
+          "members": [
+            2981,
+            2999
+          ],
+          "memberCount": 2
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0012",
+        "rotation180ErrorXY": 337.5712431236223,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0012",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.125,
+      "centroid": {
+        "x": 4926.666666666667,
+        "y": 1232,
+        "z": -19.96875
+      },
+      "memberCount": 6,
+      "entityIndexes": [
+        2983,
+        2984,
+        2986,
+        2988,
+        2989,
+        3009
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 4
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        6
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2983,
+          2984,
+          2986,
+          2988,
+          2989,
+          3009
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.25,
+          "maxCreateTime": 361.25,
+          "memberCount": 6,
+          "entityIndexes": [
+            2983,
+            2984,
+            2986,
+            2988,
+            2989,
+            3009
+          ],
+          "centroid": {
+            "x": 4926.666666666667,
+            "y": 1232,
+            "z": -19.96875
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1451.609375,
+          "firstTime": 1451.609375,
+          "lastTime": 1451.609375,
+          "members": [
+            2984,
+            2988,
+            3009
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0011",
+        "rotation180ErrorXY": 337.5712431236223,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0013",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.125,
+      "centroid": {
+        "x": -4473.6,
+        "y": 1913.6,
+        "z": 256.03125
+      },
+      "memberCount": 5,
+      "entityIndexes": [
+        2990,
+        2991,
+        2992,
+        2993,
+        2994
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3,
+        "SMALL_UNIT": 2
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        5
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2990,
+          2991,
+          2992,
+          2993,
+          2994
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.265625,
+          "maxCreateTime": 361.265625,
+          "memberCount": 5,
+          "entityIndexes": [
+            2990,
+            2991,
+            2992,
+            2993,
+            2994
+          ],
+          "centroid": {
+            "x": -4473.6,
+            "y": 1913.6,
+            "z": 256.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1293.875,
+          "firstTime": 1293.875,
+          "lastTime": 1293.875,
+          "members": [
+            2993
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1666.78125,
+          "firstTime": 1666.78125,
+          "lastTime": 1666.78125,
+          "members": [
+            2990,
+            2991,
+            2992,
+            2993
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 1977.296875,
+          "firstTime": 1977.296875,
+          "lastTime": 1977.296875,
+          "members": [
+            2994
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0014",
+        "rotation180ErrorXY": 38.92968019390863,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0014",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.125,
+      "centroid": {
+        "x": 4480,
+        "y": -1952,
+        "z": 256.03125
+      },
+      "memberCount": 5,
+      "entityIndexes": [
+        2995,
+        2996,
+        2997,
+        2998,
+        3000
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3,
+        "SMALL_UNIT": 2
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        5
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2995,
+          2996,
+          2997,
+          2998,
+          3000
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.265625,
+          "maxCreateTime": 361.265625,
+          "memberCount": 5,
+          "entityIndexes": [
+            2995,
+            2996,
+            2997,
+            2998,
+            3000
+          ],
+          "centroid": {
+            "x": 4480,
+            "y": -1952,
+            "z": 256.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1406.328125,
+          "firstTime": 1406.328125,
+          "lastTime": 1406.328125,
+          "members": [
+            2995,
+            2996,
+            2997
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2139.109375,
+          "firstTime": 2139.109375,
+          "lastTime": 2139.109375,
+          "members": [
+            2996,
+            2997
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2603.8125,
+          "firstTime": 2603.8125,
+          "lastTime": 2603.8125,
+          "members": [
+            2995,
+            2997,
+            3000
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0013",
+        "rotation180ErrorXY": 38.92968019390863,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0015",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.125,
+      "centroid": {
+        "x": 2176,
+        "y": -3914.6666666666665,
+        "z": 376.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3001,
+        3002,
+        3003
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3001,
+          3002,
+          3003
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.28125,
+          "maxCreateTime": 361.28125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3001,
+            3002,
+            3003
+          ],
+          "centroid": {
+            "x": 2176,
+            "y": -3914.6666666666665,
+            "z": 376.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1219.96875,
+          "firstTime": 1219.96875,
+          "lastTime": 1219.96875,
+          "members": [
+            3002,
+            3003
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1611.8125,
+          "firstTime": 1611.8125,
+          "lastTime": 1611.8125,
+          "members": [
+            3003
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 2150.390625,
+          "firstTime": 2150.390625,
+          "lastTime": 2150.390625,
+          "members": [
+            3002,
+            3003
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2583.375,
+          "firstTime": 2583.375,
+          "lastTime": 2583.375,
+          "members": [
+            3001,
+            3003
+          ],
+          "memberCount": 2
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0016",
+        "rotation180ErrorXY": 315.88464842583113,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0016",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.125,
+      "centroid": {
+        "x": -2240,
+        "y": 3605.3333333333335,
+        "z": 376.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3004,
+        3005,
+        3006
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3004,
+          3005,
+          3006
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.28125,
+          "maxCreateTime": 361.28125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3004,
+            3005,
+            3006
+          ],
+          "centroid": {
+            "x": -2240,
+            "y": 3605.3333333333335,
+            "z": 376.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1320.34375,
+          "firstTime": 1320.34375,
+          "lastTime": 1320.34375,
+          "members": [
+            3006
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0015",
+        "rotation180ErrorXY": 315.88464842583113,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0007",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.0625,
+      "centroid": {
+        "x": -3511,
+        "y": -1214,
+        "z": 252.03125
+      },
+      "memberCount": 6,
+      "entityIndexes": [
+        2524,
+        2910,
+        2987,
+        3073,
+        3074,
+        3075
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 2,
+      "creationSubcohortSizes": [
+        3,
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2524,
+          2910,
+          2987
+        ],
+        [
+          3073,
+          3074,
+          3075
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.21875,
+          "maxCreateTime": 361.21875,
+          "memberCount": 3,
+          "entityIndexes": [
+            2524,
+            2910,
+            2987
+          ],
+          "centroid": {
+            "x": -3822,
+            "y": -1222.6666666666667,
+            "z": 256.03125
+          }
+        },
+        {
+          "minCreateTime": 361.359375,
+          "maxCreateTime": 361.359375,
+          "memberCount": 3,
+          "entityIndexes": [
+            3073,
+            3074,
+            3075
+          ],
+          "centroid": {
+            "x": -3200,
+            "y": -1205.3333333333333,
+            "z": 248.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 999.59375,
+          "firstTime": 999.59375,
+          "lastTime": 999.59375,
+          "members": [
+            2910
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1395.59375,
+          "firstTime": 1395.59375,
+          "lastTime": 1395.59375,
+          "members": [
+            2910
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1430.421875,
+          "firstTime": 1430.421875,
+          "lastTime": 1430.421875,
+          "members": [
+            3073,
+            3074
+          ],
+          "memberCount": 2
+        }
+      ],
+      "notes": [
+        "Multiple creation-time batches exist, but none independently demonstrate an exact proper-subset camp cycle.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0009",
+        "rotation180ErrorXY": 118.91219916859299,
+        "mirrorStatus": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0009",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.125,
+      "centroid": {
+        "x": 3488,
+        "y": 1330.6666666666667,
+        "z": 252.03125
+      },
+      "memberCount": 6,
+      "entityIndexes": [
+        2953,
+        2955,
+        2957,
+        3064,
+        3065,
+        3072
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 2,
+      "creationSubcohortSizes": [
+        3,
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          2953,
+          2955,
+          2957
+        ],
+        [
+          3064,
+          3065,
+          3072
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.234375,
+          "maxCreateTime": 361.234375,
+          "memberCount": 3,
+          "entityIndexes": [
+            2953,
+            2955,
+            2957
+          ],
+          "centroid": {
+            "x": 3776,
+            "y": 1445.3333333333333,
+            "z": 256.03125
+          }
+        },
+        {
+          "minCreateTime": 361.359375,
+          "maxCreateTime": 361.359375,
+          "memberCount": 3,
+          "entityIndexes": [
+            3064,
+            3065,
+            3072
+          ],
+          "centroid": {
+            "x": 3200,
+            "y": 1216,
+            "z": 248.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [
+        {
+          "createTimeMin": 361.234375,
+          "createTimeMax": 361.234375,
+          "entityIndexes": [
+            2953,
+            2955,
+            2957
+          ],
+          "memberCount": 3,
+          "exactTimerCycleCount": 2,
+          "exactTimerCycles": [
+            {
+              "clearTimeSeconds": 761.609375,
+              "returnTimeSeconds": 1051.625,
+              "delaySeconds": 290.015625,
+              "expectedTimerSeconds": 290,
+              "timerErrorSeconds": 0.015625,
+              "exactTimer": true
+            },
+            {
+              "clearTimeSeconds": 1138.078125,
+              "returnTimeSeconds": 1428.09375,
+              "delaySeconds": 290.015625,
+              "expectedTimerSeconds": 290,
+              "timerErrorSeconds": 0.015625,
+              "exactTimer": true
+            }
+          ],
+          "allObservedCycles": [
+            {
+              "clearTimeSeconds": 761.609375,
+              "returnTimeSeconds": 1051.625,
+              "delaySeconds": 290.015625,
+              "expectedTimerSeconds": 290,
+              "timerErrorSeconds": 0.015625,
+              "exactTimer": true
+            },
+            {
+              "clearTimeSeconds": 1138.078125,
+              "returnTimeSeconds": 1428.09375,
+              "delaySeconds": 290.015625,
+              "expectedTimerSeconds": 290,
+              "timerErrorSeconds": 0.015625,
+              "exactTimer": true
+            }
+          ]
+        }
+      ],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 962.09375,
+          "firstTime": 962.09375,
+          "lastTime": 962.09375,
+          "members": [
+            3065,
+            3072
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1051.625,
+          "firstTime": 1051.625,
+          "lastTime": 1051.625,
+          "members": [
+            2953,
+            2955,
+            2957
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1365.609375,
+          "firstTime": 1365.609375,
+          "lastTime": 1365.609375,
+          "members": [
+            3072
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1428.09375,
+          "firstTime": 1428.09375,
+          "lastTime": 1428.09375,
+          "members": [
+            2953,
+            2955,
+            2957
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2758.46875,
+          "firstTime": 2758.46875,
+          "lastTime": 2758.46875,
+          "members": [
+            3072
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "At least one proper creation-time subset completed an exact tier-timer cycle.",
+        "This is not sufficient by itself to split the geometric group because replay/PVS observations can be incomplete."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0007",
+        "rotation180ErrorXY": 118.91219916859299,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": true
+      }
+    },
+    {
+      "groupId": "SPAWN_0017",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.1875,
+      "centroid": {
+        "x": 2272,
+        "y": 4917.333333333333,
+        "z": 512.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3007,
+        3008,
+        3010
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3007,
+          3008,
+          3010
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.296875,
+          "maxCreateTime": 361.296875,
+          "memberCount": 3,
+          "entityIndexes": [
+            3007,
+            3008,
+            3010
+          ],
+          "centroid": {
+            "x": 2272,
+            "y": 4917.333333333333,
+            "z": 512.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1955.78125,
+          "firstTime": 1955.78125,
+          "lastTime": 1955.78125,
+          "members": [
+            3008
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0018",
+        "rotation180ErrorXY": 52.20010347644277,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0018",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.1875,
+      "centroid": {
+        "x": -2308.0416666666665,
+        "y": -4879.572916666667,
+        "z": 512.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3011,
+        3012,
+        3028
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3011,
+          3012,
+          3028
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.296875,
+          "maxCreateTime": 361.296875,
+          "memberCount": 3,
+          "entityIndexes": [
+            3011,
+            3012,
+            3028
+          ],
+          "centroid": {
+            "x": -2308.0416666666665,
+            "y": -4879.572916666667,
+            "z": 512.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 1,
+      "observedFullRespawnCount": 1,
+      "fullGroupExactRespawnCount": 1,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 61640,
+          "clearMatchTimeSeconds": 933.125,
+          "clearClock": "15:33",
+          "respawnTick": 80201,
+          "respawnMatchTimeSeconds": 1223.140625,
+          "respawnClock": "20:23",
+          "respawnDelaySeconds": 290.015625,
+          "expectedRespawnSeconds": 290,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1223.140625,
+          "firstTime": 1223.140625,
+          "lastTime": 1223.140625,
+          "members": [
+            3011,
+            3012,
+            3028
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0017",
+        "rotation180ErrorXY": 52.20010347644277,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0019",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.1875,
+      "centroid": {
+        "x": 5696,
+        "y": -1664,
+        "z": 928.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3033,
+        3036,
+        3037
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3033,
+          3036,
+          3037
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.3125,
+          "maxCreateTime": 361.3125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3033,
+            3036,
+            3037
+          ],
+          "centroid": {
+            "x": 5696,
+            "y": -1664,
+            "z": 928.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1029.875,
+          "firstTime": 1029.875,
+          "lastTime": 1029.875,
+          "members": [
+            3033
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0020",
+        "rotation180ErrorXY": 0,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0020",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.1875,
+      "centroid": {
+        "x": -5696,
+        "y": 1664,
+        "z": 928.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3041,
+        3043,
+        3045
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3041,
+          3043,
+          3045
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.3125,
+          "maxCreateTime": 361.3125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3041,
+            3043,
+            3045
+          ],
+          "centroid": {
+            "x": -5696,
+            "y": 1664,
+            "z": 928.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0019",
+        "rotation180ErrorXY": 0,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0021",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.1875,
+      "centroid": {
+        "x": -5461.333333333333,
+        "y": -3744,
+        "z": 384.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3040,
+        3042,
+        3054
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3040,
+          3042,
+          3054
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.328125,
+          "maxCreateTime": 361.328125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3040,
+            3042,
+            3054
+          ],
+          "centroid": {
+            "x": -5461.333333333333,
+            "y": -3744,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1156.375,
+          "firstTime": 1156.375,
+          "lastTime": 1156.375,
+          "members": [
+            3054
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0022",
+        "rotation180ErrorXY": 128.44367550711823,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0022",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.1875,
+      "centroid": {
+        "x": 5546.666666666667,
+        "y": 3840,
+        "z": 384.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3055,
+        3056,
+        3058
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3055,
+          3056,
+          3058
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.328125,
+          "maxCreateTime": 361.328125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3055,
+            3056,
+            3058
+          ],
+          "centroid": {
+            "x": 5546.666666666667,
+            "y": 3840,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0021",
+        "rotation180ErrorXY": 128.44367550711823,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0023",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.1875,
+      "centroid": {
+        "x": 6768,
+        "y": 2133.3333333333335,
+        "z": 1024.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3057,
+        3059,
+        3060
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3057,
+          3059,
+          3060
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.34375,
+          "maxCreateTime": 361.34375,
+          "memberCount": 3,
+          "entityIndexes": [
+            3057,
+            3059,
+            3060
+          ],
+          "centroid": {
+            "x": 6768,
+            "y": 2133.3333333333335,
+            "z": 1024.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1431.046875,
+          "firstTime": 1431.046875,
+          "lastTime": 1431.046875,
+          "members": [
+            3057,
+            3059
+          ],
+          "memberCount": 2
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0024",
+        "rotation180ErrorXY": 5.33333333333303,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0024",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.1875,
+      "centroid": {
+        "x": -6773.333333333333,
+        "y": -2133.3333333333335,
+        "z": 1024.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3062,
+        3063,
+        3066
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3062,
+          3063,
+          3066
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.34375,
+          "maxCreateTime": 361.34375,
+          "memberCount": 3,
+          "entityIndexes": [
+            3062,
+            3063,
+            3066
+          ],
+          "centroid": {
+            "x": -6773.333333333333,
+            "y": -2133.3333333333335,
+            "z": 1024.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 2,
+      "observedFullRespawnCount": 2,
+      "fullGroupExactRespawnCount": 2,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 75081,
+          "clearMatchTimeSeconds": 1143.140625,
+          "clearClock": "19:03",
+          "respawnTick": 93642,
+          "respawnMatchTimeSeconds": 1433.15625,
+          "respawnClock": "23:53",
+          "respawnDelaySeconds": 290.015625,
+          "expectedRespawnSeconds": 290,
+          "deltaFromExpectedSeconds": 0.015625
+        },
+        {
+          "clearTick": 121165,
+          "clearMatchTimeSeconds": 1863.203125,
+          "clearClock": "31:03",
+          "respawnTick": 139726,
+          "respawnMatchTimeSeconds": 2153.21875,
+          "respawnClock": "35:53",
+          "respawnDelaySeconds": 290.015625,
+          "expectedRespawnSeconds": 290,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1433.15625,
+          "firstTime": 1433.15625,
+          "lastTime": 1433.15625,
+          "members": [
+            3062,
+            3063,
+            3066
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2153.21875,
+          "firstTime": 2153.21875,
+          "lastTime": 2153.21875,
+          "members": [
+            3062,
+            3063,
+            3066
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0023",
+        "rotation180ErrorXY": 5.33333333333303,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0025",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.25,
+      "centroid": {
+        "x": -1944,
+        "y": -796,
+        "z": 128.03125
+      },
+      "memberCount": 4,
+      "entityIndexes": [
+        3076,
+        3077,
+        3078,
+        3079
+      ],
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3,
+        "MEDIUM_UNIT": 1
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        4
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3076,
+          3077,
+          3078,
+          3079
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.375,
+          "maxCreateTime": 361.375,
+          "memberCount": 4,
+          "entityIndexes": [
+            3076,
+            3077,
+            3078,
+            3079
+          ],
+          "centroid": {
+            "x": -1944,
+            "y": -796,
+            "z": 128.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 1,
+      "observedFullRespawnCount": 1,
+      "fullGroupExactRespawnCount": 1,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 61040,
+          "clearMatchTimeSeconds": 923.75,
+          "clearClock": "15:23",
+          "respawnTick": 79601,
+          "respawnMatchTimeSeconds": 1213.765625,
+          "respawnClock": "20:13",
+          "respawnDelaySeconds": 290.015625,
+          "expectedRespawnSeconds": 290,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 814.125,
+          "firstTime": 814.125,
+          "lastTime": 814.125,
+          "members": [
+            3076
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1213.765625,
+          "firstTime": 1213.765625,
+          "lastTime": 1213.765625,
+          "members": [
+            3076,
+            3077,
+            3078,
+            3079
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 2950.734375,
+          "firstTime": 2950.734375,
+          "lastTime": 2950.734375,
+          "members": [
+            3079
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0026",
+        "rotation180ErrorXY": 8,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0026",
+      "baseClassification": "MEDIUM_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 290,
+      "firstObservedMatchTimeSeconds": 300.25,
+      "centroid": {
+        "x": 1944,
+        "y": 804,
+        "z": 128.03125
+      },
+      "memberCount": 4,
+      "entityIndexes": [
+        3080,
+        3081,
+        3082,
+        3083
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1,
+        "SMALL_UNIT": 3
+      },
+      "rawCreateTimeMin": 361.203125,
+      "rawCreateTimeMax": 361.375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        4
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3080,
+          3081,
+          3082,
+          3083
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.375,
+          "maxCreateTime": 361.375,
+          "memberCount": 4,
+          "entityIndexes": [
+            3080,
+            3081,
+            3082,
+            3083
+          ],
+          "centroid": {
+            "x": 1944,
+            "y": 804,
+            "z": 128.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 659.234375,
+          "firstTime": 659.234375,
+          "lastTime": 659.234375,
+          "members": [
+            3082,
+            3083
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1167.703125,
+          "firstTime": 1167.703125,
+          "lastTime": 1167.703125,
+          "members": [
+            3082,
+            3083
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1616.921875,
+          "firstTime": 1616.921875,
+          "lastTime": 1616.921875,
+          "members": [
+            3081,
+            3082,
+            3083
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0025",
+        "rotation180ErrorXY": 8,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0027",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.0625,
+      "centroid": {
+        "x": -8960,
+        "y": 0,
+        "z": 288.3020833333333
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3361,
+        3362,
+        3363
+      ],
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3361,
+          3362,
+          3363
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.203125,
+          "maxCreateTime": 541.203125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3361,
+            3362,
+            3363
+          ],
+          "centroid": {
+            "x": -8960,
+            "y": 0,
+            "z": 288.3020833333333
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0028",
+        "rotation180ErrorXY": 224.000000242203,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0028",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.0625,
+      "centroid": {
+        "x": 9184,
+        "y": -0.010416666666666666,
+        "z": 256.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3364,
+        3365,
+        3366
+      ],
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3364,
+          3365,
+          3366
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.203125,
+          "maxCreateTime": 541.203125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3364,
+            3365,
+            3366
+          ],
+          "centroid": {
+            "x": 9184,
+            "y": -0.010416666666666666,
+            "z": 256.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0027",
+        "rotation180ErrorXY": 224.000000242203,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0029",
+      "baseClassification": "SINNER_NEUTRAL_CANDIDATE",
+      "status": "SINNER_SPECIAL",
+      "expectedTimerSeconds": null,
+      "firstObservedMatchTimeSeconds": 480.0625,
+      "centroid": {
+        "x": -3928,
+        "y": -1448,
+        "z": 564.03125
+      },
+      "memberCount": 1,
+      "entityIndexes": [
+        3369
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        1
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3369
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.21875,
+          "maxCreateTime": 541.21875,
+          "memberCount": 1,
+          "entityIndexes": [
+            3369
+          ],
+          "centroid": {
+            "x": -3928,
+            "y": -1448,
+            "z": 564.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 3,
+      "observedFullRespawnCount": 2,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1399.546875,
+          "firstTime": 1399.546875,
+          "lastTime": 1399.546875,
+          "members": [
+            3369
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1885.4375,
+          "firstTime": 1885.4375,
+          "lastTime": 1885.4375,
+          "members": [
+            3369
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "Do not treat as an ordinary Large camp. Combine with nearby Sinner state."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0032",
+        "rotation180ErrorXY": 326.5333061113368,
+        "mirrorStatus": "SINNER_SPECIAL",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0030",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.0625,
+      "centroid": {
+        "x": -4982.666666666667,
+        "y": -709.3333333333334,
+        "z": 256.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3370,
+        3371,
+        3372
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "LARGE_UNIT": 1
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3370,
+          3371,
+          3372
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.21875,
+          "maxCreateTime": 541.21875,
+          "memberCount": 3,
+          "entityIndexes": [
+            3370,
+            3371,
+            3372
+          ],
+          "centroid": {
+            "x": -4982.666666666667,
+            "y": -709.3333333333334,
+            "z": 256.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 2687.546875,
+          "firstTime": 2687.546875,
+          "lastTime": 2687.546875,
+          "members": [
+            3372
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0031",
+        "rotation180ErrorXY": 144.3021521361033,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0031",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.125,
+      "centroid": {
+        "x": 4992,
+        "y": 565.3333333333334,
+        "z": 256.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3373,
+        3374,
+        3375
+      ],
+      "unitTypeCounts": {
+        "LARGE_UNIT": 1,
+        "MEDIUM_UNIT": 2
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3373,
+          3374,
+          3375
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.234375,
+          "maxCreateTime": 541.234375,
+          "memberCount": 3,
+          "entityIndexes": [
+            3373,
+            3374,
+            3375
+          ],
+          "centroid": {
+            "x": 4992,
+            "y": 565.3333333333334,
+            "z": 256.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1460.046875,
+          "firstTime": 1460.046875,
+          "lastTime": 1460.046875,
+          "members": [
+            3373,
+            3375
+          ],
+          "memberCount": 2
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0030",
+        "rotation180ErrorXY": 144.3021521361033,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0032",
+      "baseClassification": "SINNER_NEUTRAL_CANDIDATE",
+      "status": "SINNER_SPECIAL",
+      "expectedTimerSeconds": null,
+      "firstObservedMatchTimeSeconds": 480.125,
+      "centroid": {
+        "x": 3648,
+        "y": 1616,
+        "z": 536.03125
+      },
+      "memberCount": 1,
+      "entityIndexes": [
+        3378
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        1
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3378
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.234375,
+          "maxCreateTime": 541.234375,
+          "memberCount": 1,
+          "entityIndexes": [
+            3378
+          ],
+          "centroid": {
+            "x": 3648,
+            "y": 1616,
+            "z": 536.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 2,
+      "observedFullRespawnCount": 2,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1648.484375,
+          "firstTime": 1648.484375,
+          "lastTime": 1648.484375,
+          "members": [
+            3378
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 2661.59375,
+          "firstTime": 2661.59375,
+          "lastTime": 2661.59375,
+          "members": [
+            3378
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "Do not treat as an ordinary Large camp. Combine with nearby Sinner state."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0029",
+        "rotation180ErrorXY": 326.5333061113368,
+        "mirrorStatus": "SINNER_SPECIAL",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0033",
+      "baseClassification": "SINNER_NEUTRAL_CANDIDATE",
+      "status": "SINNER_SPECIAL",
+      "expectedTimerSeconds": null,
+      "firstObservedMatchTimeSeconds": 480.125,
+      "centroid": {
+        "x": 2080,
+        "y": -960,
+        "z": 384.03125
+      },
+      "memberCount": 2,
+      "entityIndexes": [
+        3380,
+        3381
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        2
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3380,
+          3381
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.25,
+          "maxCreateTime": 541.25,
+          "memberCount": 2,
+          "entityIndexes": [
+            3380,
+            3381
+          ],
+          "centroid": {
+            "x": 2080,
+            "y": -960,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 2,
+      "observedFullRespawnCount": 2,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 883.5,
+          "firstTime": 883.5,
+          "lastTime": 883.5,
+          "members": [
+            3380
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1198.6875,
+          "firstTime": 1198.6875,
+          "lastTime": 1198.6875,
+          "members": [
+            3380
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1536.03125,
+          "firstTime": 1536.03125,
+          "lastTime": 1536.03125,
+          "members": [
+            3380
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1873.46875,
+          "firstTime": 1873.46875,
+          "lastTime": 1873.46875,
+          "members": [
+            3380,
+            3381
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2449.53125,
+          "firstTime": 2449.53125,
+          "lastTime": 2449.53125,
+          "members": [
+            3380,
+            3381
+          ],
+          "memberCount": 2
+        }
+      ],
+      "notes": [
+        "Do not treat as an ordinary Large camp. Combine with nearby Sinner state."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0038",
+        "rotation180ErrorXY": 32,
+        "mirrorStatus": "SINNER_SPECIAL",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0034",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.125,
+      "centroid": {
+        "x": 4010.6666666666665,
+        "y": -4170.666666666667,
+        "z": 376.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3382,
+        3383,
+        3384
+      ],
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3382,
+          3383,
+          3384
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.25,
+          "maxCreateTime": 541.25,
+          "memberCount": 3,
+          "entityIndexes": [
+            3382,
+            3383,
+            3384
+          ],
+          "centroid": {
+            "x": 4010.6666666666665,
+            "y": -4170.666666666667,
+            "z": 376.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1714.671875,
+          "firstTime": 1714.671875,
+          "lastTime": 1714.671875,
+          "members": [
+            3382,
+            3383
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2649.125,
+          "firstTime": 2649.125,
+          "lastTime": 2649.125,
+          "members": [
+            3383
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0036",
+        "rotation180ErrorXY": 10.666666666666515,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0035",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.125,
+      "centroid": {
+        "x": -3520,
+        "y": -4373.333333333333,
+        "z": 384.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3385,
+        3386,
+        3387
+      ],
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3385,
+          3386,
+          3387
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.265625,
+          "maxCreateTime": 541.265625,
+          "memberCount": 3,
+          "entityIndexes": [
+            3385,
+            3386,
+            3387
+          ],
+          "centroid": {
+            "x": -3520,
+            "y": -4373.333333333333,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 1,
+      "observedFullRespawnCount": 1,
+      "fullGroupExactRespawnCount": 1,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 151229,
+          "clearMatchTimeSeconds": 2332.953125,
+          "clearClock": "38:52",
+          "respawnTick": 172670,
+          "respawnMatchTimeSeconds": 2667.96875,
+          "respawnClock": "44:27",
+          "respawnDelaySeconds": 335.015625,
+          "expectedRespawnSeconds": 335,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 2667.96875,
+          "firstTime": 2667.96875,
+          "lastTime": 2667.96875,
+          "members": [
+            3385,
+            3386,
+            3387
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0037",
+        "rotation180ErrorXY": 0,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0036",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.125,
+      "centroid": {
+        "x": -4000,
+        "y": 4170.666666666667,
+        "z": 376.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3388,
+        3389,
+        3390
+      ],
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3388,
+          3389,
+          3390
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.265625,
+          "maxCreateTime": 541.265625,
+          "memberCount": 3,
+          "entityIndexes": [
+            3388,
+            3389,
+            3390
+          ],
+          "centroid": {
+            "x": -4000,
+            "y": 4170.666666666667,
+            "z": 376.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1109.40625,
+          "firstTime": 1109.40625,
+          "lastTime": 1109.40625,
+          "members": [
+            3388
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1772.296875,
+          "firstTime": 1772.296875,
+          "lastTime": 1772.296875,
+          "members": [
+            3388
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0034",
+        "rotation180ErrorXY": 10.666666666666515,
+        "mirrorStatus": "PROBABLE_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0037",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.125,
+      "centroid": {
+        "x": 3520,
+        "y": 4373.333333333333,
+        "z": 384.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3391,
+        3392,
+        3393
+      ],
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3391,
+          3392,
+          3393
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.28125,
+          "maxCreateTime": 541.28125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3391,
+            3392,
+            3393
+          ],
+          "centroid": {
+            "x": 3520,
+            "y": 4373.333333333333,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0035",
+        "rotation180ErrorXY": 0,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0038",
+      "baseClassification": "SINNER_NEUTRAL_CANDIDATE",
+      "status": "SINNER_SPECIAL",
+      "expectedTimerSeconds": null,
+      "firstObservedMatchTimeSeconds": 480.125,
+      "centroid": {
+        "x": -2080,
+        "y": 928,
+        "z": 384.03125
+      },
+      "memberCount": 2,
+      "entityIndexes": [
+        3395,
+        3396
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        2
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3395,
+          3396
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.28125,
+          "maxCreateTime": 541.28125,
+          "memberCount": 2,
+          "entityIndexes": [
+            3395,
+            3396
+          ],
+          "centroid": {
+            "x": -2080,
+            "y": 928,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 1,
+      "observedFullRespawnCount": 1,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1185.28125,
+          "firstTime": 1185.28125,
+          "lastTime": 1185.28125,
+          "members": [
+            3396
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1513.671875,
+          "firstTime": 1513.671875,
+          "lastTime": 1513.671875,
+          "members": [
+            3395,
+            3396
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2619.390625,
+          "firstTime": 2619.390625,
+          "lastTime": 2619.390625,
+          "members": [
+            3395
+          ],
+          "memberCount": 1
+        }
+      ],
+      "notes": [
+        "Do not treat as an ordinary Large camp. Combine with nearby Sinner state."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0033",
+        "rotation180ErrorXY": 32,
+        "mirrorStatus": "SINNER_SPECIAL",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0039",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.1875,
+      "centroid": {
+        "x": 2314.6666666666665,
+        "y": -2880,
+        "z": 376.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3397,
+        3398,
+        3399
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "LARGE_UNIT": 1
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3397,
+          3398,
+          3399
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.296875,
+          "maxCreateTime": 541.296875,
+          "memberCount": 3,
+          "entityIndexes": [
+            3397,
+            3398,
+            3399
+          ],
+          "centroid": {
+            "x": 2314.6666666666665,
+            "y": -2880,
+            "z": 376.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1733.765625,
+          "firstTime": 1733.765625,
+          "lastTime": 1733.765625,
+          "members": [
+            3398,
+            3399
+          ],
+          "memberCount": 2
+        }
+      ],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": null
+    },
+    {
+      "groupId": "SPAWN_0040",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.1875,
+      "centroid": {
+        "x": 1098.6666666666667,
+        "y": -3072,
+        "z": 384.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3400,
+        3401,
+        3402
+      ],
+      "unitTypeCounts": {
+        "SMALL_UNIT": 1,
+        "MEDIUM_UNIT": 1,
+        "LARGE_UNIT": 1
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3400,
+          3401,
+          3402
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.296875,
+          "maxCreateTime": 541.296875,
+          "memberCount": 3,
+          "entityIndexes": [
+            3400,
+            3401,
+            3402
+          ],
+          "centroid": {
+            "x": 1098.6666666666667,
+            "y": -3072,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 1,
+      "observedFullRespawnCount": 1,
+      "fullGroupExactRespawnCount": 1,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 151551,
+          "clearMatchTimeSeconds": 2337.984375,
+          "clearClock": "38:57",
+          "respawnTick": 172992,
+          "respawnMatchTimeSeconds": 2673,
+          "respawnClock": "44:33",
+          "respawnDelaySeconds": 335.015625,
+          "expectedRespawnSeconds": 335,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 1462.578125,
+          "firstTime": 1462.578125,
+          "lastTime": 1462.578125,
+          "members": [
+            3402
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1905.296875,
+          "firstTime": 1905.296875,
+          "lastTime": 1905.296875,
+          "members": [
+            3400,
+            3401
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2315.796875,
+          "firstTime": 2315.796875,
+          "lastTime": 2315.796875,
+          "members": [
+            3400,
+            3401
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2673,
+          "firstTime": 2673,
+          "lastTime": 2673,
+          "members": [
+            3400,
+            3401,
+            3402
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0041",
+        "rotation180ErrorXY": 5.1972381821717155,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0041",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "VALIDATED_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.1875,
+      "centroid": {
+        "x": -1093.5208333333333,
+        "y": 3071.2708333333335,
+        "z": 384.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3403,
+        3404,
+        3405
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1,
+        "LARGE_UNIT": 1,
+        "SMALL_UNIT": 1
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3403,
+          3404,
+          3405
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.3125,
+          "maxCreateTime": 541.3125,
+          "memberCount": 3,
+          "entityIndexes": [
+            3403,
+            3404,
+            3405
+          ],
+          "centroid": {
+            "x": -1093.5208333333333,
+            "y": 3071.2708333333335,
+            "z": 384.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 1,
+      "observedFullRespawnCount": 1,
+      "fullGroupExactRespawnCount": 1,
+      "fullGroupExactRespawns": [
+        {
+          "clearTick": 176065,
+          "clearMatchTimeSeconds": 2721.015625,
+          "clearClock": "45:21",
+          "respawnTick": 197506,
+          "respawnMatchTimeSeconds": 3056.03125,
+          "respawnClock": "50:56",
+          "respawnDelaySeconds": 335.015625,
+          "expectedRespawnSeconds": 335,
+          "deltaFromExpectedSeconds": 0.015625
+        }
+      ],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [
+        {
+          "timeSeconds": 2486.78125,
+          "firstTime": 2486.78125,
+          "lastTime": 2486.78125,
+          "members": [
+            3405
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 3056.03125,
+          "firstTime": 3056.03125,
+          "lastTime": 3056.03125,
+          "members": [
+            3403,
+            3404,
+            3405
+          ],
+          "memberCount": 3
+        }
+      ],
+      "notes": [
+        "Entire geometric group completed at least one exact full-clear -> full-respawn tier-timer cycle."
+      ],
+      "mirrorEvidence": {
+        "mirrorGroupId": "SPAWN_0040",
+        "rotation180ErrorXY": 5.1972381821717155,
+        "mirrorStatus": "VALIDATED_SINGLE_CAMP",
+        "matchingCreationStructure": false
+      }
+    },
+    {
+      "groupId": "SPAWN_0042",
+      "baseClassification": "LARGE_CAMP_CANDIDATE",
+      "status": "PROBABLE_SINGLE_CAMP",
+      "expectedTimerSeconds": 335,
+      "firstObservedMatchTimeSeconds": 480.25,
+      "centroid": {
+        "x": -3242.6666666666665,
+        "y": 2117.3333333333335,
+        "z": 400.03125
+      },
+      "memberCount": 3,
+      "entityIndexes": [
+        3412,
+        3413,
+        3414
+      ],
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "LARGE_UNIT": 1
+      },
+      "rawCreateTimeMin": 541.203125,
+      "rawCreateTimeMax": 541.359375,
+      "creationSubcohortCount": 1,
+      "creationSubcohortSizes": [
+        3
+      ],
+      "creationSubcohortEntityIndexes": [
+        [
+          3412,
+          3413,
+          3414
+        ]
+      ],
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 541.359375,
+          "maxCreateTime": 541.359375,
+          "memberCount": 3,
+          "entityIndexes": [
+            3412,
+            3413,
+            3414
+          ],
+          "centroid": {
+            "x": -3242.6666666666665,
+            "y": 2117.3333333333335,
+            "z": 400.03125
+          }
+        }
+      ],
+      "observedFullClearCount": 0,
+      "observedFullRespawnCount": 0,
+      "fullGroupExactRespawnCount": 0,
+      "fullGroupExactRespawns": [],
+      "properSubsetTimerSignals": [],
+      "validatingSubsetPairs": [],
+      "observedReturnCohorts": [],
+      "notes": [
+        "All members belong to one creation-time subcohort.",
+        "No observed evidence currently requires splitting this geometric group."
+      ],
+      "mirrorEvidence": null
+    }
+  ]
+}

@@ -1,0 +1,748 @@
+{
+  "replay": "test",
+  "version": "CITEMXP_FINAL_OUTCOME_VALIDATION_V01",
+  "canonical": false,
+  "status": "WORKING_FINAL_OUTCOME_STREAM_READY",
+  "purpose": [
+    "Convert Script 62 and Script 64 evidence into one corrected per-orb working outcome stream.",
+    "Promote mixed-team Trooper races when direct winner economy telemetry confirms the first hit.",
+    "Correct Soul Urn same-team/opposing-team semantics using m_iDenies plus winner net-worth telemetry.",
+    "Promote untouched orbs only when their natural recipient team reaches the clean-control evidence floor."
+  ],
+  "inputs": {
+    "script62Summary": "G:\\DeadlockBehavior\\output\\test\\citemxp_race_resolution_validation_v01.json",
+    "script64Summary": "G:\\DeadlockBehavior\\output\\test\\citemxp_award_resolution_validation_v01.json",
+    "awardUnits": "G:\\DeadlockBehavior\\output\\test\\citemxp_award_resolution_units_v01.jsonl"
+  },
+  "evidenceRule": {
+    "fieldName": "m_iGoldNetWorth",
+    "windowId": "P0_P8",
+    "awardTeamDeltaThreshold": 50,
+    "thresholdDerivation": "Minimum winning-team positive delta among non-mixed known-shot controls.",
+    "cleanControlCount": 100,
+    "cleanControlWinningTeamDeltas": {
+      "count": 100,
+      "min": 50,
+      "p10": 55,
+      "p25": 60.5,
+      "median": 88,
+      "p75": 167.25,
+      "p90": 522,
+      "max": 915,
+      "mean": 191.92
+    }
+  },
+  "correctedSemantics": {
+    "trooper": {
+      "shotSameOrbTeam": "DENY",
+      "shotOpposingOrbTeam": "SECURE",
+      "untouchedNaturalRecipient": "OPPOSITE_ORB_TEAM",
+      "supportedUntouchedOutcome": "AUTO_AWARD_SECURE"
+    },
+    "urn": {
+      "correctionToScript62": "Script 62 reversed Urn CLAIM/DENY labels.",
+      "shotSameOrbTeam": "DENY",
+      "shotOpposingOrbTeam": "CLAIM",
+      "untouchedNaturalRecipient": "OPPOSITE_ORB_TEAM",
+      "supportedUntouchedOutcome": "AUTO_AWARD_CLAIM"
+    }
+  },
+  "counts": {
+    "targets": 1239,
+    "resolved": 1237,
+    "unresolved": 2,
+    "trooperTargets": 1169,
+    "urnTargets": 70,
+    "shotTargets": 105,
+    "noShotTargets": 1134,
+    "mixedTeamRacesPromoted": 5,
+    "trooperAutoAwardSupported": 1092,
+    "trooperAutoAwardUnresolved": 2,
+    "urnAutoAwardSupported": 40,
+    "urnAutoAwardUnresolved": 0
+  },
+  "outcomes": {
+    "all": {
+      "AUTO_AWARD_SECURE": 1092,
+      "SECURE": 58,
+      "AUTO_AWARD_CLAIM": 40,
+      "DENY": 28,
+      "CLAIM": 19,
+      "NO_SHOT_UNRESOLVED": 2
+    },
+    "trooper": {
+      "AUTO_AWARD_SECURE": 1092,
+      "SECURE": 58,
+      "DENY": 17,
+      "NO_SHOT_UNRESOLVED": 2
+    },
+    "urn": {
+      "AUTO_AWARD_CLAIM": 40,
+      "CLAIM": 19,
+      "DENY": 11
+    },
+    "byPlayer": [
+      {
+        "playerName": "Eriansan",
+        "team": 2,
+        "totalFirstHits": 28,
+        "outcomes": {
+          "DENY": 10,
+          "SECURE": 10,
+          "CLAIM": 8
+        }
+      },
+      {
+        "playerName": "flem",
+        "team": 2,
+        "totalFirstHits": 16,
+        "outcomes": {
+          "CLAIM": 9,
+          "DENY": 4,
+          "SECURE": 3
+        }
+      },
+      {
+        "playerName": "blooop354",
+        "team": 3,
+        "totalFirstHits": 15,
+        "outcomes": {
+          "SECURE": 11,
+          "DENY": 4
+        }
+      },
+      {
+        "playerName": "Yosafire Worshipper [K]",
+        "team": 2,
+        "totalFirstHits": 9,
+        "outcomes": {
+          "SECURE": 8,
+          "DENY": 1
+        }
+      },
+      {
+        "playerName": "renso",
+        "team": 3,
+        "totalFirstHits": 8,
+        "outcomes": {
+          "SECURE": 8
+        }
+      },
+      {
+        "playerName": "TheWoogler",
+        "team": 3,
+        "totalFirstHits": 7,
+        "outcomes": {
+          "DENY": 3,
+          "SECURE": 3,
+          "CLAIM": 1
+        }
+      },
+      {
+        "playerName": "Nebula",
+        "team": 3,
+        "totalFirstHits": 5,
+        "outcomes": {
+          "SECURE": 3,
+          "CLAIM": 1,
+          "DENY": 1
+        }
+      },
+      {
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "totalFirstHits": 4,
+        "outcomes": {
+          "SECURE": 4
+        }
+      },
+      {
+        "playerName": "Snazzy314",
+        "team": 2,
+        "totalFirstHits": 4,
+        "outcomes": {
+          "DENY": 2,
+          "SECURE": 2
+        }
+      },
+      {
+        "playerName": "Zaeleth",
+        "team": 3,
+        "totalFirstHits": 4,
+        "outcomes": {
+          "SECURE": 3,
+          "DENY": 1
+        }
+      },
+      {
+        "playerName": "viggoth 300",
+        "team": 2,
+        "totalFirstHits": 3,
+        "outcomes": {
+          "SECURE": 2,
+          "DENY": 1
+        }
+      },
+      {
+        "playerName": "Goldinfer",
+        "team": 3,
+        "totalFirstHits": 2,
+        "outcomes": {
+          "DENY": 1,
+          "SECURE": 1
+        }
+      }
+    ],
+    "byUrnBurst": [
+      {
+        "burstId": "URN_XP_001",
+        "orbTeam": 2,
+        "orbCount": 10,
+        "outcomes": {
+          "DENY": 9,
+          "CLAIM": 1
+        }
+      },
+      {
+        "burstId": "URN_XP_002",
+        "orbTeam": 3,
+        "orbCount": 10,
+        "outcomes": {
+          "CLAIM": 8,
+          "AUTO_AWARD_CLAIM": 2
+        }
+      },
+      {
+        "burstId": "URN_XP_003",
+        "orbTeam": 2,
+        "orbCount": 10,
+        "outcomes": {
+          "AUTO_AWARD_CLAIM": 7,
+          "DENY": 2,
+          "CLAIM": 1
+        }
+      },
+      {
+        "burstId": "URN_XP_004",
+        "orbTeam": 2,
+        "orbCount": 10,
+        "outcomes": {
+          "AUTO_AWARD_CLAIM": 10
+        }
+      },
+      {
+        "burstId": "URN_XP_005",
+        "orbTeam": 3,
+        "orbCount": 10,
+        "outcomes": {
+          "CLAIM": 9,
+          "AUTO_AWARD_CLAIM": 1
+        }
+      },
+      {
+        "burstId": "URN_XP_006",
+        "orbTeam": 3,
+        "orbCount": 10,
+        "outcomes": {
+          "AUTO_AWARD_CLAIM": 10
+        }
+      },
+      {
+        "burstId": "URN_XP_007",
+        "orbTeam": 3,
+        "orbCount": 10,
+        "outcomes": {
+          "AUTO_AWARD_CLAIM": 10
+        }
+      }
+    ]
+  },
+  "directValidation": {
+    "shotWinnerTelemetry": {
+      "shotRows": 105,
+      "shooterPositiveNetWorth": 105
+    },
+    "trooperShotSemantics": {
+      "sameOrbTeam": {
+        "rows": 17,
+        "shooterPositiveNetWorth": 17,
+        "shooterDenyIncrement": 17,
+        "outcomes": {
+          "DENY": 17
+        }
+      },
+      "opposingOrbTeam": {
+        "rows": 58,
+        "shooterPositiveNetWorth": 58,
+        "shooterDenyIncrement": 0,
+        "outcomes": {
+          "SECURE": 58
+        }
+      }
+    },
+    "urnShotSemantics": {
+      "sameOrbTeam": {
+        "rows": 11,
+        "shooterPositiveNetWorth": 11,
+        "shooterDenyIncrement": 11,
+        "outcomes": {
+          "DENY": 11
+        }
+      },
+      "opposingOrbTeam": {
+        "rows": 19,
+        "shooterPositiveNetWorth": 19,
+        "shooterDenyIncrement": 0,
+        "outcomes": {
+          "CLAIM": 19
+        }
+      }
+    },
+    "mixedTeamRaces": [
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2759|6057",
+        "episodeId": "2928|2",
+        "entityIndex": 2928,
+        "orbTeam": 2,
+        "anchorTick": 6112,
+        "anchorClock": "1:35",
+        "mixedTeamRace": true,
+        "firstHitPlayerName": "blooop354",
+        "firstHitTeam": 3,
+        "script62OutcomeLabel": "FIRST_HIT_PROVISIONAL_SECURE",
+        "finalOutcome": {
+          "label": "SECURE",
+          "family": "SHOT",
+          "resolved": true,
+          "winnerTeam": 3,
+          "winnerPlayerName": "blooop354",
+          "relationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "confidence": "HIGH",
+          "basis": "FIRST_HIT_WINNER_CONFIRMED_BY_SHOOTER_NET_WORTH_AND_DENY_COUNTER"
+        },
+        "awardEvidence": {
+          "winnerTeamPositiveDelta": 56,
+          "losingTeamPositiveDelta": 0,
+          "firstWinnerOffsetTicks": 0,
+          "shooterPositiveDelta": 28,
+          "shooterDenyDelta": 0,
+          "collisionWithin8Ticks": false
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2974|10426",
+        "episodeId": "2921|6",
+        "entityIndex": 2921,
+        "orbTeam": 2,
+        "anchorTick": 10482,
+        "anchorClock": "2:43",
+        "mixedTeamRace": true,
+        "firstHitPlayerName": "Yosafire Worshipper [K]",
+        "firstHitTeam": 2,
+        "script62OutcomeLabel": "FIRST_HIT_PROVISIONAL_DENY",
+        "finalOutcome": {
+          "label": "DENY",
+          "family": "SHOT",
+          "resolved": true,
+          "winnerTeam": 2,
+          "winnerPlayerName": "Yosafire Worshipper [K]",
+          "relationToOrbTeam": "SAME_ORB_TEAM",
+          "confidence": "HIGH",
+          "basis": "FIRST_HIT_WINNER_CONFIRMED_BY_SHOOTER_NET_WORTH_AND_DENY_COUNTER"
+        },
+        "awardEvidence": {
+          "winnerTeamPositiveDelta": 81,
+          "losingTeamPositiveDelta": 0,
+          "firstWinnerOffsetTicks": 5,
+          "shooterPositiveDelta": 26,
+          "shooterDenyDelta": 1,
+          "collisionWithin8Ticks": false
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2760|10624",
+        "episodeId": "2924|6",
+        "entityIndex": 2924,
+        "orbTeam": 3,
+        "anchorTick": 10676,
+        "anchorClock": "2:46",
+        "mixedTeamRace": true,
+        "firstHitPlayerName": "Nacho4Sure",
+        "firstHitTeam": 2,
+        "script62OutcomeLabel": "FIRST_HIT_PROVISIONAL_SECURE",
+        "finalOutcome": {
+          "label": "SECURE",
+          "family": "SHOT",
+          "resolved": true,
+          "winnerTeam": 2,
+          "winnerPlayerName": "Nacho4Sure",
+          "relationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "confidence": "HIGH",
+          "basis": "FIRST_HIT_WINNER_CONFIRMED_BY_SHOOTER_NET_WORTH_AND_DENY_COUNTER"
+        },
+        "awardEvidence": {
+          "winnerTeamPositiveDelta": 86,
+          "losingTeamPositiveDelta": 28,
+          "firstWinnerOffsetTicks": 1,
+          "shooterPositiveDelta": 58,
+          "shooterDenyDelta": 0,
+          "collisionWithin8Ticks": false
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2756|19603",
+        "episodeId": "2916|13",
+        "entityIndex": 2916,
+        "orbTeam": 3,
+        "anchorTick": 19666,
+        "anchorClock": "5:07",
+        "mixedTeamRace": true,
+        "firstHitPlayerName": "Nebula",
+        "firstHitTeam": 3,
+        "script62OutcomeLabel": "FIRST_HIT_PROVISIONAL_DENY",
+        "finalOutcome": {
+          "label": "DENY",
+          "family": "SHOT",
+          "resolved": true,
+          "winnerTeam": 3,
+          "winnerPlayerName": "Nebula",
+          "relationToOrbTeam": "SAME_ORB_TEAM",
+          "confidence": "HIGH",
+          "basis": "FIRST_HIT_WINNER_CONFIRMED_BY_SHOOTER_NET_WORTH_AND_DENY_COUNTER"
+        },
+        "awardEvidence": {
+          "winnerTeamPositiveDelta": 65,
+          "losingTeamPositiveDelta": 0,
+          "firstWinnerOffsetTicks": 4,
+          "shooterPositiveDelta": 33,
+          "shooterDenyDelta": 1,
+          "collisionWithin8Ticks": false
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2974|80486",
+        "episodeId": "2916|50",
+        "entityIndex": 2916,
+        "orbTeam": 2,
+        "anchorTick": 80543,
+        "anchorClock": "20:58",
+        "mixedTeamRace": true,
+        "firstHitPlayerName": "Zaeleth",
+        "firstHitTeam": 3,
+        "script62OutcomeLabel": "FIRST_HIT_PROVISIONAL_SECURE",
+        "finalOutcome": {
+          "label": "SECURE",
+          "family": "SHOT",
+          "resolved": true,
+          "winnerTeam": 3,
+          "winnerPlayerName": "Zaeleth",
+          "relationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "confidence": "HIGH",
+          "basis": "FIRST_HIT_WINNER_CONFIRMED_BY_SHOOTER_NET_WORTH_AND_DENY_COUNTER"
+        },
+        "awardEvidence": {
+          "winnerTeamPositiveDelta": 70,
+          "losingTeamPositiveDelta": 1,
+          "firstWinnerOffsetTicks": 1,
+          "shooterPositiveDelta": 70,
+          "shooterDenyDelta": 0,
+          "collisionWithin8Ticks": false
+        }
+      }
+    ],
+    "trooperNoShot": {
+      "rows": 1094,
+      "supported": 1092,
+      "unresolved": 2,
+      "supportRate": 0.9981718464351006,
+      "winnerTeamPositiveDelta": {
+        "count": 1094,
+        "min": 0,
+        "p10": 66,
+        "p25": 81,
+        "median": 111,
+        "p75": 268,
+        "p90": 517,
+        "max": 2954,
+        "mean": 225.52376599634368
+      },
+      "firstWinnerOffsetTicks": {
+        "count": 1092,
+        "min": 0,
+        "p10": 0,
+        "p25": 1,
+        "median": 1,
+        "p75": 3,
+        "p90": 4,
+        "max": 6,
+        "mean": 1.88003663003663
+      },
+      "collisionWithin8Ticks": 482,
+      "unresolvedExamples": [
+        {
+          "sourceType": "TROOPER_DEATH",
+          "sourceId": "2838|202609",
+          "episodeId": "3524|6",
+          "entityIndex": 3524,
+          "orbTeam": 3,
+          "anchorTick": 202711,
+          "anchorClock": "52:47",
+          "mixedTeamRace": false,
+          "firstHitPlayerName": null,
+          "firstHitTeam": null,
+          "script62OutcomeLabel": "NO_SHOT_UNRESOLVED",
+          "finalOutcome": {
+            "label": "NO_SHOT_UNRESOLVED",
+            "family": "UNRESOLVED",
+            "resolved": false,
+            "winnerTeam": 2,
+            "winnerPlayerName": null,
+            "relationToOrbTeam": "OPPOSING_ORB_TEAM",
+            "confidence": "UNRESOLVED",
+            "basis": "NO_SUPPORTED_AWARD_SIGNAL"
+          },
+          "awardEvidence": {
+            "winnerTeamPositiveDelta": 0,
+            "losingTeamPositiveDelta": 0,
+            "firstWinnerOffsetTicks": null,
+            "shooterPositiveDelta": 0,
+            "shooterDenyDelta": 0,
+            "collisionWithin8Ticks": false
+          }
+        },
+        {
+          "sourceType": "TROOPER_DEATH",
+          "sourceId": "2758|202841",
+          "episodeId": "3582|6",
+          "entityIndex": 3582,
+          "orbTeam": 3,
+          "anchorTick": 202943,
+          "anchorClock": "52:50",
+          "mixedTeamRace": false,
+          "firstHitPlayerName": null,
+          "firstHitTeam": null,
+          "script62OutcomeLabel": "NO_SHOT_UNRESOLVED",
+          "finalOutcome": {
+            "label": "NO_SHOT_UNRESOLVED",
+            "family": "UNRESOLVED",
+            "resolved": false,
+            "winnerTeam": 2,
+            "winnerPlayerName": null,
+            "relationToOrbTeam": "OPPOSING_ORB_TEAM",
+            "confidence": "UNRESOLVED",
+            "basis": "NO_SUPPORTED_AWARD_SIGNAL"
+          },
+          "awardEvidence": {
+            "winnerTeamPositiveDelta": 0,
+            "losingTeamPositiveDelta": 0,
+            "firstWinnerOffsetTicks": null,
+            "shooterPositiveDelta": 0,
+            "shooterDenyDelta": 0,
+            "collisionWithin8Ticks": false
+          }
+        }
+      ]
+    },
+    "urnNoShot": {
+      "rows": 40,
+      "supported": 40,
+      "unresolved": 0,
+      "supportRate": 1,
+      "winnerTeamPositiveDelta": {
+        "count": 40,
+        "min": 161,
+        "p10": 162,
+        "p25": 167,
+        "median": 195,
+        "p75": 242.25,
+        "p90": 287,
+        "max": 357,
+        "mean": 208.625
+      },
+      "firstWinnerOffsetTicks": {
+        "count": 40,
+        "min": 0,
+        "p10": 0,
+        "p25": 1.75,
+        "median": 3,
+        "p75": 4,
+        "p90": 6,
+        "max": 6,
+        "mean": 2.825
+      },
+      "collisionWithin8Ticks": 3,
+      "unresolvedExamples": []
+    }
+  },
+  "unresolvedExamples": [
+    {
+      "sourceType": "TROOPER_DEATH",
+      "sourceId": "2838|202609",
+      "episodeId": "3524|6",
+      "entityIndex": 3524,
+      "orbTeam": 3,
+      "anchorTick": 202711,
+      "anchorClock": "52:47",
+      "mixedTeamRace": false,
+      "firstHitPlayerName": null,
+      "firstHitTeam": null,
+      "script62OutcomeLabel": "NO_SHOT_UNRESOLVED",
+      "finalOutcome": {
+        "label": "NO_SHOT_UNRESOLVED",
+        "family": "UNRESOLVED",
+        "resolved": false,
+        "winnerTeam": 2,
+        "winnerPlayerName": null,
+        "relationToOrbTeam": "OPPOSING_ORB_TEAM",
+        "confidence": "UNRESOLVED",
+        "basis": "NO_SUPPORTED_AWARD_SIGNAL"
+      },
+      "awardEvidence": {
+        "winnerTeamPositiveDelta": 0,
+        "losingTeamPositiveDelta": 0,
+        "firstWinnerOffsetTicks": null,
+        "shooterPositiveDelta": 0,
+        "shooterDenyDelta": 0,
+        "collisionWithin8Ticks": false
+      }
+    },
+    {
+      "sourceType": "TROOPER_DEATH",
+      "sourceId": "2758|202841",
+      "episodeId": "3582|6",
+      "entityIndex": 3582,
+      "orbTeam": 3,
+      "anchorTick": 202943,
+      "anchorClock": "52:50",
+      "mixedTeamRace": false,
+      "firstHitPlayerName": null,
+      "firstHitTeam": null,
+      "script62OutcomeLabel": "NO_SHOT_UNRESOLVED",
+      "finalOutcome": {
+        "label": "NO_SHOT_UNRESOLVED",
+        "family": "UNRESOLVED",
+        "resolved": false,
+        "winnerTeam": 2,
+        "winnerPlayerName": null,
+        "relationToOrbTeam": "OPPOSING_ORB_TEAM",
+        "confidence": "UNRESOLVED",
+        "basis": "NO_SUPPORTED_AWARD_SIGNAL"
+      },
+      "awardEvidence": {
+        "winnerTeamPositiveDelta": 0,
+        "losingTeamPositiveDelta": 0,
+        "firstWinnerOffsetTicks": null,
+        "shooterPositiveDelta": 0,
+        "shooterDenyDelta": 0,
+        "collisionWithin8Ticks": false
+      }
+    }
+  ],
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script62Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script64Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "targetCountPreserved": {
+        "actual": 1239,
+        "expected": 1239,
+        "pass": true
+      },
+      "sourceCountsPreserved": {
+        "actual": {
+          "trooper": 1169,
+          "urn": 70
+        },
+        "expected": {
+          "trooper": 1169,
+          "urn": 70
+        },
+        "pass": true
+      },
+      "shotCountsPreserved": {
+        "actual": {
+          "shot": 105,
+          "noShot": 1134
+        },
+        "expected": {
+          "shot": 105,
+          "noShot": 1134
+        },
+        "pass": true
+      },
+      "selectedTelemetryPreserved": {
+        "actual": [
+          "m_iGoldNetWorth:P0_P8"
+        ],
+        "expected": [
+          "m_iGoldNetWorth:P0_P8"
+        ],
+        "pass": true
+      },
+      "cleanControlsCalibrated": {
+        "actual": 100,
+        "expected": 100,
+        "pass": true
+      },
+      "everyShotWinnerHasNetWorthSignal": {
+        "actual": 105,
+        "expected": 105,
+        "pass": true
+      },
+      "trooperSameTeamShotsIncrementDenies": {
+        "actual": 17,
+        "expected": 17,
+        "pass": true
+      },
+      "trooperOpposingTeamShotsDoNotIncrementDenies": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "urnSameTeamShotsIncrementDenies": {
+        "actual": 11,
+        "expected": 11,
+        "pass": true
+      },
+      "urnOpposingTeamShotsDoNotIncrementDenies": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "mixedRacesPromoted": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "noProvisionalLabelsRemain": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "allRowsAccountedFor": {
+        "actual": 1239,
+        "expected": 1239,
+        "pass": true
+      }
+    }
+  },
+  "interpretation": "1237 of 1239 CItemXP episodes now have a directly supported working outcome. 2 remain unresolved. This is single-replay validation and is not yet canonical.",
+  "nextStep": "Integrate this working outcome stream into behavioral metrics and inspector overlays while preserving canonical=false and the unresolved rows.",
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\citemxp_final_outcome_validation_v01.json",
+    "finalOutcomes": "G:\\DeadlockBehavior\\output\\test\\citemxp_final_outcomes_v01.jsonl"
+  }
+}

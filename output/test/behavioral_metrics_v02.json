@@ -1,0 +1,2172 @@
+{
+  "replay": "test",
+  "version": "BEHAVIORAL_METRICS_V02",
+  "canonical": false,
+  "interpretation": {
+    "status": "DESCRIPTIVE_BEHAVIORAL_FEATURES",
+    "importantCaution": "Proximity to an available resource is a spatial opportunity exposure, not proof that the player perceived it, could safely take it, or should have taken it.",
+    "doNotInferYet": [
+      "missed farm",
+      "bad decision",
+      "reinforcer value",
+      "avoidance",
+      "optimality",
+      "resource ignorance"
+    ],
+    "reasons": [
+      "visibility is not yet modeled",
+      "pathing and walls are not yet modeled",
+      "enemy threat is not yet modeled",
+      "lane-wave opportunity cost is not yet modeled",
+      "objective context is incomplete"
+    ]
+  },
+  "playerStateSchema": {
+    "playerIdentity": "controller.playerName",
+    "playerMetadata": "controller",
+    "pawnState": "pawn",
+    "worldPosition": "pawn.positionWorld",
+    "movementValidity": "pawn.positionValidForMovement",
+    "time": "matchTimeSeconds",
+    "demoTick": "demoTick"
+  },
+  "sources": {
+    "playerState": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl",
+    "breakables": "G:\\DeadlockBehavior\\output\\test\\breakable_catalog_v1.json",
+    "camps": "G:\\DeadlockBehavior\\inspector\\data\\test\\v02_overlays.json",
+    "melee": "G:\\DeadlockBehavior\\output\\test\\verified_melee_events.jsonl",
+    "citemxpFinalOutcomes": "G:\\DeadlockBehavior\\output\\test\\citemxp_final_outcomes_v01.jsonl",
+    "citemxpPlayerActions": "G:\\DeadlockBehavior\\output\\test\\citemxp_player_actions_v01.jsonl"
+  },
+  "thresholds": {
+    "breakable": {
+      "enterRadius": 500,
+      "exitRadius": 800
+    },
+    "camp": {
+      "enterRadius": 800,
+      "exitRadius": 1200
+    },
+    "movement": {
+      "maxAcceptedStep": 2000,
+      "lowMotionSpeedThreshold": 25
+    },
+    "snapshots": {
+      "intervalSeconds": 1,
+      "eligibility": "alive && pawn.positionValidForMovement"
+    }
+  },
+  "resourceModel": {
+    "total": 731,
+    "breakables": 691,
+    "crates": 518,
+    "goldenStatues": 173,
+    "camps": 40,
+    "spatialLocationRule": "Use breakable worldPosition / camp worldPosition. Do not use debris damagePos as canonical resource location."
+  },
+  "playerStateProcessing": {
+    "totalRows": 153420,
+    "parsedRows": 153420,
+    "schemaRejectedRows": 0,
+    "usableSchemaRows": 153420,
+    "preMatchRows": 1428,
+    "deadRows": 24889,
+    "aliveButMovementInvalidRows": 31,
+    "spatialEligibleRows": 127072,
+    "snapshotsWritten": 31858,
+    "episodesWritten": 9573
+  },
+  "meleeSource": {
+    "found": true,
+    "path": "G:\\DeadlockBehavior\\output\\test\\verified_melee_events.jsonl"
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "parsedPlayerRows": {
+        "actual": 153420,
+        "expected": 153420,
+        "pass": true
+      },
+      "schemaRejectedRows": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "playerCount": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      },
+      "breakableCount": {
+        "actual": 691,
+        "expected": 691,
+        "pass": true
+      },
+      "crateCount": {
+        "actual": 518,
+        "expected": 518,
+        "pass": true
+      },
+      "statueCount": {
+        "actual": 173,
+        "expected": 173,
+        "pass": true
+      },
+      "campCount": {
+        "actual": 40,
+        "expected": 40,
+        "pass": true
+      },
+      "canonicalBreakEvents": {
+        "actual": 1261,
+        "expected": 1261,
+        "pass": true
+      },
+      "spatialEligibleRows": {
+        "actual": 127072,
+        "expected": ">0",
+        "pass": true
+      },
+      "snapshotsProduced": {
+        "actual": 31858,
+        "expected": ">0",
+        "pass": true
+      },
+      "episodesProduced": {
+        "actual": 9573,
+        "expected": ">0",
+        "pass": true
+      },
+      "citemxpBehavioralFeatures": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      }
+    }
+  },
+  "players": [
+    {
+      "playerName": "blooop354",
+      "steamId": "76561199827569844",
+      "heroId": 58,
+      "team": 3,
+      "controllerEntityIndex": 3,
+      "pawnEntityIndex": 81,
+      "aliveSeconds": 2311.5,
+      "aliveMinutes": 38.525,
+      "movement": {
+        "travelDistanceXY": 843563.3083267498,
+        "travelDistance3D": 892275.8643211442,
+        "validMovementSeconds": 2308.25,
+        "meanSpeedXY": 365.45578179432465,
+        "meanSpeed3D": 386.55945600396154,
+        "movingSeconds": 2055,
+        "lowMotionSeconds": 253.25,
+        "lowMotionShare": 0.10971515217155854,
+        "rejectedJumpCount": 10
+      },
+      "resourceExposure": {
+        "totalEpisodes": 833,
+        "breakableEpisodes": 755,
+        "crateEpisodes": 566,
+        "statueEpisodes": 189,
+        "campEpisodes": 78,
+        "campEpisodesByTier": {
+          "SMALL": 19,
+          "MEDIUM": 36,
+          "LARGE": 23
+        },
+        "outcomes": {
+          "LEFT_AVAILABLE": 731,
+          "SELF_BREAK": 28,
+          "CAMP_CLEARED_DURING_EPISODE": 14,
+          "BREAK_ATTRIBUTION_UNKNOWN": 33,
+          "PLAYER_DEAD": 11,
+          "OTHER_PLAYER_BREAK": 12,
+          "POSITION_INVALID": 4
+        },
+        "totalEpisodeSeconds": 3282.34375,
+        "breakableEpisodeSeconds": 2709.65625,
+        "campEpisodeSeconds": 572.6875
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 60,
+        "crates": 45,
+        "statues": 15,
+        "meleeBreaks": 18,
+        "bulletBreaks": 42,
+        "rewardDropsProduced": 34,
+        "crateSoulDropsProduced": 26,
+        "crateSoulsProduced": 1861,
+        "statueModifiersProduced": 8,
+        "knownBreaksPerAliveMinute": 1.5574302401038287
+      },
+      "melee": {
+        "total": 75,
+        "confirmedHits": 62,
+        "hitRate": 0.8266666666666667,
+        "byType": {
+          "LIGHT": 35,
+          "HEAVY": 32,
+          "HEAVY_AIR": 8
+        },
+        "attacksPerAliveMinute": 1.946787800129786
+      },
+      "soulOrbBehavior": {
+        "playerName": "blooop354",
+        "team": 3,
+        "heroId": 58,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 38.525,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 16,
+        "totalDamageMessages": 23,
+        "creditedFirstHits": 15,
+        "creditedFirstHitsPerActiveMinute": 0.3893575600259572,
+        "resolutionCreditRateAmongEngagements": 0.9375,
+        "competingRaceLosses": 1,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 2,
+        "mixedTeamRaceWins": 1,
+        "mixedTeamRaceLosses": 1,
+        "actionTypes": {
+          "TROOPER_SECURE_ATTEMPT": 11,
+          "TROOPER_DENY_ATTEMPT": 5
+        },
+        "creditedOutcomes": {
+          "SECURE": 11,
+          "DENY": 4
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 16
+        },
+        "timing": {
+          "firstActionSeconds": 65.421875,
+          "lastActionSeconds": 728.65625,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 10,
+              "creditedFirstHits": 9,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 6,
+                "TROOPER_DENY_ATTEMPT": 4
+              },
+              "creditedOutcomes": {
+                "SECURE": 6,
+                "DENY": 3
+              }
+            },
+            {
+              "binIndex": 1,
+              "startSeconds": 300,
+              "endSeconds": 600,
+              "startClock": "5:00",
+              "endClock": "10:00",
+              "engagements": 5,
+              "creditedFirstHits": 5,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 4,
+                "TROOPER_DENY_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 4,
+                "DENY": 1
+              }
+            },
+            {
+              "binIndex": 2,
+              "startSeconds": 600,
+              "endSeconds": 900,
+              "startClock": "10:00",
+              "endClock": "15:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "Eriansan",
+      "steamId": "76561198215558379",
+      "heroId": 69,
+      "team": 2,
+      "controllerEntityIndex": 12,
+      "pawnEntityIndex": 88,
+      "aliveSeconds": 2985.75,
+      "aliveMinutes": 49.7625,
+      "movement": {
+        "travelDistanceXY": 1204699.342484755,
+        "travelDistance3D": 1303882.550941156,
+        "validMovementSeconds": 2965.75,
+        "meanSpeedXY": 406.20394250518586,
+        "meanSpeed3D": 439.64681815431373,
+        "movingSeconds": 2726.75,
+        "lowMotionSeconds": 239,
+        "lowMotionShare": 0.08058669813706483,
+        "rejectedJumpCount": 79
+      },
+      "resourceExposure": {
+        "totalEpisodes": 897,
+        "breakableEpisodes": 845,
+        "crateEpisodes": 666,
+        "statueEpisodes": 179,
+        "campEpisodes": 52,
+        "campEpisodesByTier": {
+          "SMALL": 19,
+          "MEDIUM": 17,
+          "LARGE": 16
+        },
+        "outcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 5,
+          "LEFT_AVAILABLE": 787,
+          "OTHER_PLAYER_BREAK": 15,
+          "SELF_BREAK": 53,
+          "BREAK_ATTRIBUTION_UNKNOWN": 36,
+          "POSITION_INVALID": 1
+        },
+        "totalEpisodeSeconds": 3031.796875,
+        "breakableEpisodeSeconds": 2724.859375,
+        "campEpisodeSeconds": 306.9375
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 62,
+        "crates": 45,
+        "statues": 17,
+        "meleeBreaks": 40,
+        "bulletBreaks": 22,
+        "rewardDropsProduced": 37,
+        "crateSoulDropsProduced": 28,
+        "crateSoulsProduced": 1790,
+        "statueModifiersProduced": 9,
+        "knownBreaksPerAliveMinute": 1.24591811102738
+      },
+      "melee": {
+        "total": 223,
+        "confirmedHits": 222,
+        "hitRate": 0.9955156950672646,
+        "byType": {
+          "HEAVY_AIR": 21,
+          "HEAVY": 133,
+          "LIGHT": 69
+        },
+        "attacksPerAliveMinute": 4.481286109017835
+      },
+      "soulOrbBehavior": {
+        "playerName": "Eriansan",
+        "team": 2,
+        "heroId": 69,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 49.7625,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 28,
+        "totalDamageMessages": 28,
+        "creditedFirstHits": 28,
+        "creditedFirstHitsPerActiveMinute": 0.5626726953026877,
+        "resolutionCreditRateAmongEngagements": 1,
+        "competingRaceLosses": 0,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 0,
+        "mixedTeamRaceWins": 0,
+        "mixedTeamRaceLosses": 0,
+        "actionTypes": {
+          "TROOPER_SECURE_ATTEMPT": 10,
+          "URN_CLAIM_ATTEMPT": 8,
+          "URN_DENY_ATTEMPT": 7,
+          "TROOPER_DENY_ATTEMPT": 3
+        },
+        "creditedOutcomes": {
+          "DENY": 10,
+          "SECURE": 10,
+          "CLAIM": 8
+        },
+        "sourceTypes": {
+          "URN_DELIVERY": 15,
+          "TROOPER_DEATH": 13
+        },
+        "timing": {
+          "firstActionSeconds": 48.015625,
+          "lastActionSeconds": 2350.890625,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 5,
+              "creditedFirstHits": 5,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 3,
+                "TROOPER_DENY_ATTEMPT": 2
+              },
+              "creditedOutcomes": {
+                "SECURE": 3,
+                "DENY": 2
+              }
+            },
+            {
+              "binIndex": 1,
+              "startSeconds": 300,
+              "endSeconds": 600,
+              "startClock": "5:00",
+              "endClock": "10:00",
+              "engagements": 3,
+              "creditedFirstHits": 3,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 3
+              },
+              "creditedOutcomes": {
+                "SECURE": 3
+              }
+            },
+            {
+              "binIndex": 2,
+              "startSeconds": 600,
+              "endSeconds": 900,
+              "startClock": "10:00",
+              "endClock": "15:00",
+              "engagements": 7,
+              "creditedFirstHits": 7,
+              "actionTypes": {
+                "URN_DENY_ATTEMPT": 5,
+                "TROOPER_SECURE_ATTEMPT": 2
+              },
+              "creditedOutcomes": {
+                "DENY": 5,
+                "SECURE": 2
+              }
+            },
+            {
+              "binIndex": 3,
+              "startSeconds": 900,
+              "endSeconds": 1200,
+              "startClock": "15:00",
+              "endClock": "20:00",
+              "engagements": 8,
+              "creditedFirstHits": 8,
+              "actionTypes": {
+                "URN_CLAIM_ATTEMPT": 8
+              },
+              "creditedOutcomes": {
+                "CLAIM": 8
+              }
+            },
+            {
+              "binIndex": 4,
+              "startSeconds": 1200,
+              "endSeconds": 1500,
+              "startClock": "20:00",
+              "endClock": "25:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "URN_DENY_ATTEMPT": 2
+              },
+              "creditedOutcomes": {
+                "DENY": 2
+              }
+            },
+            {
+              "binIndex": 5,
+              "startSeconds": 1500,
+              "endSeconds": 1800,
+              "startClock": "25:00",
+              "endClock": "30:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1,
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "DENY": 1,
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 7,
+              "startSeconds": 2100,
+              "endSeconds": 2400,
+              "startClock": "35:00",
+              "endClock": "40:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "flem",
+      "steamId": "76561197982948887",
+      "heroId": 1,
+      "team": 2,
+      "controllerEntityIndex": 4,
+      "pawnEntityIndex": 79,
+      "aliveSeconds": 2616.5,
+      "aliveMinutes": 43.608333333333334,
+      "movement": {
+        "travelDistanceXY": 969575.112722399,
+        "travelDistance3D": 1015012.3106732155,
+        "validMovementSeconds": 2614,
+        "meanSpeedXY": 370.91626347452143,
+        "meanSpeed3D": 388.29851211676186,
+        "movingSeconds": 2502.75,
+        "lowMotionSeconds": 111.25,
+        "lowMotionShare": 0.0425592960979342,
+        "rejectedJumpCount": 6
+      },
+      "resourceExposure": {
+        "totalEpisodes": 806,
+        "breakableEpisodes": 749,
+        "crateEpisodes": 572,
+        "statueEpisodes": 177,
+        "campEpisodes": 57,
+        "campEpisodesByTier": {
+          "SMALL": 19,
+          "MEDIUM": 22,
+          "LARGE": 16
+        },
+        "outcomes": {
+          "LEFT_AVAILABLE": 701,
+          "OTHER_PLAYER_BREAK": 9,
+          "BREAK_ATTRIBUTION_UNKNOWN": 25,
+          "POSITION_INVALID": 7,
+          "SELF_BREAK": 47,
+          "CAMP_CLEARED_DURING_EPISODE": 9,
+          "PLAYER_DEAD": 5,
+          "REPLAY_END": 3
+        },
+        "totalEpisodeSeconds": 3071.375,
+        "breakableEpisodeSeconds": 2693.625,
+        "campEpisodeSeconds": 377.75
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 51,
+        "crates": 33,
+        "statues": 18,
+        "meleeBreaks": 45,
+        "bulletBreaks": 6,
+        "rewardDropsProduced": 26,
+        "crateSoulDropsProduced": 17,
+        "crateSoulsProduced": 1269,
+        "statueModifiersProduced": 9,
+        "knownBreaksPerAliveMinute": 1.1695012421173323
+      },
+      "melee": {
+        "total": 89,
+        "confirmedHits": 88,
+        "hitRate": 0.9887640449438202,
+        "byType": {
+          "LIGHT": 58,
+          "HEAVY": 31
+        },
+        "attacksPerAliveMinute": 2.0408943244792663
+      },
+      "soulOrbBehavior": {
+        "playerName": "flem",
+        "team": 2,
+        "heroId": 1,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 43.608333333333334,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 17,
+        "totalDamageMessages": 17,
+        "creditedFirstHits": 16,
+        "creditedFirstHitsPerActiveMinute": 0.3669023504681827,
+        "resolutionCreditRateAmongEngagements": 0.9411764705882353,
+        "competingRaceLosses": 1,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 1,
+        "mixedTeamRaceWins": 0,
+        "mixedTeamRaceLosses": 1,
+        "actionTypes": {
+          "URN_CLAIM_ATTEMPT": 9,
+          "URN_DENY_ATTEMPT": 4,
+          "TROOPER_SECURE_ATTEMPT": 3,
+          "TROOPER_DENY_ATTEMPT": 1
+        },
+        "creditedOutcomes": {
+          "CLAIM": 9,
+          "DENY": 4,
+          "SECURE": 3
+        },
+        "sourceTypes": {
+          "URN_DELIVERY": 13,
+          "TROOPER_DEATH": 4
+        },
+        "timing": {
+          "firstActionSeconds": 65.484375,
+          "lastActionSeconds": 2180.546875,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 2,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1,
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 2,
+              "startSeconds": 600,
+              "endSeconds": 900,
+              "startClock": "10:00",
+              "endClock": "15:00",
+              "engagements": 5,
+              "creditedFirstHits": 5,
+              "actionTypes": {
+                "URN_DENY_ATTEMPT": 4,
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "DENY": 4,
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 4,
+              "startSeconds": 1200,
+              "endSeconds": 1500,
+              "startClock": "20:00",
+              "endClock": "25:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 7,
+              "startSeconds": 2100,
+              "endSeconds": 2400,
+              "startClock": "35:00",
+              "endClock": "40:00",
+              "engagements": 9,
+              "creditedFirstHits": 9,
+              "actionTypes": {
+                "URN_CLAIM_ATTEMPT": 9
+              },
+              "creditedOutcomes": {
+                "CLAIM": 9
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "Goldinfer",
+      "steamId": "76561198101422226",
+      "heroId": 79,
+      "team": 3,
+      "controllerEntityIndex": 10,
+      "pawnEntityIndex": 80,
+      "aliveSeconds": 2571.5,
+      "aliveMinutes": 42.858333333333334,
+      "movement": {
+        "travelDistanceXY": 923153.2602258744,
+        "travelDistance3D": 1013145.3773555992,
+        "validMovementSeconds": 2570.75,
+        "meanSpeedXY": 359.09880782879486,
+        "meanSpeed3D": 394.1049800080129,
+        "movingSeconds": 2449.5,
+        "lowMotionSeconds": 121.25,
+        "lowMotionShare": 0.0471652241563746,
+        "rejectedJumpCount": 2
+      },
+      "resourceExposure": {
+        "totalEpisodes": 756,
+        "breakableEpisodes": 688,
+        "crateEpisodes": 499,
+        "statueEpisodes": 189,
+        "campEpisodes": 68,
+        "campEpisodesByTier": {
+          "SMALL": 19,
+          "MEDIUM": 28,
+          "LARGE": 21
+        },
+        "outcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 11,
+          "LEFT_AVAILABLE": 619,
+          "OTHER_PLAYER_BREAK": 16,
+          "SELF_BREAK": 66,
+          "BREAK_ATTRIBUTION_UNKNOWN": 30,
+          "PLAYER_DEAD": 11,
+          "POSITION_INVALID": 3
+        },
+        "totalEpisodeSeconds": 2783.84375,
+        "breakableEpisodeSeconds": 2380.03125,
+        "campEpisodeSeconds": 403.8125
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 67,
+        "crates": 54,
+        "statues": 13,
+        "meleeBreaks": 55,
+        "bulletBreaks": 12,
+        "rewardDropsProduced": 41,
+        "crateSoulDropsProduced": 35,
+        "crateSoulsProduced": 2291,
+        "statueModifiersProduced": 6,
+        "knownBreaksPerAliveMinute": 1.5632899086136496
+      },
+      "melee": {
+        "total": 109,
+        "confirmedHits": 109,
+        "hitRate": 1,
+        "byType": {
+          "LIGHT": 70,
+          "HEAVY": 37,
+          "HEAVY_AIR": 2
+        },
+        "attacksPerAliveMinute": 2.543262687147579
+      },
+      "soulOrbBehavior": {
+        "playerName": "Goldinfer",
+        "team": 3,
+        "heroId": 79,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 42.858333333333334,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 3,
+        "totalDamageMessages": 3,
+        "creditedFirstHits": 2,
+        "creditedFirstHitsPerActiveMinute": 0.0466653704063776,
+        "resolutionCreditRateAmongEngagements": 0.6666666666666666,
+        "competingRaceLosses": 0,
+        "sameTeamFollowups": 1,
+        "mixedTeamRaceEngagements": 0,
+        "mixedTeamRaceWins": 0,
+        "mixedTeamRaceLosses": 0,
+        "actionTypes": {
+          "TROOPER_SECURE_ATTEMPT": 2,
+          "TROOPER_DENY_ATTEMPT": 1
+        },
+        "creditedOutcomes": {
+          "DENY": 1,
+          "SECURE": 1
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 3
+        },
+        "timing": {
+          "firstActionSeconds": 330.015625,
+          "lastActionSeconds": 2654.65625,
+          "timeBins": [
+            {
+              "binIndex": 1,
+              "startSeconds": 300,
+              "endSeconds": 600,
+              "startClock": "5:00",
+              "endClock": "10:00",
+              "engagements": 2,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1,
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "DENY": 1
+              }
+            },
+            {
+              "binIndex": 8,
+              "startSeconds": 2400,
+              "endSeconds": 2700,
+              "startClock": "40:00",
+              "endClock": "45:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "Nacho4Sure",
+      "steamId": "76561197983209811",
+      "heroId": 2,
+      "team": 2,
+      "controllerEntityIndex": 2,
+      "pawnEntityIndex": 78,
+      "aliveSeconds": 2528.75,
+      "aliveMinutes": 42.145833333333336,
+      "movement": {
+        "travelDistanceXY": 942158.5604062874,
+        "travelDistance3D": 997598.7587912605,
+        "validMovementSeconds": 2527.5,
+        "meanSpeedXY": 372.763030823457,
+        "meanSpeed3D": 394.69782741493987,
+        "movingSeconds": 2436.5,
+        "lowMotionSeconds": 91,
+        "lowMotionShare": 0.036003956478733924,
+        "rejectedJumpCount": 2
+      },
+      "resourceExposure": {
+        "totalEpisodes": 658,
+        "breakableEpisodes": 603,
+        "crateEpisodes": 448,
+        "statueEpisodes": 155,
+        "campEpisodes": 55,
+        "campEpisodesByTier": {
+          "SMALL": 9,
+          "MEDIUM": 25,
+          "LARGE": 21
+        },
+        "outcomes": {
+          "LEFT_AVAILABLE": 535,
+          "PLAYER_DEAD": 16,
+          "OTHER_PLAYER_BREAK": 12,
+          "CAMP_CLEARED_DURING_EPISODE": 13,
+          "SELF_BREAK": 30,
+          "BREAK_ATTRIBUTION_UNKNOWN": 48,
+          "POSITION_INVALID": 1,
+          "REPLAY_END": 3
+        },
+        "totalEpisodeSeconds": 2441.71875,
+        "breakableEpisodeSeconds": 2033.09375,
+        "campEpisodeSeconds": 408.625
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 41,
+        "crates": 27,
+        "statues": 14,
+        "meleeBreaks": 26,
+        "bulletBreaks": 15,
+        "rewardDropsProduced": 23,
+        "crateSoulDropsProduced": 15,
+        "crateSoulsProduced": 1154,
+        "statueModifiersProduced": 8,
+        "knownBreaksPerAliveMinute": 0.972812654473554
+      },
+      "melee": {
+        "total": 52,
+        "confirmedHits": 52,
+        "hitRate": 1,
+        "byType": {
+          "HEAVY": 29,
+          "LIGHT": 23
+        },
+        "attacksPerAliveMinute": 1.2338111715274345
+      },
+      "soulOrbBehavior": {
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "heroId": 2,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 42.145833333333336,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 4,
+        "totalDamageMessages": 7,
+        "creditedFirstHits": 4,
+        "creditedFirstHitsPerActiveMinute": 0.09490855165595649,
+        "resolutionCreditRateAmongEngagements": 1,
+        "competingRaceLosses": 0,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 1,
+        "mixedTeamRaceWins": 1,
+        "mixedTeamRaceLosses": 0,
+        "actionTypes": {
+          "TROOPER_SECURE_ATTEMPT": 4
+        },
+        "creditedOutcomes": {
+          "SECURE": 4
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 4
+        },
+        "timing": {
+          "firstActionSeconds": 136.734375,
+          "lastActionSeconds": 449.84375,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 2
+              },
+              "creditedOutcomes": {
+                "SECURE": 2
+              }
+            },
+            {
+              "binIndex": 1,
+              "startSeconds": 300,
+              "endSeconds": 600,
+              "startClock": "5:00",
+              "endClock": "10:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 2
+              },
+              "creditedOutcomes": {
+                "SECURE": 2
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "Nebula",
+      "steamId": "76561198200463289",
+      "heroId": 25,
+      "team": 3,
+      "controllerEntityIndex": 7,
+      "pawnEntityIndex": 87,
+      "aliveSeconds": 2611.75,
+      "aliveMinutes": 43.52916666666667,
+      "movement": {
+        "travelDistanceXY": 998019.1862383162,
+        "travelDistance3D": 1072571.118085227,
+        "validMovementSeconds": 2607.25,
+        "meanSpeedXY": 382.78614871543436,
+        "meanSpeed3D": 411.3802351463139,
+        "movingSeconds": 2474,
+        "lowMotionSeconds": 133.25,
+        "lowMotionShare": 0.05110748873333973,
+        "rejectedJumpCount": 14
+      },
+      "resourceExposure": {
+        "totalEpisodes": 779,
+        "breakableEpisodes": 705,
+        "crateEpisodes": 508,
+        "statueEpisodes": 197,
+        "campEpisodes": 74,
+        "campEpisodesByTier": {
+          "SMALL": 16,
+          "MEDIUM": 39,
+          "LARGE": 19
+        },
+        "outcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 11,
+          "LEFT_AVAILABLE": 654,
+          "SELF_BREAK": 54,
+          "POSITION_INVALID": 6,
+          "BREAK_ATTRIBUTION_UNKNOWN": 41,
+          "OTHER_PLAYER_BREAK": 7,
+          "PLAYER_DEAD": 6
+        },
+        "totalEpisodeSeconds": 3360.734375,
+        "breakableEpisodeSeconds": 2803.796875,
+        "campEpisodeSeconds": 556.9375
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 71,
+        "crates": 46,
+        "statues": 25,
+        "meleeBreaks": 40,
+        "bulletBreaks": 31,
+        "rewardDropsProduced": 40,
+        "crateSoulDropsProduced": 28,
+        "crateSoulsProduced": 2234,
+        "statueModifiersProduced": 12,
+        "knownBreaksPerAliveMinute": 1.6310902651478894
+      },
+      "melee": {
+        "total": 143,
+        "confirmedHits": 142,
+        "hitRate": 0.993006993006993,
+        "byType": {
+          "HEAVY": 91,
+          "LIGHT": 40,
+          "HEAVY_AIR": 12
+        },
+        "attacksPerAliveMinute": 3.2851536326218054
+      },
+      "soulOrbBehavior": {
+        "playerName": "Nebula",
+        "team": 3,
+        "heroId": 25,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 43.52916666666667,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 6,
+        "totalDamageMessages": 6,
+        "creditedFirstHits": 5,
+        "creditedFirstHitsPerActiveMinute": 0.11486551163013305,
+        "resolutionCreditRateAmongEngagements": 0.8333333333333334,
+        "competingRaceLosses": 1,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 2,
+        "mixedTeamRaceWins": 1,
+        "mixedTeamRaceLosses": 1,
+        "actionTypes": {
+          "TROOPER_SECURE_ATTEMPT": 4,
+          "TROOPER_DENY_ATTEMPT": 1,
+          "URN_CLAIM_ATTEMPT": 1
+        },
+        "creditedOutcomes": {
+          "SECURE": 3,
+          "CLAIM": 1,
+          "DENY": 1
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 5,
+          "URN_DELIVERY": 1
+        },
+        "timing": {
+          "firstActionSeconds": 133.734375,
+          "lastActionSeconds": 1143.078125,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 2,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1,
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "DENY": 1
+              }
+            },
+            {
+              "binIndex": 1,
+              "startSeconds": 300,
+              "endSeconds": 600,
+              "startClock": "5:00",
+              "endClock": "10:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 2
+              },
+              "creditedOutcomes": {
+                "SECURE": 2
+              }
+            },
+            {
+              "binIndex": 2,
+              "startSeconds": 600,
+              "endSeconds": 900,
+              "startClock": "10:00",
+              "endClock": "15:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "URN_CLAIM_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "CLAIM": 1
+              }
+            },
+            {
+              "binIndex": 3,
+              "startSeconds": 900,
+              "endSeconds": 1200,
+              "startClock": "15:00",
+              "endClock": "20:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "renso",
+      "steamId": "76561198107069146",
+      "heroId": 31,
+      "team": 3,
+      "controllerEntityIndex": 11,
+      "pawnEntityIndex": 86,
+      "aliveSeconds": 2634.25,
+      "aliveMinutes": 43.90416666666667,
+      "movement": {
+        "travelDistanceXY": 1047214.2833695549,
+        "travelDistance3D": 1152220.8577285728,
+        "validMovementSeconds": 2628.75,
+        "meanSpeedXY": 398.3696750811431,
+        "meanSpeed3D": 438.3151146851442,
+        "movingSeconds": 2512.5,
+        "lowMotionSeconds": 116.25,
+        "lowMotionShare": 0.0442225392296719,
+        "rejectedJumpCount": 20
+      },
+      "resourceExposure": {
+        "totalEpisodes": 775,
+        "breakableEpisodes": 706,
+        "crateEpisodes": 516,
+        "statueEpisodes": 190,
+        "campEpisodes": 69,
+        "campEpisodesByTier": {
+          "SMALL": 15,
+          "MEDIUM": 35,
+          "LARGE": 19
+        },
+        "outcomes": {
+          "LEFT_AVAILABLE": 666,
+          "CAMP_CLEARED_DURING_EPISODE": 13,
+          "OTHER_PLAYER_BREAK": 10,
+          "BREAK_ATTRIBUTION_UNKNOWN": 25,
+          "POSITION_INVALID": 4,
+          "SELF_BREAK": 41,
+          "PLAYER_DEAD": 16
+        },
+        "totalEpisodeSeconds": 3320.453125,
+        "breakableEpisodeSeconds": 2820.078125,
+        "campEpisodeSeconds": 500.375
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 45,
+        "crates": 39,
+        "statues": 6,
+        "meleeBreaks": 35,
+        "bulletBreaks": 10,
+        "rewardDropsProduced": 29,
+        "crateSoulDropsProduced": 26,
+        "crateSoulsProduced": 1754,
+        "statueModifiersProduced": 3,
+        "knownBreaksPerAliveMinute": 1.0249596659390718
+      },
+      "melee": {
+        "total": 216,
+        "confirmedHits": 214,
+        "hitRate": 0.9907407407407407,
+        "byType": {
+          "HEAVY_AIR": 12,
+          "HEAVY": 130,
+          "LIGHT": 74
+        },
+        "attacksPerAliveMinute": 4.9198063965075445
+      },
+      "soulOrbBehavior": {
+        "playerName": "renso",
+        "team": 3,
+        "heroId": 31,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 43.90416666666667,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 8,
+        "totalDamageMessages": 10,
+        "creditedFirstHits": 8,
+        "creditedFirstHitsPerActiveMinute": 0.18221505172250166,
+        "resolutionCreditRateAmongEngagements": 1,
+        "competingRaceLosses": 0,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 0,
+        "mixedTeamRaceWins": 0,
+        "mixedTeamRaceLosses": 0,
+        "actionTypes": {
+          "TROOPER_SECURE_ATTEMPT": 8
+        },
+        "creditedOutcomes": {
+          "SECURE": 8
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 8
+        },
+        "timing": {
+          "firstActionSeconds": 100.828125,
+          "lastActionSeconds": 1121,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 5,
+              "creditedFirstHits": 5,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 5
+              },
+              "creditedOutcomes": {
+                "SECURE": 5
+              }
+            },
+            {
+              "binIndex": 1,
+              "startSeconds": 300,
+              "endSeconds": 600,
+              "startClock": "5:00",
+              "endClock": "10:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 3,
+              "startSeconds": 900,
+              "endSeconds": 1200,
+              "startClock": "15:00",
+              "endClock": "20:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 2
+              },
+              "creditedOutcomes": {
+                "SECURE": 2
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "Snazzy314",
+      "steamId": "76561199751953144",
+      "heroId": 4,
+      "team": 2,
+      "controllerEntityIndex": 8,
+      "pawnEntityIndex": 90,
+      "aliveSeconds": 2568,
+      "aliveMinutes": 42.8,
+      "movement": {
+        "travelDistanceXY": 921465.360703929,
+        "travelDistance3D": 969786.268351355,
+        "validMovementSeconds": 2566.5,
+        "meanSpeedXY": 359.03579220881704,
+        "meanSpeed3D": 377.8633424318547,
+        "movingSeconds": 2398.25,
+        "lowMotionSeconds": 168.25,
+        "lowMotionShare": 0.06555620494837328,
+        "rejectedJumpCount": 2
+      },
+      "resourceExposure": {
+        "totalEpisodes": 798,
+        "breakableEpisodes": 712,
+        "crateEpisodes": 549,
+        "statueEpisodes": 163,
+        "campEpisodes": 86,
+        "campEpisodesByTier": {
+          "SMALL": 20,
+          "MEDIUM": 51,
+          "LARGE": 15
+        },
+        "outcomes": {
+          "LEFT_AVAILABLE": 601,
+          "CAMP_CLEARED_DURING_EPISODE": 24,
+          "SELF_BREAK": 79,
+          "BREAK_ATTRIBUTION_UNKNOWN": 57,
+          "OTHER_PLAYER_BREAK": 11,
+          "PLAYER_DEAD": 16,
+          "POSITION_INVALID": 10
+        },
+        "totalEpisodeSeconds": 3896.375,
+        "breakableEpisodeSeconds": 3213.1875,
+        "campEpisodeSeconds": 683.1875
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 84,
+        "crates": 70,
+        "statues": 14,
+        "meleeBreaks": 75,
+        "bulletBreaks": 9,
+        "rewardDropsProduced": 49,
+        "crateSoulDropsProduced": 42,
+        "crateSoulsProduced": 3210,
+        "statueModifiersProduced": 7,
+        "knownBreaksPerAliveMinute": 1.9626168224299068
+      },
+      "melee": {
+        "total": 223,
+        "confirmedHits": 223,
+        "hitRate": 1,
+        "byType": {
+          "HEAVY": 158,
+          "LIGHT": 62,
+          "HEAVY_AIR": 3
+        },
+        "attacksPerAliveMinute": 5.210280373831776
+      },
+      "soulOrbBehavior": {
+        "playerName": "Snazzy314",
+        "team": 2,
+        "heroId": 4,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 42.8,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 5,
+        "totalDamageMessages": 5,
+        "creditedFirstHits": 4,
+        "creditedFirstHitsPerActiveMinute": 0.09345794392523366,
+        "resolutionCreditRateAmongEngagements": 0.8,
+        "competingRaceLosses": 1,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 1,
+        "mixedTeamRaceWins": 0,
+        "mixedTeamRaceLosses": 1,
+        "actionTypes": {
+          "TROOPER_DENY_ATTEMPT": 3,
+          "TROOPER_SECURE_ATTEMPT": 2
+        },
+        "creditedOutcomes": {
+          "DENY": 2,
+          "SECURE": 2
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 5
+        },
+        "timing": {
+          "firstActionSeconds": 216.3125,
+          "lastActionSeconds": 1228.421875,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "DENY": 1
+              }
+            },
+            {
+              "binIndex": 1,
+              "startSeconds": 300,
+              "endSeconds": 600,
+              "startClock": "5:00",
+              "endClock": "10:00",
+              "engagements": 3,
+              "creditedFirstHits": 3,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 2,
+                "TROOPER_DENY_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 2,
+                "DENY": 1
+              }
+            },
+            {
+              "binIndex": 4,
+              "startSeconds": 1200,
+              "endSeconds": 1500,
+              "startClock": "20:00",
+              "endClock": "25:00",
+              "engagements": 1,
+              "creditedFirstHits": 0,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1
+              },
+              "creditedOutcomes": {}
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "TheWoogler",
+      "steamId": "76561198259248348",
+      "heroId": 52,
+      "team": 3,
+      "controllerEntityIndex": 9,
+      "pawnEntityIndex": 77,
+      "aliveSeconds": 2327.5,
+      "aliveMinutes": 38.791666666666664,
+      "movement": {
+        "travelDistanceXY": 834666.3609977438,
+        "travelDistance3D": 876101.9398144186,
+        "validMovementSeconds": 2323,
+        "meanSpeedXY": 359.30536418327324,
+        "meanSpeed3D": 377.1424622533011,
+        "movingSeconds": 2161.75,
+        "lowMotionSeconds": 161.25,
+        "lowMotionShare": 0.06941455015066723,
+        "rejectedJumpCount": 14
+      },
+      "resourceExposure": {
+        "totalEpisodes": 405,
+        "breakableEpisodes": 362,
+        "crateEpisodes": 272,
+        "statueEpisodes": 90,
+        "campEpisodes": 43,
+        "campEpisodesByTier": {
+          "SMALL": 20,
+          "MEDIUM": 17,
+          "LARGE": 6
+        },
+        "outcomes": {
+          "LEFT_AVAILABLE": 338,
+          "BREAK_ATTRIBUTION_UNKNOWN": 21,
+          "CAMP_CLEARED_DURING_EPISODE": 10,
+          "OTHER_PLAYER_BREAK": 6,
+          "POSITION_INVALID": 10,
+          "SELF_BREAK": 16,
+          "PLAYER_DEAD": 4
+        },
+        "totalEpisodeSeconds": 1763.828125,
+        "breakableEpisodeSeconds": 1406.265625,
+        "campEpisodeSeconds": 357.5625
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 24,
+        "crates": 17,
+        "statues": 7,
+        "meleeBreaks": 14,
+        "bulletBreaks": 10,
+        "rewardDropsProduced": 14,
+        "crateSoulDropsProduced": 11,
+        "crateSoulsProduced": 874,
+        "statueModifiersProduced": 3,
+        "knownBreaksPerAliveMinute": 0.6186895810955961
+      },
+      "melee": {
+        "total": 53,
+        "confirmedHits": 52,
+        "hitRate": 0.9811320754716981,
+        "byType": {
+          "HEAVY": 33,
+          "LIGHT": 20
+        },
+        "attacksPerAliveMinute": 1.3662728249194416
+      },
+      "soulOrbBehavior": {
+        "playerName": "TheWoogler",
+        "team": 3,
+        "heroId": 52,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 38.791666666666664,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 7,
+        "totalDamageMessages": 7,
+        "creditedFirstHits": 7,
+        "creditedFirstHitsPerActiveMinute": 0.1804511278195489,
+        "resolutionCreditRateAmongEngagements": 1,
+        "competingRaceLosses": 0,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 0,
+        "mixedTeamRaceWins": 0,
+        "mixedTeamRaceLosses": 0,
+        "actionTypes": {
+          "TROOPER_DENY_ATTEMPT": 3,
+          "TROOPER_SECURE_ATTEMPT": 3,
+          "URN_CLAIM_ATTEMPT": 1
+        },
+        "creditedOutcomes": {
+          "DENY": 3,
+          "SECURE": 3,
+          "CLAIM": 1
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 6,
+          "URN_DELIVERY": 1
+        },
+        "timing": {
+          "firstActionSeconds": 51.484375,
+          "lastActionSeconds": 1363.234375,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 3,
+              "creditedFirstHits": 3,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 2,
+                "TROOPER_DENY_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 2,
+                "DENY": 1
+              }
+            },
+            {
+              "binIndex": 1,
+              "startSeconds": 300,
+              "endSeconds": 600,
+              "startClock": "5:00",
+              "endClock": "10:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "DENY": 1
+              }
+            },
+            {
+              "binIndex": 3,
+              "startSeconds": 900,
+              "endSeconds": 1200,
+              "startClock": "15:00",
+              "endClock": "20:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 4,
+              "startSeconds": 1200,
+              "endSeconds": 1500,
+              "startClock": "20:00",
+              "endClock": "25:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1,
+                "URN_CLAIM_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "CLAIM": 1,
+                "DENY": 1
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "viggoth 300",
+      "steamId": "76561198307482194",
+      "heroId": 18,
+      "team": 2,
+      "controllerEntityIndex": 13,
+      "pawnEntityIndex": 91,
+      "aliveSeconds": 3043.5,
+      "aliveMinutes": 50.725,
+      "movement": {
+        "travelDistanceXY": 1207871.2137433693,
+        "travelDistance3D": 1286304.2210385231,
+        "validMovementSeconds": 3041.5,
+        "meanSpeedXY": 397.130104798083,
+        "meanSpeed3D": 422.9177119968841,
+        "movingSeconds": 2773,
+        "lowMotionSeconds": 268.5,
+        "lowMotionShare": 0.08827880979779713,
+        "rejectedJumpCount": 7
+      },
+      "resourceExposure": {
+        "totalEpisodes": 876,
+        "breakableEpisodes": 788,
+        "crateEpisodes": 601,
+        "statueEpisodes": 187,
+        "campEpisodes": 88,
+        "campEpisodesByTier": {
+          "SMALL": 26,
+          "MEDIUM": 39,
+          "LARGE": 23
+        },
+        "outcomes": {
+          "CAMP_CLEARED_DURING_EPISODE": 17,
+          "SELF_BREAK": 71,
+          "LEFT_AVAILABLE": 702,
+          "BREAK_ATTRIBUTION_UNKNOWN": 57,
+          "OTHER_PLAYER_BREAK": 17,
+          "PLAYER_DEAD": 2,
+          "POSITION_INVALID": 1,
+          "REPLAY_END": 9
+        },
+        "totalEpisodeSeconds": 3153.34375,
+        "breakableEpisodeSeconds": 2547.84375,
+        "campEpisodeSeconds": 605.5
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 100,
+        "crates": 79,
+        "statues": 21,
+        "meleeBreaks": 61,
+        "bulletBreaks": 39,
+        "rewardDropsProduced": 58,
+        "crateSoulDropsProduced": 46,
+        "crateSoulsProduced": 3063,
+        "statueModifiersProduced": 12,
+        "knownBreaksPerAliveMinute": 1.9714144898965007
+      },
+      "melee": {
+        "total": 147,
+        "confirmedHits": 145,
+        "hitRate": 0.9863945578231292,
+        "byType": {
+          "LIGHT": 84,
+          "HEAVY": 54,
+          "HEAVY_AIR": 9
+        },
+        "attacksPerAliveMinute": 2.897979300147856
+      },
+      "soulOrbBehavior": {
+        "playerName": "viggoth 300",
+        "team": 2,
+        "heroId": 18,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 50.725,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 3,
+        "totalDamageMessages": 3,
+        "creditedFirstHits": 3,
+        "creditedFirstHitsPerActiveMinute": 0.05914243469689502,
+        "resolutionCreditRateAmongEngagements": 1,
+        "competingRaceLosses": 0,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 0,
+        "mixedTeamRaceWins": 0,
+        "mixedTeamRaceLosses": 0,
+        "actionTypes": {
+          "TROOPER_SECURE_ATTEMPT": 2,
+          "TROOPER_DENY_ATTEMPT": 1
+        },
+        "creditedOutcomes": {
+          "SECURE": 2,
+          "DENY": 1
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 3
+        },
+        "timing": {
+          "firstActionSeconds": 76.171875,
+          "lastActionSeconds": 2360.328125,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "DENY": 1
+              }
+            },
+            {
+              "binIndex": 2,
+              "startSeconds": 600,
+              "endSeconds": 900,
+              "startClock": "10:00",
+              "endClock": "15:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 7,
+              "startSeconds": 2100,
+              "endSeconds": 2400,
+              "startClock": "35:00",
+              "endClock": "40:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "Yosafire Worshipper [K]",
+      "steamId": "76561198322712152",
+      "heroId": 50,
+      "team": 2,
+      "controllerEntityIndex": 6,
+      "pawnEntityIndex": 89,
+      "aliveSeconds": 3054.75,
+      "aliveMinutes": 50.9125,
+      "movement": {
+        "travelDistanceXY": 1365055.4359237896,
+        "travelDistance3D": 1470978.4378535454,
+        "validMovementSeconds": 3051.5,
+        "meanSpeedXY": 447.33915645544477,
+        "meanSpeed3D": 482.0509381791071,
+        "movingSeconds": 2869.75,
+        "lowMotionSeconds": 181.75,
+        "lowMotionShare": 0.05956087170244142,
+        "rejectedJumpCount": 11
+      },
+      "resourceExposure": {
+        "totalEpisodes": 973,
+        "breakableEpisodes": 886,
+        "crateEpisodes": 659,
+        "statueEpisodes": 227,
+        "campEpisodes": 87,
+        "campEpisodesByTier": {
+          "SMALL": 30,
+          "MEDIUM": 38,
+          "LARGE": 19
+        },
+        "outcomes": {
+          "PLAYER_DEAD": 5,
+          "CAMP_CLEARED_DURING_EPISODE": 9,
+          "OTHER_PLAYER_BREAK": 9,
+          "LEFT_AVAILABLE": 762,
+          "BREAK_ATTRIBUTION_UNKNOWN": 76,
+          "SELF_BREAK": 107,
+          "POSITION_INVALID": 5
+        },
+        "totalEpisodeSeconds": 3230.953125,
+        "breakableEpisodeSeconds": 2757.453125,
+        "campEpisodeSeconds": 473.5
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 107,
+        "crates": 81,
+        "statues": 26,
+        "meleeBreaks": 105,
+        "bulletBreaks": 2,
+        "rewardDropsProduced": 59,
+        "crateSoulDropsProduced": 48,
+        "crateSoulsProduced": 3585,
+        "statueModifiersProduced": 11,
+        "knownBreaksPerAliveMinute": 2.1016449791308616
+      },
+      "melee": {
+        "total": 197,
+        "confirmedHits": 197,
+        "hitRate": 1,
+        "byType": {
+          "HEAVY": 86,
+          "LIGHT": 104,
+          "HEAVY_AIR": 7
+        },
+        "attacksPerAliveMinute": 3.8693837466241097
+      },
+      "soulOrbBehavior": {
+        "playerName": "Yosafire Worshipper [K]",
+        "team": 2,
+        "heroId": 50,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 50.9125,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 10,
+        "totalDamageMessages": 10,
+        "creditedFirstHits": 9,
+        "creditedFirstHitsPerActiveMinute": 0.17677387674932482,
+        "resolutionCreditRateAmongEngagements": 0.9,
+        "competingRaceLosses": 1,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 2,
+        "mixedTeamRaceWins": 1,
+        "mixedTeamRaceLosses": 1,
+        "actionTypes": {
+          "TROOPER_SECURE_ATTEMPT": 9,
+          "TROOPER_DENY_ATTEMPT": 1
+        },
+        "creditedOutcomes": {
+          "SECURE": 8,
+          "DENY": 1
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 10
+        },
+        "timing": {
+          "firstActionSeconds": 133.640625,
+          "lastActionSeconds": 2100.53125,
+          "timeBins": [
+            {
+              "binIndex": 0,
+              "startSeconds": 0,
+              "endSeconds": 300,
+              "startClock": "0:00",
+              "endClock": "5:00",
+              "engagements": 2,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1,
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "DENY": 1
+              }
+            },
+            {
+              "binIndex": 1,
+              "startSeconds": 300,
+              "endSeconds": 600,
+              "startClock": "5:00",
+              "endClock": "10:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 2
+              },
+              "creditedOutcomes": {
+                "SECURE": 2
+              }
+            },
+            {
+              "binIndex": 2,
+              "startSeconds": 600,
+              "endSeconds": 900,
+              "startClock": "10:00",
+              "endClock": "15:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 4,
+              "startSeconds": 1200,
+              "endSeconds": 1500,
+              "startClock": "20:00",
+              "endClock": "25:00",
+              "engagements": 3,
+              "creditedFirstHits": 3,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 3
+              },
+              "creditedOutcomes": {
+                "SECURE": 3
+              }
+            },
+            {
+              "binIndex": 6,
+              "startSeconds": 1800,
+              "endSeconds": 2100,
+              "startClock": "30:00",
+              "endClock": "35:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 7,
+              "startSeconds": 2100,
+              "endSeconds": 2400,
+              "startClock": "35:00",
+              "endClock": "40:00",
+              "engagements": 1,
+              "creditedFirstHits": 1,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "SECURE": 1
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "playerName": "Zaeleth",
+      "steamId": "76561198079477113",
+      "heroId": 77,
+      "team": 3,
+      "controllerEntityIndex": 5,
+      "pawnEntityIndex": 84,
+      "aliveSeconds": 2490.25,
+      "aliveMinutes": 41.50416666666667,
+      "movement": {
+        "travelDistanceXY": 900546.4658717796,
+        "travelDistance3D": 961395.606587189,
+        "validMovementSeconds": 2484.5,
+        "meanSpeedXY": 362.4658747723001,
+        "meanSpeed3D": 386.9573783808368,
+        "movingSeconds": 2306.75,
+        "lowMotionSeconds": 177.75,
+        "lowMotionShare": 0.07154357013483598,
+        "rejectedJumpCount": 21
+      },
+      "resourceExposure": {
+        "totalEpisodes": 1017,
+        "breakableEpisodes": 953,
+        "crateEpisodes": 676,
+        "statueEpisodes": 277,
+        "campEpisodes": 64,
+        "campEpisodesByTier": {
+          "SMALL": 23,
+          "MEDIUM": 23,
+          "LARGE": 18
+        },
+        "outcomes": {
+          "LEFT_AVAILABLE": 958,
+          "BREAK_ATTRIBUTION_UNKNOWN": 22,
+          "CAMP_CLEARED_DURING_EPISODE": 9,
+          "SELF_BREAK": 9,
+          "PLAYER_DEAD": 9,
+          "OTHER_PLAYER_BREAK": 7,
+          "POSITION_INVALID": 3
+        },
+        "totalEpisodeSeconds": 4112.734375,
+        "breakableEpisodeSeconds": 3781.171875,
+        "campEpisodeSeconds": 331.5625
+      },
+      "knownBreakableActions": {
+        "totalKnownBreaks": 12,
+        "crates": 10,
+        "statues": 2,
+        "meleeBreaks": 8,
+        "bulletBreaks": 4,
+        "rewardDropsProduced": 8,
+        "crateSoulDropsProduced": 7,
+        "crateSoulsProduced": 595,
+        "statueModifiersProduced": 1,
+        "knownBreaksPerAliveMinute": 0.28912759763075996
+      },
+      "melee": {
+        "total": 71,
+        "confirmedHits": 71,
+        "hitRate": 1,
+        "byType": {
+          "HEAVY": 60,
+          "LIGHT": 9,
+          "HEAVY_AIR": 2
+        },
+        "attacksPerAliveMinute": 1.7106716193153297
+      },
+      "soulOrbBehavior": {
+        "playerName": "Zaeleth",
+        "team": 3,
+        "heroId": 77,
+        "rosterSource": "BEHAVIORAL_METRICS_V01",
+        "denominator": {
+          "activeMinutes": 41.50416666666667,
+          "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+        },
+        "totalOrbEngagements": 4,
+        "totalDamageMessages": 4,
+        "creditedFirstHits": 4,
+        "creditedFirstHitsPerActiveMinute": 0.09637586587691999,
+        "resolutionCreditRateAmongEngagements": 1,
+        "competingRaceLosses": 0,
+        "sameTeamFollowups": 0,
+        "mixedTeamRaceEngagements": 1,
+        "mixedTeamRaceWins": 1,
+        "mixedTeamRaceLosses": 0,
+        "actionTypes": {
+          "TROOPER_SECURE_ATTEMPT": 3,
+          "TROOPER_DENY_ATTEMPT": 1
+        },
+        "creditedOutcomes": {
+          "SECURE": 3,
+          "DENY": 1
+        },
+        "sourceTypes": {
+          "TROOPER_DEATH": 4
+        },
+        "timing": {
+          "firstActionSeconds": 1228.421875,
+          "lastActionSeconds": 2562.890625,
+          "timeBins": [
+            {
+              "binIndex": 4,
+              "startSeconds": 1200,
+              "endSeconds": 1500,
+              "startClock": "20:00",
+              "endClock": "25:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "TROOPER_DENY_ATTEMPT": 1,
+                "TROOPER_SECURE_ATTEMPT": 1
+              },
+              "creditedOutcomes": {
+                "DENY": 1,
+                "SECURE": 1
+              }
+            },
+            {
+              "binIndex": 8,
+              "startSeconds": 2400,
+              "endSeconds": 2700,
+              "startClock": "40:00",
+              "endClock": "45:00",
+              "engagements": 2,
+              "creditedFirstHits": 2,
+              "actionTypes": {
+                "TROOPER_SECURE_ATTEMPT": 2
+              },
+              "creditedOutcomes": {
+                "SECURE": 2
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "citemxp": {
+    "status": "DESCRIPTIVE_ACTION_FEATURES_READY",
+    "counts": {
+      "finalEpisodes": 1239,
+      "resolvedEpisodes": 1237,
+      "unresolvedEpisodes": 2,
+      "shotEpisodes": 105,
+      "noShotEpisodes": 1134,
+      "playerActionRows": 111,
+      "damageMessages": 123,
+      "creditedFirstHits": 105,
+      "competingRaceLosses": 5,
+      "sameTeamFollowups": 1,
+      "mixedTeamRaces": 5,
+      "players": 12
+    },
+    "outcomeContext": {
+      "allFinalOutcomes": {
+        "AUTO_AWARD_SECURE": 1092,
+        "SECURE": 58,
+        "AUTO_AWARD_CLAIM": 40,
+        "DENY": 28,
+        "CLAIM": 19,
+        "NO_SHOT_UNRESOLVED": 2
+      },
+      "shotOutcomes": {
+        "SECURE": 58,
+        "DENY": 28,
+        "CLAIM": 19
+      },
+      "noShotOutcomes": {
+        "AUTO_AWARD_SECURE": 1092,
+        "AUTO_AWARD_CLAIM": 40,
+        "NO_SHOT_UNRESOLVED": 2
+      },
+      "finalOutcomesByWinnerTeam": {
+        "2": {
+          "total": 602,
+          "outcomes": {
+            "AUTO_AWARD_SECURE": 513,
+            "SECURE": 29,
+            "AUTO_AWARD_CLAIM": 23,
+            "DENY": 18,
+            "CLAIM": 17,
+            "NO_SHOT_UNRESOLVED": 2
+          },
+          "shot": 64,
+          "automatic": 536
+        },
+        "3": {
+          "total": 637,
+          "outcomes": {
+            "AUTO_AWARD_SECURE": 579,
+            "SECURE": 29,
+            "AUTO_AWARD_CLAIM": 17,
+            "DENY": 10,
+            "CLAIM": 2
+          },
+          "shot": 41,
+          "automatic": 596
+        }
+      },
+      "playerActionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 61,
+        "TROOPER_DENY_ATTEMPT": 20,
+        "URN_CLAIM_ATTEMPT": 19,
+        "URN_DENY_ATTEMPT": 11
+      }
+    },
+    "interpretation": {
+      "scope": "Observed player attacks on validated Trooper and Soul Urn CItemXP episodes.",
+      "attemptDefinition": "One player-orb engagement, deduplicated across repeated damage messages from the same player.",
+      "resolutionCreditDefinition": "The player whose first observed hit received the validated shot outcome.",
+      "competingRaceLossDefinition": "A later hitter from the opposing team in a mixed-team race.",
+      "sameTeamFollowupDefinition": "A later hitter on the winning team; not treated as a competitive loss.",
+      "importantCaution": "No-shot episodes are team economy outcomes, not player choices. They are excluded from player action counts.",
+      "doNotInferYet": [
+        "missed soul opportunity",
+        "orb awareness",
+        "decision quality",
+        "attempt probability when an orb was visible",
+        "secure or deny efficiency conditional on a true opportunity"
+      ],
+      "reason": "Player-specific visibility, distance, line of sight, and competing action demands have not yet been joined to each orb window."
+    }
+  }
+}

@@ -1,0 +1,3885 @@
+{
+  "replay": "test",
+  "version": "TROOPER_GROUND_SOUL_UNMATCHED_DIAGNOSTIC_V01",
+  "canonical": false,
+  "purpose": [
+    "Explain ordinary economic Trooper deaths that did not receive a one-to-one CCitadel_Pickup_AssignedGold match.",
+    "Test verified target-attributed melee attacks as a candidate explanation.",
+    "Test nearest opposing-player distance as a candidate ground-soul eligibility condition.",
+    "Do not classify unmatched deaths as missed farm."
+  ],
+  "sourceCounts": {
+    "economicTrooperDeaths": 1727,
+    "matchedGroundSoulDeaths": 1388,
+    "unmatchedGroundSoulDeaths": 339,
+    "meleeRows": 0,
+    "meleeRowsWithTargetAttribution": 0,
+    "playerStateRows": 153420,
+    "usablePlayerSpatialRows": 128500
+  },
+  "existingGroundSoulResult": {
+    "matched": 1388,
+    "unmatched": 339,
+    "matchRate": 0.8037058482918356,
+    "interpretation": "The previous one-to-one matcher is not modified here."
+  },
+  "meleeTimeAlignment": {
+    "selectedOffsetSeconds": 0,
+    "candidateOffsets": [
+      {
+        "offsetSeconds": 0,
+        "score": 0,
+        "directTargetMatchesWithin125ms": 0,
+        "directTargetMatchesWithin250ms": 0,
+        "directTargetMatchesWithin500ms": 0,
+        "nearestDeathDelta": {
+          "count": 0,
+          "min": null,
+          "p10": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p90": null,
+          "p95": null,
+          "max": null,
+          "mean": null
+        }
+      },
+      {
+        "offsetSeconds": -30,
+        "score": 0,
+        "directTargetMatchesWithin125ms": 0,
+        "directTargetMatchesWithin250ms": 0,
+        "directTargetMatchesWithin500ms": 0,
+        "nearestDeathDelta": {
+          "count": 0,
+          "min": null,
+          "p10": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p90": null,
+          "p95": null,
+          "max": null,
+          "mean": null
+        }
+      },
+      {
+        "offsetSeconds": 30,
+        "score": 0,
+        "directTargetMatchesWithin125ms": 0,
+        "directTargetMatchesWithin250ms": 0,
+        "directTargetMatchesWithin500ms": 0,
+        "nearestDeathDelta": {
+          "count": 0,
+          "min": null,
+          "p10": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p90": null,
+          "p95": null,
+          "max": null,
+          "mean": null
+        }
+      }
+    ],
+    "interpretation": "Offset is selected solely by target-attributed melee/Trooper temporal coincidence."
+  },
+  "meleeAssociation": {
+    "windowMatrix": [
+      {
+        "windowSeconds": 0.125,
+        "matched": {
+          "total": 1388,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "unmatched": {
+          "total": 339,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "rateRatioUnmatchedVsMatched": null
+      },
+      {
+        "windowSeconds": 0.25,
+        "matched": {
+          "total": 1388,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "unmatched": {
+          "total": 339,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "rateRatioUnmatchedVsMatched": null
+      },
+      {
+        "windowSeconds": 0.5,
+        "matched": {
+          "total": 1388,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "unmatched": {
+          "total": 339,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "rateRatioUnmatchedVsMatched": null
+      },
+      {
+        "windowSeconds": 0.75,
+        "matched": {
+          "total": 1388,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "unmatched": {
+          "total": 339,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "rateRatioUnmatchedVsMatched": null
+      },
+      {
+        "windowSeconds": 1,
+        "matched": {
+          "total": 1388,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "unmatched": {
+          "total": 339,
+          "withTargetAttributedMelee": 0,
+          "rate": 0
+        },
+        "rateRatioUnmatchedVsMatched": null
+      }
+    ],
+    "selectedDiagnosticWindowSeconds": 0.125,
+    "selectedWindowReason": "Largest unmatched-minus-matched association-rate separation.",
+    "matchedDeathsWithTargetAttributedMelee": 0,
+    "unmatchedDeathsWithTargetAttributedMelee": 0,
+    "unmatchedAssociationRate": 0,
+    "matchedAttackTypes": {},
+    "unmatchedAttackTypes": {},
+    "unmatchedPlayers": {},
+    "interpretation": "A temporal target-attributed melee association is evidence for the melee-finisher hypothesis, but is not yet canonical proof of lethal melee damage."
+  },
+  "proximity": {
+    "matchedNearestOpponent": {
+      "distance3D": {
+        "count": 1388,
+        "min": 10.091089045539139,
+        "p10": 82.11530563317353,
+        "p25": 163.38957398144606,
+        "median": 361.5910416772392,
+        "p75": 624.977224529388,
+        "p90": 958.6557479967992,
+        "p95": 1225.4919074596885,
+        "max": 2975.539912273275,
+        "mean": 460.98089462995273
+      },
+      "distanceXY": {
+        "count": 1388,
+        "min": 5.978558694409548,
+        "p10": 72.09272887193352,
+        "p25": 155.80846921801827,
+        "median": 348.1009524843889,
+        "p75": 599.8003865405385,
+        "p90": 929.749973107227,
+        "p95": 1161.683281063522,
+        "max": 2972.7855236345677,
+        "mean": 440.71766977783534
+      }
+    },
+    "unmatchedNearestOpponent": {
+      "distance3D": {
+        "count": 336,
+        "min": 773.564194168784,
+        "p10": 2380.130323595429,
+        "p25": 3463.382669812474,
+        "median": 5117.638989408595,
+        "p75": 7260.102163618198,
+        "p90": 9205.27303220948,
+        "p95": 10421.25513250216,
+        "max": 16501.358431799687,
+        "mean": 5576.369686928517
+      },
+      "distanceXY": {
+        "count": 336,
+        "min": 773.5228261014668,
+        "p10": 2349.786521789108,
+        "p25": 3378.4105487247657,
+        "median": 5111.358229010516,
+        "p75": 7229.687426073826,
+        "p90": 9204.765016203215,
+        "p95": 10420.659620196264,
+        "max": 16491.302377154043,
+        "mean": 5548.248511304108
+      }
+    },
+    "thresholdMatrix": [
+      {
+        "threshold": 250,
+        "matched": {
+          "inside": 537,
+          "total": 1388,
+          "rate": 0.3868876080691643
+        },
+        "unmatched": {
+          "inside": 0,
+          "total": 339,
+          "rate": 0
+        }
+      },
+      {
+        "threshold": 500,
+        "matched": {
+          "inside": 882,
+          "total": 1388,
+          "rate": 0.6354466858789626
+        },
+        "unmatched": {
+          "inside": 0,
+          "total": 339,
+          "rate": 0
+        }
+      },
+      {
+        "threshold": 750,
+        "matched": {
+          "inside": 1135,
+          "total": 1388,
+          "rate": 0.8177233429394812
+        },
+        "unmatched": {
+          "inside": 0,
+          "total": 339,
+          "rate": 0
+        }
+      },
+      {
+        "threshold": 1000,
+        "matched": {
+          "inside": 1262,
+          "total": 1388,
+          "rate": 0.909221902017291
+        },
+        "unmatched": {
+          "inside": 1,
+          "total": 339,
+          "rate": 0.0029498525073746312
+        }
+      },
+      {
+        "threshold": 1250,
+        "matched": {
+          "inside": 1323,
+          "total": 1388,
+          "rate": 0.9531700288184438
+        },
+        "unmatched": {
+          "inside": 1,
+          "total": 339,
+          "rate": 0.0029498525073746312
+        }
+      },
+      {
+        "threshold": 1500,
+        "matched": {
+          "inside": 1352,
+          "total": 1388,
+          "rate": 0.9740634005763689
+        },
+        "unmatched": {
+          "inside": 1,
+          "total": 339,
+          "rate": 0.0029498525073746312
+        }
+      },
+      {
+        "threshold": 1750,
+        "matched": {
+          "inside": 1372,
+          "total": 1388,
+          "rate": 0.9884726224783862
+        },
+        "unmatched": {
+          "inside": 1,
+          "total": 339,
+          "rate": 0.0029498525073746312
+        }
+      },
+      {
+        "threshold": 1800,
+        "matched": {
+          "inside": 1374,
+          "total": 1388,
+          "rate": 0.9899135446685879
+        },
+        "unmatched": {
+          "inside": 3,
+          "total": 339,
+          "rate": 0.008849557522123894
+        }
+      },
+      {
+        "threshold": 2000,
+        "matched": {
+          "inside": 1380,
+          "total": 1388,
+          "rate": 0.9942363112391931
+        },
+        "unmatched": {
+          "inside": 13,
+          "total": 339,
+          "rate": 0.038348082595870206
+        }
+      },
+      {
+        "threshold": 2250,
+        "matched": {
+          "inside": 1382,
+          "total": 1388,
+          "rate": 0.9956772334293948
+        },
+        "unmatched": {
+          "inside": 27,
+          "total": 339,
+          "rate": 0.07964601769911504
+        }
+      },
+      {
+        "threshold": 2500,
+        "matched": {
+          "inside": 1384,
+          "total": 1388,
+          "rate": 0.9971181556195965
+        },
+        "unmatched": {
+          "inside": 40,
+          "total": 339,
+          "rate": 0.11799410029498525
+        }
+      },
+      {
+        "threshold": 3000,
+        "matched": {
+          "inside": 1388,
+          "total": 1388,
+          "rate": 1
+        },
+        "unmatched": {
+          "inside": 66,
+          "total": 339,
+          "rate": 0.19469026548672566
+        }
+      }
+    ],
+    "interpretation": "Distance is measured from Trooper death position to the nearest alive opposing-team player state within ±0.5 sec."
+  },
+  "afterRemovingMeleeAssociatedUnmatched": {
+    "total": 339,
+    "nearestOpponentDistance3D": {
+      "count": 336,
+      "min": 773.564194168784,
+      "p10": 2380.130323595429,
+      "p25": 3463.382669812474,
+      "median": 5117.638989408595,
+      "p75": 7260.102163618198,
+      "p90": 9205.27303220948,
+      "p95": 10421.25513250216,
+      "max": 16501.358431799687,
+      "mean": 5576.369686928517
+    },
+    "combinedThresholdMatrix": [
+      {
+        "distanceThreshold": 250,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 0,
+        "noMeleeOutsideDistance": 336,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 500,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 0,
+        "noMeleeOutsideDistance": 336,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 750,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 0,
+        "noMeleeOutsideDistance": 336,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 1000,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 1,
+        "noMeleeOutsideDistance": 335,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 1250,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 1,
+        "noMeleeOutsideDistance": 335,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 1500,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 1,
+        "noMeleeOutsideDistance": 335,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 1750,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 1,
+        "noMeleeOutsideDistance": 335,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 1800,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 3,
+        "noMeleeOutsideDistance": 333,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 2000,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 13,
+        "noMeleeOutsideDistance": 323,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 2250,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 27,
+        "noMeleeOutsideDistance": 309,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 2500,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 40,
+        "noMeleeOutsideDistance": 296,
+        "noUsablePlayerSpatialState": 3
+      },
+      {
+        "distanceThreshold": 3000,
+        "totalUnmatched": 339,
+        "meleeAssociated": 0,
+        "noMeleeInsideDistance": 66,
+        "noMeleeOutsideDistance": 270,
+        "noUsablePlayerSpatialState": 3
+      }
+    ]
+  },
+  "byBaseType": [
+    {
+      "baseType": "RANGED",
+      "total": 671,
+      "matched": 582,
+      "unmatched": 89,
+      "matchRate": 0.8673621460506706,
+      "targetMeleeWithinChosenWindow": {
+        "windowSeconds": 0.125,
+        "matched": 0,
+        "matchedRate": 0,
+        "unmatched": 0,
+        "unmatchedRate": 0
+      },
+      "proximity": {
+        "matchedNearest3D": {
+          "count": 582,
+          "min": 10.091089045539139,
+          "p10": 74.5710702022543,
+          "p25": 138.53781977589577,
+          "median": 302.896837987079,
+          "p75": 596.0644592397409,
+          "p90": 938.0229872232198,
+          "p95": 1297.427553536566,
+          "max": 2975.539912273275,
+          "mean": 434.1236272293593
+        },
+        "unmatchedNearest3D": {
+          "count": 89,
+          "min": 773.564194168784,
+          "p10": 2025.0899938735874,
+          "p25": 3203.1592920420476,
+          "median": 5026.730533502399,
+          "p75": 7190.45696491244,
+          "p90": 8592.805508190499,
+          "p95": 9326.46396287308,
+          "max": 13565.849802077975,
+          "mean": 5279.033459293633
+        }
+      }
+    },
+    {
+      "baseType": "MEDIC",
+      "total": 753,
+      "matched": 584,
+      "unmatched": 169,
+      "matchRate": 0.7755644090305445,
+      "targetMeleeWithinChosenWindow": {
+        "windowSeconds": 0.125,
+        "matched": 0,
+        "matchedRate": 0,
+        "unmatched": 0,
+        "unmatchedRate": 0
+      },
+      "proximity": {
+        "matchedNearest3D": {
+          "count": 584,
+          "min": 13.239271895104352,
+          "p10": 113.67437981109461,
+          "p25": 208.2304225880266,
+          "median": 417.69849652558196,
+          "p75": 687.1113456763558,
+          "p90": 968.1910393693634,
+          "p95": 1185.0024771740011,
+          "max": 2864.570740843534,
+          "mean": 496.33438338231235
+        },
+        "unmatchedNearest3D": {
+          "count": 168,
+          "min": 1801.6935427731078,
+          "p10": 2581.4554133597276,
+          "p25": 3582.4152890665237,
+          "median": 5177.557856328067,
+          "p75": 7239.276214147251,
+          "p90": 9395.031718112696,
+          "p95": 10950.10531713868,
+          "max": 16501.358431799687,
+          "mean": 5723.018021463977
+        }
+      }
+    },
+    {
+      "baseType": "MELEE",
+      "total": 303,
+      "matched": 222,
+      "unmatched": 81,
+      "matchRate": 0.7326732673267327,
+      "targetMeleeWithinChosenWindow": {
+        "windowSeconds": 0.125,
+        "matched": 0,
+        "matchedRate": 0,
+        "unmatched": 0,
+        "unmatchedRate": 0
+      },
+      "proximity": {
+        "matchedNearest3D": {
+          "count": 222,
+          "min": 39.53559758701644,
+          "p10": 74.3660237689531,
+          "p25": 135.09631203714304,
+          "median": 315.04360991674264,
+          "p75": 612.9155214271013,
+          "p90": 972.1224044074305,
+          "p95": 1178.9017302324442,
+          "max": 2952.0824107010144,
+          "mean": 438.38851713341325
+        },
+        "unmatchedNearest3D": {
+          "count": 79,
+          "min": 1779.0055964244111,
+          "p10": 2384.2327992383166,
+          "p25": 3363.1978616815168,
+          "median": 5134.263498199651,
+          "p75": 7319.191296941855,
+          "p90": 8627.225924144897,
+          "p95": 10181.789046496386,
+          "max": 14734.75547298403,
+          "mean": 5599.4836623405035
+        }
+      }
+    }
+  ],
+  "unmatchedCandidateActivationCounts": {
+    "0": 339
+  },
+  "examples": {
+    "unmatchedWithTargetAttributedMelee": [],
+    "unmatchedWithoutTargetAttributedMelee": [
+      {
+        "deathIndex": 69,
+        "deathKey": "2792|17586",
+        "entityIndex": 2792,
+        "clock": "4:04",
+        "timeSeconds": 244.78125,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2369.5376048793783,
+          "nearestDistanceXY": 2369.0373547669633,
+          "nearestPlayer": {
+            "playerName": "Nebula",
+            "pawnEntityIndex": 87,
+            "team": 3,
+            "playerStateTimeSeconds": 244.75,
+            "absoluteTimeDeltaSeconds": 0.03125,
+            "distance3D": 2369.5376048793783,
+            "distanceXY": 2369.0373547669633,
+            "position": {
+              "x": -6619.8125,
+              "y": -845.6875,
+              "z": 199.34375
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 131,
+        "deathKey": "2952|26449",
+        "entityIndex": 2952,
+        "clock": "6:23",
+        "timeSeconds": 383.265625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2281.025633230176,
+          "nearestDistanceXY": 2277.4296780529935,
+          "nearestPlayer": {
+            "playerName": "flem",
+            "pawnEntityIndex": 79,
+            "team": 2,
+            "playerStateTimeSeconds": 383.25,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 2281.025633230176,
+            "distanceXY": 2277.4296780529935,
+            "position": {
+              "x": 8039.5625,
+              "y": -2073.34375,
+              "z": 256.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 135,
+        "deathKey": "3051|27019",
+        "entityIndex": 3051,
+        "clock": "6:32",
+        "timeSeconds": 392.171875,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7249.1548451353965,
+          "nearestDistanceXY": 7211.81008507053,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 392.25,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 7249.1548451353965,
+            "distanceXY": 7211.81008507053,
+            "position": {
+              "x": -2614.125,
+              "y": -6258.4375,
+              "z": 1023.96875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 137,
+        "deathKey": "2834|27302",
+        "entityIndex": 2834,
+        "clock": "6:36",
+        "timeSeconds": 396.59375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4162.078376497658,
+          "nearestDistanceXY": 4116.175557565922,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 396.5,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 4162.078376497658,
+            "distanceXY": 4116.175557565922,
+            "position": {
+              "x": -5971.03125,
+              "y": -4911.8125,
+              "z": 864.46875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 142,
+        "deathKey": "2760|27818",
+        "entityIndex": 2760,
+        "clock": "6:44",
+        "timeSeconds": 404.65625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2101.74560470911,
+          "nearestDistanceXY": 2097.84808387257,
+          "nearestPlayer": {
+            "playerName": "Nacho4Sure",
+            "pawnEntityIndex": 78,
+            "team": 2,
+            "playerStateTimeSeconds": 404.75,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 2101.74560470911,
+            "distanceXY": 2097.84808387257,
+            "position": {
+              "x": 7174.9375,
+              "y": -1540.28125,
+              "z": 256.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 160,
+        "deathKey": "2883|30853",
+        "entityIndex": 2883,
+        "clock": "7:32",
+        "timeSeconds": 452.078125,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3092.0202716592207,
+          "nearestDistanceXY": 2265.7251281753734,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 452,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 3092.0202716592207,
+            "distanceXY": 2265.7251281753734,
+            "position": {
+              "x": -913.375,
+              "y": 3526.53125,
+              "z": -1728.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 162,
+        "deathKey": "2757|31122",
+        "entityIndex": 2757,
+        "clock": "7:36",
+        "timeSeconds": 456.28125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3748.637571515567,
+          "nearestDistanceXY": 3233.5259273510646,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 456.25,
+            "absoluteTimeDeltaSeconds": 0.03125,
+            "distance3D": 3748.637571515567,
+            "distanceXY": 3233.5259273510646,
+            "position": {
+              "x": -2503.90625,
+              "y": 3576.5625,
+              "z": -1520.4375
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 168,
+        "deathKey": "3095|32043",
+        "entityIndex": 3095,
+        "clock": "7:50",
+        "timeSeconds": 470.671875,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4805.448316795284,
+          "nearestDistanceXY": 4805.272607157846,
+          "nearestPlayer": {
+            "playerName": "Goldinfer",
+            "pawnEntityIndex": 80,
+            "team": 3,
+            "playerStateTimeSeconds": 470.75,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 4805.448316795284,
+            "distanceXY": 4805.272607157846,
+            "position": {
+              "x": -6895.8125,
+              "y": -2938.78125,
+              "z": 248
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 169,
+        "deathKey": "2842|32323",
+        "entityIndex": 2842,
+        "clock": "7:55",
+        "timeSeconds": 475.046875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 6380.3531413243745,
+          "nearestDistanceXY": 6111.468578942892,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 475,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 6380.3531413243745,
+            "distanceXY": 6111.468578942892,
+            "position": {
+              "x": -21.65625,
+              "y": 7501.65625,
+              "z": 2208.75
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 173,
+        "deathKey": "2839|32999",
+        "entityIndex": 2839,
+        "clock": "8:05",
+        "timeSeconds": 485.609375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4141.194320412176,
+          "nearestDistanceXY": 4141.186593165547,
+          "nearestPlayer": {
+            "playerName": "Goldinfer",
+            "pawnEntityIndex": 80,
+            "team": 3,
+            "playerStateTimeSeconds": 485.5,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 4141.194320412176,
+            "distanceXY": 4141.186593165547,
+            "position": {
+              "x": -6311.15625,
+              "y": -2362.28125,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 175,
+        "deathKey": "2888|33116",
+        "entityIndex": 2888,
+        "clock": "8:07",
+        "timeSeconds": 487.4375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3733.7138601469082,
+          "nearestDistanceXY": 3733.705356408907,
+          "nearestPlayer": {
+            "playerName": "Goldinfer",
+            "pawnEntityIndex": 80,
+            "team": 3,
+            "playerStateTimeSeconds": 487.5,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 3733.7138601469082,
+            "distanceXY": 3733.705356408907,
+            "position": {
+              "x": -6601.65625,
+              "y": -2116.90625,
+              "z": 256
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 177,
+        "deathKey": "2756|33252",
+        "entityIndex": 2756,
+        "clock": "8:09",
+        "timeSeconds": 489.5625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3969.977176045262,
+          "nearestDistanceXY": 3969.6673964302413,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 489.5,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 3969.977176045262,
+            "distanceXY": 3969.6673964302413,
+            "position": {
+              "x": -6489.28125,
+              "y": -2261.8125,
+              "z": 297.625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 178,
+        "deathKey": "2833|33357",
+        "entityIndex": 2833,
+        "clock": "8:11",
+        "timeSeconds": 491.203125,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7108.145797719728,
+          "nearestDistanceXY": 7107.705042397762,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 491.25,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 7108.145797719728,
+            "distanceXY": 7107.705042397762,
+            "position": {
+              "x": -236.625,
+              "y": 882.625,
+              "z": 327.1875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 180,
+        "deathKey": "2974|33404",
+        "entityIndex": 2974,
+        "clock": "8:11",
+        "timeSeconds": 491.9375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7015.9008983890035,
+          "nearestDistanceXY": 7014.876186165125,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 492,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 7015.9008983890035,
+            "distanceXY": 7014.876186165125,
+            "position": {
+              "x": -206.8125,
+              "y": 972.0625,
+              "z": 367.9375
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 182,
+        "deathKey": "3051|33767",
+        "entityIndex": 3051,
+        "clock": "8:17",
+        "timeSeconds": 497.609375,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2802.920352584013,
+          "nearestDistanceXY": 2802.455764941371,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 497.5,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 2802.920352584013,
+            "distanceXY": 2802.455764941371,
+            "position": {
+              "x": -5018.46875,
+              "y": -62.125,
+              "z": 299.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 184,
+        "deathKey": "2834|33927",
+        "entityIndex": 2834,
+        "clock": "8:20",
+        "timeSeconds": 500.109375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2991.344632102395,
+          "nearestDistanceXY": 2977.3059215977873,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 500,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 2991.344632102395,
+            "distanceXY": 2977.3059215977873,
+            "position": {
+              "x": -4474.09375,
+              "y": 682.09375,
+              "z": -41.4375
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 186,
+        "deathKey": "3421|33974",
+        "entityIndex": 3421,
+        "clock": "8:20",
+        "timeSeconds": 500.84375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7023.836338578285,
+          "nearestDistanceXY": 6994.660584431975,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 500.75,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 7023.836338578285,
+            "distanceXY": 6994.660584431975,
+            "position": {
+              "x": -242.6875,
+              "y": 847.34375,
+              "z": 887.5625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 187,
+        "deathKey": "3048|34093",
+        "entityIndex": 3048,
+        "clock": "8:22",
+        "timeSeconds": 502.703125,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5730.7669334485945,
+          "nearestDistanceXY": 5697.313340325558,
+          "nearestPlayer": {
+            "playerName": "Nebula",
+            "pawnEntityIndex": 87,
+            "team": 3,
+            "playerStateTimeSeconds": 502.75,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 5730.7669334485945,
+            "distanceXY": 5697.313340325558,
+            "position": {
+              "x": -3202.125,
+              "y": 6043.15625,
+              "z": 907.40625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 239,
+        "deathKey": "3048|40394",
+        "entityIndex": 3048,
+        "clock": "10:01",
+        "timeSeconds": 601.15625,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4002.4552181676563,
+          "nearestDistanceXY": 3302.0981191177907,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 601.25,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 4002.4552181676563,
+            "distanceXY": 3302.0981191177907,
+            "position": {
+              "x": -2693.6875,
+              "y": 3680.09375,
+              "z": -1876.75
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 242,
+        "deathKey": "2833|40586",
+        "entityIndex": 2833,
+        "clock": "10:04",
+        "timeSeconds": 604.15625,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 6427.71114111951,
+          "nearestDistanceXY": 6427.691305025103,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 604.25,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 6427.71114111951,
+            "distanceXY": 6427.691305025103,
+            "position": {
+              "x": -1401.875,
+              "y": -456.5,
+              "z": 366.75
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 243,
+        "deathKey": "2755|40808",
+        "entityIndex": 2755,
+        "clock": "10:07",
+        "timeSeconds": 607.625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5759.851530153713,
+          "nearestDistanceXY": 5759.750810192036,
+          "nearestPlayer": {
+            "playerName": "Nebula",
+            "pawnEntityIndex": 87,
+            "team": 3,
+            "playerStateTimeSeconds": 607.5,
+            "absoluteTimeDeltaSeconds": 0.125,
+            "distance3D": 5759.851530153713,
+            "distanceXY": 5759.750810192036,
+            "position": {
+              "x": -1809.40625,
+              "y": 29.84375,
+              "z": 341.96875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 245,
+        "deathKey": "3047|40809",
+        "entityIndex": 3047,
+        "clock": "10:07",
+        "timeSeconds": 607.640625,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 1779.0055964244111,
+          "nearestDistanceXY": 1774.3925470799331,
+          "nearestPlayer": {
+            "playerName": "viggoth 300",
+            "pawnEntityIndex": 91,
+            "team": 2,
+            "playerStateTimeSeconds": 607.75,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 1779.0055964244111,
+            "distanceXY": 1774.3925470799331,
+            "position": {
+              "x": 461.75,
+              "y": -1398.75,
+              "z": 376.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 249,
+        "deathKey": "2881|41097",
+        "entityIndex": 2881,
+        "clock": "10:12",
+        "timeSeconds": 612.140625,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4307.824903636478,
+          "nearestDistanceXY": 4270.218600893175,
+          "nearestPlayer": {
+            "playerName": "Nebula",
+            "pawnEntityIndex": 87,
+            "team": 3,
+            "playerStateTimeSeconds": 612.25,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 4307.824903636478,
+            "distanceXY": 4270.218600893175,
+            "position": {
+              "x": -3841.90625,
+              "y": 149.46875,
+              "z": 944
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 252,
+        "deathKey": "2756|41693",
+        "entityIndex": 2756,
+        "clock": "10:21",
+        "timeSeconds": 621.453125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5204.908031296789,
+          "nearestDistanceXY": 5203.511535285721,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 621.5,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 5204.908031296789,
+            "distanceXY": 5203.511535285721,
+            "position": {
+              "x": -6897.6875,
+              "y": -1079.25,
+              "z": 256.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 256,
+        "deathKey": "3095|42262",
+        "entityIndex": 3095,
+        "clock": "10:30",
+        "timeSeconds": 630.34375,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3308.0357637513252,
+          "nearestDistanceXY": 3305.8596632768986,
+          "nearestPlayer": {
+            "playerName": "Goldinfer",
+            "pawnEntityIndex": 80,
+            "team": 3,
+            "playerStateTimeSeconds": 630.25,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 3308.0357637513252,
+            "distanceXY": 3305.8596632768986,
+            "position": {
+              "x": -3916.9375,
+              "y": 1867.09375,
+              "z": 256.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 275,
+        "deathKey": "2759|44957",
+        "entityIndex": 2759,
+        "clock": "11:12",
+        "timeSeconds": 672.453125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3137.8300813046944,
+          "nearestDistanceXY": 3134.8827917745284,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 672.5,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 3137.8300813046944,
+            "distanceXY": 3134.8827917745284,
+            "position": {
+              "x": 4508.3125,
+              "y": 214.1875,
+              "z": 256
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 278,
+        "deathKey": "2757|45156",
+        "entityIndex": 2757,
+        "clock": "11:15",
+        "timeSeconds": 675.5625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 1870.7223626725386,
+          "nearestDistanceXY": 1783.6875867781787,
+          "nearestPlayer": {
+            "playerName": "Nebula",
+            "pawnEntityIndex": 87,
+            "team": 3,
+            "playerStateTimeSeconds": 675.5,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 1870.7223626725386,
+            "distanceXY": 1783.6875867781787,
+            "position": {
+              "x": 1641.90625,
+              "y": 27.15625,
+              "z": -333.09375
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 282,
+        "deathKey": "2836|46218",
+        "entityIndex": 2836,
+        "clock": "11:32",
+        "timeSeconds": 692.15625,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4322.6754214060675,
+          "nearestDistanceXY": 4318.5852774754985,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 692.25,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 4322.6754214060675,
+            "distanceXY": 4318.5852774754985,
+            "position": {
+              "x": -3954.03125,
+              "y": -1787.75,
+              "z": 564.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 283,
+        "deathKey": "2758|46278",
+        "entityIndex": 2758,
+        "clock": "11:33",
+        "timeSeconds": 693.09375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4102.5278116439995,
+          "nearestDistanceXY": 4098.217959712794,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 693,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 4102.5278116439995,
+            "distanceXY": 4098.217959712794,
+            "position": {
+              "x": -3869.8125,
+              "y": -1742.6875,
+              "z": 564.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 284,
+        "deathKey": "2881|46599",
+        "entityIndex": 2881,
+        "clock": "11:38",
+        "timeSeconds": 698.109375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 9232.697748165721,
+          "nearestDistanceXY": 9231.69649674467,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 698,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 9232.697748165721,
+            "distanceXY": 9231.69649674467,
+            "position": {
+              "x": 2363.71875,
+              "y": 2607.9375,
+              "z": 384
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 285,
+        "deathKey": "2949|46875",
+        "entityIndex": 2949,
+        "clock": "11:42",
+        "timeSeconds": 702.421875,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4251.761751808375,
+          "nearestDistanceXY": 4251.732115093286,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 702.5,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 4251.761751808375,
+            "distanceXY": 4251.732115093286,
+            "position": {
+              "x": -3915.71875,
+              "y": -1486.4375,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 286,
+        "deathKey": "2842|46949",
+        "entityIndex": 2842,
+        "clock": "11:43",
+        "timeSeconds": 703.578125,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4261.6544484149945,
+          "nearestDistanceXY": 4261.564506145491,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 703.5,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 4261.6544484149945,
+            "distanceXY": 4261.564506145491,
+            "position": {
+              "x": 3524.40625,
+              "y": 1077.09375,
+              "z": 248.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 287,
+        "deathKey": "2756|47036",
+        "entityIndex": 2756,
+        "clock": "11:44",
+        "timeSeconds": 704.9375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4617.04882173295,
+          "nearestDistanceXY": 4617.041890893522,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 705,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 4617.04882173295,
+            "distanceXY": 4617.041890893522,
+            "position": {
+              "x": -3928.28125,
+              "y": -1330.59375,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 289,
+        "deathKey": "3046|47231",
+        "entityIndex": 3046,
+        "clock": "11:47",
+        "timeSeconds": 707.984375,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4251.204888258519,
+          "nearestDistanceXY": 4213.173223513142,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 708,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 4251.204888258519,
+            "distanceXY": 4213.173223513142,
+            "position": {
+              "x": 2879.84375,
+              "y": 2261.78125,
+              "z": 815.40625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 291,
+        "deathKey": "2757|47650",
+        "entityIndex": 2757,
+        "clock": "11:54",
+        "timeSeconds": 714.53125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3940.2230948398565,
+          "nearestDistanceXY": 3940.2149098916943,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 714.5,
+            "absoluteTimeDeltaSeconds": 0.03125,
+            "distance3D": 3940.2230948398565,
+            "distanceXY": 3940.2149098916943,
+            "position": {
+              "x": 3754.15625,
+              "y": 229.1875,
+              "z": 256.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 309,
+        "deathKey": "2887|50635",
+        "entityIndex": 2887,
+        "clock": "12:41",
+        "timeSeconds": 761.171875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2442.3650915115813,
+          "nearestDistanceXY": 2441.6755751446203,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 761.25,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 2442.3650915115813,
+            "distanceXY": 2441.6755751446203,
+            "position": {
+              "x": -5844.8125,
+              "y": -3039.375,
+              "z": 306.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 311,
+        "deathKey": "3048|50700",
+        "entityIndex": 3048,
+        "clock": "12:42",
+        "timeSeconds": 762.1875,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7352.722879065152,
+          "nearestDistanceXY": 7351.608649562905,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 762.25,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 7352.722879065152,
+            "distanceXY": 7351.608649562905,
+            "position": {
+              "x": -4101.875,
+              "y": 4309.28125,
+              "z": 376.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 312,
+        "deathKey": "2881|50870",
+        "entityIndex": 2881,
+        "clock": "12:44",
+        "timeSeconds": 764.84375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7617.689397631611,
+          "nearestDistanceXY": 7616.74417049628,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 764.75,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 7617.689397631611,
+            "distanceXY": 7616.74417049628,
+            "position": {
+              "x": -3977,
+              "y": 4218.5625,
+              "z": 376.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 315,
+        "deathKey": "2755|51037",
+        "entityIndex": 2755,
+        "clock": "12:47",
+        "timeSeconds": 767.453125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7359.719695284873,
+          "nearestDistanceXY": 7358.606525230443,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 767.5,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 7359.719695284873,
+            "distanceXY": 7358.606525230443,
+            "position": {
+              "x": -4138.1875,
+              "y": 3914.78125,
+              "z": 376.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 331,
+        "deathKey": "2833|53813",
+        "entityIndex": 2833,
+        "clock": "13:30",
+        "timeSeconds": 810.828125,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5900.515151387869,
+          "nearestDistanceXY": 5898.900442097769,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 810.75,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 5900.515151387869,
+            "distanceXY": 5898.900442097769,
+            "position": {
+              "x": -6543.21875,
+              "y": -1708.6875,
+              "z": 248.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 335,
+        "deathKey": "3051|54130",
+        "entityIndex": 3051,
+        "clock": "13:35",
+        "timeSeconds": 815.78125,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7468.749596234299,
+          "nearestDistanceXY": 7468.3692423865195,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 815.75,
+            "absoluteTimeDeltaSeconds": 0.03125,
+            "distance3D": 7468.749596234299,
+            "distanceXY": 7468.3692423865195,
+            "position": {
+              "x": -6320.96875,
+              "y": -3190.28125,
+              "z": 309.84375
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 338,
+        "deathKey": "2755|54662",
+        "entityIndex": 2755,
+        "clock": "13:44",
+        "timeSeconds": 824.09375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4951.442101526142,
+          "nearestDistanceXY": 4949.87898536182,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 824,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 4951.442101526142,
+            "distanceXY": 4949.87898536182,
+            "position": {
+              "x": -5985.5625,
+              "y": -904.46875,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 339,
+        "deathKey": "2756|54912",
+        "entityIndex": 2756,
+        "clock": "13:48",
+        "timeSeconds": 828,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 8417.107997060491,
+          "nearestDistanceXY": 8417.10782157851,
+          "nearestPlayer": {
+            "playerName": "Nacho4Sure",
+            "pawnEntityIndex": 78,
+            "team": 2,
+            "playerStateTimeSeconds": 828,
+            "absoluteTimeDeltaSeconds": 0,
+            "distance3D": 8417.107997060491,
+            "distanceXY": 8417.10782157851,
+            "position": {
+              "x": 556.15625,
+              "y": -1061.21875,
+              "z": 384
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 352,
+        "deathKey": "2892|56627",
+        "entityIndex": 2892,
+        "clock": "14:14",
+        "timeSeconds": 854.796875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 1831.4106707458802,
+          "nearestDistanceXY": 1827.4729940399427,
+          "nearestPlayer": {
+            "playerName": "viggoth 300",
+            "pawnEntityIndex": 91,
+            "team": 2,
+            "playerStateTimeSeconds": 854.75,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 1831.4106707458802,
+            "distanceXY": 1827.4729940399427,
+            "position": {
+              "x": 6714.4375,
+              "y": 648.375,
+              "z": 128
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 356,
+        "deathKey": "3047|57058",
+        "entityIndex": 3047,
+        "clock": "14:21",
+        "timeSeconds": 861.53125,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2816.8668461788466,
+          "nearestDistanceXY": 2812.2584696637173,
+          "nearestPlayer": {
+            "playerName": "flem",
+            "pawnEntityIndex": 79,
+            "team": 2,
+            "playerStateTimeSeconds": 861.5,
+            "absoluteTimeDeltaSeconds": 0.03125,
+            "distance3D": 2816.8668461788466,
+            "distanceXY": 2812.2584696637173,
+            "position": {
+              "x": -2433.78125,
+              "y": -962.75,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 374,
+        "deathKey": "2758|59952",
+        "entityIndex": 2758,
+        "clock": "15:06",
+        "timeSeconds": 906.75,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3880.6891319290025,
+          "nearestDistanceXY": 3880.689131803179,
+          "nearestPlayer": {
+            "playerName": "flem",
+            "pawnEntityIndex": 79,
+            "team": 2,
+            "playerStateTimeSeconds": 906.75,
+            "absoluteTimeDeltaSeconds": 0,
+            "distance3D": 3880.6891319290025,
+            "distanceXY": 3880.689131803179,
+            "position": {
+              "x": 0.53125,
+              "y": -1023.65625,
+              "z": 384
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 375,
+        "deathKey": "3052|60244",
+        "entityIndex": 3052,
+        "clock": "15:11",
+        "timeSeconds": 911.3125,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7414.323137081004,
+          "nearestDistanceXY": 7396.0634854007385,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 911.25,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 7414.323137081004,
+            "distanceXY": 7396.0634854007385,
+            "position": {
+              "x": 2051.3125,
+              "y": -2097.40625,
+              "z": 768.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 378,
+        "deathKey": "2759|60406",
+        "entityIndex": 2759,
+        "clock": "15:13",
+        "timeSeconds": 913.84375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7020.27375990869,
+          "nearestDistanceXY": 7019.106756850369,
+          "nearestPlayer": {
+            "playerName": "Nebula",
+            "pawnEntityIndex": 87,
+            "team": 3,
+            "playerStateTimeSeconds": 913.75,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 7020.27375990869,
+            "distanceXY": 7019.106756850369,
+            "position": {
+              "x": 869.1875,
+              "y": 3084.84375,
+              "z": 376.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 382,
+        "deathKey": "2886|60769",
+        "entityIndex": 2886,
+        "clock": "15:19",
+        "timeSeconds": 919.515625,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 9348.775573080162,
+          "nearestDistanceXY": 9327.650491961806,
+          "nearestPlayer": {
+            "playerName": "Nacho4Sure",
+            "pawnEntityIndex": 78,
+            "team": 2,
+            "playerStateTimeSeconds": 919.5,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 9348.775573080162,
+            "distanceXY": 9327.650491961806,
+            "position": {
+              "x": 3360.375,
+              "y": -5906.3125,
+              "z": 876.15625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 383,
+        "deathKey": "2760|61000",
+        "entityIndex": 2760,
+        "clock": "15:23",
+        "timeSeconds": 923.125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7500.890001229645,
+          "nearestDistanceXY": 7488.074542660837,
+          "nearestPlayer": {
+            "playerName": "viggoth 300",
+            "pawnEntityIndex": 91,
+            "team": 2,
+            "playerStateTimeSeconds": 923,
+            "absoluteTimeDeltaSeconds": 0.125,
+            "distance3D": 7500.890001229645,
+            "distanceXY": 7488.074542660837,
+            "position": {
+              "x": 480.1875,
+              "y": -528.15625,
+              "z": 686.3125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 384,
+        "deathKey": "2974|61004",
+        "entityIndex": 2974,
+        "clock": "15:23",
+        "timeSeconds": 923.1875,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3980.45345347895,
+          "nearestDistanceXY": 3971.1491655832447,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 923.25,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 3980.45345347895,
+            "distanceXY": 3971.1491655832447,
+            "position": {
+              "x": -3875.78125,
+              "y": 1214.4375,
+              "z": -143.96875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 385,
+        "deathKey": "2936|61735",
+        "entityIndex": 2936,
+        "clock": "15:34",
+        "timeSeconds": 934.609375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3002.020476188183,
+          "nearestDistanceXY": 2952.325344279753,
+          "nearestPlayer": {
+            "playerName": "TheWoogler",
+            "pawnEntityIndex": 77,
+            "team": 3,
+            "playerStateTimeSeconds": 934.5,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 3002.020476188183,
+            "distanceXY": 2952.325344279753,
+            "position": {
+              "x": 4243.375,
+              "y": 5388.78125,
+              "z": 920
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 386,
+        "deathKey": "2756|61868",
+        "entityIndex": 2756,
+        "clock": "15:36",
+        "timeSeconds": 936.6875,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4619.002980216618,
+          "nearestDistanceXY": 4616.643303378008,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 936.75,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 4619.002980216618,
+            "distanceXY": 4616.643303378008,
+            "position": {
+              "x": -3943.9375,
+              "y": 824,
+              "z": 395.65625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 427,
+        "deathKey": "2756|68144",
+        "entityIndex": 2756,
+        "clock": "17:14",
+        "timeSeconds": 1034.75,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 1801.6935427731078,
+          "nearestDistanceXY": 1669.2940838214367,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 1034.75,
+            "absoluteTimeDeltaSeconds": 0,
+            "distance3D": 1801.6935427731078,
+            "distanceXY": 1669.2940838214367,
+            "position": {
+              "x": -7353.4375,
+              "y": -2437.96875,
+              "z": 886.96875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 429,
+        "deathKey": "3048|68387",
+        "entityIndex": 3048,
+        "clock": "17:18",
+        "timeSeconds": 1038.546875,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 1783.6326208532616,
+          "nearestDistanceXY": 1782.1355720779563,
+          "nearestPlayer": {
+            "playerName": "Goldinfer",
+            "pawnEntityIndex": 80,
+            "team": 3,
+            "playerStateTimeSeconds": 1038.5,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 1783.6326208532616,
+            "distanceXY": 1782.1355720779563,
+            "position": {
+              "x": -6458.125,
+              "y": -1596.15625,
+              "z": 248.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 432,
+        "deathKey": "2843|69389",
+        "entityIndex": 2843,
+        "clock": "17:34",
+        "timeSeconds": 1054.203125,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7645.265329151435,
+          "nearestDistanceXY": 7645.265329151435,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 1054.25,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 7645.265329151435,
+            "distanceXY": 7645.265329151435,
+            "position": {
+              "x": -324.78125,
+              "y": 1255.40625,
+              "z": 376.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 435,
+        "deathKey": "2888|69831",
+        "entityIndex": 2888,
+        "clock": "17:41",
+        "timeSeconds": 1061.109375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3744.406530235716,
+          "nearestDistanceXY": 3730.7050624104972,
+          "nearestPlayer": {
+            "playerName": "Nebula",
+            "pawnEntityIndex": 87,
+            "team": 3,
+            "playerStateTimeSeconds": 1061,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 3744.406530235716,
+            "distanceXY": 3730.7050624104972,
+            "position": {
+              "x": -4922.5625,
+              "y": -1970.84375,
+              "z": -64
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 437,
+        "deathKey": "2755|70017",
+        "entityIndex": 2755,
+        "clock": "17:44",
+        "timeSeconds": 1064.015625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3738.1660162490193,
+          "nearestDistanceXY": 3733.711521212212,
+          "nearestPlayer": {
+            "playerName": "Nebula",
+            "pawnEntityIndex": 87,
+            "team": 3,
+            "playerStateTimeSeconds": 1064,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 3738.1660162490193,
+            "distanceXY": 3733.711521212212,
+            "position": {
+              "x": -5247,
+              "y": -1918.34375,
+              "z": 64.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 438,
+        "deathKey": "2838|70124",
+        "entityIndex": 2838,
+        "clock": "17:45",
+        "timeSeconds": 1065.6875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3762.5471395769996,
+          "nearestDistanceXY": 3756.1664352185594,
+          "nearestPlayer": {
+            "playerName": "flem",
+            "pawnEntityIndex": 79,
+            "team": 2,
+            "playerStateTimeSeconds": 1065.75,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 3762.5471395769996,
+            "distanceXY": 3756.1664352185594,
+            "position": {
+              "x": 7523.1875,
+              "y": 789.9375,
+              "z": 157
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 439,
+        "deathKey": "2756|70129",
+        "entityIndex": 2756,
+        "clock": "17:45",
+        "timeSeconds": 1065.765625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5375.858540172473,
+          "nearestDistanceXY": 5375.39501491809,
+          "nearestPlayer": {
+            "playerName": "viggoth 300",
+            "pawnEntityIndex": 91,
+            "team": 2,
+            "playerStateTimeSeconds": 1065.75,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 5375.858540172473,
+            "distanceXY": 5375.39501491809,
+            "position": {
+              "x": -3712,
+              "y": -2176,
+              "z": 318.625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 440,
+        "deathKey": "2882|70318",
+        "entityIndex": 2882,
+        "clock": "17:48",
+        "timeSeconds": 1068.71875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4956.377716769482,
+          "nearestDistanceXY": 4913.575143957046,
+          "nearestPlayer": {
+            "playerName": "viggoth 300",
+            "pawnEntityIndex": 91,
+            "team": 2,
+            "playerStateTimeSeconds": 1068.75,
+            "absoluteTimeDeltaSeconds": 0.03125,
+            "distance3D": 4956.377716769482,
+            "distanceXY": 4913.575143957046,
+            "position": {
+              "x": -3894.8125,
+              "y": -1952.78125,
+              "z": 898
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 457,
+        "deathKey": "3051|72005",
+        "entityIndex": 3051,
+        "clock": "18:15",
+        "timeSeconds": 1095.078125,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4597.377531271394,
+          "nearestDistanceXY": 4586.504569390405,
+          "nearestPlayer": {
+            "playerName": "viggoth 300",
+            "pawnEntityIndex": 91,
+            "team": 2,
+            "playerStateTimeSeconds": 1095,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 4597.377531271394,
+            "distanceXY": 4586.504569390405,
+            "position": {
+              "x": -3817.53125,
+              "y": -1485.28125,
+              "z": 564.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 458,
+        "deathKey": "2760|72550",
+        "entityIndex": 2760,
+        "clock": "18:23",
+        "timeSeconds": 1103.59375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3248.476645687656,
+          "nearestDistanceXY": 3238.373745814112,
+          "nearestPlayer": {
+            "playerName": "Eriansan",
+            "pawnEntityIndex": 88,
+            "team": 2,
+            "playerStateTimeSeconds": 1103.5,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 3248.476645687656,
+            "distanceXY": 3238.373745814112,
+            "position": {
+              "x": 5722.78125,
+              "y": 99.40625,
+              "z": -7.96875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 530,
+        "deathKey": "3046|82091",
+        "entityIndex": 3046,
+        "clock": "20:52",
+        "timeSeconds": 1252.671875,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3799.56772867713,
+          "nearestDistanceXY": 3799.5453821908914,
+          "nearestPlayer": {
+            "playerName": "Goldinfer",
+            "pawnEntityIndex": 80,
+            "team": 3,
+            "playerStateTimeSeconds": 1252.75,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 3799.56772867713,
+            "distanceXY": 3799.5453821908914,
+            "position": {
+              "x": -2204.15625,
+              "y": 405.4375,
+              "z": 389.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 537,
+        "deathKey": "2834|83331",
+        "entityIndex": 2834,
+        "clock": "21:12",
+        "timeSeconds": 1272.046875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 773.564194168784,
+          "nearestDistanceXY": 773.5228261014668,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 1271.5,
+            "absoluteTimeDeltaSeconds": 0.546875,
+            "distance3D": 773.564194168784,
+            "distanceXY": 773.5228261014668,
+            "position": {
+              "x": -5842.71875,
+              "y": -4239.4375,
+              "z": 384.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 538,
+        "deathKey": "2755|83857",
+        "entityIndex": 2755,
+        "clock": "21:20",
+        "timeSeconds": 1280.265625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4893.890038006735,
+          "nearestDistanceXY": 4892.315677516789,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 1280.25,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 4893.890038006735,
+            "distanceXY": 4892.315677516789,
+            "position": {
+              "x": -6892.1875,
+              "y": -204.78125,
+              "z": 500.15625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 539,
+        "deathKey": "2885|83896",
+        "entityIndex": 2885,
+        "clock": "21:20",
+        "timeSeconds": 1280.875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3620.749972624154,
+          "nearestDistanceXY": 3614.73997433166,
+          "nearestPlayer": {
+            "playerName": "Zaeleth",
+            "pawnEntityIndex": 84,
+            "team": 3,
+            "playerStateTimeSeconds": 1280.75,
+            "absoluteTimeDeltaSeconds": 0.125,
+            "distance3D": 3620.749972624154,
+            "distanceXY": 3614.73997433166,
+            "position": {
+              "x": 4946.46875,
+              "y": -3.84375,
+              "z": 39.5
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 540,
+        "deathKey": "2836|84071",
+        "entityIndex": 2836,
+        "clock": "21:23",
+        "timeSeconds": 1283.609375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3959.4955404155103,
+          "nearestDistanceXY": 3951.2110718829376,
+          "nearestPlayer": {
+            "playerName": "flem",
+            "pawnEntityIndex": 79,
+            "team": 2,
+            "playerStateTimeSeconds": 1283.5,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 3959.4955404155103,
+            "distanceXY": 3951.2110718829376,
+            "position": {
+              "x": 4294.9375,
+              "y": 67.15625,
+              "z": -7.96875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 545,
+        "deathKey": "2757|84301",
+        "entityIndex": 2757,
+        "clock": "21:27",
+        "timeSeconds": 1287.203125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2694.5352011423624,
+          "nearestDistanceXY": 2681.4787098332636,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 1287.25,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 2694.5352011423624,
+            "distanceXY": 2681.4787098332636,
+            "position": {
+              "x": -919.71875,
+              "y": -3625.09375,
+              "z": 640.96875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 546,
+        "deathKey": "2890|85116",
+        "entityIndex": 2890,
+        "clock": "21:39",
+        "timeSeconds": 1299.9375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 6322.943978610014,
+          "nearestDistanceXY": 6321.805759090045,
+          "nearestPlayer": {
+            "playerName": "Nacho4Sure",
+            "pawnEntityIndex": 78,
+            "team": 2,
+            "playerStateTimeSeconds": 1300,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 6322.943978610014,
+            "distanceXY": 6321.805759090045,
+            "position": {
+              "x": 5336,
+              "y": -1378.65625,
+              "z": 256.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 547,
+        "deathKey": "2760|85453",
+        "entityIndex": 2760,
+        "clock": "21:45",
+        "timeSeconds": 1305.203125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4866.660928277242,
+          "nearestDistanceXY": 4862.64416168447,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 1305.25,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 4866.660928277242,
+            "distanceXY": 4862.64416168447,
+            "position": {
+              "x": 6265.3125,
+              "y": 51.84375,
+              "z": 573.71875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 550,
+        "deathKey": "3048|85588",
+        "entityIndex": 3048,
+        "clock": "21:47",
+        "timeSeconds": 1307.3125,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3888.116450948044,
+          "nearestDistanceXY": 3888.116450948044,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 1307.25,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 3888.116450948044,
+            "distanceXY": 3888.116450948044,
+            "position": {
+              "x": -1880.71875,
+              "y": -2399.875,
+              "z": 512.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 556,
+        "deathKey": "2949|85894",
+        "entityIndex": 2949,
+        "clock": "21:52",
+        "timeSeconds": 1312.09375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3682.5991105446674,
+          "nearestDistanceXY": 3536.650691580639,
+          "nearestPlayer": {
+            "playerName": "Eriansan",
+            "pawnEntityIndex": 88,
+            "team": 2,
+            "playerStateTimeSeconds": 1312,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 3682.5991105446674,
+            "distanceXY": 3536.650691580639,
+            "position": {
+              "x": -503.59375,
+              "y": -6621.53125,
+              "z": 1402.5
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 559,
+        "deathKey": "2887|86063",
+        "entityIndex": 2887,
+        "clock": "21:54",
+        "timeSeconds": 1314.734375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2026.3274222754883,
+          "nearestDistanceXY": 1980.4484996499214,
+          "nearestPlayer": {
+            "playerName": "Eriansan",
+            "pawnEntityIndex": 88,
+            "team": 2,
+            "playerStateTimeSeconds": 1314.75,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 2026.3274222754883,
+            "distanceXY": 1980.4484996499214,
+            "position": {
+              "x": -1422.28125,
+              "y": -4414.1875,
+              "z": 932.78125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 571,
+        "deathKey": "2756|88036",
+        "entityIndex": 2756,
+        "clock": "22:25",
+        "timeSeconds": 1345.5625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5403.370721169391,
+          "nearestDistanceXY": 5367.765446048203,
+          "nearestPlayer": {
+            "playerName": "Eriansan",
+            "pawnEntityIndex": 88,
+            "team": 2,
+            "playerStateTimeSeconds": 1345.5,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 5403.370721169391,
+            "distanceXY": 5367.765446048203,
+            "position": {
+              "x": -1526.53125,
+              "y": -3974.40625,
+              "z": 921.59375
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 602,
+        "deathKey": "3048|91641",
+        "entityIndex": 3048,
+        "clock": "23:21",
+        "timeSeconds": 1401.890625,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 6423.198926334574,
+          "nearestDistanceXY": 6423.193983236772,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 1402,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 6423.198926334574,
+            "distanceXY": 6423.193983236772,
+            "position": {
+              "x": -2786.15625,
+              "y": 1244.71875,
+              "z": 384
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 607,
+        "deathKey": "3052|91823",
+        "entityIndex": 3052,
+        "clock": "23:24",
+        "timeSeconds": 1404.734375,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7342.686312328071,
+          "nearestDistanceXY": 7341.570559577153,
+          "nearestPlayer": {
+            "playerName": "Nacho4Sure",
+            "pawnEntityIndex": 78,
+            "team": 2,
+            "playerStateTimeSeconds": 1404.75,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 7342.686312328071,
+            "distanceXY": 7341.570559577153,
+            "position": {
+              "x": 3941.46875,
+              "y": -2754.15625,
+              "z": 248.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 617,
+        "deathKey": "2760|92301",
+        "entityIndex": 2760,
+        "clock": "23:32",
+        "timeSeconds": 1412.203125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 6422.939570520845,
+          "nearestDistanceXY": 6422.934588376445,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 1412.25,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 6422.939570520845,
+            "distanceXY": 6422.934588376445,
+            "position": {
+              "x": 2785.0625,
+              "y": -807.0625,
+              "z": 384.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 628,
+        "deathKey": "2755|94063",
+        "entityIndex": 2755,
+        "clock": "23:59",
+        "timeSeconds": 1439.734375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4794.971280320829,
+          "nearestDistanceXY": 4788.553599898571,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 1439.75,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 4794.971280320829,
+            "distanceXY": 4788.553599898571,
+            "position": {
+              "x": -4165.15625,
+              "y": 3568.0625,
+              "z": 376.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 630,
+        "deathKey": "2756|94116",
+        "entityIndex": 2756,
+        "clock": "24:00",
+        "timeSeconds": 1440.5625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7929.771984525311,
+          "nearestDistanceXY": 7925.892992373951,
+          "nearestPlayer": {
+            "playerName": "flem",
+            "pawnEntityIndex": 79,
+            "team": 2,
+            "playerStateTimeSeconds": 1440.5,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 7929.771984525311,
+            "distanceXY": 7925.892992373951,
+            "position": {
+              "x": -481.96875,
+              "y": -3017.15625,
+              "z": 376.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 633,
+        "deathKey": "2833|95146",
+        "entityIndex": 2833,
+        "clock": "24:16",
+        "timeSeconds": 1456.65625,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7292.944119066601,
+          "nearestDistanceXY": 7292.923495976361,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 1456.75,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 7292.944119066601,
+            "distanceXY": 7292.923495976361,
+            "position": {
+              "x": -336.75,
+              "y": -399.1875,
+              "z": 248
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 635,
+        "deathKey": "3235|95196",
+        "entityIndex": 3235,
+        "clock": "24:17",
+        "timeSeconds": 1457.4375,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 8510.39306255014,
+          "nearestDistanceXY": 8510.073231544486,
+          "nearestPlayer": {
+            "playerName": "viggoth 300",
+            "pawnEntityIndex": 91,
+            "team": 2,
+            "playerStateTimeSeconds": 1457.5,
+            "absoluteTimeDeltaSeconds": 0.0625,
+            "distance3D": 8510.39306255014,
+            "distanceXY": 8510.073231544486,
+            "position": {
+              "x": -135.65625,
+              "y": -2311.09375,
+              "z": 376.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 639,
+        "deathKey": "2951|95294",
+        "entityIndex": 2951,
+        "clock": "24:18",
+        "timeSeconds": 1458.96875,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 8381.893595605165,
+          "nearestDistanceXY": 8369.763229189659,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 1459,
+            "absoluteTimeDeltaSeconds": 0.03125,
+            "distance3D": 8381.893595605165,
+            "distanceXY": 8369.763229189659,
+            "position": {
+              "x": -46.0625,
+              "y": -1836.875,
+              "z": 748.5
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 641,
+        "deathKey": "2882|95568",
+        "entityIndex": 2882,
+        "clock": "24:23",
+        "timeSeconds": 1463.25,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 7108.637223119624,
+          "nearestDistanceXY": 7108.504317906497,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 1463.25,
+            "absoluteTimeDeltaSeconds": 0,
+            "distance3D": 7108.637223119624,
+            "distanceXY": 7108.504317906497,
+            "position": {
+              "x": -936.28125,
+              "y": -1357.1875,
+              "z": 384.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 642,
+        "deathKey": "2834|95720",
+        "entityIndex": 2834,
+        "clock": "24:25",
+        "timeSeconds": 1465.625,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 6540.822900284843,
+          "nearestDistanceXY": 6539.722028717323,
+          "nearestPlayer": {
+            "playerName": "Snazzy314",
+            "pawnEntityIndex": 90,
+            "team": 2,
+            "playerStateTimeSeconds": 1465.5,
+            "absoluteTimeDeltaSeconds": 0.125,
+            "distance3D": 6540.822900284843,
+            "distanceXY": 6539.722028717323,
+            "position": {
+              "x": -1466.5625,
+              "y": -714.1875,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 644,
+        "deathKey": "2888|96405",
+        "entityIndex": 2888,
+        "clock": "24:36",
+        "timeSeconds": 1476.328125,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4889.218144893862,
+          "nearestDistanceXY": 4882.513089320172,
+          "nearestPlayer": {
+            "playerName": "Nebula",
+            "pawnEntityIndex": 87,
+            "team": 3,
+            "playerStateTimeSeconds": 1476.25,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 4889.218144893862,
+            "distanceXY": 4882.513089320172,
+            "position": {
+              "x": -3061.125,
+              "y": 303.375,
+              "z": 120.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 645,
+        "deathKey": "3095|96519",
+        "entityIndex": 3095,
+        "clock": "24:38",
+        "timeSeconds": 1478.109375,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5134.263498199651,
+          "nearestDistanceXY": 5134.253637583467,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 1478,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 5134.263498199651,
+            "distanceXY": 5134.253637583467,
+            "position": {
+              "x": -2681.40625,
+              "y": 536.25,
+              "z": 386.09375
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 646,
+        "deathKey": "2845|96541",
+        "entityIndex": 2845,
+        "clock": "24:38",
+        "timeSeconds": 1478.453125,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5003.539959856703,
+          "nearestDistanceXY": 5003.533564380558,
+          "nearestPlayer": {
+            "playerName": "blooop354",
+            "pawnEntityIndex": 81,
+            "team": 3,
+            "playerStateTimeSeconds": 1478.5,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 5003.539959856703,
+            "distanceXY": 5003.533564380558,
+            "position": {
+              "x": -2656.75,
+              "y": 827.125,
+              "z": 384.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 647,
+        "deathKey": "2844|96611",
+        "entityIndex": 2844,
+        "clock": "24:39",
+        "timeSeconds": 1479.546875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2000.7358377802216,
+          "nearestDistanceXY": 1904.9663980078658,
+          "nearestPlayer": {
+            "playerName": "Eriansan",
+            "pawnEntityIndex": 88,
+            "team": 2,
+            "playerStateTimeSeconds": 1479.5,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 2000.7358377802216,
+            "distanceXY": 1904.9663980078658,
+            "position": {
+              "x": 4106.8125,
+              "y": -5105.09375,
+              "z": 987.625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 649,
+        "deathKey": "3047|96809",
+        "entityIndex": 3047,
+        "clock": "24:42",
+        "timeSeconds": 1482.640625,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2411.1426431679906,
+          "nearestDistanceXY": 2386.314643980991,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 1482.75,
+            "absoluteTimeDeltaSeconds": 0.109375,
+            "distance3D": 2411.1426431679906,
+            "distanceXY": 2386.314643980991,
+            "position": {
+              "x": -2110.34375,
+              "y": 1778.09375,
+              "z": 593.15625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 657,
+        "deathKey": "2758|97062",
+        "entityIndex": 2758,
+        "clock": "24:46",
+        "timeSeconds": 1486.59375,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2809.9840385445254,
+          "nearestDistanceXY": 2809.9832350478537,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 1486.5,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 2809.9840385445254,
+            "distanceXY": 2809.9832350478537,
+            "position": {
+              "x": -2415.65625,
+              "y": 2167.21875,
+              "z": 384.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 660,
+        "deathKey": "3418|97893",
+        "entityIndex": 3418,
+        "clock": "24:59",
+        "timeSeconds": 1499.578125,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3173.454765154905,
+          "nearestDistanceXY": 2975.5438888664225,
+          "nearestPlayer": {
+            "playerName": "Goldinfer",
+            "pawnEntityIndex": 80,
+            "team": 3,
+            "playerStateTimeSeconds": 1499.5,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 3173.454765154905,
+            "distanceXY": 2975.5438888664225,
+            "position": {
+              "x": -0.1875,
+              "y": 5887.5625,
+              "z": 1479.1875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 681,
+        "deathKey": "3047|99791",
+        "entityIndex": 3047,
+        "clock": "25:29",
+        "timeSeconds": 1529.234375,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2148.402632898888,
+          "nearestDistanceXY": 1990.5819061760087,
+          "nearestPlayer": {
+            "playerName": "Yosafire Worshipper [K]",
+            "pawnEntityIndex": 89,
+            "team": 2,
+            "playerStateTimeSeconds": 1529.25,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 2148.402632898888,
+            "distanceXY": 1990.5819061760087,
+            "position": {
+              "x": -207.65625,
+              "y": -4951.21875,
+              "z": 1184.25
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 683,
+        "deathKey": "2952|100273",
+        "entityIndex": 2952,
+        "clock": "25:36",
+        "timeSeconds": 1536.765625,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2052.3586076736656,
+          "nearestDistanceXY": 2051.4303913100794,
+          "nearestPlayer": {
+            "playerName": "flem",
+            "pawnEntityIndex": 79,
+            "team": 2,
+            "playerStateTimeSeconds": 1536.75,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 2052.3586076736656,
+            "distanceXY": 2051.4303913100794,
+            "position": {
+              "x": 5451.53125,
+              "y": -2161.71875,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 686,
+        "deathKey": "3048|100422",
+        "entityIndex": 3048,
+        "clock": "25:39",
+        "timeSeconds": 1539.09375,
+        "baseType": "MELEE",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 3470.8785241624614,
+          "nearestDistanceXY": 3468.8045820593043,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 1539,
+            "absoluteTimeDeltaSeconds": 0.09375,
+            "distance3D": 3470.8785241624614,
+            "distanceXY": 3468.8045820593043,
+            "position": {
+              "x": -7187.21875,
+              "y": 722.1875,
+              "z": 128.0625
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 687,
+        "deathKey": "2835|100429",
+        "entityIndex": 2835,
+        "clock": "25:39",
+        "timeSeconds": 1539.203125,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 4,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5026.730533502399,
+          "nearestDistanceXY": 4998.854111272028,
+          "nearestPlayer": {
+            "playerName": "Goldinfer",
+            "pawnEntityIndex": 80,
+            "team": 3,
+            "playerStateTimeSeconds": 1539.25,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 5026.730533502399,
+            "distanceXY": 4998.854111272028,
+            "position": {
+              "x": -3514.6875,
+              "y": 1232.34375,
+              "z": -143.96875
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 690,
+        "deathKey": "2844|100523",
+        "entityIndex": 2844,
+        "clock": "25:40",
+        "timeSeconds": 1540.671875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 1938.874437395154,
+          "nearestDistanceXY": 1934.6508923305291,
+          "nearestPlayer": {
+            "playerName": "flem",
+            "pawnEntityIndex": 79,
+            "team": 2,
+            "playerStateTimeSeconds": 1540.75,
+            "absoluteTimeDeltaSeconds": 0.078125,
+            "distance3D": 1938.874437395154,
+            "distanceXY": 1934.6508923305291,
+            "position": {
+              "x": 6735.625,
+              "y": -2721.03125,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 694,
+        "deathKey": "2892|100739",
+        "entityIndex": 2892,
+        "clock": "25:44",
+        "timeSeconds": 1544.046875,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 3,
+        "lane": 6,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 2315.235327157304,
+          "nearestDistanceXY": 2311.6891251481297,
+          "nearestPlayer": {
+            "playerName": "flem",
+            "pawnEntityIndex": 79,
+            "team": 2,
+            "playerStateTimeSeconds": 1544,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 2315.235327157304,
+            "distanceXY": 2311.6891251481297,
+            "position": {
+              "x": 6752.4375,
+              "y": -3009.59375,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 696,
+        "deathKey": "2881|100863",
+        "entityIndex": 2881,
+        "clock": "25:45",
+        "timeSeconds": 1545.984375,
+        "baseType": "RANGED",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 5124.490993778065,
+          "nearestDistanceXY": 5124.4847492516255,
+          "nearestPlayer": {
+            "playerName": "renso",
+            "pawnEntityIndex": 86,
+            "team": 3,
+            "playerStateTimeSeconds": 1546,
+            "absoluteTimeDeltaSeconds": 0.015625,
+            "distance3D": 5124.490993778065,
+            "distanceXY": 5124.4847492516255,
+            "position": {
+              "x": -7916.40625,
+              "y": 1972.875,
+              "z": 256.03125
+            }
+          }
+        }
+      },
+      {
+        "deathIndex": 700,
+        "deathKey": "2755|101069",
+        "entityIndex": 2755,
+        "clock": "25:49",
+        "timeSeconds": 1549.203125,
+        "baseType": "MEDIC",
+        "variantLabel": "NORMAL",
+        "team": 2,
+        "lane": 1,
+        "groundSoulMatched": false,
+        "candidateActivationCount": 0,
+        "nearestTargetAttributedMelee": null,
+        "playerProximity": {
+          "nearestDistance3D": 4481.173526304417,
+          "nearestDistanceXY": 4416.701477948504,
+          "nearestPlayer": {
+            "playerName": "Goldinfer",
+            "pawnEntityIndex": 80,
+            "team": 3,
+            "playerStateTimeSeconds": 1549.25,
+            "absoluteTimeDeltaSeconds": 0.046875,
+            "distance3D": 4481.173526304417,
+            "distanceXY": 4416.701477948504,
+            "position": {
+              "x": -3944.625,
+              "y": -124.1875,
+              "z": 1075.375
+            }
+          }
+        }
+      }
+    ],
+    "matchedWithTargetAttributedMelee": []
+  },
+  "interpretationRules": {
+    "doNotCallUnmatchedMissedSoul": true,
+    "ifMeleeAssociationIsStrong": "Promote melee final-blow suppression to the next validation target using lethal damage telemetry.",
+    "ifDistanceSeparationIsStrong": "Calibrate a player-presence eligibility radius from the empirical transition rather than importing a public value.",
+    "ifBothAreWeak": "Return to entity/message discovery around unmatched deaths because AssignedGold may encode an additional unresolved mechanic."
+  },
+  "validation": {
+    "pass": false,
+    "checks": {
+      "deathRowsLoaded": {
+        "actual": 1727,
+        "expected": 1727,
+        "pass": true
+      },
+      "matchedDeaths": {
+        "actual": 1388,
+        "expected": 1388,
+        "pass": true
+      },
+      "unmatchedDeaths": {
+        "actual": 339,
+        "expected": 339,
+        "pass": true
+      },
+      "partitionIdentity": {
+        "actual": 1727,
+        "expected": 1727,
+        "pass": true
+      },
+      "meleeRowsLoaded": {
+        "actual": 0,
+        "expected": ">0",
+        "pass": false
+      },
+      "meleeTargetRowsObserved": {
+        "actual": 0,
+        "expected": ">0",
+        "pass": false
+      },
+      "playerSpatialRowsLoaded": {
+        "actual": 128500,
+        "expected": ">0",
+        "pass": true
+      },
+      "matchedPlayerProximityResolved": {
+        "actual": 1388,
+        "expected": ">0",
+        "pass": true
+      },
+      "unmatchedPlayerProximityResolved": {
+        "actual": 336,
+        "expected": ">0",
+        "pass": true
+      }
+    }
+  }
+}

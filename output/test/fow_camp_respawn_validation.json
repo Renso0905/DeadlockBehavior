@@ -1,0 +1,5155 @@
+{
+  "replay": "test",
+  "method": "Spectator CCitadelTeam FOW marker active/inactive transitions",
+  "activeDefinition": "m_bVisibleOnMap === true AND m_nPositionX/Y are nonzero",
+  "summary": {
+    "totalMarkers": 40,
+    "byTier": {
+      "SMALL": {
+        "markerCount": 4,
+        "markersWithAtLeastOneCycle": 4,
+        "markersWithExpectedTimerCycle": 4,
+        "totalCycles": 44,
+        "expectedTimerCycles": 44,
+        "delayStatistics": {
+          "count": 44,
+          "min": 84.9375,
+          "median": 85,
+          "max": 86,
+          "mean": 85.02130681818181
+        },
+        "timerLikeDelayStatistics": {
+          "count": 44,
+          "min": 84.9375,
+          "median": 85,
+          "max": 86,
+          "mean": 85.02130681818181
+        }
+      },
+      "MEDIUM": {
+        "markerCount": 24,
+        "markersWithAtLeastOneCycle": 21,
+        "markersWithExpectedTimerCycle": 21,
+        "totalCycles": 52,
+        "expectedTimerCycles": 52,
+        "delayStatistics": {
+          "count": 52,
+          "min": 289.9375,
+          "median": 290,
+          "max": 291,
+          "mean": 290.03725961538464
+        },
+        "timerLikeDelayStatistics": {
+          "count": 52,
+          "min": 289.9375,
+          "median": 290,
+          "max": 291,
+          "mean": 290.03725961538464
+        }
+      },
+      "LARGE": {
+        "markerCount": 12,
+        "markersWithAtLeastOneCycle": 11,
+        "markersWithExpectedTimerCycle": 11,
+        "totalCycles": 18,
+        "expectedTimerCycles": 18,
+        "delayStatistics": {
+          "count": 18,
+          "min": 334.9375,
+          "median": 335,
+          "max": 335.0625,
+          "mean": 335
+        },
+        "timerLikeDelayStatistics": {
+          "count": 18,
+          "min": 334.9375,
+          "median": 335,
+          "max": 335.0625,
+          "mean": 335
+        }
+      }
+    }
+  },
+  "suspectMarkers": [
+    {
+      "name": "combine_parking_garage_orange",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 99,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 10,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 44980,
+          "matchTimeSeconds": 672.8125,
+          "matchClock": "11:12",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 63536,
+          "matchTimeSeconds": 962.75,
+          "matchClock": "16:02",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 70768,
+          "matchTimeSeconds": 1075.75,
+          "matchClock": "17:55",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 89332,
+          "matchTimeSeconds": 1365.8125,
+          "matchClock": "22:45",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 139312,
+          "matchTimeSeconds": 2146.75,
+          "matchClock": "35:46",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 157876,
+          "matchTimeSeconds": 2436.8125,
+          "matchClock": "40:36",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 159920,
+          "matchTimeSeconds": 2468.75,
+          "matchClock": "41:08",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 178480,
+          "matchTimeSeconds": 2758.75,
+          "matchClock": "45:58",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 198964,
+          "matchTimeSeconds": 3078.8125,
+          "matchClock": "51:18",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 672.8125,
+          "inactiveClock": "11:12",
+          "activeTimeSeconds": 962.75,
+          "activeClock": "16:02",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1075.75,
+          "inactiveClock": "17:55",
+          "activeTimeSeconds": 1365.8125,
+          "activeClock": "22:45",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2146.75,
+          "inactiveClock": "35:46",
+          "activeTimeSeconds": 2436.8125,
+          "activeClock": "40:36",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2468.75,
+          "inactiveClock": "41:08",
+          "activeTimeSeconds": 2758.75,
+          "activeClock": "45:58",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "ne_bridge_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 69,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 8,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 50672,
+          "matchTimeSeconds": 761.75,
+          "matchClock": "12:41",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 69232,
+          "matchTimeSeconds": 1051.75,
+          "matchClock": "17:31",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 74800,
+          "matchTimeSeconds": 1138.75,
+          "matchClock": "18:58",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 93364,
+          "matchTimeSeconds": 1428.8125,
+          "matchClock": "23:48",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 151984,
+          "matchTimeSeconds": 2344.75,
+          "matchClock": "39:04",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 170548,
+          "matchTimeSeconds": 2634.8125,
+          "matchClock": "43:54",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 199600,
+          "matchTimeSeconds": 3088.75,
+          "matchClock": "51:28",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": false
+        }
+      ],
+      "cycleCount": 3,
+      "exactLikeCycleCount": 3,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 761.75,
+          "inactiveClock": "12:41",
+          "activeTimeSeconds": 1051.75,
+          "activeClock": "17:31",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1138.75,
+          "inactiveClock": "18:58",
+          "activeTimeSeconds": 1428.8125,
+          "activeClock": "23:48",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2344.75,
+          "inactiveClock": "39:04",
+          "activeTimeSeconds": 2634.8125,
+          "activeClock": "43:54",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "rebels_camp_parking_garage_blue",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 102,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 5,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 74932,
+          "matchTimeSeconds": 1140.8125,
+          "matchClock": "19:00",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 93488,
+          "matchTimeSeconds": 1430.75,
+          "matchClock": "23:50",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 101360,
+          "matchTimeSeconds": 1553.75,
+          "matchClock": "25:53",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 119920,
+          "matchTimeSeconds": 1843.75,
+          "matchClock": "30:43",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 2,
+      "exactLikeCycleCount": 2,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1140.8125,
+          "inactiveClock": "19:00",
+          "activeTimeSeconds": 1430.75,
+          "activeClock": "23:50",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1553.75,
+          "inactiveClock": "25:53",
+          "activeTimeSeconds": 1843.75,
+          "activeClock": "30:43",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "sw_bridge_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 65,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 9,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 47344,
+          "matchTimeSeconds": 709.75,
+          "matchClock": "11:49",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 65908,
+          "matchTimeSeconds": 999.8125,
+          "matchClock": "16:39",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 72688,
+          "matchTimeSeconds": 1105.75,
+          "matchClock": "18:25",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 91252,
+          "matchTimeSeconds": 1395.8125,
+          "matchClock": "23:15",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 101936,
+          "matchTimeSeconds": 1562.75,
+          "matchClock": "26:02",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 120496,
+          "matchTimeSeconds": 1852.75,
+          "matchClock": "30:52",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 130612,
+          "matchTimeSeconds": 2010.8125,
+          "matchClock": "33:30",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 149168,
+          "matchTimeSeconds": 2300.75,
+          "matchClock": "38:20",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 709.75,
+          "inactiveClock": "11:49",
+          "activeTimeSeconds": 999.8125,
+          "activeClock": "16:39",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1105.75,
+          "inactiveClock": "18:25",
+          "activeTimeSeconds": 1395.8125,
+          "activeClock": "23:15",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1562.75,
+          "inactiveClock": "26:02",
+          "activeTimeSeconds": 1852.75,
+          "activeClock": "30:52",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2010.8125,
+          "inactiveClock": "33:30",
+          "activeTimeSeconds": 2300.75,
+          "activeClock": "38:20",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    }
+  ],
+  "markers": [
+    {
+      "name": "ne_power_grid_neutrals",
+      "eClass": 34,
+      "tier": "SMALL",
+      "fowIndex": 70,
+      "expectedSpawnSeconds": 120,
+      "expectedRespawnSeconds": 85,
+      "firstActiveTimeSeconds": 120.8125,
+      "firstActiveClock": "2:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 25,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 9652,
+          "matchTimeSeconds": 120.8125,
+          "matchClock": "2:00",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 17200,
+          "matchTimeSeconds": 238.75,
+          "matchClock": "3:58",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 22640,
+          "matchTimeSeconds": 323.75,
+          "matchClock": "5:23",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 27508,
+          "matchTimeSeconds": 399.8125,
+          "matchClock": "6:39",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32944,
+          "matchTimeSeconds": 484.75,
+          "matchClock": "8:04",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 38192,
+          "matchTimeSeconds": 566.75,
+          "matchClock": "9:26",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 43636,
+          "matchTimeSeconds": 651.8125,
+          "matchClock": "10:51",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 63344,
+          "matchTimeSeconds": 959.75,
+          "matchClock": "15:59",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 68788,
+          "matchTimeSeconds": 1044.8125,
+          "matchClock": "17:24",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 70768,
+          "matchTimeSeconds": 1075.75,
+          "matchClock": "17:55",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 76208,
+          "matchTimeSeconds": 1160.75,
+          "matchClock": "19:20",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 81076,
+          "matchTimeSeconds": 1236.8125,
+          "matchClock": "20:36",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 86512,
+          "matchTimeSeconds": 1321.75,
+          "matchClock": "22:01",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 89908,
+          "matchTimeSeconds": 1374.8125,
+          "matchClock": "22:54",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 95344,
+          "matchTimeSeconds": 1459.75,
+          "matchClock": "24:19",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 102832,
+          "matchTimeSeconds": 1576.75,
+          "matchClock": "26:16",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 108272,
+          "matchTimeSeconds": 1661.75,
+          "matchClock": "27:41",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 110384,
+          "matchTimeSeconds": 1694.75,
+          "matchClock": "28:14",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 115888,
+          "matchTimeSeconds": 1780.75,
+          "matchClock": "29:40",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 120628,
+          "matchTimeSeconds": 1854.8125,
+          "matchClock": "30:54",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 126064,
+          "matchTimeSeconds": 1939.75,
+          "matchClock": "32:19",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 154612,
+          "matchTimeSeconds": 2385.8125,
+          "matchClock": "39:45",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 160048,
+          "matchTimeSeconds": 2470.75,
+          "matchClock": "41:10",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 160624,
+          "matchTimeSeconds": 2479.75,
+          "matchClock": "41:19",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 166064,
+          "matchTimeSeconds": 2564.75,
+          "matchClock": "42:44",
+          "positionX": 212,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 12,
+      "exactLikeCycleCount": 12,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 238.75,
+          "inactiveClock": "3:58",
+          "activeTimeSeconds": 323.75,
+          "activeClock": "5:23",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 399.8125,
+          "inactiveClock": "6:39",
+          "activeTimeSeconds": 484.75,
+          "activeClock": "8:04",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 566.75,
+          "inactiveClock": "9:26",
+          "activeTimeSeconds": 651.8125,
+          "activeClock": "10:51",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 959.75,
+          "inactiveClock": "15:59",
+          "activeTimeSeconds": 1044.8125,
+          "activeClock": "17:24",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1075.75,
+          "inactiveClock": "17:55",
+          "activeTimeSeconds": 1160.75,
+          "activeClock": "19:20",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1236.8125,
+          "inactiveClock": "20:36",
+          "activeTimeSeconds": 1321.75,
+          "activeClock": "22:01",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1374.8125,
+          "inactiveClock": "22:54",
+          "activeTimeSeconds": 1459.75,
+          "activeClock": "24:19",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1576.75,
+          "inactiveClock": "26:16",
+          "activeTimeSeconds": 1661.75,
+          "activeClock": "27:41",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1694.75,
+          "inactiveClock": "28:14",
+          "activeTimeSeconds": 1780.75,
+          "activeClock": "29:40",
+          "delaySeconds": 86,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 1,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1854.8125,
+          "inactiveClock": "30:54",
+          "activeTimeSeconds": 1939.75,
+          "activeClock": "32:19",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2385.8125,
+          "inactiveClock": "39:45",
+          "activeTimeSeconds": 2470.75,
+          "activeClock": "41:10",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2479.75,
+          "inactiveClock": "41:19",
+          "activeTimeSeconds": 2564.75,
+          "activeClock": "42:44",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "nw_utility_south_neutrals",
+      "eClass": 34,
+      "tier": "SMALL",
+      "fowIndex": 97,
+      "expectedSpawnSeconds": 120,
+      "expectedRespawnSeconds": 85,
+      "firstActiveTimeSeconds": 120.8125,
+      "firstActiveClock": "2:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 27,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 9652,
+          "matchTimeSeconds": 120.8125,
+          "matchClock": "2:00",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 15796,
+          "matchTimeSeconds": 216.8125,
+          "matchClock": "3:36",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21232,
+          "matchTimeSeconds": 301.75,
+          "matchClock": "5:01",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 22576,
+          "matchTimeSeconds": 322.75,
+          "matchClock": "5:22",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 28016,
+          "matchTimeSeconds": 407.75,
+          "matchClock": "6:47",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 35056,
+          "matchTimeSeconds": 517.75,
+          "matchClock": "8:37",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 40496,
+          "matchTimeSeconds": 602.75,
+          "matchClock": "10:02",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 42100,
+          "matchTimeSeconds": 627.8125,
+          "matchClock": "10:27",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 47536,
+          "matchTimeSeconds": 712.75,
+          "matchClock": "11:52",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 52784,
+          "matchTimeSeconds": 794.75,
+          "matchClock": "13:14",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 58228,
+          "matchTimeSeconds": 879.8125,
+          "matchClock": "14:39",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 61424,
+          "matchTimeSeconds": 929.75,
+          "matchClock": "15:29",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 66868,
+          "matchTimeSeconds": 1014.8125,
+          "matchClock": "16:54",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 70832,
+          "matchTimeSeconds": 1076.75,
+          "matchClock": "17:56",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 76276,
+          "matchTimeSeconds": 1161.8125,
+          "matchClock": "19:21",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 78448,
+          "matchTimeSeconds": 1195.75,
+          "matchClock": "19:55",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 83888,
+          "matchTimeSeconds": 1280.75,
+          "matchClock": "21:20",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 87856,
+          "matchTimeSeconds": 1342.75,
+          "matchClock": "22:22",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 93296,
+          "matchTimeSeconds": 1427.75,
+          "matchClock": "23:47",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 99184,
+          "matchTimeSeconds": 1519.75,
+          "matchClock": "25:19",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 104624,
+          "matchTimeSeconds": 1604.75,
+          "matchClock": "26:44",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 139120,
+          "matchTimeSeconds": 2143.75,
+          "matchClock": "35:43",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 144560,
+          "matchTimeSeconds": 2228.75,
+          "matchClock": "37:08",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 150772,
+          "matchTimeSeconds": 2325.8125,
+          "matchClock": "38:45",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 156208,
+          "matchTimeSeconds": 2410.75,
+          "matchClock": "40:10",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 170800,
+          "matchTimeSeconds": 2638.75,
+          "matchClock": "43:58",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 176240,
+          "matchTimeSeconds": 2723.75,
+          "matchClock": "45:23",
+          "positionX": 110,
+          "positionY": 138,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 13,
+      "exactLikeCycleCount": 13,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 216.8125,
+          "inactiveClock": "3:36",
+          "activeTimeSeconds": 301.75,
+          "activeClock": "5:01",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 322.75,
+          "inactiveClock": "5:22",
+          "activeTimeSeconds": 407.75,
+          "activeClock": "6:47",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 517.75,
+          "inactiveClock": "8:37",
+          "activeTimeSeconds": 602.75,
+          "activeClock": "10:02",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 627.8125,
+          "inactiveClock": "10:27",
+          "activeTimeSeconds": 712.75,
+          "activeClock": "11:52",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 794.75,
+          "inactiveClock": "13:14",
+          "activeTimeSeconds": 879.8125,
+          "activeClock": "14:39",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 929.75,
+          "inactiveClock": "15:29",
+          "activeTimeSeconds": 1014.8125,
+          "activeClock": "16:54",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1076.75,
+          "inactiveClock": "17:56",
+          "activeTimeSeconds": 1161.8125,
+          "activeClock": "19:21",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1195.75,
+          "inactiveClock": "19:55",
+          "activeTimeSeconds": 1280.75,
+          "activeClock": "21:20",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1342.75,
+          "inactiveClock": "22:22",
+          "activeTimeSeconds": 1427.75,
+          "activeClock": "23:47",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1519.75,
+          "inactiveClock": "25:19",
+          "activeTimeSeconds": 1604.75,
+          "activeClock": "26:44",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2143.75,
+          "inactiveClock": "35:43",
+          "activeTimeSeconds": 2228.75,
+          "activeClock": "37:08",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2325.8125,
+          "inactiveClock": "38:45",
+          "activeTimeSeconds": 2410.75,
+          "activeClock": "40:10",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2638.75,
+          "inactiveClock": "43:58",
+          "activeTimeSeconds": 2723.75,
+          "activeClock": "45:23",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "se_utility_neutrals",
+      "eClass": 34,
+      "tier": "SMALL",
+      "fowIndex": 98,
+      "expectedSpawnSeconds": 120,
+      "expectedRespawnSeconds": 85,
+      "firstActiveTimeSeconds": 120.8125,
+      "firstActiveClock": "2:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 21,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 9652,
+          "matchTimeSeconds": 120.8125,
+          "matchClock": "2:00",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 10612,
+          "matchTimeSeconds": 135.8125,
+          "matchClock": "2:15",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 16048,
+          "matchTimeSeconds": 220.75,
+          "matchClock": "3:40",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 22768,
+          "matchTimeSeconds": 325.75,
+          "matchClock": "5:25",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 28208,
+          "matchTimeSeconds": 410.75,
+          "matchClock": "6:50",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 33392,
+          "matchTimeSeconds": 491.75,
+          "matchClock": "8:11",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 38836,
+          "matchTimeSeconds": 576.8125,
+          "matchClock": "9:36",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 42160,
+          "matchTimeSeconds": 628.75,
+          "matchClock": "10:28",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 47600,
+          "matchTimeSeconds": 713.75,
+          "matchClock": "11:53",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 55156,
+          "matchTimeSeconds": 831.8125,
+          "matchClock": "13:51",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 60592,
+          "matchTimeSeconds": 916.75,
+          "matchClock": "15:16",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 62960,
+          "matchTimeSeconds": 953.75,
+          "matchClock": "15:53",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 68404,
+          "matchTimeSeconds": 1038.8125,
+          "matchClock": "17:18",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 72176,
+          "matchTimeSeconds": 1097.75,
+          "matchClock": "18:17",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 77620,
+          "matchTimeSeconds": 1182.8125,
+          "matchClock": "19:42",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 87796,
+          "matchTimeSeconds": 1341.8125,
+          "matchClock": "22:21",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 93232,
+          "matchTimeSeconds": 1426.75,
+          "matchClock": "23:46",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 119024,
+          "matchTimeSeconds": 1829.75,
+          "matchClock": "30:29",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 124468,
+          "matchTimeSeconds": 1914.8125,
+          "matchClock": "31:54",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 160496,
+          "matchTimeSeconds": 2477.75,
+          "matchClock": "41:17",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 165940,
+          "matchTimeSeconds": 2562.8125,
+          "matchClock": "42:42",
+          "positionX": 144,
+          "positionY": 115,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 10,
+      "exactLikeCycleCount": 10,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 135.8125,
+          "inactiveClock": "2:15",
+          "activeTimeSeconds": 220.75,
+          "activeClock": "3:40",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 325.75,
+          "inactiveClock": "5:25",
+          "activeTimeSeconds": 410.75,
+          "activeClock": "6:50",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 491.75,
+          "inactiveClock": "8:11",
+          "activeTimeSeconds": 576.8125,
+          "activeClock": "9:36",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 628.75,
+          "inactiveClock": "10:28",
+          "activeTimeSeconds": 713.75,
+          "activeClock": "11:53",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 831.8125,
+          "inactiveClock": "13:51",
+          "activeTimeSeconds": 916.75,
+          "activeClock": "15:16",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 953.75,
+          "inactiveClock": "15:53",
+          "activeTimeSeconds": 1038.8125,
+          "activeClock": "17:18",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1097.75,
+          "inactiveClock": "18:17",
+          "activeTimeSeconds": 1182.8125,
+          "activeClock": "19:42",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1341.8125,
+          "inactiveClock": "22:21",
+          "activeTimeSeconds": 1426.75,
+          "activeClock": "23:46",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1829.75,
+          "inactiveClock": "30:29",
+          "activeTimeSeconds": 1914.8125,
+          "activeClock": "31:54",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2477.75,
+          "inactiveClock": "41:17",
+          "activeTimeSeconds": 2562.8125,
+          "activeClock": "42:42",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "sw_power_grid_neutrals",
+      "eClass": 34,
+      "tier": "SMALL",
+      "fowIndex": 66,
+      "expectedSpawnSeconds": 120,
+      "expectedRespawnSeconds": 85,
+      "firstActiveTimeSeconds": 120.8125,
+      "firstActiveClock": "2:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 19,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 9652,
+          "matchTimeSeconds": 120.8125,
+          "matchClock": "2:00",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 13300,
+          "matchTimeSeconds": 177.8125,
+          "matchClock": "2:57",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 18736,
+          "matchTimeSeconds": 262.75,
+          "matchClock": "4:22",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 25012,
+          "matchTimeSeconds": 360.8125,
+          "matchClock": "6:00",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 30448,
+          "matchTimeSeconds": 445.75,
+          "matchClock": "7:25",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 35056,
+          "matchTimeSeconds": 517.75,
+          "matchClock": "8:37",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 40496,
+          "matchTimeSeconds": 602.75,
+          "matchClock": "10:02",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 41456,
+          "matchTimeSeconds": 617.75,
+          "matchClock": "10:17",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 46900,
+          "matchTimeSeconds": 702.8125,
+          "matchClock": "11:42",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 63220,
+          "matchTimeSeconds": 957.8125,
+          "matchClock": "15:57",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 68656,
+          "matchTimeSeconds": 1042.75,
+          "matchClock": "17:22",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 74096,
+          "matchTimeSeconds": 1127.75,
+          "matchClock": "18:47",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 79540,
+          "matchTimeSeconds": 1212.8125,
+          "matchClock": "20:12",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 102256,
+          "matchTimeSeconds": 1567.75,
+          "matchClock": "26:07",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 107696,
+          "matchTimeSeconds": 1652.75,
+          "matchClock": "27:32",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 111280,
+          "matchTimeSeconds": 1708.75,
+          "matchClock": "28:28",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 116720,
+          "matchTimeSeconds": 1793.75,
+          "matchClock": "29:53",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 163568,
+          "matchTimeSeconds": 2525.75,
+          "matchClock": "42:05",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 169012,
+          "matchTimeSeconds": 2610.8125,
+          "matchClock": "43:30",
+          "positionX": 42,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 9,
+      "exactLikeCycleCount": 9,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 177.8125,
+          "inactiveClock": "2:57",
+          "activeTimeSeconds": 262.75,
+          "activeClock": "4:22",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 360.8125,
+          "inactiveClock": "6:00",
+          "activeTimeSeconds": 445.75,
+          "activeClock": "7:25",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 517.75,
+          "inactiveClock": "8:37",
+          "activeTimeSeconds": 602.75,
+          "activeClock": "10:02",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 617.75,
+          "inactiveClock": "10:17",
+          "activeTimeSeconds": 702.8125,
+          "activeClock": "11:42",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 957.8125,
+          "inactiveClock": "15:57",
+          "activeTimeSeconds": 1042.75,
+          "activeClock": "17:22",
+          "delaySeconds": 84.9375,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1127.75,
+          "inactiveClock": "18:47",
+          "activeTimeSeconds": 1212.8125,
+          "activeClock": "20:12",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1567.75,
+          "inactiveClock": "26:07",
+          "activeTimeSeconds": 1652.75,
+          "activeClock": "27:32",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1708.75,
+          "inactiveClock": "28:28",
+          "activeTimeSeconds": 1793.75,
+          "activeClock": "29:53",
+          "delaySeconds": 85,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2525.75,
+          "inactiveClock": "42:05",
+          "activeTimeSeconds": 2610.8125,
+          "activeClock": "43:30",
+          "delaySeconds": 85.0625,
+          "expectedRespawnSeconds": 85,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "chinatown_tunnel_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 86,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 9,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 153,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 61492,
+          "matchTimeSeconds": 930.8125,
+          "matchClock": "15:30",
+          "positionX": 153,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 80048,
+          "matchTimeSeconds": 1220.75,
+          "matchClock": "20:20",
+          "positionX": 153,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 86576,
+          "matchTimeSeconds": 1322.75,
+          "matchClock": "22:02",
+          "positionX": 153,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 105136,
+          "matchTimeSeconds": 1612.75,
+          "matchClock": "26:52",
+          "positionX": 153,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 121012,
+          "matchTimeSeconds": 1860.8125,
+          "matchClock": "31:00",
+          "positionX": 153,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 139568,
+          "matchTimeSeconds": 2150.75,
+          "matchClock": "35:50",
+          "positionX": 153,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 148720,
+          "matchTimeSeconds": 2293.75,
+          "matchClock": "38:13",
+          "positionX": 153,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 167284,
+          "matchTimeSeconds": 2583.8125,
+          "matchClock": "43:03",
+          "positionX": 153,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 930.8125,
+          "inactiveClock": "15:30",
+          "activeTimeSeconds": 1220.75,
+          "activeClock": "20:20",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1322.75,
+          "inactiveClock": "22:02",
+          "activeTimeSeconds": 1612.75,
+          "activeClock": "26:52",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1860.8125,
+          "inactiveClock": "31:00",
+          "activeTimeSeconds": 2150.75,
+          "activeClock": "35:50",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2293.75,
+          "inactiveClock": "38:13",
+          "activeTimeSeconds": 2583.8125,
+          "activeClock": "43:03",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "combine_parking_garage_blue",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 110,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 9,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 150,
+          "positionY": 137,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 25588,
+          "matchTimeSeconds": 369.8125,
+          "matchClock": "6:09",
+          "positionX": 150,
+          "positionY": 137,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 44144,
+          "matchTimeSeconds": 659.75,
+          "matchClock": "10:59",
+          "positionX": 150,
+          "positionY": 137,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 58096,
+          "matchTimeSeconds": 877.75,
+          "matchClock": "14:37",
+          "positionX": 150,
+          "positionY": 137,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 76660,
+          "matchTimeSeconds": 1167.8125,
+          "matchClock": "19:27",
+          "positionX": 150,
+          "positionY": 137,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 86896,
+          "matchTimeSeconds": 1327.75,
+          "matchClock": "22:07",
+          "positionX": 150,
+          "positionY": 137,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 105460,
+          "matchTimeSeconds": 1617.8125,
+          "matchClock": "26:57",
+          "positionX": 150,
+          "positionY": 137,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 140528,
+          "matchTimeSeconds": 2165.75,
+          "matchClock": "36:05",
+          "positionX": 150,
+          "positionY": 137,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 159088,
+          "matchTimeSeconds": 2455.75,
+          "matchClock": "40:55",
+          "positionX": 150,
+          "positionY": 137,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 369.8125,
+          "inactiveClock": "6:09",
+          "activeTimeSeconds": 659.75,
+          "activeClock": "10:59",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 877.75,
+          "inactiveClock": "14:37",
+          "activeTimeSeconds": 1167.8125,
+          "activeClock": "19:27",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1327.75,
+          "inactiveClock": "22:07",
+          "activeTimeSeconds": 1617.8125,
+          "activeClock": "26:57",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2165.75,
+          "inactiveClock": "36:05",
+          "activeTimeSeconds": 2455.75,
+          "activeClock": "40:55",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "combine_parking_garage_orange",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 99,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 10,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 44980,
+          "matchTimeSeconds": 672.8125,
+          "matchClock": "11:12",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 63536,
+          "matchTimeSeconds": 962.75,
+          "matchClock": "16:02",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 70768,
+          "matchTimeSeconds": 1075.75,
+          "matchClock": "17:55",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 89332,
+          "matchTimeSeconds": 1365.8125,
+          "matchClock": "22:45",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 139312,
+          "matchTimeSeconds": 2146.75,
+          "matchClock": "35:46",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 157876,
+          "matchTimeSeconds": 2436.8125,
+          "matchClock": "40:36",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 159920,
+          "matchTimeSeconds": 2468.75,
+          "matchClock": "41:08",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 178480,
+          "matchTimeSeconds": 2758.75,
+          "matchClock": "45:58",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 198964,
+          "matchTimeSeconds": 3078.8125,
+          "matchClock": "51:18",
+          "positionX": 165,
+          "positionY": 141,
+          "hasPosition": true,
+          "visible": false
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 672.8125,
+          "inactiveClock": "11:12",
+          "activeTimeSeconds": 962.75,
+          "activeClock": "16:02",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1075.75,
+          "inactiveClock": "17:55",
+          "activeTimeSeconds": 1365.8125,
+          "activeClock": "22:45",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2146.75,
+          "inactiveClock": "35:46",
+          "activeTimeSeconds": 2436.8125,
+          "activeClock": "40:36",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2468.75,
+          "inactiveClock": "41:08",
+          "activeTimeSeconds": 2758.75,
+          "activeClock": "45:58",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "financial_tunnel_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 87,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 5,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 100,
+          "positionY": 170,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 67888,
+          "matchTimeSeconds": 1030.75,
+          "matchClock": "17:10",
+          "positionX": 100,
+          "positionY": 170,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 86452,
+          "matchTimeSeconds": 1320.8125,
+          "matchClock": "22:00",
+          "positionX": 100,
+          "positionY": 170,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 142256,
+          "matchTimeSeconds": 2192.75,
+          "matchClock": "36:32",
+          "positionX": 100,
+          "positionY": 170,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 160816,
+          "matchTimeSeconds": 2482.75,
+          "matchClock": "41:22",
+          "positionX": 100,
+          "positionY": 170,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 2,
+      "exactLikeCycleCount": 2,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1030.75,
+          "inactiveClock": "17:10",
+          "activeTimeSeconds": 1320.8125,
+          "activeClock": "22:00",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2192.75,
+          "inactiveClock": "36:32",
+          "activeTimeSeconds": 2482.75,
+          "activeClock": "41:22",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "industrial_tunnel_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 89,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 100,
+          "positionY": 68,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 61684,
+          "matchTimeSeconds": 933.8125,
+          "matchClock": "15:33",
+          "positionX": 100,
+          "positionY": 68,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 80240,
+          "matchTimeSeconds": 1223.75,
+          "matchClock": "20:23",
+          "positionX": 100,
+          "positionY": 68,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 933.8125,
+          "inactiveClock": "15:33",
+          "activeTimeSeconds": 1223.75,
+          "activeClock": "20:23",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "ne_bridge_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 69,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 8,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 50672,
+          "matchTimeSeconds": 761.75,
+          "matchClock": "12:41",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 69232,
+          "matchTimeSeconds": 1051.75,
+          "matchClock": "17:31",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 74800,
+          "matchTimeSeconds": 1138.75,
+          "matchClock": "18:58",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 93364,
+          "matchTimeSeconds": 1428.8125,
+          "matchClock": "23:48",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 151984,
+          "matchTimeSeconds": 2344.75,
+          "matchClock": "39:04",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 170548,
+          "matchTimeSeconds": 2634.8125,
+          "matchClock": "43:54",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 199600,
+          "matchTimeSeconds": 3088.75,
+          "matchClock": "51:28",
+          "positionX": 172,
+          "positionY": 144,
+          "hasPosition": true,
+          "visible": false
+        }
+      ],
+      "cycleCount": 3,
+      "exactLikeCycleCount": 3,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 761.75,
+          "inactiveClock": "12:41",
+          "activeTimeSeconds": 1051.75,
+          "activeClock": "17:31",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1138.75,
+          "inactiveClock": "18:58",
+          "activeTimeSeconds": 1428.8125,
+          "activeClock": "23:48",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2344.75,
+          "inactiveClock": "39:04",
+          "activeTimeSeconds": 2634.8125,
+          "activeClock": "43:54",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "ne_mansion_ext_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 95,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 207,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 74992,
+          "matchTimeSeconds": 1141.75,
+          "matchClock": "19:01",
+          "positionX": 207,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 93556,
+          "matchTimeSeconds": 1431.8125,
+          "matchClock": "23:51",
+          "positionX": 207,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1141.75,
+          "inactiveClock": "19:01",
+          "activeTimeSeconds": 1431.8125,
+          "activeClock": "23:51",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "ne_theater_downstairs_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 83,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 186,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 76276,
+          "matchTimeSeconds": 1161.8125,
+          "matchClock": "19:21",
+          "positionX": 186,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 94832,
+          "matchTimeSeconds": 1451.75,
+          "matchClock": "24:11",
+          "positionX": 186,
+          "positionY": 142,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1161.8125,
+          "inactiveClock": "19:21",
+          "activeTimeSeconds": 1451.75,
+          "activeClock": "24:11",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "ne_theater_upstairs_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 94,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 1,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 192,
+          "positionY": 173,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 0,
+      "exactLikeCycleCount": 0,
+      "cycles": []
+    },
+    {
+      "name": "nw_bank_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 61,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 1,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 34,
+          "positionY": 181,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 0,
+      "exactLikeCycleCount": 0,
+      "cycles": []
+    },
+    {
+      "name": "nw_chapel_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 71,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 9,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 33,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 58804,
+          "matchTimeSeconds": 888.8125,
+          "matchClock": "14:48",
+          "positionX": 33,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 77360,
+          "matchTimeSeconds": 1178.75,
+          "matchClock": "19:38",
+          "positionX": 33,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 79088,
+          "matchTimeSeconds": 1205.75,
+          "matchClock": "20:05",
+          "positionX": 33,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 97712,
+          "matchTimeSeconds": 1496.75,
+          "matchClock": "24:56",
+          "positionX": 33,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 101044,
+          "matchTimeSeconds": 1548.8125,
+          "matchClock": "25:48",
+          "positionX": 33,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 119600,
+          "matchTimeSeconds": 1838.75,
+          "matchClock": "30:38",
+          "positionX": 33,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 150964,
+          "matchTimeSeconds": 2328.8125,
+          "matchClock": "38:48",
+          "positionX": 33,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 169520,
+          "matchTimeSeconds": 2618.75,
+          "matchClock": "43:38",
+          "positionX": 33,
+          "positionY": 153,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 888.8125,
+          "inactiveClock": "14:48",
+          "activeTimeSeconds": 1178.75,
+          "activeClock": "19:38",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1205.75,
+          "inactiveClock": "20:05",
+          "activeTimeSeconds": 1496.75,
+          "activeClock": "24:56",
+          "delaySeconds": 291,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 1,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1548.8125,
+          "inactiveClock": "25:48",
+          "activeTimeSeconds": 1838.75,
+          "activeClock": "30:38",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2328.8125,
+          "inactiveClock": "38:48",
+          "activeTimeSeconds": 2618.75,
+          "activeClock": "43:38",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "nw_market_downstairs_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 76,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 7,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 74,
+          "positionY": 150,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 66224,
+          "matchTimeSeconds": 1004.75,
+          "matchClock": "16:44",
+          "positionX": 74,
+          "positionY": 150,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 84784,
+          "matchTimeSeconds": 1294.75,
+          "matchClock": "21:34",
+          "positionX": 74,
+          "positionY": 150,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 90100,
+          "matchTimeSeconds": 1377.8125,
+          "matchClock": "22:57",
+          "positionX": 74,
+          "positionY": 150,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 108656,
+          "matchTimeSeconds": 1667.75,
+          "matchClock": "27:47",
+          "positionX": 74,
+          "positionY": 150,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 109936,
+          "matchTimeSeconds": 1687.75,
+          "matchClock": "28:07",
+          "positionX": 74,
+          "positionY": 150,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 128500,
+          "matchTimeSeconds": 1977.8125,
+          "matchClock": "32:57",
+          "positionX": 74,
+          "positionY": 150,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 3,
+      "exactLikeCycleCount": 3,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1004.75,
+          "inactiveClock": "16:44",
+          "activeTimeSeconds": 1294.75,
+          "activeClock": "21:34",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1377.8125,
+          "inactiveClock": "22:57",
+          "activeTimeSeconds": 1667.75,
+          "activeClock": "27:47",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1687.75,
+          "inactiveClock": "28:07",
+          "activeTimeSeconds": 1977.8125,
+          "activeClock": "32:57",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "nw_market_upstairs_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 91,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 1,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 59,
+          "positionY": 147,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 0,
+      "exactLikeCycleCount": 0,
+      "cycles": []
+    },
+    {
+      "name": "rebels_camp_parking_garage_blue",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 102,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 5,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 74932,
+          "matchTimeSeconds": 1140.8125,
+          "matchClock": "19:00",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 93488,
+          "matchTimeSeconds": 1430.75,
+          "matchClock": "23:50",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 101360,
+          "matchTimeSeconds": 1553.75,
+          "matchClock": "25:53",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 119920,
+          "matchTimeSeconds": 1843.75,
+          "matchClock": "30:43",
+          "positionX": 89,
+          "positionY": 113,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 2,
+      "exactLikeCycleCount": 2,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1140.8125,
+          "inactiveClock": "19:00",
+          "activeTimeSeconds": 1430.75,
+          "activeClock": "23:50",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1553.75,
+          "inactiveClock": "25:53",
+          "activeTimeSeconds": 1843.75,
+          "activeClock": "30:43",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "rebels_camp_parking_garage_orange",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 109,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 9,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 104,
+          "positionY": 117,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 35504,
+          "matchTimeSeconds": 524.75,
+          "matchClock": "8:44",
+          "positionX": 104,
+          "positionY": 117,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 54064,
+          "matchTimeSeconds": 814.75,
+          "matchClock": "13:34",
+          "positionX": 104,
+          "positionY": 117,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 61108,
+          "matchTimeSeconds": 924.8125,
+          "matchClock": "15:24",
+          "positionX": 104,
+          "positionY": 117,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 79664,
+          "matchTimeSeconds": 1214.75,
+          "matchClock": "20:14",
+          "positionX": 104,
+          "positionY": 117,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 137008,
+          "matchTimeSeconds": 2110.75,
+          "matchClock": "35:10",
+          "positionX": 104,
+          "positionY": 117,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 155572,
+          "matchTimeSeconds": 2400.8125,
+          "matchClock": "40:00",
+          "positionX": 104,
+          "positionY": 117,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 172208,
+          "matchTimeSeconds": 2660.75,
+          "matchClock": "44:20",
+          "positionX": 104,
+          "positionY": 117,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 190832,
+          "matchTimeSeconds": 2951.75,
+          "matchClock": "49:11",
+          "positionX": 104,
+          "positionY": 117,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 524.75,
+          "inactiveClock": "8:44",
+          "activeTimeSeconds": 814.75,
+          "activeClock": "13:34",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 924.8125,
+          "inactiveClock": "15:24",
+          "activeTimeSeconds": 1214.75,
+          "activeClock": "20:14",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2110.75,
+          "inactiveClock": "35:10",
+          "activeTimeSeconds": 2400.8125,
+          "activeClock": "40:00",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2660.75,
+          "inactiveClock": "44:20",
+          "activeTimeSeconds": 2951.75,
+          "activeClock": "49:11",
+          "delaySeconds": 291,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 1,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "se_arcade_downstairs_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 78,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 7,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 180,
+          "positionY": 104,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 73396,
+          "matchTimeSeconds": 1116.8125,
+          "matchClock": "18:36",
+          "positionX": 180,
+          "positionY": 104,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 91952,
+          "matchTimeSeconds": 1406.75,
+          "matchClock": "23:26",
+          "positionX": 180,
+          "positionY": 104,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 120304,
+          "matchTimeSeconds": 1849.75,
+          "matchClock": "30:49",
+          "positionX": 180,
+          "positionY": 104,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 138868,
+          "matchTimeSeconds": 2139.8125,
+          "matchClock": "35:39",
+          "positionX": 180,
+          "positionY": 104,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 150064,
+          "matchTimeSeconds": 2314.75,
+          "matchClock": "38:34",
+          "positionX": 180,
+          "positionY": 104,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 168628,
+          "matchTimeSeconds": 2604.8125,
+          "matchClock": "43:24",
+          "positionX": 180,
+          "positionY": 104,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 3,
+      "exactLikeCycleCount": 3,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1116.8125,
+          "inactiveClock": "18:36",
+          "activeTimeSeconds": 1406.75,
+          "activeClock": "23:26",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1849.75,
+          "inactiveClock": "30:49",
+          "activeTimeSeconds": 2139.8125,
+          "activeClock": "35:39",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2314.75,
+          "inactiveClock": "38:34",
+          "activeTimeSeconds": 2604.8125,
+          "activeClock": "43:24",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "se_arcade_upstairs_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 90,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 195,
+          "positionY": 107,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 49328,
+          "matchTimeSeconds": 740.75,
+          "matchClock": "12:20",
+          "positionX": 195,
+          "positionY": 107,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 67888,
+          "matchTimeSeconds": 1030.75,
+          "matchClock": "17:10",
+          "positionX": 195,
+          "positionY": 107,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 740.75,
+          "inactiveClock": "12:20",
+          "activeTimeSeconds": 1030.75,
+          "activeClock": "17:10",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "se_chapel_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 67,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 9,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 221,
+          "positionY": 100,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 26864,
+          "matchTimeSeconds": 389.75,
+          "matchClock": "6:29",
+          "positionX": 221,
+          "positionY": 100,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 45424,
+          "matchTimeSeconds": 679.75,
+          "matchClock": "11:19",
+          "positionX": 221,
+          "positionY": 100,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 65968,
+          "matchTimeSeconds": 1000.75,
+          "matchClock": "16:40",
+          "positionX": 221,
+          "positionY": 100,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 84532,
+          "matchTimeSeconds": 1290.8125,
+          "matchClock": "21:30",
+          "positionX": 221,
+          "positionY": 100,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 93940,
+          "matchTimeSeconds": 1437.8125,
+          "matchClock": "23:57",
+          "positionX": 221,
+          "positionY": 100,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 112496,
+          "matchTimeSeconds": 1727.75,
+          "matchClock": "28:47",
+          "positionX": 221,
+          "positionY": 100,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 162352,
+          "matchTimeSeconds": 2506.75,
+          "matchClock": "41:46",
+          "positionX": 221,
+          "positionY": 100,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 180916,
+          "matchTimeSeconds": 2796.8125,
+          "matchClock": "46:36",
+          "positionX": 221,
+          "positionY": 100,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 389.75,
+          "inactiveClock": "6:29",
+          "activeTimeSeconds": 679.75,
+          "activeClock": "11:19",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1000.75,
+          "inactiveClock": "16:40",
+          "activeTimeSeconds": 1290.8125,
+          "activeClock": "21:30",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1437.8125,
+          "inactiveClock": "23:57",
+          "activeTimeSeconds": 1727.75,
+          "activeClock": "28:47",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2506.75,
+          "inactiveClock": "41:46",
+          "activeTimeSeconds": 2796.8125,
+          "activeClock": "46:36",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "sw_asylum_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 62,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 221,
+          "positionY": 73,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 81652,
+          "matchTimeSeconds": 1245.8125,
+          "matchClock": "20:45",
+          "positionX": 221,
+          "positionY": 73,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 100208,
+          "matchTimeSeconds": 1535.75,
+          "matchClock": "25:35",
+          "positionX": 221,
+          "positionY": 73,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1245.8125,
+          "inactiveClock": "20:45",
+          "activeTimeSeconds": 1535.75,
+          "activeClock": "25:35",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "sw_bodega_downstairs_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 84,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 68,
+          "positionY": 108,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 69872,
+          "matchTimeSeconds": 1061.75,
+          "matchClock": "17:41",
+          "positionX": 68,
+          "positionY": 108,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 88432,
+          "matchTimeSeconds": 1351.75,
+          "matchClock": "22:31",
+          "positionX": 68,
+          "positionY": 108,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1061.75,
+          "inactiveClock": "17:41",
+          "activeTimeSeconds": 1351.75,
+          "activeClock": "22:31",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "sw_bodega_upstairs_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 93,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 5,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 62,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 57392,
+          "matchTimeSeconds": 866.75,
+          "matchClock": "14:26",
+          "positionX": 62,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 75952,
+          "matchTimeSeconds": 1156.75,
+          "matchClock": "19:16",
+          "positionX": 62,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 162484,
+          "matchTimeSeconds": 2508.8125,
+          "matchClock": "41:48",
+          "positionX": 62,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 181040,
+          "matchTimeSeconds": 2798.75,
+          "matchClock": "46:38",
+          "positionX": 62,
+          "positionY": 81,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 2,
+      "exactLikeCycleCount": 2,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 866.75,
+          "inactiveClock": "14:26",
+          "activeTimeSeconds": 1156.75,
+          "activeClock": "19:16",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2508.8125,
+          "inactiveClock": "41:48",
+          "activeTimeSeconds": 2798.75,
+          "activeClock": "46:38",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "sw_bridge_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 65,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 9,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 47344,
+          "matchTimeSeconds": 709.75,
+          "matchClock": "11:49",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 65908,
+          "matchTimeSeconds": 999.8125,
+          "matchClock": "16:39",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 72688,
+          "matchTimeSeconds": 1105.75,
+          "matchClock": "18:25",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 91252,
+          "matchTimeSeconds": 1395.8125,
+          "matchClock": "23:15",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 101936,
+          "matchTimeSeconds": 1562.75,
+          "matchClock": "26:02",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 120496,
+          "matchTimeSeconds": 1852.75,
+          "matchClock": "30:52",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 130612,
+          "matchTimeSeconds": 2010.8125,
+          "matchClock": "33:30",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 149168,
+          "matchTimeSeconds": 2300.75,
+          "matchClock": "38:20",
+          "positionX": 82,
+          "positionY": 112,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 709.75,
+          "inactiveClock": "11:49",
+          "activeTimeSeconds": 999.8125,
+          "activeClock": "16:39",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1105.75,
+          "inactiveClock": "18:25",
+          "activeTimeSeconds": 1395.8125,
+          "activeClock": "23:15",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1562.75,
+          "inactiveClock": "26:02",
+          "activeTimeSeconds": 1852.75,
+          "activeClock": "30:52",
+          "delaySeconds": 290,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2010.8125,
+          "inactiveClock": "33:30",
+          "activeTimeSeconds": 2300.75,
+          "activeClock": "38:20",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "sw_factory_ext_camp",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 96,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 5,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 47,
+          "positionY": 101,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 75124,
+          "matchTimeSeconds": 1143.8125,
+          "matchClock": "19:03",
+          "positionX": 47,
+          "positionY": 101,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 93680,
+          "matchTimeSeconds": 1433.75,
+          "matchClock": "23:53",
+          "positionX": 47,
+          "positionY": 101,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 121204,
+          "matchTimeSeconds": 1863.8125,
+          "matchClock": "31:03",
+          "positionX": 47,
+          "positionY": 101,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 139760,
+          "matchTimeSeconds": 2153.75,
+          "matchClock": "35:53",
+          "positionX": 47,
+          "positionY": 101,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 2,
+      "exactLikeCycleCount": 2,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1143.8125,
+          "inactiveClock": "19:03",
+          "activeTimeSeconds": 1433.75,
+          "activeClock": "23:53",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1863.8125,
+          "inactiveClock": "31:03",
+          "activeTimeSeconds": 2153.75,
+          "activeClock": "35:53",
+          "delaySeconds": 289.9375,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "theater_tunnel_neutrals",
+      "eClass": 35,
+      "tier": "MEDIUM",
+      "fowIndex": 88,
+      "expectedSpawnSeconds": 300,
+      "expectedRespawnSeconds": 290,
+      "firstActiveTimeSeconds": 300.8125,
+      "firstActiveClock": "5:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 21172,
+          "matchTimeSeconds": 300.8125,
+          "matchClock": "5:00",
+          "positionX": 154,
+          "positionY": 186,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 108592,
+          "matchTimeSeconds": 1666.75,
+          "matchClock": "27:46",
+          "positionX": 154,
+          "positionY": 186,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 127156,
+          "matchTimeSeconds": 1956.8125,
+          "matchClock": "32:36",
+          "positionX": 154,
+          "positionY": 186,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1666.75,
+          "inactiveClock": "27:46",
+          "activeTimeSeconds": 1956.8125,
+          "activeClock": "32:36",
+          "delaySeconds": 290.0625,
+          "expectedRespawnSeconds": 290,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "bank_upstairs_neutrals",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 92,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 5,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 154,
+          "positionY": 93,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 91504,
+          "matchTimeSeconds": 1399.75,
+          "matchClock": "23:19",
+          "positionX": 154,
+          "positionY": 93,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 112948,
+          "matchTimeSeconds": 1734.8125,
+          "matchClock": "28:54",
+          "positionX": 154,
+          "positionY": 93,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 149552,
+          "matchTimeSeconds": 2306.75,
+          "matchClock": "38:26",
+          "positionX": 154,
+          "positionY": 93,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 170992,
+          "matchTimeSeconds": 2641.75,
+          "matchClock": "44:01",
+          "positionX": 154,
+          "positionY": 93,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 2,
+      "exactLikeCycleCount": 2,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1399.75,
+          "inactiveClock": "23:19",
+          "activeTimeSeconds": 1734.8125,
+          "activeClock": "28:54",
+          "delaySeconds": 335.0625,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2306.75,
+          "inactiveClock": "38:26",
+          "activeTimeSeconds": 2641.75,
+          "activeClock": "44:01",
+          "delaySeconds": 335,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "camp_mid_roof_E",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 100,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 9,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 140,
+          "positionY": 91,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 74096,
+          "matchTimeSeconds": 1127.75,
+          "matchClock": "18:47",
+          "positionX": 140,
+          "positionY": 91,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 95536,
+          "matchTimeSeconds": 1462.75,
+          "matchClock": "24:22",
+          "positionX": 140,
+          "positionY": 91,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 102448,
+          "matchTimeSeconds": 1570.75,
+          "matchClock": "26:10",
+          "positionX": 140,
+          "positionY": 91,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 123892,
+          "matchTimeSeconds": 1905.8125,
+          "matchClock": "31:45",
+          "positionX": 140,
+          "positionY": 91,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 128752,
+          "matchTimeSeconds": 1981.75,
+          "matchClock": "33:01",
+          "positionX": 140,
+          "positionY": 91,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 150196,
+          "matchTimeSeconds": 2316.8125,
+          "matchClock": "38:36",
+          "positionX": 140,
+          "positionY": 91,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 151600,
+          "matchTimeSeconds": 2338.75,
+          "matchClock": "38:58",
+          "positionX": 140,
+          "positionY": 91,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 173044,
+          "matchTimeSeconds": 2673.8125,
+          "matchClock": "44:33",
+          "positionX": 140,
+          "positionY": 91,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 4,
+      "exactLikeCycleCount": 4,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1127.75,
+          "inactiveClock": "18:47",
+          "activeTimeSeconds": 1462.75,
+          "activeClock": "24:22",
+          "delaySeconds": 335,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1570.75,
+          "inactiveClock": "26:10",
+          "activeTimeSeconds": 1905.8125,
+          "activeClock": "31:45",
+          "delaySeconds": 335.0625,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1981.75,
+          "inactiveClock": "33:01",
+          "activeTimeSeconds": 2316.8125,
+          "activeClock": "38:36",
+          "delaySeconds": 335.0625,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2338.75,
+          "inactiveClock": "38:58",
+          "activeTimeSeconds": 2673.8125,
+          "activeClock": "44:33",
+          "delaySeconds": 335.0625,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "camp_mid_roof_W",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 101,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 5,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 114,
+          "positionY": 163,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 139696,
+          "matchTimeSeconds": 2152.75,
+          "matchClock": "35:52",
+          "positionX": 114,
+          "positionY": 163,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 161140,
+          "matchTimeSeconds": 2487.8125,
+          "matchClock": "41:27",
+          "positionX": 114,
+          "positionY": 163,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 176116,
+          "matchTimeSeconds": 2721.8125,
+          "matchClock": "45:21",
+          "positionX": 114,
+          "positionY": 163,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 197552,
+          "matchTimeSeconds": 3056.75,
+          "matchClock": "50:56",
+          "positionX": 114,
+          "positionY": 163,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 2,
+      "exactLikeCycleCount": 2,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 2152.75,
+          "inactiveClock": "35:52",
+          "activeTimeSeconds": 2487.8125,
+          "activeClock": "41:27",
+          "delaySeconds": 335.0625,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2721.8125,
+          "inactiveClock": "45:21",
+          "activeTimeSeconds": 3056.75,
+          "activeClock": "50:56",
+          "delaySeconds": 334.9375,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "east_end_neutrals",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 68,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 236,
+          "positionY": 127,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 78580,
+          "matchTimeSeconds": 1197.8125,
+          "matchClock": "19:57",
+          "positionX": 236,
+          "positionY": 127,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 100016,
+          "matchTimeSeconds": 1532.75,
+          "matchClock": "25:32",
+          "positionX": 236,
+          "positionY": 127,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1197.8125,
+          "inactiveClock": "19:57",
+          "activeTimeSeconds": 1532.75,
+          "activeClock": "25:32",
+          "delaySeconds": 334.9375,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "ferry_upstairs_neutrals",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 111,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 1,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 89,
+          "positionY": 152,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 0,
+      "exactLikeCycleCount": 0,
+      "cycles": []
+    },
+    {
+      "name": "ne_theater_ext_camp",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 74,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 186,
+          "positionY": 134,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 73972,
+          "matchTimeSeconds": 1125.8125,
+          "matchClock": "18:45",
+          "positionX": 186,
+          "positionY": 134,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 95408,
+          "matchTimeSeconds": 1460.75,
+          "matchClock": "24:20",
+          "positionX": 186,
+          "positionY": 134,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1125.8125,
+          "inactiveClock": "18:45",
+          "activeTimeSeconds": 1460.75,
+          "activeClock": "24:20",
+          "delaySeconds": 334.9375,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "ne_warehouse_neutrals",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 82,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 169,
+          "positionY": 179,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 152432,
+          "matchTimeSeconds": 2351.75,
+          "matchClock": "39:11",
+          "positionX": 169,
+          "positionY": 179,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 173872,
+          "matchTimeSeconds": 2686.75,
+          "matchClock": "44:46",
+          "positionX": 169,
+          "positionY": 179,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 2351.75,
+          "inactiveClock": "39:11",
+          "activeTimeSeconds": 2686.75,
+          "activeClock": "44:46",
+          "delaySeconds": 335,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "nw_street_neutrals",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 81,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 5,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 80,
+          "positionY": 176,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 51508,
+          "matchTimeSeconds": 774.8125,
+          "matchClock": "12:54",
+          "positionX": 80,
+          "positionY": 176,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 72944,
+          "matchTimeSeconds": 1109.75,
+          "matchClock": "18:29",
+          "positionX": 80,
+          "positionY": 176,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 93940,
+          "matchTimeSeconds": 1437.8125,
+          "matchClock": "23:57",
+          "positionX": 80,
+          "positionY": 176,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 115376,
+          "matchTimeSeconds": 1772.75,
+          "matchClock": "29:32",
+          "positionX": 80,
+          "positionY": 176,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 2,
+      "exactLikeCycleCount": 2,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 774.8125,
+          "inactiveClock": "12:54",
+          "activeTimeSeconds": 1109.75,
+          "activeClock": "18:29",
+          "delaySeconds": 334.9375,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 1437.8125,
+          "inactiveClock": "23:57",
+          "activeTimeSeconds": 1772.75,
+          "activeClock": "29:32",
+          "delaySeconds": 334.9375,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "se_street_camp",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 79,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 5,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 174,
+          "positionY": 78,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 90224,
+          "matchTimeSeconds": 1379.75,
+          "matchClock": "22:59",
+          "positionX": 174,
+          "positionY": 78,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 111664,
+          "matchTimeSeconds": 1714.75,
+          "matchClock": "28:34",
+          "positionX": 174,
+          "positionY": 78,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 150064,
+          "matchTimeSeconds": 2314.75,
+          "matchClock": "38:34",
+          "positionX": 174,
+          "positionY": 78,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 171508,
+          "matchTimeSeconds": 2649.8125,
+          "matchClock": "44:09",
+          "positionX": 174,
+          "positionY": 78,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 2,
+      "exactLikeCycleCount": 2,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 1379.75,
+          "inactiveClock": "22:59",
+          "activeTimeSeconds": 1714.75,
+          "activeClock": "28:34",
+          "delaySeconds": 335,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        },
+        {
+          "inactiveTimeSeconds": 2314.75,
+          "inactiveClock": "38:34",
+          "activeTimeSeconds": 2649.8125,
+          "activeClock": "44:09",
+          "delaySeconds": 335.0625,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "sw_bodega_ext_camp",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 73,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 68,
+          "positionY": 119,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 152500,
+          "matchTimeSeconds": 2352.8125,
+          "matchClock": "39:12",
+          "positionX": 68,
+          "positionY": 119,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 173936,
+          "matchTimeSeconds": 2687.75,
+          "matchClock": "44:47",
+          "positionX": 68,
+          "positionY": 119,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 2352.8125,
+          "inactiveClock": "39:12",
+          "activeTimeSeconds": 2687.75,
+          "activeClock": "44:47",
+          "delaySeconds": 334.9375,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": -0.0625,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "sw_warehouse_camp",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 80,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 85,
+          "positionY": 75,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 151280,
+          "matchTimeSeconds": 2333.75,
+          "matchClock": "38:53",
+          "positionX": 85,
+          "positionY": 75,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 172720,
+          "matchTimeSeconds": 2668.75,
+          "matchClock": "44:28",
+          "positionX": 85,
+          "positionY": 75,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 2333.75,
+          "inactiveClock": "38:53",
+          "activeTimeSeconds": 2668.75,
+          "activeClock": "44:28",
+          "delaySeconds": 335,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    },
+    {
+      "name": "west_end_neutrals",
+      "eClass": 36,
+      "tier": "LARGE",
+      "fowIndex": 64,
+      "expectedSpawnSeconds": 480,
+      "expectedRespawnSeconds": 335,
+      "firstActiveTimeSeconds": 480.8125,
+      "firstActiveClock": "8:00",
+      "spawnErrorSeconds": 0.8125,
+      "transitionCount": 3,
+      "transitions": [
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 32692,
+          "matchTimeSeconds": 480.8125,
+          "matchClock": "8:00",
+          "positionX": 20,
+          "positionY": 127,
+          "hasPosition": true,
+          "visible": true
+        },
+        {
+          "type": "BECAME_INACTIVE",
+          "tick": 65072,
+          "matchTimeSeconds": 986.75,
+          "matchClock": "16:26",
+          "positionX": 20,
+          "positionY": 127,
+          "hasPosition": true,
+          "visible": false
+        },
+        {
+          "type": "BECAME_ACTIVE",
+          "tick": 86512,
+          "matchTimeSeconds": 1321.75,
+          "matchClock": "22:01",
+          "positionX": 20,
+          "positionY": 127,
+          "hasPosition": true,
+          "visible": true
+        }
+      ],
+      "cycleCount": 1,
+      "exactLikeCycleCount": 1,
+      "cycles": [
+        {
+          "inactiveTimeSeconds": 986.75,
+          "inactiveClock": "16:26",
+          "activeTimeSeconds": 1321.75,
+          "activeClock": "22:01",
+          "delaySeconds": 335,
+          "expectedRespawnSeconds": 335,
+          "errorSeconds": 0,
+          "withinOneSecond": true
+        }
+      ]
+    }
+  ]
+}

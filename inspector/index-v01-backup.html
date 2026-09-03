@@ -1,0 +1,1996 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        Deadlock Behavioral Replay Inspector
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                Inter,
+                system-ui,
+                sans-serif;
+            background: #111318;
+            color: #e8eaf0;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        .page {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .subtle {
+            color: #999faa;
+            font-size: 13px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .card {
+            background: #191c22;
+            border: 1px solid #2b303a;
+            border-radius: 10px;
+        }
+
+        .controls {
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #282d36;
+            color: #e8eaf0;
+            border: 1px solid #3a414d;
+            border-radius: 7px;
+            padding: 7px 11px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #323945;
+        }
+
+        #timeSlider {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        #clock {
+            min-width: 70px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            font-weight: 700;
+        }
+
+        .filters {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        .filters label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns:
+                minmax(500px, 1.45fr)
+                minmax(340px, 0.75fr);
+            gap: 16px;
+            align-items: start;
+        }
+
+        .map-card {
+            padding: 14px;
+        }
+
+        .map-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #343a45;
+
+            background:
+                linear-gradient(
+                    to right,
+                    transparent 49.8%,
+                    #444b58 50%,
+                    transparent 50.2%
+                ),
+                linear-gradient(
+                    to bottom,
+                    transparent 49.8%,
+                    #444b58 50%,
+                    transparent 50.2%
+                ),
+                repeating-linear-gradient(
+                    to right,
+                    transparent 0,
+                    transparent 9.9%,
+                    rgba(255,255,255,0.04) 10%
+                ),
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0,
+                    transparent 9.9%,
+                    rgba(255,255,255,0.04) 10%
+                ),
+                #101216;
+        }
+
+        .map-label {
+            position: absolute;
+            color: #626a78;
+            font-size: 11px;
+            pointer-events: none;
+        }
+
+        .map-label.top {
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .map-label.bottom {
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .map-label.left {
+            left: 8px;
+            top: 50%;
+        }
+
+        .map-label.right {
+            right: 8px;
+            top: 50%;
+        }
+
+        .marker {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        .player {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            border: 2px solid #f5f7fa;
+        }
+
+        .team2 {
+            background: #cf806c;
+        }
+
+        .team3 {
+            background: #73a3d7;
+        }
+
+        .player.renso {
+            width: 18px;
+            height: 18px;
+            outline: 3px solid #e9c46a;
+            outline-offset: 2px;
+            z-index: 20;
+        }
+
+        .player-name {
+            position: absolute;
+            top: 13px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 10px;
+            color: #f1f3f6;
+            text-shadow:
+                0 1px 2px #000,
+                0 0 3px #000;
+            pointer-events: none;
+        }
+
+        .resource {
+            z-index: 3;
+            opacity: 0.9;
+        }
+
+        .resource.dead {
+            opacity: 0.15;
+        }
+
+        .neutral-small {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #97b987;
+        }
+
+        .neutral-medium {
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+            background: #d6ad69;
+        }
+
+        .neutral-large {
+            width: 12px;
+            height: 12px;
+            transform:
+                translate(-50%, -50%)
+                rotate(45deg);
+            background: #c88477;
+        }
+
+        .sinner {
+            width: 13px;
+            height: 13px;
+            border: 2px solid #cc8fcf;
+            border-radius: 50%;
+        }
+
+        .midboss {
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            border: 3px solid #e2d475;
+            background: rgba(226,212,117,0.2);
+            z-index: 4;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 12px;
+            color: #aeb4bf;
+            font-size: 12px;
+        }
+
+        .legend span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+            display: inline-block;
+            border-radius: 50%;
+            background: #aaa;
+        }
+
+        .side {
+            display: grid;
+            gap: 16px;
+        }
+
+        .panel {
+            padding: 14px;
+        }
+
+        .panel h2 {
+            font-size: 15px;
+            margin:
+                0
+                0
+                10px;
+        }
+
+        .renso-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .metric {
+            background: #12151a;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .metric .label {
+            color: #858d99;
+            font-size: 11px;
+        }
+
+        .metric .value {
+            margin-top: 2px;
+            font-size: 17px;
+            font-weight: 650;
+        }
+
+        .events {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .event {
+            border-top: 1px solid #2a2f38;
+            padding: 7px 0;
+            font-size: 12px;
+        }
+
+        .event:first-child {
+            border-top: 0;
+        }
+
+        .event-time {
+            font-variant-numeric: tabular-nums;
+            color: #d6d9df;
+            margin-right: 5px;
+        }
+
+        .up {
+            color: #91bd8c;
+        }
+
+        .down {
+            color: #d18e86;
+        }
+
+        .table-card {
+            margin-top: 16px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th,
+        td {
+            padding: 8px 9px;
+            text-align: left;
+            border-bottom: 1px solid #292e37;
+            white-space: nowrap;
+        }
+
+        th {
+            color: #999faa;
+            font-weight: 600;
+        }
+
+        tr.focus-player {
+            background: #242a31;
+        }
+
+        .alive {
+            color: #9ec096;
+        }
+
+        .dead-text {
+            color: #c8817b;
+        }
+
+        @media (
+            max-width: 950px
+        ) {
+
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .renso-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>
+                Deadlock Behavioral Replay Inspector
+            </h1>
+
+            <div
+                class="subtle"
+                id="replayMeta"
+            >
+                Loading replay...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card controls">
+
+        <div class="control-row">
+
+            <button
+                id="back10"
+                type="button"
+            >
+                −10s
+            </button>
+
+            <button
+                id="play"
+                type="button"
+            >
+                Play
+            </button>
+
+            <button
+                id="forward10"
+                type="button"
+            >
+                +10s
+            </button>
+
+            <input
+                id="timeSlider"
+                type="range"
+                min="0"
+                max="1"
+                value="0"
+                step="1"
+            >
+
+            <div id="clock">
+                0:00
+            </div>
+
+        </div>
+
+
+        <div class="filters">
+
+            <label>
+                <input
+                    id="showPlayers"
+                    type="checkbox"
+                    checked
+                >
+                Players
+            </label>
+
+            <label>
+                <input
+                    id="showSmall"
+                    type="checkbox"
+                    checked
+                >
+                Small neutrals
+            </label>
+
+            <label>
+                <input
+                    id="showMedium"
+                    type="checkbox"
+                    checked
+                >
+                Medium neutrals
+            </label>
+
+            <label>
+                <input
+                    id="showLarge"
+                    type="checkbox"
+                    checked
+                >
+                Large neutrals
+            </label>
+
+            <label>
+                <input
+                    id="showSinners"
+                    type="checkbox"
+                    checked
+                >
+                Sinners
+            </label>
+
+            <label>
+                <input
+                    id="showMidBoss"
+                    type="checkbox"
+                    checked
+                >
+                Mid Boss
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <div class="layout">
+
+        <section class="card map-card">
+
+            <div id="map" class="map-wrap">
+
+                <div class="map-label top">
+                    +Y
+                </div>
+
+                <div class="map-label bottom">
+                    −Y
+                </div>
+
+                <div class="map-label left">
+                    −X
+                </div>
+
+                <div class="map-label right">
+                    +X
+                </div>
+
+
+                <div id="resourceLayer"></div>
+
+                <div id="playerLayer"></div>
+
+            </div>
+
+
+            <div class="legend">
+
+                <span>
+                    <i
+                        class="legend-dot"
+                        style="background:#73a3d7"
+                    ></i>
+                    Team 3
+                </span>
+
+                <span>
+                    <i
+                        class="legend-dot"
+                        style="background:#cf806c"
+                    ></i>
+                    Team 2
+                </span>
+
+                <span>
+                    ● small neutral
+                </span>
+
+                <span>
+                    ■ medium neutral
+                </span>
+
+                <span>
+                    ◆ large neutral
+                </span>
+
+                <span>
+                    ○ Sinner
+                </span>
+
+                <span>
+                    ◎ Mid Boss
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <div class="side">
+
+            <section class="card panel">
+
+                <h2>
+                    renso
+                </h2>
+
+                <div
+                    id="rensoMetrics"
+                    class="renso-grid"
+                ></div>
+
+            </section>
+
+
+            <section class="card panel">
+
+                <h2>
+                    Recent resource events
+                </h2>
+
+                <div
+                    id="events"
+                    class="events"
+                ></div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+
+    <section class="card table-card">
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>
+                    Player
+                </th>
+
+                <th>
+                    Team
+                </th>
+
+                <th>
+                    Alive
+                </th>
+
+                <th>
+                    HP
+                </th>
+
+                <th>
+                    Net worth
+                </th>
+
+                <th>
+                    K / D / A
+                </th>
+
+                <th>
+                    Last hits
+                </th>
+
+                <th>
+                    Denies
+                </th>
+
+                <th>
+                    X
+                </th>
+
+                <th>
+                    Y
+                </th>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody id="playerTable">
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</div>
+
+
+<script>
+
+(async function () {
+
+    const DATA_FILE =
+        './data/test.json';
+
+
+    const response =
+        await fetch(DATA_FILE);
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            `Could not load ${DATA_FILE}`
+        );
+    }
+
+
+    const data =
+        await response.json();
+
+
+    // ========================================================
+    // ELEMENTS
+    // ========================================================
+
+    const slider =
+        document.getElementById(
+            'timeSlider'
+        );
+
+    const clock =
+        document.getElementById(
+            'clock'
+        );
+
+    const playButton =
+        document.getElementById(
+            'play'
+        );
+
+    const playerLayer =
+        document.getElementById(
+            'playerLayer'
+        );
+
+    const resourceLayer =
+        document.getElementById(
+            'resourceLayer'
+        );
+
+    const playerTable =
+        document.getElementById(
+            'playerTable'
+        );
+
+    const eventsPanel =
+        document.getElementById(
+            'events'
+        );
+
+    const rensoMetrics =
+        document.getElementById(
+            'rensoMetrics'
+        );
+
+
+    // ========================================================
+    // STATE
+    // ========================================================
+
+    const duration =
+        Math.floor(
+            data.meta.durationSeconds
+        );
+
+
+    slider.max =
+        duration;
+
+
+    let currentTime =
+        0;
+
+
+    let playing =
+        false;
+
+
+    let playTimer =
+        null;
+
+
+    // ========================================================
+    // TRANSITION LOOKUP
+    // ========================================================
+
+    const transitionsByEntity =
+        new Map();
+
+
+    for (
+        const event
+        of data.resourceTransitions
+    ) {
+
+        if (
+            !transitionsByEntity.has(
+                event.entityKey
+            )
+        ) {
+
+            transitionsByEntity.set(
+                event.entityKey,
+                []
+            );
+        }
+
+
+        transitionsByEntity
+            .get(
+                event.entityKey
+            )
+            .push(event);
+    }
+
+
+    // ========================================================
+    // META
+    // ========================================================
+
+    document.getElementById(
+        'replayMeta'
+    ).textContent =
+        `${data.replay}.dem • ` +
+        `${formatClock(duration)} • ` +
+        `${data.players.length} players`;
+
+
+    // ========================================================
+    // MAP CONVERSION
+    // ========================================================
+
+    const bounds =
+        data.meta.bounds;
+
+
+    function worldToPercent(
+        x,
+        y
+    ) {
+
+        const left =
+            (
+                (
+                    x -
+                    bounds.minX
+                )
+                /
+                (
+                    bounds.maxX -
+                    bounds.minX
+                )
+            )
+            *
+            100;
+
+
+        const top =
+            (
+                1
+                -
+                (
+                    (
+                        y -
+                        bounds.minY
+                    )
+                    /
+                    (
+                        bounds.maxY -
+                        bounds.minY
+                    )
+                )
+            )
+            *
+            100;
+
+
+        return {
+            left,
+            top
+        };
+    }
+
+
+    // ========================================================
+    // FRAME LOOKUP
+    // ========================================================
+
+    function getFrame(time) {
+
+        const target =
+            Math.round(time);
+
+
+        let low =
+            0;
+
+        let high =
+            data.frames.length - 1;
+
+
+        while (
+            low <= high
+        ) {
+
+            const mid =
+                Math.floor(
+                    (
+                        low +
+                        high
+                    )
+                    /
+                    2
+                );
+
+
+            const value =
+                data.frames[mid].t;
+
+
+            if (
+                value === target
+            ) {
+
+                return data.frames[mid];
+            }
+
+
+            if (
+                value < target
+            ) {
+
+                low =
+                    mid + 1;
+
+            } else {
+
+                high =
+                    mid - 1;
+            }
+        }
+
+
+        return (
+            data.frames[
+                Math.max(
+                    0,
+                    Math.min(
+                        high,
+                        data.frames.length - 1
+                    )
+                )
+            ]
+        );
+    }
+
+
+    // ========================================================
+    // RESOURCE STATE
+    // ========================================================
+
+    function resourceAliveAt(
+        resource,
+        time
+    ) {
+
+        if (
+            time <
+            resource.firstSeenTime
+        ) {
+
+            return null;
+        }
+
+
+        let alive =
+            true;
+
+
+        const transitions =
+            transitionsByEntity.get(
+                resource.entityKey
+            )
+            ?? [];
+
+
+        for (
+            const event
+            of transitions
+        ) {
+
+            if (
+                event.t >
+                time
+            ) {
+                break;
+            }
+
+
+            alive =
+                event.transition
+                === 'UP';
+        }
+
+
+        return alive;
+    }
+
+
+    // ========================================================
+    // FILTERS
+    // ========================================================
+
+    function typeVisible(
+        type
+    ) {
+
+        if (
+            type === 'neutral-small'
+        ) {
+
+            return document
+                .getElementById(
+                    'showSmall'
+                )
+                .checked;
+        }
+
+
+        if (
+            type === 'neutral-medium'
+        ) {
+
+            return document
+                .getElementById(
+                    'showMedium'
+                )
+                .checked;
+        }
+
+
+        if (
+            type === 'neutral-large'
+        ) {
+
+            return document
+                .getElementById(
+                    'showLarge'
+                )
+                .checked;
+        }
+
+
+        if (
+            type === 'sinner'
+        ) {
+
+            return document
+                .getElementById(
+                    'showSinners'
+                )
+                .checked;
+        }
+
+
+        if (
+            type === 'midboss'
+        ) {
+
+            return document
+                .getElementById(
+                    'showMidBoss'
+                )
+                .checked;
+        }
+
+
+        return false;
+    }
+
+
+    // ========================================================
+    // RENDER
+    // ========================================================
+
+    function render() {
+
+        slider.value =
+            currentTime;
+
+
+        clock.textContent =
+            formatClock(
+                currentTime
+            );
+
+
+        const frame =
+            getFrame(
+                currentTime
+            );
+
+
+        renderPlayers(
+            frame
+        );
+
+
+        renderResources();
+
+
+        renderPlayerTable(
+            frame
+        );
+
+
+        renderRenso(
+            frame
+        );
+
+
+        renderEvents();
+    }
+
+
+    // ========================================================
+    // PLAYERS
+    // ========================================================
+
+    function renderPlayers(
+        frame
+    ) {
+
+        playerLayer.innerHTML =
+            '';
+
+
+        if (
+            !document
+                .getElementById(
+                    'showPlayers'
+                )
+                .checked
+        ) {
+
+            return;
+        }
+
+
+        for (
+            const player
+            of frame.players
+        ) {
+
+            if (
+                !player.alive
+                ||
+                !Number.isFinite(
+                    player.x
+                )
+                ||
+                !Number.isFinite(
+                    player.y
+                )
+            ) {
+
+                continue;
+            }
+
+
+            const point =
+                worldToPercent(
+                    player.x,
+                    player.y
+                );
+
+
+            const marker =
+                document.createElement(
+                    'div'
+                );
+
+
+            marker.className =
+                [
+                    'marker',
+                    'player',
+                    `team${player.team}`,
+                    player.name === 'renso'
+                        ? 'renso'
+                        : ''
+                ]
+                .join(' ');
+
+
+            marker.style.left =
+                `${point.left}%`;
+
+            marker.style.top =
+                `${point.top}%`;
+
+
+            marker.title =
+                [
+                    player.name,
+                    `Team ${player.team}`,
+                    `(${Math.round(player.x)}, ${Math.round(player.y)})`,
+                    `Net worth ${formatNumber(player.netWorth)}`
+                ].join('\n');
+
+
+            const label =
+                document.createElement(
+                    'div'
+                );
+
+
+            label.className =
+                'player-name';
+
+
+            label.textContent =
+                player.name;
+
+
+            marker.appendChild(
+                label
+            );
+
+
+            playerLayer.appendChild(
+                marker
+            );
+        }
+    }
+
+
+    // ========================================================
+    // RESOURCES
+    // ========================================================
+
+    function renderResources() {
+
+        resourceLayer.innerHTML =
+            '';
+
+
+        for (
+            const resource
+            of data.resources
+        ) {
+
+            if (
+                !typeVisible(
+                    resource.type
+                )
+            ) {
+                continue;
+            }
+
+
+            if (
+                !Number.isFinite(
+                    resource.x
+                )
+                ||
+                !Number.isFinite(
+                    resource.y
+                )
+            ) {
+                continue;
+            }
+
+
+            const alive =
+                resourceAliveAt(
+                    resource,
+                    currentTime
+                );
+
+
+            if (
+                alive === null
+            ) {
+                continue;
+            }
+
+
+            const point =
+                worldToPercent(
+                    resource.x,
+                    resource.y
+                );
+
+
+            const marker =
+                document.createElement(
+                    'div'
+                );
+
+
+            marker.className =
+                [
+                    'marker',
+                    'resource',
+                    resource.type,
+                    alive
+                        ? ''
+                        : 'dead'
+                ]
+                .join(' ');
+
+
+            marker.style.left =
+                `${point.left}%`;
+
+            marker.style.top =
+                `${point.top}%`;
+
+
+            marker.title =
+                [
+                    prettyType(
+                        resource.type
+                    ),
+
+                    alive
+                        ? 'Available'
+                        : 'Unavailable',
+
+                    `entity ${resource.entityIndex}`,
+
+                    `(${Math.round(resource.x)}, ${Math.round(resource.y)})`
+                ]
+                .join('\n');
+
+
+            resourceLayer.appendChild(
+                marker
+            );
+        }
+    }
+
+
+    // ========================================================
+    // PLAYER TABLE
+    // ========================================================
+
+    function renderPlayerTable(
+        frame
+    ) {
+
+        playerTable.innerHTML =
+            '';
+
+
+        const players =
+            [...frame.players]
+                .sort(
+                    (a, b) => {
+
+                        if (
+                            a.team !== b.team
+                        ) {
+
+                            return (
+                                a.team -
+                                b.team
+                            );
+                        }
+
+                        return (
+                            a.name.localeCompare(
+                                b.name
+                            )
+                        );
+                    }
+                );
+
+
+        for (
+            const player
+            of players
+        ) {
+
+            const tr =
+                document.createElement(
+                    'tr'
+                );
+
+
+            if (
+                player.name === 'renso'
+            ) {
+
+                tr.className =
+                    'focus-player';
+            }
+
+
+            tr.innerHTML =
+                `
+                <td>${escapeHtml(player.name)}</td>
+
+                <td>${value(player.team)}</td>
+
+                <td class="${player.alive ? 'alive' : 'dead-text'}">
+                    ${player.alive ? 'alive' : 'dead'}
+                </td>
+
+                <td>
+                    ${value(player.health)}
+                </td>
+
+                <td>
+                    ${formatNumber(player.netWorth)}
+                </td>
+
+                <td>
+                    ${value(player.kills)}
+                    /
+                    ${value(player.deaths)}
+                    /
+                    ${value(player.assists)}
+                </td>
+
+                <td>
+                    ${value(player.lastHits)}
+                </td>
+
+                <td>
+                    ${value(player.denies)}
+                </td>
+
+                <td>
+                    ${coordinate(player.x)}
+                </td>
+
+                <td>
+                    ${coordinate(player.y)}
+                </td>
+                `;
+
+
+            playerTable.appendChild(
+                tr
+            );
+        }
+    }
+
+
+    // ========================================================
+    // RENSO PANEL
+    // ========================================================
+
+    function renderRenso(
+        frame
+    ) {
+
+        const player =
+            frame.players.find(
+                item =>
+                    item.name === 'renso'
+            );
+
+
+        if (!player) {
+
+            rensoMetrics.innerHTML =
+                'No renso state in this frame.';
+
+            return;
+        }
+
+
+        const metrics = [
+
+            [
+                'Status',
+                player.alive
+                    ? 'Alive'
+                    : 'Dead'
+            ],
+
+            [
+                'Health',
+                value(
+                    player.health
+                )
+            ],
+
+            [
+                'Net worth',
+                formatNumber(
+                    player.netWorth
+                )
+            ],
+
+            [
+                'K / D / A',
+                `${value(player.kills)} / ${value(player.deaths)} / ${value(player.assists)}`
+            ],
+
+            [
+                'Last hits',
+                value(
+                    player.lastHits
+                )
+            ],
+
+            [
+                'Denies',
+                value(
+                    player.denies
+                )
+            ],
+
+            [
+                'X',
+                coordinate(
+                    player.x
+                )
+            ],
+
+            [
+                'Y',
+                coordinate(
+                    player.y
+                )
+            ],
+
+            [
+                'Lane',
+                value(
+                    player.lane
+                )
+            ]
+        ];
+
+
+        rensoMetrics.innerHTML =
+            metrics
+                .map(
+                    ([label, val]) =>
+                        `
+                        <div class="metric">
+
+                            <div class="label">
+                                ${escapeHtml(label)}
+                            </div>
+
+                            <div class="value">
+                                ${escapeHtml(String(val))}
+                            </div>
+
+                        </div>
+                        `
+                )
+                .join('');
+    }
+
+
+    // ========================================================
+    // EVENTS
+    // ========================================================
+
+    function renderEvents() {
+
+        const past =
+            data.resourceTransitions
+                .filter(
+                    event =>
+                        event.t <=
+                        currentTime
+                )
+                .slice(-14)
+                .reverse();
+
+
+        if (
+            past.length === 0
+        ) {
+
+            eventsPanel.innerHTML =
+                `
+                <div class="subtle">
+                    No resource events yet.
+                </div>
+                `;
+
+            return;
+        }
+
+
+        eventsPanel.innerHTML =
+            past
+                .map(
+                    event => {
+
+                        const cls =
+                            event.transition === 'UP'
+                                ? 'up'
+                                : 'down';
+
+
+                        return `
+                        <div class="event">
+
+                            <span class="event-time">
+                                ${formatClock(event.t)}
+                            </span>
+
+                            <span class="${cls}">
+                                ${event.transition}
+                            </span>
+
+                            ${escapeHtml(
+                                prettyType(
+                                    event.type
+                                )
+                            )}
+
+                            <span class="subtle">
+                                #${event.entityIndex}
+                            </span>
+
+                        </div>
+                        `;
+                    }
+                )
+                .join('');
+    }
+
+
+    // ========================================================
+    // CONTROLS
+    // ========================================================
+
+    slider.addEventListener(
+        'input',
+        () => {
+
+            currentTime =
+                Number(
+                    slider.value
+                );
+
+            render();
+        }
+    );
+
+
+    document.getElementById(
+        'back10'
+    ).addEventListener(
+        'click',
+        () => {
+
+            currentTime =
+                Math.max(
+                    0,
+                    currentTime - 10
+                );
+
+            render();
+        }
+    );
+
+
+    document.getElementById(
+        'forward10'
+    ).addEventListener(
+        'click',
+        () => {
+
+            currentTime =
+                Math.min(
+                    duration,
+                    currentTime + 10
+                );
+
+            render();
+        }
+    );
+
+
+    playButton.addEventListener(
+        'click',
+        () => {
+
+            playing =
+                !playing;
+
+
+            playButton.textContent =
+                playing
+                    ? 'Pause'
+                    : 'Play';
+
+
+            if (playing) {
+
+                playTimer =
+                    setInterval(
+                        () => {
+
+                            currentTime++;
+
+
+                            if (
+                                currentTime >
+                                duration
+                            ) {
+
+                                currentTime =
+                                    duration;
+
+                                playing =
+                                    false;
+
+                                clearInterval(
+                                    playTimer
+                                );
+
+                                playButton.textContent =
+                                    'Play';
+                            }
+
+
+                            render();
+
+                        },
+                        250
+                    );
+
+            } else {
+
+                clearInterval(
+                    playTimer
+                );
+            }
+        }
+    );
+
+
+    for (
+        const id
+        of [
+            'showPlayers',
+            'showSmall',
+            'showMedium',
+            'showLarge',
+            'showSinners',
+            'showMidBoss'
+        ]
+    ) {
+
+        document
+            .getElementById(id)
+            .addEventListener(
+                'change',
+                render
+            );
+    }
+
+
+    // ========================================================
+    // HELPERS
+    // ========================================================
+
+    function formatClock(
+        seconds
+    ) {
+
+        seconds =
+            Math.max(
+                0,
+                Math.floor(seconds)
+            );
+
+
+        const minutes =
+            Math.floor(
+                seconds / 60
+            );
+
+
+        const secs =
+            seconds % 60;
+
+
+        return (
+            `${minutes}:` +
+            String(secs)
+                .padStart(
+                    2,
+                    '0'
+                )
+        );
+    }
+
+
+    function prettyType(
+        type
+    ) {
+
+        const names = {
+
+            'neutral-small':
+                'Small neutral',
+
+            'neutral-medium':
+                'Medium neutral',
+
+            'neutral-large':
+                'Large neutral',
+
+            'sinner':
+                "Sinner's Sacrifice",
+
+            'midboss':
+                'Mid Boss'
+        };
+
+
+        return (
+            names[type]
+            ?? type
+        );
+    }
+
+
+    function formatNumber(
+        number
+    ) {
+
+        if (
+            !Number.isFinite(
+                number
+            )
+        ) {
+            return '—';
+        }
+
+
+        return number
+            .toLocaleString();
+    }
+
+
+    function coordinate(
+        number
+    ) {
+
+        if (
+            !Number.isFinite(
+                number
+            )
+        ) {
+            return '—';
+        }
+
+
+        return Math.round(
+            number
+        );
+    }
+
+
+    function value(
+        value
+    ) {
+
+        if (
+            value === null
+            ||
+            value === undefined
+        ) {
+            return '—';
+        }
+
+
+        return value;
+    }
+
+
+    function escapeHtml(
+        text
+    ) {
+
+        return String(text)
+
+            .replaceAll(
+                '&',
+                '&amp;'
+            )
+
+            .replaceAll(
+                '<',
+                '&lt;'
+            )
+
+            .replaceAll(
+                '>',
+                '&gt;'
+            )
+
+            .replaceAll(
+                '"',
+                '&quot;'
+            )
+
+            .replaceAll(
+                "'",
+                '&#039;'
+            );
+    }
+
+
+    // ========================================================
+    // INITIAL
+    // ========================================================
+
+    render();
+
+})().catch(
+
+    error => {
+
+        console.error(error);
+
+        document.body.innerHTML =
+            `
+            <pre style="
+                color:white;
+                background:#611;
+                padding:20px;
+            ">
+${String(error)}
+            </pre>
+            `;
+    }
+);
+
+</script>
+
+</body>
+
+</html>

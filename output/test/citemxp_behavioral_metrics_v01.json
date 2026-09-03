@@ -1,0 +1,1302 @@
+{
+  "replay": "test",
+  "version": "CITEMXP_BEHAVIORAL_METRICS_V01",
+  "canonical": false,
+  "status": "DESCRIPTIVE_ACTION_FEATURES_READY",
+  "interpretation": {
+    "scope": "Observed player attacks on validated Trooper and Soul Urn CItemXP episodes.",
+    "attemptDefinition": "One player-orb engagement, deduplicated across repeated damage messages from the same player.",
+    "resolutionCreditDefinition": "The player whose first observed hit received the validated shot outcome.",
+    "competingRaceLossDefinition": "A later hitter from the opposing team in a mixed-team race.",
+    "sameTeamFollowupDefinition": "A later hitter on the winning team; not treated as a competitive loss.",
+    "importantCaution": "No-shot episodes are team economy outcomes, not player choices. They are excluded from player action counts.",
+    "doNotInferYet": [
+      "missed soul opportunity",
+      "orb awareness",
+      "decision quality",
+      "attempt probability when an orb was visible",
+      "secure or deny efficiency conditional on a true opportunity"
+    ],
+    "reason": "Player-specific visibility, distance, line of sight, and competing action demands have not yet been joined to each orb window."
+  },
+  "sources": {
+    "finalOutcomeSummary": "G:\\DeadlockBehavior\\output\\test\\citemxp_final_outcome_validation_v01.json",
+    "finalOutcomes": "G:\\DeadlockBehavior\\output\\test\\citemxp_final_outcomes_v01.jsonl",
+    "raceOutcomes": "G:\\DeadlockBehavior\\output\\test\\citemxp_corrected_shot_outcomes_v01.jsonl",
+    "playerStateSummary": "G:\\DeadlockBehavior\\output\\test\\player_state_summary.json",
+    "behavioralMetricsV01": "G:\\DeadlockBehavior\\output\\test\\behavioral_metrics_v01.json",
+    "inspectorBase": "G:\\DeadlockBehavior\\inspector\\data\\test.json",
+    "overlayV02": "G:\\DeadlockBehavior\\inspector\\data\\test\\v02_overlays.json"
+  },
+  "timeModel": {
+    "tickRate": 64,
+    "matchClockOffsetSeconds": 30,
+    "matchDurationSeconds": 3166.25,
+    "timeBinSeconds": 300
+  },
+  "counts": {
+    "finalEpisodes": 1239,
+    "resolvedEpisodes": 1237,
+    "unresolvedEpisodes": 2,
+    "shotEpisodes": 105,
+    "noShotEpisodes": 1134,
+    "playerActionRows": 111,
+    "damageMessages": 123,
+    "creditedFirstHits": 105,
+    "competingRaceLosses": 5,
+    "sameTeamFollowups": 1,
+    "mixedTeamRaces": 5,
+    "players": 12
+  },
+  "outcomeContext": {
+    "allFinalOutcomes": {
+      "AUTO_AWARD_SECURE": 1092,
+      "SECURE": 58,
+      "AUTO_AWARD_CLAIM": 40,
+      "DENY": 28,
+      "CLAIM": 19,
+      "NO_SHOT_UNRESOLVED": 2
+    },
+    "shotOutcomes": {
+      "SECURE": 58,
+      "DENY": 28,
+      "CLAIM": 19
+    },
+    "noShotOutcomes": {
+      "AUTO_AWARD_SECURE": 1092,
+      "AUTO_AWARD_CLAIM": 40,
+      "NO_SHOT_UNRESOLVED": 2
+    },
+    "finalOutcomesByWinnerTeam": {
+      "2": {
+        "total": 602,
+        "outcomes": {
+          "AUTO_AWARD_SECURE": 513,
+          "SECURE": 29,
+          "AUTO_AWARD_CLAIM": 23,
+          "DENY": 18,
+          "CLAIM": 17,
+          "NO_SHOT_UNRESOLVED": 2
+        },
+        "shot": 64,
+        "automatic": 536
+      },
+      "3": {
+        "total": 637,
+        "outcomes": {
+          "AUTO_AWARD_SECURE": 579,
+          "SECURE": 29,
+          "AUTO_AWARD_CLAIM": 17,
+          "DENY": 10,
+          "CLAIM": 2
+        },
+        "shot": 41,
+        "automatic": 596
+      }
+    },
+    "playerActionTypes": {
+      "TROOPER_SECURE_ATTEMPT": 61,
+      "TROOPER_DENY_ATTEMPT": 20,
+      "URN_CLAIM_ATTEMPT": 19,
+      "URN_DENY_ATTEMPT": 11
+    }
+  },
+  "players": [
+    {
+      "playerName": "blooop354",
+      "team": 3,
+      "heroId": 58,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 38.525,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 16,
+      "totalDamageMessages": 23,
+      "creditedFirstHits": 15,
+      "creditedFirstHitsPerActiveMinute": 0.3893575600259572,
+      "resolutionCreditRateAmongEngagements": 0.9375,
+      "competingRaceLosses": 1,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 2,
+      "mixedTeamRaceWins": 1,
+      "mixedTeamRaceLosses": 1,
+      "actionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 11,
+        "TROOPER_DENY_ATTEMPT": 5
+      },
+      "creditedOutcomes": {
+        "SECURE": 11,
+        "DENY": 4
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 16
+      },
+      "timing": {
+        "firstActionSeconds": 65.421875,
+        "lastActionSeconds": 728.65625,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 10,
+            "creditedFirstHits": 9,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 6,
+              "TROOPER_DENY_ATTEMPT": 4
+            },
+            "creditedOutcomes": {
+              "SECURE": 6,
+              "DENY": 3
+            }
+          },
+          {
+            "binIndex": 1,
+            "startSeconds": 300,
+            "endSeconds": 600,
+            "startClock": "5:00",
+            "endClock": "10:00",
+            "engagements": 5,
+            "creditedFirstHits": 5,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 4,
+              "TROOPER_DENY_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 4,
+              "DENY": 1
+            }
+          },
+          {
+            "binIndex": 2,
+            "startSeconds": 600,
+            "endSeconds": 900,
+            "startClock": "10:00",
+            "endClock": "15:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "Eriansan",
+      "team": 2,
+      "heroId": 69,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 49.7625,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 28,
+      "totalDamageMessages": 28,
+      "creditedFirstHits": 28,
+      "creditedFirstHitsPerActiveMinute": 0.5626726953026877,
+      "resolutionCreditRateAmongEngagements": 1,
+      "competingRaceLosses": 0,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 0,
+      "mixedTeamRaceWins": 0,
+      "mixedTeamRaceLosses": 0,
+      "actionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 10,
+        "URN_CLAIM_ATTEMPT": 8,
+        "URN_DENY_ATTEMPT": 7,
+        "TROOPER_DENY_ATTEMPT": 3
+      },
+      "creditedOutcomes": {
+        "DENY": 10,
+        "SECURE": 10,
+        "CLAIM": 8
+      },
+      "sourceTypes": {
+        "URN_DELIVERY": 15,
+        "TROOPER_DEATH": 13
+      },
+      "timing": {
+        "firstActionSeconds": 48.015625,
+        "lastActionSeconds": 2350.890625,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 5,
+            "creditedFirstHits": 5,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 3,
+              "TROOPER_DENY_ATTEMPT": 2
+            },
+            "creditedOutcomes": {
+              "SECURE": 3,
+              "DENY": 2
+            }
+          },
+          {
+            "binIndex": 1,
+            "startSeconds": 300,
+            "endSeconds": 600,
+            "startClock": "5:00",
+            "endClock": "10:00",
+            "engagements": 3,
+            "creditedFirstHits": 3,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 3
+            },
+            "creditedOutcomes": {
+              "SECURE": 3
+            }
+          },
+          {
+            "binIndex": 2,
+            "startSeconds": 600,
+            "endSeconds": 900,
+            "startClock": "10:00",
+            "endClock": "15:00",
+            "engagements": 7,
+            "creditedFirstHits": 7,
+            "actionTypes": {
+              "URN_DENY_ATTEMPT": 5,
+              "TROOPER_SECURE_ATTEMPT": 2
+            },
+            "creditedOutcomes": {
+              "DENY": 5,
+              "SECURE": 2
+            }
+          },
+          {
+            "binIndex": 3,
+            "startSeconds": 900,
+            "endSeconds": 1200,
+            "startClock": "15:00",
+            "endClock": "20:00",
+            "engagements": 8,
+            "creditedFirstHits": 8,
+            "actionTypes": {
+              "URN_CLAIM_ATTEMPT": 8
+            },
+            "creditedOutcomes": {
+              "CLAIM": 8
+            }
+          },
+          {
+            "binIndex": 4,
+            "startSeconds": 1200,
+            "endSeconds": 1500,
+            "startClock": "20:00",
+            "endClock": "25:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "URN_DENY_ATTEMPT": 2
+            },
+            "creditedOutcomes": {
+              "DENY": 2
+            }
+          },
+          {
+            "binIndex": 5,
+            "startSeconds": 1500,
+            "endSeconds": 1800,
+            "startClock": "25:00",
+            "endClock": "30:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1,
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "DENY": 1,
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 7,
+            "startSeconds": 2100,
+            "endSeconds": 2400,
+            "startClock": "35:00",
+            "endClock": "40:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "flem",
+      "team": 2,
+      "heroId": 1,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 43.608333333333334,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 17,
+      "totalDamageMessages": 17,
+      "creditedFirstHits": 16,
+      "creditedFirstHitsPerActiveMinute": 0.3669023504681827,
+      "resolutionCreditRateAmongEngagements": 0.9411764705882353,
+      "competingRaceLosses": 1,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 1,
+      "mixedTeamRaceWins": 0,
+      "mixedTeamRaceLosses": 1,
+      "actionTypes": {
+        "URN_CLAIM_ATTEMPT": 9,
+        "URN_DENY_ATTEMPT": 4,
+        "TROOPER_SECURE_ATTEMPT": 3,
+        "TROOPER_DENY_ATTEMPT": 1
+      },
+      "creditedOutcomes": {
+        "CLAIM": 9,
+        "DENY": 4,
+        "SECURE": 3
+      },
+      "sourceTypes": {
+        "URN_DELIVERY": 13,
+        "TROOPER_DEATH": 4
+      },
+      "timing": {
+        "firstActionSeconds": 65.484375,
+        "lastActionSeconds": 2180.546875,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 2,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1,
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 2,
+            "startSeconds": 600,
+            "endSeconds": 900,
+            "startClock": "10:00",
+            "endClock": "15:00",
+            "engagements": 5,
+            "creditedFirstHits": 5,
+            "actionTypes": {
+              "URN_DENY_ATTEMPT": 4,
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "DENY": 4,
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 4,
+            "startSeconds": 1200,
+            "endSeconds": 1500,
+            "startClock": "20:00",
+            "endClock": "25:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 7,
+            "startSeconds": 2100,
+            "endSeconds": 2400,
+            "startClock": "35:00",
+            "endClock": "40:00",
+            "engagements": 9,
+            "creditedFirstHits": 9,
+            "actionTypes": {
+              "URN_CLAIM_ATTEMPT": 9
+            },
+            "creditedOutcomes": {
+              "CLAIM": 9
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "Goldinfer",
+      "team": 3,
+      "heroId": 79,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 42.858333333333334,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 3,
+      "totalDamageMessages": 3,
+      "creditedFirstHits": 2,
+      "creditedFirstHitsPerActiveMinute": 0.0466653704063776,
+      "resolutionCreditRateAmongEngagements": 0.6666666666666666,
+      "competingRaceLosses": 0,
+      "sameTeamFollowups": 1,
+      "mixedTeamRaceEngagements": 0,
+      "mixedTeamRaceWins": 0,
+      "mixedTeamRaceLosses": 0,
+      "actionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 2,
+        "TROOPER_DENY_ATTEMPT": 1
+      },
+      "creditedOutcomes": {
+        "DENY": 1,
+        "SECURE": 1
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 3
+      },
+      "timing": {
+        "firstActionSeconds": 330.015625,
+        "lastActionSeconds": 2654.65625,
+        "timeBins": [
+          {
+            "binIndex": 1,
+            "startSeconds": 300,
+            "endSeconds": 600,
+            "startClock": "5:00",
+            "endClock": "10:00",
+            "engagements": 2,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1,
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "DENY": 1
+            }
+          },
+          {
+            "binIndex": 8,
+            "startSeconds": 2400,
+            "endSeconds": 2700,
+            "startClock": "40:00",
+            "endClock": "45:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "Nacho4Sure",
+      "team": 2,
+      "heroId": 2,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 42.145833333333336,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 4,
+      "totalDamageMessages": 7,
+      "creditedFirstHits": 4,
+      "creditedFirstHitsPerActiveMinute": 0.09490855165595649,
+      "resolutionCreditRateAmongEngagements": 1,
+      "competingRaceLosses": 0,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 1,
+      "mixedTeamRaceWins": 1,
+      "mixedTeamRaceLosses": 0,
+      "actionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 4
+      },
+      "creditedOutcomes": {
+        "SECURE": 4
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 4
+      },
+      "timing": {
+        "firstActionSeconds": 136.734375,
+        "lastActionSeconds": 449.84375,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 2
+            },
+            "creditedOutcomes": {
+              "SECURE": 2
+            }
+          },
+          {
+            "binIndex": 1,
+            "startSeconds": 300,
+            "endSeconds": 600,
+            "startClock": "5:00",
+            "endClock": "10:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 2
+            },
+            "creditedOutcomes": {
+              "SECURE": 2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "Nebula",
+      "team": 3,
+      "heroId": 25,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 43.52916666666667,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 6,
+      "totalDamageMessages": 6,
+      "creditedFirstHits": 5,
+      "creditedFirstHitsPerActiveMinute": 0.11486551163013305,
+      "resolutionCreditRateAmongEngagements": 0.8333333333333334,
+      "competingRaceLosses": 1,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 2,
+      "mixedTeamRaceWins": 1,
+      "mixedTeamRaceLosses": 1,
+      "actionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 4,
+        "TROOPER_DENY_ATTEMPT": 1,
+        "URN_CLAIM_ATTEMPT": 1
+      },
+      "creditedOutcomes": {
+        "SECURE": 3,
+        "CLAIM": 1,
+        "DENY": 1
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 5,
+        "URN_DELIVERY": 1
+      },
+      "timing": {
+        "firstActionSeconds": 133.734375,
+        "lastActionSeconds": 1143.078125,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 2,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1,
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "DENY": 1
+            }
+          },
+          {
+            "binIndex": 1,
+            "startSeconds": 300,
+            "endSeconds": 600,
+            "startClock": "5:00",
+            "endClock": "10:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 2
+            },
+            "creditedOutcomes": {
+              "SECURE": 2
+            }
+          },
+          {
+            "binIndex": 2,
+            "startSeconds": 600,
+            "endSeconds": 900,
+            "startClock": "10:00",
+            "endClock": "15:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "URN_CLAIM_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "CLAIM": 1
+            }
+          },
+          {
+            "binIndex": 3,
+            "startSeconds": 900,
+            "endSeconds": 1200,
+            "startClock": "15:00",
+            "endClock": "20:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "renso",
+      "team": 3,
+      "heroId": 31,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 43.90416666666667,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 8,
+      "totalDamageMessages": 10,
+      "creditedFirstHits": 8,
+      "creditedFirstHitsPerActiveMinute": 0.18221505172250166,
+      "resolutionCreditRateAmongEngagements": 1,
+      "competingRaceLosses": 0,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 0,
+      "mixedTeamRaceWins": 0,
+      "mixedTeamRaceLosses": 0,
+      "actionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 8
+      },
+      "creditedOutcomes": {
+        "SECURE": 8
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 8
+      },
+      "timing": {
+        "firstActionSeconds": 100.828125,
+        "lastActionSeconds": 1121,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 5,
+            "creditedFirstHits": 5,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 5
+            },
+            "creditedOutcomes": {
+              "SECURE": 5
+            }
+          },
+          {
+            "binIndex": 1,
+            "startSeconds": 300,
+            "endSeconds": 600,
+            "startClock": "5:00",
+            "endClock": "10:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 3,
+            "startSeconds": 900,
+            "endSeconds": 1200,
+            "startClock": "15:00",
+            "endClock": "20:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 2
+            },
+            "creditedOutcomes": {
+              "SECURE": 2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "Snazzy314",
+      "team": 2,
+      "heroId": 4,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 42.8,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 5,
+      "totalDamageMessages": 5,
+      "creditedFirstHits": 4,
+      "creditedFirstHitsPerActiveMinute": 0.09345794392523366,
+      "resolutionCreditRateAmongEngagements": 0.8,
+      "competingRaceLosses": 1,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 1,
+      "mixedTeamRaceWins": 0,
+      "mixedTeamRaceLosses": 1,
+      "actionTypes": {
+        "TROOPER_DENY_ATTEMPT": 3,
+        "TROOPER_SECURE_ATTEMPT": 2
+      },
+      "creditedOutcomes": {
+        "DENY": 2,
+        "SECURE": 2
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 5
+      },
+      "timing": {
+        "firstActionSeconds": 216.3125,
+        "lastActionSeconds": 1228.421875,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "DENY": 1
+            }
+          },
+          {
+            "binIndex": 1,
+            "startSeconds": 300,
+            "endSeconds": 600,
+            "startClock": "5:00",
+            "endClock": "10:00",
+            "engagements": 3,
+            "creditedFirstHits": 3,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 2,
+              "TROOPER_DENY_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 2,
+              "DENY": 1
+            }
+          },
+          {
+            "binIndex": 4,
+            "startSeconds": 1200,
+            "endSeconds": 1500,
+            "startClock": "20:00",
+            "endClock": "25:00",
+            "engagements": 1,
+            "creditedFirstHits": 0,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1
+            },
+            "creditedOutcomes": {}
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "TheWoogler",
+      "team": 3,
+      "heroId": 52,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 38.791666666666664,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 7,
+      "totalDamageMessages": 7,
+      "creditedFirstHits": 7,
+      "creditedFirstHitsPerActiveMinute": 0.1804511278195489,
+      "resolutionCreditRateAmongEngagements": 1,
+      "competingRaceLosses": 0,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 0,
+      "mixedTeamRaceWins": 0,
+      "mixedTeamRaceLosses": 0,
+      "actionTypes": {
+        "TROOPER_DENY_ATTEMPT": 3,
+        "TROOPER_SECURE_ATTEMPT": 3,
+        "URN_CLAIM_ATTEMPT": 1
+      },
+      "creditedOutcomes": {
+        "DENY": 3,
+        "SECURE": 3,
+        "CLAIM": 1
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 6,
+        "URN_DELIVERY": 1
+      },
+      "timing": {
+        "firstActionSeconds": 51.484375,
+        "lastActionSeconds": 1363.234375,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 3,
+            "creditedFirstHits": 3,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 2,
+              "TROOPER_DENY_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 2,
+              "DENY": 1
+            }
+          },
+          {
+            "binIndex": 1,
+            "startSeconds": 300,
+            "endSeconds": 600,
+            "startClock": "5:00",
+            "endClock": "10:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "DENY": 1
+            }
+          },
+          {
+            "binIndex": 3,
+            "startSeconds": 900,
+            "endSeconds": 1200,
+            "startClock": "15:00",
+            "endClock": "20:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 4,
+            "startSeconds": 1200,
+            "endSeconds": 1500,
+            "startClock": "20:00",
+            "endClock": "25:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1,
+              "URN_CLAIM_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "CLAIM": 1,
+              "DENY": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "viggoth 300",
+      "team": 2,
+      "heroId": 18,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 50.725,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 3,
+      "totalDamageMessages": 3,
+      "creditedFirstHits": 3,
+      "creditedFirstHitsPerActiveMinute": 0.05914243469689502,
+      "resolutionCreditRateAmongEngagements": 1,
+      "competingRaceLosses": 0,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 0,
+      "mixedTeamRaceWins": 0,
+      "mixedTeamRaceLosses": 0,
+      "actionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 2,
+        "TROOPER_DENY_ATTEMPT": 1
+      },
+      "creditedOutcomes": {
+        "SECURE": 2,
+        "DENY": 1
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 3
+      },
+      "timing": {
+        "firstActionSeconds": 76.171875,
+        "lastActionSeconds": 2360.328125,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "DENY": 1
+            }
+          },
+          {
+            "binIndex": 2,
+            "startSeconds": 600,
+            "endSeconds": 900,
+            "startClock": "10:00",
+            "endClock": "15:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 7,
+            "startSeconds": 2100,
+            "endSeconds": 2400,
+            "startClock": "35:00",
+            "endClock": "40:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "Yosafire Worshipper [K]",
+      "team": 2,
+      "heroId": 50,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 50.9125,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 10,
+      "totalDamageMessages": 10,
+      "creditedFirstHits": 9,
+      "creditedFirstHitsPerActiveMinute": 0.17677387674932482,
+      "resolutionCreditRateAmongEngagements": 0.9,
+      "competingRaceLosses": 1,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 2,
+      "mixedTeamRaceWins": 1,
+      "mixedTeamRaceLosses": 1,
+      "actionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 9,
+        "TROOPER_DENY_ATTEMPT": 1
+      },
+      "creditedOutcomes": {
+        "SECURE": 8,
+        "DENY": 1
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 10
+      },
+      "timing": {
+        "firstActionSeconds": 133.640625,
+        "lastActionSeconds": 2100.53125,
+        "timeBins": [
+          {
+            "binIndex": 0,
+            "startSeconds": 0,
+            "endSeconds": 300,
+            "startClock": "0:00",
+            "endClock": "5:00",
+            "engagements": 2,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1,
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "DENY": 1
+            }
+          },
+          {
+            "binIndex": 1,
+            "startSeconds": 300,
+            "endSeconds": 600,
+            "startClock": "5:00",
+            "endClock": "10:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 2
+            },
+            "creditedOutcomes": {
+              "SECURE": 2
+            }
+          },
+          {
+            "binIndex": 2,
+            "startSeconds": 600,
+            "endSeconds": 900,
+            "startClock": "10:00",
+            "endClock": "15:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 4,
+            "startSeconds": 1200,
+            "endSeconds": 1500,
+            "startClock": "20:00",
+            "endClock": "25:00",
+            "engagements": 3,
+            "creditedFirstHits": 3,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 3
+            },
+            "creditedOutcomes": {
+              "SECURE": 3
+            }
+          },
+          {
+            "binIndex": 6,
+            "startSeconds": 1800,
+            "endSeconds": 2100,
+            "startClock": "30:00",
+            "endClock": "35:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 7,
+            "startSeconds": 2100,
+            "endSeconds": 2400,
+            "startClock": "35:00",
+            "endClock": "40:00",
+            "engagements": 1,
+            "creditedFirstHits": 1,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "SECURE": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "Zaeleth",
+      "team": 3,
+      "heroId": 77,
+      "rosterSource": "BEHAVIORAL_METRICS_V01",
+      "denominator": {
+        "activeMinutes": 41.50416666666667,
+        "basis": "ALIVE_MINUTES_FROM_BEHAVIORAL_METRICS_V01"
+      },
+      "totalOrbEngagements": 4,
+      "totalDamageMessages": 4,
+      "creditedFirstHits": 4,
+      "creditedFirstHitsPerActiveMinute": 0.09637586587691999,
+      "resolutionCreditRateAmongEngagements": 1,
+      "competingRaceLosses": 0,
+      "sameTeamFollowups": 0,
+      "mixedTeamRaceEngagements": 1,
+      "mixedTeamRaceWins": 1,
+      "mixedTeamRaceLosses": 0,
+      "actionTypes": {
+        "TROOPER_SECURE_ATTEMPT": 3,
+        "TROOPER_DENY_ATTEMPT": 1
+      },
+      "creditedOutcomes": {
+        "SECURE": 3,
+        "DENY": 1
+      },
+      "sourceTypes": {
+        "TROOPER_DEATH": 4
+      },
+      "timing": {
+        "firstActionSeconds": 1228.421875,
+        "lastActionSeconds": 2562.890625,
+        "timeBins": [
+          {
+            "binIndex": 4,
+            "startSeconds": 1200,
+            "endSeconds": 1500,
+            "startClock": "20:00",
+            "endClock": "25:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "TROOPER_DENY_ATTEMPT": 1,
+              "TROOPER_SECURE_ATTEMPT": 1
+            },
+            "creditedOutcomes": {
+              "DENY": 1,
+              "SECURE": 1
+            }
+          },
+          {
+            "binIndex": 8,
+            "startSeconds": 2400,
+            "endSeconds": 2700,
+            "startClock": "40:00",
+            "endClock": "45:00",
+            "engagements": 2,
+            "creditedFirstHits": 2,
+            "actionTypes": {
+              "TROOPER_SECURE_ATTEMPT": 2
+            },
+            "creditedOutcomes": {
+              "SECURE": 2
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script65Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "finalCountPreserved": {
+        "actual": 1239,
+        "expected": 1239,
+        "pass": true
+      },
+      "finalResolvedCountPreserved": {
+        "actual": 1237,
+        "expected": 1237,
+        "pass": true
+      },
+      "raceRowsCoverFinalRows": {
+        "actual": 1239,
+        "expected": 1239,
+        "pass": true
+      },
+      "shotRowsHavePlayerActions": {
+        "actual": 105,
+        "expected": 105,
+        "pass": true
+      },
+      "noShotRowsHaveNoPlayerActions": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "oneWinnerActionPerShot": {
+        "actual": 105,
+        "expected": 105,
+        "pass": true
+      },
+      "mixedTeamRaceCountPreserved": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "mixedRacesContainBothTeams": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "eventCountPreserved": {
+        "actual": 1239,
+        "expected": 1239,
+        "pass": true
+      },
+      "eventTimesFinite": {
+        "actual": 1239,
+        "expected": 1239,
+        "pass": true
+      },
+      "allActionPlayersInMetrics": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      }
+    },
+    "unmatchedFinalKeys": [],
+    "unmatchedRaceKeys": []
+  },
+  "nextStep": "Load v03_overlays.json in the inspector and add CItemXP timeline filters, event panels, and player soul-action summaries.",
+  "outputs": {
+    "metrics": "G:\\DeadlockBehavior\\output\\test\\citemxp_behavioral_metrics_v01.json",
+    "playerActions": "G:\\DeadlockBehavior\\output\\test\\citemxp_player_actions_v01.jsonl",
+    "inspectorEvents": "G:\\DeadlockBehavior\\output\\test\\citemxp_inspector_events_v01.json",
+    "behavioralMetricsV02": "G:\\DeadlockBehavior\\output\\test\\behavioral_metrics_v02.json",
+    "overlayV03": "G:\\DeadlockBehavior\\inspector\\data\\test\\v03_overlays.json"
+  }
+}

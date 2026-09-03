@@ -1,0 +1,7549 @@
+{
+  "replay": "test",
+  "method": "spawn tier + XY/Z geometry + synchronized UP transitions",
+  "parameters": {
+    "xyRadius": 500,
+    "maxZDifference": 128,
+    "respawnSyncToleranceSeconds": 0.2
+  },
+  "tierSummary": {
+    "TIER_2_MIN": {
+      "groupCount": 4,
+      "memberCount": 12,
+      "sizeDistribution": {
+        "3": 4
+      },
+      "groupsWithFullSynchronizedRespawn": 4
+    },
+    "TIER_5_MIN": {
+      "groupCount": 22,
+      "memberCount": 92,
+      "sizeDistribution": {
+        "3": 10,
+        "4": 2,
+        "5": 6,
+        "6": 4
+      },
+      "groupsWithFullSynchronizedRespawn": 4
+    },
+    "TIER_8_MIN": {
+      "groupCount": 16,
+      "memberCount": 42,
+      "sizeDistribution": {
+        "1": 2,
+        "2": 2,
+        "3": 12
+      },
+      "groupsWithFullSynchronizedRespawn": 7
+    }
+  },
+  "candidateGroups": [
+    {
+      "candidateGroupId": "S01",
+      "spawnTier": "TIER_2_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        2959,
+        2960,
+        2961
+      ],
+      "centroid": {
+        "x": -7168,
+        "y": -1322.6666666666667,
+        "z": 256
+      },
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 2959,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -7168,
+            "y": -1408,
+            "z": 256
+          },
+          "downCount": 4,
+          "upCount": 4,
+          "downTimes": [
+            288.484375,
+            517.203125,
+            1566.390625,
+            1708.0625
+          ],
+          "upTimes": [
+            445.3125,
+            602.21875,
+            1652.46875,
+            1793.078125
+          ]
+        },
+        {
+          "entityIndex": 2960,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -7296,
+            "y": -1280,
+            "z": 256
+          },
+          "downCount": 4,
+          "upCount": 4,
+          "downTimes": [
+            286.59375,
+            517.140625,
+            952.546875,
+            1127.625
+          ],
+          "upTimes": [
+            445.3125,
+            602.21875,
+            1041.921875,
+            1212.640625
+          ]
+        },
+        {
+          "entityIndex": 2961,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -7040,
+            "y": -1280,
+            "z": 256
+          },
+          "downCount": 6,
+          "upCount": 6,
+          "downTimes": [
+            173.859375,
+            516.921875,
+            614.546875,
+            1126.59375,
+            1567.453125,
+            1708.0625
+          ],
+          "upTimes": [
+            261.8125,
+            602.21875,
+            702.234375,
+            1212.640625,
+            1652.46875,
+            1793.078125
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 261.8125,
+          "firstTime": 261.8125,
+          "lastTime": 261.8125,
+          "members": [
+            2961
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 445.3125,
+          "firstTime": 445.3125,
+          "lastTime": 445.3125,
+          "members": [
+            2959,
+            2960
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 602.21875,
+          "firstTime": 602.21875,
+          "lastTime": 602.21875,
+          "members": [
+            2959,
+            2960,
+            2961
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 702.234375,
+          "firstTime": 702.234375,
+          "lastTime": 702.234375,
+          "members": [
+            2961
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1041.921875,
+          "firstTime": 1041.921875,
+          "lastTime": 1041.921875,
+          "members": [
+            2960
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1212.640625,
+          "firstTime": 1212.640625,
+          "lastTime": 1212.640625,
+          "members": [
+            2960,
+            2961
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1652.46875,
+          "firstTime": 1652.46875,
+          "lastTime": 1652.46875,
+          "members": [
+            2959,
+            2961
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1793.078125,
+          "firstTime": 1793.078125,
+          "lastTime": 1793.078125,
+          "members": [
+            2959,
+            2961
+          ],
+          "memberCount": 2
+        }
+      ],
+      "fullSynchronizedRespawnCount": 1,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 602.21875,
+          "firstTime": 602.21875,
+          "lastTime": 602.21875,
+          "members": [
+            2959,
+            2960,
+            2961
+          ],
+          "memberCount": 3
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2959,
+            2961
+          ],
+          "count": 2,
+          "times": [
+            1652.46875,
+            1793.078125
+          ]
+        },
+        {
+          "members": [
+            2961
+          ],
+          "count": 2,
+          "times": [
+            261.8125,
+            702.234375
+          ]
+        },
+        {
+          "members": [
+            2959,
+            2960,
+            2961
+          ],
+          "count": 1,
+          "times": [
+            602.21875
+          ]
+        },
+        {
+          "members": [
+            2959,
+            2960
+          ],
+          "count": 1,
+          "times": [
+            445.3125
+          ]
+        },
+        {
+          "members": [
+            2960,
+            2961
+          ],
+          "count": 1,
+          "times": [
+            1212.640625
+          ]
+        },
+        {
+          "members": [
+            2960
+          ],
+          "count": 1,
+          "times": [
+            1041.921875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2959,
+          "entityB": 2960,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 4,
+          "synchronyRate": 0.5
+        },
+        {
+          "entityA": 2959,
+          "entityB": 2961,
+          "synchronizedRespawns": 3,
+          "comparableRespawns": 4,
+          "synchronyRate": 0.75
+        },
+        {
+          "entityA": 2960,
+          "entityB": 2961,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 4,
+          "synchronyRate": 0.5
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "S02",
+      "spawnTier": "TIER_2_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        2965,
+        2966,
+        2967
+      ],
+      "centroid": {
+        "x": -1386.6666666666667,
+        "y": 896,
+        "z": 384
+      },
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 2965,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -1536,
+            "y": 800,
+            "z": 384
+          },
+          "downCount": 12,
+          "upCount": 12,
+          "downTimes": [
+            216.28125,
+            322.34375,
+            517.53125,
+            794.25,
+            928.921875,
+            1075.828125,
+            1194.84375,
+            1342.296875,
+            1519.609375,
+            2143.5625,
+            2325.375,
+            2638.703125
+          ],
+          "upTimes": [
+            301.53125,
+            407.359375,
+            602.546875,
+            879.265625,
+            1013.9375,
+            1160.84375,
+            1279.859375,
+            1427.3125,
+            1604.625,
+            2228.578125,
+            2410.390625,
+            2723.71875
+          ]
+        },
+        {
+          "entityIndex": 2966,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -1312,
+            "y": 1088,
+            "z": 384
+          },
+          "downCount": 12,
+          "upCount": 12,
+          "downTimes": [
+            216.515625,
+            318.890625,
+            516.015625,
+            625.1875,
+            792.671875,
+            928.921875,
+            1191.625,
+            1342.296875,
+            1519.609375,
+            2143.5625,
+            2325.375,
+            2638.703125
+          ],
+          "upTimes": [
+            301.53125,
+            407.359375,
+            602.546875,
+            712.078125,
+            879.265625,
+            1013.9375,
+            1279.859375,
+            1427.3125,
+            1604.625,
+            2228.578125,
+            2410.390625,
+            2723.71875
+          ]
+        },
+        {
+          "entityIndex": 2967,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -1312,
+            "y": 800,
+            "z": 384
+          },
+          "downCount": 10,
+          "upCount": 10,
+          "downTimes": [
+            320.515625,
+            790.5625,
+            928.921875,
+            1071.9375,
+            1193.5,
+            1342.296875,
+            1519.609375,
+            2143.5625,
+            2325.125,
+            2638.703125
+          ],
+          "upTimes": [
+            407.359375,
+            879.265625,
+            1013.9375,
+            1160.84375,
+            1279.859375,
+            1427.3125,
+            1604.625,
+            2228.578125,
+            2410.390625,
+            2723.71875
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 301.53125,
+          "firstTime": 301.53125,
+          "lastTime": 301.53125,
+          "members": [
+            2965,
+            2966
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 407.359375,
+          "firstTime": 407.359375,
+          "lastTime": 407.359375,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 602.546875,
+          "firstTime": 602.546875,
+          "lastTime": 602.546875,
+          "members": [
+            2965,
+            2966
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 712.078125,
+          "firstTime": 712.078125,
+          "lastTime": 712.078125,
+          "members": [
+            2966
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 879.265625,
+          "firstTime": 879.265625,
+          "lastTime": 879.265625,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1013.9375,
+          "firstTime": 1013.9375,
+          "lastTime": 1013.9375,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1160.84375,
+          "firstTime": 1160.84375,
+          "lastTime": 1160.84375,
+          "members": [
+            2965,
+            2967
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1279.859375,
+          "firstTime": 1279.859375,
+          "lastTime": 1279.859375,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1427.3125,
+          "firstTime": 1427.3125,
+          "lastTime": 1427.3125,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1604.625,
+          "firstTime": 1604.625,
+          "lastTime": 1604.625,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2228.578125,
+          "firstTime": 2228.578125,
+          "lastTime": 2228.578125,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2410.390625,
+          "firstTime": 2410.390625,
+          "lastTime": 2410.390625,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2723.71875,
+          "firstTime": 2723.71875,
+          "lastTime": 2723.71875,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 9,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 407.359375,
+          "firstTime": 407.359375,
+          "lastTime": 407.359375,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 879.265625,
+          "firstTime": 879.265625,
+          "lastTime": 879.265625,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1013.9375,
+          "firstTime": 1013.9375,
+          "lastTime": 1013.9375,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1279.859375,
+          "firstTime": 1279.859375,
+          "lastTime": 1279.859375,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1427.3125,
+          "firstTime": 1427.3125,
+          "lastTime": 1427.3125,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1604.625,
+          "firstTime": 1604.625,
+          "lastTime": 1604.625,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2228.578125,
+          "firstTime": 2228.578125,
+          "lastTime": 2228.578125,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2410.390625,
+          "firstTime": 2410.390625,
+          "lastTime": 2410.390625,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2723.71875,
+          "firstTime": 2723.71875,
+          "lastTime": 2723.71875,
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "memberCount": 3
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2965,
+            2966,
+            2967
+          ],
+          "count": 9,
+          "times": [
+            407.359375,
+            879.265625,
+            1013.9375,
+            1279.859375,
+            1427.3125,
+            1604.625,
+            2228.578125,
+            2410.390625,
+            2723.71875
+          ]
+        },
+        {
+          "members": [
+            2965,
+            2966
+          ],
+          "count": 2,
+          "times": [
+            301.53125,
+            602.546875
+          ]
+        },
+        {
+          "members": [
+            2965,
+            2967
+          ],
+          "count": 1,
+          "times": [
+            1160.84375
+          ]
+        },
+        {
+          "members": [
+            2966
+          ],
+          "count": 1,
+          "times": [
+            712.078125
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2965,
+          "entityB": 2966,
+          "synchronizedRespawns": 11,
+          "comparableRespawns": 12,
+          "synchronyRate": 0.9166666666666666
+        },
+        {
+          "entityA": 2965,
+          "entityB": 2967,
+          "synchronizedRespawns": 10,
+          "comparableRespawns": 10,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2966,
+          "entityB": 2967,
+          "synchronizedRespawns": 9,
+          "comparableRespawns": 10,
+          "synchronyRate": 0.9
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "S03",
+      "spawnTier": "TIER_2_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        2968,
+        2969,
+        2970
+      ],
+      "centroid": {
+        "x": 1373.75,
+        "y": -970.6666666666666,
+        "z": 384
+      },
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 2968,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 1312,
+            "y": -896,
+            "z": 384
+          },
+          "downCount": 6,
+          "upCount": 6,
+          "downTimes": [
+            134.953125,
+            323.3125,
+            828.875,
+            953.53125,
+            1341.40625,
+            2477.6875
+          ],
+          "upTimes": [
+            219.96875,
+            410.015625,
+            916.078125,
+            1038.546875,
+            1426.421875,
+            2562.703125
+          ]
+        },
+        {
+          "entityIndex": 2969,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 1305.25,
+            "y": -1120,
+            "z": 384
+          },
+          "downCount": 9,
+          "upCount": 9,
+          "downTimes": [
+            134.953125,
+            321.71875,
+            491.53125,
+            628.3125,
+            829.921875,
+            952.984375,
+            1341.40625,
+            1826.6875,
+            2477.6875
+          ],
+          "upTimes": [
+            219.96875,
+            410.015625,
+            576.546875,
+            713.328125,
+            916.078125,
+            1038.546875,
+            1426.421875,
+            1914.234375,
+            2562.703125
+          ]
+        },
+        {
+          "entityIndex": 2970,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 1504,
+            "y": -896,
+            "z": 384
+          },
+          "downCount": 6,
+          "upCount": 6,
+          "downTimes": [
+            134.953125,
+            325,
+            831.0625,
+            953.53125,
+            1341.40625,
+            2477.6875
+          ],
+          "upTimes": [
+            219.96875,
+            410.015625,
+            916.078125,
+            1038.546875,
+            1426.421875,
+            2562.703125
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 219.96875,
+          "firstTime": 219.96875,
+          "lastTime": 219.96875,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 410.015625,
+          "firstTime": 410.015625,
+          "lastTime": 410.015625,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 576.546875,
+          "firstTime": 576.546875,
+          "lastTime": 576.546875,
+          "members": [
+            2969
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 713.328125,
+          "firstTime": 713.328125,
+          "lastTime": 713.328125,
+          "members": [
+            2969
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 916.078125,
+          "firstTime": 916.078125,
+          "lastTime": 916.078125,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1038.546875,
+          "firstTime": 1038.546875,
+          "lastTime": 1038.546875,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1426.421875,
+          "firstTime": 1426.421875,
+          "lastTime": 1426.421875,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1914.234375,
+          "firstTime": 1914.234375,
+          "lastTime": 1914.234375,
+          "members": [
+            2969
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 2562.703125,
+          "firstTime": 2562.703125,
+          "lastTime": 2562.703125,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 6,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 219.96875,
+          "firstTime": 219.96875,
+          "lastTime": 219.96875,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 410.015625,
+          "firstTime": 410.015625,
+          "lastTime": 410.015625,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 916.078125,
+          "firstTime": 916.078125,
+          "lastTime": 916.078125,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1038.546875,
+          "firstTime": 1038.546875,
+          "lastTime": 1038.546875,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1426.421875,
+          "firstTime": 1426.421875,
+          "lastTime": 1426.421875,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2562.703125,
+          "firstTime": 2562.703125,
+          "lastTime": 2562.703125,
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "memberCount": 3
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2968,
+            2969,
+            2970
+          ],
+          "count": 6,
+          "times": [
+            219.96875,
+            410.015625,
+            916.078125,
+            1038.546875,
+            1426.421875,
+            2562.703125
+          ]
+        },
+        {
+          "members": [
+            2969
+          ],
+          "count": 3,
+          "times": [
+            576.546875,
+            713.328125,
+            1914.234375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2968,
+          "entityB": 2969,
+          "synchronizedRespawns": 6,
+          "comparableRespawns": 6,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2968,
+          "entityB": 2970,
+          "synchronizedRespawns": 6,
+          "comparableRespawns": 6,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2969,
+          "entityB": 2970,
+          "synchronizedRespawns": 6,
+          "comparableRespawns": 6,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "S04",
+      "spawnTier": "TIER_2_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        2962,
+        2963,
+        2964
+      ],
+      "centroid": {
+        "x": 7168,
+        "y": 1322.6666666666667,
+        "z": 256
+      },
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 2962,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 7168,
+            "y": 1408,
+            "z": 256
+          },
+          "downCount": 5,
+          "upCount": 5,
+          "downTimes": [
+            395.734375,
+            1073.328125,
+            1694.71875,
+            1854.34375,
+            2478.828125
+          ],
+          "upTimes": [
+            483.921875,
+            1160.15625,
+            1779.734375,
+            1939.359375,
+            2563.84375
+          ]
+        },
+        {
+          "entityIndex": 2963,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 7296,
+            "y": 1280,
+            "z": 256
+          },
+          "downCount": 9,
+          "upCount": 9,
+          "downTimes": [
+            238.390625,
+            398.90625,
+            566.4375,
+            1075.140625,
+            1233.46875,
+            1370.703125,
+            1694.71875,
+            1854.34375,
+            2478.828125
+          ],
+          "upTimes": [
+            323.40625,
+            483.921875,
+            651.453125,
+            1160.15625,
+            1320.984375,
+            1459.09375,
+            1779.734375,
+            1939.359375,
+            2563.84375
+          ]
+        },
+        {
+          "entityIndex": 2964,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 7040,
+            "y": 1280,
+            "z": 256
+          },
+          "downCount": 8,
+          "upCount": 8,
+          "downTimes": [
+            235.234375,
+            395.734375,
+            956.609375,
+            1074.359375,
+            1374.078125,
+            1694.71875,
+            1854.34375,
+            2478.828125
+          ],
+          "upTimes": [
+            323.40625,
+            483.921875,
+            1044.09375,
+            1160.15625,
+            1459.09375,
+            1779.734375,
+            1939.359375,
+            2563.84375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 323.40625,
+          "firstTime": 323.40625,
+          "lastTime": 323.40625,
+          "members": [
+            2963,
+            2964
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 483.921875,
+          "firstTime": 483.921875,
+          "lastTime": 483.921875,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 651.453125,
+          "firstTime": 651.453125,
+          "lastTime": 651.453125,
+          "members": [
+            2963
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1044.09375,
+          "firstTime": 1044.09375,
+          "lastTime": 1044.09375,
+          "members": [
+            2964
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1160.15625,
+          "firstTime": 1160.15625,
+          "lastTime": 1160.15625,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1320.984375,
+          "firstTime": 1320.984375,
+          "lastTime": 1320.984375,
+          "members": [
+            2963
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1459.09375,
+          "firstTime": 1459.09375,
+          "lastTime": 1459.09375,
+          "members": [
+            2963,
+            2964
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1779.734375,
+          "firstTime": 1779.734375,
+          "lastTime": 1779.734375,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1939.359375,
+          "firstTime": 1939.359375,
+          "lastTime": 1939.359375,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2563.84375,
+          "firstTime": 2563.84375,
+          "lastTime": 2563.84375,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 5,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 483.921875,
+          "firstTime": 483.921875,
+          "lastTime": 483.921875,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1160.15625,
+          "firstTime": 1160.15625,
+          "lastTime": 1160.15625,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1779.734375,
+          "firstTime": 1779.734375,
+          "lastTime": 1779.734375,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1939.359375,
+          "firstTime": 1939.359375,
+          "lastTime": 1939.359375,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2563.84375,
+          "firstTime": 2563.84375,
+          "lastTime": 2563.84375,
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "memberCount": 3
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2962,
+            2963,
+            2964
+          ],
+          "count": 5,
+          "times": [
+            483.921875,
+            1160.15625,
+            1779.734375,
+            1939.359375,
+            2563.84375
+          ]
+        },
+        {
+          "members": [
+            2963,
+            2964
+          ],
+          "count": 2,
+          "times": [
+            323.40625,
+            1459.09375
+          ]
+        },
+        {
+          "members": [
+            2963
+          ],
+          "count": 2,
+          "times": [
+            651.453125,
+            1320.984375
+          ]
+        },
+        {
+          "members": [
+            2964
+          ],
+          "count": 1,
+          "times": [
+            1044.09375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2962,
+          "entityB": 2963,
+          "synchronizedRespawns": 5,
+          "comparableRespawns": 5,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2962,
+          "entityB": 2964,
+          "synchronizedRespawns": 5,
+          "comparableRespawns": 5,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2963,
+          "entityB": 2964,
+          "synchronizedRespawns": 7,
+          "comparableRespawns": 8,
+          "synchronyRate": 0.875
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M01",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 5,
+      "entityIndexes": [
+        2971,
+        2972,
+        2973,
+        2978,
+        3038
+      ],
+      "centroid": {
+        "x": -7936,
+        "y": 2124.8,
+        "z": 256
+      },
+      "unitTypeCounts": {
+        "SMALL_UNIT": 4,
+        "MEDIUM_UNIT": 1
+      },
+      "members": [
+        {
+          "entityIndex": 2971,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -7808,
+            "y": 1952,
+            "z": 256
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1205.296875,
+            2325.4375
+          ],
+          "upTimes": [
+            1495.734375,
+            2617.78125
+          ]
+        },
+        {
+          "entityIndex": 2972,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -7776,
+            "y": 2176,
+            "z": 256
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1204.3125,
+            1543.6875
+          ],
+          "upTimes": [
+            1495.734375,
+            1837.765625
+          ]
+        },
+        {
+          "entityIndex": 2973,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -7936,
+            "y": 2368,
+            "z": 256
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            884.9375
+          ],
+          "upTimes": [
+            1177.953125
+          ]
+        },
+        {
+          "entityIndex": 2978,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -8096,
+            "y": 2176,
+            "z": 256
+          },
+          "downCount": 3,
+          "upCount": 3,
+          "downTimes": [
+            1204.3125,
+            1543.6875,
+            2327.765625
+          ],
+          "upTimes": [
+            1495.734375,
+            1837.765625,
+            2617.78125
+          ]
+        },
+        {
+          "entityIndex": 3038,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -8064,
+            "y": 1952,
+            "z": 256
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1205.71875,
+            1544.765625
+          ],
+          "upTimes": [
+            1495.734375,
+            1837.765625
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1177.953125,
+          "firstTime": 1177.953125,
+          "lastTime": 1177.953125,
+          "members": [
+            2973
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1495.734375,
+          "firstTime": 1495.734375,
+          "lastTime": 1495.734375,
+          "members": [
+            2971,
+            2972,
+            2978,
+            3038
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 1837.765625,
+          "firstTime": 1837.765625,
+          "lastTime": 1837.765625,
+          "members": [
+            2972,
+            2978,
+            3038
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2617.78125,
+          "firstTime": 2617.78125,
+          "lastTime": 2617.78125,
+          "members": [
+            2971,
+            2978
+          ],
+          "memberCount": 2
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2971,
+            2972,
+            2978,
+            3038
+          ],
+          "count": 1,
+          "times": [
+            1495.734375
+          ]
+        },
+        {
+          "members": [
+            2972,
+            2978,
+            3038
+          ],
+          "count": 1,
+          "times": [
+            1837.765625
+          ]
+        },
+        {
+          "members": [
+            2971,
+            2978
+          ],
+          "count": 1,
+          "times": [
+            2617.78125
+          ]
+        },
+        {
+          "members": [
+            2973
+          ],
+          "count": 1,
+          "times": [
+            1177.953125
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2971,
+          "entityB": 2972,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 2,
+          "synchronyRate": 0.5
+        },
+        {
+          "entityA": 2971,
+          "entityB": 2973,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2971,
+          "entityB": 2978,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2971,
+          "entityB": 3038,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 2,
+          "synchronyRate": 0.5
+        },
+        {
+          "entityA": 2972,
+          "entityB": 2973,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2972,
+          "entityB": 2978,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2972,
+          "entityB": 3038,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2973,
+          "entityB": 2978,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2973,
+          "entityB": 3038,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2978,
+          "entityB": 3038,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M02",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 5,
+      "entityIndexes": [
+        2515,
+        2516,
+        2517,
+        2518,
+        3071
+      ],
+      "centroid": {
+        "x": -7897.6,
+        "y": 4531.2,
+        "z": 640.03125
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 2515,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -8000,
+            "y": 4672,
+            "z": 640.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2516,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -7936,
+            "y": 4288,
+            "z": 640.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2517,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -7680,
+            "y": 4416,
+            "z": 640.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2518,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -7744,
+            "y": 4800,
+            "z": 640.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3071,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -8128,
+            "y": 4480,
+            "z": 640.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2515,
+          "entityB": 2516,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2515,
+          "entityB": 2517,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2515,
+          "entityB": 2518,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2515,
+          "entityB": 3071,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2516,
+          "entityB": 2517,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2516,
+          "entityB": 2518,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2516,
+          "entityB": 3071,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2517,
+          "entityB": 2518,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2517,
+          "entityB": 3071,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2518,
+          "entityB": 3071,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M03",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3062,
+        3063,
+        3066
+      ],
+      "centroid": {
+        "x": -6773.333333333333,
+        "y": -2133.3333333333335,
+        "z": 1032
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3062,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -6864,
+            "y": -2304,
+            "z": 1032
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1143.140625,
+            1859.703125
+          ],
+          "upTimes": [
+            1433.15625,
+            2153.21875
+          ]
+        },
+        {
+          "entityIndex": 3063,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -6864,
+            "y": -2048,
+            "z": 1032
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1140.890625,
+            1860.765625
+          ],
+          "upTimes": [
+            1433.15625,
+            2153.21875
+          ]
+        },
+        {
+          "entityIndex": 3066,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -6592,
+            "y": -2048,
+            "z": 1032
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1141.734375,
+            1863.203125
+          ],
+          "upTimes": [
+            1433.15625,
+            2153.21875
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1433.15625,
+          "firstTime": 1433.15625,
+          "lastTime": 1433.15625,
+          "members": [
+            3062,
+            3063,
+            3066
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2153.21875,
+          "firstTime": 2153.21875,
+          "lastTime": 2153.21875,
+          "members": [
+            3062,
+            3063,
+            3066
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 2,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 1433.15625,
+          "firstTime": 1433.15625,
+          "lastTime": 1433.15625,
+          "members": [
+            3062,
+            3063,
+            3066
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2153.21875,
+          "firstTime": 2153.21875,
+          "lastTime": 2153.21875,
+          "members": [
+            3062,
+            3063,
+            3066
+          ],
+          "memberCount": 3
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3062,
+            3063,
+            3066
+          ],
+          "count": 2,
+          "times": [
+            1433.15625,
+            2153.21875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3062,
+          "entityB": 3063,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3062,
+          "entityB": 3066,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3063,
+          "entityB": 3066,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M04",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3041,
+        3043,
+        3045
+      ],
+      "centroid": {
+        "x": -5696,
+        "y": 1664,
+        "z": 928.03125
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3041,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -5888,
+            "y": 1536,
+            "z": 928.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3043,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -5696,
+            "y": 1920,
+            "z": 928.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3045,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -5504,
+            "y": 1536,
+            "z": 928.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3041,
+          "entityB": 3043,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3041,
+          "entityB": 3045,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3043,
+          "entityB": 3045,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M05",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3040,
+        3042,
+        3054
+      ],
+      "centroid": {
+        "x": -5461.333333333333,
+        "y": -3744,
+        "z": 384
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3040,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -5296,
+            "y": -3840,
+            "z": 384
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3042,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -5584,
+            "y": -3840,
+            "z": 384
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3054,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -5504,
+            "y": -3552,
+            "z": 384
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            866.359375
+          ],
+          "upTimes": [
+            1156.375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1156.375,
+          "firstTime": 1156.375,
+          "lastTime": 1156.375,
+          "members": [
+            3054
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3054
+          ],
+          "count": 1,
+          "times": [
+            1156.375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3040,
+          "entityB": 3042,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3040,
+          "entityB": 3054,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3042,
+          "entityB": 3054,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M06",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 6,
+      "entityIndexes": [
+        2976,
+        2979,
+        2980,
+        2981,
+        2982,
+        2999
+      ],
+      "centroid": {
+        "x": -4979.333333333333,
+        "y": -1565.4375,
+        "z": -64
+      },
+      "unitTypeCounts": {
+        "SMALL_UNIT": 4,
+        "MEDIUM_UNIT": 2
+      },
+      "members": [
+        {
+          "entityIndex": 2976,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -5120,
+            "y": -1664,
+            "z": -64
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2979,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -4736,
+            "y": -1728,
+            "z": -64
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2980,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -5207.5,
+            "y": -1433.625,
+            "z": -64
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2981,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -5084.5,
+            "y": -1293.25,
+            "z": -64
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1055.03125
+          ],
+          "upTimes": [
+            1351.4375
+          ]
+        },
+        {
+          "entityIndex": 2982,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -4864,
+            "y": -1289.75,
+            "z": -64
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2999,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -4864,
+            "y": -1984,
+            "z": -64
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1060.734375
+          ],
+          "upTimes": [
+            1351.4375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1351.4375,
+          "firstTime": 1351.4375,
+          "lastTime": 1351.4375,
+          "members": [
+            2981,
+            2999
+          ],
+          "memberCount": 2
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2981,
+            2999
+          ],
+          "count": 1,
+          "times": [
+            1351.4375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2976,
+          "entityB": 2979,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2976,
+          "entityB": 2980,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2976,
+          "entityB": 2981,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2976,
+          "entityB": 2982,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2976,
+          "entityB": 2999,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2979,
+          "entityB": 2980,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2979,
+          "entityB": 2981,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2979,
+          "entityB": 2982,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2979,
+          "entityB": 2999,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2980,
+          "entityB": 2981,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2980,
+          "entityB": 2982,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2980,
+          "entityB": 2999,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2981,
+          "entityB": 2982,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2981,
+          "entityB": 2999,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2982,
+          "entityB": 2999,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M07",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 5,
+      "entityIndexes": [
+        2990,
+        2991,
+        2992,
+        2993,
+        2994
+      ],
+      "centroid": {
+        "x": -4473.6,
+        "y": 1913.6,
+        "z": 256.00625
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3,
+        "SMALL_UNIT": 2
+      },
+      "members": [
+        {
+          "entityIndex": 2990,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -4608,
+            "y": 1824,
+            "z": 256
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1375.671875
+          ],
+          "upTimes": [
+            1666.78125
+          ]
+        },
+        {
+          "entityIndex": 2991,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -4480,
+            "y": 2080,
+            "z": 256
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1368.640625
+          ],
+          "upTimes": [
+            1666.78125
+          ]
+        },
+        {
+          "entityIndex": 2992,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -4352,
+            "y": 1824,
+            "z": 256.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1376.765625
+          ],
+          "upTimes": [
+            1666.78125
+          ]
+        },
+        {
+          "entityIndex": 2993,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -4128,
+            "y": 1920,
+            "z": 256
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            996.59375,
+            1371.453125
+          ],
+          "upTimes": [
+            1293.875,
+            1666.78125
+          ]
+        },
+        {
+          "entityIndex": 2994,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -4800,
+            "y": 1920,
+            "z": 256
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1687.28125
+          ],
+          "upTimes": [
+            1977.296875
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1293.875,
+          "firstTime": 1293.875,
+          "lastTime": 1293.875,
+          "members": [
+            2993
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1666.78125,
+          "firstTime": 1666.78125,
+          "lastTime": 1666.78125,
+          "members": [
+            2990,
+            2991,
+            2992,
+            2993
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 1977.296875,
+          "firstTime": 1977.296875,
+          "lastTime": 1977.296875,
+          "members": [
+            2994
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2990,
+            2991,
+            2992,
+            2993
+          ],
+          "count": 1,
+          "times": [
+            1666.78125
+          ]
+        },
+        {
+          "members": [
+            2993
+          ],
+          "count": 1,
+          "times": [
+            1293.875
+          ]
+        },
+        {
+          "members": [
+            2994
+          ],
+          "count": 1,
+          "times": [
+            1977.296875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2990,
+          "entityB": 2991,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2990,
+          "entityB": 2992,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2990,
+          "entityB": 2993,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2990,
+          "entityB": 2994,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2991,
+          "entityB": 2992,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2991,
+          "entityB": 2993,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2991,
+          "entityB": 2994,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2992,
+          "entityB": 2993,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2992,
+          "entityB": 2994,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2993,
+          "entityB": 2994,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M08",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 6,
+      "entityIndexes": [
+        2524,
+        2910,
+        2987,
+        3073,
+        3074,
+        3075
+      ],
+      "centroid": {
+        "x": -3511,
+        "y": -1214,
+        "z": 252
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "members": [
+        {
+          "entityIndex": 2524,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -3830,
+            "y": -1148,
+            "z": 256
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2910,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -3952,
+            "y": -1260,
+            "z": 256
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            703.3125,
+            1105.125
+          ],
+          "upTimes": [
+            999.59375,
+            1395.59375
+          ]
+        },
+        {
+          "entityIndex": 2987,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -3684,
+            "y": -1260,
+            "z": 256
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3073,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -3360,
+            "y": -1152,
+            "z": 248
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1139.59375
+          ],
+          "upTimes": [
+            1430.421875
+          ]
+        },
+        {
+          "entityIndex": 3074,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -3200,
+            "y": -1312,
+            "z": 248
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1140.40625
+          ],
+          "upTimes": [
+            1430.421875
+          ]
+        },
+        {
+          "entityIndex": 3075,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -3040,
+            "y": -1152,
+            "z": 248
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 999.59375,
+          "firstTime": 999.59375,
+          "lastTime": 999.59375,
+          "members": [
+            2910
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1395.59375,
+          "firstTime": 1395.59375,
+          "lastTime": 1395.59375,
+          "members": [
+            2910
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1430.421875,
+          "firstTime": 1430.421875,
+          "lastTime": 1430.421875,
+          "members": [
+            3073,
+            3074
+          ],
+          "memberCount": 2
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2910
+          ],
+          "count": 2,
+          "times": [
+            999.59375,
+            1395.59375
+          ]
+        },
+        {
+          "members": [
+            3073,
+            3074
+          ],
+          "count": 1,
+          "times": [
+            1430.421875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2524,
+          "entityB": 2910,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2524,
+          "entityB": 2987,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2524,
+          "entityB": 3073,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2524,
+          "entityB": 3074,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2524,
+          "entityB": 3075,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2910,
+          "entityB": 2987,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2910,
+          "entityB": 3073,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2910,
+          "entityB": 3074,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2910,
+          "entityB": 3075,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2987,
+          "entityB": 3073,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2987,
+          "entityB": 3074,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2987,
+          "entityB": 3075,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3073,
+          "entityB": 3074,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3073,
+          "entityB": 3075,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3074,
+          "entityB": 3075,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M09",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3011,
+        3012,
+        3028
+      ],
+      "centroid": {
+        "x": -2308.0416666666665,
+        "y": -4879.572916666667,
+        "z": 512
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3011,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -2312,
+            "y": -4806.28125,
+            "z": 512
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            926.78125
+          ],
+          "upTimes": [
+            1223.140625
+          ]
+        },
+        {
+          "entityIndex": 3012,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -2424.125,
+            "y": -4916.4375,
+            "z": 512
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            928.34375
+          ],
+          "upTimes": [
+            1223.140625
+          ]
+        },
+        {
+          "entityIndex": 3028,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -2188,
+            "y": -4916,
+            "z": 512
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            933.125
+          ],
+          "upTimes": [
+            1223.140625
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1223.140625,
+          "firstTime": 1223.140625,
+          "lastTime": 1223.140625,
+          "members": [
+            3011,
+            3012,
+            3028
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 1,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 1223.140625,
+          "firstTime": 1223.140625,
+          "lastTime": 1223.140625,
+          "members": [
+            3011,
+            3012,
+            3028
+          ],
+          "memberCount": 3
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3011,
+            3012,
+            3028
+          ],
+          "count": 1,
+          "times": [
+            1223.140625
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3011,
+          "entityB": 3012,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3011,
+          "entityB": 3028,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3012,
+          "entityB": 3028,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M10",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3004,
+        3005,
+        3006
+      ],
+      "centroid": {
+        "x": -2240,
+        "y": 3605.3333333333335,
+        "z": 376
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3004,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -2368,
+            "y": 3696,
+            "z": 376
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3005,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -2112,
+            "y": 3696,
+            "z": 376
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3006,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -2240,
+            "y": 3424,
+            "z": 376
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1030.328125
+          ],
+          "upTimes": [
+            1320.34375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1320.34375,
+          "firstTime": 1320.34375,
+          "lastTime": 1320.34375,
+          "members": [
+            3006
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3006
+          ],
+          "count": 1,
+          "times": [
+            1320.34375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3004,
+          "entityB": 3005,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3004,
+          "entityB": 3006,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3005,
+          "entityB": 3006,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M11",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 4,
+      "entityIndexes": [
+        3076,
+        3077,
+        3078,
+        3079
+      ],
+      "centroid": {
+        "x": -1944,
+        "y": -796,
+        "z": 128.0234375
+      },
+      "unitTypeCounts": {
+        "SMALL_UNIT": 3,
+        "MEDIUM_UNIT": 1
+      },
+      "members": [
+        {
+          "entityIndex": 3076,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -1792,
+            "y": -944,
+            "z": 128.03125
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            523.0625,
+            921.375
+          ],
+          "upTimes": [
+            814.125,
+            1213.765625
+          ]
+        },
+        {
+          "entityIndex": 3077,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -2096,
+            "y": -656,
+            "z": 128
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            918.328125
+          ],
+          "upTimes": [
+            1213.765625
+          ]
+        },
+        {
+          "entityIndex": 3078,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -2096,
+            "y": -928,
+            "z": 128.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            918.765625
+          ],
+          "upTimes": [
+            1213.765625
+          ]
+        },
+        {
+          "entityIndex": 3079,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -1792,
+            "y": -656,
+            "z": 128.03125
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            923.75,
+            2660.71875
+          ],
+          "upTimes": [
+            1213.765625,
+            2950.734375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 814.125,
+          "firstTime": 814.125,
+          "lastTime": 814.125,
+          "members": [
+            3076
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1213.765625,
+          "firstTime": 1213.765625,
+          "lastTime": 1213.765625,
+          "members": [
+            3076,
+            3077,
+            3078,
+            3079
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 2950.734375,
+          "firstTime": 2950.734375,
+          "lastTime": 2950.734375,
+          "members": [
+            3079
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 1,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 1213.765625,
+          "firstTime": 1213.765625,
+          "lastTime": 1213.765625,
+          "members": [
+            3076,
+            3077,
+            3078,
+            3079
+          ],
+          "memberCount": 4
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3076,
+            3077,
+            3078,
+            3079
+          ],
+          "count": 1,
+          "times": [
+            1213.765625
+          ]
+        },
+        {
+          "members": [
+            3076
+          ],
+          "count": 1,
+          "times": [
+            814.125
+          ]
+        },
+        {
+          "members": [
+            3079
+          ],
+          "count": 1,
+          "times": [
+            2950.734375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3076,
+          "entityB": 3077,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3076,
+          "entityB": 3078,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3076,
+          "entityB": 3079,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 2,
+          "synchronyRate": 0.5
+        },
+        {
+          "entityA": 3077,
+          "entityB": 3078,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3077,
+          "entityB": 3079,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3078,
+          "entityB": 3079,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M12",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 4,
+      "entityIndexes": [
+        3080,
+        3081,
+        3082,
+        3083
+      ],
+      "centroid": {
+        "x": 1944,
+        "y": 804,
+        "z": 128
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1,
+        "SMALL_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3080,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2096,
+            "y": 656,
+            "z": 128
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3081,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 1792,
+            "y": 672,
+            "z": 128
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1324.109375
+          ],
+          "upTimes": [
+            1616.921875
+          ]
+        },
+        {
+          "entityIndex": 3082,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 2096,
+            "y": 944,
+            "z": 128
+          },
+          "downCount": 3,
+          "upCount": 3,
+          "downTimes": [
+            366.703125,
+            864.859375,
+            1324.109375
+          ],
+          "upTimes": [
+            659.234375,
+            1167.703125,
+            1616.921875
+          ]
+        },
+        {
+          "entityIndex": 3083,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 1792,
+            "y": 944,
+            "z": 128
+          },
+          "downCount": 3,
+          "upCount": 3,
+          "downTimes": [
+            369.21875,
+            869.640625,
+            1324.109375
+          ],
+          "upTimes": [
+            659.234375,
+            1167.703125,
+            1616.921875
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 659.234375,
+          "firstTime": 659.234375,
+          "lastTime": 659.234375,
+          "members": [
+            3082,
+            3083
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1167.703125,
+          "firstTime": 1167.703125,
+          "lastTime": 1167.703125,
+          "members": [
+            3082,
+            3083
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1616.921875,
+          "firstTime": 1616.921875,
+          "lastTime": 1616.921875,
+          "members": [
+            3081,
+            3082,
+            3083
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3082,
+            3083
+          ],
+          "count": 2,
+          "times": [
+            659.234375,
+            1167.703125
+          ]
+        },
+        {
+          "members": [
+            3081,
+            3082,
+            3083
+          ],
+          "count": 1,
+          "times": [
+            1616.921875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3080,
+          "entityB": 3081,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3080,
+          "entityB": 3082,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3080,
+          "entityB": 3083,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3081,
+          "entityB": 3082,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3081,
+          "entityB": 3083,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3082,
+          "entityB": 3083,
+          "synchronizedRespawns": 3,
+          "comparableRespawns": 3,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M13",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3001,
+        3002,
+        3003
+      ],
+      "centroid": {
+        "x": 2176,
+        "y": -3914.6666666666665,
+        "z": 376
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3001,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2304,
+            "y": -4000,
+            "z": 376
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            2291.953125
+          ],
+          "upTimes": [
+            2583.375
+          ]
+        },
+        {
+          "entityIndex": 3002,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2048,
+            "y": -4000,
+            "z": 376
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            927.546875,
+            1858.890625
+          ],
+          "upTimes": [
+            1219.96875,
+            2150.390625
+          ]
+        },
+        {
+          "entityIndex": 3003,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2176,
+            "y": -3744,
+            "z": 376
+          },
+          "downCount": 4,
+          "upCount": 4,
+          "downTimes": [
+            929.953125,
+            1321.796875,
+            1860.375,
+            2293.359375
+          ],
+          "upTimes": [
+            1219.96875,
+            1611.8125,
+            2150.390625,
+            2583.375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1219.96875,
+          "firstTime": 1219.96875,
+          "lastTime": 1219.96875,
+          "members": [
+            3002,
+            3003
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1611.8125,
+          "firstTime": 1611.8125,
+          "lastTime": 1611.8125,
+          "members": [
+            3003
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 2150.390625,
+          "firstTime": 2150.390625,
+          "lastTime": 2150.390625,
+          "members": [
+            3002,
+            3003
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2583.375,
+          "firstTime": 2583.375,
+          "lastTime": 2583.375,
+          "members": [
+            3001,
+            3003
+          ],
+          "memberCount": 2
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3002,
+            3003
+          ],
+          "count": 2,
+          "times": [
+            1219.96875,
+            2150.390625
+          ]
+        },
+        {
+          "members": [
+            3001,
+            3003
+          ],
+          "count": 1,
+          "times": [
+            2583.375
+          ]
+        },
+        {
+          "members": [
+            3003
+          ],
+          "count": 1,
+          "times": [
+            1611.8125
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3001,
+          "entityB": 3002,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 3001,
+          "entityB": 3003,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3002,
+          "entityB": 3003,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M14",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3007,
+        3008,
+        3010
+      ],
+      "centroid": {
+        "x": 2272,
+        "y": 4917.333333333333,
+        "z": 512.03125
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3007,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2208,
+            "y": 5088,
+            "z": 512.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3008,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2208,
+            "y": 4832,
+            "z": 512.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1665.765625
+          ],
+          "upTimes": [
+            1955.78125
+          ]
+        },
+        {
+          "entityIndex": 3010,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2400,
+            "y": 4832,
+            "z": 512.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1955.78125,
+          "firstTime": 1955.78125,
+          "lastTime": 1955.78125,
+          "members": [
+            3008
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3008
+          ],
+          "count": 1,
+          "times": [
+            1955.78125
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3007,
+          "entityB": 3008,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3007,
+          "entityB": 3010,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3008,
+          "entityB": 3010,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M15",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 6,
+      "entityIndexes": [
+        2953,
+        2955,
+        2957,
+        3065,
+        3064,
+        3072
+      ],
+      "centroid": {
+        "x": 3488,
+        "y": 1330.6666666666667,
+        "z": 252
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "members": [
+        {
+          "entityIndex": 2953,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 3696,
+            "y": 1520,
+            "z": 256
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            761.609375,
+            1138.078125
+          ],
+          "upTimes": [
+            1051.625,
+            1428.09375
+          ]
+        },
+        {
+          "entityIndex": 2955,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 3696,
+            "y": 1296,
+            "z": 256
+          },
+          "downCount": 3,
+          "upCount": 2,
+          "downTimes": [
+            756.578125,
+            1134.515625,
+            3087.9375
+          ],
+          "upTimes": [
+            1051.625,
+            1428.09375
+          ]
+        },
+        {
+          "entityIndex": 2957,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 3936,
+            "y": 1520,
+            "z": 256
+          },
+          "downCount": 3,
+          "upCount": 2,
+          "downTimes": [
+            758.078125,
+            1136.3125,
+            3087.203125
+          ],
+          "upTimes": [
+            1051.625,
+            1428.09375
+          ]
+        },
+        {
+          "entityIndex": 3065,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 3360,
+            "y": 1152,
+            "z": 248
+          },
+          "downCount": 2,
+          "upCount": 1,
+          "downTimes": [
+            672.078125,
+            3078.40625
+          ],
+          "upTimes": [
+            962.09375
+          ]
+        },
+        {
+          "entityIndex": 3064,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 3200,
+            "y": 1344,
+            "z": 248
+          },
+          "downCount": 1,
+          "upCount": 0,
+          "downTimes": [
+            3076.671875
+          ],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3072,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 3040,
+            "y": 1152,
+            "z": 248
+          },
+          "downCount": 4,
+          "upCount": 3,
+          "downTimes": [
+            671.0625,
+            1071.53125,
+            2466.71875,
+            3075.921875
+          ],
+          "upTimes": [
+            962.09375,
+            1365.609375,
+            2758.46875
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 962.09375,
+          "firstTime": 962.09375,
+          "lastTime": 962.09375,
+          "members": [
+            3065,
+            3072
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 1051.625,
+          "firstTime": 1051.625,
+          "lastTime": 1051.625,
+          "members": [
+            2953,
+            2955,
+            2957
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 1365.609375,
+          "firstTime": 1365.609375,
+          "lastTime": 1365.609375,
+          "members": [
+            3072
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1428.09375,
+          "firstTime": 1428.09375,
+          "lastTime": 1428.09375,
+          "members": [
+            2953,
+            2955,
+            2957
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2758.46875,
+          "firstTime": 2758.46875,
+          "lastTime": 2758.46875,
+          "members": [
+            3072
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2953,
+            2955,
+            2957
+          ],
+          "count": 2,
+          "times": [
+            1051.625,
+            1428.09375
+          ]
+        },
+        {
+          "members": [
+            3072
+          ],
+          "count": 2,
+          "times": [
+            1365.609375,
+            2758.46875
+          ]
+        },
+        {
+          "members": [
+            3065,
+            3072
+          ],
+          "count": 1,
+          "times": [
+            962.09375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2953,
+          "entityB": 2955,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2953,
+          "entityB": 2957,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2953,
+          "entityB": 3065,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2953,
+          "entityB": 3064,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2953,
+          "entityB": 3072,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 2,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2955,
+          "entityB": 2957,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2955,
+          "entityB": 3065,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2955,
+          "entityB": 3064,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2955,
+          "entityB": 3072,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 2,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2957,
+          "entityB": 3065,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2957,
+          "entityB": 3064,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2957,
+          "entityB": 3072,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 2,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 3065,
+          "entityB": 3064,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3065,
+          "entityB": 3072,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3064,
+          "entityB": 3072,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M16",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 5,
+      "entityIndexes": [
+        2995,
+        2996,
+        2997,
+        2998,
+        3000
+      ],
+      "centroid": {
+        "x": 4480,
+        "y": -1952,
+        "z": 256
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3,
+        "SMALL_UNIT": 2
+      },
+      "members": [
+        {
+          "entityIndex": 2995,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 4480,
+            "y": -2080,
+            "z": 256
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            740.71875,
+            2307.3125
+          ],
+          "upTimes": [
+            1406.328125,
+            2603.8125
+          ]
+        },
+        {
+          "entityIndex": 2996,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 4640,
+            "y": -1920,
+            "z": 256
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            745.234375,
+            1842.203125
+          ],
+          "upTimes": [
+            1406.328125,
+            2139.109375
+          ]
+        },
+        {
+          "entityIndex": 2997,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 4352,
+            "y": -1824,
+            "z": 256
+          },
+          "downCount": 3,
+          "upCount": 3,
+          "downTimes": [
+            739,
+            1839.84375,
+            2308.234375
+          ],
+          "upTimes": [
+            1406.328125,
+            2139.109375,
+            2603.8125
+          ]
+        },
+        {
+          "entityIndex": 2998,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 4128,
+            "y": -2240,
+            "z": 256
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3000,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 4800,
+            "y": -1696,
+            "z": 256
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            2312.34375
+          ],
+          "upTimes": [
+            2603.8125
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1406.328125,
+          "firstTime": 1406.328125,
+          "lastTime": 1406.328125,
+          "members": [
+            2995,
+            2996,
+            2997
+          ],
+          "memberCount": 3
+        },
+        {
+          "timeSeconds": 2139.109375,
+          "firstTime": 2139.109375,
+          "lastTime": 2139.109375,
+          "members": [
+            2996,
+            2997
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2603.8125,
+          "firstTime": 2603.8125,
+          "lastTime": 2603.8125,
+          "members": [
+            2995,
+            2997,
+            3000
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2995,
+            2996,
+            2997
+          ],
+          "count": 1,
+          "times": [
+            1406.328125
+          ]
+        },
+        {
+          "members": [
+            2995,
+            2997,
+            3000
+          ],
+          "count": 1,
+          "times": [
+            2603.8125
+          ]
+        },
+        {
+          "members": [
+            2996,
+            2997
+          ],
+          "count": 1,
+          "times": [
+            2139.109375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2995,
+          "entityB": 2996,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 2,
+          "synchronyRate": 0.5
+        },
+        {
+          "entityA": 2995,
+          "entityB": 2997,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2995,
+          "entityB": 2998,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2995,
+          "entityB": 3000,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2996,
+          "entityB": 2997,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2996,
+          "entityB": 2998,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2996,
+          "entityB": 3000,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 1,
+          "synchronyRate": 0
+        },
+        {
+          "entityA": 2997,
+          "entityB": 2998,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2997,
+          "entityB": 3000,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2998,
+          "entityB": 3000,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M17",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 6,
+      "entityIndexes": [
+        2983,
+        2984,
+        2986,
+        2988,
+        2989,
+        3009
+      ],
+      "centroid": {
+        "x": 4926.666666666667,
+        "y": 1232,
+        "z": -19.5
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 4
+      },
+      "members": [
+        {
+          "entityIndex": 2983,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 5124,
+            "y": 1312,
+            "z": -3.5
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2984,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 4736,
+            "y": 1136,
+            "z": -27.5
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1153.828125
+          ],
+          "upTimes": [
+            1451.609375
+          ]
+        },
+        {
+          "entityIndex": 2986,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 4928,
+            "y": 1456,
+            "z": -27.5
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2988,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 4896,
+            "y": 1008,
+            "z": -27.5
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1153.875
+          ],
+          "upTimes": [
+            1451.609375
+          ]
+        },
+        {
+          "entityIndex": 2989,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 4752,
+            "y": 1328,
+            "z": -27.5
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3009,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 5124,
+            "y": 1152,
+            "z": -3.5
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1160.125
+          ],
+          "upTimes": [
+            1451.609375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1451.609375,
+          "firstTime": 1451.609375,
+          "lastTime": 1451.609375,
+          "members": [
+            2984,
+            2988,
+            3009
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2984,
+            2988,
+            3009
+          ],
+          "count": 1,
+          "times": [
+            1451.609375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2983,
+          "entityB": 2984,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2983,
+          "entityB": 2986,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2983,
+          "entityB": 2988,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2983,
+          "entityB": 2989,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2983,
+          "entityB": 3009,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2984,
+          "entityB": 2986,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2984,
+          "entityB": 2988,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2984,
+          "entityB": 2989,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2984,
+          "entityB": 3009,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2986,
+          "entityB": 2988,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2986,
+          "entityB": 2989,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2986,
+          "entityB": 3009,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2988,
+          "entityB": 2989,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2988,
+          "entityB": 3009,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2989,
+          "entityB": 3009,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M18",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3055,
+        3058,
+        3056
+      ],
+      "centroid": {
+        "x": 5546.666666666667,
+        "y": 3840,
+        "z": 384.03125
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3055,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 5504,
+            "y": 3552,
+            "z": 384.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3058,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 5632,
+            "y": 3840,
+            "z": 384.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3056,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 5504,
+            "y": 4128,
+            "z": 384.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3055,
+          "entityB": 3058,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3055,
+          "entityB": 3056,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3058,
+          "entityB": 3056,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M19",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3033,
+        3036,
+        3037
+      ],
+      "centroid": {
+        "x": 5696,
+        "y": -1664,
+        "z": 928
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3033,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 5888,
+            "y": -1536,
+            "z": 928
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            739.859375
+          ],
+          "upTimes": [
+            1029.875
+          ]
+        },
+        {
+          "entityIndex": 3036,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 5696,
+            "y": -1920,
+            "z": 928
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3037,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 5504,
+            "y": -1536,
+            "z": 928
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1029.875,
+          "firstTime": 1029.875,
+          "lastTime": 1029.875,
+          "members": [
+            3033
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3033
+          ],
+          "count": 1,
+          "times": [
+            1029.875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3033,
+          "entityB": 3036,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3033,
+          "entityB": 3037,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3036,
+          "entityB": 3037,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M20",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3057,
+        3059,
+        3060
+      ],
+      "centroid": {
+        "x": 6768,
+        "y": 2133.3333333333335,
+        "z": 1032
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3057,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 6848,
+            "y": 2048,
+            "z": 1032
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1138.296875
+          ],
+          "upTimes": [
+            1431.046875
+          ]
+        },
+        {
+          "entityIndex": 3059,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 6848,
+            "y": 2304,
+            "z": 1032
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1134.640625
+          ],
+          "upTimes": [
+            1431.046875
+          ]
+        },
+        {
+          "entityIndex": 3060,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 6608,
+            "y": 2048,
+            "z": 1032
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1431.046875,
+          "firstTime": 1431.046875,
+          "lastTime": 1431.046875,
+          "members": [
+            3057,
+            3059
+          ],
+          "memberCount": 2
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3057,
+            3059
+          ],
+          "count": 1,
+          "times": [
+            1431.046875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3057,
+          "entityB": 3059,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3057,
+          "entityB": 3060,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3059,
+          "entityB": 3060,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M21",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 5,
+      "entityIndexes": [
+        2519,
+        2520,
+        2521,
+        2522,
+        2523
+      ],
+      "centroid": {
+        "x": 7923.2,
+        "y": -4531.2,
+        "z": 640.0125
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 2519,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 8000,
+            "y": -4672,
+            "z": 640.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1233.53125
+          ],
+          "upTimes": [
+            1535.234375
+          ]
+        },
+        {
+          "entityIndex": 2520,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 7808,
+            "y": -4800,
+            "z": 640
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1231.796875
+          ],
+          "upTimes": [
+            1535.234375
+          ]
+        },
+        {
+          "entityIndex": 2521,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 8128,
+            "y": -4480,
+            "z": 640
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1232.296875
+          ],
+          "upTimes": [
+            1535.234375
+          ]
+        },
+        {
+          "entityIndex": 2522,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 7744,
+            "y": -4416,
+            "z": 640.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 2523,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 7936,
+            "y": -4288,
+            "z": 640
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1245.21875
+          ],
+          "upTimes": [
+            1535.234375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1535.234375,
+          "firstTime": 1535.234375,
+          "lastTime": 1535.234375,
+          "members": [
+            2519,
+            2520,
+            2521,
+            2523
+          ],
+          "memberCount": 4
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2519,
+            2520,
+            2521,
+            2523
+          ],
+          "count": 1,
+          "times": [
+            1535.234375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2519,
+          "entityB": 2520,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2519,
+          "entityB": 2521,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2519,
+          "entityB": 2522,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2519,
+          "entityB": 2523,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2520,
+          "entityB": 2521,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2520,
+          "entityB": 2522,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2520,
+          "entityB": 2523,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2521,
+          "entityB": 2522,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 2521,
+          "entityB": 2523,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2522,
+          "entityB": 2523,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "M22",
+      "spawnTier": "TIER_5_MIN",
+      "memberCount": 5,
+      "entityIndexes": [
+        2913,
+        2938,
+        2940,
+        2942,
+        2947
+      ],
+      "centroid": {
+        "x": 7942.4,
+        "y": -2315.2,
+        "z": 256.31875
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1,
+        "SMALL_UNIT": 4
+      },
+      "members": [
+        {
+          "entityIndex": 2913,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 7944,
+            "y": -2472,
+            "z": 257.59375
+          },
+          "downCount": 3,
+          "upCount": 3,
+          "downTimes": [
+            996.28125,
+            1435.6875,
+            2504.3125
+          ],
+          "upTimes": [
+            1290.625,
+            1727.421875,
+            2796.609375
+          ]
+        },
+        {
+          "entityIndex": 2938,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 7816,
+            "y": -2152,
+            "z": 256
+          },
+          "downCount": 3,
+          "upCount": 3,
+          "downTimes": [
+            376.390625,
+            993.96875,
+            2504.3125
+          ],
+          "upTimes": [
+            678.828125,
+            1290.625,
+            2796.609375
+          ]
+        },
+        {
+          "entityIndex": 2940,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 8080,
+            "y": -2144,
+            "z": 256
+          },
+          "downCount": 3,
+          "upCount": 3,
+          "downTimes": [
+            380,
+            1437.40625,
+            2506.59375
+          ],
+          "upTimes": [
+            678.828125,
+            1727.421875,
+            2796.609375
+          ]
+        },
+        {
+          "entityIndex": 2942,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 7792,
+            "y": -2408,
+            "z": 256
+          },
+          "downCount": 4,
+          "upCount": 4,
+          "downTimes": [
+            388.8125,
+            993.96875,
+            1436,
+            2504.3125
+          ],
+          "upTimes": [
+            678.828125,
+            1290.625,
+            1727.421875,
+            2796.609375
+          ]
+        },
+        {
+          "entityIndex": 2947,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 8080,
+            "y": -2400,
+            "z": 256
+          },
+          "downCount": 4,
+          "upCount": 4,
+          "downTimes": [
+            379.6875,
+            993.96875,
+            1435.25,
+            2504.3125
+          ],
+          "upTimes": [
+            678.828125,
+            1290.625,
+            1727.421875,
+            2796.609375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 678.828125,
+          "firstTime": 678.828125,
+          "lastTime": 678.828125,
+          "members": [
+            2938,
+            2940,
+            2942,
+            2947
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 1290.625,
+          "firstTime": 1290.625,
+          "lastTime": 1290.625,
+          "members": [
+            2913,
+            2938,
+            2942,
+            2947
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 1727.421875,
+          "firstTime": 1727.421875,
+          "lastTime": 1727.421875,
+          "members": [
+            2913,
+            2940,
+            2942,
+            2947
+          ],
+          "memberCount": 4
+        },
+        {
+          "timeSeconds": 2796.609375,
+          "firstTime": 2796.609375,
+          "lastTime": 2796.609375,
+          "members": [
+            2913,
+            2938,
+            2940,
+            2942,
+            2947
+          ],
+          "memberCount": 5
+        }
+      ],
+      "fullSynchronizedRespawnCount": 1,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 2796.609375,
+          "firstTime": 2796.609375,
+          "lastTime": 2796.609375,
+          "members": [
+            2913,
+            2938,
+            2940,
+            2942,
+            2947
+          ],
+          "memberCount": 5
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            2913,
+            2938,
+            2940,
+            2942,
+            2947
+          ],
+          "count": 1,
+          "times": [
+            2796.609375
+          ]
+        },
+        {
+          "members": [
+            2938,
+            2940,
+            2942,
+            2947
+          ],
+          "count": 1,
+          "times": [
+            678.828125
+          ]
+        },
+        {
+          "members": [
+            2913,
+            2938,
+            2942,
+            2947
+          ],
+          "count": 1,
+          "times": [
+            1290.625
+          ]
+        },
+        {
+          "members": [
+            2913,
+            2940,
+            2942,
+            2947
+          ],
+          "count": 1,
+          "times": [
+            1727.421875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 2913,
+          "entityB": 2938,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 3,
+          "synchronyRate": 0.6666666666666666
+        },
+        {
+          "entityA": 2913,
+          "entityB": 2940,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 3,
+          "synchronyRate": 0.6666666666666666
+        },
+        {
+          "entityA": 2913,
+          "entityB": 2942,
+          "synchronizedRespawns": 3,
+          "comparableRespawns": 3,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2913,
+          "entityB": 2947,
+          "synchronizedRespawns": 3,
+          "comparableRespawns": 3,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2938,
+          "entityB": 2940,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 3,
+          "synchronyRate": 0.6666666666666666
+        },
+        {
+          "entityA": 2938,
+          "entityB": 2942,
+          "synchronizedRespawns": 3,
+          "comparableRespawns": 3,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2938,
+          "entityB": 2947,
+          "synchronizedRespawns": 3,
+          "comparableRespawns": 3,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2940,
+          "entityB": 2942,
+          "synchronizedRespawns": 3,
+          "comparableRespawns": 3,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2940,
+          "entityB": 2947,
+          "synchronizedRespawns": 3,
+          "comparableRespawns": 3,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 2942,
+          "entityB": 2947,
+          "synchronizedRespawns": 4,
+          "comparableRespawns": 4,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L801",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3361,
+        3362,
+        3363
+      ],
+      "centroid": {
+        "x": -8960,
+        "y": 0,
+        "z": 288.2395833333333
+      },
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3361,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -8704,
+            "y": 0,
+            "z": 288.71875
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3362,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -9088,
+            "y": -256,
+            "z": 288
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3363,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -9088,
+            "y": 256,
+            "z": 288
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3361,
+          "entityB": 3362,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3361,
+          "entityB": 3363,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3362,
+          "entityB": 3363,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L802",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3370,
+        3371,
+        3372
+      ],
+      "centroid": {
+        "x": -4982.666666666667,
+        "y": -709.3333333333334,
+        "z": 256.0104166666667
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "LARGE_UNIT": 1
+      },
+      "members": [
+        {
+          "entityIndex": 3370,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -4896,
+            "y": -848,
+            "z": 256
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3371,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -5156,
+            "y": -704,
+            "z": 256
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3372,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -4896,
+            "y": -576,
+            "z": 256.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            2352.53125
+          ],
+          "upTimes": [
+            2687.546875
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 2687.546875,
+          "firstTime": 2687.546875,
+          "lastTime": 2687.546875,
+          "members": [
+            3372
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3372
+          ],
+          "count": 1,
+          "times": [
+            2687.546875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3370,
+          "entityB": 3371,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3370,
+          "entityB": 3372,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3371,
+          "entityB": 3372,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L803",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3388,
+        3389,
+        3390
+      ],
+      "centroid": {
+        "x": -4000,
+        "y": 4170.666666666667,
+        "z": 376
+      },
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3388,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -4096,
+            "y": 4000,
+            "z": 376
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            774.390625,
+            1434.25
+          ],
+          "upTimes": [
+            1109.40625,
+            1772.296875
+          ]
+        },
+        {
+          "entityIndex": 3389,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -3840,
+            "y": 4256,
+            "z": 376
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3390,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -4064,
+            "y": 4256,
+            "z": 376
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1109.40625,
+          "firstTime": 1109.40625,
+          "lastTime": 1109.40625,
+          "members": [
+            3388
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1772.296875,
+          "firstTime": 1772.296875,
+          "lastTime": 1772.296875,
+          "members": [
+            3388
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3388
+          ],
+          "count": 2,
+          "times": [
+            1109.40625,
+            1772.296875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3388,
+          "entityB": 3389,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3388,
+          "entityB": 3390,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3389,
+          "entityB": 3390,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L804",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 1,
+      "entityIndexes": [
+        3369
+      ],
+      "centroid": {
+        "x": -3928,
+        "y": -1448,
+        "z": 564
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1
+      },
+      "members": [
+        {
+          "entityIndex": 3369,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -3928,
+            "y": -1448,
+            "z": 564
+          },
+          "downCount": 3,
+          "upCount": 2,
+          "downTimes": [
+            1077.640625,
+            1568.1875,
+            2358.234375
+          ],
+          "upTimes": [
+            1399.546875,
+            1885.4375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1399.546875,
+          "firstTime": 1399.546875,
+          "lastTime": 1399.546875,
+          "members": [
+            3369
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1885.4375,
+          "firstTime": 1885.4375,
+          "lastTime": 1885.4375,
+          "members": [
+            3369
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 2,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 1399.546875,
+          "firstTime": 1399.546875,
+          "lastTime": 1399.546875,
+          "members": [
+            3369
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1885.4375,
+          "firstTime": 1885.4375,
+          "lastTime": 1885.4375,
+          "members": [
+            3369
+          ],
+          "memberCount": 1
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3369
+          ],
+          "count": 2,
+          "times": [
+            1399.546875,
+            1885.4375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": []
+    },
+    {
+      "candidateGroupId": "L805",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3385,
+        3386,
+        3387
+      ],
+      "centroid": {
+        "x": -3520,
+        "y": -4373.333333333333,
+        "z": 384.03125
+      },
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3385,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -3520,
+            "y": -4544,
+            "z": 384.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            2332.296875
+          ],
+          "upTimes": [
+            2667.96875
+          ]
+        },
+        {
+          "entityIndex": 3386,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -3328,
+            "y": -4288,
+            "z": 384.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            2326.15625
+          ],
+          "upTimes": [
+            2667.96875
+          ]
+        },
+        {
+          "entityIndex": 3387,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -3712,
+            "y": -4288,
+            "z": 384.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            2332.953125
+          ],
+          "upTimes": [
+            2667.96875
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 2667.96875,
+          "firstTime": 2667.96875,
+          "lastTime": 2667.96875,
+          "members": [
+            3385,
+            3386,
+            3387
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 1,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 2667.96875,
+          "firstTime": 2667.96875,
+          "lastTime": 2667.96875,
+          "members": [
+            3385,
+            3386,
+            3387
+          ],
+          "memberCount": 3
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3385,
+            3386,
+            3387
+          ],
+          "count": 1,
+          "times": [
+            2667.96875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3385,
+          "entityB": 3386,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3385,
+          "entityB": 3387,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3386,
+          "entityB": 3387,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L806",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3412,
+        3413,
+        3414
+      ],
+      "centroid": {
+        "x": -3242.6666666666665,
+        "y": 2117.3333333333335,
+        "z": 400.03125
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "LARGE_UNIT": 1
+      },
+      "members": [
+        {
+          "entityIndex": 3412,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -3328,
+            "y": 2240,
+            "z": 400.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3413,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -3328,
+            "y": 2000,
+            "z": 400.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3414,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -3072,
+            "y": 2112,
+            "z": 400.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3412,
+          "entityB": 3413,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3412,
+          "entityB": 3414,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3413,
+          "entityB": 3414,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L807",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 2,
+      "entityIndexes": [
+        3395,
+        3396
+      ],
+      "centroid": {
+        "x": -2080,
+        "y": 928,
+        "z": 384
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2
+      },
+      "members": [
+        {
+          "entityIndex": 3395,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -2080,
+            "y": 1024,
+            "z": 384
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1213.65625,
+            2317.890625
+          ],
+          "upTimes": [
+            1513.671875,
+            2619.390625
+          ]
+        },
+        {
+          "entityIndex": 3396,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -2080,
+            "y": 832,
+            "z": 384
+          },
+          "downCount": 3,
+          "upCount": 2,
+          "downTimes": [
+            884.1875,
+            1210.5625,
+            2641.40625
+          ],
+          "upTimes": [
+            1185.28125,
+            1513.671875
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1185.28125,
+          "firstTime": 1185.28125,
+          "lastTime": 1185.28125,
+          "members": [
+            3396
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1513.671875,
+          "firstTime": 1513.671875,
+          "lastTime": 1513.671875,
+          "members": [
+            3395,
+            3396
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2619.390625,
+          "firstTime": 2619.390625,
+          "lastTime": 2619.390625,
+          "members": [
+            3395
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 1,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 1513.671875,
+          "firstTime": 1513.671875,
+          "lastTime": 1513.671875,
+          "members": [
+            3395,
+            3396
+          ],
+          "memberCount": 2
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3395,
+            3396
+          ],
+          "count": 1,
+          "times": [
+            1513.671875
+          ]
+        },
+        {
+          "members": [
+            3396
+          ],
+          "count": 1,
+          "times": [
+            1185.28125
+          ]
+        },
+        {
+          "members": [
+            3395
+          ],
+          "count": 1,
+          "times": [
+            2619.390625
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3395,
+          "entityB": 3396,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 2,
+          "synchronyRate": 0.5
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L808",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3403,
+        3404,
+        3405
+      ],
+      "centroid": {
+        "x": -1093.5208333333333,
+        "y": 3071.2708333333335,
+        "z": 384.03125
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1,
+        "LARGE_UNIT": 1,
+        "SMALL_UNIT": 1
+      },
+      "members": [
+        {
+          "entityIndex": 3403,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": -912.5625,
+            "y": 3197.8125,
+            "z": 384.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            2713.078125
+          ],
+          "upTimes": [
+            3056.03125
+          ]
+        },
+        {
+          "entityIndex": 3404,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": -1280,
+            "y": 3136,
+            "z": 384.03125
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            2721.015625
+          ],
+          "upTimes": [
+            3056.03125
+          ]
+        },
+        {
+          "entityIndex": 3405,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": -1088,
+            "y": 2880,
+            "z": 384.03125
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            2146.4375,
+            2714.703125
+          ],
+          "upTimes": [
+            2486.78125,
+            3056.03125
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 2486.78125,
+          "firstTime": 2486.78125,
+          "lastTime": 2486.78125,
+          "members": [
+            3405
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 3056.03125,
+          "firstTime": 3056.03125,
+          "lastTime": 3056.03125,
+          "members": [
+            3403,
+            3404,
+            3405
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 1,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 3056.03125,
+          "firstTime": 3056.03125,
+          "lastTime": 3056.03125,
+          "members": [
+            3403,
+            3404,
+            3405
+          ],
+          "memberCount": 3
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3403,
+            3404,
+            3405
+          ],
+          "count": 1,
+          "times": [
+            3056.03125
+          ]
+        },
+        {
+          "members": [
+            3405
+          ],
+          "count": 1,
+          "times": [
+            2486.78125
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3403,
+          "entityB": 3404,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3403,
+          "entityB": 3405,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3404,
+          "entityB": 3405,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L809",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3400,
+        3401,
+        3402
+      ],
+      "centroid": {
+        "x": 1098.6666666666667,
+        "y": -3072,
+        "z": 384
+      },
+      "unitTypeCounts": {
+        "SMALL_UNIT": 1,
+        "MEDIUM_UNIT": 1,
+        "LARGE_UNIT": 1
+      },
+      "members": [
+        {
+          "entityIndex": 3400,
+          "unitType": "SMALL_UNIT",
+          "position": {
+            "x": 1152,
+            "y": -2912,
+            "z": 384
+          },
+          "downCount": 3,
+          "upCount": 3,
+          "downTimes": [
+            1561.078125,
+            1967.6875,
+            2323.234375
+          ],
+          "upTimes": [
+            1905.296875,
+            2315.796875,
+            2673
+          ]
+        },
+        {
+          "entityIndex": 3401,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 960,
+            "y": -3072,
+            "z": 384
+          },
+          "downCount": 3,
+          "upCount": 3,
+          "downTimes": [
+            1561.671875,
+            1965.59375,
+            2325.0625
+          ],
+          "upTimes": [
+            1905.296875,
+            2315.796875,
+            2673
+          ]
+        },
+        {
+          "entityIndex": 3402,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 1184,
+            "y": -3232,
+            "z": 384
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1127.5625,
+            2337.984375
+          ],
+          "upTimes": [
+            1462.578125,
+            2673
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1462.578125,
+          "firstTime": 1462.578125,
+          "lastTime": 1462.578125,
+          "members": [
+            3402
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1905.296875,
+          "firstTime": 1905.296875,
+          "lastTime": 1905.296875,
+          "members": [
+            3400,
+            3401
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2315.796875,
+          "firstTime": 2315.796875,
+          "lastTime": 2315.796875,
+          "members": [
+            3400,
+            3401
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2673,
+          "firstTime": 2673,
+          "lastTime": 2673,
+          "members": [
+            3400,
+            3401,
+            3402
+          ],
+          "memberCount": 3
+        }
+      ],
+      "fullSynchronizedRespawnCount": 1,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 2673,
+          "firstTime": 2673,
+          "lastTime": 2673,
+          "members": [
+            3400,
+            3401,
+            3402
+          ],
+          "memberCount": 3
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3400,
+            3401
+          ],
+          "count": 2,
+          "times": [
+            1905.296875,
+            2315.796875
+          ]
+        },
+        {
+          "members": [
+            3400,
+            3401,
+            3402
+          ],
+          "count": 1,
+          "times": [
+            2673
+          ]
+        },
+        {
+          "members": [
+            3402
+          ],
+          "count": 1,
+          "times": [
+            1462.578125
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3400,
+          "entityB": 3401,
+          "synchronizedRespawns": 3,
+          "comparableRespawns": 3,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3400,
+          "entityB": 3402,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 2,
+          "synchronyRate": 0.5
+        },
+        {
+          "entityA": 3401,
+          "entityB": 3402,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 2,
+          "synchronyRate": 0.5
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L810",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 2,
+      "entityIndexes": [
+        3380,
+        3381
+      ],
+      "centroid": {
+        "x": 2080,
+        "y": -960,
+        "z": 384
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2
+      },
+      "members": [
+        {
+          "entityIndex": 3380,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2080,
+            "y": -1056,
+            "z": 384
+          },
+          "downCount": 5,
+          "upCount": 5,
+          "downTimes": [
+            572.34375,
+            897.171875,
+            1228.21875,
+            1562.203125,
+            2137.328125
+          ],
+          "upTimes": [
+            883.5,
+            1198.6875,
+            1536.03125,
+            1873.46875,
+            2449.53125
+          ]
+        },
+        {
+          "entityIndex": 3381,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2080,
+            "y": -864,
+            "z": 384
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1558.1875,
+            2139.671875
+          ],
+          "upTimes": [
+            1873.46875,
+            2449.53125
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 883.5,
+          "firstTime": 883.5,
+          "lastTime": 883.5,
+          "members": [
+            3380
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1198.6875,
+          "firstTime": 1198.6875,
+          "lastTime": 1198.6875,
+          "members": [
+            3380
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1536.03125,
+          "firstTime": 1536.03125,
+          "lastTime": 1536.03125,
+          "members": [
+            3380
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 1873.46875,
+          "firstTime": 1873.46875,
+          "lastTime": 1873.46875,
+          "members": [
+            3380,
+            3381
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2449.53125,
+          "firstTime": 2449.53125,
+          "lastTime": 2449.53125,
+          "members": [
+            3380,
+            3381
+          ],
+          "memberCount": 2
+        }
+      ],
+      "fullSynchronizedRespawnCount": 2,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 1873.46875,
+          "firstTime": 1873.46875,
+          "lastTime": 1873.46875,
+          "members": [
+            3380,
+            3381
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2449.53125,
+          "firstTime": 2449.53125,
+          "lastTime": 2449.53125,
+          "members": [
+            3380,
+            3381
+          ],
+          "memberCount": 2
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3380
+          ],
+          "count": 3,
+          "times": [
+            883.5,
+            1198.6875,
+            1536.03125
+          ]
+        },
+        {
+          "members": [
+            3380,
+            3381
+          ],
+          "count": 2,
+          "times": [
+            1873.46875,
+            2449.53125
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3380,
+          "entityB": 3381,
+          "synchronizedRespawns": 2,
+          "comparableRespawns": 2,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L811",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3397,
+        3398,
+        3399
+      ],
+      "centroid": {
+        "x": 2314.6666666666665,
+        "y": -2880,
+        "z": 376
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 2,
+        "LARGE_UNIT": 1
+      },
+      "members": [
+        {
+          "entityIndex": 3397,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2400,
+            "y": -2752,
+            "z": 376
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3398,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 2400,
+            "y": -3008,
+            "z": 376
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            941.9375
+          ],
+          "upTimes": [
+            1733.765625
+          ]
+        },
+        {
+          "entityIndex": 3399,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 2144,
+            "y": -2880,
+            "z": 376
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1398.75
+          ],
+          "upTimes": [
+            1733.765625
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1733.765625,
+          "firstTime": 1733.765625,
+          "lastTime": 1733.765625,
+          "members": [
+            3398,
+            3399
+          ],
+          "memberCount": 2
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3398,
+            3399
+          ],
+          "count": 1,
+          "times": [
+            1733.765625
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3397,
+          "entityB": 3398,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3397,
+          "entityB": 3399,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3398,
+          "entityB": 3399,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L812",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3391,
+        3392,
+        3393
+      ],
+      "centroid": {
+        "x": 3520,
+        "y": 4373.333333333333,
+        "z": 384.03125
+      },
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3391,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 3328,
+            "y": 4288,
+            "z": 384.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3392,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 3712,
+            "y": 4288,
+            "z": 384.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3393,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 3520,
+            "y": 4544,
+            "z": 384.03125
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3391,
+          "entityB": 3392,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3391,
+          "entityB": 3393,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3392,
+          "entityB": 3393,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L813",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 1,
+      "entityIndexes": [
+        3378
+      ],
+      "centroid": {
+        "x": 3648,
+        "y": 1616,
+        "z": 536
+      },
+      "unitTypeCounts": {
+        "MEDIUM_UNIT": 1
+      },
+      "members": [
+        {
+          "entityIndex": 3378,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 3648,
+            "y": 1616,
+            "z": 536
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1328.9375,
+            2351.21875
+          ],
+          "upTimes": [
+            1648.484375,
+            2661.59375
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1648.484375,
+          "firstTime": 1648.484375,
+          "lastTime": 1648.484375,
+          "members": [
+            3378
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 2661.59375,
+          "firstTime": 2661.59375,
+          "lastTime": 2661.59375,
+          "members": [
+            3378
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 2,
+      "fullSynchronizedRespawns": [
+        {
+          "timeSeconds": 1648.484375,
+          "firstTime": 1648.484375,
+          "lastTime": 1648.484375,
+          "members": [
+            3378
+          ],
+          "memberCount": 1
+        },
+        {
+          "timeSeconds": 2661.59375,
+          "firstTime": 2661.59375,
+          "lastTime": 2661.59375,
+          "members": [
+            3378
+          ],
+          "memberCount": 1
+        }
+      ],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3378
+          ],
+          "count": 2,
+          "times": [
+            1648.484375,
+            2661.59375
+          ]
+        }
+      ],
+      "pairwiseSynchrony": []
+    },
+    {
+      "candidateGroupId": "L814",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3382,
+        3383,
+        3384
+      ],
+      "centroid": {
+        "x": 4010.6666666666665,
+        "y": -4170.666666666667,
+        "z": 376
+      },
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3382,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 4096,
+            "y": -4000,
+            "z": 376
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1379.65625
+          ],
+          "upTimes": [
+            1714.671875
+          ]
+        },
+        {
+          "entityIndex": 3383,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 3840,
+            "y": -4256,
+            "z": 376
+          },
+          "downCount": 2,
+          "upCount": 2,
+          "downTimes": [
+            1378,
+            2313.390625
+          ],
+          "upTimes": [
+            1714.671875,
+            2649.125
+          ]
+        },
+        {
+          "entityIndex": 3384,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 4096,
+            "y": -4256,
+            "z": 376
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1714.671875,
+          "firstTime": 1714.671875,
+          "lastTime": 1714.671875,
+          "members": [
+            3382,
+            3383
+          ],
+          "memberCount": 2
+        },
+        {
+          "timeSeconds": 2649.125,
+          "firstTime": 2649.125,
+          "lastTime": 2649.125,
+          "members": [
+            3383
+          ],
+          "memberCount": 1
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3382,
+            3383
+          ],
+          "count": 1,
+          "times": [
+            1714.671875
+          ]
+        },
+        {
+          "members": [
+            3383
+          ],
+          "count": 1,
+          "times": [
+            2649.125
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3382,
+          "entityB": 3383,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3382,
+          "entityB": 3384,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3383,
+          "entityB": 3384,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L815",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3373,
+        3374,
+        3375
+      ],
+      "centroid": {
+        "x": 4992,
+        "y": 565.3333333333334,
+        "z": 256
+      },
+      "unitTypeCounts": {
+        "LARGE_UNIT": 1,
+        "MEDIUM_UNIT": 2
+      },
+      "members": [
+        {
+          "entityIndex": 3373,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 5120,
+            "y": 480,
+            "z": 256
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1125.03125
+          ],
+          "upTimes": [
+            1460.046875
+          ]
+        },
+        {
+          "entityIndex": 3374,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 4864,
+            "y": 480,
+            "z": 256
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3375,
+          "unitType": "MEDIUM_UNIT",
+          "position": {
+            "x": 4992,
+            "y": 736,
+            "z": 256
+          },
+          "downCount": 1,
+          "upCount": 1,
+          "downTimes": [
+            1121.9375
+          ],
+          "upTimes": [
+            1460.046875
+          ]
+        }
+      ],
+      "respawnCohorts": [
+        {
+          "timeSeconds": 1460.046875,
+          "firstTime": 1460.046875,
+          "lastTime": 1460.046875,
+          "members": [
+            3373,
+            3375
+          ],
+          "memberCount": 2
+        }
+      ],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [
+        {
+          "members": [
+            3373,
+            3375
+          ],
+          "count": 1,
+          "times": [
+            1460.046875
+          ]
+        }
+      ],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3373,
+          "entityB": 3374,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3373,
+          "entityB": 3375,
+          "synchronizedRespawns": 1,
+          "comparableRespawns": 1,
+          "synchronyRate": 1
+        },
+        {
+          "entityA": 3374,
+          "entityB": 3375,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    },
+    {
+      "candidateGroupId": "L816",
+      "spawnTier": "TIER_8_MIN",
+      "memberCount": 3,
+      "entityIndexes": [
+        3364,
+        3365,
+        3366
+      ],
+      "centroid": {
+        "x": 9184,
+        "y": -0.010416666666666666,
+        "z": 256
+      },
+      "unitTypeCounts": {
+        "LARGE_UNIT": 3
+      },
+      "members": [
+        {
+          "entityIndex": 3364,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 9056,
+            "y": -0.03125,
+            "z": 256
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3365,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 9248,
+            "y": 160,
+            "z": 256
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        },
+        {
+          "entityIndex": 3366,
+          "unitType": "LARGE_UNIT",
+          "position": {
+            "x": 9248,
+            "y": -160,
+            "z": 256
+          },
+          "downCount": 0,
+          "upCount": 0,
+          "downTimes": [],
+          "upTimes": []
+        }
+      ],
+      "respawnCohorts": [],
+      "fullSynchronizedRespawnCount": 0,
+      "fullSynchronizedRespawns": [],
+      "respawnCohortPatterns": [],
+      "pairwiseSynchrony": [
+        {
+          "entityA": 3364,
+          "entityB": 3365,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3364,
+          "entityB": 3366,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        },
+        {
+          "entityA": 3365,
+          "entityB": 3366,
+          "synchronizedRespawns": 0,
+          "comparableRespawns": 0,
+          "synchronyRate": null
+        }
+      ]
+    }
+  ],
+  "interpretation": [
+    "Synchronized UP transitions provide strong evidence that entities belong to the same respawn unit/camp.",
+    "A geometric blob containing stable smaller respawn cohorts is evidence that multiple camps were merged spatially.",
+    "Absence of synchronized respawns is not evidence of separate camps if the relevant camp was never fully cleared during this replay."
+  ]
+}

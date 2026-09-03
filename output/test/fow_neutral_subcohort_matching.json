@@ -1,0 +1,3519 @@
+{
+  "replay": "test",
+  "method": "FOW minimap coordinate calibration from Small camps + minimum-distance tier-matched assignment to neutral creation subcohorts",
+  "calibration": {
+    "ax": 84.2086161387632,
+    "bx": -10697.723416289593,
+    "ay": 85.57584236912673,
+    "by": -10865.40468695348,
+    "rmse": 58.649523291104444,
+    "anchors": [
+      {
+        "markerName": "ne_power_grid_neutrals",
+        "fowPosition": {
+          "x": 212,
+          "y": 142
+        },
+        "matchedGroupId": "SPAWN_0002",
+        "actualWorldPosition": {
+          "x": 7168,
+          "y": 1322.6666666666667
+        },
+        "estimatedWorldPosition": {
+          "x": 7154.503205128205,
+          "y": 1286.3649294625156
+        },
+        "residualDistance": 38.72957004474175
+      },
+      {
+        "markerName": "nw_utility_south_neutrals",
+        "fowPosition": {
+          "x": 110,
+          "y": 138
+        },
+        "matchedGroupId": "SPAWN_0003",
+        "actualWorldPosition": {
+          "x": -1386.6666666666667,
+          "y": 896
+        },
+        "estimatedWorldPosition": {
+          "x": -1434.7756410256407,
+          "y": 944.0615599860103
+        },
+        "residualDistance": 68.00284525048397
+      },
+      {
+        "markerName": "se_utility_neutrals",
+        "fowPosition": {
+          "x": 144,
+          "y": 115
+        },
+        "matchedGroupId": "SPAWN_0004",
+        "actualWorldPosition": {
+          "x": 1373.75,
+          "y": -970.6666666666666
+        },
+        "estimatedWorldPosition": {
+          "x": 1428.3173076923085,
+          "y": -1024.1828145039053
+        },
+        "residualDistance": 76.43015862945896
+      },
+      {
+        "markerName": "sw_power_grid_neutrals",
+        "fowPosition": {
+          "x": 42,
+          "y": 112
+        },
+        "matchedGroupId": "SPAWN_0001",
+        "actualWorldPosition": {
+          "x": -7168,
+          "y": -1322.6666666666667
+        },
+        "estimatedWorldPosition": {
+          "x": -7160.961538461538,
+          "y": -1280.9103416112848
+        },
+        "residualDistance": 42.34537309977471
+      }
+    ]
+  },
+  "counts": {
+    "fowMarkers": {
+      "SMALL": 4,
+      "MEDIUM": 24,
+      "LARGE": 12
+    },
+    "neutralCreationSubcohorts": {
+      "SMALL": 4,
+      "MEDIUM": 24,
+      "LARGE": 12
+    }
+  },
+  "tierResults": {
+    "SMALL": {
+      "markerCount": 4,
+      "subcohortCount": 4,
+      "equalCounts": true,
+      "distanceStatistics": {
+        "count": 4,
+        "min": 38.72957004474175,
+        "median": 55.174109175129345,
+        "max": 76.43015862945896,
+        "mean": 56.376986756114846
+      },
+      "matches": [
+        {
+          "markerName": "ne_power_grid_neutrals",
+          "markerFowPosition": {
+            "x": 212,
+            "y": 142
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 7154.503205128205,
+            "y": 1286.3649294625156
+          },
+          "subcohortId": "SPAWN_0002_C1",
+          "sourceGroupId": "SPAWN_0002",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 7168,
+            "y": 1322.6666666666667,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2962,
+            2963,
+            2964
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "SMALL_UNIT": 3
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 38.72957004474175
+        },
+        {
+          "markerName": "sw_power_grid_neutrals",
+          "markerFowPosition": {
+            "x": 42,
+            "y": 112
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -7160.961538461538,
+            "y": -1280.9103416112848
+          },
+          "subcohortId": "SPAWN_0001_C1",
+          "sourceGroupId": "SPAWN_0001",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -7168,
+            "y": -1322.6666666666667,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2959,
+            2960,
+            2961
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "SMALL_UNIT": 3
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 42.34537309977471
+        },
+        {
+          "markerName": "nw_utility_south_neutrals",
+          "markerFowPosition": {
+            "x": 110,
+            "y": 138
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -1434.7756410256407,
+            "y": 944.0615599860103
+          },
+          "subcohortId": "SPAWN_0003_C1",
+          "sourceGroupId": "SPAWN_0003",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -1386.6666666666667,
+            "y": 896,
+            "z": 384.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2965,
+            2966,
+            2967
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "SMALL_UNIT": 3
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 68.00284525048397
+        },
+        {
+          "markerName": "se_utility_neutrals",
+          "markerFowPosition": {
+            "x": 144,
+            "y": 115
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 1428.3173076923085,
+            "y": -1024.1828145039053
+          },
+          "subcohortId": "SPAWN_0004_C1",
+          "sourceGroupId": "SPAWN_0004",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 1373.75,
+            "y": -970.6666666666666,
+            "z": 384.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2968,
+            2969,
+            2970
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "SMALL_UNIT": 3
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 76.43015862945896
+        }
+      ]
+    },
+    "MEDIUM": {
+      "markerCount": 24,
+      "subcohortCount": 24,
+      "equalCounts": true,
+      "distanceStatistics": {
+        "count": 24,
+        "min": 10.485260134986731,
+        "median": 62.78835147184631,
+        "max": 190.38984774299394,
+        "mean": 74.85872862018748
+      },
+      "matches": [
+        {
+          "markerName": "rebels_camp_parking_garage_blue",
+          "markerFowPosition": {
+            "x": 89,
+            "y": 113
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -3203.1565799396676,
+            "y": -1195.334499242159
+          },
+          "subcohortId": "SPAWN_0007_C2",
+          "sourceGroupId": "SPAWN_0007",
+          "creationSubcohortIndex": 2,
+          "cohortCentroid": {
+            "x": -3200,
+            "y": -1205.3333333333333,
+            "z": 248.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3073,
+            3074,
+            3075
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 10.485260134986731
+        },
+        {
+          "markerName": "combine_parking_garage_orange",
+          "markerFowPosition": {
+            "x": 165,
+            "y": 141
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 3196.6982466063364,
+            "y": 1200.7890870933898
+          },
+          "subcohortId": "SPAWN_0009_C2",
+          "sourceGroupId": "SPAWN_0009",
+          "creationSubcohortIndex": 2,
+          "cohortCentroid": {
+            "x": 3200,
+            "y": 1216,
+            "z": 248.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3064,
+            3065,
+            3072
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+          "distanceXY": 15.56513562180077
+        },
+        {
+          "markerName": "ne_bridge_neutrals",
+          "markerFowPosition": {
+            "x": 172,
+            "y": 144
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 3786.158559577678,
+            "y": 1457.5166142007693
+          },
+          "subcohortId": "SPAWN_0009_C1",
+          "sourceGroupId": "SPAWN_0009",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 3776,
+            "y": 1445.3333333333333,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2953,
+            2955,
+            2957
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+          "distanceXY": 15.862807613662264
+        },
+        {
+          "markerName": "chinatown_tunnel_neutrals",
+          "markerFowPosition": {
+            "x": 153,
+            "y": 81
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 2186.1948529411766,
+            "y": -3933.761455054214
+          },
+          "subcohortId": "SPAWN_0015_C1",
+          "sourceGroupId": "SPAWN_0015",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 2176,
+            "y": -3914.6666666666665,
+            "z": 376.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3001,
+            3002,
+            3003
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 21.6459227120821
+        },
+        {
+          "markerName": "se_arcade_downstairs_camp",
+          "markerFowPosition": {
+            "x": 180,
+            "y": 104
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 4459.827488687784,
+            "y": -1965.5170805642992
+          },
+          "subcohortId": "SPAWN_0014_C1",
+          "sourceGroupId": "SPAWN_0014",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 4480,
+            "y": -1952,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 5,
+          "cohortEntityIndexes": [
+            2995,
+            2996,
+            2997,
+            2998,
+            3000
+          ],
+          "sourceGroupMemberCount": 5,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 24.282538574523564
+        },
+        {
+          "markerName": "se_chapel_neutrals",
+          "markerFowPosition": {
+            "x": 221,
+            "y": 100
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 7912.380750377075,
+            "y": -2307.8204500408065
+          },
+          "subcohortId": "SPAWN_0008_C1",
+          "sourceGroupId": "SPAWN_0008",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 7942.4,
+            "y": -2315.2,
+            "z": 256.23125
+          },
+          "cohortMemberCount": 5,
+          "cohortEntityIndexes": [
+            2913,
+            2938,
+            2940,
+            2942,
+            2947
+          ],
+          "sourceGroupMemberCount": 5,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 1,
+            "SMALL_UNIT": 4
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 30.912992503536355
+        },
+        {
+          "markerName": "se_arcade_upstairs_camp",
+          "markerFowPosition": {
+            "x": 195,
+            "y": 107
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 5722.956730769232,
+            "y": -1708.7895534569197
+          },
+          "subcohortId": "SPAWN_0019_C1",
+          "sourceGroupId": "SPAWN_0019",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 5696,
+            "y": -1664,
+            "z": 928.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3033,
+            3036,
+            3037
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 52.275897243712116
+        },
+        {
+          "markerName": "combine_parking_garage_blue",
+          "markerFowPosition": {
+            "x": 150,
+            "y": 137
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 1933.5690045248884,
+            "y": 858.4857176168825
+          },
+          "subcohortId": "SPAWN_0026_C1",
+          "sourceGroupId": "SPAWN_0026",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 1944,
+            "y": 804,
+            "z": 128.03125
+          },
+          "cohortMemberCount": 4,
+          "cohortEntityIndexes": [
+            3080,
+            3081,
+            3082,
+            3083
+          ],
+          "sourceGroupMemberCount": 4,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 1,
+            "SMALL_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 55.47521149872673
+        },
+        {
+          "markerName": "rebels_camp_parking_garage_orange",
+          "markerFowPosition": {
+            "x": 104,
+            "y": 117
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -1940.0273378582187,
+            "y": -853.0311297656517
+          },
+          "subcohortId": "SPAWN_0025_C1",
+          "sourceGroupId": "SPAWN_0025",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -1944,
+            "y": -796,
+            "z": 128.03125
+          },
+          "cohortMemberCount": 4,
+          "cohortEntityIndexes": [
+            3076,
+            3077,
+            3078,
+            3079
+          ],
+          "sourceGroupMemberCount": 4,
+          "sourceGroupComposition": {
+            "SMALL_UNIT": 3,
+            "MEDIUM_UNIT": 1
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 57.16932575113464
+        },
+        {
+          "markerName": "nw_market_downstairs_camp",
+          "markerFowPosition": {
+            "x": 74,
+            "y": 150
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -4466.285822021116,
+            "y": 1970.97166841553
+          },
+          "subcohortId": "SPAWN_0013_C1",
+          "sourceGroupId": "SPAWN_0013",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -4473.6,
+            "y": 1913.6,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 5,
+          "cohortEntityIndexes": [
+            2990,
+            2991,
+            2992,
+            2993,
+            2994
+          ],
+          "sourceGroupMemberCount": 5,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 57.8360228256434
+        },
+        {
+          "markerName": "sw_bodega_downstairs_camp",
+          "markerFowPosition": {
+            "x": 68,
+            "y": 108
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -4971.537518853695,
+            "y": -1623.213711087792
+          },
+          "subcohortId": "SPAWN_0011_C1",
+          "sourceGroupId": "SPAWN_0011",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -4979.333333333333,
+            "y": -1565.4375,
+            "z": -63.96875
+          },
+          "cohortMemberCount": 6,
+          "cohortEntityIndexes": [
+            2976,
+            2979,
+            2980,
+            2981,
+            2982,
+            2999
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "SMALL_UNIT": 4,
+            "MEDIUM_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 58.29978808762554
+        },
+        {
+          "markerName": "nw_market_upstairs_camp",
+          "markerFowPosition": {
+            "x": 59,
+            "y": 147
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -5729.4150641025635,
+            "y": 1714.2441413081506
+          },
+          "subcohortId": "SPAWN_0020_C1",
+          "sourceGroupId": "SPAWN_0020",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -5696,
+            "y": 1664,
+            "z": 928.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3041,
+            3043,
+            3045
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 60.341032844755254
+        },
+        {
+          "markerName": "sw_bridge_neutrals",
+          "markerFowPosition": {
+            "x": 82,
+            "y": 112
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -3792.61689291101,
+            "y": -1280.9103416112848
+          },
+          "subcohortId": "SPAWN_0007_C1",
+          "sourceGroupId": "SPAWN_0007",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -3822,
+            "y": -1222.6666666666667,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2524,
+            2910,
+            2987
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 65.23567009893736
+        },
+        {
+          "markerName": "ne_theater_downstairs_camp",
+          "markerFowPosition": {
+            "x": 186,
+            "y": 142
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 4965.079185520362,
+            "y": 1286.3649294625156
+          },
+          "subcohortId": "SPAWN_0012_C1",
+          "sourceGroupId": "SPAWN_0012",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 4926.666666666667,
+            "y": 1232,
+            "z": -19.96875
+          },
+          "cohortMemberCount": 6,
+          "cohortEntityIndexes": [
+            2983,
+            2984,
+            2986,
+            2988,
+            2989,
+            3009
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 2,
+            "SMALL_UNIT": 4
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 66.56626142536332
+        },
+        {
+          "markerName": "financial_tunnel_neutrals",
+          "markerFowPosition": {
+            "x": 100,
+            "y": 170
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -2276.861802413272,
+            "y": 3682.4885157980643
+          },
+          "subcohortId": "SPAWN_0016_C1",
+          "sourceGroupId": "SPAWN_0016",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -2240,
+            "y": 3605.3333333333335,
+            "z": 376.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3004,
+            3005,
+            3006
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 85.50856482435556
+        },
+        {
+          "markerName": "sw_asylum_camp",
+          "markerFowPosition": {
+            "x": 221,
+            "y": 73
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 7912.380750377075,
+            "y": -4618.368194007228
+          },
+          "subcohortId": "SPAWN_0006_C1",
+          "sourceGroupId": "SPAWN_0006",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 7923.2,
+            "y": -4531.2,
+            "z": 640.03125
+          },
+          "cohortMemberCount": 5,
+          "cohortEntityIndexes": [
+            2519,
+            2520,
+            2521,
+            2522,
+            2523
+          ],
+          "sourceGroupMemberCount": 5,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 2,
+            "SMALL_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 87.83706625841388
+        },
+        {
+          "markerName": "sw_factory_ext_camp",
+          "markerFowPosition": {
+            "x": 47,
+            "y": 101
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -6739.918457767722,
+            "y": -2222.2446076716788
+          },
+          "subcohortId": "SPAWN_0024_C1",
+          "sourceGroupId": "SPAWN_0024",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -6773.333333333333,
+            "y": -2133.3333333333335,
+            "z": 1024.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3062,
+            3063,
+            3066
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 94.98299118017779
+        },
+        {
+          "markerName": "ne_mansion_ext_camp",
+          "markerFowPosition": {
+            "x": 207,
+            "y": 153
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 6733.460124434392,
+            "y": 2227.6991955229114
+          },
+          "subcohortId": "SPAWN_0023_C1",
+          "sourceGroupId": "SPAWN_0023",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 6768,
+            "y": 2133.3333333333335,
+            "z": 1024.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3057,
+            3059,
+            3060
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 100.48840207143354
+        },
+        {
+          "markerName": "nw_chapel_neutrals",
+          "markerFowPosition": {
+            "x": 33,
+            "y": 153
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -7918.839083710407,
+            "y": 2227.6991955229114
+          },
+          "subcohortId": "SPAWN_0010_C1",
+          "sourceGroupId": "SPAWN_0010",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -7936,
+            "y": 2124.8,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 5,
+          "cohortEntityIndexes": [
+            2971,
+            2972,
+            2973,
+            2978,
+            3038
+          ],
+          "sourceGroupMemberCount": 5,
+          "sourceGroupComposition": {
+            "SMALL_UNIT": 4,
+            "MEDIUM_UNIT": 1
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 104.3203790597059
+        },
+        {
+          "markerName": "nw_bank_camp",
+          "markerFowPosition": {
+            "x": 34,
+            "y": 181
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -7834.630467571644,
+            "y": 4623.822781858458
+          },
+          "subcohortId": "SPAWN_0005_C1",
+          "sourceGroupId": "SPAWN_0005",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -7897.6,
+            "y": 4531.2,
+            "z": 640.03125
+          },
+          "cohortMemberCount": 5,
+          "cohortEntityIndexes": [
+            2515,
+            2516,
+            2517,
+            2518,
+            3071
+          ],
+          "sourceGroupMemberCount": 5,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 2,
+            "SMALL_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 112.00063273680837
+        },
+        {
+          "markerName": "ne_theater_upstairs_camp",
+          "markerFowPosition": {
+            "x": 192,
+            "y": 173
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 5470.330882352942,
+            "y": 3939.2160429054456
+          },
+          "subcohortId": "SPAWN_0022_C1",
+          "sourceGroupId": "SPAWN_0022",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 5546.666666666667,
+            "y": 3840,
+            "z": 384.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3055,
+            3056,
+            3058
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 125.18376546743879
+        },
+        {
+          "markerName": "theater_tunnel_neutrals",
+          "markerFowPosition": {
+            "x": 154,
+            "y": 186
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 2270.40346907994,
+            "y": 5051.701993704093
+          },
+          "subcohortId": "SPAWN_0017_C1",
+          "sourceGroupId": "SPAWN_0017",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 2272,
+            "y": 4917.333333333333,
+            "z": 512.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3007,
+            3008,
+            3010
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 134.37814480342922
+        },
+        {
+          "markerName": "industrial_tunnel_neutrals",
+          "markerFowPosition": {
+            "x": 100,
+            "y": 68
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -2276.861802413272,
+            "y": -5046.247405852861
+          },
+          "subcohortId": "SPAWN_0018_C1",
+          "sourceGroupId": "SPAWN_0018",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -2308.0416666666665,
+            "y": -4879.572916666667,
+            "z": 512.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3011,
+            3012,
+            3028
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 169.5658258032525
+        },
+        {
+          "markerName": "sw_bodega_upstairs_camp",
+          "markerFowPosition": {
+            "x": 62,
+            "y": 81
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -5476.7892156862745,
+            "y": -3933.761455054214
+          },
+          "subcohortId": "SPAWN_0021_C1",
+          "sourceGroupId": "SPAWN_0021",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -5461.333333333333,
+            "y": -3744,
+            "z": 384.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3040,
+            3042,
+            3054
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 190.38984774299394
+        }
+      ]
+    },
+    "LARGE": {
+      "markerCount": 12,
+      "subcohortCount": 12,
+      "equalCounts": true,
+      "distanceStatistics": {
+        "count": 12,
+        "min": 8.92049815545105,
+        "median": 46.54478429738158,
+        "max": 80.483632088017,
+        "mean": 43.429862447230164
+      },
+      "matches": [
+        {
+          "markerName": "east_end_neutrals",
+          "markerFowPosition": {
+            "x": 236,
+            "y": 127
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 9175.509992458525,
+            "y": 2.7272939256163227
+          },
+          "subcohortId": "SPAWN_0028_C1",
+          "sourceGroupId": "SPAWN_0028",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 9184,
+            "y": -0.010416666666666666,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3364,
+            3365,
+            3366
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "LARGE_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 8.92049815545105
+        },
+        {
+          "markerName": "camp_mid_roof_E",
+          "markerFowPosition": {
+            "x": 140,
+            "y": 91
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 1091.4828431372553,
+            "y": -3078.003031362947
+          },
+          "subcohortId": "SPAWN_0040_C1",
+          "sourceGroupId": "SPAWN_0040",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 1098.6666666666667,
+            "y": -3072,
+            "z": 384.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3400,
+            3401,
+            3402
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "SMALL_UNIT": 1,
+            "MEDIUM_UNIT": 1,
+            "LARGE_UNIT": 1
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 9.361821726899567
+        },
+        {
+          "markerName": "camp_mid_roof_W",
+          "markerFowPosition": {
+            "x": 114,
+            "y": 163
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -1097.9411764705874,
+            "y": 3083.4576192141776
+          },
+          "subcohortId": "SPAWN_0041_C1",
+          "sourceGroupId": "SPAWN_0041",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -1093.5208333333333,
+            "y": 3071.2708333333335,
+            "z": 384.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3403,
+            3404,
+            3405
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 1,
+            "LARGE_UNIT": 1,
+            "SMALL_UNIT": 1
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 12.963687112724195
+        },
+        {
+          "markerName": "sw_bodega_ext_camp",
+          "markerFowPosition": {
+            "x": 68,
+            "y": 119
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -4971.537518853695,
+            "y": -681.8794450273981
+          },
+          "subcohortId": "SPAWN_0030_C1",
+          "sourceGroupId": "SPAWN_0030",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -4982.666666666667,
+            "y": -709.3333333333334,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3370,
+            3371,
+            3372
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 2,
+            "LARGE_UNIT": 1
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 29.623874057215367
+        },
+        {
+          "markerName": "ne_theater_ext_camp",
+          "markerFowPosition": {
+            "x": 186,
+            "y": 134
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 4965.079185520362,
+            "y": 601.758190509503
+          },
+          "subcohortId": "SPAWN_0031_C1",
+          "sourceGroupId": "SPAWN_0031",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 4992,
+            "y": 565.3333333333334,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3373,
+            3374,
+            3375
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "LARGE_UNIT": 1,
+            "MEDIUM_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 45.293492607122076
+        },
+        {
+          "markerName": "nw_street_neutrals",
+          "markerFowPosition": {
+            "x": 80,
+            "y": 176
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -3961.0341251885366,
+            "y": 4195.943570012825
+          },
+          "subcohortId": "SPAWN_0036_C1",
+          "sourceGroupId": "SPAWN_0036",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -4000,
+            "y": 4170.666666666667,
+            "z": 376.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3388,
+            3389,
+            3390
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "LARGE_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 46.44632647038583
+        },
+        {
+          "markerName": "ferry_upstairs_neutrals",
+          "markerFowPosition": {
+            "x": 89,
+            "y": 152
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -3203.1565799396676,
+            "y": 2142.1233531537837
+          },
+          "subcohortId": "SPAWN_0042_C1",
+          "sourceGroupId": "SPAWN_0042",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -3242.6666666666665,
+            "y": 2117.3333333333335,
+            "z": 400.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3412,
+            3413,
+            3414
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 2,
+            "LARGE_UNIT": 1
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 46.64324212437734
+        },
+        {
+          "markerName": "bank_upstairs_neutrals",
+          "markerFowPosition": {
+            "x": 154,
+            "y": 93
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 2270.40346907994,
+            "y": -2906.851346624693
+          },
+          "subcohortId": "SPAWN_0039_C1",
+          "sourceGroupId": "SPAWN_0039",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 2314.6666666666665,
+            "y": -2880,
+            "z": 376.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3397,
+            3398,
+            3399
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 2,
+            "LARGE_UNIT": 1
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 51.77089410239139
+        },
+        {
+          "markerName": "west_end_neutrals",
+          "markerFowPosition": {
+            "x": 20,
+            "y": 127
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -9013.551093514328,
+            "y": 2.7272939256163227
+          },
+          "subcohortId": "SPAWN_0027_C1",
+          "sourceGroupId": "SPAWN_0027",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -8960,
+            "y": 0,
+            "z": 288.3020833333333
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3361,
+            3362,
+            3363
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "LARGE_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 53.620497468198174
+        },
+        {
+          "markerName": "se_street_camp",
+          "markerFowPosition": {
+            "x": 174,
+            "y": 78
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 3954.5757918552044,
+            "y": -4190.488982161594
+          },
+          "subcohortId": "SPAWN_0034_C1",
+          "sourceGroupId": "SPAWN_0034",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 4010.6666666666665,
+            "y": -4170.666666666667,
+            "z": 376.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3382,
+            3383,
+            3384
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "LARGE_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 59.490422999803485
+        },
+        {
+          "markerName": "sw_warehouse_camp",
+          "markerFowPosition": {
+            "x": 85,
+            "y": 75
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -3539.991044494721,
+            "y": -4447.216509268975
+          },
+          "subcohortId": "SPAWN_0035_C1",
+          "sourceGroupId": "SPAWN_0035",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -3520,
+            "y": -4373.333333333333,
+            "z": 384.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3385,
+            3386,
+            3387
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "LARGE_UNIT": 3
+          },
+          "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+          "distanceXY": 76.53996045417645
+        },
+        {
+          "markerName": "ne_warehouse_neutrals",
+          "markerFowPosition": {
+            "x": 169,
+            "y": 179
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 3533.532711161388,
+            "y": 4452.6710971202065
+          },
+          "subcohortId": "SPAWN_0037_C1",
+          "sourceGroupId": "SPAWN_0037",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 3520,
+            "y": 4373.333333333333,
+            "z": 384.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3391,
+            3392,
+            3393
+          ],
+          "sourceGroupMemberCount": 3,
+          "sourceGroupComposition": {
+            "LARGE_UNIT": 3
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 80.483632088017
+        }
+      ]
+    }
+  },
+  "sixUnitMediumGroups": [
+    {
+      "groupId": "SPAWN_0011",
+      "originalComposition": {
+        "SMALL_UNIT": 4,
+        "MEDIUM_UNIT": 2
+      },
+      "creationSubcohortCount": 1,
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.25,
+          "maxCreateTime": 361.25,
+          "memberCount": 6,
+          "entityIndexes": [
+            2976,
+            2979,
+            2980,
+            2981,
+            2982,
+            2999
+          ],
+          "centroid": {
+            "x": -4979.333333333333,
+            "y": -1565.4375,
+            "z": -63.96875
+          }
+        }
+      ],
+      "fowMatches": [
+        {
+          "markerName": "sw_bodega_downstairs_camp",
+          "markerFowPosition": {
+            "x": 68,
+            "y": 108
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -4971.537518853695,
+            "y": -1623.213711087792
+          },
+          "subcohortId": "SPAWN_0011_C1",
+          "sourceGroupId": "SPAWN_0011",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -4979.333333333333,
+            "y": -1565.4375,
+            "z": -63.96875
+          },
+          "cohortMemberCount": 6,
+          "cohortEntityIndexes": [
+            2976,
+            2979,
+            2980,
+            2981,
+            2982,
+            2999
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "SMALL_UNIT": 4,
+            "MEDIUM_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 58.29978808762554
+        }
+      ]
+    },
+    {
+      "groupId": "SPAWN_0012",
+      "originalComposition": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 4
+      },
+      "creationSubcohortCount": 1,
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.25,
+          "maxCreateTime": 361.25,
+          "memberCount": 6,
+          "entityIndexes": [
+            2983,
+            2984,
+            2986,
+            2988,
+            2989,
+            3009
+          ],
+          "centroid": {
+            "x": 4926.666666666667,
+            "y": 1232,
+            "z": -19.96875
+          }
+        }
+      ],
+      "fowMatches": [
+        {
+          "markerName": "ne_theater_downstairs_camp",
+          "markerFowPosition": {
+            "x": 186,
+            "y": 142
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 4965.079185520362,
+            "y": 1286.3649294625156
+          },
+          "subcohortId": "SPAWN_0012_C1",
+          "sourceGroupId": "SPAWN_0012",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 4926.666666666667,
+            "y": 1232,
+            "z": -19.96875
+          },
+          "cohortMemberCount": 6,
+          "cohortEntityIndexes": [
+            2983,
+            2984,
+            2986,
+            2988,
+            2989,
+            3009
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 2,
+            "SMALL_UNIT": 4
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 66.56626142536332
+        }
+      ]
+    },
+    {
+      "groupId": "SPAWN_0007",
+      "originalComposition": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "creationSubcohortCount": 2,
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.21875,
+          "maxCreateTime": 361.21875,
+          "memberCount": 3,
+          "entityIndexes": [
+            2524,
+            2910,
+            2987
+          ],
+          "centroid": {
+            "x": -3822,
+            "y": -1222.6666666666667,
+            "z": 256.03125
+          }
+        },
+        {
+          "minCreateTime": 361.359375,
+          "maxCreateTime": 361.359375,
+          "memberCount": 3,
+          "entityIndexes": [
+            3073,
+            3074,
+            3075
+          ],
+          "centroid": {
+            "x": -3200,
+            "y": -1205.3333333333333,
+            "z": 248.03125
+          }
+        }
+      ],
+      "fowMatches": [
+        {
+          "markerName": "rebels_camp_parking_garage_blue",
+          "markerFowPosition": {
+            "x": 89,
+            "y": 113
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -3203.1565799396676,
+            "y": -1195.334499242159
+          },
+          "subcohortId": "SPAWN_0007_C2",
+          "sourceGroupId": "SPAWN_0007",
+          "creationSubcohortIndex": 2,
+          "cohortCentroid": {
+            "x": -3200,
+            "y": -1205.3333333333333,
+            "z": 248.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3073,
+            3074,
+            3075
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 10.485260134986731
+        },
+        {
+          "markerName": "sw_bridge_neutrals",
+          "markerFowPosition": {
+            "x": 82,
+            "y": 112
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -3792.61689291101,
+            "y": -1280.9103416112848
+          },
+          "subcohortId": "SPAWN_0007_C1",
+          "sourceGroupId": "SPAWN_0007",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -3822,
+            "y": -1222.6666666666667,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2524,
+            2910,
+            2987
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 65.23567009893736
+        }
+      ]
+    },
+    {
+      "groupId": "SPAWN_0009",
+      "originalComposition": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "creationSubcohortCount": 2,
+      "creationSubcohorts": [
+        {
+          "minCreateTime": 361.234375,
+          "maxCreateTime": 361.234375,
+          "memberCount": 3,
+          "entityIndexes": [
+            2953,
+            2955,
+            2957
+          ],
+          "centroid": {
+            "x": 3776,
+            "y": 1445.3333333333333,
+            "z": 256.03125
+          }
+        },
+        {
+          "minCreateTime": 361.359375,
+          "maxCreateTime": 361.359375,
+          "memberCount": 3,
+          "entityIndexes": [
+            3064,
+            3065,
+            3072
+          ],
+          "centroid": {
+            "x": 3200,
+            "y": 1216,
+            "z": 248.03125
+          }
+        }
+      ],
+      "fowMatches": [
+        {
+          "markerName": "combine_parking_garage_orange",
+          "markerFowPosition": {
+            "x": 165,
+            "y": 141
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 3196.6982466063364,
+            "y": 1200.7890870933898
+          },
+          "subcohortId": "SPAWN_0009_C2",
+          "sourceGroupId": "SPAWN_0009",
+          "creationSubcohortIndex": 2,
+          "cohortCentroid": {
+            "x": 3200,
+            "y": 1216,
+            "z": 248.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3064,
+            3065,
+            3072
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+          "distanceXY": 15.56513562180077
+        },
+        {
+          "markerName": "ne_bridge_neutrals",
+          "markerFowPosition": {
+            "x": 172,
+            "y": 144
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 3786.158559577678,
+            "y": 1457.5166142007693
+          },
+          "subcohortId": "SPAWN_0009_C1",
+          "sourceGroupId": "SPAWN_0009",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 3776,
+            "y": 1445.3333333333333,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2953,
+            2955,
+            2957
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+          "distanceXY": 15.862807613662264
+        }
+      ]
+    }
+  ],
+  "multiMarkerMediumGroups": [
+    {
+      "groupId": "SPAWN_0007",
+      "markerCount": 2,
+      "markerNames": [
+        "rebels_camp_parking_garage_blue",
+        "sw_bridge_neutrals"
+      ],
+      "matches": [
+        {
+          "markerName": "rebels_camp_parking_garage_blue",
+          "markerFowPosition": {
+            "x": 89,
+            "y": 113
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -3203.1565799396676,
+            "y": -1195.334499242159
+          },
+          "subcohortId": "SPAWN_0007_C2",
+          "sourceGroupId": "SPAWN_0007",
+          "creationSubcohortIndex": 2,
+          "cohortCentroid": {
+            "x": -3200,
+            "y": -1205.3333333333333,
+            "z": 248.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3073,
+            3074,
+            3075
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 10.485260134986731
+        },
+        {
+          "markerName": "sw_bridge_neutrals",
+          "markerFowPosition": {
+            "x": 82,
+            "y": 112
+          },
+          "markerEstimatedWorldPosition": {
+            "x": -3792.61689291101,
+            "y": -1280.9103416112848
+          },
+          "subcohortId": "SPAWN_0007_C1",
+          "sourceGroupId": "SPAWN_0007",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": -3822,
+            "y": -1222.6666666666667,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2524,
+            2910,
+            2987
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+          "distanceXY": 65.23567009893736
+        }
+      ]
+    },
+    {
+      "groupId": "SPAWN_0009",
+      "markerCount": 2,
+      "markerNames": [
+        "combine_parking_garage_orange",
+        "ne_bridge_neutrals"
+      ],
+      "matches": [
+        {
+          "markerName": "combine_parking_garage_orange",
+          "markerFowPosition": {
+            "x": 165,
+            "y": 141
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 3196.6982466063364,
+            "y": 1200.7890870933898
+          },
+          "subcohortId": "SPAWN_0009_C2",
+          "sourceGroupId": "SPAWN_0009",
+          "creationSubcohortIndex": 2,
+          "cohortCentroid": {
+            "x": 3200,
+            "y": 1216,
+            "z": 248.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            3064,
+            3065,
+            3072
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+          "distanceXY": 15.56513562180077
+        },
+        {
+          "markerName": "ne_bridge_neutrals",
+          "markerFowPosition": {
+            "x": 172,
+            "y": 144
+          },
+          "markerEstimatedWorldPosition": {
+            "x": 3786.158559577678,
+            "y": 1457.5166142007693
+          },
+          "subcohortId": "SPAWN_0009_C1",
+          "sourceGroupId": "SPAWN_0009",
+          "creationSubcohortIndex": 1,
+          "cohortCentroid": {
+            "x": 3776,
+            "y": 1445.3333333333333,
+            "z": 256.03125
+          },
+          "cohortMemberCount": 3,
+          "cohortEntityIndexes": [
+            2953,
+            2955,
+            2957
+          ],
+          "sourceGroupMemberCount": 6,
+          "sourceGroupComposition": {
+            "MEDIUM_UNIT": 4,
+            "SMALL_UNIT": 2
+          },
+          "sourceGroupStatus": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+          "distanceXY": 15.862807613662264
+        }
+      ]
+    }
+  ],
+  "transformedMarkers": [
+    {
+      "name": "ne_power_grid_neutrals",
+      "eClass": 34,
+      "reportedTier": "SMALL",
+      "fowPosition": {
+        "x": 212,
+        "y": 142
+      },
+      "estimatedWorldPosition": {
+        "x": 7154.503205128205,
+        "y": 1286.3649294625156
+      },
+      "visibleCount": 6075,
+      "hiddenCount": 3513
+    },
+    {
+      "name": "nw_utility_south_neutrals",
+      "eClass": 34,
+      "reportedTier": "SMALL",
+      "fowPosition": {
+        "x": 110,
+        "y": 138
+      },
+      "estimatedWorldPosition": {
+        "x": -1434.7756410256407,
+        "y": 944.0615599860103
+      },
+      "visibleCount": 5823,
+      "hiddenCount": 3765
+    },
+    {
+      "name": "se_utility_neutrals",
+      "eClass": 34,
+      "reportedTier": "SMALL",
+      "fowPosition": {
+        "x": 144,
+        "y": 115
+      },
+      "estimatedWorldPosition": {
+        "x": 1428.3173076923085,
+        "y": -1024.1828145039053
+      },
+      "visibleCount": 6588,
+      "hiddenCount": 3000
+    },
+    {
+      "name": "sw_power_grid_neutrals",
+      "eClass": 34,
+      "reportedTier": "SMALL",
+      "fowPosition": {
+        "x": 42,
+        "y": 112
+      },
+      "estimatedWorldPosition": {
+        "x": -7160.961538461538,
+        "y": -1280.9103416112848
+      },
+      "visibleCount": 6843,
+      "hiddenCount": 2745
+    },
+    {
+      "name": "chinatown_tunnel_neutrals",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 153,
+        "y": 81
+      },
+      "estimatedWorldPosition": {
+        "x": 2186.1948529411766,
+        "y": -3933.761455054214
+      },
+      "visibleCount": 5118,
+      "hiddenCount": 4470
+    },
+    {
+      "name": "combine_parking_garage_blue",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 150,
+        "y": 137
+      },
+      "estimatedWorldPosition": {
+        "x": 1933.5690045248884,
+        "y": 858.4857176168825
+      },
+      "visibleCount": 5118,
+      "hiddenCount": 4470
+    },
+    {
+      "name": "combine_parking_garage_orange",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 165,
+        "y": 141
+      },
+      "estimatedWorldPosition": {
+        "x": 3196.6982466063364,
+        "y": 1200.7890870933898
+      },
+      "visibleCount": 4854,
+      "hiddenCount": 4734
+    },
+    {
+      "name": "financial_tunnel_neutrals",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 100,
+        "y": 170
+      },
+      "estimatedWorldPosition": {
+        "x": -2276.861802413272,
+        "y": 3682.4885157980643
+      },
+      "visibleCount": 6858,
+      "hiddenCount": 2730
+    },
+    {
+      "name": "industrial_tunnel_neutrals",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 100,
+        "y": 68
+      },
+      "estimatedWorldPosition": {
+        "x": -2276.861802413272,
+        "y": -5046.247405852861
+      },
+      "visibleCount": 7728,
+      "hiddenCount": 1860
+    },
+    {
+      "name": "ne_bridge_neutrals",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 172,
+        "y": 144
+      },
+      "estimatedWorldPosition": {
+        "x": 3786.158559577678,
+        "y": 1457.5166142007693
+      },
+      "visibleCount": 5754,
+      "hiddenCount": 3834
+    },
+    {
+      "name": "ne_mansion_ext_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 207,
+        "y": 153
+      },
+      "estimatedWorldPosition": {
+        "x": 6733.460124434392,
+        "y": 2227.6991955229114
+      },
+      "visibleCount": 7728,
+      "hiddenCount": 1860
+    },
+    {
+      "name": "ne_theater_downstairs_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 186,
+        "y": 142
+      },
+      "estimatedWorldPosition": {
+        "x": 4965.079185520362,
+        "y": 1286.3649294625156
+      },
+      "visibleCount": 7728,
+      "hiddenCount": 1860
+    },
+    {
+      "name": "ne_theater_upstairs_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 192,
+        "y": 173
+      },
+      "estimatedWorldPosition": {
+        "x": 5470.330882352942,
+        "y": 3939.2160429054456
+      },
+      "visibleCount": 8598,
+      "hiddenCount": 990
+    },
+    {
+      "name": "nw_bank_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 34,
+        "y": 181
+      },
+      "estimatedWorldPosition": {
+        "x": -7834.630467571644,
+        "y": 4623.822781858458
+      },
+      "visibleCount": 8598,
+      "hiddenCount": 990
+    },
+    {
+      "name": "nw_chapel_neutrals",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 33,
+        "y": 153
+      },
+      "estimatedWorldPosition": {
+        "x": -7918.839083710407,
+        "y": 2227.6991955229114
+      },
+      "visibleCount": 5115,
+      "hiddenCount": 4473
+    },
+    {
+      "name": "nw_market_downstairs_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 74,
+        "y": 150
+      },
+      "estimatedWorldPosition": {
+        "x": -4466.285822021116,
+        "y": 1970.97166841553
+      },
+      "visibleCount": 5988,
+      "hiddenCount": 3600
+    },
+    {
+      "name": "nw_market_upstairs_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 59,
+        "y": 147
+      },
+      "estimatedWorldPosition": {
+        "x": -5729.4150641025635,
+        "y": 1714.2441413081506
+      },
+      "visibleCount": 8598,
+      "hiddenCount": 990
+    },
+    {
+      "name": "rebels_camp_parking_garage_blue",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 89,
+        "y": 113
+      },
+      "estimatedWorldPosition": {
+        "x": -3203.1565799396676,
+        "y": -1195.334499242159
+      },
+      "visibleCount": 6858,
+      "hiddenCount": 2730
+    },
+    {
+      "name": "rebels_camp_parking_garage_orange",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 104,
+        "y": 117
+      },
+      "estimatedWorldPosition": {
+        "x": -1940.0273378582187,
+        "y": -853.0311297656517
+      },
+      "visibleCount": 5115,
+      "hiddenCount": 4473
+    },
+    {
+      "name": "se_arcade_downstairs_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 180,
+        "y": 104
+      },
+      "estimatedWorldPosition": {
+        "x": 4459.827488687784,
+        "y": -1965.5170805642992
+      },
+      "visibleCount": 5988,
+      "hiddenCount": 3600
+    },
+    {
+      "name": "se_arcade_upstairs_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 195,
+        "y": 107
+      },
+      "estimatedWorldPosition": {
+        "x": 5722.956730769232,
+        "y": -1708.7895534569197
+      },
+      "visibleCount": 7728,
+      "hiddenCount": 1860
+    },
+    {
+      "name": "se_chapel_neutrals",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 221,
+        "y": 100
+      },
+      "estimatedWorldPosition": {
+        "x": 7912.380750377075,
+        "y": -2307.8204500408065
+      },
+      "visibleCount": 5118,
+      "hiddenCount": 4470
+    },
+    {
+      "name": "sw_asylum_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 221,
+        "y": 73
+      },
+      "estimatedWorldPosition": {
+        "x": 7912.380750377075,
+        "y": -4618.368194007228
+      },
+      "visibleCount": 7728,
+      "hiddenCount": 1860
+    },
+    {
+      "name": "sw_bodega_downstairs_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 68,
+        "y": 108
+      },
+      "estimatedWorldPosition": {
+        "x": -4971.537518853695,
+        "y": -1623.213711087792
+      },
+      "visibleCount": 7728,
+      "hiddenCount": 1860
+    },
+    {
+      "name": "sw_bodega_upstairs_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 62,
+        "y": 81
+      },
+      "estimatedWorldPosition": {
+        "x": -5476.7892156862745,
+        "y": -3933.761455054214
+      },
+      "visibleCount": 6858,
+      "hiddenCount": 2730
+    },
+    {
+      "name": "sw_bridge_neutrals",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 82,
+        "y": 112
+      },
+      "estimatedWorldPosition": {
+        "x": -3792.61689291101,
+        "y": -1280.9103416112848
+      },
+      "visibleCount": 5118,
+      "hiddenCount": 4470
+    },
+    {
+      "name": "sw_factory_ext_camp",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 47,
+        "y": 101
+      },
+      "estimatedWorldPosition": {
+        "x": -6739.918457767722,
+        "y": -2222.2446076716788
+      },
+      "visibleCount": 6858,
+      "hiddenCount": 2730
+    },
+    {
+      "name": "theater_tunnel_neutrals",
+      "eClass": 35,
+      "reportedTier": "MEDIUM",
+      "fowPosition": {
+        "x": 154,
+        "y": 186
+      },
+      "estimatedWorldPosition": {
+        "x": 2270.40346907994,
+        "y": 5051.701993704093
+      },
+      "visibleCount": 7728,
+      "hiddenCount": 1860
+    },
+    {
+      "name": "bank_upstairs_neutrals",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 154,
+        "y": 93
+      },
+      "estimatedWorldPosition": {
+        "x": 2270.40346907994,
+        "y": -2906.851346624693
+      },
+      "visibleCount": 6048,
+      "hiddenCount": 3540
+    },
+    {
+      "name": "camp_mid_roof_E",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 140,
+        "y": 91
+      },
+      "estimatedWorldPosition": {
+        "x": 1091.4828431372553,
+        "y": -3078.003031362947
+      },
+      "visibleCount": 4038,
+      "hiddenCount": 5550
+    },
+    {
+      "name": "camp_mid_roof_W",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 114,
+        "y": 163
+      },
+      "estimatedWorldPosition": {
+        "x": -1097.9411764705874,
+        "y": 3083.4576192141776
+      },
+      "visibleCount": 6048,
+      "hiddenCount": 3540
+    },
+    {
+      "name": "east_end_neutrals",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 236,
+        "y": 127
+      },
+      "estimatedWorldPosition": {
+        "x": 9175.509992458525,
+        "y": 2.7272939256163227
+      },
+      "visibleCount": 7053,
+      "hiddenCount": 2535
+    },
+    {
+      "name": "ferry_upstairs_neutrals",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 89,
+        "y": 152
+      },
+      "estimatedWorldPosition": {
+        "x": -3203.1565799396676,
+        "y": 2142.1233531537837
+      },
+      "visibleCount": 8058,
+      "hiddenCount": 1530
+    },
+    {
+      "name": "ne_theater_ext_camp",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 186,
+        "y": 134
+      },
+      "estimatedWorldPosition": {
+        "x": 4965.079185520362,
+        "y": 601.758190509503
+      },
+      "visibleCount": 7053,
+      "hiddenCount": 2535
+    },
+    {
+      "name": "ne_warehouse_neutrals",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 169,
+        "y": 179
+      },
+      "estimatedWorldPosition": {
+        "x": 3533.532711161388,
+        "y": 4452.6710971202065
+      },
+      "visibleCount": 7053,
+      "hiddenCount": 2535
+    },
+    {
+      "name": "nw_street_neutrals",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 80,
+        "y": 176
+      },
+      "estimatedWorldPosition": {
+        "x": -3961.0341251885366,
+        "y": 4195.943570012825
+      },
+      "visibleCount": 6048,
+      "hiddenCount": 3540
+    },
+    {
+      "name": "se_street_camp",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 174,
+        "y": 78
+      },
+      "estimatedWorldPosition": {
+        "x": 3954.5757918552044,
+        "y": -4190.488982161594
+      },
+      "visibleCount": 6048,
+      "hiddenCount": 3540
+    },
+    {
+      "name": "sw_bodega_ext_camp",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 68,
+        "y": 119
+      },
+      "estimatedWorldPosition": {
+        "x": -4971.537518853695,
+        "y": -681.8794450273981
+      },
+      "visibleCount": 7053,
+      "hiddenCount": 2535
+    },
+    {
+      "name": "sw_warehouse_camp",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 85,
+        "y": 75
+      },
+      "estimatedWorldPosition": {
+        "x": -3539.991044494721,
+        "y": -4447.216509268975
+      },
+      "visibleCount": 7053,
+      "hiddenCount": 2535
+    },
+    {
+      "name": "west_end_neutrals",
+      "eClass": 36,
+      "reportedTier": "LARGE",
+      "fowPosition": {
+        "x": 20,
+        "y": 127
+      },
+      "estimatedWorldPosition": {
+        "x": -9013.551093514328,
+        "y": 2.7272939256163227
+      },
+      "visibleCount": 7053,
+      "hiddenCount": 2535
+    }
+  ],
+  "neutralSubcohorts": [
+    {
+      "subcohortId": "SPAWN_0001_C1",
+      "sourceGroupId": "SPAWN_0001",
+      "tier": "SMALL",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "SMALL_UNIT": 3
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 181.203125,
+      "createTimeMax": 181.203125,
+      "memberCount": 3,
+      "entityIndexes": [
+        2959,
+        2960,
+        2961
+      ],
+      "centroid": {
+        "x": -7168,
+        "y": -1322.6666666666667,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0002_C1",
+      "sourceGroupId": "SPAWN_0002",
+      "tier": "SMALL",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "SMALL_UNIT": 3
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 181.203125,
+      "createTimeMax": 181.203125,
+      "memberCount": 3,
+      "entityIndexes": [
+        2962,
+        2963,
+        2964
+      ],
+      "centroid": {
+        "x": 7168,
+        "y": 1322.6666666666667,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0003_C1",
+      "sourceGroupId": "SPAWN_0003",
+      "tier": "SMALL",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "SMALL_UNIT": 3
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 181.21875,
+      "createTimeMax": 181.21875,
+      "memberCount": 3,
+      "entityIndexes": [
+        2965,
+        2966,
+        2967
+      ],
+      "centroid": {
+        "x": -1386.6666666666667,
+        "y": 896,
+        "z": 384.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0004_C1",
+      "sourceGroupId": "SPAWN_0004",
+      "tier": "SMALL",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "SMALL_UNIT": 3
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 181.21875,
+      "createTimeMax": 181.21875,
+      "memberCount": 3,
+      "entityIndexes": [
+        2968,
+        2969,
+        2970
+      ],
+      "centroid": {
+        "x": 1373.75,
+        "y": -970.6666666666666,
+        "z": 384.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0005_C1",
+      "sourceGroupId": "SPAWN_0005",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 5,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.203125,
+      "createTimeMax": 361.203125,
+      "memberCount": 5,
+      "entityIndexes": [
+        2515,
+        2516,
+        2517,
+        2518,
+        3071
+      ],
+      "centroid": {
+        "x": -7897.6,
+        "y": 4531.2,
+        "z": 640.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0006_C1",
+      "sourceGroupId": "SPAWN_0006",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 5,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.203125,
+      "createTimeMax": 361.203125,
+      "memberCount": 5,
+      "entityIndexes": [
+        2519,
+        2520,
+        2521,
+        2522,
+        2523
+      ],
+      "centroid": {
+        "x": 7923.2,
+        "y": -4531.2,
+        "z": 640.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0008_C1",
+      "sourceGroupId": "SPAWN_0008",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 5,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 1,
+        "SMALL_UNIT": 4
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.21875,
+      "createTimeMax": 361.21875,
+      "memberCount": 5,
+      "entityIndexes": [
+        2913,
+        2938,
+        2940,
+        2942,
+        2947
+      ],
+      "centroid": {
+        "x": 7942.4,
+        "y": -2315.2,
+        "z": 256.23125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0010_C1",
+      "sourceGroupId": "SPAWN_0010",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 5,
+      "sourceGroupComposition": {
+        "SMALL_UNIT": 4,
+        "MEDIUM_UNIT": 1
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.234375,
+      "createTimeMax": 361.234375,
+      "memberCount": 5,
+      "entityIndexes": [
+        2971,
+        2972,
+        2973,
+        2978,
+        3038
+      ],
+      "centroid": {
+        "x": -7936,
+        "y": 2124.8,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0011_C1",
+      "sourceGroupId": "SPAWN_0011",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 6,
+      "sourceGroupComposition": {
+        "SMALL_UNIT": 4,
+        "MEDIUM_UNIT": 2
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.25,
+      "createTimeMax": 361.25,
+      "memberCount": 6,
+      "entityIndexes": [
+        2976,
+        2979,
+        2980,
+        2981,
+        2982,
+        2999
+      ],
+      "centroid": {
+        "x": -4979.333333333333,
+        "y": -1565.4375,
+        "z": -63.96875
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0012_C1",
+      "sourceGroupId": "SPAWN_0012",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 6,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 2,
+        "SMALL_UNIT": 4
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.25,
+      "createTimeMax": 361.25,
+      "memberCount": 6,
+      "entityIndexes": [
+        2983,
+        2984,
+        2986,
+        2988,
+        2989,
+        3009
+      ],
+      "centroid": {
+        "x": 4926.666666666667,
+        "y": 1232,
+        "z": -19.96875
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0013_C1",
+      "sourceGroupId": "SPAWN_0013",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 5,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3,
+        "SMALL_UNIT": 2
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.265625,
+      "createTimeMax": 361.265625,
+      "memberCount": 5,
+      "entityIndexes": [
+        2990,
+        2991,
+        2992,
+        2993,
+        2994
+      ],
+      "centroid": {
+        "x": -4473.6,
+        "y": 1913.6,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0014_C1",
+      "sourceGroupId": "SPAWN_0014",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 5,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3,
+        "SMALL_UNIT": 2
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.265625,
+      "createTimeMax": 361.265625,
+      "memberCount": 5,
+      "entityIndexes": [
+        2995,
+        2996,
+        2997,
+        2998,
+        3000
+      ],
+      "centroid": {
+        "x": 4480,
+        "y": -1952,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0015_C1",
+      "sourceGroupId": "SPAWN_0015",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.28125,
+      "createTimeMax": 361.28125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3001,
+        3002,
+        3003
+      ],
+      "centroid": {
+        "x": 2176,
+        "y": -3914.6666666666665,
+        "z": 376.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0016_C1",
+      "sourceGroupId": "SPAWN_0016",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.28125,
+      "createTimeMax": 361.28125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3004,
+        3005,
+        3006
+      ],
+      "centroid": {
+        "x": -2240,
+        "y": 3605.3333333333335,
+        "z": 376.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0007_C1",
+      "sourceGroupId": "SPAWN_0007",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 6,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.21875,
+      "createTimeMax": 361.21875,
+      "memberCount": 3,
+      "entityIndexes": [
+        2524,
+        2910,
+        2987
+      ],
+      "centroid": {
+        "x": -3822,
+        "y": -1222.6666666666667,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0007_C2",
+      "sourceGroupId": "SPAWN_0007",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 6,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 2,
+      "createTimeMin": 361.359375,
+      "createTimeMax": 361.359375,
+      "memberCount": 3,
+      "entityIndexes": [
+        3073,
+        3074,
+        3075
+      ],
+      "centroid": {
+        "x": -3200,
+        "y": -1205.3333333333333,
+        "z": 248.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0009_C1",
+      "sourceGroupId": "SPAWN_0009",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 6,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "sourceGroupStatus": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.234375,
+      "createTimeMax": 361.234375,
+      "memberCount": 3,
+      "entityIndexes": [
+        2953,
+        2955,
+        2957
+      ],
+      "centroid": {
+        "x": 3776,
+        "y": 1445.3333333333333,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0009_C2",
+      "sourceGroupId": "SPAWN_0009",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 6,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 4,
+        "SMALL_UNIT": 2
+      },
+      "sourceGroupStatus": "UNRESOLVED_CONFLICTING_SUBSET_SIGNAL",
+      "creationSubcohortIndex": 2,
+      "createTimeMin": 361.359375,
+      "createTimeMax": 361.359375,
+      "memberCount": 3,
+      "entityIndexes": [
+        3064,
+        3065,
+        3072
+      ],
+      "centroid": {
+        "x": 3200,
+        "y": 1216,
+        "z": 248.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0017_C1",
+      "sourceGroupId": "SPAWN_0017",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.296875,
+      "createTimeMax": 361.296875,
+      "memberCount": 3,
+      "entityIndexes": [
+        3007,
+        3008,
+        3010
+      ],
+      "centroid": {
+        "x": 2272,
+        "y": 4917.333333333333,
+        "z": 512.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0018_C1",
+      "sourceGroupId": "SPAWN_0018",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.296875,
+      "createTimeMax": 361.296875,
+      "memberCount": 3,
+      "entityIndexes": [
+        3011,
+        3012,
+        3028
+      ],
+      "centroid": {
+        "x": -2308.0416666666665,
+        "y": -4879.572916666667,
+        "z": 512.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0019_C1",
+      "sourceGroupId": "SPAWN_0019",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.3125,
+      "createTimeMax": 361.3125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3033,
+        3036,
+        3037
+      ],
+      "centroid": {
+        "x": 5696,
+        "y": -1664,
+        "z": 928.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0020_C1",
+      "sourceGroupId": "SPAWN_0020",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.3125,
+      "createTimeMax": 361.3125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3041,
+        3043,
+        3045
+      ],
+      "centroid": {
+        "x": -5696,
+        "y": 1664,
+        "z": 928.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0021_C1",
+      "sourceGroupId": "SPAWN_0021",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.328125,
+      "createTimeMax": 361.328125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3040,
+        3042,
+        3054
+      ],
+      "centroid": {
+        "x": -5461.333333333333,
+        "y": -3744,
+        "z": 384.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0022_C1",
+      "sourceGroupId": "SPAWN_0022",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.328125,
+      "createTimeMax": 361.328125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3055,
+        3056,
+        3058
+      ],
+      "centroid": {
+        "x": 5546.666666666667,
+        "y": 3840,
+        "z": 384.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0023_C1",
+      "sourceGroupId": "SPAWN_0023",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.34375,
+      "createTimeMax": 361.34375,
+      "memberCount": 3,
+      "entityIndexes": [
+        3057,
+        3059,
+        3060
+      ],
+      "centroid": {
+        "x": 6768,
+        "y": 2133.3333333333335,
+        "z": 1024.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0024_C1",
+      "sourceGroupId": "SPAWN_0024",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 3
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.34375,
+      "createTimeMax": 361.34375,
+      "memberCount": 3,
+      "entityIndexes": [
+        3062,
+        3063,
+        3066
+      ],
+      "centroid": {
+        "x": -6773.333333333333,
+        "y": -2133.3333333333335,
+        "z": 1024.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0025_C1",
+      "sourceGroupId": "SPAWN_0025",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 4,
+      "sourceGroupComposition": {
+        "SMALL_UNIT": 3,
+        "MEDIUM_UNIT": 1
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.375,
+      "createTimeMax": 361.375,
+      "memberCount": 4,
+      "entityIndexes": [
+        3076,
+        3077,
+        3078,
+        3079
+      ],
+      "centroid": {
+        "x": -1944,
+        "y": -796,
+        "z": 128.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0026_C1",
+      "sourceGroupId": "SPAWN_0026",
+      "tier": "MEDIUM",
+      "sourceGroupMemberCount": 4,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 1,
+        "SMALL_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 361.375,
+      "createTimeMax": 361.375,
+      "memberCount": 4,
+      "entityIndexes": [
+        3080,
+        3081,
+        3082,
+        3083
+      ],
+      "centroid": {
+        "x": 1944,
+        "y": 804,
+        "z": 128.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0027_C1",
+      "sourceGroupId": "SPAWN_0027",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "LARGE_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.203125,
+      "createTimeMax": 541.203125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3361,
+        3362,
+        3363
+      ],
+      "centroid": {
+        "x": -8960,
+        "y": 0,
+        "z": 288.3020833333333
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0028_C1",
+      "sourceGroupId": "SPAWN_0028",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "LARGE_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.203125,
+      "createTimeMax": 541.203125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3364,
+        3365,
+        3366
+      ],
+      "centroid": {
+        "x": 9184,
+        "y": -0.010416666666666666,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0030_C1",
+      "sourceGroupId": "SPAWN_0030",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 2,
+        "LARGE_UNIT": 1
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.21875,
+      "createTimeMax": 541.21875,
+      "memberCount": 3,
+      "entityIndexes": [
+        3370,
+        3371,
+        3372
+      ],
+      "centroid": {
+        "x": -4982.666666666667,
+        "y": -709.3333333333334,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0031_C1",
+      "sourceGroupId": "SPAWN_0031",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "LARGE_UNIT": 1,
+        "MEDIUM_UNIT": 2
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.234375,
+      "createTimeMax": 541.234375,
+      "memberCount": 3,
+      "entityIndexes": [
+        3373,
+        3374,
+        3375
+      ],
+      "centroid": {
+        "x": 4992,
+        "y": 565.3333333333334,
+        "z": 256.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0034_C1",
+      "sourceGroupId": "SPAWN_0034",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "LARGE_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.25,
+      "createTimeMax": 541.25,
+      "memberCount": 3,
+      "entityIndexes": [
+        3382,
+        3383,
+        3384
+      ],
+      "centroid": {
+        "x": 4010.6666666666665,
+        "y": -4170.666666666667,
+        "z": 376.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0035_C1",
+      "sourceGroupId": "SPAWN_0035",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "LARGE_UNIT": 3
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.265625,
+      "createTimeMax": 541.265625,
+      "memberCount": 3,
+      "entityIndexes": [
+        3385,
+        3386,
+        3387
+      ],
+      "centroid": {
+        "x": -3520,
+        "y": -4373.333333333333,
+        "z": 384.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0036_C1",
+      "sourceGroupId": "SPAWN_0036",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "LARGE_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.265625,
+      "createTimeMax": 541.265625,
+      "memberCount": 3,
+      "entityIndexes": [
+        3388,
+        3389,
+        3390
+      ],
+      "centroid": {
+        "x": -4000,
+        "y": 4170.666666666667,
+        "z": 376.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0037_C1",
+      "sourceGroupId": "SPAWN_0037",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "LARGE_UNIT": 3
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.28125,
+      "createTimeMax": 541.28125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3391,
+        3392,
+        3393
+      ],
+      "centroid": {
+        "x": 3520,
+        "y": 4373.333333333333,
+        "z": 384.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0039_C1",
+      "sourceGroupId": "SPAWN_0039",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 2,
+        "LARGE_UNIT": 1
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.296875,
+      "createTimeMax": 541.296875,
+      "memberCount": 3,
+      "entityIndexes": [
+        3397,
+        3398,
+        3399
+      ],
+      "centroid": {
+        "x": 2314.6666666666665,
+        "y": -2880,
+        "z": 376.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0040_C1",
+      "sourceGroupId": "SPAWN_0040",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "SMALL_UNIT": 1,
+        "MEDIUM_UNIT": 1,
+        "LARGE_UNIT": 1
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.296875,
+      "createTimeMax": 541.296875,
+      "memberCount": 3,
+      "entityIndexes": [
+        3400,
+        3401,
+        3402
+      ],
+      "centroid": {
+        "x": 1098.6666666666667,
+        "y": -3072,
+        "z": 384.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0041_C1",
+      "sourceGroupId": "SPAWN_0041",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 1,
+        "LARGE_UNIT": 1,
+        "SMALL_UNIT": 1
+      },
+      "sourceGroupStatus": "VALIDATED_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.3125,
+      "createTimeMax": 541.3125,
+      "memberCount": 3,
+      "entityIndexes": [
+        3403,
+        3404,
+        3405
+      ],
+      "centroid": {
+        "x": -1093.5208333333333,
+        "y": 3071.2708333333335,
+        "z": 384.03125
+      }
+    },
+    {
+      "subcohortId": "SPAWN_0042_C1",
+      "sourceGroupId": "SPAWN_0042",
+      "tier": "LARGE",
+      "sourceGroupMemberCount": 3,
+      "sourceGroupComposition": {
+        "MEDIUM_UNIT": 2,
+        "LARGE_UNIT": 1
+      },
+      "sourceGroupStatus": "PROBABLE_SINGLE_CAMP",
+      "creationSubcohortIndex": 1,
+      "createTimeMin": 541.359375,
+      "createTimeMax": 541.359375,
+      "memberCount": 3,
+      "entityIndexes": [
+        3412,
+        3413,
+        3414
+      ],
+      "centroid": {
+        "x": -3242.6666666666665,
+        "y": 2117.3333333333335,
+        "z": 400.03125
+      }
+    }
+  ]
+}

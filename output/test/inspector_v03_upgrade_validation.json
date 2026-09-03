@@ -1,0 +1,76 @@
+{
+  "replay": "test",
+  "version": "INSPECTOR_CITEMXP_V03_UPGRADE",
+  "status": "INSPECTOR_V03_READY",
+  "idempotentNoOp": false,
+  "backupCreated": true,
+  "replacementCount": 4,
+  "inputs": {
+    "html": "G:\\DeadlockBehavior\\inspector\\index.html",
+    "overlayV03": "G:\\DeadlockBehavior\\inspector\\data\\test\\v03_overlays.json"
+  },
+  "citemxp": {
+    "events": 1239,
+    "players": 12,
+    "outcomeCounts": {
+      "AUTO_AWARD_SECURE": 1092,
+      "SECURE": 58,
+      "AUTO_AWARD_CLAIM": 40,
+      "DENY": 28,
+      "CLAIM": 19,
+      "NO_SHOT_UNRESOLVED": 2
+    }
+  },
+  "interfaceFeatures": [
+    "Loads v03_overlays.json.",
+    "Adds shot, automatic-award, unresolved, Trooper, and Urn filters.",
+    "Adds a recent soul-outcome panel synchronized to replay time.",
+    "Adds a player soul-action table with attempts, credit, secure, deny, claim, and race records.",
+    "Preserves the original inspector as index_v02_backup.html."
+  ],
+  "validation": {
+    "pass": true,
+    "checks": {
+      "citemxpOverlayPassed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "overlayEventCountMatches": {
+        "actual": 1239,
+        "expected": 1239,
+        "pass": true
+      },
+      "htmlLoadsV03Overlay": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "oldOverlayPathRemoved": {
+        "actual": false,
+        "expected": false,
+        "pass": true
+      },
+      "interfaceMarkerPresent": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "soulPanelCodePresent": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "documentVersionUpdated": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "upgradedHtml": "G:\\DeadlockBehavior\\inspector\\index.html",
+    "backupHtml": "G:\\DeadlockBehavior\\inspector\\index_v02_backup.html",
+    "summary": "G:\\DeadlockBehavior\\output\\test\\inspector_v03_upgrade_validation.json"
+  }
+}

@@ -1,0 +1,820 @@
+{
+  "replay": "test",
+  "version": "BREAKABLE_ACTION_STREAM_V1",
+  "canonical": false,
+  "status": "WORKING_CANONICAL_BREAKABLE_DATASET",
+  "architecture": {
+    "actionComplete": true,
+    "exposureComplete": false,
+    "explanation": "Every break event is represented regardless of whether the breaker entered a spatial exposure episode. This preserves long-range bullet farming.",
+    "breakerAttribution": "Partial canonical attribution: MELEE_DIRECT and unique-player BULLET_RAY are retained; unknown events remain unknown.",
+    "rewardRoll": "Successful and failed crate/statue reward rolls are represented separately from collection.",
+    "acquisition": "COLLECTED_HIGH_CONFIDENCE and exact-timer EXPIRED_UNCOLLECTED are retained from the provisional single-replay collector calibration. Ambiguous and unresolved lifecycle outcomes remain unknown."
+  },
+  "source": {
+    "breakableCatalog": "G:\\DeadlockBehavior\\output\\test\\breakable_catalog_v1.json",
+    "rewardAcquisition": "G:\\DeadlockBehavior\\output\\test\\breakable_reward_acquisition_v1.jsonl",
+    "resourceExposureFeatures": "G:\\DeadlockBehavior\\output\\test\\behavioral_resource_features_v01.jsonl"
+  },
+  "sourceRows": {
+    "breakEvents": 1261,
+    "acquisitionRows": 726,
+    "resourceFeatureRows": 9573,
+    "resourceFeatureBreakRows": 1203,
+    "uniqueBreakKeysWithExposure": 976
+  },
+  "counts": {
+    "totalBreaks": 1261,
+    "cratesBroken": 980,
+    "statuesBroken": 281,
+    "attributedBreaks": 724,
+    "unattributedBreaks": 537,
+    "meleeBreaks": 522,
+    "bulletBreaks": 202,
+    "ambiguousBulletBreaks": 4,
+    "otherBreakerMethods": 0,
+    "rewardRollSuccess": 726,
+    "rewardRollFailure": 535,
+    "successfulRewardRowsMatched": 726,
+    "successfulRewardRowsMissing": 0,
+    "breakerHadBroadExposure": 601,
+    "breakerHadCloseAccess": 527,
+    "breakerHadCoreAccess": 489,
+    "attributedBreaksWithoutExposure": 123,
+    "meleeBreaksWithoutExposure": 0,
+    "bulletBreaksWithoutExposure": 123
+  },
+  "acquisitionStatusCounts": {
+    "NO_REWARD_SPAWN": 535,
+    "COLLECTED_HIGH_CONFIDENCE": 428,
+    "LIFECYCLE_UNRESOLVED": 105,
+    "EXPIRED_UNCOLLECTED": 139,
+    "EARLY_DEACTIVATION_UNRESOLVED": 4,
+    "AMBIGUOUS_MULTIPLE_PLAYERS": 2,
+    "RIGHT_CENSORED": 48
+  },
+  "economy": {
+    "crateSoulRewardSpawns": 587,
+    "crateSoulValueGenerated": 46424,
+    "crateSoulPickupsConfirmed": 362,
+    "crateSoulValueConfirmedAcquired": 25983,
+    "crateSoulPickupsExpired": 101,
+    "crateSoulValueExpired": 8875,
+    "crateSoulValueUnknownOutcome": 11566,
+    "statueBuffSpawns": 139,
+    "statueBuffsConfirmedAcquired": 66,
+    "statueBuffsExpired": 38,
+    "statueBuffsUnknownOutcome": 35
+  },
+  "crossPlayerCollection": {
+    "count": 15,
+    "events": [
+      {
+        "breakKey": "751|15113",
+        "breakTimeSeconds": 206.140625,
+        "breakClock": "3:26",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "viggoth 300",
+        "collector": "Eriansan",
+        "breakerMethod": "MELEE_DIRECT",
+        "goldReward": 31,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 0.796875,
+        "collectorDistance3D": 109.57168921817807
+      },
+      {
+        "breakKey": "871|41263",
+        "breakTimeSeconds": 614.734375,
+        "breakClock": "10:14",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Nebula",
+        "collector": "Goldinfer",
+        "breakerMethod": "MELEE_DIRECT",
+        "goldReward": 45,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 2.921875,
+        "collectorDistance3D": 103.82167434344605
+      },
+      {
+        "breakKey": "778|68329",
+        "breakTimeSeconds": 1037.640625,
+        "breakClock": "17:17",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Snazzy314",
+        "collector": "Nebula",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 59,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 1.171875,
+        "collectorDistance3D": 109.56155184451399
+      },
+      {
+        "breakKey": "956|68433",
+        "breakTimeSeconds": 1039.265625,
+        "breakClock": "17:19",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Nebula",
+        "collector": "Goldinfer",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 59,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 13.234375,
+        "collectorDistance3D": 106.95593152818829
+      },
+      {
+        "breakKey": "953|68579",
+        "breakTimeSeconds": 1041.546875,
+        "breakClock": "17:21",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Snazzy314",
+        "collector": "renso",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 59,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 10.65625,
+        "collectorDistance3D": 100.21602711370124
+      },
+      {
+        "breakKey": "1355|93273",
+        "breakTimeSeconds": 1427.390625,
+        "breakClock": "23:47",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "blooop354",
+        "collector": "Nebula",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 72,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 266.4375,
+        "collectorDistance3D": 104.47437702330049
+      },
+      {
+        "breakKey": "708|93920",
+        "breakTimeSeconds": 1437.5,
+        "breakClock": "23:57",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "renso",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 72,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 246.21875,
+        "collectorDistance3D": 105.69724048776541
+      },
+      {
+        "breakKey": "870|114651",
+        "breakTimeSeconds": 1761.421875,
+        "breakClock": "29:21",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "blooop354",
+        "collector": "Nebula",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 83,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 1.890625,
+        "collectorDistance3D": 95.00406132097969
+      },
+      {
+        "breakKey": "1089|130135",
+        "breakTimeSeconds": 2003.359375,
+        "breakClock": "33:23",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "Eriansan",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 91,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 4.21875,
+        "collectorDistance3D": 105.18015274979736
+      },
+      {
+        "breakKey": "866|138903",
+        "breakTimeSeconds": 2140.359375,
+        "breakClock": "35:40",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "viggoth 300",
+        "collector": "Zaeleth",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 96,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 207.359375,
+        "collectorDistance3D": 106.3842988841505
+      },
+      {
+        "breakKey": "869|154648",
+        "breakTimeSeconds": 2386.375,
+        "breakClock": "39:46",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "Yosafire Worshipper [K]",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 104,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 201.734375,
+        "collectorDistance3D": 99.44893869607598
+      },
+      {
+        "breakKey": "1077|162695",
+        "breakTimeSeconds": 2512.109375,
+        "breakClock": "41:52",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "Eriansan",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 108,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 27.671875,
+        "collectorDistance3D": 98.81520581627453
+      },
+      {
+        "breakKey": "1094|172521",
+        "breakTimeSeconds": 2665.640625,
+        "breakClock": "44:25",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "flem",
+        "collector": "Eriansan",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 113,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 54.171875,
+        "collectorDistance3D": 105.8165379771643
+      },
+      {
+        "breakKey": "1271|172736",
+        "breakTimeSeconds": 2669,
+        "breakClock": "44:29",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "Eriansan",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 114,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 51.890625,
+        "collectorDistance3D": 101.94647517824994
+      },
+      {
+        "breakKey": "1245|174719",
+        "breakTimeSeconds": 2699.984375,
+        "breakClock": "44:59",
+        "breakableType": "CRATE",
+        "rewardType": "SOULS",
+        "breaker": "Snazzy314",
+        "collector": "Nebula",
+        "breakerMethod": "BULLET_RAY",
+        "goldReward": 115,
+        "modifierSubclassId": null,
+        "pickupDelaySeconds": 9.171875,
+        "collectorDistance3D": 103.30780118305839
+      }
+    ]
+  },
+  "players": [
+    {
+      "playerName": "blooop354",
+      "asBreaker": {
+        "knownBreaks": 60,
+        "cratesBroken": 45,
+        "statuesBroken": 15,
+        "methods": {
+          "MELEE_DIRECT": 18,
+          "BULLET_RAY": 42
+        },
+        "breaksWithBroadExposure": 28,
+        "breaksWithoutBroadExposure": 32,
+        "breaksWithCloseAccess": 21,
+        "breaksWithCoreAccess": 20,
+        "rewardSpawnsProduced": 34,
+        "crateSoulValueGenerated": 1861,
+        "statueBuffsGenerated": 8,
+        "generatedRewardCollectedBySelf": 15,
+        "generatedRewardCollectedByOther": 2,
+        "generatedRewardExpired": 12,
+        "broadExposureRate": 0.4666666666666667,
+        "closeAccessRate": 0.35
+      },
+      "asCollector": {
+        "confirmedCollections": 27,
+        "crateSoulPickups": 21,
+        "crateSoulsAcquired": 1434,
+        "statueBuffPickups": 6,
+        "modifierSubclassCounts": {
+          "1470635657": 1,
+          "1937950387": 1,
+          "2496153953": 1,
+          "2778554071": 1,
+          "3039784139": 1,
+          "3282445765": 1
+        },
+        "collectedOwnBreakReward": 15,
+        "collectedOtherPlayersBreakReward": 0,
+        "otherPlayerRewardShare": 0
+      }
+    },
+    {
+      "playerName": "Eriansan",
+      "asBreaker": {
+        "knownBreaks": 62,
+        "cratesBroken": 45,
+        "statuesBroken": 17,
+        "methods": {
+          "MELEE_DIRECT": 40,
+          "BULLET_RAY": 22
+        },
+        "breaksWithBroadExposure": 53,
+        "breaksWithoutBroadExposure": 9,
+        "breaksWithCloseAccess": 42,
+        "breaksWithCoreAccess": 38,
+        "rewardSpawnsProduced": 37,
+        "crateSoulValueGenerated": 1790,
+        "statueBuffsGenerated": 9,
+        "generatedRewardCollectedBySelf": 22,
+        "generatedRewardCollectedByOther": 0,
+        "generatedRewardExpired": 6,
+        "broadExposureRate": 0.8548387096774194,
+        "closeAccessRate": 0.6774193548387096
+      },
+      "asCollector": {
+        "confirmedCollections": 35,
+        "crateSoulPickups": 34,
+        "crateSoulsAcquired": 2396,
+        "statueBuffPickups": 1,
+        "modifierSubclassCounts": {
+          "1683824683": 1
+        },
+        "collectedOwnBreakReward": 22,
+        "collectedOtherPlayersBreakReward": 5,
+        "otherPlayerRewardShare": 0.14285714285714285
+      }
+    },
+    {
+      "playerName": "flem",
+      "asBreaker": {
+        "knownBreaks": 51,
+        "cratesBroken": 33,
+        "statuesBroken": 18,
+        "methods": {
+          "MELEE_DIRECT": 45,
+          "BULLET_RAY": 6
+        },
+        "breaksWithBroadExposure": 47,
+        "breaksWithoutBroadExposure": 4,
+        "breaksWithCloseAccess": 46,
+        "breaksWithCoreAccess": 40,
+        "rewardSpawnsProduced": 26,
+        "crateSoulValueGenerated": 1269,
+        "statueBuffsGenerated": 9,
+        "generatedRewardCollectedBySelf": 16,
+        "generatedRewardCollectedByOther": 1,
+        "generatedRewardExpired": 5,
+        "broadExposureRate": 0.9215686274509803,
+        "closeAccessRate": 0.9019607843137255
+      },
+      "asCollector": {
+        "confirmedCollections": 25,
+        "crateSoulPickups": 16,
+        "crateSoulsAcquired": 1044,
+        "statueBuffPickups": 9,
+        "modifierSubclassCounts": {
+          "540531328": 1,
+          "755268683": 1,
+          "1182568511": 1,
+          "1937950387": 1,
+          "2778554071": 1,
+          "2848399878": 1,
+          "3447178839": 1,
+          "4180897498": 2
+        },
+        "collectedOwnBreakReward": 16,
+        "collectedOtherPlayersBreakReward": 0,
+        "otherPlayerRewardShare": 0
+      }
+    },
+    {
+      "playerName": "Goldinfer",
+      "asBreaker": {
+        "knownBreaks": 67,
+        "cratesBroken": 54,
+        "statuesBroken": 13,
+        "methods": {
+          "BULLET_RAY": 12,
+          "MELEE_DIRECT": 55
+        },
+        "breaksWithBroadExposure": 66,
+        "breaksWithoutBroadExposure": 1,
+        "breaksWithCloseAccess": 53,
+        "breaksWithCoreAccess": 49,
+        "rewardSpawnsProduced": 41,
+        "crateSoulValueGenerated": 2291,
+        "statueBuffsGenerated": 6,
+        "generatedRewardCollectedBySelf": 28,
+        "generatedRewardCollectedByOther": 0,
+        "generatedRewardExpired": 2,
+        "broadExposureRate": 0.9850746268656716,
+        "closeAccessRate": 0.7910447761194029
+      },
+      "asCollector": {
+        "confirmedCollections": 33,
+        "crateSoulPickups": 30,
+        "crateSoulsAcquired": 1866,
+        "statueBuffPickups": 3,
+        "modifierSubclassCounts": {
+          "1937950387": 1,
+          "2848399878": 1,
+          "4180897498": 1
+        },
+        "collectedOwnBreakReward": 28,
+        "collectedOtherPlayersBreakReward": 2,
+        "otherPlayerRewardShare": 0.06060606060606061
+      }
+    },
+    {
+      "playerName": "Nacho4Sure",
+      "asBreaker": {
+        "knownBreaks": 41,
+        "cratesBroken": 27,
+        "statuesBroken": 14,
+        "methods": {
+          "MELEE_DIRECT": 26,
+          "BULLET_RAY": 15
+        },
+        "breaksWithBroadExposure": 30,
+        "breaksWithoutBroadExposure": 11,
+        "breaksWithCloseAccess": 28,
+        "breaksWithCoreAccess": 28,
+        "rewardSpawnsProduced": 23,
+        "crateSoulValueGenerated": 1154,
+        "statueBuffsGenerated": 8,
+        "generatedRewardCollectedBySelf": 12,
+        "generatedRewardCollectedByOther": 5,
+        "generatedRewardExpired": 3,
+        "broadExposureRate": 0.7317073170731707,
+        "closeAccessRate": 0.6829268292682927
+      },
+      "asCollector": {
+        "confirmedCollections": 29,
+        "crateSoulPickups": 21,
+        "crateSoulsAcquired": 1509,
+        "statueBuffPickups": 8,
+        "modifierSubclassCounts": {
+          "1182568511": 1,
+          "1937950387": 2,
+          "2026620961": 1,
+          "2833086415": 1,
+          "3447178839": 1,
+          "4180897498": 2
+        },
+        "collectedOwnBreakReward": 12,
+        "collectedOtherPlayersBreakReward": 0,
+        "otherPlayerRewardShare": 0
+      }
+    },
+    {
+      "playerName": "Nebula",
+      "asBreaker": {
+        "knownBreaks": 71,
+        "cratesBroken": 46,
+        "statuesBroken": 25,
+        "methods": {
+          "BULLET_RAY": 31,
+          "MELEE_DIRECT": 40
+        },
+        "breaksWithBroadExposure": 54,
+        "breaksWithoutBroadExposure": 17,
+        "breaksWithCloseAccess": 42,
+        "breaksWithCoreAccess": 39,
+        "rewardSpawnsProduced": 40,
+        "crateSoulValueGenerated": 2234,
+        "statueBuffsGenerated": 12,
+        "generatedRewardCollectedBySelf": 18,
+        "generatedRewardCollectedByOther": 2,
+        "generatedRewardExpired": 14,
+        "broadExposureRate": 0.7605633802816901,
+        "closeAccessRate": 0.5915492957746479
+      },
+      "asCollector": {
+        "confirmedCollections": 36,
+        "crateSoulPickups": 30,
+        "crateSoulsAcquired": 2557,
+        "statueBuffPickups": 6,
+        "modifierSubclassCounts": {
+          "755268683": 1,
+          "1182568511": 1,
+          "1937950387": 2,
+          "2833086415": 2
+        },
+        "collectedOwnBreakReward": 18,
+        "collectedOtherPlayersBreakReward": 4,
+        "otherPlayerRewardShare": 0.1111111111111111
+      }
+    },
+    {
+      "playerName": "renso",
+      "asBreaker": {
+        "knownBreaks": 45,
+        "cratesBroken": 39,
+        "statuesBroken": 6,
+        "methods": {
+          "MELEE_DIRECT": 35,
+          "BULLET_RAY": 10
+        },
+        "breaksWithBroadExposure": 41,
+        "breaksWithoutBroadExposure": 4,
+        "breaksWithCloseAccess": 34,
+        "breaksWithCoreAccess": 32,
+        "rewardSpawnsProduced": 29,
+        "crateSoulValueGenerated": 1754,
+        "statueBuffsGenerated": 3,
+        "generatedRewardCollectedBySelf": 25,
+        "generatedRewardCollectedByOther": 0,
+        "generatedRewardExpired": 0,
+        "broadExposureRate": 0.9111111111111111,
+        "closeAccessRate": 0.7555555555555555
+      },
+      "asCollector": {
+        "confirmedCollections": 33,
+        "crateSoulPickups": 30,
+        "crateSoulsAcquired": 2006,
+        "statueBuffPickups": 3,
+        "modifierSubclassCounts": {
+          "2833086415": 1,
+          "3447178839": 1,
+          "4180897498": 1
+        },
+        "collectedOwnBreakReward": 25,
+        "collectedOtherPlayersBreakReward": 2,
+        "otherPlayerRewardShare": 0.06060606060606061
+      }
+    },
+    {
+      "playerName": "Snazzy314",
+      "asBreaker": {
+        "knownBreaks": 84,
+        "cratesBroken": 70,
+        "statuesBroken": 14,
+        "methods": {
+          "MELEE_DIRECT": 75,
+          "BULLET_RAY": 9
+        },
+        "breaksWithBroadExposure": 79,
+        "breaksWithoutBroadExposure": 5,
+        "breaksWithCloseAccess": 75,
+        "breaksWithCoreAccess": 72,
+        "rewardSpawnsProduced": 49,
+        "crateSoulValueGenerated": 3210,
+        "statueBuffsGenerated": 7,
+        "generatedRewardCollectedBySelf": 28,
+        "generatedRewardCollectedByOther": 3,
+        "generatedRewardExpired": 2,
+        "broadExposureRate": 0.9404761904761905,
+        "closeAccessRate": 0.8928571428571429
+      },
+      "asCollector": {
+        "confirmedCollections": 57,
+        "crateSoulPickups": 52,
+        "crateSoulsAcquired": 3772,
+        "statueBuffPickups": 5,
+        "modifierSubclassCounts": {
+          "639567848": 1,
+          "1470635657": 1,
+          "1937950387": 1,
+          "2778554071": 1,
+          "2848399878": 1
+        },
+        "collectedOwnBreakReward": 28,
+        "collectedOtherPlayersBreakReward": 0,
+        "otherPlayerRewardShare": 0
+      }
+    },
+    {
+      "playerName": "TheWoogler",
+      "asBreaker": {
+        "knownBreaks": 24,
+        "cratesBroken": 17,
+        "statuesBroken": 7,
+        "methods": {
+          "BULLET_RAY": 10,
+          "MELEE_DIRECT": 14
+        },
+        "breaksWithBroadExposure": 16,
+        "breaksWithoutBroadExposure": 8,
+        "breaksWithCloseAccess": 15,
+        "breaksWithCoreAccess": 14,
+        "rewardSpawnsProduced": 14,
+        "crateSoulValueGenerated": 874,
+        "statueBuffsGenerated": 3,
+        "generatedRewardCollectedBySelf": 10,
+        "generatedRewardCollectedByOther": 0,
+        "generatedRewardExpired": 1,
+        "broadExposureRate": 0.6666666666666666,
+        "closeAccessRate": 0.625
+      },
+      "asCollector": {
+        "confirmedCollections": 13,
+        "crateSoulPickups": 12,
+        "crateSoulsAcquired": 915,
+        "statueBuffPickups": 1,
+        "modifierSubclassCounts": {
+          "1683824683": 1
+        },
+        "collectedOwnBreakReward": 10,
+        "collectedOtherPlayersBreakReward": 0,
+        "otherPlayerRewardShare": 0
+      }
+    },
+    {
+      "playerName": "viggoth 300",
+      "asBreaker": {
+        "knownBreaks": 100,
+        "cratesBroken": 79,
+        "statuesBroken": 21,
+        "methods": {
+          "MELEE_DIRECT": 61,
+          "BULLET_RAY": 39
+        },
+        "breaksWithBroadExposure": 71,
+        "breaksWithoutBroadExposure": 29,
+        "breaksWithCloseAccess": 61,
+        "breaksWithCoreAccess": 51,
+        "rewardSpawnsProduced": 58,
+        "crateSoulValueGenerated": 3063,
+        "statueBuffsGenerated": 12,
+        "generatedRewardCollectedBySelf": 46,
+        "generatedRewardCollectedByOther": 2,
+        "generatedRewardExpired": 1,
+        "broadExposureRate": 0.71,
+        "closeAccessRate": 0.61
+      },
+      "asCollector": {
+        "confirmedCollections": 58,
+        "crateSoulPickups": 49,
+        "crateSoulsAcquired": 3560,
+        "statueBuffPickups": 9,
+        "modifierSubclassCounts": {
+          "540531328": 1,
+          "755268683": 2,
+          "1182568511": 3,
+          "1683824683": 1,
+          "2833086415": 1,
+          "3039784139": 1
+        },
+        "collectedOwnBreakReward": 46,
+        "collectedOtherPlayersBreakReward": 0,
+        "otherPlayerRewardShare": 0
+      }
+    },
+    {
+      "playerName": "Yosafire Worshipper [K]",
+      "asBreaker": {
+        "knownBreaks": 107,
+        "cratesBroken": 81,
+        "statuesBroken": 26,
+        "methods": {
+          "MELEE_DIRECT": 105,
+          "BULLET_RAY": 2
+        },
+        "breaksWithBroadExposure": 107,
+        "breaksWithoutBroadExposure": 0,
+        "breaksWithCloseAccess": 102,
+        "breaksWithCoreAccess": 98,
+        "rewardSpawnsProduced": 59,
+        "crateSoulValueGenerated": 3585,
+        "statueBuffsGenerated": 11,
+        "generatedRewardCollectedBySelf": 38,
+        "generatedRewardCollectedByOther": 0,
+        "generatedRewardExpired": 0,
+        "broadExposureRate": 1,
+        "closeAccessRate": 0.9532710280373832
+      },
+      "asCollector": {
+        "confirmedCollections": 70,
+        "crateSoulPickups": 56,
+        "crateSoulsAcquired": 4131,
+        "statueBuffPickups": 14,
+        "modifierSubclassCounts": {
+          "639567848": 1,
+          "1182568511": 2,
+          "1470635657": 1,
+          "1683824683": 2,
+          "1937950387": 1,
+          "2026620961": 1,
+          "2496153953": 1,
+          "2778554071": 1,
+          "3447178839": 2,
+          "4180897498": 2
+        },
+        "collectedOwnBreakReward": 38,
+        "collectedOtherPlayersBreakReward": 1,
+        "otherPlayerRewardShare": 0.014285714285714285
+      }
+    },
+    {
+      "playerName": "Zaeleth",
+      "asBreaker": {
+        "knownBreaks": 12,
+        "cratesBroken": 10,
+        "statuesBroken": 2,
+        "methods": {
+          "MELEE_DIRECT": 8,
+          "BULLET_RAY": 4
+        },
+        "breaksWithBroadExposure": 9,
+        "breaksWithoutBroadExposure": 3,
+        "breaksWithCloseAccess": 8,
+        "breaksWithCoreAccess": 8,
+        "rewardSpawnsProduced": 8,
+        "crateSoulValueGenerated": 595,
+        "statueBuffsGenerated": 1,
+        "generatedRewardCollectedBySelf": 5,
+        "generatedRewardCollectedByOther": 0,
+        "generatedRewardExpired": 0,
+        "broadExposureRate": 0.75,
+        "closeAccessRate": 0.6666666666666666
+      },
+      "asCollector": {
+        "confirmedCollections": 12,
+        "crateSoulPickups": 11,
+        "crateSoulsAcquired": 793,
+        "statueBuffPickups": 1,
+        "modifierSubclassCounts": {
+          "1683824683": 1
+        },
+        "collectedOwnBreakReward": 5,
+        "collectedOtherPlayersBreakReward": 1,
+        "otherPlayerRewardShare": 0.08333333333333333
+      }
+    }
+  ],
+  "validation": {
+    "pass": true,
+    "checks": {
+      "outputRows": {
+        "actual": 1261,
+        "expected": 1261,
+        "pass": true
+      },
+      "attributedBreaks": {
+        "actual": 724,
+        "expected": 724,
+        "pass": true
+      },
+      "meleeBreaks": {
+        "actual": 522,
+        "expected": 522,
+        "pass": true
+      },
+      "bulletBreaks": {
+        "actual": 202,
+        "expected": 202,
+        "pass": true
+      },
+      "successfulRewardRolls": {
+        "actual": 726,
+        "expected": 726,
+        "pass": true
+      },
+      "acquisitionRowsLoaded": {
+        "actual": 726,
+        "expected": 726,
+        "pass": true
+      },
+      "droppedRewardsMatchedToAcquisition": {
+        "actual": 726,
+        "expected": 726,
+        "pass": true
+      },
+      "droppedRewardsMissingAcquisition": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "duplicateAcquisitionKeys": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "confirmedCollectors": {
+        "actual": 428,
+        "expected": 428,
+        "pass": true
+      },
+      "expiredRewards": {
+        "actual": 139,
+        "expected": 139,
+        "pass": true
+      }
+    }
+  }
+}

@@ -1,0 +1,3481 @@
+{
+  "replay": "test",
+  "version": "TROOPER_AUTO_AWARD_RECIPIENT_VALIDATION_V01",
+  "canonical": false,
+  "status": "DIAGNOSTIC_ONLY",
+  "purpose": [
+    "Attribute automatic Trooper-orb net-worth increases to named players.",
+    "Test whether observed recipients match the documented 45 meter sharing range.",
+    "Compare player geometry at the originating Trooper death and at the later orb resolution.",
+    "Keep collision-affected events separate from clean recipient evidence.",
+    "Do not treat raw net-worth-window totals as exact orb souls until geometry and collision tests support them."
+  ],
+  "definitions": {
+    "automaticTrooperAward": "A Script 65 AUTO_AWARD_SECURE Trooper outcome with no player hit on the orb.",
+    "observedRecipient": "A winner-team player with a positive m_iGoldNetWorth delta in the validated P0_P8 award window.",
+    "rangeSupportedRecipient": "An observed recipient reconstructed within 45 meters of the source position at the preferred geometry moment.",
+    "exactRangeMatch": "A collision-free event where the observed-recipient set exactly equals the in-range player set.",
+    "observedDeltaWarning": "An observed net-worth delta can contain batched or unrelated economy. Treat the summed delta as telemetry evidence, not yet a canonical exact-souls total."
+  },
+  "inputs": {
+    "finalOutcomeSummary": "G:\\DeadlockBehavior\\output\\test\\citemxp_final_outcome_validation_v01.json",
+    "finalOutcomeStream": "G:\\DeadlockBehavior\\output\\test\\citemxp_final_outcomes_v01.jsonl",
+    "trooperDeathStream": "G:\\DeadlockBehavior\\output\\test\\trooper_ground_soul_one_to_one_v01.jsonl",
+    "playerStateStream": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl"
+  },
+  "outputs": {
+    "recipientUnits": "G:\\DeadlockBehavior\\output\\test\\trooper_auto_award_recipient_units_v01.jsonl",
+    "playerSummaries": "G:\\DeadlockBehavior\\output\\test\\trooper_auto_award_player_summary_v01.jsonl"
+  },
+  "constants": {
+    "tickRate": 64,
+    "hammerUnitsPerMeter": 39.37,
+    "documentedRangeMeters": 45,
+    "documentedRangeHammerUnits": 1771.6499999999999,
+    "maximumInterpolationGapSeconds": 0.3,
+    "maximumNearestSampleDeltaSeconds": 0.15
+  },
+  "counts": {
+    "automaticTrooperAwards": 1092,
+    "collisionFreeAwards": 610,
+    "collisionAffectedAwards": 482,
+    "awardsJoinedToSourceDeath": 1092,
+    "awardsMissingSourceDeath": 0,
+    "awardsWithAnyObservedRecipient": 1092,
+    "observedPlayerCredits": 2783,
+    "observedWinnerTeamNetWorthDelta": 246723,
+    "exactRangeMatchAwards": 344,
+    "rangeSupportedPlayerCredits": 1961,
+    "rangeSupportedObservedNetWorthDelta": 223999,
+    "players": 12
+  },
+  "geometryComparison": {
+    "cohort": "COLLISION_FREE_AUTO_AWARD_SECURE_EVENTS_WITH_RECONSTRUCTED_PLAYER_STATE",
+    "events": 610,
+    "preferredMoment": "death",
+    "documented45m": {
+      "death": {
+        "moment": "death",
+        "thresholdHammerUnits": 1771.6499999999999,
+        "thresholdMeters": 45,
+        "comparisons": 3111,
+        "truePositive": 1062,
+        "falsePositive": 1,
+        "falseNegative": 432,
+        "trueNegative": 1616,
+        "precision": 0.9990592662276576,
+        "recall": 0.7108433734939759,
+        "specificity": 0.9993815708101422,
+        "accuracy": 0.8608164577306332,
+        "f1": 0.8306609307782559
+      },
+      "resolution": {
+        "moment": "resolution",
+        "thresholdHammerUnits": 1771.6499999999999,
+        "thresholdMeters": 45,
+        "comparisons": 3105,
+        "truePositive": 1050,
+        "falsePositive": 18,
+        "falseNegative": 438,
+        "trueNegative": 1599,
+        "precision": 0.9831460674157303,
+        "recall": 0.7056451612903226,
+        "specificity": 0.9888682745825603,
+        "accuracy": 0.8531400966183574,
+        "f1": 0.8215962441314554
+      }
+    },
+    "bestThreshold": {
+      "death": {
+        "moment": "death",
+        "thresholdHammerUnits": 2160,
+        "thresholdMeters": 54.86410972821946,
+        "comparisons": 3111,
+        "truePositive": 1172,
+        "falsePositive": 1,
+        "falseNegative": 322,
+        "trueNegative": 1616,
+        "precision": 0.9991474850809889,
+        "recall": 0.784471218206158,
+        "specificity": 0.9993815708101422,
+        "accuracy": 0.8961748633879781,
+        "f1": 0.8788901387326584
+      },
+      "resolution": {
+        "moment": "resolution",
+        "thresholdHammerUnits": 2420,
+        "thresholdMeters": 61.46812293624588,
+        "comparisons": 3105,
+        "truePositive": 1151,
+        "falsePositive": 55,
+        "falseNegative": 337,
+        "trueNegative": 1562,
+        "precision": 0.9543946932006634,
+        "recall": 0.7735215053763441,
+        "specificity": 0.9659863945578231,
+        "accuracy": 0.8737520128824476,
+        "f1": 0.8544914625092799
+      }
+    },
+    "bestFiveThresholds": {
+      "death": [
+        {
+          "moment": "death",
+          "thresholdHammerUnits": 2160,
+          "thresholdMeters": 54.86410972821946,
+          "comparisons": 3111,
+          "truePositive": 1172,
+          "falsePositive": 1,
+          "falseNegative": 322,
+          "trueNegative": 1616,
+          "precision": 0.9991474850809889,
+          "recall": 0.784471218206158,
+          "specificity": 0.9993815708101422,
+          "accuracy": 0.8961748633879781,
+          "f1": 0.8788901387326584
+        },
+        {
+          "moment": "death",
+          "thresholdHammerUnits": 2170,
+          "thresholdMeters": 55.118110236220474,
+          "comparisons": 3111,
+          "truePositive": 1172,
+          "falsePositive": 3,
+          "falseNegative": 322,
+          "trueNegative": 1614,
+          "precision": 0.9974468085106383,
+          "recall": 0.784471218206158,
+          "specificity": 0.9981447124304267,
+          "accuracy": 0.8955319832851173,
+          "f1": 0.8782315473960285
+        },
+        {
+          "moment": "death",
+          "thresholdHammerUnits": 2180,
+          "thresholdMeters": 55.372110744221494,
+          "comparisons": 3111,
+          "truePositive": 1172,
+          "falsePositive": 3,
+          "falseNegative": 322,
+          "trueNegative": 1614,
+          "precision": 0.9974468085106383,
+          "recall": 0.784471218206158,
+          "specificity": 0.9981447124304267,
+          "accuracy": 0.8955319832851173,
+          "f1": 0.8782315473960285
+        },
+        {
+          "moment": "death",
+          "thresholdHammerUnits": 2200,
+          "thresholdMeters": 55.88011176022352,
+          "comparisons": 3111,
+          "truePositive": 1174,
+          "falsePositive": 7,
+          "falseNegative": 320,
+          "trueNegative": 1610,
+          "precision": 0.9940728196443692,
+          "recall": 0.785809906291834,
+          "specificity": 0.9956709956709957,
+          "accuracy": 0.8948891031822566,
+          "f1": 0.8777570093457944
+        },
+        {
+          "moment": "death",
+          "thresholdHammerUnits": 2190,
+          "thresholdMeters": 55.62611125222251,
+          "comparisons": 3111,
+          "truePositive": 1173,
+          "falsePositive": 6,
+          "falseNegative": 321,
+          "trueNegative": 1611,
+          "precision": 0.9949109414758269,
+          "recall": 0.785140562248996,
+          "specificity": 0.9962894248608535,
+          "accuracy": 0.8948891031822566,
+          "f1": 0.877665544332211
+        }
+      ],
+      "resolution": [
+        {
+          "moment": "resolution",
+          "thresholdHammerUnits": 2420,
+          "thresholdMeters": 61.46812293624588,
+          "comparisons": 3105,
+          "truePositive": 1151,
+          "falsePositive": 55,
+          "falseNegative": 337,
+          "trueNegative": 1562,
+          "precision": 0.9543946932006634,
+          "recall": 0.7735215053763441,
+          "specificity": 0.9659863945578231,
+          "accuracy": 0.8737520128824476,
+          "f1": 0.8544914625092799
+        },
+        {
+          "moment": "resolution",
+          "thresholdHammerUnits": 2350,
+          "thresholdMeters": 59.69011938023876,
+          "comparisons": 3105,
+          "truePositive": 1146,
+          "falsePositive": 49,
+          "falseNegative": 342,
+          "trueNegative": 1568,
+          "precision": 0.9589958158995816,
+          "recall": 0.7701612903225806,
+          "specificity": 0.9696969696969697,
+          "accuracy": 0.8740740740740741,
+          "f1": 0.8542676108833396
+        },
+        {
+          "moment": "resolution",
+          "thresholdHammerUnits": 2430,
+          "thresholdMeters": 61.72212344424689,
+          "comparisons": 3105,
+          "truePositive": 1151,
+          "falsePositive": 56,
+          "falseNegative": 337,
+          "trueNegative": 1561,
+          "precision": 0.9536039768019884,
+          "recall": 0.7735215053763441,
+          "specificity": 0.9653679653679653,
+          "accuracy": 0.8734299516908213,
+          "f1": 0.85417439703154
+        },
+        {
+          "moment": "resolution",
+          "thresholdHammerUnits": 2440,
+          "thresholdMeters": 61.97612395224791,
+          "comparisons": 3105,
+          "truePositive": 1151,
+          "falsePositive": 56,
+          "falseNegative": 337,
+          "trueNegative": 1561,
+          "precision": 0.9536039768019884,
+          "recall": 0.7735215053763441,
+          "specificity": 0.9653679653679653,
+          "accuracy": 0.8734299516908213,
+          "f1": 0.85417439703154
+        },
+        {
+          "moment": "resolution",
+          "thresholdHammerUnits": 2410,
+          "thresholdMeters": 61.21412242824486,
+          "comparisons": 3105,
+          "truePositive": 1149,
+          "falsePositive": 54,
+          "falseNegative": 339,
+          "trueNegative": 1563,
+          "precision": 0.9551122194513716,
+          "recall": 0.7721774193548387,
+          "specificity": 0.9666048237476809,
+          "accuracy": 0.8734299516908213,
+          "f1": 0.8539576365663323
+        }
+      ]
+    },
+    "interpretation": "Observed collision-free recipient deltas partially match the documented 45m range at death. Best searched threshold: 54.86m (F1 87.9%)."
+  },
+  "playerSummaries": [
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "Eriansan",
+      "team": 2,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 513,
+      "documentedRangeEligibleEvents": 159,
+      "observedNetWorthCreditEvents": 330,
+      "observedNetWorthDelta": 15437,
+      "rangeSupportedCreditEvents": 159,
+      "rangeSupportedObservedDelta": 12667,
+      "conservativeRangeSupportedCreditEvents": 92,
+      "conservativeRangeSupportedObservedDelta": 4029,
+      "exactRangeMatchCreditEvents": 54,
+      "exactRangeMatchObservedDelta": 2285,
+      "collisionAffectedObservedCreditEvents": 130,
+      "observedOutsideRangeEvents": 162,
+      "groundSoulVacuumTargetEvents": 87,
+      "firstObservedCreditClock": "1:08",
+      "lastObservedCreditClock": "52:38",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "flem",
+      "team": 2,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 513,
+      "documentedRangeEligibleEvents": 169,
+      "observedNetWorthCreditEvents": 211,
+      "observedNetWorthDelta": 14423,
+      "rangeSupportedCreditEvents": 169,
+      "rangeSupportedObservedDelta": 12555,
+      "conservativeRangeSupportedCreditEvents": 114,
+      "conservativeRangeSupportedObservedDelta": 5522,
+      "exactRangeMatchCreditEvents": 47,
+      "exactRangeMatchObservedDelta": 1863,
+      "collisionAffectedObservedCreditEvents": 76,
+      "observedOutsideRangeEvents": 33,
+      "groundSoulVacuumTargetEvents": 97,
+      "firstObservedCreditClock": "2:04",
+      "lastObservedCreditClock": "52:38",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "Nacho4Sure",
+      "team": 2,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 513,
+      "documentedRangeEligibleEvents": 127,
+      "observedNetWorthCreditEvents": 200,
+      "observedNetWorthDelta": 10076,
+      "rangeSupportedCreditEvents": 127,
+      "rangeSupportedObservedDelta": 8113,
+      "conservativeRangeSupportedCreditEvents": 76,
+      "conservativeRangeSupportedObservedDelta": 3051,
+      "exactRangeMatchCreditEvents": 34,
+      "exactRangeMatchObservedDelta": 1254,
+      "collisionAffectedObservedCreditEvents": 82,
+      "observedOutsideRangeEvents": 53,
+      "groundSoulVacuumTargetEvents": 33,
+      "firstObservedCreditClock": "2:04",
+      "lastObservedCreditClock": "52:38",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "Snazzy314",
+      "team": 2,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 513,
+      "documentedRangeEligibleEvents": 122,
+      "observedNetWorthCreditEvents": 175,
+      "observedNetWorthDelta": 10410,
+      "rangeSupportedCreditEvents": 122,
+      "rangeSupportedObservedDelta": 8924,
+      "conservativeRangeSupportedCreditEvents": 82,
+      "conservativeRangeSupportedObservedDelta": 3995,
+      "exactRangeMatchCreditEvents": 32,
+      "exactRangeMatchObservedDelta": 1266,
+      "collisionAffectedObservedCreditEvents": 53,
+      "observedOutsideRangeEvents": 44,
+      "groundSoulVacuumTargetEvents": 53,
+      "firstObservedCreditClock": "2:08",
+      "lastObservedCreditClock": "52:38",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "viggoth 300",
+      "team": 2,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 513,
+      "documentedRangeEligibleEvents": 209,
+      "observedNetWorthCreditEvents": 273,
+      "observedNetWorthDelta": 25377,
+      "rangeSupportedCreditEvents": 209,
+      "rangeSupportedObservedDelta": 23601,
+      "conservativeRangeSupportedCreditEvents": 106,
+      "conservativeRangeSupportedObservedDelta": 6052,
+      "exactRangeMatchCreditEvents": 48,
+      "exactRangeMatchObservedDelta": 2211,
+      "collisionAffectedObservedCreditEvents": 128,
+      "observedOutsideRangeEvents": 63,
+      "groundSoulVacuumTargetEvents": 135,
+      "firstObservedCreditClock": "1:08",
+      "lastObservedCreditClock": "52:38",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "Yosafire Worshipper [K]",
+      "team": 2,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 513,
+      "documentedRangeEligibleEvents": 159,
+      "observedNetWorthCreditEvents": 327,
+      "observedNetWorthDelta": 15315,
+      "rangeSupportedCreditEvents": 159,
+      "rangeSupportedObservedDelta": 13946,
+      "conservativeRangeSupportedCreditEvents": 80,
+      "conservativeRangeSupportedObservedDelta": 3442,
+      "exactRangeMatchCreditEvents": 48,
+      "exactRangeMatchObservedDelta": 2108,
+      "collisionAffectedObservedCreditEvents": 148,
+      "observedOutsideRangeEvents": 159,
+      "groundSoulVacuumTargetEvents": 81,
+      "firstObservedCreditClock": "2:08",
+      "lastObservedCreditClock": "52:38",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "blooop354",
+      "team": 3,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 579,
+      "documentedRangeEligibleEvents": 75,
+      "observedNetWorthCreditEvents": 106,
+      "observedNetWorthDelta": 9179,
+      "rangeSupportedCreditEvents": 75,
+      "rangeSupportedObservedDelta": 6211,
+      "conservativeRangeSupportedCreditEvents": 60,
+      "conservativeRangeSupportedObservedDelta": 3286,
+      "exactRangeMatchCreditEvents": 46,
+      "exactRangeMatchObservedDelta": 2595,
+      "collisionAffectedObservedCreditEvents": 29,
+      "observedOutsideRangeEvents": 31,
+      "groundSoulVacuumTargetEvents": 64,
+      "firstObservedCreditClock": "3:03",
+      "lastObservedCreditClock": "51:50",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "Goldinfer",
+      "team": 3,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 579,
+      "documentedRangeEligibleEvents": 259,
+      "observedNetWorthCreditEvents": 307,
+      "observedNetWorthDelta": 50506,
+      "rangeSupportedCreditEvents": 259,
+      "rangeSupportedObservedDelta": 48767,
+      "conservativeRangeSupportedCreditEvents": 106,
+      "conservativeRangeSupportedObservedDelta": 4695,
+      "exactRangeMatchCreditEvents": 81,
+      "exactRangeMatchObservedDelta": 3861,
+      "collisionAffectedObservedCreditEvents": 170,
+      "observedOutsideRangeEvents": 33,
+      "groundSoulVacuumTargetEvents": 102,
+      "firstObservedCreditClock": "1:11",
+      "lastObservedCreditClock": "51:53",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "Nebula",
+      "team": 3,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 579,
+      "documentedRangeEligibleEvents": 152,
+      "observedNetWorthCreditEvents": 190,
+      "observedNetWorthDelta": 20752,
+      "rangeSupportedCreditEvents": 152,
+      "rangeSupportedObservedDelta": 17262,
+      "conservativeRangeSupportedCreditEvents": 86,
+      "conservativeRangeSupportedObservedDelta": 4135,
+      "exactRangeMatchCreditEvents": 55,
+      "exactRangeMatchObservedDelta": 2491,
+      "collisionAffectedObservedCreditEvents": 87,
+      "observedOutsideRangeEvents": 33,
+      "groundSoulVacuumTargetEvents": 86,
+      "firstObservedCreditClock": "1:11",
+      "lastObservedCreditClock": "51:28",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "renso",
+      "team": 3,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 579,
+      "documentedRangeEligibleEvents": 199,
+      "observedNetWorthCreditEvents": 257,
+      "observedNetWorthDelta": 32940,
+      "rangeSupportedCreditEvents": 199,
+      "rangeSupportedObservedDelta": 31558,
+      "conservativeRangeSupportedCreditEvents": 88,
+      "conservativeRangeSupportedObservedDelta": 4111,
+      "exactRangeMatchCreditEvents": 67,
+      "exactRangeMatchObservedDelta": 3200,
+      "collisionAffectedObservedCreditEvents": 136,
+      "observedOutsideRangeEvents": 51,
+      "groundSoulVacuumTargetEvents": 120,
+      "firstObservedCreditClock": "6:02",
+      "lastObservedCreditClock": "51:28",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "TheWoogler",
+      "team": 3,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 579,
+      "documentedRangeEligibleEvents": 169,
+      "observedNetWorthCreditEvents": 201,
+      "observedNetWorthDelta": 21945,
+      "rangeSupportedCreditEvents": 169,
+      "rangeSupportedObservedDelta": 20745,
+      "conservativeRangeSupportedCreditEvents": 85,
+      "conservativeRangeSupportedObservedDelta": 4746,
+      "exactRangeMatchCreditEvents": 66,
+      "exactRangeMatchObservedDelta": 3893,
+      "collisionAffectedObservedCreditEvents": 101,
+      "observedOutsideRangeEvents": 20,
+      "groundSoulVacuumTargetEvents": 104,
+      "firstObservedCreditClock": "3:03",
+      "lastObservedCreditClock": "51:03",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "playerName": "Zaeleth",
+      "team": 3,
+      "preferredGeometryMoment": "death",
+      "teamAutomaticAwardEvents": 579,
+      "documentedRangeEligibleEvents": 163,
+      "observedNetWorthCreditEvents": 206,
+      "observedNetWorthDelta": 20363,
+      "rangeSupportedCreditEvents": 162,
+      "rangeSupportedObservedDelta": 19650,
+      "conservativeRangeSupportedCreditEvents": 87,
+      "conservativeRangeSupportedObservedDelta": 7031,
+      "exactRangeMatchCreditEvents": 68,
+      "exactRangeMatchObservedDelta": 6233,
+      "collisionAffectedObservedCreditEvents": 96,
+      "observedOutsideRangeEvents": 28,
+      "groundSoulVacuumTargetEvents": 79,
+      "firstObservedCreditClock": "6:02",
+      "lastObservedCreditClock": "51:03",
+      "interpretation": "Counts are recipient-side automatic-orb payout observations. Net-worth sums remain diagnostic because unrelated economy can batch into the same update window."
+    }
+  ],
+  "examples": {
+    "exactRangeMatches": [
+      {
+        "sourceId": "2758|4307",
+        "episodeId": "2916|1",
+        "anchorClock": "1:08",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 55,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 55,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2755|4506",
+        "episodeId": "2921|1",
+        "anchorClock": "1:11",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Nebula"
+        ],
+        "observedWinnerTeamDelta": 55,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 55,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2886|7861",
+        "episodeId": "2916|4",
+        "anchorClock": "2:04",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 56,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 56,
+          "rangeSupportedObservedPlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2760|7946",
+        "episodeId": "2921|4",
+        "anchorClock": "2:05",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 112,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 112,
+          "rangeSupportedObservedPlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2756|8136",
+        "episodeId": "2926|4",
+        "anchorClock": "2:08",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Snazzy314",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 56,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 56,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2951|8443",
+        "episodeId": "2932|4",
+        "anchorClock": "2:13",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Snazzy314",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 56,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 56,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2755|10253",
+        "episodeId": "2916|6",
+        "anchorClock": "2:41",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Nebula"
+        ],
+        "observedWinnerTeamDelta": 57,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 57,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2758|10843",
+        "episodeId": "2919|7",
+        "anchorClock": "2:51",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 57,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 57,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2837|11623",
+        "episodeId": "2923|7",
+        "anchorClock": "3:03",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354",
+          "TheWoogler"
+        ],
+        "observedWinnerTeamDelta": 57,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedRecipients": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 57,
+          "rangeSupportedObservedPlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2755|12179",
+        "episodeId": "2919|8",
+        "anchorClock": "3:11",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Nebula"
+        ],
+        "observedWinnerTeamDelta": 57,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 57,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2951|12727",
+        "episodeId": "2930|8",
+        "anchorClock": "3:20",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Snazzy314"
+        ],
+        "observedWinnerTeamDelta": 52,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Snazzy314"
+          ],
+          "observedRecipients": [
+            "Snazzy314"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 52,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2787|13153",
+        "episodeId": "2918|9",
+        "anchorClock": "3:27",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 57,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 57,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2785|15516",
+        "episodeId": "3015|4",
+        "anchorClock": "4:04",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer"
+        ],
+        "observedWinnerTeamDelta": 53,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Goldinfer"
+          ],
+          "observedRecipients": [
+            "Goldinfer"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 53,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2755|15786",
+        "episodeId": "2924|10",
+        "anchorClock": "4:08",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer"
+        ],
+        "observedWinnerTeamDelta": 53,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Goldinfer"
+          ],
+          "observedRecipients": [
+            "Goldinfer"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 53,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2884|17527",
+        "episodeId": "2928|11",
+        "anchorClock": "4:35",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 59,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2839|17859",
+        "episodeId": "3014|6",
+        "anchorClock": "4:40",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Nebula"
+        ],
+        "observedWinnerTeamDelta": 89,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 89,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2790|18385",
+        "episodeId": "2924|12",
+        "anchorClock": "4:48",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 59,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2759|19013",
+        "episodeId": "2928|12",
+        "anchorClock": "4:58",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354"
+        ],
+        "observedWinnerTeamDelta": 54,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "blooop354"
+          ],
+          "observedRecipients": [
+            "blooop354"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 54,
+          "rangeSupportedObservedPlayers": [
+            "blooop354"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2952|19047",
+        "episodeId": "2932|12",
+        "anchorClock": "4:59",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 54,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 54,
+          "rangeSupportedObservedPlayers": [
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2951|19908",
+        "episodeId": "2926|13",
+        "anchorClock": "5:12",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Snazzy314",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 59,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3051|20020",
+        "episodeId": "2931|13",
+        "anchorClock": "5:14",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Snazzy314",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 59,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2884|20088",
+        "episodeId": "2928|13",
+        "anchorClock": "5:15",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 59,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2840|20406",
+        "episodeId": "3014|8",
+        "anchorClock": "5:20",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Snazzy314",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 59,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2755|20587",
+        "episodeId": "2923|14",
+        "anchorClock": "5:23",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Nebula"
+        ],
+        "observedWinnerTeamDelta": 59,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "Nebula"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2936|20749",
+        "episodeId": "2924|14",
+        "anchorClock": "5:25",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354",
+          "TheWoogler"
+        ],
+        "observedWinnerTeamDelta": 59,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedRecipients": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2887|20802",
+        "episodeId": "2926|14",
+        "anchorClock": "5:26",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 54,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 54,
+          "rangeSupportedObservedPlayers": [
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2758|21083",
+        "episodeId": "2930|14",
+        "anchorClock": "5:31",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 59,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2886|21740",
+        "episodeId": "2919|15",
+        "anchorClock": "5:41",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 60,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 60,
+          "rangeSupportedObservedPlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2841|22128",
+        "episodeId": "2923|15",
+        "anchorClock": "5:47",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 60,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 60,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2952|22376",
+        "episodeId": "2918|16",
+        "anchorClock": "5:51",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 60,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 60,
+          "rangeSupportedObservedPlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3051|22526",
+        "episodeId": "2932|15",
+        "anchorClock": "5:53",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Snazzy314"
+        ],
+        "observedWinnerTeamDelta": 55,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Snazzy314"
+          ],
+          "observedRecipients": [
+            "Snazzy314"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 55,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2835|23077",
+        "episodeId": "2916|16",
+        "anchorClock": "6:02",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "renso",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 60,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "renso",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 60,
+          "rangeSupportedObservedPlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2882|23257",
+        "episodeId": "3015|10",
+        "anchorClock": "6:04",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Snazzy314"
+        ],
+        "observedWinnerTeamDelta": 55,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Snazzy314"
+          ],
+          "observedRecipients": [
+            "Snazzy314"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 55,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3018|23567",
+        "episodeId": "2926|16",
+        "anchorClock": "6:09",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "renso",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 60,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "renso",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 60,
+          "rangeSupportedObservedPlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2936|24414",
+        "episodeId": "3014|11",
+        "anchorClock": "6:23",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354",
+          "TheWoogler"
+        ],
+        "observedWinnerTeamDelta": 60,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedRecipients": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 60,
+          "rangeSupportedObservedPlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3047|24479",
+        "episodeId": "2916|17",
+        "anchorClock": "6:24",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan"
+        ],
+        "observedWinnerTeamDelta": 55,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan"
+          ],
+          "observedRecipients": [
+            "Eriansan"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 55,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3186|25703",
+        "episodeId": "2931|17",
+        "anchorClock": "6:43",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 61,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 61,
+          "rangeSupportedObservedPlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3046|27980",
+        "episodeId": "2919|19",
+        "anchorClock": "7:18",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "renso",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 61,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "renso",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 61,
+          "rangeSupportedObservedPlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3047|29288",
+        "episodeId": "3013|14",
+        "anchorClock": "7:39",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 62,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 62,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2884|29886",
+        "episodeId": "2930|20",
+        "anchorClock": "7:48",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 62,
+        "assessment": {
+          "label": "EXACT_RANGE_MATCH",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": true,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 62,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      }
+    ],
+    "observedOutsidePreferredRange": [
+      {
+        "sourceId": "2844|8940",
+        "episodeId": "2923|5",
+        "anchorClock": "2:21",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 56,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "flem"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 28,
+          "rangeSupportedObservedPlayers": [
+            "flem"
+          ],
+          "observedOutsideRangePlayers": [
+            "Nacho4Sure"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2756|12117",
+        "episodeId": "2918|8",
+        "anchorClock": "3:10",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "Eriansan",
+          "Snazzy314",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 104,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Snazzy314"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "Snazzy314",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 52,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314"
+          ],
+          "observedOutsideRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2756|16437",
+        "episodeId": "3014|5",
+        "anchorClock": "4:18",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Snazzy314",
+          "viggoth 300",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 111,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Snazzy314",
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 58,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [
+            "viggoth 300"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2844|26021",
+        "episodeId": "3013|12",
+        "anchorClock": "6:48",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 61,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 31,
+          "rangeSupportedObservedPlayers": [
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [
+            "flem"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2758|29669",
+        "episodeId": "2921|20",
+        "anchorClock": "7:45",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "Snazzy314",
+          "viggoth 300",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 124,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "Snazzy314",
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 62,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3281|29682",
+        "episodeId": "3015|14",
+        "anchorClock": "7:45",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure",
+          "Snazzy314",
+          "viggoth 300",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 155,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure",
+            "Snazzy314",
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 62,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [
+            "flem",
+            "Nacho4Sure",
+            "viggoth 300"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2836|29687",
+        "episodeId": "2923|20",
+        "anchorClock": "7:45",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "Eriansan",
+          "Snazzy314",
+          "viggoth 300",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 124,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "Snazzy314",
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 62,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2884|31122",
+        "episodeId": "2919|21",
+        "anchorClock": "8:07",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "Nacho4Sure",
+          "viggoth 300"
+        ],
+        "observedWinnerTeamDelta": 63,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "Nacho4Sure",
+            "viggoth 300"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 62,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [
+            "Nacho4Sure"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2756|35538",
+        "episodeId": "2930|23",
+        "anchorClock": "9:16",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Nacho4Sure",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 60,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Nacho4Sure",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 58,
+          "rangeSupportedObservedPlayers": [
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3050|35920",
+        "episodeId": "2928|23",
+        "anchorClock": "9:22",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354",
+          "renso",
+          "TheWoogler"
+        ],
+        "observedWinnerTeamDelta": 64,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedRecipients": [
+            "blooop354",
+            "renso",
+            "TheWoogler"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 63,
+          "rangeSupportedObservedPlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2891|36834",
+        "episodeId": "3015|18",
+        "anchorClock": "9:37",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354",
+          "Goldinfer"
+        ],
+        "observedWinnerTeamDelta": 117,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "blooop354"
+          ],
+          "observedRecipients": [
+            "blooop354",
+            "Goldinfer"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "blooop354"
+          ],
+          "observedOutsideRangePlayers": [
+            "Goldinfer"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2759|37414",
+        "episodeId": "3013|19",
+        "anchorClock": "9:46",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354",
+          "Nebula"
+        ],
+        "observedWinnerTeamDelta": 91,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "blooop354"
+          ],
+          "observedRecipients": [
+            "blooop354",
+            "Nebula"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "blooop354"
+          ],
+          "observedOutsideRangePlayers": [
+            "Nebula"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2838|38735",
+        "episodeId": "2918|26",
+        "anchorClock": "10:06",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "flem",
+          "Nacho4Sure",
+          "Snazzy314"
+        ],
+        "observedWinnerTeamDelta": 62,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "flem"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "flem",
+            "Nacho4Sure",
+            "Snazzy314"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 59,
+          "rangeSupportedObservedPlayers": [
+            "flem"
+          ],
+          "observedOutsideRangePlayers": [
+            "Eriansan",
+            "Nacho4Sure",
+            "Snazzy314"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3046|40809",
+        "episodeId": "2932|26",
+        "anchorClock": "10:39",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Nebula",
+          "renso",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 60,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Goldinfer",
+            "renso",
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Nebula",
+            "renso",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 3,
+          "rangeSupportedObservedDelta": 45,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "renso",
+            "Zaeleth"
+          ],
+          "observedOutsideRangePlayers": [
+            "Nebula"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2757|41074",
+        "episodeId": "3015|21",
+        "anchorClock": "10:43",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "renso"
+        ],
+        "observedWinnerTeamDelta": 87,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "renso"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 44,
+          "rangeSupportedObservedPlayers": [
+            "renso"
+          ],
+          "observedOutsideRangePlayers": [
+            "Goldinfer"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": [
+            "Zaeleth"
+          ]
+        }
+      },
+      {
+        "sourceId": "2974|42832",
+        "episodeId": "2919|28",
+        "anchorClock": "11:10",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "renso",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 64,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Goldinfer"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "renso",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 60,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2759|42948",
+        "episodeId": "3015|22",
+        "anchorClock": "11:12",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354",
+          "renso",
+          "TheWoogler",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 130,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedRecipients": [
+            "blooop354",
+            "renso",
+            "TheWoogler",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 65,
+          "rangeSupportedObservedPlayers": [
+            "blooop354",
+            "TheWoogler"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3047|43564",
+        "episodeId": "3013|23",
+        "anchorClock": "11:22",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "viggoth 300",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 82,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "viggoth 300"
+          ],
+          "observedRecipients": [
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 60,
+          "rangeSupportedObservedPlayers": [
+            "viggoth 300"
+          ],
+          "observedOutsideRangePlayers": [
+            "Yosafire Worshipper [K]"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2756|44942",
+        "episodeId": "3015|23",
+        "anchorClock": "11:43",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "Nacho4Sure",
+          "Snazzy314"
+        ],
+        "observedWinnerTeamDelta": 64,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Snazzy314"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "Nacho4Sure",
+            "Snazzy314"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 61,
+          "rangeSupportedObservedPlayers": [
+            "Snazzy314"
+          ],
+          "observedOutsideRangePlayers": [
+            "Eriansan",
+            "Nacho4Sure"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2936|48211",
+        "episodeId": "3014|24",
+        "anchorClock": "12:34",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Nebula",
+          "renso",
+          "TheWoogler",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 126,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Goldinfer",
+            "Nebula",
+            "TheWoogler",
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Nebula",
+            "renso",
+            "TheWoogler",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 4,
+          "rangeSupportedObservedDelta": 100,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "Nebula",
+            "TheWoogler",
+            "Zaeleth"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2885|48211",
+        "episodeId": "3015|24",
+        "anchorClock": "12:34",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Nebula",
+          "renso",
+          "TheWoogler",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 126,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Goldinfer",
+            "Nebula",
+            "TheWoogler",
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Nebula",
+            "renso",
+            "TheWoogler",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 4,
+          "rangeSupportedObservedDelta": 100,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "Nebula",
+            "TheWoogler",
+            "Zaeleth"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3018|50156",
+        "episodeId": "2931|31",
+        "anchorClock": "13:05",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 67,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 34,
+          "rangeSupportedObservedPlayers": [
+            "Zaeleth"
+          ],
+          "observedOutsideRangePlayers": [
+            "Goldinfer"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2758|50206",
+        "episodeId": "2930|31",
+        "anchorClock": "13:06",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "flem",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 63,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "flem"
+          ],
+          "observedRecipients": [
+            "flem",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 62,
+          "rangeSupportedObservedPlayers": [
+            "flem"
+          ],
+          "observedOutsideRangePlayers": [
+            "Yosafire Worshipper [K]"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2836|50364",
+        "episodeId": "2918|32",
+        "anchorClock": "13:08",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "flem"
+        ],
+        "observedWinnerTeamDelta": 63,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "flem"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "flem"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 62,
+          "rangeSupportedObservedPlayers": [
+            "flem"
+          ],
+          "observedOutsideRangePlayers": [
+            "Eriansan"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2759|50674",
+        "episodeId": "2928|31",
+        "anchorClock": "13:13",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Nebula",
+          "TheWoogler"
+        ],
+        "observedWinnerTeamDelta": 73,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Nebula"
+          ],
+          "observedRecipients": [
+            "Nebula",
+            "TheWoogler"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 63,
+          "rangeSupportedObservedPlayers": [
+            "Nebula"
+          ],
+          "observedOutsideRangePlayers": [
+            "TheWoogler"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2760|50936",
+        "episodeId": "3014|26",
+        "anchorClock": "13:17",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "Nacho4Sure",
+          "Snazzy314",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 131,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Eriansan",
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "Nacho4Sure",
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 46,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [
+            "Snazzy314",
+            "Yosafire Worshipper [K]"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2885|52002",
+        "episodeId": "2919|33",
+        "anchorClock": "13:34",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354",
+          "Goldinfer",
+          "Nebula",
+          "renso"
+        ],
+        "observedWinnerTeamDelta": 147,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Goldinfer",
+            "Nebula",
+            "renso"
+          ],
+          "observedRecipients": [
+            "blooop354",
+            "Goldinfer",
+            "Nebula",
+            "renso"
+          ],
+          "rangeSupportedObservedRecipients": 3,
+          "rangeSupportedObservedDelta": 69,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "Nebula",
+            "renso"
+          ],
+          "observedOutsideRangePlayers": [
+            "blooop354"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2838|52756",
+        "episodeId": "2924|33",
+        "anchorClock": "13:45",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "Eriansan",
+          "flem",
+          "viggoth 300",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 164,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Eriansan",
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "flem",
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 3,
+          "rangeSupportedObservedDelta": 162,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [
+            "flem"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3047|53445",
+        "episodeId": "2919|34",
+        "anchorClock": "13:56",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "flem"
+        ],
+        "observedWinnerTeamDelta": 64,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "flem"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "flem"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 63,
+          "rangeSupportedObservedPlayers": [
+            "flem"
+          ],
+          "observedOutsideRangePlayers": [
+            "Eriansan"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2758|54074",
+        "episodeId": "2916|34",
+        "anchorClock": "14:06",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "flem",
+          "Nacho4Sure"
+        ],
+        "observedWinnerTeamDelta": 105,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "flem",
+            "Nacho4Sure"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 104,
+          "rangeSupportedObservedPlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [
+            "Eriansan"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2843|54125",
+        "episodeId": "2921|34",
+        "anchorClock": "14:07",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "renso",
+          "TheWoogler"
+        ],
+        "observedWinnerTeamDelta": 83,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Goldinfer",
+            "TheWoogler"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "renso",
+            "TheWoogler"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 73,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer",
+            "TheWoogler"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2949|54396",
+        "episodeId": "2926|34",
+        "anchorClock": "14:11",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "flem",
+          "Nacho4Sure",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 71,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "flem",
+            "Nacho4Sure",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 69,
+          "rangeSupportedObservedPlayers": [
+            "flem",
+            "Nacho4Sure"
+          ],
+          "observedOutsideRangePlayers": [
+            "Eriansan",
+            "Yosafire Worshipper [K]"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "3046|55508",
+        "episodeId": "2928|34",
+        "anchorClock": "14:28",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "renso",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 135,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "renso",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 133,
+          "rangeSupportedObservedPlayers": [
+            "Zaeleth"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2835|55508",
+        "episodeId": "3013|29",
+        "anchorClock": "14:28",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "renso",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 135,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "renso",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 133,
+          "rangeSupportedObservedPlayers": [
+            "Zaeleth"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2759|55824",
+        "episodeId": "3015|29",
+        "anchorClock": "14:33",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "renso",
+          "TheWoogler"
+        ],
+        "observedWinnerTeamDelta": 77,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Goldinfer"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "renso",
+            "TheWoogler"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 36,
+          "rangeSupportedObservedPlayers": [
+            "Goldinfer"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso",
+            "TheWoogler"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2755|56212",
+        "episodeId": "2923|35",
+        "anchorClock": "14:39",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "blooop354",
+          "renso",
+          "TheWoogler"
+        ],
+        "observedWinnerTeamDelta": 69,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "blooop354"
+          ],
+          "observedRecipients": [
+            "blooop354",
+            "renso",
+            "TheWoogler"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 66,
+          "rangeSupportedObservedPlayers": [
+            "blooop354"
+          ],
+          "observedOutsideRangePlayers": [
+            "renso",
+            "TheWoogler"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2837|56514",
+        "episodeId": "2931|35",
+        "anchorClock": "14:44",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "Nebula",
+          "TheWoogler",
+          "Zaeleth"
+        ],
+        "observedWinnerTeamDelta": 136,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Nebula"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "Nebula",
+            "TheWoogler",
+            "Zaeleth"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 24,
+          "rangeSupportedObservedPlayers": [
+            "Nebula"
+          ],
+          "observedOutsideRangePlayers": [
+            "Goldinfer",
+            "TheWoogler",
+            "Zaeleth"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2836|57598",
+        "episodeId": "3014|30",
+        "anchorClock": "15:01",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Eriansan",
+          "flem",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 71,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Eriansan",
+            "flem"
+          ],
+          "observedRecipients": [
+            "Eriansan",
+            "flem",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 70,
+          "rangeSupportedObservedPlayers": [
+            "Eriansan",
+            "flem"
+          ],
+          "observedOutsideRangePlayers": [
+            "Yosafire Worshipper [K]"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2760|57747",
+        "episodeId": "2926|36",
+        "anchorClock": "15:03",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "Nacho4Sure",
+          "viggoth 300",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 212,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Nacho4Sure",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Nacho4Sure",
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 143,
+          "rangeSupportedObservedPlayers": [
+            "Nacho4Sure",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [
+            "viggoth 300"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      },
+      {
+        "sourceId": "2838|57747",
+        "episodeId": "3015|30",
+        "anchorClock": "15:03",
+        "winnerTeam": 2,
+        "collisionWithin8Ticks": true,
+        "observedRecipientNames": [
+          "Nacho4Sure",
+          "viggoth 300",
+          "Yosafire Worshipper [K]"
+        ],
+        "observedWinnerTeamDelta": 212,
+        "assessment": {
+          "label": "COLLISION_AFFECTED_RANGE_SUPPORT",
+          "preferredGeometryMoment": "death",
+          "collisionFree": false,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "Nacho4Sure",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedRecipients": [
+            "Nacho4Sure",
+            "viggoth 300",
+            "Yosafire Worshipper [K]"
+          ],
+          "rangeSupportedObservedRecipients": 2,
+          "rangeSupportedObservedDelta": 143,
+          "rangeSupportedObservedPlayers": [
+            "Nacho4Sure",
+            "Yosafire Worshipper [K]"
+          ],
+          "observedOutsideRangePlayers": [
+            "viggoth 300"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": []
+        }
+      }
+    ],
+    "inRangeWithoutObservedDelta": [
+      {
+        "sourceId": "2757|41074",
+        "episodeId": "3015|21",
+        "anchorClock": "10:43",
+        "winnerTeam": 3,
+        "collisionWithin8Ticks": false,
+        "observedRecipientNames": [
+          "Goldinfer",
+          "renso"
+        ],
+        "observedWinnerTeamDelta": 87,
+        "assessment": {
+          "label": "OBSERVED_OUTSIDE_RANGE",
+          "preferredGeometryMoment": "death",
+          "collisionFree": true,
+          "exactObservedSetEqualsRangeSet": false,
+          "inRangePlayers": [
+            "renso",
+            "Zaeleth"
+          ],
+          "observedRecipients": [
+            "Goldinfer",
+            "renso"
+          ],
+          "rangeSupportedObservedRecipients": 1,
+          "rangeSupportedObservedDelta": 44,
+          "rangeSupportedObservedPlayers": [
+            "renso"
+          ],
+          "observedOutsideRangePlayers": [
+            "Goldinfer"
+          ],
+          "inRangeWithoutObservedDeltaPlayers": [
+            "Zaeleth"
+          ]
+        }
+      }
+    ],
+    "missingDeathKeys": []
+  },
+  "validation": {
+    "pass": false,
+    "checks": {
+      "script65Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "autoAwardCountPreserved": {
+        "actual": 1092,
+        "expected": 1092,
+        "pass": true
+      },
+      "everyAutoAwardJoinedToDeath": {
+        "actual": 1092,
+        "expected": 1092,
+        "pass": true
+      },
+      "everyAutoAwardHasWinnerTeamDelta": {
+        "actual": 1092,
+        "expected": 1092,
+        "pass": true
+      },
+      "playerPositionCoverage": {
+        "actual": 0.8208180708180708,
+        "expected": ">=0.95",
+        "pass": false
+      },
+      "outputsAccountForEveryPlayer": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      }
+    },
+    "geometryConclusionPass": false
+  },
+  "nextStep": "Inspect the geometry mismatch examples before publishing per-player automatic-orb counts."
+}

@@ -1,0 +1,531 @@
+{
+  "replay": "test",
+  "version": "BREAKABLE_REWARD_ACQUISITION_V1",
+  "canonical": true,
+  "scope": "REWARD_ACQUISITION_ONLY",
+  "importantDistinctions": {
+    "break": "Breakable destruction event.",
+    "rewardSpawn": "Successful crate/statue reward roll creates a physical pickup.",
+    "collection": "Physical pickup disappears before natural lifetime while exactly one player is within calibrated collection geometry.",
+    "expiration": "Pickup reaches its exact natural lifetime and disappears without collection attribution.",
+    "breakerNotCollector": "Breaker identity and collector identity are stored independently."
+  },
+  "constants": {
+    "cratePickupLifetimeSeconds": 300,
+    "statuePickupLifetimeSeconds": 30,
+    "expiryToleranceSeconds": 0.046875,
+    "collectorDistance3D": 128,
+    "collectorDistanceInterpretation": "Replay-calibrated pawn-center to pickup-coordinate distance; not asserted to equal the literal game collision radius."
+  },
+  "counts": {
+    "totalRewards": 726,
+    "crateSoulRewards": 587,
+    "statueModifierRewards": 139,
+    "collectedHighConfidence": 428,
+    "expiredUncollected": 139,
+    "ambiguousMultiplePlayers": 2,
+    "earlyDeactivationNoClosePlayer": 4,
+    "rightCensored": 48,
+    "unresolvedLifecycle": 105
+  },
+  "byRewardType": {
+    "SOULS": {
+      "total": 587,
+      "COLLECTED_HIGH_CONFIDENCE": 362,
+      "LIFECYCLE_UNRESOLVED": 73,
+      "EXPIRED_UNCOLLECTED": 101,
+      "EARLY_DEACTIVATION_UNRESOLVED": 3,
+      "RIGHT_CENSORED": 48
+    },
+    "PERMANENT_MODIFIER": {
+      "total": 139,
+      "LIFECYCLE_UNRESOLVED": 32,
+      "COLLECTED_HIGH_CONFIDENCE": 66,
+      "EXPIRED_UNCOLLECTED": 38,
+      "EARLY_DEACTIVATION_UNRESOLVED": 1,
+      "AMBIGUOUS_MULTIPLE_PLAYERS": 2
+    }
+  },
+  "value": {
+    "confirmedCrateSoulPickups": 362,
+    "confirmedCrateSoulsAcquired": 25983,
+    "expiredCrateSoulPickups": 101,
+    "expiredCrateSoulValue": 8875,
+    "confirmedStatueBuffPickups": 66,
+    "expiredStatueBuffPickups": 38
+  },
+  "breakerCollector": {
+    "collectedRewardsWithKnownBreaker": 278,
+    "sameBreakerCollector": 263,
+    "differentBreakerCollector": 15,
+    "sameRate": 0.9460431654676259,
+    "differentRate": 0.0539568345323741,
+    "examples": [
+      {
+        "breakKey": "751|15113",
+        "rewardType": "SOULS",
+        "breaker": "viggoth 300",
+        "collector": "Eriansan",
+        "pickupDelaySeconds": 0.796875,
+        "collectorDistance3D": 109.57168921817807,
+        "goldReward": 31,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "871|41263",
+        "rewardType": "SOULS",
+        "breaker": "Nebula",
+        "collector": "Goldinfer",
+        "pickupDelaySeconds": 2.921875,
+        "collectorDistance3D": 103.82167434344605,
+        "goldReward": 45,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "778|68329",
+        "rewardType": "SOULS",
+        "breaker": "Snazzy314",
+        "collector": "Nebula",
+        "pickupDelaySeconds": 1.171875,
+        "collectorDistance3D": 109.56155184451399,
+        "goldReward": 59,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "956|68433",
+        "rewardType": "SOULS",
+        "breaker": "Nebula",
+        "collector": "Goldinfer",
+        "pickupDelaySeconds": 13.234375,
+        "collectorDistance3D": 106.95593152818829,
+        "goldReward": 59,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "953|68579",
+        "rewardType": "SOULS",
+        "breaker": "Snazzy314",
+        "collector": "renso",
+        "pickupDelaySeconds": 10.65625,
+        "collectorDistance3D": 100.21602711370124,
+        "goldReward": 59,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "1355|93273",
+        "rewardType": "SOULS",
+        "breaker": "blooop354",
+        "collector": "Nebula",
+        "pickupDelaySeconds": 266.4375,
+        "collectorDistance3D": 104.47437702330049,
+        "goldReward": 72,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "708|93920",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "renso",
+        "pickupDelaySeconds": 246.21875,
+        "collectorDistance3D": 105.69724048776541,
+        "goldReward": 72,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "870|114651",
+        "rewardType": "SOULS",
+        "breaker": "blooop354",
+        "collector": "Nebula",
+        "pickupDelaySeconds": 1.890625,
+        "collectorDistance3D": 95.00406132097969,
+        "goldReward": 83,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "1089|130135",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "Eriansan",
+        "pickupDelaySeconds": 4.21875,
+        "collectorDistance3D": 105.18015274979736,
+        "goldReward": 91,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "866|138903",
+        "rewardType": "SOULS",
+        "breaker": "viggoth 300",
+        "collector": "Zaeleth",
+        "pickupDelaySeconds": 207.359375,
+        "collectorDistance3D": 106.3842988841505,
+        "goldReward": 96,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "869|154648",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "Yosafire Worshipper [K]",
+        "pickupDelaySeconds": 201.734375,
+        "collectorDistance3D": 99.44893869607598,
+        "goldReward": 104,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "1077|162695",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "Eriansan",
+        "pickupDelaySeconds": 27.671875,
+        "collectorDistance3D": 98.81520581627453,
+        "goldReward": 108,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "1094|172521",
+        "rewardType": "SOULS",
+        "breaker": "flem",
+        "collector": "Eriansan",
+        "pickupDelaySeconds": 54.171875,
+        "collectorDistance3D": 105.8165379771643,
+        "goldReward": 113,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "1271|172736",
+        "rewardType": "SOULS",
+        "breaker": "Nacho4Sure",
+        "collector": "Eriansan",
+        "pickupDelaySeconds": 51.890625,
+        "collectorDistance3D": 101.94647517824994,
+        "goldReward": 114,
+        "modifierSubclassId": null
+      },
+      {
+        "breakKey": "1245|174719",
+        "rewardType": "SOULS",
+        "breaker": "Snazzy314",
+        "collector": "Nebula",
+        "pickupDelaySeconds": 9.171875,
+        "collectorDistance3D": 103.30780118305839,
+        "goldReward": 115,
+        "modifierSubclassId": null
+      }
+    ]
+  },
+  "confirmedCollectionGeometry": {
+    "distance3D": {
+      "count": 428,
+      "min": 84.47225950502929,
+      "p10": 98.42602989471493,
+      "p25": 100.40746860109402,
+      "median": 103.45656712971697,
+      "p75": 106.35265009267691,
+      "p90": 109.20255024037104,
+      "p95": 110.68995660179274,
+      "max": 124.54518043017075,
+      "mean": 103.57596491144304
+    },
+    "delaySeconds": {
+      "count": 428,
+      "min": 0.015625,
+      "p10": 0.03125,
+      "p25": 0.0625,
+      "median": 0.171875,
+      "p75": 1.1015625,
+      "p90": 8.625000000000009,
+      "p95": 21.202343749999955,
+      "max": 281.21875,
+      "mean": 7.16614339953271
+    },
+    "crateDelaySeconds": {
+      "count": 362,
+      "min": 0.015625,
+      "p10": 0.046875,
+      "p25": 0.0625,
+      "median": 0.171875,
+      "p75": 1.0859375,
+      "p90": 10.589062500000022,
+      "p95": 27.559374999999974,
+      "max": 281.21875,
+      "mean": 8.152365331491712
+    },
+    "statueDelaySeconds": {
+      "count": 66,
+      "min": 0.015625,
+      "p10": 0.0234375,
+      "p25": 0.046875,
+      "median": 0.1328125,
+      "p75": 1.16015625,
+      "p90": 4.78125,
+      "p95": 12.5859375,
+      "max": 16.3125,
+      "mean": 1.7568655303030303
+    }
+  },
+  "thresholdDiagnostics": [
+    {
+      "threshold": 96,
+      "eligibleEarlyDeactivations": 434,
+      "unique": 19,
+      "multiple": 1,
+      "none": 414
+    },
+    {
+      "threshold": 112,
+      "eligibleEarlyDeactivations": 434,
+      "unique": 415,
+      "multiple": 1,
+      "none": 18
+    },
+    {
+      "threshold": 128,
+      "eligibleEarlyDeactivations": 434,
+      "unique": 428,
+      "multiple": 2,
+      "none": 4
+    },
+    {
+      "threshold": 144,
+      "eligibleEarlyDeactivations": 434,
+      "unique": 428,
+      "multiple": 3,
+      "none": 3
+    },
+    {
+      "threshold": 160,
+      "eligibleEarlyDeactivations": 434,
+      "unique": 427,
+      "multiple": 4,
+      "none": 3
+    }
+  ],
+  "collectors": [
+    {
+      "playerName": "Yosafire Worshipper [K]",
+      "totalRewardsCollected": 70,
+      "crateSoulPickups": 56,
+      "crateSoulsAcquired": 4131,
+      "statueBuffPickups": 14,
+      "modifierSubclassCounts": {
+        "639567848": 1,
+        "1182568511": 2,
+        "1470635657": 1,
+        "1683824683": 2,
+        "1937950387": 1,
+        "2026620961": 1,
+        "2496153953": 1,
+        "2778554071": 1,
+        "3447178839": 2,
+        "4180897498": 2
+      },
+      "collectedOwnBreakReward": 38,
+      "collectedOtherPlayersBreakReward": 1
+    },
+    {
+      "playerName": "viggoth 300",
+      "totalRewardsCollected": 58,
+      "crateSoulPickups": 49,
+      "crateSoulsAcquired": 3560,
+      "statueBuffPickups": 9,
+      "modifierSubclassCounts": {
+        "540531328": 1,
+        "755268683": 2,
+        "1182568511": 3,
+        "1683824683": 1,
+        "2833086415": 1,
+        "3039784139": 1
+      },
+      "collectedOwnBreakReward": 46,
+      "collectedOtherPlayersBreakReward": 0
+    },
+    {
+      "playerName": "Snazzy314",
+      "totalRewardsCollected": 57,
+      "crateSoulPickups": 52,
+      "crateSoulsAcquired": 3772,
+      "statueBuffPickups": 5,
+      "modifierSubclassCounts": {
+        "639567848": 1,
+        "1470635657": 1,
+        "1937950387": 1,
+        "2778554071": 1,
+        "2848399878": 1
+      },
+      "collectedOwnBreakReward": 28,
+      "collectedOtherPlayersBreakReward": 0
+    },
+    {
+      "playerName": "Nebula",
+      "totalRewardsCollected": 36,
+      "crateSoulPickups": 30,
+      "crateSoulsAcquired": 2557,
+      "statueBuffPickups": 6,
+      "modifierSubclassCounts": {
+        "755268683": 1,
+        "1182568511": 1,
+        "1937950387": 2,
+        "2833086415": 2
+      },
+      "collectedOwnBreakReward": 18,
+      "collectedOtherPlayersBreakReward": 4
+    },
+    {
+      "playerName": "Eriansan",
+      "totalRewardsCollected": 35,
+      "crateSoulPickups": 34,
+      "crateSoulsAcquired": 2396,
+      "statueBuffPickups": 1,
+      "modifierSubclassCounts": {
+        "1683824683": 1
+      },
+      "collectedOwnBreakReward": 22,
+      "collectedOtherPlayersBreakReward": 5
+    },
+    {
+      "playerName": "Goldinfer",
+      "totalRewardsCollected": 33,
+      "crateSoulPickups": 30,
+      "crateSoulsAcquired": 1866,
+      "statueBuffPickups": 3,
+      "modifierSubclassCounts": {
+        "1937950387": 1,
+        "2848399878": 1,
+        "4180897498": 1
+      },
+      "collectedOwnBreakReward": 28,
+      "collectedOtherPlayersBreakReward": 2
+    },
+    {
+      "playerName": "renso",
+      "totalRewardsCollected": 33,
+      "crateSoulPickups": 30,
+      "crateSoulsAcquired": 2006,
+      "statueBuffPickups": 3,
+      "modifierSubclassCounts": {
+        "2833086415": 1,
+        "3447178839": 1,
+        "4180897498": 1
+      },
+      "collectedOwnBreakReward": 25,
+      "collectedOtherPlayersBreakReward": 2
+    },
+    {
+      "playerName": "Nacho4Sure",
+      "totalRewardsCollected": 29,
+      "crateSoulPickups": 21,
+      "crateSoulsAcquired": 1509,
+      "statueBuffPickups": 8,
+      "modifierSubclassCounts": {
+        "1182568511": 1,
+        "1937950387": 2,
+        "2026620961": 1,
+        "2833086415": 1,
+        "3447178839": 1,
+        "4180897498": 2
+      },
+      "collectedOwnBreakReward": 12,
+      "collectedOtherPlayersBreakReward": 0
+    },
+    {
+      "playerName": "blooop354",
+      "totalRewardsCollected": 27,
+      "crateSoulPickups": 21,
+      "crateSoulsAcquired": 1434,
+      "statueBuffPickups": 6,
+      "modifierSubclassCounts": {
+        "1470635657": 1,
+        "1937950387": 1,
+        "2496153953": 1,
+        "2778554071": 1,
+        "3039784139": 1,
+        "3282445765": 1
+      },
+      "collectedOwnBreakReward": 15,
+      "collectedOtherPlayersBreakReward": 0
+    },
+    {
+      "playerName": "flem",
+      "totalRewardsCollected": 25,
+      "crateSoulPickups": 16,
+      "crateSoulsAcquired": 1044,
+      "statueBuffPickups": 9,
+      "modifierSubclassCounts": {
+        "540531328": 1,
+        "755268683": 1,
+        "1182568511": 1,
+        "1937950387": 1,
+        "2778554071": 1,
+        "2848399878": 1,
+        "3447178839": 1,
+        "4180897498": 2
+      },
+      "collectedOwnBreakReward": 16,
+      "collectedOtherPlayersBreakReward": 0
+    },
+    {
+      "playerName": "TheWoogler",
+      "totalRewardsCollected": 13,
+      "crateSoulPickups": 12,
+      "crateSoulsAcquired": 915,
+      "statueBuffPickups": 1,
+      "modifierSubclassCounts": {
+        "1683824683": 1
+      },
+      "collectedOwnBreakReward": 10,
+      "collectedOtherPlayersBreakReward": 0
+    },
+    {
+      "playerName": "Zaeleth",
+      "totalRewardsCollected": 12,
+      "crateSoulPickups": 11,
+      "crateSoulsAcquired": 793,
+      "statueBuffPickups": 1,
+      "modifierSubclassCounts": {
+        "1683824683": 1
+      },
+      "collectedOwnBreakReward": 5,
+      "collectedOtherPlayersBreakReward": 1
+    }
+  ],
+  "validation": {
+    "pass": true,
+    "checks": {
+      "sourceRewardCount": {
+        "actual": 726,
+        "expected": 726,
+        "pass": true
+      },
+      "crateRewardCount": {
+        "actual": 587,
+        "expected": 587,
+        "pass": true
+      },
+      "statueRewardCount": {
+        "actual": 139,
+        "expected": 139,
+        "pass": true
+      },
+      "allRowsClassified": {
+        "actual": 726,
+        "expected": 726,
+        "pass": true
+      },
+      "highConfidenceCollectorsProduced": {
+        "actual": 428,
+        "expected": ">0",
+        "pass": true
+      },
+      "expirationsDetected": {
+        "actual": 139,
+        "expected": ">0",
+        "pass": true
+      },
+      "collectorThreshold": {
+        "actual": 128,
+        "expected": 128,
+        "pass": true
+      }
+    }
+  }
+}

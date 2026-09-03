@@ -1,0 +1,2313 @@
+{
+  "replay": "test",
+  "version": "CITEMXP_RACE_RESOLUTION_VALIDATION_V01",
+  "canonical": false,
+  "status": "RACE_AND_SEMANTICS_REVIEW_COMPLETE",
+  "correctionToScript61": {
+    "urnSemantics": {
+      "issue": "Script 61 reversed Soul Urn claim/deny semantics.",
+      "correctedRule": "For validated Urn payout orbs, SAME_ORB_TEAM => CLAIM and OPPOSING_ORB_TEAM => DENY."
+    },
+    "firstHitSemantics": {
+      "issue": "Script 61 used first player damage as the final outcome without quantifying multi-hit and mixed-team races.",
+      "correctedRule": "Single-team shot episodes receive a high-confidence side outcome. Mixed-team episodes remain FIRST_HIT_PROVISIONAL until resolution timing confirms the winner."
+    }
+  },
+  "counts": {
+    "targets": 1239,
+    "trooperTargets": 1169,
+    "urnTargets": 70,
+    "shotEpisodes": 105,
+    "noShotEpisodes": 1134,
+    "multiMessageEpisodes": 15,
+    "multiPlayerEpisodes": 6,
+    "mixedTeamEpisodes": 5,
+    "singleTeamShotEpisodes": 100
+  },
+  "raceDiagnostics": {
+    "playerDamageMessagesPerShotEpisode": {
+      "count": 105,
+      "min": 1,
+      "p10": 1,
+      "p25": 1,
+      "median": 1,
+      "p75": 1,
+      "p90": 2,
+      "max": 3,
+      "mean": 1.1714285714285715
+    },
+    "multiMessageHitSpanSeconds": {
+      "count": 15,
+      "min": 0,
+      "p10": 0.018750000000000006,
+      "p25": 0.0625,
+      "median": 0.0625,
+      "p75": 0.078125,
+      "p90": 0.09375,
+      "max": 0.125,
+      "mean": 0.065625
+    },
+    "mixedTeamHitSpanSeconds": {
+      "count": 5,
+      "min": 0,
+      "p10": 0.018750000000000003,
+      "p25": 0.046875,
+      "median": 0.0625,
+      "p75": 0.078125,
+      "p90": 0.0875,
+      "max": 0.09375,
+      "mean": 0.05625
+    },
+    "mixedTeamRateAmongShotEpisodes": 0.047619047619047616,
+    "firstHitInterpretation": "MIXED_TEAM_RACES_EXIST_BUT_ARE_TIGHTLY_CLUSTERED_FIRST_HIT_IS_PLAUSIBLE_NOT_YET_CANONICAL",
+    "mixedTeamExamples": [
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2759|6057",
+        "episodeId": "2928|2",
+        "entityIndex": 2928,
+        "orbTeam": 2,
+        "startClock": "1:04",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_SECURE",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 3,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 6107,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 8
+          },
+          "lastHit": {
+            "tick": 6111,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 79,
+            "attackerPlayer": {
+              "playerName": "flem",
+              "team": 2,
+              "heroId": 1,
+              "pawnEntityIndex": 79
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 12
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "SAME_ORB_TEAM",
+          "hitSpanTicks": 4,
+          "hitSpanSeconds": 0.0625,
+          "orderedHits": [
+            {
+              "tick": 6107,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 8
+            },
+            {
+              "tick": 6111,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 12
+            },
+            {
+              "tick": 6111,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 79,
+              "attackerPlayer": {
+                "playerName": "flem",
+                "team": 2,
+                "heroId": 1,
+                "pawnEntityIndex": 79
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 12
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 6112,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 2,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2974|10426",
+        "episodeId": "2921|6",
+        "entityIndex": 2921,
+        "orbTeam": 2,
+        "startClock": "2:12",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_DENY",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 10473,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 89,
+            "attackerPlayer": {
+              "playerName": "Yosafire Worshipper [K]",
+              "team": 2,
+              "heroId": 50,
+              "pawnEntityIndex": 89
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 5
+          },
+          "lastHit": {
+            "tick": 10479,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 87,
+            "attackerPlayer": {
+              "playerName": "Nebula",
+              "team": 3,
+              "heroId": 25,
+              "pawnEntityIndex": 87
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 11
+          },
+          "firstRelationToOrbTeam": "SAME_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 6,
+          "hitSpanSeconds": 0.09375,
+          "orderedHits": [
+            {
+              "tick": 10473,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 89,
+              "attackerPlayer": {
+                "playerName": "Yosafire Worshipper [K]",
+                "team": 2,
+                "heroId": 50,
+                "pawnEntityIndex": 89
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 5
+            },
+            {
+              "tick": 10479,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 87,
+              "attackerPlayer": {
+                "playerName": "Nebula",
+                "team": 3,
+                "heroId": 25,
+                "pawnEntityIndex": 87
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 11
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 10482,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 6,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2760|10624",
+        "episodeId": "2924|6",
+        "entityIndex": 2924,
+        "orbTeam": 3,
+        "startClock": "2:16",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_SECURE",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 3,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 10671,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 78,
+            "attackerPlayer": {
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "pawnEntityIndex": 78
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 5
+          },
+          "lastHit": {
+            "tick": 10676,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 78,
+            "attackerPlayer": {
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "pawnEntityIndex": 78
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 10
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 5,
+          "hitSpanSeconds": 0.078125,
+          "orderedHits": [
+            {
+              "tick": 10671,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 78,
+              "attackerPlayer": {
+                "playerName": "Nacho4Sure",
+                "team": 2,
+                "heroId": 2,
+                "pawnEntityIndex": 78
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 5
+            },
+            {
+              "tick": 10673,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 7
+            },
+            {
+              "tick": 10676,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 78,
+              "attackerPlayer": {
+                "playerName": "Nacho4Sure",
+                "team": 2,
+                "heroId": 2,
+                "pawnEntityIndex": 78
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 10
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 10676,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 3,
+          "ownerEntity": 16777215,
+          "launchNum": 6,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2756|19603",
+        "episodeId": "2916|13",
+        "entityIndex": 2916,
+        "orbTeam": 3,
+        "startClock": "4:36",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_DENY",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 19660,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 87,
+            "attackerPlayer": {
+              "playerName": "Nebula",
+              "team": 3,
+              "heroId": 25,
+              "pawnEntityIndex": 87
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 15
+          },
+          "lastHit": {
+            "tick": 19663,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 89,
+            "attackerPlayer": {
+              "playerName": "Yosafire Worshipper [K]",
+              "team": 2,
+              "heroId": 50,
+              "pawnEntityIndex": 89
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 18
+          },
+          "firstRelationToOrbTeam": "SAME_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 3,
+          "hitSpanSeconds": 0.046875,
+          "orderedHits": [
+            {
+              "tick": 19660,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 87,
+              "attackerPlayer": {
+                "playerName": "Nebula",
+                "team": 3,
+                "heroId": 25,
+                "pawnEntityIndex": 87
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 15
+            },
+            {
+              "tick": 19663,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 89,
+              "attackerPlayer": {
+                "playerName": "Yosafire Worshipper [K]",
+                "team": 2,
+                "heroId": 50,
+                "pawnEntityIndex": 89
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 18
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 19666,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 3,
+          "ownerEntity": 16777215,
+          "launchNum": 13,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2974|80486",
+        "episodeId": "2916|50",
+        "entityIndex": 2916,
+        "orbTeam": 2,
+        "startClock": "20:27",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_SECURE",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 80539,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 84,
+            "attackerPlayer": {
+              "playerName": "Zaeleth",
+              "team": 3,
+              "heroId": 77,
+              "pawnEntityIndex": 84
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 11
+          },
+          "lastHit": {
+            "tick": 80539,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 90,
+            "attackerPlayer": {
+              "playerName": "Snazzy314",
+              "team": 2,
+              "heroId": 4,
+              "pawnEntityIndex": 90
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 11
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "SAME_ORB_TEAM",
+          "hitSpanTicks": 0,
+          "hitSpanSeconds": 0,
+          "orderedHits": [
+            {
+              "tick": 80539,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 84,
+              "attackerPlayer": {
+                "playerName": "Zaeleth",
+                "team": 3,
+                "heroId": 77,
+                "pawnEntityIndex": 84
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 11
+            },
+            {
+              "tick": 80539,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 90,
+              "attackerPlayer": {
+                "playerName": "Snazzy314",
+                "team": 2,
+                "heroId": 4,
+                "pawnEntityIndex": 90
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 11
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 80543,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 50,
+          "subclassId": "494398941"
+        }
+      }
+    ],
+    "multipleHitExamples": [
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2759|6057",
+        "episodeId": "2928|2",
+        "entityIndex": 2928,
+        "orbTeam": 2,
+        "startClock": "1:04",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_SECURE",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 3,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 6107,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 8
+          },
+          "lastHit": {
+            "tick": 6111,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 79,
+            "attackerPlayer": {
+              "playerName": "flem",
+              "team": 2,
+              "heroId": 1,
+              "pawnEntityIndex": 79
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 12
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "SAME_ORB_TEAM",
+          "hitSpanTicks": 4,
+          "hitSpanSeconds": 0.0625,
+          "orderedHits": [
+            {
+              "tick": 6107,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 8
+            },
+            {
+              "tick": 6111,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 12
+            },
+            {
+              "tick": 6111,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 79,
+              "attackerPlayer": {
+                "playerName": "flem",
+                "team": 2,
+                "heroId": 1,
+                "pawnEntityIndex": 79
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 12
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 6112,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 2,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2936|6963",
+        "episodeId": "2930|3",
+        "entityIndex": 2930,
+        "orbTeam": 2,
+        "startClock": "1:18",
+        "correctedOutcome": {
+          "label": "SECURE",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 1,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 7013,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 8
+          },
+          "lastHit": {
+            "tick": 7017,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 12
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 4,
+          "hitSpanSeconds": 0.0625,
+          "orderedHits": [
+            {
+              "tick": 7013,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 8
+            },
+            {
+              "tick": 7017,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 12
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 7018,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 3,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2952|9841",
+        "episodeId": "2932|5",
+        "entityIndex": 2932,
+        "orbTeam": 3,
+        "startClock": "2:03",
+        "correctedOutcome": {
+          "label": "DENY",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 3,
+          "distinctPlayers": 1,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 9892,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 9
+          },
+          "lastHit": {
+            "tick": 9900,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 17
+          },
+          "firstRelationToOrbTeam": "SAME_ORB_TEAM",
+          "lastRelationToOrbTeam": "SAME_ORB_TEAM",
+          "hitSpanTicks": 8,
+          "hitSpanSeconds": 0.125,
+          "orderedHits": [
+            {
+              "tick": 9892,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 9
+            },
+            {
+              "tick": 9896,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 13
+            },
+            {
+              "tick": 9900,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 17
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 9900,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 3,
+          "ownerEntity": 16777215,
+          "launchNum": 5,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2974|10426",
+        "episodeId": "2921|6",
+        "entityIndex": 2921,
+        "orbTeam": 2,
+        "startClock": "2:12",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_DENY",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 10473,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 89,
+            "attackerPlayer": {
+              "playerName": "Yosafire Worshipper [K]",
+              "team": 2,
+              "heroId": 50,
+              "pawnEntityIndex": 89
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 5
+          },
+          "lastHit": {
+            "tick": 10479,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 87,
+            "attackerPlayer": {
+              "playerName": "Nebula",
+              "team": 3,
+              "heroId": 25,
+              "pawnEntityIndex": 87
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 11
+          },
+          "firstRelationToOrbTeam": "SAME_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 6,
+          "hitSpanSeconds": 0.09375,
+          "orderedHits": [
+            {
+              "tick": 10473,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 89,
+              "attackerPlayer": {
+                "playerName": "Yosafire Worshipper [K]",
+                "team": 2,
+                "heroId": 50,
+                "pawnEntityIndex": 89
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 5
+            },
+            {
+              "tick": 10479,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 87,
+              "attackerPlayer": {
+                "playerName": "Nebula",
+                "team": 3,
+                "heroId": 25,
+                "pawnEntityIndex": 87
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 11
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 10482,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 6,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2760|10624",
+        "episodeId": "2924|6",
+        "entityIndex": 2924,
+        "orbTeam": 3,
+        "startClock": "2:16",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_SECURE",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 3,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 10671,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 78,
+            "attackerPlayer": {
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "pawnEntityIndex": 78
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 5
+          },
+          "lastHit": {
+            "tick": 10676,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 78,
+            "attackerPlayer": {
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "pawnEntityIndex": 78
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 10
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 5,
+          "hitSpanSeconds": 0.078125,
+          "orderedHits": [
+            {
+              "tick": 10671,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 78,
+              "attackerPlayer": {
+                "playerName": "Nacho4Sure",
+                "team": 2,
+                "heroId": 2,
+                "pawnEntityIndex": 78
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 5
+            },
+            {
+              "tick": 10673,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 7
+            },
+            {
+              "tick": 10676,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 78,
+              "attackerPlayer": {
+                "playerName": "Nacho4Sure",
+                "team": 2,
+                "heroId": 2,
+                "pawnEntityIndex": 78
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 10
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 10676,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 3,
+          "ownerEntity": 16777215,
+          "launchNum": 6,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2936|11844",
+        "episodeId": "2924|7",
+        "entityIndex": 2924,
+        "orbTeam": 2,
+        "startClock": "2:35",
+        "correctedOutcome": {
+          "label": "SECURE",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 1,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 11895,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 9
+          },
+          "lastHit": {
+            "tick": 11899,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 13
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 4,
+          "hitSpanSeconds": 0.0625,
+          "orderedHits": [
+            {
+              "tick": 11895,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 9
+            },
+            {
+              "tick": 11899,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 13
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 11899,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 7,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2952|14580",
+        "episodeId": "2930|9",
+        "entityIndex": 2930,
+        "orbTeam": 3,
+        "startClock": "3:17",
+        "correctedOutcome": {
+          "label": "DENY",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 1,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 14630,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 8
+          },
+          "lastHit": {
+            "tick": 14634,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 12
+          },
+          "firstRelationToOrbTeam": "SAME_ORB_TEAM",
+          "lastRelationToOrbTeam": "SAME_ORB_TEAM",
+          "hitSpanTicks": 4,
+          "hitSpanSeconds": 0.0625,
+          "orderedHits": [
+            {
+              "tick": 14630,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 8
+            },
+            {
+              "tick": 14634,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 12
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 14638,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 3,
+          "ownerEntity": 16777215,
+          "launchNum": 9,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2759|16237",
+        "episodeId": "2932|10",
+        "entityIndex": 2932,
+        "orbTeam": 2,
+        "startClock": "3:43",
+        "correctedOutcome": {
+          "label": "SECURE",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 1,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 16288,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 9
+          },
+          "lastHit": {
+            "tick": 16292,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 81,
+            "attackerPlayer": {
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "pawnEntityIndex": 81
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 13
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 4,
+          "hitSpanSeconds": 0.0625,
+          "orderedHits": [
+            {
+              "tick": 16288,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 9
+            },
+            {
+              "tick": 16292,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 81,
+              "attackerPlayer": {
+                "playerName": "blooop354",
+                "team": 3,
+                "heroId": 58,
+                "pawnEntityIndex": 81
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 13
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 16292,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 10,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2757|16560",
+        "episodeId": "2923|11",
+        "entityIndex": 2923,
+        "orbTeam": 2,
+        "startClock": "3:48",
+        "correctedOutcome": {
+          "label": "SECURE",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 1,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 16613,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 86,
+            "attackerPlayer": {
+              "playerName": "renso",
+              "team": 3,
+              "heroId": 31,
+              "pawnEntityIndex": 86
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 11
+          },
+          "lastHit": {
+            "tick": 16618,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 86,
+            "attackerPlayer": {
+              "playerName": "renso",
+              "team": 3,
+              "heroId": 31,
+              "pawnEntityIndex": 86
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 16
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 5,
+          "hitSpanSeconds": 0.078125,
+          "orderedHits": [
+            {
+              "tick": 16613,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 86,
+              "attackerPlayer": {
+                "playerName": "renso",
+                "team": 3,
+                "heroId": 31,
+                "pawnEntityIndex": 86
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 11
+            },
+            {
+              "tick": 16618,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 86,
+              "attackerPlayer": {
+                "playerName": "renso",
+                "team": 3,
+                "heroId": 31,
+                "pawnEntityIndex": 86
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 16
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 16618,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 11,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2760|17541",
+        "episodeId": "2931|11",
+        "entityIndex": 2931,
+        "orbTeam": 3,
+        "startClock": "4:04",
+        "correctedOutcome": {
+          "label": "SECURE",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 1,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 17600,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 78,
+            "attackerPlayer": {
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "pawnEntityIndex": 78
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 17
+          },
+          "lastHit": {
+            "tick": 17605,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 78,
+            "attackerPlayer": {
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "pawnEntityIndex": 78
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 22
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 5,
+          "hitSpanSeconds": 0.078125,
+          "orderedHits": [
+            {
+              "tick": 17600,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 78,
+              "attackerPlayer": {
+                "playerName": "Nacho4Sure",
+                "team": 2,
+                "heroId": 2,
+                "pawnEntityIndex": 78
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 17
+            },
+            {
+              "tick": 17605,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 78,
+              "attackerPlayer": {
+                "playerName": "Nacho4Sure",
+                "team": 2,
+                "heroId": 2,
+                "pawnEntityIndex": 78
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 22
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 17605,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 3,
+          "ownerEntity": 16777215,
+          "launchNum": 11,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2756|19603",
+        "episodeId": "2916|13",
+        "entityIndex": 2916,
+        "orbTeam": 3,
+        "startClock": "4:36",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_DENY",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 19660,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 87,
+            "attackerPlayer": {
+              "playerName": "Nebula",
+              "team": 3,
+              "heroId": 25,
+              "pawnEntityIndex": 87
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 15
+          },
+          "lastHit": {
+            "tick": 19663,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 89,
+            "attackerPlayer": {
+              "playerName": "Yosafire Worshipper [K]",
+              "team": 2,
+              "heroId": 50,
+              "pawnEntityIndex": 89
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 18
+          },
+          "firstRelationToOrbTeam": "SAME_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 3,
+          "hitSpanSeconds": 0.046875,
+          "orderedHits": [
+            {
+              "tick": 19660,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 87,
+              "attackerPlayer": {
+                "playerName": "Nebula",
+                "team": 3,
+                "heroId": 25,
+                "pawnEntityIndex": 87
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 15
+            },
+            {
+              "tick": 19663,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 89,
+              "attackerPlayer": {
+                "playerName": "Yosafire Worshipper [K]",
+                "team": 2,
+                "heroId": 50,
+                "pawnEntityIndex": 89
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 18
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 19666,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 3,
+          "ownerEntity": 16777215,
+          "launchNum": 13,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2974|25957",
+        "episodeId": "2918|18",
+        "entityIndex": 2918,
+        "orbTeam": 2,
+        "startClock": "6:15",
+        "correctedOutcome": {
+          "label": "SECURE",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 2,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 26008,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 87,
+            "attackerPlayer": {
+              "playerName": "Nebula",
+              "team": 3,
+              "heroId": 25,
+              "pawnEntityIndex": 87
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 9
+          },
+          "lastHit": {
+            "tick": 26008,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 80,
+            "attackerPlayer": {
+              "playerName": "Goldinfer",
+              "team": 3,
+              "heroId": 79,
+              "pawnEntityIndex": 80
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 9
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 0,
+          "hitSpanSeconds": 0,
+          "orderedHits": [
+            {
+              "tick": 26008,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 87,
+              "attackerPlayer": {
+                "playerName": "Nebula",
+                "team": 3,
+                "heroId": 25,
+                "pawnEntityIndex": 87
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 9
+            },
+            {
+              "tick": 26008,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 80,
+              "attackerPlayer": {
+                "playerName": "Goldinfer",
+                "team": 3,
+                "heroId": 79,
+                "pawnEntityIndex": 80
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 9
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 26010,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 18,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "3052|29578",
+        "episodeId": "2932|19",
+        "entityIndex": 2932,
+        "orbTeam": 3,
+        "startClock": "7:12",
+        "correctedOutcome": {
+          "label": "SECURE",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 1,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 29627,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 78,
+            "attackerPlayer": {
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "pawnEntityIndex": 78
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 7
+          },
+          "lastHit": {
+            "tick": 29633,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 78,
+            "attackerPlayer": {
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "pawnEntityIndex": 78
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 13
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 6,
+          "hitSpanSeconds": 0.09375,
+          "orderedHits": [
+            {
+              "tick": 29627,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 78,
+              "attackerPlayer": {
+                "playerName": "Nacho4Sure",
+                "team": 2,
+                "heroId": 2,
+                "pawnEntityIndex": 78
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 7
+            },
+            {
+              "tick": 29633,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 78,
+              "attackerPlayer": {
+                "playerName": "Nacho4Sure",
+                "team": 2,
+                "heroId": 2,
+                "pawnEntityIndex": 78
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 13
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 29633,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 3,
+          "ownerEntity": 16777215,
+          "launchNum": 19,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2755|63084",
+        "episodeId": "2932|38",
+        "entityIndex": 2932,
+        "orbTeam": 2,
+        "startClock": "15:55",
+        "correctedOutcome": {
+          "label": "SECURE",
+          "confidence": "HIGH",
+          "basis": "Only one attacker team generated hit telemetry for this orb."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 1,
+          "distinctTeams": 1,
+          "mixedTeamRace": false,
+          "firstHit": {
+            "tick": 63138,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 86,
+            "attackerPlayer": {
+              "playerName": "renso",
+              "team": 3,
+              "heroId": 31,
+              "pawnEntityIndex": 86
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 12
+          },
+          "lastHit": {
+            "tick": 63143,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 86,
+            "attackerPlayer": {
+              "playerName": "renso",
+              "team": 3,
+              "heroId": 31,
+              "pawnEntityIndex": 86
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 17
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "hitSpanTicks": 5,
+          "hitSpanSeconds": 0.078125,
+          "orderedHits": [
+            {
+              "tick": 63138,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 86,
+              "attackerPlayer": {
+                "playerName": "renso",
+                "team": 3,
+                "heroId": 31,
+                "pawnEntityIndex": 86
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 12
+            },
+            {
+              "tick": 63143,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 86,
+              "attackerPlayer": {
+                "playerName": "renso",
+                "team": 3,
+                "heroId": 31,
+                "pawnEntityIndex": 86
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 17
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 63143,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 38,
+          "subclassId": "494398941"
+        }
+      },
+      {
+        "sourceType": "TROOPER_DEATH",
+        "sourceId": "2974|80486",
+        "episodeId": "2916|50",
+        "entityIndex": 2916,
+        "orbTeam": 2,
+        "startClock": "20:27",
+        "correctedOutcome": {
+          "label": "FIRST_HIT_PROVISIONAL_SECURE",
+          "confidence": "MODERATE",
+          "basis": "Both teams hit this orb; first hit is provisional."
+        },
+        "raceAnalysis": {
+          "damageMessageCount": 2,
+          "distinctPlayers": 2,
+          "distinctTeams": 2,
+          "mixedTeamRace": true,
+          "firstHit": {
+            "tick": 80539,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 84,
+            "attackerPlayer": {
+              "playerName": "Zaeleth",
+              "team": 3,
+              "heroId": 77,
+              "pawnEntityIndex": 84
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 11
+          },
+          "lastHit": {
+            "tick": 80539,
+            "type": "k_EUserMsg_Damage",
+            "attackerIndex": 90,
+            "attackerPlayer": {
+              "playerName": "Snazzy314",
+              "team": 2,
+              "heroId": 4,
+              "pawnEntityIndex": 90
+            },
+            "insideExactAttackableWindow": true,
+            "insideTolerantAttackableWindow": true,
+            "ticksAfterAttackableStart": 11
+          },
+          "firstRelationToOrbTeam": "OPPOSING_ORB_TEAM",
+          "lastRelationToOrbTeam": "SAME_ORB_TEAM",
+          "hitSpanTicks": 0,
+          "hitSpanSeconds": 0,
+          "orderedHits": [
+            {
+              "tick": 80539,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 84,
+              "attackerPlayer": {
+                "playerName": "Zaeleth",
+                "team": 3,
+                "heroId": 77,
+                "pawnEntityIndex": 84
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 11
+            },
+            {
+              "tick": 80539,
+              "type": "k_EUserMsg_Damage",
+              "attackerIndex": 90,
+              "attackerPlayer": {
+                "playerName": "Snazzy314",
+                "team": 2,
+                "heroId": 4,
+                "pawnEntityIndex": 90
+              },
+              "insideExactAttackableWindow": true,
+              "insideTolerantAttackableWindow": true,
+              "ticksAfterAttackableStart": 11
+            }
+          ]
+        },
+        "firstEndEventAfterFirstHit": {
+          "tick": 80543,
+          "operation": "LEAVE",
+          "changedFields": [],
+          "team": 2,
+          "ownerEntity": 16777215,
+          "launchNum": 50,
+          "subclassId": "494398941"
+        }
+      }
+    ]
+  },
+  "lifecycleDiagnostics": {
+    "operationCounts": {
+      "CREATE": 1288,
+      "LEAVE": 1239
+    },
+    "changedFieldCounts": {
+      "m_hOwnerEntity": 1288,
+      "CBodyComponent": 1288,
+      "CBodyComponent.m_cellX": 1288,
+      "CBodyComponent.m_cellY": 1288,
+      "CBodyComponent.m_cellZ": 1288,
+      "CBodyComponent.m_vecX": 1288,
+      "CBodyComponent.m_vecY": 1288,
+      "CBodyComponent.m_vecZ": 1288,
+      "CBodyComponent.m_hParent": 1288,
+      "CBodyComponent.m_angRotation": 1288,
+      "CBodyComponent.m_flScale": 1288,
+      "CBodyComponent.m_name": 1288,
+      "CBodyComponent.m_hierarchyAttachName": 1288,
+      "CBodyComponent.m_hModel": 1288,
+      "CBodyComponent.m_vRootBoneOffset": 1288,
+      "CBodyComponent.m_nRootBoneOffsetResetSerialNumber": 1288,
+      "CBodyComponent.m_bClientClothCreationSuppressed": 1288,
+      "CBodyComponent.m_MeshGroupMask": 1288,
+      "CBodyComponent.m_nBodyGroupChoices": 1288,
+      "CBodyComponent.m_nIdealMotionType": 1288,
+      "CBodyComponent.m_bUseParentRenderBounds": 1288,
+      "CBodyComponent.m_materialGroup": 1288,
+      "CBodyComponent.m_nHitboxSet": 1288,
+      "CBodyComponent.m_nOutsideWorld": 1288,
+      "m_pEntity": 1288,
+      "m_pEntity.m_nameStringableIndex": 1288,
+      "m_nPlatformType": 1288,
+      "m_MoveCollide": 1288,
+      "m_MoveType": 1288,
+      "m_flCreateTime": 1288,
+      "m_ubInterpolationFrame": 1288,
+      "m_iTeamNum": 1288,
+      "m_pModifierProp": 1288,
+      "m_hEffectEntity": 1288,
+      "m_fEffects": 1288,
+      "m_flElasticity": 1288,
+      "m_flGravityScale": 1288,
+      "m_bGravityDisabled": 1288,
+      "m_bAnimatedEveryTick": 1288,
+      "m_flNavIgnoreUntilTime": 1288,
+      "m_pChoreoComponent": 1288,
+      "m_pDestructiblePartsSystemComponent": 1288,
+      "m_nRenderMode": 1288,
+      "m_nRenderFX": 1288,
+      "m_clrRender": 1288,
+      "m_vecRenderAttributes": 1288,
+      "m_bRenderToCubemaps": 1288,
+      "m_bNoInterpolate": 1288,
+      "m_nInteractsAs": 1288,
+      "m_nInteractsWith": 1288,
+      "m_nInteractsExclude": 1288,
+      "m_nEntityId": 1288,
+      "m_nOwnerId": 1288,
+      "m_nHierarchyId": 1288,
+      "m_nDetailLayerMask": 1288,
+      "m_nDetailLayerMaskType": 1288,
+      "m_nTargetDetailLayer": 1288,
+      "m_nCollisionGroup": 1288,
+      "m_nCollisionFunctionMask": 1288,
+      "m_vecMins": 1288,
+      "m_vecMaxs": 1288,
+      "m_usSolidFlags": 1288,
+      "m_nSolidType": 1288,
+      "m_triggerBloat": 1288,
+      "m_nSurroundType": 1288,
+      "m_CollisionGroup": 1288,
+      "m_nEnablePhysics": 1288,
+      "m_vecSpecifiedSurroundingMins": 1288,
+      "m_vecSpecifiedSurroundingMaxs": 1288,
+      "m_vCapsuleCenter1": 1288,
+      "m_vCapsuleCenter2": 1288,
+      "m_flCapsuleRadius": 1288,
+      "m_iGlowType": 1288,
+      "m_iGlowTeam": 1288,
+      "m_nGlowRange": 1288,
+      "m_nGlowRangeMin": 1288,
+      "m_glowColorOverride": 1288,
+      "m_bFlashing": 1288,
+      "m_flGlowTime": 1288,
+      "m_flGlowStartTime": 1288,
+      "m_flGlowBackfaceMult": 1288,
+      "m_fadeMinDist": 1288,
+      "m_fadeMaxDist": 1288,
+      "m_flFadeScale": 1288,
+      "m_flShadowStrength": 1288,
+      "m_nObjectCulling": 1288,
+      "m_bvDisabledHitGroups.0000": 1288,
+      "m_timeLaunch": 1288,
+      "m_flAttackableTime": 1288,
+      "m_flEndAttackableTime": 1288,
+      "m_nLaunchNum": 1288,
+      "m_flSimulationTime": 1288,
+      "m_nSubclassID": 1288
+    },
+    "shotEpisodesWithEndEventAfterFirstHit": 105,
+    "shotEndEventCoverage": 1,
+    "firstHitToEndSeconds": {
+      "count": 105,
+      "min": 0,
+      "p10": 0,
+      "p25": 0.046875,
+      "median": 0.078125,
+      "p75": 0.125,
+      "p90": 0.171875,
+      "max": 0.171875,
+      "mean": 0.0849702380952381
+    },
+    "noShotEpisodesWithEndEventAfterAttackableEnd": 1134,
+    "noShotEndEventCoverage": 1,
+    "attackableEndToLifecycleEndSeconds": {
+      "count": 1134,
+      "min": 0.21875,
+      "p10": 0.234375,
+      "p25": 0.25,
+      "median": 0.25,
+      "p75": 0.25,
+      "p90": 0.25,
+      "max": 0.25,
+      "mean": 0.2465002204585538
+    },
+    "caution": "DELETE/LEAVE can reflect PVS or pooling. Treat lifecycle endings as diagnostic, not direct reward proof."
+  },
+  "correctedOutcomes": {
+    "all": {
+      "NO_SHOT_UNRESOLVED": 1134,
+      "SECURE": 55,
+      "DENY": 34,
+      "CLAIM": 11,
+      "FIRST_HIT_PROVISIONAL_SECURE": 3,
+      "FIRST_HIT_PROVISIONAL_DENY": 2
+    },
+    "trooper": {
+      "NO_SHOT_UNRESOLVED": 1094,
+      "SECURE": 55,
+      "DENY": 15,
+      "FIRST_HIT_PROVISIONAL_SECURE": 3,
+      "FIRST_HIT_PROVISIONAL_DENY": 2
+    },
+    "urn": {
+      "NO_SHOT_UNRESOLVED": 40,
+      "DENY": 19,
+      "CLAIM": 11
+    },
+    "byPlayer": [
+      {
+        "playerName": "Eriansan",
+        "team": 2,
+        "totalFirstHits": 28,
+        "outcomes": {
+          "DENY": 11,
+          "SECURE": 10,
+          "CLAIM": 7
+        }
+      },
+      {
+        "playerName": "flem",
+        "team": 2,
+        "totalFirstHits": 16,
+        "outcomes": {
+          "DENY": 9,
+          "CLAIM": 4,
+          "SECURE": 3
+        }
+      },
+      {
+        "playerName": "blooop354",
+        "team": 3,
+        "totalFirstHits": 15,
+        "outcomes": {
+          "SECURE": 10,
+          "DENY": 4,
+          "FIRST_HIT_PROVISIONAL_SECURE": 1
+        }
+      },
+      {
+        "playerName": "Yosafire Worshipper [K]",
+        "team": 2,
+        "totalFirstHits": 9,
+        "outcomes": {
+          "SECURE": 8,
+          "FIRST_HIT_PROVISIONAL_DENY": 1
+        }
+      },
+      {
+        "playerName": "renso",
+        "team": 3,
+        "totalFirstHits": 8,
+        "outcomes": {
+          "SECURE": 8
+        }
+      },
+      {
+        "playerName": "TheWoogler",
+        "team": 3,
+        "totalFirstHits": 7,
+        "outcomes": {
+          "DENY": 4,
+          "SECURE": 3
+        }
+      },
+      {
+        "playerName": "Nebula",
+        "team": 3,
+        "totalFirstHits": 5,
+        "outcomes": {
+          "SECURE": 3,
+          "FIRST_HIT_PROVISIONAL_DENY": 1,
+          "DENY": 1
+        }
+      },
+      {
+        "playerName": "Nacho4Sure",
+        "team": 2,
+        "totalFirstHits": 4,
+        "outcomes": {
+          "SECURE": 3,
+          "FIRST_HIT_PROVISIONAL_SECURE": 1
+        }
+      },
+      {
+        "playerName": "Snazzy314",
+        "team": 2,
+        "totalFirstHits": 4,
+        "outcomes": {
+          "DENY": 2,
+          "SECURE": 2
+        }
+      },
+      {
+        "playerName": "Zaeleth",
+        "team": 3,
+        "totalFirstHits": 4,
+        "outcomes": {
+          "SECURE": 2,
+          "FIRST_HIT_PROVISIONAL_SECURE": 1,
+          "DENY": 1
+        }
+      },
+      {
+        "playerName": "viggoth 300",
+        "team": 2,
+        "totalFirstHits": 3,
+        "outcomes": {
+          "SECURE": 2,
+          "DENY": 1
+        }
+      },
+      {
+        "playerName": "Goldinfer",
+        "team": 3,
+        "totalFirstHits": 2,
+        "outcomes": {
+          "DENY": 1,
+          "SECURE": 1
+        }
+      }
+    ],
+    "byUrnBurst": [
+      {
+        "burstId": "URN_XP_001",
+        "burstTeam": 2,
+        "firstClock": "11:29",
+        "orbCount": 10,
+        "outcomes": {
+          "CLAIM": 9,
+          "DENY": 1
+        }
+      },
+      {
+        "burstId": "URN_XP_002",
+        "burstTeam": 3,
+        "firstClock": "18:44",
+        "orbCount": 10,
+        "outcomes": {
+          "DENY": 8,
+          "NO_SHOT_UNRESOLVED": 2
+        }
+      },
+      {
+        "burstId": "URN_XP_003",
+        "burstTeam": 2,
+        "firstClock": "21:02",
+        "orbCount": 10,
+        "outcomes": {
+          "NO_SHOT_UNRESOLVED": 7,
+          "CLAIM": 2,
+          "DENY": 1
+        }
+      },
+      {
+        "burstId": "URN_XP_004",
+        "burstTeam": 2,
+        "firstClock": "26:31",
+        "orbCount": 10,
+        "outcomes": {
+          "NO_SHOT_UNRESOLVED": 10
+        }
+      },
+      {
+        "burstId": "URN_XP_005",
+        "burstTeam": 3,
+        "firstClock": "36:17",
+        "orbCount": 10,
+        "outcomes": {
+          "DENY": 9,
+          "NO_SHOT_UNRESOLVED": 1
+        }
+      },
+      {
+        "burstId": "URN_XP_006",
+        "burstTeam": 3,
+        "firstClock": "42:40",
+        "orbCount": 10,
+        "outcomes": {
+          "NO_SHOT_UNRESOLVED": 10
+        }
+      },
+      {
+        "burstId": "URN_XP_007",
+        "burstTeam": 3,
+        "firstClock": "51:22",
+        "orbCount": 10,
+        "outcomes": {
+          "NO_SHOT_UNRESOLVED": 10
+        }
+      }
+    ]
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script61Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "targetCountPreserved": {
+        "actual": 1239,
+        "expected": 1239,
+        "pass": true
+      },
+      "trooperCountPreserved": {
+        "actual": 1169,
+        "expected": 1169,
+        "pass": true
+      },
+      "urnCountPreserved": {
+        "actual": 70,
+        "expected": 70,
+        "pass": true
+      },
+      "shotEpisodeCountPreserved": {
+        "actual": 105,
+        "expected": 105,
+        "pass": true
+      },
+      "playerHitTelemetryValidated": {
+        "actual": 1,
+        "expected": 1,
+        "pass": true
+      }
+    }
+  },
+  "interpretation": "Script 61 hit telemetry is retained. Urn semantics are corrected. Single-team hit episodes can be interpreted directly; mixed-team races remain provisional.",
+  "nextStep": "If mixed-team hit spans and lifecycle endings support first-hit resolution, promote first-hit for shot outcomes. Then validate NO_SHOT episodes against direct award/net-worth telemetry before labeling AUTO_AWARD.",
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\citemxp_race_resolution_validation_v01.json",
+    "correctedOutcomes": "G:\\DeadlockBehavior\\output\\test\\citemxp_corrected_shot_outcomes_v01.jsonl"
+  }
+}

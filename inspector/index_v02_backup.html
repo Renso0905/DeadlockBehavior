@@ -1,0 +1,4624 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        Deadlock Behavioral Replay Inspector v0.2
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family:
+                Inter,
+                system-ui,
+                sans-serif;
+
+            background: #111318;
+            color: #e8eaf0;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        .page {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .subtle {
+            color: #999faa;
+            font-size: 13px;
+        }
+
+        .mono {
+            font-family:
+                ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                Consolas,
+                monospace;
+        }
+
+
+        /* ====================================================
+           TOP
+        ==================================================== */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .version-badge {
+            display: inline-block;
+
+            margin-left: 7px;
+            padding: 2px 6px;
+
+            border-radius: 5px;
+
+            background: #252b34;
+            color: #b9c2cf;
+
+            font-size: 11px;
+            vertical-align: middle;
+        }
+
+        .validation-pass {
+            color: #99c78f;
+        }
+
+        .validation-fail {
+            color: #d98983;
+        }
+
+
+        /* ====================================================
+           CARDS
+        ==================================================== */
+
+        .card {
+            background: #191c22;
+            border: 1px solid #2b303a;
+            border-radius: 10px;
+        }
+
+
+        /* ====================================================
+           CONTROLS
+        ==================================================== */
+
+        .controls {
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button,
+        select {
+            background: #282d36;
+            color: #e8eaf0;
+
+            border: 1px solid #3a414d;
+            border-radius: 7px;
+
+            padding: 7px 11px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #323945;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        #timeSlider {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        #clock {
+            min-width: 75px;
+            text-align: right;
+
+            font-variant-numeric: tabular-nums;
+            font-weight: 700;
+        }
+
+        .filters {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+
+            margin-top: 12px;
+
+            font-size: 13px;
+        }
+
+        .filters label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+
+            padding-right: 12px;
+            margin-right: 2px;
+
+            border-right: 1px solid #343a44;
+        }
+
+
+        /* ====================================================
+           LAYOUT
+        ==================================================== */
+
+        .layout {
+            display: grid;
+
+            grid-template-columns:
+                minmax(560px, 1.45fr)
+                minmax(380px, 0.75fr);
+
+            gap: 16px;
+
+            align-items: start;
+        }
+
+        .map-card {
+            padding: 14px;
+        }
+
+        .side {
+            display: grid;
+            gap: 16px;
+        }
+
+
+        /* ====================================================
+           MAP
+        ==================================================== */
+
+        .map-wrap {
+            position: relative;
+
+            width: 100%;
+            aspect-ratio: 1 / 1;
+
+            overflow: hidden;
+
+            border-radius: 8px;
+            border: 1px solid #343a45;
+
+            background:
+                linear-gradient(
+                    to right,
+                    transparent 49.8%,
+                    #444b58 50%,
+                    transparent 50.2%
+                ),
+                linear-gradient(
+                    to bottom,
+                    transparent 49.8%,
+                    #444b58 50%,
+                    transparent 50.2%
+                ),
+                repeating-linear-gradient(
+                    to right,
+                    transparent 0,
+                    transparent 9.9%,
+                    rgba(255,255,255,0.04) 10%
+                ),
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0,
+                    transparent 9.9%,
+                    rgba(255,255,255,0.04) 10%
+                ),
+                #101216;
+        }
+
+        .map-label {
+            position: absolute;
+
+            color: #626a78;
+            font-size: 11px;
+
+            pointer-events: none;
+        }
+
+        .map-label.top {
+            top: 8px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .map-label.bottom {
+            bottom: 8px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .map-label.left {
+            left: 8px;
+            top: 50%;
+        }
+
+        .map-label.right {
+            right: 8px;
+            top: 50%;
+        }
+
+
+        /* ====================================================
+           GENERIC MAP MARKER
+        ==================================================== */
+
+        .marker {
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+
+        /* ====================================================
+           PLAYERS
+        ==================================================== */
+
+        .player {
+            width: 13px;
+            height: 13px;
+
+            border-radius: 50%;
+            border: 2px solid #f5f7fa;
+
+            z-index: 30;
+        }
+
+        .team2 {
+            background: #cf806c;
+        }
+
+        .team3 {
+            background: #73a3d7;
+        }
+
+        .player.renso {
+            width: 18px;
+            height: 18px;
+
+            outline: 3px solid #e9c46a;
+            outline-offset: 2px;
+
+            z-index: 40;
+        }
+
+        .player-name {
+            position: absolute;
+
+            top: 13px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            white-space: nowrap;
+
+            font-size: 10px;
+            color: #f1f3f6;
+
+            text-shadow:
+                0 1px 2px #000,
+                0 0 3px #000;
+
+            pointer-events: none;
+        }
+
+
+        /* ====================================================
+           CANONICAL CAMPS
+        ==================================================== */
+
+        .camp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #101216;
+
+            font-size: 8px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            z-index: 10;
+
+            box-shadow:
+                0 0 0 1px rgba(0,0,0,0.8),
+                0 1px 5px rgba(0,0,0,0.8);
+        }
+
+        .camp-small {
+            width: 14px;
+            height: 14px;
+
+            border-radius: 50%;
+
+            background: #92bb86;
+            border: 2px solid #d8ead3;
+        }
+
+        .camp-medium {
+            width: 17px;
+            height: 17px;
+
+            border-radius: 4px;
+
+            background: #d9ad63;
+            border: 2px solid #f3deb7;
+        }
+
+        .camp-large {
+            width: 19px;
+            height: 19px;
+
+            background: #c27d72;
+            border: 2px solid #edc2ba;
+
+            transform:
+                translate(-50%, -50%)
+                rotate(45deg);
+        }
+
+        .camp-large .camp-letter {
+            transform: rotate(-45deg);
+        }
+
+        .camp.not-spawned {
+            opacity: 0.18;
+            filter: grayscale(0.8);
+        }
+
+        .camp.cleared {
+            opacity: 0.28;
+            filter: grayscale(0.7);
+        }
+
+        .camp.cleared::after {
+            content: "";
+
+            position: absolute;
+
+            width: 135%;
+            height: 2px;
+
+            background: #ef7272;
+
+            transform: rotate(-35deg);
+        }
+
+        .camp.selected {
+            outline: 3px solid #f4e18b;
+            outline-offset: 3px;
+
+            opacity: 1;
+            z-index: 25;
+        }
+
+        .camp-letter {
+            pointer-events: none;
+        }
+
+
+        /* ====================================================
+           OLD SPECIAL RESOURCES
+           SINNER / MIDBOSS ONLY
+        ==================================================== */
+
+        .resource {
+            z-index: 8;
+            opacity: 0.9;
+        }
+
+        .resource.dead {
+            opacity: 0.15;
+        }
+
+        .sinner {
+            width: 13px;
+            height: 13px;
+
+            border: 2px solid #cc8fcf;
+            border-radius: 50%;
+        }
+
+        .midboss {
+            width: 19px;
+            height: 19px;
+
+            border-radius: 50%;
+
+            border: 3px solid #e2d475;
+            background: rgba(226,212,117,0.2);
+
+            z-index: 9;
+        }
+
+
+        /* ====================================================
+           MELEE
+        ==================================================== */
+
+        .melee-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 24px;
+            height: 24px;
+
+            border-radius: 50%;
+
+            font-size: 8px;
+            font-weight: 850;
+
+            color: white;
+
+            pointer-events: none;
+
+            z-index: 24;
+
+            box-shadow:
+                0 0 8px rgba(255,255,255,0.3);
+        }
+
+        .melee-light {
+            border: 2px solid #78c8de;
+            background: rgba(120,200,222,0.22);
+        }
+
+        .melee-heavy {
+            border: 3px solid #ec9b68;
+            background: rgba(236,155,104,0.24);
+        }
+
+        .melee-heavy-air {
+            border: 3px solid #bc92e7;
+            background: rgba(188,146,231,0.24);
+        }
+
+        .melee-slide {
+            border: 3px solid #7bc7a4;
+            background: rgba(123,199,164,0.24);
+        }
+
+        .melee-whiff {
+            border-style: dashed;
+            opacity: 0.58;
+        }
+
+        .melee-renso {
+            box-shadow:
+                0 0 0 2px #e9c46a,
+                0 0 11px rgba(233,196,106,0.55);
+        }
+
+
+        /* ====================================================
+           LEGEND
+        ==================================================== */
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            margin-top: 12px;
+
+            color: #aeb4bf;
+            font-size: 12px;
+        }
+
+        .legend span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+
+            display: inline-block;
+
+            border-radius: 50%;
+
+            background: #aaa;
+        }
+
+
+        /* ====================================================
+           PANELS
+        ==================================================== */
+
+        .panel {
+            padding: 14px;
+        }
+
+        .panel h2 {
+            font-size: 15px;
+
+            margin:
+                0
+                0
+                10px;
+        }
+
+        .renso-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 8px;
+        }
+
+        .metric {
+            background: #12151a;
+
+            padding: 8px;
+
+            border-radius: 6px;
+        }
+
+        .metric .label {
+            color: #858d99;
+            font-size: 11px;
+        }
+
+        .metric .value {
+            margin-top: 2px;
+
+            font-size: 17px;
+            font-weight: 650;
+        }
+
+
+        /* ====================================================
+           CAMP DETAIL
+        ==================================================== */
+
+        .camp-title {
+            font-size: 14px;
+            font-weight: 700;
+
+            margin-bottom: 5px;
+
+            word-break: break-word;
+        }
+
+        .camp-status {
+            display: inline-block;
+
+            margin:
+                4px
+                0
+                10px;
+
+            padding:
+                3px
+                7px;
+
+            border-radius: 5px;
+
+            font-size: 11px;
+            font-weight: 750;
+        }
+
+        .status-available {
+            background: rgba(123,175,115,0.18);
+            color: #9fca98;
+        }
+
+        .status-cleared {
+            background: rgba(194,112,105,0.17);
+            color: #d9928c;
+        }
+
+        .status-not-spawned {
+            background: rgba(130,138,151,0.16);
+            color: #a8aeb8;
+        }
+
+        .detail-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 7px;
+        }
+
+        .detail-row {
+            background: #12151a;
+
+            padding: 7px;
+
+            border-radius: 5px;
+        }
+
+        .detail-label {
+            color: #858d99;
+            font-size: 10px;
+        }
+
+        .detail-value {
+            margin-top: 2px;
+
+            font-size: 12px;
+        }
+
+        .camp-members {
+            margin-top: 9px;
+
+            color: #aeb4bf;
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ====================================================
+           EVENT PANELS
+        ==================================================== */
+
+        .events {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .event {
+            border-top: 1px solid #2a2f38;
+
+            padding: 7px 0;
+
+            font-size: 12px;
+        }
+
+        .event:first-child {
+            border-top: 0;
+        }
+
+        .event-time {
+            font-variant-numeric: tabular-nums;
+
+            color: #d6d9df;
+
+            margin-right: 5px;
+        }
+
+        .up {
+            color: #91bd8c;
+        }
+
+        .down {
+            color: #d18e86;
+        }
+
+        .melee-light-text {
+            color: #86d0e4;
+        }
+
+        .melee-heavy-text {
+            color: #e8a070;
+        }
+
+        .melee-heavy-air-text {
+            color: #c9a3ed;
+        }
+
+        .hit-text {
+            color: #9ec096;
+        }
+
+        .whiff-text {
+            color: #cf8a85;
+        }
+
+
+        /* ====================================================
+           PLAYER TABLE
+        ==================================================== */
+
+        .table-card {
+            margin-top: 16px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            font-size: 12px;
+        }
+
+        th,
+        td {
+            padding: 8px 9px;
+
+            text-align: left;
+
+            border-bottom: 1px solid #292e37;
+
+            white-space: nowrap;
+        }
+
+        th {
+            color: #999faa;
+            font-weight: 600;
+        }
+
+        tr.focus-player {
+            background: #242a31;
+        }
+
+        .alive {
+            color: #9ec096;
+        }
+
+        .dead-text {
+            color: #c8817b;
+        }
+
+
+        /* ====================================================
+           RESPONSIVE
+        ==================================================== */
+
+        @media (
+            max-width: 1000px
+        ) {
+
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .renso-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- ======================================================
+         HEADER
+    ======================================================= -->
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>
+                Deadlock Behavioral Replay Inspector
+
+                <span class="version-badge">
+                    v0.2
+                </span>
+            </h1>
+
+            <div
+                class="subtle"
+                id="replayMeta"
+            >
+                Loading replay...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         CONTROLS
+    ======================================================= -->
+
+    <div class="card controls">
+
+        <div class="control-row">
+
+            <button
+                id="back10"
+                type="button"
+            >
+                −10s
+            </button>
+
+            <button
+                id="play"
+                type="button"
+            >
+                Play
+            </button>
+
+            <button
+                id="forward10"
+                type="button"
+            >
+                +10s
+            </button>
+
+
+            <label class="subtle">
+                Speed
+
+                <select id="playbackSpeed">
+
+                    <option value="1">
+                        1×
+                    </option>
+
+                    <option value="2">
+                        2×
+                    </option>
+
+                    <option
+                        value="4"
+                        selected
+                    >
+                        4×
+                    </option>
+
+                    <option value="8">
+                        8×
+                    </option>
+
+                </select>
+            </label>
+
+
+            <input
+                id="timeSlider"
+                type="range"
+                min="0"
+                max="1"
+                value="0"
+                step="0.25"
+            >
+
+
+            <div id="clock">
+                0:00
+            </div>
+
+        </div>
+
+
+        <div class="filters">
+
+            <div class="filter-group">
+
+                <label>
+                    <input
+                        id="showPlayers"
+                        type="checkbox"
+                        checked
+                    >
+                    Players
+                </label>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label>
+                    <input
+                        id="showSmall"
+                        type="checkbox"
+                        checked
+                    >
+                    Small camps
+                </label>
+
+                <label>
+                    <input
+                        id="showMedium"
+                        type="checkbox"
+                        checked
+                    >
+                    Medium camps
+                </label>
+
+                <label>
+                    <input
+                        id="showLarge"
+                        type="checkbox"
+                        checked
+                    >
+                    Large camps
+                </label>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label>
+                    <input
+                        id="showSinners"
+                        type="checkbox"
+                        checked
+                    >
+                    Sinners
+                </label>
+
+                <label>
+                    <input
+                        id="showMidBoss"
+                        type="checkbox"
+                        checked
+                    >
+                    Mid Boss
+                </label>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label>
+                    <input
+                        id="showMelee"
+                        type="checkbox"
+                        checked
+                    >
+                    Melee
+                </label>
+
+                <label>
+                    <input
+                        id="showLightMelee"
+                        type="checkbox"
+                        checked
+                    >
+                    Light
+                </label>
+
+                <label>
+                    <input
+                        id="showHeavyMelee"
+                        type="checkbox"
+                        checked
+                    >
+                    Heavy
+                </label>
+
+                <label>
+                    <input
+                        id="showHeavyAirMelee"
+                        type="checkbox"
+                        checked
+                    >
+                    Heavy Air
+                </label>
+
+                <label>
+                    <input
+                        id="rensoMeleeOnly"
+                        type="checkbox"
+                    >
+                    renso only
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         MAP / SIDE
+    ======================================================= -->
+
+    <div class="layout">
+
+        <!-- ==================================================
+             MAP
+        =================================================== -->
+
+        <section class="card map-card">
+
+            <div
+                id="map"
+                class="map-wrap"
+            >
+
+                <div class="map-label top">
+                    +Y
+                </div>
+
+                <div class="map-label bottom">
+                    −Y
+                </div>
+
+                <div class="map-label left">
+                    −X
+                </div>
+
+                <div class="map-label right">
+                    +X
+                </div>
+
+
+                <!--
+                    Render order:
+
+                    special resources
+                    canonical camps
+                    melee events
+                    players
+                -->
+
+                <div id="resourceLayer"></div>
+
+                <div id="campLayer"></div>
+
+                <div id="meleeLayer"></div>
+
+                <div id="playerLayer"></div>
+
+            </div>
+
+
+            <div class="legend">
+
+                <span>
+                    <i
+                        class="legend-dot"
+                        style="background:#73a3d7"
+                    ></i>
+                    Team 3
+                </span>
+
+                <span>
+                    <i
+                        class="legend-dot"
+                        style="background:#cf806c"
+                    ></i>
+                    Team 2
+                </span>
+
+                <span>
+                    ● Small camp
+                </span>
+
+                <span>
+                    ■ Medium camp
+                </span>
+
+                <span>
+                    ◆ Large camp
+                </span>
+
+                <span>
+                    ○ Sinner
+                </span>
+
+                <span>
+                    ◎ Mid Boss
+                </span>
+
+                <span>
+                    ◯ Melee attack
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             SIDE PANELS
+        =================================================== -->
+
+        <div class="side">
+
+            <!-- RENSO -->
+
+            <section class="card panel">
+
+                <h2>
+                    renso
+                </h2>
+
+                <div
+                    id="rensoMetrics"
+                    class="renso-grid"
+                ></div>
+
+            </section>
+
+
+            <!-- CAMP DETAIL -->
+
+            <section class="card panel">
+
+                <h2>
+                    Selected camp
+                </h2>
+
+                <div id="campDetails">
+
+                    <div class="subtle">
+                        Click a camp marker to inspect it.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- CAMP / OBJECTIVE EVENTS -->
+
+            <section class="card panel">
+
+                <h2>
+                    Recent camp / resource events
+                </h2>
+
+                <div
+                    id="events"
+                    class="events"
+                ></div>
+
+            </section>
+
+
+            <!-- MELEE EVENTS -->
+
+            <section class="card panel">
+
+                <h2>
+                    Recent melee
+                </h2>
+
+                <div
+                    id="meleeEvents"
+                    class="events"
+                ></div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         PLAYER TABLE
+    ======================================================= -->
+
+    <section class="card table-card">
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>
+                    Player
+                </th>
+
+                <th>
+                    Team
+                </th>
+
+                <th>
+                    Alive
+                </th>
+
+                <th>
+                    HP
+                </th>
+
+                <th>
+                    Net worth
+                </th>
+
+                <th>
+                    K / D / A
+                </th>
+
+                <th>
+                    Last hits
+                </th>
+
+                <th>
+                    Denies
+                </th>
+
+                <th>
+                    X
+                </th>
+
+                <th>
+                    Y
+                </th>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody id="playerTable"></tbody>
+
+        </table>
+
+    </section>
+
+</div>
+
+
+<script>
+
+(async function () {
+
+    // ========================================================
+    // DATA FILES
+    // ========================================================
+
+    const BASE_DATA_FILE =
+        './data/test.json';
+
+
+    const OVERLAY_DATA_FILE =
+        './data/test/v02_overlays.json';
+
+
+    const [
+        baseResponse,
+        overlayResponse
+    ] =
+        await Promise.all([
+
+            fetch(
+                BASE_DATA_FILE
+            ),
+
+            fetch(
+                OVERLAY_DATA_FILE
+            )
+        ]);
+
+
+    if (
+        !baseResponse.ok
+    ) {
+
+        throw new Error(
+            `Could not load ${BASE_DATA_FILE}`
+        );
+    }
+
+
+    if (
+        !overlayResponse.ok
+    ) {
+
+        throw new Error(
+            `Could not load ${OVERLAY_DATA_FILE}`
+        );
+    }
+
+
+    const data =
+        await baseResponse.json();
+
+
+    const overlay =
+        await overlayResponse.json();
+
+
+    // ========================================================
+    // VALIDATE V0.2 DATA
+    // ========================================================
+
+    if (
+        !overlay.validation?.campsPass
+    ) {
+
+        console.warn(
+            'Camp overlay validation failed.',
+            overlay.validation
+        );
+    }
+
+
+    if (
+        overlay.validation
+            ?.meleeCountPass
+        ===
+        false
+    ) {
+
+        console.warn(
+            'Melee overlay validation failed.',
+            overlay.validation
+        );
+    }
+
+
+    // ========================================================
+    // ELEMENTS
+    // ========================================================
+
+    const slider =
+        document.getElementById(
+            'timeSlider'
+        );
+
+
+    const clock =
+        document.getElementById(
+            'clock'
+        );
+
+
+    const playButton =
+        document.getElementById(
+            'play'
+        );
+
+
+    const playbackSpeed =
+        document.getElementById(
+            'playbackSpeed'
+        );
+
+
+    const playerLayer =
+        document.getElementById(
+            'playerLayer'
+        );
+
+
+    const resourceLayer =
+        document.getElementById(
+            'resourceLayer'
+        );
+
+
+    const campLayer =
+        document.getElementById(
+            'campLayer'
+        );
+
+
+    const meleeLayer =
+        document.getElementById(
+            'meleeLayer'
+        );
+
+
+    const playerTable =
+        document.getElementById(
+            'playerTable'
+        );
+
+
+    const eventsPanel =
+        document.getElementById(
+            'events'
+        );
+
+
+    const meleeEventsPanel =
+        document.getElementById(
+            'meleeEvents'
+        );
+
+
+    const campDetails =
+        document.getElementById(
+            'campDetails'
+        );
+
+
+    const rensoMetrics =
+        document.getElementById(
+            'rensoMetrics'
+        );
+
+
+    // ========================================================
+    // STATE
+    // ========================================================
+
+    const duration =
+        Math.max(
+
+            Number(
+                data.meta.durationSeconds
+            )
+            ||
+            0,
+
+            Number(
+                overlay.match
+                    ?.durationSeconds
+            )
+            ||
+            0
+        );
+
+
+    slider.max =
+        duration;
+
+
+    let currentTime =
+        0;
+
+
+    let playing =
+        false;
+
+
+    let playTimer =
+        null;
+
+
+    let selectedCampId =
+        null;
+
+
+    // How long after a melee event its marker remains visible.
+
+    const MELEE_VISIBLE_WINDOW_SECONDS =
+        1.75;
+
+
+    // ========================================================
+    // OLD RESOURCE TRANSITION LOOKUP
+    //
+    // Kept ONLY for existing Sinner / MidBoss rendering.
+    // Regular neutral camps now come from v0.2.
+    // ========================================================
+
+    const transitionsByEntity =
+        new Map();
+
+
+    for (
+        const event
+        of data.resourceTransitions ?? []
+    ) {
+
+        if (
+            !transitionsByEntity.has(
+                event.entityKey
+            )
+        ) {
+
+            transitionsByEntity.set(
+                event.entityKey,
+                []
+            );
+        }
+
+
+        transitionsByEntity
+            .get(
+                event.entityKey
+            )
+            .push(
+                event
+            );
+    }
+
+
+    // ========================================================
+    // CANONICAL CAMP EVENT TIMELINE
+    // ========================================================
+
+    const campEvents =
+        [];
+
+
+    for (
+        const camp
+        of overlay.camps ?? []
+    ) {
+
+        for (
+            const event
+            of camp.clearEvents ?? []
+        ) {
+
+            campEvents.push({
+
+                t:
+                    event.timeSeconds,
+
+                type:
+                    'CAMP_CLEAR',
+
+                campId:
+                    camp.campId,
+
+                campName:
+                    camp.name,
+
+                tier:
+                    camp.tier
+            });
+        }
+
+
+        for (
+            const event
+            of camp.respawnEvents ?? []
+        ) {
+
+            campEvents.push({
+
+                t:
+                    event.timeSeconds,
+
+                type:
+                    'CAMP_RESPAWN',
+
+                campId:
+                    camp.campId,
+
+                campName:
+                    camp.name,
+
+                tier:
+                    camp.tier
+            });
+        }
+    }
+
+
+    campEvents.sort(
+        (
+            a,
+            b
+        ) =>
+            a.t -
+            b.t
+    );
+
+
+    // ========================================================
+    // SPECIAL RESOURCE EVENTS
+    //
+    // We intentionally exclude old neutral-small / medium /
+    // large transitions because canonical camp telemetry has
+    // replaced those.
+    // ========================================================
+
+    const specialResourceEvents =
+        (
+            data.resourceTransitions
+            ??
+            []
+        )
+        .filter(
+            event =>
+                event.type ===
+                    'sinner'
+                ||
+                event.type ===
+                    'midboss'
+        );
+
+
+    // ========================================================
+    // META
+    // ========================================================
+
+    const campValidation =
+        overlay.validation
+            ?.campsPass
+            ? 'camp PASS'
+            : 'camp FAIL';
+
+
+    const meleeValidation =
+        overlay.validation
+            ?.meleeCountPass
+            ? 'melee PASS'
+            : 'melee FAIL';
+
+
+    const campValidationClass =
+        overlay.validation
+            ?.campsPass
+
+            ? 'validation-pass'
+
+            : 'validation-fail';
+
+
+    const meleeValidationClass =
+        overlay.validation
+            ?.meleeCountPass
+
+            ? 'validation-pass'
+
+            : 'validation-fail';
+
+
+    document.getElementById(
+        'replayMeta'
+    ).innerHTML =
+
+        `${escapeHtml(data.replay)}.dem • `
+
+        +
+
+        `${formatClock(duration)} • `
+
+        +
+
+        `${data.players.length} players • `
+
+        +
+
+        `${overlay.camps.length} camps • `
+
+        +
+
+        `${overlay.meleeEvents.length.toLocaleString()} melee • `
+
+        +
+
+        `<span class="${campValidationClass}">${campValidation}</span> • `
+
+        +
+
+        `<span class="${meleeValidationClass}">${meleeValidation}</span>`;
+
+
+    // ========================================================
+    // MAP CONVERSION
+    // ========================================================
+
+    const bounds =
+        data.meta.bounds;
+
+
+    function worldToPercent(
+        x,
+        y
+    ) {
+
+        const left =
+            (
+                (
+                    x -
+                    bounds.minX
+                )
+                /
+                (
+                    bounds.maxX -
+                    bounds.minX
+                )
+            )
+            *
+            100;
+
+
+        const top =
+            (
+                1
+                -
+                (
+                    (
+                        y -
+                        bounds.minY
+                    )
+                    /
+                    (
+                        bounds.maxY -
+                        bounds.minY
+                    )
+                )
+            )
+            *
+            100;
+
+
+        return {
+            left,
+            top
+        };
+    }
+
+
+    // ========================================================
+    // FRAME LOOKUP
+    // ========================================================
+
+    function getFrame(
+        time
+    ) {
+
+        const target =
+            Math.round(
+                time
+            );
+
+
+        let low =
+            0;
+
+
+        let high =
+            data.frames.length -
+            1;
+
+
+        while (
+            low <= high
+        ) {
+
+            const mid =
+                Math.floor(
+                    (
+                        low +
+                        high
+                    )
+                    /
+                    2
+                );
+
+
+            const value =
+                data.frames[mid].t;
+
+
+            if (
+                value === target
+            ) {
+
+                return data.frames[mid];
+            }
+
+
+            if (
+                value <
+                target
+            ) {
+
+                low =
+                    mid +
+                    1;
+
+            } else {
+
+                high =
+                    mid -
+                    1;
+            }
+        }
+
+
+        return (
+            data.frames[
+                Math.max(
+
+                    0,
+
+                    Math.min(
+                        high,
+                        data.frames.length -
+                        1
+                    )
+                )
+            ]
+        );
+    }
+
+
+    // ========================================================
+    // OLD RESOURCE STATE
+    //
+    // SINNER / MIDBOSS ONLY
+    // ========================================================
+
+    function resourceAliveAt(
+        resource,
+        time
+    ) {
+
+        if (
+            time <
+            resource.firstSeenTime
+        ) {
+
+            return null;
+        }
+
+
+        let alive =
+            true;
+
+
+        const transitions =
+            transitionsByEntity.get(
+                resource.entityKey
+            )
+            ??
+            [];
+
+
+        for (
+            const event
+            of transitions
+        ) {
+
+            if (
+                event.t >
+                time
+            ) {
+
+                break;
+            }
+
+
+            alive =
+                event.transition ===
+                'UP';
+        }
+
+
+        return alive;
+    }
+
+
+    // ========================================================
+    // CAMP STATE
+    // ========================================================
+
+    function campIntervalAt(
+        camp,
+        time
+    ) {
+
+        const intervals =
+            camp.intervals
+            ??
+            [];
+
+
+        for (
+            let i = 0;
+            i < intervals.length;
+            i++
+        ) {
+
+            const interval =
+                intervals[i];
+
+
+            const isFinal =
+                i ===
+                intervals.length -
+                1;
+
+
+            if (
+                time >=
+                interval.startTimeSeconds
+
+                &&
+
+                (
+                    time <
+                    interval.endTimeSeconds
+
+                    ||
+
+                    (
+                        isFinal
+                        &&
+                        time <=
+                        interval.endTimeSeconds
+                    )
+                )
+            ) {
+
+                return interval;
+            }
+        }
+
+
+        return null;
+    }
+
+
+    function campStateAt(
+        camp,
+        time
+    ) {
+
+        const interval =
+            campIntervalAt(
+                camp,
+                time
+            );
+
+
+        return (
+            interval?.state
+            ??
+            'UNKNOWN'
+        );
+    }
+
+
+    // ========================================================
+    // FILTERS
+    // ========================================================
+
+    function campTierVisible(
+        tier
+    ) {
+
+        if (
+            tier ===
+            'SMALL'
+        ) {
+
+            return document
+                .getElementById(
+                    'showSmall'
+                )
+                .checked;
+        }
+
+
+        if (
+            tier ===
+            'MEDIUM'
+        ) {
+
+            return document
+                .getElementById(
+                    'showMedium'
+                )
+                .checked;
+        }
+
+
+        if (
+            tier ===
+            'LARGE'
+        ) {
+
+            return document
+                .getElementById(
+                    'showLarge'
+                )
+                .checked;
+        }
+
+
+        return false;
+    }
+
+
+    function specialResourceVisible(
+        type
+    ) {
+
+        if (
+            type ===
+            'sinner'
+        ) {
+
+            return document
+                .getElementById(
+                    'showSinners'
+                )
+                .checked;
+        }
+
+
+        if (
+            type ===
+            'midboss'
+        ) {
+
+            return document
+                .getElementById(
+                    'showMidBoss'
+                )
+                .checked;
+        }
+
+
+        return false;
+    }
+
+
+    function meleeEventVisible(
+        event
+    ) {
+
+        if (
+            !document
+                .getElementById(
+                    'showMelee'
+                )
+                .checked
+        ) {
+
+            return false;
+        }
+
+
+        if (
+            document
+                .getElementById(
+                    'rensoMeleeOnly'
+                )
+                .checked
+
+            &&
+
+            event.playerName !==
+            'renso'
+        ) {
+
+            return false;
+        }
+
+
+        if (
+            event.attackType ===
+            'LIGHT'
+        ) {
+
+            return document
+                .getElementById(
+                    'showLightMelee'
+                )
+                .checked;
+        }
+
+
+        if (
+            event.attackType ===
+            'HEAVY'
+        ) {
+
+            return document
+                .getElementById(
+                    'showHeavyMelee'
+                )
+                .checked;
+        }
+
+
+        if (
+            event.attackType ===
+            'HEAVY_AIR'
+        ) {
+
+            return document
+                .getElementById(
+                    'showHeavyAirMelee'
+                )
+                .checked;
+        }
+
+
+        return true;
+    }
+
+
+    // ========================================================
+    // RENDER ROOT
+    // ========================================================
+
+    function render() {
+
+        slider.value =
+            currentTime;
+
+
+        clock.textContent =
+            formatClockPrecise(
+                currentTime
+            );
+
+
+        const frame =
+            getFrame(
+                currentTime
+            );
+
+
+        renderSpecialResources();
+
+        renderCamps();
+
+        renderMelee();
+
+        renderPlayers(
+            frame
+        );
+
+        renderPlayerTable(
+            frame
+        );
+
+        renderRenso(
+            frame
+        );
+
+        renderCampDetails();
+
+        renderEvents();
+
+        renderMeleeEvents();
+    }
+
+
+    // ========================================================
+    // PLAYERS
+    // ========================================================
+
+    function renderPlayers(
+        frame
+    ) {
+
+        playerLayer.innerHTML =
+            '';
+
+
+        if (
+            !document
+                .getElementById(
+                    'showPlayers'
+                )
+                .checked
+        ) {
+
+            return;
+        }
+
+
+        for (
+            const player
+            of frame.players
+        ) {
+
+            if (
+                !player.alive
+
+                ||
+
+                !Number.isFinite(
+                    player.x
+                )
+
+                ||
+
+                !Number.isFinite(
+                    player.y
+                )
+            ) {
+
+                continue;
+            }
+
+
+            const point =
+                worldToPercent(
+                    player.x,
+                    player.y
+                );
+
+
+            const marker =
+                document.createElement(
+                    'div'
+                );
+
+
+            marker.className =
+                [
+                    'marker',
+                    'player',
+                    `team${player.team}`,
+
+                    player.name ===
+                    'renso'
+
+                        ? 'renso'
+
+                        : ''
+                ]
+                .join(' ');
+
+
+            marker.style.left =
+                `${point.left}%`;
+
+
+            marker.style.top =
+                `${point.top}%`;
+
+
+            marker.title =
+                [
+                    player.name,
+
+                    `Team ${player.team}`,
+
+                    `(${Math.round(player.x)}, ${Math.round(player.y)})`,
+
+                    `Net worth ${formatNumber(player.netWorth)}`
+                ]
+                .join('\n');
+
+
+            const label =
+                document.createElement(
+                    'div'
+                );
+
+
+            label.className =
+                'player-name';
+
+
+            label.textContent =
+                player.name;
+
+
+            marker.appendChild(
+                label
+            );
+
+
+            playerLayer.appendChild(
+                marker
+            );
+        }
+    }
+
+
+    // ========================================================
+    // SPECIAL RESOURCES
+    //
+    // SINNER + MIDBOSS ONLY
+    // ========================================================
+
+    function renderSpecialResources() {
+
+        resourceLayer.innerHTML =
+            '';
+
+
+        for (
+            const resource
+            of data.resources ?? []
+        ) {
+
+            if (
+                resource.type !==
+                'sinner'
+
+                &&
+
+                resource.type !==
+                'midboss'
+            ) {
+
+                continue;
+            }
+
+
+            if (
+                !specialResourceVisible(
+                    resource.type
+                )
+            ) {
+
+                continue;
+            }
+
+
+            if (
+                !Number.isFinite(
+                    resource.x
+                )
+
+                ||
+
+                !Number.isFinite(
+                    resource.y
+                )
+            ) {
+
+                continue;
+            }
+
+
+            const alive =
+                resourceAliveAt(
+                    resource,
+                    currentTime
+                );
+
+
+            if (
+                alive ===
+                null
+            ) {
+
+                continue;
+            }
+
+
+            const point =
+                worldToPercent(
+                    resource.x,
+                    resource.y
+                );
+
+
+            const marker =
+                document.createElement(
+                    'div'
+                );
+
+
+            marker.className =
+                [
+                    'marker',
+                    'resource',
+                    resource.type,
+
+                    alive
+                        ? ''
+                        : 'dead'
+                ]
+                .join(' ');
+
+
+            marker.style.left =
+                `${point.left}%`;
+
+
+            marker.style.top =
+                `${point.top}%`;
+
+
+            marker.title =
+                [
+                    prettySpecialResource(
+                        resource.type
+                    ),
+
+                    alive
+                        ? 'Available'
+                        : 'Unavailable',
+
+                    `entity ${resource.entityIndex}`,
+
+                    `(${Math.round(resource.x)}, ${Math.round(resource.y)})`
+                ]
+                .join('\n');
+
+
+            resourceLayer.appendChild(
+                marker
+            );
+        }
+    }
+
+
+    // ========================================================
+    // CANONICAL CAMPS
+    // ========================================================
+
+    function renderCamps() {
+
+        campLayer.innerHTML =
+            '';
+
+
+        for (
+            const camp
+            of overlay.camps ?? []
+        ) {
+
+            if (
+                !campTierVisible(
+                    camp.tier
+                )
+            ) {
+
+                continue;
+            }
+
+
+            const x =
+                camp.worldPosition?.x;
+
+
+            const y =
+                camp.worldPosition?.y;
+
+
+            if (
+                !Number.isFinite(x)
+
+                ||
+
+                !Number.isFinite(y)
+            ) {
+
+                continue;
+            }
+
+
+            const interval =
+                campIntervalAt(
+                    camp,
+                    currentTime
+                );
+
+
+            const state =
+                interval?.state
+                ??
+                'UNKNOWN';
+
+
+            const point =
+                worldToPercent(
+                    x,
+                    y
+                );
+
+
+            const marker =
+                document.createElement(
+                    'div'
+                );
+
+
+            const stateClass =
+                state ===
+                'NOT_SPAWNED'
+
+                    ? 'not-spawned'
+
+                    : state ===
+                      'CLEARED'
+
+                        ? 'cleared'
+
+                        : '';
+
+
+            const selectedClass =
+                camp.campId ===
+                selectedCampId
+
+                    ? 'selected'
+
+                    : '';
+
+
+            marker.className =
+                [
+                    'marker',
+                    'camp',
+                    `camp-${camp.tier.toLowerCase()}`,
+                    stateClass,
+                    selectedClass
+                ]
+                .join(' ');
+
+
+            marker.style.left =
+                `${point.left}%`;
+
+
+            marker.style.top =
+                `${point.top}%`;
+
+
+            const letter =
+                document.createElement(
+                    'span'
+                );
+
+
+            letter.className =
+                'camp-letter';
+
+
+            letter.textContent =
+                camp.tier ===
+                'SMALL'
+
+                    ? 'S'
+
+                    : camp.tier ===
+                      'MEDIUM'
+
+                        ? 'M'
+
+                        : 'L';
+
+
+            marker.appendChild(
+                letter
+            );
+
+
+            marker.title =
+                campTooltip(
+                    camp,
+                    interval
+                );
+
+
+            marker.addEventListener(
+                'click',
+                event => {
+
+                    event.stopPropagation();
+
+
+                    selectedCampId =
+                        camp.campId;
+
+
+                    render();
+                }
+            );
+
+
+            campLayer.appendChild(
+                marker
+            );
+        }
+    }
+
+
+    // ========================================================
+    // MELEE MAP EVENTS
+    // ========================================================
+
+    function renderMelee() {
+
+        meleeLayer.innerHTML =
+            '';
+
+
+        if (
+            !document
+                .getElementById(
+                    'showMelee'
+                )
+                .checked
+        ) {
+
+            return;
+        }
+
+
+        const startTime =
+            currentTime -
+            MELEE_VISIBLE_WINDOW_SECONDS;
+
+
+        for (
+            const event
+            of overlay.meleeEvents ?? []
+        ) {
+
+            if (
+                event.timeSeconds >
+                currentTime
+            ) {
+
+                break;
+            }
+
+
+            if (
+                event.timeSeconds <
+                startTime
+            ) {
+
+                continue;
+            }
+
+
+            if (
+                !meleeEventVisible(
+                    event
+                )
+            ) {
+
+                continue;
+            }
+
+
+            const x =
+                event.position?.x;
+
+
+            const y =
+                event.position?.y;
+
+
+            if (
+                !Number.isFinite(x)
+
+                ||
+
+                !Number.isFinite(y)
+            ) {
+
+                continue;
+            }
+
+
+            const point =
+                worldToPercent(
+                    x,
+                    y
+                );
+
+
+            const marker =
+                document.createElement(
+                    'div'
+                );
+
+
+            marker.className =
+                [
+                    'marker',
+                    'melee-marker',
+                    meleeClass(
+                        event.attackType
+                    ),
+
+                    event.hit ===
+                    false
+
+                        ? 'melee-whiff'
+
+                        : '',
+
+                    event.playerName ===
+                    'renso'
+
+                        ? 'melee-renso'
+
+                        : ''
+                ]
+                .join(' ');
+
+
+            marker.style.left =
+                `${point.left}%`;
+
+
+            marker.style.top =
+                `${point.top}%`;
+
+
+            marker.textContent =
+                meleeShortLabel(
+                    event.attackType
+                );
+
+
+            marker.title =
+                meleeTooltip(
+                    event
+                );
+
+
+            meleeLayer.appendChild(
+                marker
+            );
+        }
+    }
+
+
+    // ========================================================
+    // PLAYER TABLE
+    // ========================================================
+
+    function renderPlayerTable(
+        frame
+    ) {
+
+        playerTable.innerHTML =
+            '';
+
+
+        const players =
+            [...frame.players]
+                .sort(
+                    (
+                        a,
+                        b
+                    ) => {
+
+                        if (
+                            a.team !==
+                            b.team
+                        ) {
+
+                            return (
+                                a.team -
+                                b.team
+                            );
+                        }
+
+
+                        return (
+                            a.name.localeCompare(
+                                b.name
+                            )
+                        );
+                    }
+                );
+
+
+        for (
+            const player
+            of players
+        ) {
+
+            const tr =
+                document.createElement(
+                    'tr'
+                );
+
+
+            if (
+                player.name ===
+                'renso'
+            ) {
+
+                tr.className =
+                    'focus-player';
+            }
+
+
+            tr.innerHTML =
+                `
+                <td>
+                    ${escapeHtml(player.name)}
+                </td>
+
+                <td>
+                    ${value(player.team)}
+                </td>
+
+                <td class="${player.alive ? 'alive' : 'dead-text'}">
+                    ${player.alive ? 'alive' : 'dead'}
+                </td>
+
+                <td>
+                    ${value(player.health)}
+                </td>
+
+                <td>
+                    ${formatNumber(player.netWorth)}
+                </td>
+
+                <td>
+                    ${value(player.kills)}
+                    /
+                    ${value(player.deaths)}
+                    /
+                    ${value(player.assists)}
+                </td>
+
+                <td>
+                    ${value(player.lastHits)}
+                </td>
+
+                <td>
+                    ${value(player.denies)}
+                </td>
+
+                <td>
+                    ${coordinate(player.x)}
+                </td>
+
+                <td>
+                    ${coordinate(player.y)}
+                </td>
+                `;
+
+
+            playerTable.appendChild(
+                tr
+            );
+        }
+    }
+
+
+    // ========================================================
+    // RENSO PANEL
+    // ========================================================
+
+    function renderRenso(
+        frame
+    ) {
+
+        const player =
+            frame.players.find(
+                item =>
+                    item.name ===
+                    'renso'
+            );
+
+
+        if (
+            !player
+        ) {
+
+            rensoMetrics.innerHTML =
+                'No renso state in this frame.';
+
+            return;
+        }
+
+
+        const recentRensoMelee =
+            countRecentMeleeForPlayer(
+                'renso',
+                10
+            );
+
+
+        const metrics =
+            [
+
+                [
+                    'Status',
+
+                    player.alive
+                        ? 'Alive'
+                        : 'Dead'
+                ],
+
+                [
+                    'Health',
+
+                    value(
+                        player.health
+                    )
+                ],
+
+                [
+                    'Net worth',
+
+                    formatNumber(
+                        player.netWorth
+                    )
+                ],
+
+                [
+                    'K / D / A',
+
+                    `${value(player.kills)} / ${value(player.deaths)} / ${value(player.assists)}`
+                ],
+
+                [
+                    'Last hits',
+
+                    value(
+                        player.lastHits
+                    )
+                ],
+
+                [
+                    'Denies',
+
+                    value(
+                        player.denies
+                    )
+                ],
+
+                [
+                    'X',
+
+                    coordinate(
+                        player.x
+                    )
+                ],
+
+                [
+                    'Y',
+
+                    coordinate(
+                        player.y
+                    )
+                ],
+
+                [
+                    'Lane',
+
+                    value(
+                        player.lane
+                    )
+                ],
+
+                [
+                    'Melee last 10s',
+
+                    recentRensoMelee
+                ]
+            ];
+
+
+        rensoMetrics.innerHTML =
+            metrics
+                .map(
+                    (
+                        [
+                            label,
+                            val
+                        ]
+                    ) =>
+                        `
+                        <div class="metric">
+
+                            <div class="label">
+                                ${escapeHtml(label)}
+                            </div>
+
+                            <div class="value">
+                                ${escapeHtml(String(val))}
+                            </div>
+
+                        </div>
+                        `
+                )
+                .join('');
+    }
+
+
+    // ========================================================
+    // CAMP DETAIL PANEL
+    // ========================================================
+
+    function renderCampDetails() {
+
+        if (
+            !selectedCampId
+        ) {
+
+            campDetails.innerHTML =
+                `
+                <div class="subtle">
+                    Click a camp marker to inspect it.
+                </div>
+                `;
+
+            return;
+        }
+
+
+        const camp =
+            overlay.camps.find(
+                item =>
+                    item.campId ===
+                    selectedCampId
+            );
+
+
+        if (
+            !camp
+        ) {
+
+            campDetails.innerHTML =
+                `
+                <div class="subtle">
+                    Selected camp not found.
+                </div>
+                `;
+
+            return;
+        }
+
+
+        const interval =
+            campIntervalAt(
+                camp,
+                currentTime
+            );
+
+
+        const state =
+            interval?.state
+            ??
+            'UNKNOWN';
+
+
+        const statusClass =
+            state ===
+            'AVAILABLE'
+
+                ? 'status-available'
+
+                : state ===
+                  'CLEARED'
+
+                    ? 'status-cleared'
+
+                    : 'status-not-spawned';
+
+
+        const statusText =
+            campStatusText(
+                camp,
+                interval
+            );
+
+
+        const memberText =
+            (
+                camp.members
+                ??
+                []
+            )
+            .map(
+                member =>
+                    `#${member.entityIndex} ${prettyUnitType(member.unitType)}`
+            )
+            .join('<br>');
+
+
+        campDetails.innerHTML =
+            `
+
+            <div class="camp-title">
+                ${escapeHtml(prettyCampName(camp.name))}
+            </div>
+
+            <div class="subtle mono">
+                ${escapeHtml(camp.name)}
+            </div>
+
+            <div class="camp-status ${statusClass}">
+                ${escapeHtml(statusText)}
+            </div>
+
+
+            <div class="detail-grid">
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Tier
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHtml(camp.tier)}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Members
+                    </div>
+
+                    <div class="detail-value">
+                        ${camp.memberCount}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Composition
+                    </div>
+
+                    <div class="detail-value">
+                        ${escapeHtml(formatComposition(camp.unitComposition))}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Respawn timer
+                    </div>
+
+                    <div class="detail-value">
+                        ${formatDuration(camp.respawnDurationSeconds)}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Clear cycles
+                    </div>
+
+                    <div class="detail-value">
+                        ${camp.clearEvents.length}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Validated cycles
+                    </div>
+
+                    <div class="detail-value">
+                        ${camp.validatedRespawnCycleCount}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        World X
+                    </div>
+
+                    <div class="detail-value">
+                        ${coordinate(camp.worldPosition?.x)}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        World Y
+                    </div>
+
+                    <div class="detail-value">
+                        ${coordinate(camp.worldPosition?.y)}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="camp-members">
+
+                <strong>
+                    Members
+                </strong>
+
+                <br>
+
+                ${memberText || '—'}
+
+            </div>
+            `;
+    }
+
+
+    // ========================================================
+    // CAMP / RESOURCE EVENTS
+    // ========================================================
+
+    function renderEvents() {
+
+        const canonicalPast =
+            campEvents
+                .filter(
+                    event =>
+                        event.t <=
+                        currentTime
+                );
+
+
+        const specialPast =
+            specialResourceEvents
+                .filter(
+                    event =>
+                        event.t <=
+                        currentTime
+                )
+                .map(
+                    event => ({
+
+                        ...event,
+
+                        type:
+                            'SPECIAL_RESOURCE'
+                    })
+                );
+
+
+        const combined =
+            [
+                ...canonicalPast,
+                ...specialPast
+            ]
+
+            .sort(
+                (
+                    a,
+                    b
+                ) =>
+                    a.t -
+                    b.t
+            )
+
+            .slice(-16)
+
+            .reverse();
+
+
+        if (
+            combined.length ===
+            0
+        ) {
+
+            eventsPanel.innerHTML =
+                `
+                <div class="subtle">
+                    No camp or resource events yet.
+                </div>
+                `;
+
+            return;
+        }
+
+
+        eventsPanel.innerHTML =
+            combined
+                .map(
+                    event =>
+                        resourceEventHtml(
+                            event
+                        )
+                )
+                .join('');
+    }
+
+
+    // ========================================================
+    // MELEE EVENT PANEL
+    // ========================================================
+
+    function renderMeleeEvents() {
+
+        const recent =
+            overlay.meleeEvents
+
+                .filter(
+                    event =>
+                        event.timeSeconds <=
+                        currentTime
+                )
+
+                .filter(
+                    meleeEventVisible
+                )
+
+                .slice(-14)
+
+                .reverse();
+
+
+        if (
+            recent.length ===
+            0
+        ) {
+
+            meleeEventsPanel.innerHTML =
+                `
+                <div class="subtle">
+                    No visible melee events yet.
+                </div>
+                `;
+
+            return;
+        }
+
+
+        meleeEventsPanel.innerHTML =
+            recent
+                .map(
+                    event => {
+
+                        const attackClass =
+                            meleeTextClass(
+                                event.attackType
+                            );
+
+
+                        const hitClass =
+                            event.hit
+
+                                ? 'hit-text'
+
+                                : 'whiff-text';
+
+
+                        const result =
+                            event.hit
+
+                                ? 'HIT'
+
+                                : 'WHIFF';
+
+
+                        const hold =
+                            Number.isFinite(
+                                event.inputHoldSeconds
+                            )
+
+                                ? `${event.inputHoldSeconds.toFixed(3)}s`
+
+                                : '—';
+
+
+                        return `
+                        <div class="event">
+
+                            <span class="event-time">
+                                ${formatClockPrecise(event.timeSeconds)}
+                            </span>
+
+                            <strong>
+                                ${escapeHtml(event.playerName ?? 'unknown')}
+                            </strong>
+
+                            <span class="${attackClass}">
+                                ${escapeHtml(prettyAttackType(event.attackType))}
+                            </span>
+
+                            <span class="${hitClass}">
+                                ${result}
+                            </span>
+
+                            <div class="subtle">
+                                hold ${hold}
+                                ${
+                                    event.inputHoldCategory
+
+                                        ? `• ${escapeHtml(event.inputHoldCategory)}`
+
+                                        : ''
+                                }
+                            </div>
+
+                        </div>
+                        `;
+                    }
+                )
+                .join('');
+    }
+
+
+    // ========================================================
+    // CONTROLS
+    // ========================================================
+
+    slider.addEventListener(
+        'input',
+        () => {
+
+            currentTime =
+                Number(
+                    slider.value
+                );
+
+
+            render();
+        }
+    );
+
+
+    document
+        .getElementById(
+            'back10'
+        )
+        .addEventListener(
+            'click',
+            () => {
+
+                currentTime =
+                    Math.max(
+                        0,
+                        currentTime -
+                        10
+                    );
+
+
+                render();
+            }
+        );
+
+
+    document
+        .getElementById(
+            'forward10'
+        )
+        .addEventListener(
+            'click',
+            () => {
+
+                currentTime =
+                    Math.min(
+                        duration,
+                        currentTime +
+                        10
+                    );
+
+
+                render();
+            }
+        );
+
+
+    playButton.addEventListener(
+        'click',
+        () => {
+
+            playing =
+                !playing;
+
+
+            playButton.textContent =
+                playing
+                    ? 'Pause'
+                    : 'Play';
+
+
+            if (
+                playing
+            ) {
+
+                startPlayback();
+
+            } else {
+
+                stopPlayback();
+            }
+        }
+    );
+
+
+    playbackSpeed.addEventListener(
+        'change',
+        () => {
+
+            if (
+                playing
+            ) {
+
+                stopPlayback();
+
+                startPlayback();
+            }
+        }
+    );
+
+
+    for (
+        const id
+        of [
+            'showPlayers',
+            'showSmall',
+            'showMedium',
+            'showLarge',
+            'showSinners',
+            'showMidBoss',
+            'showMelee',
+            'showLightMelee',
+            'showHeavyMelee',
+            'showHeavyAirMelee',
+            'rensoMeleeOnly'
+        ]
+    ) {
+
+        document
+            .getElementById(id)
+            .addEventListener(
+                'change',
+                render
+            );
+    }
+
+
+    document
+        .getElementById(
+            'map'
+        )
+        .addEventListener(
+            'click',
+            () => {
+
+                selectedCampId =
+                    null;
+
+                renderCampDetails();
+
+                renderCamps();
+            }
+        );
+
+
+    // ========================================================
+    // PLAYBACK
+    // ========================================================
+
+    function startPlayback() {
+
+        stopPlayback();
+
+
+        playing =
+            true;
+
+
+        playButton.textContent =
+            'Pause';
+
+
+        playTimer =
+            setInterval(
+                () => {
+
+                    const speed =
+                        Number(
+                            playbackSpeed.value
+                        )
+                        ||
+                        4;
+
+
+                    // 250 ms real time × speed.
+
+                    currentTime +=
+                        0.25 *
+                        speed;
+
+
+                    if (
+                        currentTime >=
+                        duration
+                    ) {
+
+                        currentTime =
+                            duration;
+
+
+                        playing =
+                            false;
+
+
+                        stopPlayback();
+
+
+                        playButton.textContent =
+                            'Play';
+                    }
+
+
+                    render();
+
+                },
+                250
+            );
+    }
+
+
+    function stopPlayback() {
+
+        if (
+            playTimer
+        ) {
+
+            clearInterval(
+                playTimer
+            );
+
+
+            playTimer =
+                null;
+        }
+    }
+
+
+    // ========================================================
+    // CAMP HELPERS
+    // ========================================================
+
+    function campStatusText(
+        camp,
+        interval
+    ) {
+
+        if (
+            !interval
+        ) {
+
+            return 'UNKNOWN';
+        }
+
+
+        if (
+            interval.state ===
+            'AVAILABLE'
+        ) {
+
+            return 'AVAILABLE';
+        }
+
+
+        if (
+            interval.state ===
+            'NOT_SPAWNED'
+        ) {
+
+            const remaining =
+                interval
+                    .nextAvailabilityTimeSeconds
+                -
+                currentTime;
+
+
+            return (
+                `SPAWNS IN ${formatDuration(remaining)}`
+            );
+        }
+
+
+        if (
+            interval.state ===
+            'CLEARED'
+        ) {
+
+            const next =
+                interval
+                    .nextAvailabilityTimeSeconds;
+
+
+            if (
+                Number.isFinite(
+                    next
+                )
+            ) {
+
+                return (
+                    `RESPAWNS IN ${
+                        formatDuration(
+                            Math.max(
+                                0,
+                                next -
+                                currentTime
+                            )
+                        )
+                    }`
+                );
+            }
+
+
+            return 'CLEARED';
+        }
+
+
+        return interval.state;
+    }
+
+
+    function campTooltip(
+        camp,
+        interval
+    ) {
+
+        return [
+
+            prettyCampName(
+                camp.name
+            ),
+
+            `Tier: ${camp.tier}`,
+
+            campStatusText(
+                camp,
+                interval
+            ),
+
+            `Members: ${camp.memberCount}`,
+
+            `Composition: ${formatComposition(camp.unitComposition)}`,
+
+            `Validated respawns: ${camp.validatedRespawnCycleCount}`,
+
+            `(${Math.round(camp.worldPosition.x)}, ${Math.round(camp.worldPosition.y)})`
+        ]
+        .join('\n');
+    }
+
+
+    function formatComposition(
+        composition
+    ) {
+
+        if (
+            !composition
+        ) {
+
+            return '—';
+        }
+
+
+        const order =
+            [
+                'SMALL_UNIT',
+                'MEDIUM_UNIT',
+                'LARGE_UNIT'
+            ];
+
+
+        const parts =
+            [];
+
+
+        for (
+            const key
+            of order
+        ) {
+
+            const count =
+                composition[key]
+                ??
+                0;
+
+
+            if (
+                count >
+                0
+            ) {
+
+                parts.push(
+                    `${count} ${prettyUnitType(key)}`
+                );
+            }
+        }
+
+
+        for (
+            const [
+                key,
+                count
+            ]
+            of Object.entries(
+                composition
+            )
+        ) {
+
+            if (
+                order.includes(
+                    key
+                )
+            ) {
+
+                continue;
+            }
+
+
+            parts.push(
+                `${count} ${key}`
+            );
+        }
+
+
+        return (
+            parts.join(' + ')
+            ||
+            '—'
+        );
+    }
+
+
+    function prettyUnitType(
+        type
+    ) {
+
+        if (
+            type ===
+            'SMALL_UNIT'
+        ) {
+
+            return 'Small';
+        }
+
+
+        if (
+            type ===
+            'MEDIUM_UNIT'
+        ) {
+
+            return 'Medium';
+        }
+
+
+        if (
+            type ===
+            'LARGE_UNIT'
+        ) {
+
+            return 'Large';
+        }
+
+
+        return (
+            type
+            ??
+            'Unknown'
+        );
+    }
+
+
+    function prettyCampName(
+        name
+    ) {
+
+        return String(
+            name
+            ??
+            ''
+        )
+
+        .replaceAll(
+            '_',
+            ' '
+        )
+
+        .replace(
+            /\b\w/g,
+            character =>
+                character.toUpperCase()
+        );
+    }
+
+
+    // ========================================================
+    // MELEE HELPERS
+    // ========================================================
+
+    function meleeClass(
+        type
+    ) {
+
+        if (
+            type ===
+            'LIGHT'
+        ) {
+
+            return 'melee-light';
+        }
+
+
+        if (
+            type ===
+            'HEAVY'
+        ) {
+
+            return 'melee-heavy';
+        }
+
+
+        if (
+            type ===
+            'HEAVY_AIR'
+        ) {
+
+            return 'melee-heavy-air';
+        }
+
+
+        if (
+            type ===
+            'SLIDE'
+        ) {
+
+            return 'melee-slide';
+        }
+
+
+        return 'melee-light';
+    }
+
+
+    function meleeTextClass(
+        type
+    ) {
+
+        if (
+            type ===
+            'LIGHT'
+        ) {
+
+            return 'melee-light-text';
+        }
+
+
+        if (
+            type ===
+            'HEAVY'
+        ) {
+
+            return 'melee-heavy-text';
+        }
+
+
+        if (
+            type ===
+            'HEAVY_AIR'
+        ) {
+
+            return 'melee-heavy-air-text';
+        }
+
+
+        return '';
+    }
+
+
+    function meleeShortLabel(
+        type
+    ) {
+
+        if (
+            type ===
+            'LIGHT'
+        ) {
+
+            return 'L';
+        }
+
+
+        if (
+            type ===
+            'HEAVY'
+        ) {
+
+            return 'H';
+        }
+
+
+        if (
+            type ===
+            'HEAVY_AIR'
+        ) {
+
+            return 'HA';
+        }
+
+
+        if (
+            type ===
+            'SLIDE'
+        ) {
+
+            return 'S';
+        }
+
+
+        return '?';
+    }
+
+
+    function prettyAttackType(
+        type
+    ) {
+
+        if (
+            type ===
+            'HEAVY_AIR'
+        ) {
+
+            return 'HEAVY AIR';
+        }
+
+
+        return (
+            type
+            ??
+            'UNKNOWN'
+        );
+    }
+
+
+    function meleeTooltip(
+        event
+    ) {
+
+        const lines =
+            [
+
+                event.playerName
+                ??
+                'Unknown player',
+
+                prettyAttackType(
+                    event.attackType
+                ),
+
+                event.hit
+                    ? 'HIT'
+                    : 'WHIFF',
+
+                `Time: ${formatClockPrecise(event.timeSeconds)}`
+            ];
+
+
+        if (
+            Number.isFinite(
+                event.inputHoldSeconds
+            )
+        ) {
+
+            lines.push(
+                `Hold: ${event.inputHoldSeconds.toFixed(3)}s`
+            );
+        }
+
+
+        if (
+            event.inputHoldCategory
+        ) {
+
+            lines.push(
+                `Input: ${event.inputHoldCategory}`
+            );
+        }
+
+
+        return lines.join('\n');
+    }
+
+
+    function countRecentMeleeForPlayer(
+        playerName,
+        seconds
+    ) {
+
+        const start =
+            currentTime -
+            seconds;
+
+
+        let count =
+            0;
+
+
+        for (
+            const event
+            of overlay.meleeEvents
+        ) {
+
+            if (
+                event.timeSeconds >
+                currentTime
+            ) {
+
+                break;
+            }
+
+
+            if (
+                event.timeSeconds >=
+                start
+
+                &&
+
+                event.playerName ===
+                playerName
+            ) {
+
+                count++;
+            }
+        }
+
+
+        return count;
+    }
+
+
+    // ========================================================
+    // RESOURCE EVENT HTML
+    // ========================================================
+
+    function resourceEventHtml(
+        event
+    ) {
+
+        if (
+            event.type ===
+            'CAMP_CLEAR'
+        ) {
+
+            return `
+            <div class="event">
+
+                <span class="event-time">
+                    ${formatClock(event.t)}
+                </span>
+
+                <span class="down">
+                    CLEARED
+                </span>
+
+                ${escapeHtml(prettyCampName(event.campName))}
+
+                <span class="subtle">
+                    ${escapeHtml(event.tier)}
+                </span>
+
+            </div>
+            `;
+        }
+
+
+        if (
+            event.type ===
+            'CAMP_RESPAWN'
+        ) {
+
+            return `
+            <div class="event">
+
+                <span class="event-time">
+                    ${formatClock(event.t)}
+                </span>
+
+                <span class="up">
+                    RESPAWN
+                </span>
+
+                ${escapeHtml(prettyCampName(event.campName))}
+
+                <span class="subtle">
+                    ${escapeHtml(event.tier)}
+                </span>
+
+            </div>
+            `;
+        }
+
+
+        if (
+            event.type ===
+            'SPECIAL_RESOURCE'
+        ) {
+
+            const cls =
+                event.transition ===
+                'UP'
+
+                    ? 'up'
+
+                    : 'down';
+
+
+            return `
+            <div class="event">
+
+                <span class="event-time">
+                    ${formatClock(event.t)}
+                </span>
+
+                <span class="${cls}">
+                    ${escapeHtml(event.transition)}
+                </span>
+
+                ${escapeHtml(prettySpecialResource(event.type ?? event.resourceType))}
+
+                <span class="subtle">
+                    #${escapeHtml(event.entityIndex ?? '—')}
+                </span>
+
+            </div>
+            `;
+        }
+
+
+        return '';
+    }
+
+
+    // ========================================================
+    // GENERAL HELPERS
+    // ========================================================
+
+    function prettySpecialResource(
+        type
+    ) {
+
+        const names =
+            {
+
+                sinner:
+                    "Sinner's Sacrifice",
+
+                midboss:
+                    'Mid Boss'
+            };
+
+
+        return (
+            names[type]
+            ??
+            type
+            ??
+            'Resource'
+        );
+    }
+
+
+    function formatClock(
+        seconds
+    ) {
+
+        seconds =
+            Math.max(
+                0,
+                Math.floor(
+                    seconds
+                )
+            );
+
+
+        const minutes =
+            Math.floor(
+                seconds /
+                60
+            );
+
+
+        const secs =
+            seconds %
+            60;
+
+
+        return (
+            `${minutes}:`
+            +
+            String(
+                secs
+            )
+            .padStart(
+                2,
+                '0'
+            )
+        );
+    }
+
+
+    function formatClockPrecise(
+        seconds
+    ) {
+
+        if (
+            !Number.isFinite(
+                seconds
+            )
+        ) {
+
+            return '—';
+        }
+
+
+        const negative =
+            seconds <
+            0;
+
+
+        const value =
+            Math.abs(
+                seconds
+            );
+
+
+        const minutes =
+            Math.floor(
+                value /
+                60
+            );
+
+
+        const secs =
+            value %
+            60;
+
+
+        return (
+
+            (
+                negative
+                    ? '-'
+                    : ''
+            )
+
+            +
+
+            `${minutes}:`
+
+            +
+
+            secs
+                .toFixed(2)
+                .padStart(
+                    5,
+                    '0'
+                )
+        );
+    }
+
+
+    function formatDuration(
+        seconds
+    ) {
+
+        if (
+            !Number.isFinite(
+                seconds
+            )
+        ) {
+
+            return '—';
+        }
+
+
+        seconds =
+            Math.max(
+                0,
+                seconds
+            );
+
+
+        const minutes =
+            Math.floor(
+                seconds /
+                60
+            );
+
+
+        const secs =
+            Math.floor(
+                seconds %
+                60
+            );
+
+
+        return (
+            `${minutes}:`
+            +
+            String(
+                secs
+            )
+            .padStart(
+                2,
+                '0'
+            )
+        );
+    }
+
+
+    function formatNumber(
+        number
+    ) {
+
+        if (
+            !Number.isFinite(
+                number
+            )
+        ) {
+
+            return '—';
+        }
+
+
+        return number
+            .toLocaleString();
+    }
+
+
+    function coordinate(
+        number
+    ) {
+
+        if (
+            !Number.isFinite(
+                number
+            )
+        ) {
+
+            return '—';
+        }
+
+
+        return Math.round(
+            number
+        );
+    }
+
+
+    function value(
+        value
+    ) {
+
+        if (
+            value ===
+            null
+
+            ||
+
+            value ===
+            undefined
+        ) {
+
+            return '—';
+        }
+
+
+        return value;
+    }
+
+
+    function escapeHtml(
+        text
+    ) {
+
+        return String(
+            text
+        )
+
+        .replaceAll(
+            '&',
+            '&amp;'
+        )
+
+        .replaceAll(
+            '<',
+            '&lt;'
+        )
+
+        .replaceAll(
+            '>',
+            '&gt;'
+        )
+
+        .replaceAll(
+            '"',
+            '&quot;'
+        )
+
+        .replaceAll(
+            "'",
+            '&#039;'
+        );
+    }
+
+
+    // ========================================================
+    // INITIAL RENDER
+    // ========================================================
+
+    render();
+
+})().catch(
+
+    error => {
+
+        console.error(
+            error
+        );
+
+
+        document.body.innerHTML =
+            `
+            <pre style="
+                color:white;
+                background:#611;
+                padding:20px;
+                white-space:pre-wrap;
+            ">
+${String(error.stack ?? error)}
+            </pre>
+            `;
+    }
+);
+
+</script>
+
+</body>
+
+</html>
