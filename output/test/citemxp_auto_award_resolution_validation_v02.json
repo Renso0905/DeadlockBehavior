@@ -1,0 +1,1144 @@
+{
+  "replay": "test",
+  "version": "CITEMXP_AUTO_AWARD_RESOLUTION_VALIDATION_V02",
+  "canonical": false,
+  "status": "AUTO_AWARD_MECHANIC_PARTIALLY_SUPPORTED",
+  "purpose": [
+    "Independently rescan raw controller telemetry to challenge Script 65 automatic no-shot CItemXP outcomes.",
+    "Choose the economy timing window only from known-shot Trooper controls, with a deterministic calibration/holdout split.",
+    "Test no-shot Trooper team direction without presupposing that opposite-orb-team is the winner.",
+    "Test Soul Urn automatic payout semantics at the burst level, where the ten payout objects can be evaluated without pretending each tightly overlapping orb is independently attributable.",
+    "Separate AUTO_AWARD_VALIDATED, AUTO_AWARD_PROBABLE, ECONOMY_COLLISION, and UNRESOLVED rather than forcing every untouched orb into a winner."
+  ],
+  "independenceFromEarlierAutoAwardLogic": {
+    "consumesScript64PerAnchorUnits": false,
+    "consumesScript65LabelsForClassification": false,
+    "script65Use": "COMPARATOR_ONLY",
+    "directReplayRescan": true,
+    "fieldsRescanned": [
+      "m_iGoldNetWorth",
+      "m_iDenies",
+      "m_iLastHits",
+      "m_iPlayerKills",
+      "m_iPlayerAssists"
+    ]
+  },
+  "inputs": {
+    "replay": "G:\\DeadlockBehavior\\replays\\test.dem",
+    "playerState": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl",
+    "script62Summary": "G:\\DeadlockBehavior\\output\\test\\citemxp_race_resolution_validation_v01.json",
+    "script62CorrectedOutcomes": "G:\\DeadlockBehavior\\output\\test\\citemxp_corrected_shot_outcomes_v01.jsonl",
+    "optionalScript65Summary": "G:\\DeadlockBehavior\\output\\test\\citemxp_final_outcome_validation_v01.json",
+    "optionalScript65Stream": "G:\\DeadlockBehavior\\output\\test\\citemxp_final_outcomes_v01.jsonl"
+  },
+  "counts": {
+    "targets": 1239,
+    "shotTargets": 105,
+    "noShotTargets": 1134,
+    "trooperNoShotTargets": 1094,
+    "urnNoShotTargets": 40,
+    "fingerprintControls": 64,
+    "calibrationControls": 32,
+    "holdoutControls": 32,
+    "urnBursts": 7,
+    "allNoShotUrnBursts": 3
+  },
+  "controllerTelemetry": {
+    "controllerEntityEvents": 263146,
+    "deltaEvents": 41939,
+    "fields": {
+      "m_iGoldNetWorth": {
+        "fieldName": "m_iGoldNetWorth",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 39760,
+        "explicitDeltaCount": 39100,
+        "deltaCount": 39100,
+        "positiveDeltaCount": 39068,
+        "negativeDeltaCount": 32,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 39100,
+          "min": -1628,
+          "p05": 1,
+          "p10": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 5,
+          "p90": 50,
+          "p95": 83,
+          "max": 2960,
+          "mean": 19.337340153452686
+        }
+      },
+      "m_iDenies": {
+        "fieldName": "m_iDenies",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 716,
+        "explicitDeltaCount": 56,
+        "deltaCount": 56,
+        "positiveDeltaCount": 56,
+        "negativeDeltaCount": 0,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 56,
+          "min": 1,
+          "p05": 1,
+          "p10": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p90": 1,
+          "p95": 1,
+          "max": 4,
+          "mean": 1.0714285714285714
+        }
+      },
+      "m_iLastHits": {
+        "fieldName": "m_iLastHits",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 3093,
+        "explicitDeltaCount": 2433,
+        "deltaCount": 2433,
+        "positiveDeltaCount": 2433,
+        "negativeDeltaCount": 0,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 2433,
+          "min": 1,
+          "p05": 1,
+          "p10": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p90": 1,
+          "p95": 2,
+          "max": 9,
+          "mean": 1.1261816687217427
+        }
+      },
+      "m_iPlayerKills": {
+        "fieldName": "m_iPlayerKills",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 773,
+        "explicitDeltaCount": 113,
+        "deltaCount": 113,
+        "positiveDeltaCount": 113,
+        "negativeDeltaCount": 0,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 113,
+          "min": 1,
+          "p05": 1,
+          "p10": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p90": 1,
+          "p95": 1,
+          "max": 1,
+          "mean": 1
+        }
+      },
+      "m_iPlayerAssists": {
+        "fieldName": "m_iPlayerAssists",
+        "readAttempts": 263146,
+        "finiteReads": 263146,
+        "explicitChangeMentions": 897,
+        "explicitDeltaCount": 237,
+        "deltaCount": 237,
+        "positiveDeltaCount": 237,
+        "negativeDeltaCount": 0,
+        "firstObservedTick": 1,
+        "lastObservedTick": 203521,
+        "playersWithFiniteValue": 12,
+        "controllerIndexesWithFiniteValue": 12,
+        "deltaValues": {
+          "count": 237,
+          "min": 1,
+          "p05": 1,
+          "p10": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p90": 1,
+          "p95": 1,
+          "max": 1,
+          "mean": 1
+        }
+      }
+    }
+  },
+  "shotControlFingerprint": {
+    "cohort": "COLLISION_FREE_NON_MIXED_TROOPER_SHOTS",
+    "splitRule": "Chronologically sorted controls; even indexes calibrate and odd indexes are holdout.",
+    "candidateWindows": [
+      {
+        "window": {
+          "id": "P0_P6",
+          "before": 0,
+          "after": 6
+        },
+        "controlCount": 32,
+        "shooterSignal": 32,
+        "winnerSignal": 32,
+        "winnerOnly": 25,
+        "otherOnly": 0,
+        "winnerDominant": 29,
+        "tie": 0,
+        "shooterSignalRate": 1,
+        "winnerSignalRate": 1,
+        "cleanWinnerOnlyRate": 0.78125,
+        "otherOnlyRate": 0,
+        "winnerDominanceRate": 0.90625,
+        "winnerTeamPositiveDelta": {
+          "count": 32,
+          "min": 51,
+          "p05": 53.55,
+          "p10": 55,
+          "p25": 57,
+          "median": 67.5,
+          "p75": 102,
+          "p90": 122,
+          "p95": 124,
+          "max": 205,
+          "mean": 81.5
+        },
+        "loserTeamPositiveDelta": {
+          "count": 32,
+          "min": 0,
+          "p05": 0,
+          "p10": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p90": 3,
+          "p95": 95.39999999999998,
+          "max": 306,
+          "mean": 15.90625
+        },
+        "shooterPositiveDelta": {
+          "count": 32,
+          "min": 19,
+          "p05": 25,
+          "p10": 26.1,
+          "p25": 29,
+          "median": 33.5,
+          "p75": 63,
+          "p90": 80.9,
+          "p95": 94.39999999999999,
+          "max": 124,
+          "mean": 48.875
+        },
+        "firstWinnerOffsetTicks": {
+          "count": 32,
+          "min": 0,
+          "p05": 0.55,
+          "p10": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 4,
+          "p90": 4.900000000000002,
+          "p95": 5,
+          "max": 6,
+          "mean": 2.34375
+        },
+        "score": 0.9345
+      },
+      {
+        "window": {
+          "id": "P0_P8",
+          "before": 0,
+          "after": 8
+        },
+        "controlCount": 32,
+        "shooterSignal": 32,
+        "winnerSignal": 32,
+        "winnerOnly": 25,
+        "otherOnly": 0,
+        "winnerDominant": 29,
+        "tie": 0,
+        "shooterSignalRate": 1,
+        "winnerSignalRate": 1,
+        "cleanWinnerOnlyRate": 0.78125,
+        "otherOnlyRate": 0,
+        "winnerDominanceRate": 0.90625,
+        "winnerTeamPositiveDelta": {
+          "count": 32,
+          "min": 51,
+          "p05": 53.55,
+          "p10": 55,
+          "p25": 57,
+          "median": 70.5,
+          "p75": 102,
+          "p90": 122.9,
+          "p95": 124.45,
+          "max": 205,
+          "mean": 82.625
+        },
+        "loserTeamPositiveDelta": {
+          "count": 32,
+          "min": 0,
+          "p05": 0,
+          "p10": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p90": 3,
+          "p95": 95.39999999999998,
+          "max": 306,
+          "mean": 15.9375
+        },
+        "shooterPositiveDelta": {
+          "count": 32,
+          "min": 19,
+          "p05": 25,
+          "p10": 26.1,
+          "p25": 29,
+          "median": 34,
+          "p75": 63,
+          "p90": 81,
+          "p95": 94.39999999999999,
+          "max": 124,
+          "mean": 48.9375
+        },
+        "firstWinnerOffsetTicks": {
+          "count": 32,
+          "min": 0,
+          "p05": 0.55,
+          "p10": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 4,
+          "p90": 4.900000000000002,
+          "p95": 5,
+          "max": 6,
+          "mean": 2.34375
+        },
+        "score": 0.9335
+      },
+      {
+        "window": {
+          "id": "M2_P8",
+          "before": 2,
+          "after": 8
+        },
+        "controlCount": 32,
+        "shooterSignal": 32,
+        "winnerSignal": 32,
+        "winnerOnly": 24,
+        "otherOnly": 0,
+        "winnerDominant": 29,
+        "tie": 0,
+        "shooterSignalRate": 1,
+        "winnerSignalRate": 1,
+        "cleanWinnerOnlyRate": 0.75,
+        "otherOnlyRate": 0,
+        "winnerDominanceRate": 0.90625,
+        "winnerTeamPositiveDelta": {
+          "count": 32,
+          "min": 51,
+          "p05": 53.55,
+          "p10": 55,
+          "p25": 57.75,
+          "median": 77,
+          "p75": 111,
+          "p90": 124,
+          "p95": 142.54999999999995,
+          "max": 205,
+          "mean": 87.5625
+        },
+        "loserTeamPositiveDelta": {
+          "count": 32,
+          "min": 0,
+          "p05": 0,
+          "p10": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0.75,
+          "p90": 39.10000000000008,
+          "p95": 95.39999999999998,
+          "max": 306,
+          "mean": 17.375
+        },
+        "shooterPositiveDelta": {
+          "count": 32,
+          "min": 19,
+          "p05": 25,
+          "p10": 26.1,
+          "p25": 29,
+          "median": 34,
+          "p75": 66.75,
+          "p90": 88.20000000000002,
+          "p95": 105.6,
+          "max": 124,
+          "mean": 50.6875
+        },
+        "firstWinnerOffsetTicks": {
+          "count": 32,
+          "min": -2,
+          "p05": -2,
+          "p10": -1.9,
+          "p25": 0.75,
+          "median": 1,
+          "p75": 3.25,
+          "p90": 4,
+          "p95": 4.449999999999999,
+          "max": 6,
+          "mean": 1.53125
+        },
+        "score": 0.92625
+      },
+      {
+        "window": {
+          "id": "P0_P12",
+          "before": 0,
+          "after": 12
+        },
+        "controlCount": 32,
+        "shooterSignal": 32,
+        "winnerSignal": 32,
+        "winnerOnly": 21,
+        "otherOnly": 0,
+        "winnerDominant": 28,
+        "tie": 0,
+        "shooterSignalRate": 1,
+        "winnerSignalRate": 1,
+        "cleanWinnerOnlyRate": 0.65625,
+        "otherOnlyRate": 0,
+        "winnerDominanceRate": 0.875,
+        "winnerTeamPositiveDelta": {
+          "count": 32,
+          "min": 51,
+          "p05": 54.55,
+          "p10": 55,
+          "p25": 57.75,
+          "median": 74.5,
+          "p75": 107.25,
+          "p90": 122.9,
+          "p95": 125.44999999999999,
+          "max": 251,
+          "mean": 86.1875
+        },
+        "loserTeamPositiveDelta": {
+          "count": 32,
+          "min": 0,
+          "p05": 0,
+          "p10": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 2.25,
+          "p90": 56.700000000000074,
+          "p95": 95.94999999999999,
+          "max": 306,
+          "mean": 18.8125
+        },
+        "shooterPositiveDelta": {
+          "count": 32,
+          "min": 19,
+          "p05": 25,
+          "p10": 26.1,
+          "p25": 29,
+          "median": 45,
+          "p75": 63,
+          "p90": 88.20000000000002,
+          "p95": 102.8,
+          "max": 124,
+          "mean": 50.9375
+        },
+        "firstWinnerOffsetTicks": {
+          "count": 32,
+          "min": 0,
+          "p05": 0.55,
+          "p10": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 4,
+          "p90": 4.900000000000002,
+          "p95": 5,
+          "max": 6,
+          "mean": 2.34375
+        },
+        "score": 0.90025
+      },
+      {
+        "window": {
+          "id": "P0_P16",
+          "before": 0,
+          "after": 16
+        },
+        "controlCount": 32,
+        "shooterSignal": 32,
+        "winnerSignal": 32,
+        "winnerOnly": 19,
+        "otherOnly": 0,
+        "winnerDominant": 27,
+        "tie": 0,
+        "shooterSignalRate": 1,
+        "winnerSignalRate": 1,
+        "cleanWinnerOnlyRate": 0.59375,
+        "otherOnlyRate": 0,
+        "winnerDominanceRate": 0.84375,
+        "winnerTeamPositiveDelta": {
+          "count": 32,
+          "min": 51,
+          "p05": 54.55,
+          "p10": 55,
+          "p25": 58.5,
+          "median": 81,
+          "p75": 117.5,
+          "p90": 132.8,
+          "p95": 174.79999999999995,
+          "max": 287,
+          "mean": 95.34375
+        },
+        "loserTeamPositiveDelta": {
+          "count": 32,
+          "min": 0,
+          "p05": 0,
+          "p10": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 3.25,
+          "p90": 79.80000000000005,
+          "p95": 113,
+          "max": 306,
+          "mean": 23.65625
+        },
+        "shooterPositiveDelta": {
+          "count": 32,
+          "min": 19,
+          "p05": 25,
+          "p10": 26.1,
+          "p25": 29,
+          "median": 45,
+          "p75": 63,
+          "p90": 88.20000000000002,
+          "p95": 103.25,
+          "max": 124,
+          "mean": 50.96875
+        },
+        "firstWinnerOffsetTicks": {
+          "count": 32,
+          "min": 0,
+          "p05": 0.55,
+          "p10": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 4,
+          "p90": 4.900000000000002,
+          "p95": 5,
+          "max": 6,
+          "mean": 2.34375
+        },
+        "score": 0.8795000000000001
+      },
+      {
+        "window": {
+          "id": "P0_P4",
+          "before": 0,
+          "after": 4
+        },
+        "controlCount": 32,
+        "shooterSignal": 25,
+        "winnerSignal": 28,
+        "winnerOnly": 22,
+        "otherOnly": 1,
+        "winnerDominant": 25,
+        "tie": 3,
+        "shooterSignalRate": 0.78125,
+        "winnerSignalRate": 0.875,
+        "cleanWinnerOnlyRate": 0.6875,
+        "otherOnlyRate": 0.03125,
+        "winnerDominanceRate": 0.78125,
+        "winnerTeamPositiveDelta": {
+          "count": 32,
+          "min": 0,
+          "p05": 0,
+          "p10": 2.6000000000000023,
+          "p25": 29.5,
+          "median": 58.5,
+          "p75": 91.5,
+          "p90": 121.9,
+          "p95": 122.89999999999999,
+          "max": 204,
+          "mean": 64.9375
+        },
+        "loserTeamPositiveDelta": {
+          "count": 32,
+          "min": 0,
+          "p05": 0,
+          "p10": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p90": 2.900000000000002,
+          "p95": 90.44999999999999,
+          "max": 113,
+          "mean": 9.46875
+        },
+        "shooterPositiveDelta": {
+          "count": 32,
+          "min": 0,
+          "p05": 0,
+          "p10": 0,
+          "p25": 19,
+          "median": 30.5,
+          "p75": 60.5,
+          "p90": 79.00000000000003,
+          "p95": 84.6,
+          "max": 124,
+          "mean": 38.28125
+        },
+        "firstWinnerOffsetTicks": {
+          "count": 28,
+          "min": 0,
+          "p05": 0.3500000000000001,
+          "p10": 1,
+          "p25": 1,
+          "median": 1.5,
+          "p75": 3,
+          "p90": 4,
+          "p95": 4,
+          "max": 4,
+          "mean": 1.9285714285714286
+        },
+        "score": 0.798
+      }
+    ],
+    "selectedWindow": {
+      "id": "P0_P6",
+      "before": 0,
+      "after": 6
+    },
+    "calibration": {
+      "window": {
+        "id": "P0_P6",
+        "before": 0,
+        "after": 6
+      },
+      "controlCount": 32,
+      "shooterSignal": 32,
+      "winnerSignal": 32,
+      "winnerOnly": 25,
+      "otherOnly": 0,
+      "winnerDominant": 29,
+      "tie": 0,
+      "shooterSignalRate": 1,
+      "winnerSignalRate": 1,
+      "cleanWinnerOnlyRate": 0.78125,
+      "otherOnlyRate": 0,
+      "winnerDominanceRate": 0.90625,
+      "winnerTeamPositiveDelta": {
+        "count": 32,
+        "min": 51,
+        "p05": 53.55,
+        "p10": 55,
+        "p25": 57,
+        "median": 67.5,
+        "p75": 102,
+        "p90": 122,
+        "p95": 124,
+        "max": 205,
+        "mean": 81.5
+      },
+      "loserTeamPositiveDelta": {
+        "count": 32,
+        "min": 0,
+        "p05": 0,
+        "p10": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0,
+        "p90": 3,
+        "p95": 95.39999999999998,
+        "max": 306,
+        "mean": 15.90625
+      },
+      "shooterPositiveDelta": {
+        "count": 32,
+        "min": 19,
+        "p05": 25,
+        "p10": 26.1,
+        "p25": 29,
+        "median": 33.5,
+        "p75": 63,
+        "p90": 80.9,
+        "p95": 94.39999999999999,
+        "max": 124,
+        "mean": 48.875
+      },
+      "firstWinnerOffsetTicks": {
+        "count": 32,
+        "min": 0,
+        "p05": 0.55,
+        "p10": 1,
+        "p25": 1,
+        "median": 2,
+        "p75": 4,
+        "p90": 4.900000000000002,
+        "p95": 5,
+        "max": 6,
+        "mean": 2.34375
+      },
+      "score": 0.9345
+    },
+    "holdout": {
+      "window": {
+        "id": "P0_P6",
+        "before": 0,
+        "after": 6
+      },
+      "controlCount": 32,
+      "shooterSignal": 32,
+      "winnerSignal": 32,
+      "winnerOnly": 23,
+      "otherOnly": 0,
+      "winnerDominant": 28,
+      "tie": 0,
+      "shooterSignalRate": 1,
+      "winnerSignalRate": 1,
+      "cleanWinnerOnlyRate": 0.71875,
+      "otherOnlyRate": 0,
+      "winnerDominanceRate": 0.875,
+      "winnerTeamPositiveDelta": {
+        "count": 32,
+        "min": 50,
+        "p05": 52,
+        "p10": 53.2,
+        "p25": 56.75,
+        "median": 62,
+        "p75": 76.75,
+        "p90": 108.70000000000002,
+        "p95": 116.45,
+        "max": 119,
+        "mean": 71.875
+      },
+      "loserTeamPositiveDelta": {
+        "count": 32,
+        "min": 0,
+        "p05": 0,
+        "p10": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 1,
+        "p90": 60.900000000000006,
+        "p95": 88.99999999999999,
+        "max": 116,
+        "mean": 13.3125
+      },
+      "shooterPositiveDelta": {
+        "count": 32,
+        "min": 19,
+        "p05": 25.549999999999997,
+        "p10": 26,
+        "p25": 28,
+        "median": 31.5,
+        "p75": 55.25,
+        "p90": 71.7,
+        "p95": 104.35,
+        "max": 109,
+        "mean": 44.5
+      },
+      "firstWinnerOffsetTicks": {
+        "count": 32,
+        "min": 0,
+        "p05": 1,
+        "p10": 1,
+        "p25": 1,
+        "median": 2,
+        "p75": 3,
+        "p90": 5,
+        "p95": 6,
+        "max": 6,
+        "mean": 2.46875
+      },
+      "score": 0.9157500000000001
+    },
+    "checks": {
+      "holdoutCount": {
+        "actual": 32,
+        "expected": ">=20",
+        "pass": true
+      },
+      "shooterSignalRate": {
+        "actual": 1,
+        "expected": ">=0.95",
+        "pass": true
+      },
+      "winnerSignalRate": {
+        "actual": 1,
+        "expected": ">=0.95",
+        "pass": true
+      },
+      "winnerDominanceRate": {
+        "actual": 0.875,
+        "expected": ">=0.8",
+        "pass": true
+      },
+      "cleanWinnerOnlyRate": {
+        "actual": 0.71875,
+        "expected": ">=0.6",
+        "pass": true
+      },
+      "otherOnlyRate": {
+        "actual": 0,
+        "expected": "<=0.05",
+        "pass": true
+      },
+      "sameTeamDenyConfirmationRate": {
+        "actual": 1,
+        "expected": ">=0.95",
+        "pass": true
+      },
+      "opposingTeamDenyFalsePositiveRate": {
+        "actual": 0,
+        "expected": "<=0.05",
+        "pass": true
+      }
+    },
+    "pass": true,
+    "winnerDeltaFloor": {
+      "value": 52,
+      "derivation": "5th percentile of positive winning-team m_iGoldNetWorth deltas in holdout shot controls."
+    },
+    "timingEnvelope": {
+      "minOffsetTicks": 0,
+      "maxOffsetTicks": 6,
+      "source": "5TH_TO_95TH_PERCENTILE_OF_HOLDOUT_FIRST_WINNER_OFFSETS_EXPANDED_BY_ONE_TICK"
+    },
+    "shotSemanticValidation": {
+      "sameOrbTeam": {
+        "rows": 26,
+        "shooterNetWorthSignal": 26,
+        "shooterNetWorthSignalRate": 1,
+        "shooterDenyIncrement": 26,
+        "shooterDenyIncrementRate": 1
+      },
+      "opposingOrbTeam": {
+        "rows": 74,
+        "shooterNetWorthSignal": 74,
+        "shooterNetWorthSignalRate": 1,
+        "shooterDenyIncrement": 0,
+        "shooterDenyIncrementRate": 0
+      },
+      "interpretation": "A same-orb-team shot is supported as DENY when the shooter m_iDenies counter increments; an opposing-orb-team shot is supported as SECURE/CLAIM when the shooter receives net worth without a deny increment."
+    }
+  },
+  "trooperNoShotValidation": {
+    "thresholds": {
+      "minimumCleanNoShotEvents": 100,
+      "minimumOppositeTeamSignalRate": 0.9,
+      "minimumOppositeTeamDominanceRate": 0.95,
+      "maximumSameTeamOnlyRate": 0.02,
+      "minimumTimingSupportRate": 0.9,
+      "minimumFloorSupportRate": 0.85
+    },
+    "evidence": {
+      "totalEvents": 1094,
+      "collisionWithin8Ticks": 482,
+      "counterConfounded": 120,
+      "cleanEvents": 554,
+      "cleanWithAnySignal": 552,
+      "oppositeTeamSignal": 552,
+      "oppositeOnly": 321,
+      "sameOnly": 0,
+      "bothTeams": 231,
+      "neitherTeam": 2,
+      "oppositeDominant": 537,
+      "sameDominant": 12,
+      "directionalEvents": 549,
+      "timingSupported": 552,
+      "floorSupported": 552,
+      "strictEventSupport": 321,
+      "oppositeTeamSignalRate": 0.9963898916967509,
+      "oppositeTeamDominanceRate": 0.9781420765027322,
+      "sameTeamOnlyRate": 0,
+      "timingSupportRate": 1,
+      "floorSupportRate": 0.9963898916967509,
+      "strictEventSupportRate": 0.5794223826714802,
+      "oppositeTeamPositiveDelta": {
+        "count": 554,
+        "min": 0,
+        "p05": 58.65,
+        "p10": 61,
+        "p25": 70,
+        "median": 84,
+        "p75": 101,
+        "p90": 126.79999999999995,
+        "p95": 168.35000000000002,
+        "max": 2229,
+        "mean": 96.62454873646209
+      },
+      "sameOrbTeamPositiveDelta": {
+        "count": 554,
+        "min": 0,
+        "p05": 0,
+        "p10": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 1,
+        "p90": 10,
+        "p95": 47.05000000000007,
+        "max": 207,
+        "mean": 6.4422382671480145
+      }
+    },
+    "checks": {
+      "controlFingerprintPass": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "cleanNoShotEvents": {
+        "actual": 554,
+        "expected": ">=100",
+        "pass": true
+      },
+      "oppositeTeamSignalRate": {
+        "actual": 0.9963898916967509,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "oppositeTeamDominanceRate": {
+        "actual": 0.9781420765027322,
+        "expected": ">=0.95",
+        "pass": true
+      },
+      "sameTeamOnlyRate": {
+        "actual": 0,
+        "expected": "<=0.02",
+        "pass": true
+      },
+      "timingSupportRate": {
+        "actual": 1,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "floorSupportRate": {
+        "actual": 0.9963898916967509,
+        "expected": ">=0.85",
+        "pass": true
+      }
+    },
+    "pass": true,
+    "interpretation": "Collision-free, counter-clean no-shot Trooper episodes independently support automatic economy flowing to the opposite-orb team within the shot-calibrated timing envelope. Only event-level rows satisfying the strict gate are labeled AUTO_AWARD_VALIDATED."
+  },
+  "urnNoShotBurstValidation": {
+    "thresholds": {
+      "minimumAllNoShotBursts": 2,
+      "minimumOppositeTeamSignalRate": 1,
+      "minimumOppositeTeamDominanceRate": 1,
+      "maximumBurstDenyIncrementRate": 0
+    },
+    "evidence": {
+      "allNoShotBursts": 3,
+      "oppositeTeamSignal": 3,
+      "oppositeTeamSignalRate": 1,
+      "directionalBursts": 3,
+      "oppositeTeamDominant": 2,
+      "oppositeTeamDominanceRate": 0.6666666666666666,
+      "burstsWithAnyDenyIncrement": 0,
+      "burstsWithAnyDenyIncrementRate": 0,
+      "strictAutoAwardSupport": 2,
+      "examples": [
+        {
+          "sourceId": "URN_XP_004",
+          "orbTeam": 2,
+          "oppositeOrbTeam": 3,
+          "orbCount": 10,
+          "shotCount": 0,
+          "noShotCount": 10,
+          "firstClock": "26:35",
+          "lastClock": "26:37",
+          "sameOrbTeamPositiveDelta": 72,
+          "oppositeOrbTeamPositiveDelta": 1683,
+          "direction": "OPPOSITE_ORB_TEAM_GREATER",
+          "totalDenyIncrement": 0,
+          "lastHitIncrement": 0,
+          "killIncrement": 0,
+          "assistIncrement": 0,
+          "strictAutoAwardSupport": true
+        },
+        {
+          "sourceId": "URN_XP_006",
+          "orbTeam": 3,
+          "oppositeOrbTeam": 2,
+          "orbCount": 10,
+          "shotCount": 0,
+          "noShotCount": 10,
+          "firstClock": "42:43",
+          "lastClock": "42:46",
+          "sameOrbTeamPositiveDelta": 3255,
+          "oppositeOrbTeamPositiveDelta": 1978,
+          "direction": "SAME_ORB_TEAM_GREATER",
+          "totalDenyIncrement": 0,
+          "lastHitIncrement": 1,
+          "killIncrement": 1,
+          "assistIncrement": 1,
+          "strictAutoAwardSupport": false
+        },
+        {
+          "sourceId": "URN_XP_007",
+          "orbTeam": 3,
+          "oppositeOrbTeam": 2,
+          "orbCount": 10,
+          "shotCount": 0,
+          "noShotCount": 10,
+          "firstClock": "51:26",
+          "lastClock": "51:28",
+          "sameOrbTeamPositiveDelta": 5,
+          "oppositeOrbTeamPositiveDelta": 3061,
+          "direction": "OPPOSITE_ORB_TEAM_GREATER",
+          "totalDenyIncrement": 0,
+          "lastHitIncrement": 3,
+          "killIncrement": 0,
+          "assistIncrement": 0,
+          "strictAutoAwardSupport": true
+        }
+      ]
+    },
+    "checks": {
+      "controlFingerprintPass": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "allNoShotBurstCount": {
+        "actual": 3,
+        "expected": ">=2",
+        "pass": true
+      },
+      "oppositeTeamSignalRate": {
+        "actual": 1,
+        "expected": ">=1",
+        "pass": true
+      },
+      "oppositeTeamDominanceRate": {
+        "actual": 0.6666666666666666,
+        "expected": ">=1",
+        "pass": false
+      },
+      "burstDenyIncrementRate": {
+        "actual": 0,
+        "expected": "<=0",
+        "pass": true
+      }
+    },
+    "pass": false,
+    "interpretation": "All-no-shot Urn bursts did not satisfy every burst-level validation criterion. Keep individual untouched Urn outcomes unresolved/collision-affected."
+  },
+  "resolutionStatusCounts": {
+    "ECONOMY_COLLISION": 791,
+    "AUTO_AWARD_VALIDATED": 321,
+    "AUTO_AWARD_PROBABLE": 20,
+    "UNRESOLVED": 2
+  },
+  "resolutionStatusBySource": {
+    "trooper": {
+      "ECONOMY_COLLISION": 771,
+      "AUTO_AWARD_VALIDATED": 321,
+      "UNRESOLVED": 2
+    },
+    "urn": {
+      "AUTO_AWARD_PROBABLE": 20,
+      "ECONOMY_COLLISION": 20
+    }
+  },
+  "script65Crosswalk": {
+    "warning": "This is a comparison only. Script 65 labels were not used to create Script 69 classifications.",
+    "counts": {
+      "AUTO_AWARD_SECURE -> ECONOMY_COLLISION": 771,
+      "AUTO_AWARD_SECURE -> AUTO_AWARD_VALIDATED": 321,
+      "AUTO_AWARD_CLAIM -> AUTO_AWARD_PROBABLE": 20,
+      "AUTO_AWARD_CLAIM -> ECONOMY_COLLISION": 20,
+      "NO_SHOT_UNRESOLVED -> UNRESOLVED": 2
+    }
+  },
+  "pipelineValidation": {
+    "pass": true,
+    "checks": {
+      "script62Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "targetCountPreserved": {
+        "actual": 1239,
+        "expected": 1239,
+        "pass": true
+      },
+      "shotCountPreserved": {
+        "actual": 105,
+        "expected": 105,
+        "pass": true
+      },
+      "noShotCountPreserved": {
+        "actual": 1134,
+        "expected": 1134,
+        "pass": true
+      },
+      "playerIdentitiesLoaded": {
+        "actual": 12,
+        "expected": ">=10",
+        "pass": true
+      },
+      "controllerEventsObserved": {
+        "actual": 263146,
+        "expected": ">0",
+        "pass": true
+      },
+      "goldNetWorthDeltasObserved": {
+        "actual": 39100,
+        "expected": ">0",
+        "pass": true
+      },
+      "fingerprintControlCount": {
+        "actual": 64,
+        "expected": ">=40 preferred",
+        "pass": true
+      },
+      "holdoutControlsAvailable": {
+        "actual": 32,
+        "expected": ">=20",
+        "pass": true
+      },
+      "noShotUnitsAccountedFor": {
+        "actual": 1134,
+        "expected": 1134,
+        "pass": true
+      },
+      "urnBurstsObserved": {
+        "actual": 7,
+        "expected": ">0",
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "pipeline": "The validation pipeline ran coherently.",
+    "automaticAwards": "At least one automatic-award mechanic received independent support, but scope limits and event-level collision flags must be preserved.",
+    "singleReplayCaution": "All mechanic conclusions remain single-replay validation. Cross-replay replication is required before canonicalizing them."
+  },
+  "nextStep": "Use only AUTO_AWARD_VALIDATED Trooper rows for downstream automatic-award metrics; preserve PROBABLE, COLLISION, and UNRESOLVED rows separately. Then repair Script 56 melee ingestion.",
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\citemxp_auto_award_resolution_validation_v02.json",
+    "perNoShotUnits": "G:\\DeadlockBehavior\\output\\test\\citemxp_auto_award_units_v02.jsonl",
+    "urnBursts": "G:\\DeadlockBehavior\\output\\test\\citemxp_auto_award_urn_bursts_v02.jsonl"
+  }
+}
