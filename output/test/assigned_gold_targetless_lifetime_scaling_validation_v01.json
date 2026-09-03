@@ -1,0 +1,804 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_TARGETLESS_LIFETIME_SCALING_VALIDATION_V01",
+  "canonical": false,
+  "status": "TARGETLESS_LIFETIME_SCALING_MODEL_READY",
+  "purpose": [
+    "Test whether targetless AssignedGold lifetime varies systematically with match time.",
+    "Determine whether the apparent approximately 18-second early plateau, linear midgame increase, and approximately 40-second later plateau form one coherent timer function.",
+    "Compare exact activation-time and death-time predictors.",
+    "Test a simple round-number candidate of clamp(18, 4 * matchMinute - 18, 40) against empirically fitted alternatives."
+  ],
+  "semanticLimits": {
+    "expiration": "The modeled lifetime describes targetless AssignedGold active-to-inactive timing. Even an excellent fit does not by itself establish the engine semantic label expiration.",
+    "sample": "The transition region contains only a small number of targetless cases in test.dem, so slope and breakpoint estimates require cross-replay replication.",
+    "formula": "Round-number formulas are candidate descriptions and are not assumed to be source-code constants.",
+    "censored": "The single episode without observed active=false is excluded from timer fitting."
+  },
+  "cohort": {
+    "totalTargetless": 44,
+    "observedLifetime": 43,
+    "censored": 1,
+    "lowerPlateauCases": 6,
+    "transitionCases": 4,
+    "upperPlateauCases": 33
+  },
+  "empiricalPlateaus": {
+    "lowerSeconds": 17.9921875,
+    "lowerDistribution": {
+      "count": 6,
+      "min": 17.984375,
+      "p25": 17.984375,
+      "median": 17.9921875,
+      "p75": 18,
+      "p95": 18,
+      "p99": 18,
+      "max": 18,
+      "mean": 17.9921875
+    },
+    "upperSeconds": 40,
+    "upperDistribution": {
+      "count": 33,
+      "min": 39.984375,
+      "p25": 39.984375,
+      "median": 40,
+      "p75": 40,
+      "p95": 40,
+      "p99": 40,
+      "max": 40,
+      "mean": 39.99573863636363
+    }
+  },
+  "transitionRegression": {
+    "activationTimeOLS": {
+      "count": 4,
+      "slope": 3.9994655250697764,
+      "intercept": -17.92038604232941,
+      "rSquared": 0.9999969343450194,
+      "rmse": 0.009318916206264844,
+      "residualDistribution": {
+        "count": 4,
+        "min": -0.014494741329933447,
+        "p25": -0.0028623235848304063,
+        "median": 0.0014954818544445914,
+        "p75": 0.004357805439267892,
+        "p95": 0.010074583184666249,
+        "p99": 0.011217938733745922,
+        "max": 0.011503777621015843,
+        "mean": -7.105427357601002e-15
+      }
+    },
+    "deathTimeOLS": {
+      "count": 4,
+      "slope": 3.9994655250697764,
+      "intercept": -17.92038604232941,
+      "rSquared": 0.9999969343450194,
+      "rmse": 0.009318916206264844,
+      "residualDistribution": {
+        "count": 4,
+        "min": -0.014494741329933447,
+        "p25": -0.0028623235848304063,
+        "median": 0.0014954818544445914,
+        "p75": 0.004357805439267892,
+        "p95": 0.010074583184666249,
+        "p99": 0.011217938733745922,
+        "max": 0.011503777621015843,
+        "mean": -7.105427357601002e-15
+      }
+    },
+    "activationFixedSlope4Intercept": -17.927083333333336,
+    "deathFixedSlope4Intercept": -17.927083333333336
+  },
+  "models": {
+    "SIMPLE_ROUND_ACTIVATION": {
+      "label": "clamp(18, 4 * activationMinute - 18, 40)",
+      "xSource": "ACTIVATION_TIME",
+      "lower": 18,
+      "upper": 40,
+      "slope": 4,
+      "intercept": -18
+    },
+    "SIMPLE_ROUND_DEATH": {
+      "label": "clamp(18, 4 * deathMinute - 18, 40)",
+      "xSource": "DEATH_TIME",
+      "lower": 18,
+      "upper": 40,
+      "slope": 4,
+      "intercept": -18
+    },
+    "FITTED_SLOPE4_ACTIVATION": {
+      "label": "empirical plateaus + fixed 4 sec/min slope using activation time",
+      "xSource": "ACTIVATION_TIME",
+      "lower": 17.9921875,
+      "upper": 40,
+      "slope": 4,
+      "intercept": -17.927083333333336
+    },
+    "FITTED_SLOPE4_DEATH": {
+      "label": "empirical plateaus + fixed 4 sec/min slope using death time",
+      "xSource": "DEATH_TIME",
+      "lower": 17.9921875,
+      "upper": 40,
+      "slope": 4,
+      "intercept": -17.927083333333336
+    },
+    "OLS_ACTIVATION": {
+      "label": "empirical plateaus + unconstrained linear middle using activation time",
+      "xSource": "ACTIVATION_TIME",
+      "lower": 17.9921875,
+      "upper": 40,
+      "slope": 3.9994655250697764,
+      "intercept": -17.92038604232941
+    },
+    "OLS_DEATH": {
+      "label": "empirical plateaus + unconstrained linear middle using death time",
+      "xSource": "DEATH_TIME",
+      "lower": 17.9921875,
+      "upper": 40,
+      "slope": 3.9994655250697764,
+      "intercept": -17.92038604232941
+    }
+  },
+  "evaluations": {
+    "SIMPLE_ROUND_ACTIVATION": {
+      "count": 43,
+      "rmseSeconds": 0.023892414370889337,
+      "maeSeconds": 0.011143410852713123,
+      "maxAbsoluteResidualSeconds": 0.08437500000000142,
+      "residualDistribution": {
+        "count": 43,
+        "min": -0.015625,
+        "p25": -0.015625,
+        "median": 0,
+        "p75": 0,
+        "p95": 0.07239583333333,
+        "p99": 0.080437500000002,
+        "max": 0.08437500000000142,
+        "mean": 0.0024224806201549836
+      },
+      "absoluteResidualDistribution": {
+        "count": 43,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0.015625,
+        "p95": 0.07239583333333,
+        "p99": 0.080437500000002,
+        "max": 0.08437500000000142,
+        "mean": 0.011143410852713123
+      },
+      "within1Tick": 39,
+      "within4Ticks": 40,
+      "within16Ticks": 43,
+      "lowerBreakpointMinute": 9,
+      "upperBreakpointMinute": 14.5
+    },
+    "SIMPLE_ROUND_DEATH": {
+      "count": 43,
+      "rmseSeconds": 0.023892414370889337,
+      "maeSeconds": 0.011143410852713123,
+      "maxAbsoluteResidualSeconds": 0.08437500000000142,
+      "residualDistribution": {
+        "count": 43,
+        "min": -0.015625,
+        "p25": -0.015625,
+        "median": 0,
+        "p75": 0,
+        "p95": 0.07239583333333,
+        "p99": 0.080437500000002,
+        "max": 0.08437500000000142,
+        "mean": 0.0024224806201549836
+      },
+      "absoluteResidualDistribution": {
+        "count": 43,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0.015625,
+        "p95": 0.07239583333333,
+        "p99": 0.080437500000002,
+        "max": 0.08437500000000142,
+        "mean": 0.011143410852713123
+      },
+      "within1Tick": 39,
+      "within4Ticks": 40,
+      "within16Ticks": 43,
+      "lowerBreakpointMinute": 9,
+      "upperBreakpointMinute": 14.5
+    },
+    "FITTED_SLOPE4_ACTIVATION": {
+      "count": 43,
+      "rmseSeconds": 0.008230500456132729,
+      "maeSeconds": 0.00503875968992269,
+      "maxAbsoluteResidualSeconds": 0.015625,
+      "residualDistribution": {
+        "count": 43,
+        "min": -0.015625,
+        "p25": -0.0078125,
+        "median": 0,
+        "p75": 0,
+        "p95": 0.0078125,
+        "p99": 0.009927083333335526,
+        "max": 0.011458333333337123,
+        "mean": -0.0032703488372091373
+      },
+      "absoluteResidualDistribution": {
+        "count": 43,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0.009635416666668561,
+        "p95": 0.015625,
+        "p99": 0.015625,
+        "max": 0.015625,
+        "mean": 0.00503875968992269
+      },
+      "within1Tick": 43,
+      "within4Ticks": 43,
+      "within16Ticks": 43,
+      "lowerBreakpointMinute": 8.979817708333334,
+      "upperBreakpointMinute": 14.481770833333334
+    },
+    "FITTED_SLOPE4_DEATH": {
+      "count": 43,
+      "rmseSeconds": 0.008230500456132729,
+      "maeSeconds": 0.00503875968992269,
+      "maxAbsoluteResidualSeconds": 0.015625,
+      "residualDistribution": {
+        "count": 43,
+        "min": -0.015625,
+        "p25": -0.0078125,
+        "median": 0,
+        "p75": 0,
+        "p95": 0.0078125,
+        "p99": 0.009927083333335526,
+        "max": 0.011458333333337123,
+        "mean": -0.0032703488372091373
+      },
+      "absoluteResidualDistribution": {
+        "count": 43,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0.009635416666668561,
+        "p95": 0.015625,
+        "p99": 0.015625,
+        "max": 0.015625,
+        "mean": 0.00503875968992269
+      },
+      "within1Tick": 43,
+      "within4Ticks": 43,
+      "within16Ticks": 43,
+      "lowerBreakpointMinute": 8.979817708333334,
+      "upperBreakpointMinute": 14.481770833333334
+    },
+    "OLS_ACTIVATION": {
+      "count": 43,
+      "rmseSeconds": 0.008227641103547241,
+      "maeSeconds": 0.00503463913162415,
+      "maxAbsoluteResidualSeconds": 0.015625,
+      "residualDistribution": {
+        "count": 43,
+        "min": -0.015625,
+        "p25": -0.0078125,
+        "median": 0,
+        "p75": 0,
+        "p95": 0.0078125,
+        "p99": 0.009953441020189182,
+        "max": 0.011503777621015843,
+        "mean": -0.0032703488372099634
+      },
+      "absoluteResidualDistribution": {
+        "count": 43,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0.009658138810507921,
+        "p95": 0.015625,
+        "p99": 0.015625,
+        "max": 0.015625,
+        "mean": 0.00503463913162415
+      },
+      "within1Tick": 43,
+      "within4Ticks": 43,
+      "within16Ticks": 43,
+      "lowerBreakpointMinute": 8.979343194039124,
+      "upperBreakpointMinute": 14.48203158128708
+    },
+    "OLS_DEATH": {
+      "count": 43,
+      "rmseSeconds": 0.008227641103547241,
+      "maeSeconds": 0.00503463913162415,
+      "maxAbsoluteResidualSeconds": 0.015625,
+      "residualDistribution": {
+        "count": 43,
+        "min": -0.015625,
+        "p25": -0.0078125,
+        "median": 0,
+        "p75": 0,
+        "p95": 0.0078125,
+        "p99": 0.009953441020189182,
+        "max": 0.011503777621015843,
+        "mean": -0.0032703488372099634
+      },
+      "absoluteResidualDistribution": {
+        "count": 43,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0.009658138810507921,
+        "p95": 0.015625,
+        "p99": 0.015625,
+        "max": 0.015625,
+        "mean": 0.00503463913162415
+      },
+      "within1Tick": 43,
+      "within4Ticks": 43,
+      "within16Ticks": 43,
+      "lowerBreakpointMinute": 8.979343194039124,
+      "upperBreakpointMinute": 14.48203158128708
+    }
+  },
+  "bestOverall": {
+    "modelName": "OLS_ACTIVATION",
+    "count": 43,
+    "rmseSeconds": 0.008227641103547241,
+    "maeSeconds": 0.00503463913162415,
+    "maxAbsoluteResidualSeconds": 0.015625,
+    "residualDistribution": {
+      "count": 43,
+      "min": -0.015625,
+      "p25": -0.0078125,
+      "median": 0,
+      "p75": 0,
+      "p95": 0.0078125,
+      "p99": 0.009953441020189182,
+      "max": 0.011503777621015843,
+      "mean": -0.0032703488372099634
+    },
+    "absoluteResidualDistribution": {
+      "count": 43,
+      "min": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0.009658138810507921,
+      "p95": 0.015625,
+      "p99": 0.015625,
+      "max": 0.015625,
+      "mean": 0.00503463913162415
+    },
+    "within1Tick": 43,
+    "within4Ticks": 43,
+    "within16Ticks": 43,
+    "lowerBreakpointMinute": 8.979343194039124,
+    "upperBreakpointMinute": 14.48203158128708
+  },
+  "bestSimpleOrFixed4": {
+    "modelName": "FITTED_SLOPE4_ACTIVATION",
+    "count": 43,
+    "rmseSeconds": 0.008230500456132729,
+    "maeSeconds": 0.00503875968992269,
+    "maxAbsoluteResidualSeconds": 0.015625,
+    "residualDistribution": {
+      "count": 43,
+      "min": -0.015625,
+      "p25": -0.0078125,
+      "median": 0,
+      "p75": 0,
+      "p95": 0.0078125,
+      "p99": 0.009927083333335526,
+      "max": 0.011458333333337123,
+      "mean": -0.0032703488372091373
+    },
+    "absoluteResidualDistribution": {
+      "count": 43,
+      "min": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0.009635416666668561,
+      "p95": 0.015625,
+      "p99": 0.015625,
+      "max": 0.015625,
+      "mean": 0.00503875968992269
+    },
+    "within1Tick": 43,
+    "within4Ticks": 43,
+    "within16Ticks": 43,
+    "lowerBreakpointMinute": 8.979817708333334,
+    "upperBreakpointMinute": 14.481770833333334
+  },
+  "durationTickCounts": {
+    "1151": 3,
+    "1152": 3,
+    "1549": 1,
+    "2083": 1,
+    "2102": 1,
+    "2508": 1,
+    "2559": 9,
+    "2560": 24
+  },
+  "durationSecondsRoundedCounts": {
+    "18.000": 3,
+    "17.984": 3,
+    "24.203": 1,
+    "32.547": 1,
+    "32.844": 1,
+    "39.188": 1,
+    "40.000": 24,
+    "39.984": 9
+  },
+  "residualDistributions": {
+    "simpleRoundActivation": {
+      "count": 43,
+      "min": -0.015625,
+      "p25": -0.015625,
+      "median": 0,
+      "p75": 0,
+      "p95": 0.07239583333333,
+      "p99": 0.080437500000002,
+      "max": 0.08437500000000142,
+      "mean": 0.0024224806201549836
+    },
+    "fittedSlope4Activation": {
+      "count": 43,
+      "min": -0.015625,
+      "p25": -0.0078125,
+      "median": 0,
+      "p75": 0,
+      "p95": 0.0078125,
+      "p99": 0.009927083333335526,
+      "max": 0.011458333333337123,
+      "mean": -0.0032703488372091373
+    }
+  },
+  "transitionCases": [
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 257,
+      "clock": "10:31",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "deathTick": 42363,
+      "activationTick": 42363,
+      "deathTimeSeconds": 631.921875,
+      "activationTimeSeconds": 631.921875,
+      "deathMatchMinute": 10.53203125,
+      "activationMatchMinute": 10.53203125,
+      "rawDurationSeconds": 24.203125,
+      "rawDurationTicks": 1549,
+      "observedState": "TRANSITION",
+      "source85": {
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED",
+        "minimumNearestAllyXY": 794.1852798869181,
+        "minimumNearestAlly3D": 794.5816226657429,
+        "everInside735": false
+      },
+      "predictions": {
+        "SIMPLE_ROUND_ACTIVATION": {
+          "predictedSeconds": 24.128124999999997,
+          "residualSeconds": 0.07500000000000284,
+          "absoluteResidualSeconds": 0.07500000000000284
+        },
+        "SIMPLE_ROUND_DEATH": {
+          "predictedSeconds": 24.128124999999997,
+          "residualSeconds": 0.07500000000000284,
+          "absoluteResidualSeconds": 0.07500000000000284
+        },
+        "FITTED_SLOPE4_ACTIVATION": {
+          "predictedSeconds": 24.20104166666666,
+          "residualSeconds": 0.002083333333338544,
+          "absoluteResidualSeconds": 0.002083333333338544
+        },
+        "FITTED_SLOPE4_DEATH": {
+          "predictedSeconds": 24.20104166666666,
+          "residualSeconds": 0.002083333333338544,
+          "absoluteResidualSeconds": 0.002083333333338544
+        },
+        "OLS_ACTIVATION": {
+          "predictedSeconds": 24.20210985100313,
+          "residualSeconds": 0.0010151489968706073,
+          "absoluteResidualSeconds": 0.0010151489968706073
+        },
+        "OLS_DEATH": {
+          "predictedSeconds": 24.20210985100313,
+          "residualSeconds": 0.0010151489968706073,
+          "absoluteResidualSeconds": 0.0010151489968706073
+        }
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 308,
+      "clock": "12:36",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "deathTick": 50364,
+      "activationTick": 50364,
+      "deathTimeSeconds": 756.9375,
+      "activationTimeSeconds": 756.9375,
+      "deathMatchMinute": 12.615625,
+      "activationMatchMinute": 12.615625,
+      "rawDurationSeconds": 32.546875,
+      "rawDurationTicks": 2083,
+      "observedState": "TRANSITION",
+      "source85": {
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED",
+        "minimumNearestAllyXY": 1456.692275247461,
+        "minimumNearestAlly3D": 1466.4269014928343,
+        "everInside735": false
+      },
+      "predictions": {
+        "SIMPLE_ROUND_ACTIVATION": {
+          "predictedSeconds": 32.4625,
+          "residualSeconds": 0.08437500000000142,
+          "absoluteResidualSeconds": 0.08437500000000142
+        },
+        "SIMPLE_ROUND_DEATH": {
+          "predictedSeconds": 32.4625,
+          "residualSeconds": 0.08437500000000142,
+          "absoluteResidualSeconds": 0.08437500000000142
+        },
+        "FITTED_SLOPE4_ACTIVATION": {
+          "predictedSeconds": 32.53541666666666,
+          "residualSeconds": 0.011458333333337123,
+          "absoluteResidualSeconds": 0.011458333333337123
+        },
+        "FITTED_SLOPE4_DEATH": {
+          "predictedSeconds": 32.53541666666666,
+          "residualSeconds": 0.011458333333337123,
+          "absoluteResidualSeconds": 0.011458333333337123
+        },
+        "OLS_ACTIVATION": {
+          "predictedSeconds": 32.535371222378984,
+          "residualSeconds": 0.011503777621015843,
+          "absoluteResidualSeconds": 0.011503777621015843
+        },
+        "OLS_DEATH": {
+          "predictedSeconds": 32.535371222378984,
+          "residualSeconds": 0.011503777621015843,
+          "absoluteResidualSeconds": 0.011503777621015843
+        }
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 310,
+      "clock": "12:41",
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "deathTick": 50674,
+      "activationTick": 50674,
+      "deathTimeSeconds": 761.78125,
+      "activationTimeSeconds": 761.78125,
+      "deathMatchMinute": 12.696354166666667,
+      "activationMatchMinute": 12.696354166666667,
+      "rawDurationSeconds": 32.84375,
+      "rawDurationTicks": 2102,
+      "observedState": "TRANSITION",
+      "source85": {
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED",
+        "minimumNearestAllyXY": 959.8885377390504,
+        "minimumNearestAlly3D": 960.042962702386,
+        "everInside735": false
+      },
+      "predictions": {
+        "SIMPLE_ROUND_ACTIVATION": {
+          "predictedSeconds": 32.78541666666667,
+          "residualSeconds": 0.05833333333333002,
+          "absoluteResidualSeconds": 0.05833333333333002
+        },
+        "SIMPLE_ROUND_DEATH": {
+          "predictedSeconds": 32.78541666666667,
+          "residualSeconds": 0.05833333333333002,
+          "absoluteResidualSeconds": 0.05833333333333002
+        },
+        "FITTED_SLOPE4_ACTIVATION": {
+          "predictedSeconds": 32.858333333333334,
+          "residualSeconds": -0.01458333333333428,
+          "absoluteResidualSeconds": 0.01458333333333428
+        },
+        "FITTED_SLOPE4_DEATH": {
+          "predictedSeconds": 32.858333333333334,
+          "residualSeconds": -0.01458333333333428,
+          "absoluteResidualSeconds": 0.01458333333333428
+        },
+        "OLS_ACTIVATION": {
+          "predictedSeconds": 32.85824474132993,
+          "residualSeconds": -0.014494741329933447,
+          "absoluteResidualSeconds": 0.014494741329933447
+        },
+        "OLS_DEATH": {
+          "predictedSeconds": 32.85824474132993,
+          "residualSeconds": -0.014494741329933447,
+          "absoluteResidualSeconds": 0.014494741329933447
+        }
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 354,
+      "clock": "14:16",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "deathTick": 56749,
+      "activationTick": 56749,
+      "deathTimeSeconds": 856.703125,
+      "activationTimeSeconds": 856.703125,
+      "deathMatchMinute": 14.278385416666667,
+      "activationMatchMinute": 14.278385416666667,
+      "rawDurationSeconds": 39.1875,
+      "rawDurationTicks": 2508,
+      "observedState": "TRANSITION",
+      "source85": {
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED",
+        "minimumNearestAllyXY": 1075.659980002103,
+        "minimumNearestAlly3D": 1076.4304014564468,
+        "everInside735": false
+      },
+      "predictions": {
+        "SIMPLE_ROUND_ACTIVATION": {
+          "predictedSeconds": 39.11354166666667,
+          "residualSeconds": 0.07395833333333002,
+          "absoluteResidualSeconds": 0.07395833333333002
+        },
+        "SIMPLE_ROUND_DEATH": {
+          "predictedSeconds": 39.11354166666667,
+          "residualSeconds": 0.07395833333333002,
+          "absoluteResidualSeconds": 0.07395833333333002
+        },
+        "FITTED_SLOPE4_ACTIVATION": {
+          "predictedSeconds": 39.186458333333334,
+          "residualSeconds": 0.0010416666666657193,
+          "absoluteResidualSeconds": 0.0010416666666657193
+        },
+        "FITTED_SLOPE4_DEATH": {
+          "predictedSeconds": 39.186458333333334,
+          "residualSeconds": 0.0010416666666657193,
+          "absoluteResidualSeconds": 0.0010416666666657193
+        },
+        "OLS_ACTIVATION": {
+          "predictedSeconds": 39.18552418528798,
+          "residualSeconds": 0.0019758147120185754,
+          "absoluteResidualSeconds": 0.0019758147120185754
+        },
+        "OLS_DEATH": {
+          "predictedSeconds": 39.18552418528798,
+          "residualSeconds": 0.0019758147120185754,
+          "absoluteResidualSeconds": 0.0019758147120185754
+        }
+      }
+    }
+  ],
+  "censoredCases": [
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 1725,
+      "clock": "52:15",
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "deathTick": 202609,
+      "activationTick": 202609,
+      "deathTimeSeconds": 3135.765625,
+      "activationTimeSeconds": 3135.765625,
+      "deathMatchMinute": 52.262760416666666,
+      "activationMatchMinute": 52.262760416666666,
+      "rawDurationSeconds": null,
+      "rawDurationTicks": null,
+      "observedState": "CENSORED_NO_ACTIVE_FALSE",
+      "source85": {
+        "terminationDiagnostic": "NO_RAW_ACTIVE_FALSE",
+        "minimumNearestAllyXY": 824.69048467156,
+        "minimumNearestAlly3D": 825.0712238431677,
+        "everInside735": false
+      },
+      "predictions": {
+        "SIMPLE_ROUND_ACTIVATION": {
+          "predictedSeconds": 40,
+          "residualSeconds": null,
+          "absoluteResidualSeconds": null
+        },
+        "SIMPLE_ROUND_DEATH": {
+          "predictedSeconds": 40,
+          "residualSeconds": null,
+          "absoluteResidualSeconds": null
+        },
+        "FITTED_SLOPE4_ACTIVATION": {
+          "predictedSeconds": 40,
+          "residualSeconds": null,
+          "absoluteResidualSeconds": null
+        },
+        "FITTED_SLOPE4_DEATH": {
+          "predictedSeconds": 40,
+          "residualSeconds": null,
+          "absoluteResidualSeconds": null
+        },
+        "OLS_ACTIVATION": {
+          "predictedSeconds": 40,
+          "residualSeconds": null,
+          "absoluteResidualSeconds": null
+        },
+        "OLS_DEATH": {
+          "predictedSeconds": 40,
+          "residualSeconds": null,
+          "absoluteResidualSeconds": null
+        }
+      }
+    }
+  ],
+  "interpretationGuide": {
+    "strongTimeScalingSupport": "If one clamped linear model predicts nearly all 43 observed targetless lifetimes with small sub-second residuals, the prior apparently irregular 18/24/32/39/40-second durations should be interpreted as one match-time-dependent lifetime function.",
+    "fourSecondSlope": "If the unconstrained transition slope is near 4 seconds per match minute and the fixed-slope model performs nearly as well, a simple 4-second-per-minute scaling rule becomes strongly supported within this replay.",
+    "simpleRoundFormula": "If clamp(18, 4 * minute - 18, 40) fits nearly as well as the fitted model, round breakpoints near 9:00 and 14:30 become plausible candidates but remain noncanonical.",
+    "activationVsDeath": "If activation-time prediction is measurably tighter than death-time prediction, the timer is more naturally referenced to AssignedGold activation than Trooper death; otherwise the temporal difference is too small to resolve from this replay.",
+    "next": "If lifetime scaling is strongly supported, build the formal AssignedGold lifecycle classifier using production, proximity/vacuum-target acquisition, and match-time-conditioned targetless timeout telemetry."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script85Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "targetlessCaseCount": {
+        "actual": 44,
+        "expected": 44,
+        "pass": true
+      },
+      "observedLifetimeCount": {
+        "actual": 43,
+        "expected": 43,
+        "pass": true
+      },
+      "censoredCount": {
+        "actual": 1,
+        "expected": 1,
+        "pass": true
+      },
+      "activationTimeCoverage": {
+        "actual": 43,
+        "expected": 43,
+        "pass": true
+      },
+      "deathTimeCoverage": {
+        "actual": 43,
+        "expected": 43,
+        "pass": true
+      },
+      "lowerPlateauPresent": {
+        "actual": 6,
+        "expected": ">0",
+        "pass": true
+      },
+      "upperPlateauPresent": {
+        "actual": 33,
+        "expected": ">0",
+        "pass": true
+      },
+      "transitionCasesPresent": {
+        "actual": 4,
+        "expected": 4,
+        "pass": true
+      },
+      "activationOLSAvailable": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "deathOLSAvailable": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_targetless_lifetime_scaling_validation_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_targetless_lifetime_scaling_cases_v01.jsonl"
+  }
+}

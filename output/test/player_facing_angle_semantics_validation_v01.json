@@ -1,0 +1,2738 @@
+{
+  "replay": "test",
+  "version": "PLAYER_FACING_ANGLE_SEMANTICS_VALIDATION_V01",
+  "canonical": false,
+  "status": "ANGLE_STRUCTURE_AND_WORLD_YAW_STRONGLY_SUPPORTED",
+  "purpose": [
+    "Validate the structure of CBodyComponent.m_angRotation, m_angEyeAngles, and m_angClientCamera.",
+    "Infer likely yaw, pitch, and roll components without assuming component ordering.",
+    "Measure eye-angle versus camera-angle agreement.",
+    "Measure body-rotation versus view-angle agreement.",
+    "Use observed player displacement as an external diagnostic of possible world-yaw sign and axis convention.",
+    "Determine which orientation semantics are strong enough for downstream behavioral-state reconstruction."
+  ],
+  "semanticLimits": {
+    "movement": "Movement heading is not equivalent to facing because players can strafe, backpedal, dash, slide, or move under ability effects. Poor movement agreement does not falsify an orientation field.",
+    "eyeAngles": "Field naming strongly suggests eye/view orientation, but this script treats that as a candidate semantic and tests cross-field structure rather than declaring engine semantics from the name alone.",
+    "cameraAngles": "Client camera can differ from aim in a third-person game. Strong eye-camera agreement supports a common view orientation but does not automatically prove weapon-ray direction.",
+    "bodyRotation": "Body rotation may reflect model facing, view facing, locomotor orientation, animation state, or a mixture depending on game state.",
+    "worldConvention": "A movement-derived yaw convention is promoted only when movement alignment is unusually strong despite expected strafing.",
+    "next": "If eye/camera relation is strong but physical aim remains unresolved, validate the chosen yaw/pitch convention against shot or attack telemetry rather than inferring exact aim from movement."
+  },
+  "input": {
+    "playerStatePath": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl",
+    "inputRows": 153420,
+    "pawnRows": 153420,
+    "aliveMovementRows": 128500,
+    "movementSamples": 84399,
+    "nominalIntervalSeconds": 0.25,
+    "minimumMovementDisplacementHU": 60
+  },
+  "angleFields": {
+    "BODY_ROTATION": {
+      "rowsSeen": 153420,
+      "validTriples": 153420,
+      "coverage": 1,
+      "components": [
+        {
+          "component": 0,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 0,
+            "resultantLength": 1
+          }
+        },
+        {
+          "component": 1,
+          "count": 153420,
+          "min": -180,
+          "p25": -94.78111267089844,
+          "median": -10.374870300292969,
+          "p75": 88.93741607666016,
+          "p95": 156.18746948242188,
+          "p99": 175.87496948242188,
+          "max": 179.96875,
+          "mean": -4.635257511638691,
+          "range": 359.96875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 254.43936982988362,
+            "resultantLength": 0.041266594429141906
+          }
+        },
+        {
+          "component": 2,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 0,
+            "resultantLength": 1
+          }
+        }
+      ],
+      "inferred": {
+        "yaw": {
+          "component": 1,
+          "confidence": "STRUCTURAL_HEURISTIC"
+        },
+        "pitch": {
+          "component": 2,
+          "confidence": "STRUCTURAL_HEURISTIC"
+        },
+        "roll": {
+          "component": 0,
+          "confidence": "STRUCTURAL_HEURISTIC"
+        }
+      }
+    },
+    "EYE_ANGLES": {
+      "rowsSeen": 153420,
+      "validTriples": 153420,
+      "coverage": 1,
+      "components": [
+        {
+          "component": 0,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 5.9765625,
+          "p75": 16.875,
+          "p95": 355.95703125,
+          "p99": 359.47265625,
+          "max": 359.82421875,
+          "mean": 50.531073554213926,
+          "range": 359.82421875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 5.373688896947737,
+            "resultantLength": 0.9791351638656085
+          }
+        },
+        {
+          "component": 1,
+          "count": 153420,
+          "min": 0,
+          "p25": 90.52734375,
+          "median": 190.8984375,
+          "p75": 267.5390625,
+          "p95": 334.86328125,
+          "p99": 355.4296875,
+          "max": 359.82421875,
+          "mean": 182.95770113291942,
+          "range": 359.82421875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 251.07150719029704,
+            "resultantLength": 0.0417375087992787
+          }
+        },
+        {
+          "component": 2,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 0,
+            "resultantLength": 1
+          }
+        }
+      ],
+      "inferred": {
+        "yaw": {
+          "component": 1,
+          "confidence": "STRUCTURAL_HEURISTIC"
+        },
+        "pitch": {
+          "component": 0,
+          "confidence": "STRUCTURAL_HEURISTIC"
+        },
+        "roll": {
+          "component": 2,
+          "confidence": "STRUCTURAL_HEURISTIC"
+        }
+      }
+    },
+    "CAMERA_ANGLES": {
+      "rowsSeen": 153420,
+      "validTriples": 153420,
+      "coverage": 1,
+      "components": [
+        {
+          "component": 0,
+          "count": 153420,
+          "min": 0,
+          "p25": 2.8125,
+          "median": 9.4921875,
+          "p75": 20.91796875,
+          "p95": 356.1328125,
+          "p99": 359.296875,
+          "max": 359.82421875,
+          "mean": 58.37758558002542,
+          "range": 359.82421875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 6.928435331681937,
+            "resultantLength": 0.9750151797473098
+          }
+        },
+        {
+          "component": 1,
+          "count": 153420,
+          "min": 0,
+          "p25": 51.6796875,
+          "median": 139.921875,
+          "p75": 257.87109375,
+          "p95": 332.9296875,
+          "p99": 354.90234375,
+          "max": 359.82421875,
+          "mean": 151.73548752505377,
+          "range": 359.82421875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 358.7640869977953,
+            "resultantLength": 0.1440990765655109
+          }
+        },
+        {
+          "component": 2,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 0,
+            "resultantLength": 1
+          }
+        }
+      ],
+      "inferred": {
+        "yaw": {
+          "component": 1,
+          "confidence": "STRUCTURAL_HEURISTIC"
+        },
+        "pitch": {
+          "component": 0,
+          "confidence": "STRUCTURAL_HEURISTIC"
+        },
+        "roll": {
+          "component": 2,
+          "confidence": "STRUCTURAL_HEURISTIC"
+        }
+      }
+    }
+  },
+  "likelyYawComponents": {
+    "BODY_ROTATION": {
+      "component": 1,
+      "source": "MOVEMENT_HEADING_BEST_FIT"
+    },
+    "EYE_ANGLES": {
+      "component": 2,
+      "source": "EYE_CAMERA_CROSS_FIELD_BEST_MAPPING"
+    },
+    "CAMERA_ANGLES": {
+      "component": 2,
+      "source": "EYE_CAMERA_CROSS_FIELD_BEST_MAPPING"
+    }
+  },
+  "crossFieldComponentComparison": {
+    "BODY_ROTATION__EYE_ANGLES": {
+      "samples": 153420,
+      "bestComponentMapping": {
+        "aComponent": 0,
+        "bComponent": 2,
+        "count": 153420,
+        "error": {
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0
+        },
+        "within1": 1,
+        "within5": 1,
+        "within10": 1
+      },
+      "mappings": [
+        {
+          "aComponent": 0,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 4.39453125,
+            "p75": 11.77734375,
+            "p95": 27.94921875,
+            "p99": 48.69140625,
+            "max": 90,
+            "mean": 7.933602916014861,
+            "range": 90
+          },
+          "within1": 0.3468908877590927,
+          "within5": 0.5221613870421067,
+          "within10": 0.6985269195672011
+        },
+        {
+          "aComponent": 0,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 57.65625,
+            "median": 91.23046875,
+            "p75": 123.22265625,
+            "p95": 168.22265625,
+            "p99": 177.890625,
+            "max": 180,
+            "mean": 90.77360936277864,
+            "range": 180
+          },
+          "within1": 0.005188371789857906,
+          "within5": 0.023432407769521574,
+          "within10": 0.043768739408160603
+        },
+        {
+          "aComponent": 0,
+          "bComponent": 2,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0,
+            "mean": 0,
+            "range": 0
+          },
+          "within1": 1,
+          "within5": 1,
+          "within10": 1
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 56.53118133544922,
+            "median": 90.93761444091797,
+            "p75": 124.3868637084961,
+            "p95": 168.20348892211905,
+            "p99": 177.75775146484375,
+            "max": 180,
+            "mean": 90.82144729883788,
+            "range": 180
+          },
+          "within1": 0.004399687133359405,
+          "within5": 0.021222787120323296,
+          "within10": 0.042660670056055276
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0.12874603271484375,
+            "median": 2.146453857421875,
+            "p75": 5.90240478515625,
+            "p95": 24.402540206909137,
+            "p99": 61.124839782714844,
+            "max": 179.98043060302734,
+            "mean": 5.848652531018765,
+            "range": 179.98043060302734
+          },
+          "within1": 0.3785751531742928,
+          "within5": 0.7099139616738366,
+          "within10": 0.8542432538130622
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 2,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 57.749977111816406,
+            "median": 90.65608978271484,
+            "p75": 123.12515258789062,
+            "p95": 168.81248474121094,
+            "p99": 178.21884155273438,
+            "max": 180,
+            "mean": 90.62881726799662,
+            "range": 180
+          },
+          "within1": 0.004888541259288229,
+          "within5": 0.02420805631599531,
+          "within10": 0.04522878373093469
+        },
+        {
+          "aComponent": 2,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 4.39453125,
+            "p75": 11.77734375,
+            "p95": 27.94921875,
+            "p99": 48.69140625,
+            "max": 90,
+            "mean": 7.933602916014861,
+            "range": 90
+          },
+          "within1": 0.3468908877590927,
+          "within5": 0.5221613870421067,
+          "within10": 0.6985269195672011
+        },
+        {
+          "aComponent": 2,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 57.65625,
+            "median": 91.23046875,
+            "p75": 123.22265625,
+            "p95": 168.22265625,
+            "p99": 177.890625,
+            "max": 180,
+            "mean": 90.77360936277864,
+            "range": 180
+          },
+          "within1": 0.005188371789857906,
+          "within5": 0.023432407769521574,
+          "within10": 0.043768739408160603
+        },
+        {
+          "aComponent": 2,
+          "bComponent": 2,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0,
+            "mean": 0,
+            "range": 0
+          },
+          "within1": 1,
+          "within5": 1,
+          "within10": 1
+        }
+      ]
+    },
+    "BODY_ROTATION__CAMERA_ANGLES": {
+      "samples": 153420,
+      "bestComponentMapping": {
+        "aComponent": 0,
+        "bComponent": 2,
+        "count": 153420,
+        "error": {
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0
+        },
+        "within1": 1,
+        "within5": 1,
+        "within10": 1
+      },
+      "mappings": [
+        {
+          "aComponent": 0,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 1.93359375,
+            "median": 7.20703125,
+            "p75": 14.58984375,
+            "p95": 30.5859375,
+            "p99": 50.44921875,
+            "max": 88.9453125,
+            "mean": 10.086287336233868,
+            "range": 88.9453125
+          },
+          "within1": 0.20320688306609308,
+          "within5": 0.3971320557945509,
+          "within10": 0.6059118758962325
+        },
+        {
+          "aComponent": 0,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 26.3671875,
+            "median": 81.5625,
+            "p75": 116.54296875,
+            "p95": 168.22265625,
+            "p99": 178.06640625,
+            "max": 180,
+            "mean": 76.89842947973699,
+            "range": 180
+          },
+          "within1": 0.15529917872506843,
+          "within5": 0.17343240776952157,
+          "within10": 0.19240646591057228
+        },
+        {
+          "aComponent": 0,
+          "bComponent": 2,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0,
+            "mean": 0,
+            "range": 0
+          },
+          "within1": 1,
+          "within5": 1,
+          "within10": 1
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 56.30270004272461,
+            "median": 92.1756362915039,
+            "p75": 124.61311340332031,
+            "p95": 168.04328002929682,
+            "p99": 177.67193603515625,
+            "max": 180,
+            "mean": 90.81359094399204,
+            "range": 180
+          },
+          "within1": 0.003995567722591579,
+          "within5": 0.020584017729109633,
+          "within10": 0.041102854908095426
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0.1407623291015625,
+            "median": 0.8243179321289062,
+            "p75": 14.187469482421875,
+            "p95": 112.81242370605469,
+            "p99": 139.56240844726562,
+            "max": 179.98043060302734,
+            "mean": 19.93978504717482,
+            "range": 179.98043060302734
+          },
+          "within1": 0.5246578021118499,
+          "within5": 0.6860774344935471,
+          "within10": 0.729663668361361
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 2,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 57.749977111816406,
+            "median": 90.65608978271484,
+            "p75": 123.12515258789062,
+            "p95": 168.81248474121094,
+            "p99": 178.21884155273438,
+            "max": 180,
+            "mean": 90.62881726799662,
+            "range": 180
+          },
+          "within1": 0.004888541259288229,
+          "within5": 0.02420805631599531,
+          "within10": 0.04522878373093469
+        },
+        {
+          "aComponent": 2,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 1.93359375,
+            "median": 7.20703125,
+            "p75": 14.58984375,
+            "p95": 30.5859375,
+            "p99": 50.44921875,
+            "max": 88.9453125,
+            "mean": 10.086287336233868,
+            "range": 88.9453125
+          },
+          "within1": 0.20320688306609308,
+          "within5": 0.3971320557945509,
+          "within10": 0.6059118758962325
+        },
+        {
+          "aComponent": 2,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 26.3671875,
+            "median": 81.5625,
+            "p75": 116.54296875,
+            "p95": 168.22265625,
+            "p99": 178.06640625,
+            "max": 180,
+            "mean": 76.89842947973699,
+            "range": 180
+          },
+          "within1": 0.15529917872506843,
+          "within5": 0.17343240776952157,
+          "within10": 0.19240646591057228
+        },
+        {
+          "aComponent": 2,
+          "bComponent": 2,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0,
+            "mean": 0,
+            "range": 0
+          },
+          "within1": 1,
+          "within5": 1,
+          "within10": 1
+        }
+      ]
+    },
+    "EYE_ANGLES__CAMERA_ANGLES": {
+      "samples": 153420,
+      "bestComponentMapping": {
+        "aComponent": 2,
+        "bComponent": 2,
+        "count": 153420,
+        "error": {
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0
+        },
+        "within1": 1,
+        "within5": 1,
+        "within10": 1
+      },
+      "mappings": [
+        {
+          "aComponent": 0,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 0.3515625,
+            "p75": 1.7578125,
+            "p95": 17.578125,
+            "p99": 31.81640625,
+            "max": 140.625,
+            "mean": 2.9396349176280796,
+            "range": 140.625
+          },
+          "within1": 0.668758962325642,
+          "within5": 0.8473080432798853,
+          "within10": 0.9006518055012385
+        },
+        {
+          "aComponent": 0,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 26.71875,
+            "median": 80.68359375,
+            "p75": 118.4765625,
+            "p95": 167.51953125,
+            "p99": 177.71484375,
+            "max": 180,
+            "mean": 77.09887876723211,
+            "range": 180
+          },
+          "within1": 0.15515578151479598,
+          "within5": 0.17106635380002608,
+          "within10": 0.18998826750097772
+        },
+        {
+          "aComponent": 0,
+          "bComponent": 2,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 4.39453125,
+            "p75": 11.77734375,
+            "p95": 27.94921875,
+            "p99": 48.69140625,
+            "max": 90,
+            "mean": 7.933602916014861,
+            "range": 90
+          },
+          "within1": 0.3468908877590927,
+          "within5": 0.5221613870421067,
+          "within10": 0.6985269195672011
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 56.25,
+            "median": 92.98828125,
+            "p75": 125.15625,
+            "p95": 168.046875,
+            "p99": 177.71484375,
+            "max": 180,
+            "mean": 90.977227799912,
+            "range": 180
+          },
+          "within1": 0.003773953852170512,
+          "within5": 0.02057749967409725,
+          "within10": 0.03977968974058141
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 2.109375,
+            "median": 5.2734375,
+            "p75": 22.32421875,
+            "p95": 112.67578125,
+            "p99": 139.5703125,
+            "max": 180,
+            "mean": 23.04381851596109,
+            "range": 180
+          },
+          "within1": 0.10588580367618303,
+          "within5": 0.485041063746578,
+          "within10": 0.6411941076782688
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 2,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 57.65625,
+            "median": 91.23046875,
+            "p75": 123.22265625,
+            "p95": 168.22265625,
+            "p99": 177.890625,
+            "max": 180,
+            "mean": 90.77360936277864,
+            "range": 180
+          },
+          "within1": 0.005188371789857906,
+          "within5": 0.023432407769521574,
+          "within10": 0.043768739408160603
+        },
+        {
+          "aComponent": 2,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 1.93359375,
+            "median": 7.20703125,
+            "p75": 14.58984375,
+            "p95": 30.5859375,
+            "p99": 50.44921875,
+            "max": 88.9453125,
+            "mean": 10.086287336233868,
+            "range": 88.9453125
+          },
+          "within1": 0.20320688306609308,
+          "within5": 0.3971320557945509,
+          "within10": 0.6059118758962325
+        },
+        {
+          "aComponent": 2,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 26.3671875,
+            "median": 81.5625,
+            "p75": 116.54296875,
+            "p95": 168.22265625,
+            "p99": 178.06640625,
+            "max": 180,
+            "mean": 76.89842947973699,
+            "range": 180
+          },
+          "within1": 0.15529917872506843,
+          "within5": 0.17343240776952157,
+          "within10": 0.19240646591057228
+        },
+        {
+          "aComponent": 2,
+          "bComponent": 2,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0,
+            "mean": 0,
+            "range": 0
+          },
+          "within1": 1,
+          "within5": 1,
+          "within10": 1
+        }
+      ]
+    }
+  },
+  "likelyYawAgreement": {
+    "BODY_VS_EYE": {
+      "count": 153420,
+      "error": {
+        "count": 153420,
+        "min": 0,
+        "p25": 57.749977111816406,
+        "median": 90.65608978271484,
+        "p75": 123.12515258789062,
+        "p95": 168.81248474121094,
+        "p99": 178.21884155273438,
+        "max": 180,
+        "mean": 90.62881726799662,
+        "range": 180
+      },
+      "within1": 0.004888541259288229,
+      "within5": 0.02420805631599531,
+      "within10": 0.04522878373093469
+    },
+    "BODY_VS_CAMERA": {
+      "count": 153420,
+      "error": {
+        "count": 153420,
+        "min": 0,
+        "p25": 57.749977111816406,
+        "median": 90.65608978271484,
+        "p75": 123.12515258789062,
+        "p95": 168.81248474121094,
+        "p99": 178.21884155273438,
+        "max": 180,
+        "mean": 90.62881726799662,
+        "range": 180
+      },
+      "within1": 0.004888541259288229,
+      "within5": 0.02420805631599531,
+      "within10": 0.04522878373093469
+    },
+    "EYE_VS_CAMERA": {
+      "count": 153420,
+      "error": {
+        "count": 153420,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0,
+        "mean": 0,
+        "range": 0
+      },
+      "within1": 1,
+      "within5": 1,
+      "within10": 1
+    }
+  },
+  "movementHeadingComparison": {
+    "bestByField": {
+      "BODY_ROTATION": {
+        "field": "BODY_ROTATION",
+        "component": 1,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 2.205411468154228,
+          "median": 10.531845436113453,
+          "p75": 39.62454369916154,
+          "p95": 149.2225490842439,
+          "p99": 176.93071594994774,
+          "max": 179.9994982672331,
+          "mean": 31.64994980115202,
+          "range": 179.9994982672331
+        },
+        "within15": 0.566677330300122,
+        "within30": 0.6967499614924347,
+        "within45": 0.7771182123010936
+      },
+      "EYE_ANGLES": {
+        "field": "EYE_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 3.152580004950586,
+          "median": 11.821743831802593,
+          "p75": 41.552141451305204,
+          "p95": 150.64431172130548,
+          "p99": 175.37702927105704,
+          "max": 179.9946600944748,
+          "mean": 33.16422783643543,
+          "range": 179.9946600944748
+        },
+        "within15": 0.5488690624296496,
+        "within30": 0.6860270856289766,
+        "within45": 0.7652934276472471
+      },
+      "CAMERA_ANGLES": {
+        "field": "CAMERA_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 4.185188820001393,
+          "median": 16.12810069207643,
+          "p75": 46.15415162622436,
+          "p95": 151.8329771119811,
+          "p99": 177.5917103843443,
+          "max": 179.9982006477883,
+          "mean": 35.91672181023819,
+          "range": 179.9982006477883
+        },
+        "within15": 0.4850531404400526,
+        "within30": 0.6433844002891029,
+        "within45": 0.7429945852439009
+      }
+    },
+    "allCandidates": [
+      {
+        "field": "BODY_ROTATION",
+        "component": 0,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.631514988187035,
+          "median": 90,
+          "p75": 129.34768094390398,
+          "p95": 172.52253268409305,
+          "p99": 178.81358490695004,
+          "max": 180,
+          "mean": 89.74819794928926,
+          "range": 180
+        },
+        "within15": 0.09456273178592163,
+        "within30": 0.16455171269801774,
+        "within45": 0.23078472493749927
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 0,
+        "transform": "PLUS_YAW_90",
+        "sign": 1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.807701679986224,
+          "median": 89.57571782440277,
+          "p75": 141.08360157377842,
+          "p95": 176.55716832523945,
+          "p99": 179.87891495946934,
+          "max": 180,
+          "mean": 90.25360381041817,
+          "range": 180
+        },
+        "within15": 0.12309387551985213,
+        "within30": 0.2023602175381225,
+        "within45": 0.26891313878126516
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 0,
+        "transform": "PLUS_YAW_180",
+        "sign": 1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.65231905609603,
+          "median": 90,
+          "p75": 130.36848501181296,
+          "p95": 173.03461095032048,
+          "p99": 178.72013998364065,
+          "max": 180,
+          "mean": 90.25180205071077,
+          "range": 180
+        },
+        "within15": 0.0887332788303179,
+        "within30": 0.16080759250702023,
+        "within45": 0.22604533229066695
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 0,
+        "transform": "PLUS_YAW_270",
+        "sign": 1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 38.91639842622159,
+          "median": 90.42428217559723,
+          "p75": 139.19229832001378,
+          "p95": 175.5686041306208,
+          "p99": 179.7452410747007,
+          "max": 180,
+          "mean": 89.74639618958125,
+          "range": 180
+        },
+        "within15": 0.1303332977878885,
+        "within30": 0.20971812462232964,
+        "within45": 0.2744345312148248
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 0,
+        "transform": "MINUS_YAW_0",
+        "sign": -1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.631514988187035,
+          "median": 90,
+          "p75": 129.34768094390398,
+          "p95": 172.52253268409305,
+          "p99": 178.81358490695004,
+          "max": 180,
+          "mean": 89.74819794928926,
+          "range": 180
+        },
+        "within15": 0.09456273178592163,
+        "within30": 0.16455171269801774,
+        "within45": 0.23078472493749927
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 0,
+        "transform": "MINUS_YAW_90",
+        "sign": -1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.807701679986224,
+          "median": 89.57571782440277,
+          "p75": 141.08360157377842,
+          "p95": 176.55716832523945,
+          "p99": 179.87891495946934,
+          "max": 180,
+          "mean": 90.25360381041817,
+          "range": 180
+        },
+        "within15": 0.12309387551985213,
+        "within30": 0.2023602175381225,
+        "within45": 0.26891313878126516
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 0,
+        "transform": "MINUS_YAW_180",
+        "sign": -1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.65231905609603,
+          "median": 90,
+          "p75": 130.36848501181296,
+          "p95": 173.03461095032048,
+          "p99": 178.72013998364065,
+          "max": 180,
+          "mean": 90.25180205071077,
+          "range": 180
+        },
+        "within15": 0.0887332788303179,
+        "within30": 0.16080759250702023,
+        "within45": 0.22604533229066695
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 0,
+        "transform": "MINUS_YAW_270",
+        "sign": -1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 38.91639842622159,
+          "median": 90.42428217559723,
+          "p75": 139.19229832001378,
+          "p95": 175.5686041306208,
+          "p99": 179.7452410747007,
+          "max": 180,
+          "mean": 89.74639618958125,
+          "range": 180
+        },
+        "within15": 0.1303332977878885,
+        "within30": 0.20971812462232964,
+        "within45": 0.2744345312148248
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 1,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 2.205411468154228,
+          "median": 10.531845436113453,
+          "p75": 39.62454369916154,
+          "p95": 149.2225490842439,
+          "p99": 176.93071594994774,
+          "max": 179.9994982672331,
+          "mean": 31.64994980115202,
+          "range": 179.9994982672331
+        },
+        "within15": 0.566677330300122,
+        "within30": 0.6967499614924347,
+        "within45": 0.7771182123010936
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 1,
+        "transform": "PLUS_YAW_90",
+        "sign": 1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.004250089126005108,
+          "p25": 81.57379098917332,
+          "median": 90.03937140829578,
+          "p75": 100.42760043052624,
+          "p95": 146.34133884643302,
+          "p99": 174.096571120431,
+          "max": 180,
+          "mean": 90.47942430035789,
+          "range": 179.995749910874
+        },
+        "within15": 0.0239694783113544,
+        "within30": 0.0467659569426178,
+        "within45": 0.07713361532719581
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 1,
+        "transform": "PLUS_YAW_180",
+        "sign": 1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.0005017327669207816,
+          "p25": 140.37545630083844,
+          "median": 169.46815456388654,
+          "p75": 177.79458853184576,
+          "p95": 179.94489253636547,
+          "p99": 180,
+          "max": 180,
+          "mean": 148.3500501988467,
+          "range": 179.9994982672331
+        },
+        "within15": 0.029099870851550375,
+        "within30": 0.04896977452339483,
+        "within45": 0.0691358902356663
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 1,
+        "transform": "PLUS_YAW_270",
+        "sign": 1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 79.57239956947376,
+          "median": 89.96062859170422,
+          "p75": 98.42620901082668,
+          "p95": 147.9870451251041,
+          "p99": 174.14207115004638,
+          "max": 179.995749910874,
+          "mean": 89.5205756996415,
+          "range": 179.995749910874
+        },
+        "within15": 0.02223959999526061,
+        "within30": 0.043863078946433015,
+        "within45": 0.07661228213604426
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 1,
+        "transform": "MINUS_YAW_0",
+        "sign": -1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 41.78922412505837,
+          "median": 94.66066176528238,
+          "p75": 146.90721883122143,
+          "p95": 177.00167552065938,
+          "p99": 180,
+          "max": 180,
+          "mean": 93.83817588437891,
+          "range": 180
+        },
+        "within15": 0.10474057749499402,
+        "within30": 0.1894098271306532,
+        "within45": 0.26771644213794005
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 1,
+        "transform": "MINUS_YAW_90",
+        "sign": -1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 52.36918668504633,
+          "median": 89.94632925374628,
+          "p75": 126.9460673726271,
+          "p95": 168.5632647086034,
+          "p99": 177.71678337170184,
+          "max": 179.99618680034848,
+          "mean": 89.59673577556373,
+          "range": 179.99618680034848
+        },
+        "within15": 0.07064064740103555,
+        "within30": 0.13735944738681738,
+        "within45": 0.2100024881811396
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 1,
+        "transform": "MINUS_YAW_180",
+        "sign": -1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 33.09278116877856,
+          "median": 85.33933823471763,
+          "p75": 138.21077587494165,
+          "p95": 173.02515798893276,
+          "p99": 178.7349345474764,
+          "max": 180,
+          "mean": 86.16182411562082,
+          "range": 180
+        },
+        "within15": 0.14164859773220062,
+        "within30": 0.2342089361248356,
+        "within45": 0.31361745992251094
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 1,
+        "transform": "MINUS_YAW_270",
+        "sign": -1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.003813199651517607,
+          "p25": 53.0539326273729,
+          "median": 90.05367074625372,
+          "p75": 127.63081331495367,
+          "p95": 169.29362932793651,
+          "p99": 177.93132944778165,
+          "max": 180,
+          "mean": 90.40326422443694,
+          "range": 179.99618680034848
+        },
+        "within15": 0.06521404282041257,
+        "within30": 0.13339020604509533,
+        "within45": 0.20866360975840945
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 2,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.631514988187035,
+          "median": 90,
+          "p75": 129.34768094390398,
+          "p95": 172.52253268409305,
+          "p99": 178.81358490695004,
+          "max": 180,
+          "mean": 89.74819794928926,
+          "range": 180
+        },
+        "within15": 0.09456273178592163,
+        "within30": 0.16455171269801774,
+        "within45": 0.23078472493749927
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 2,
+        "transform": "PLUS_YAW_90",
+        "sign": 1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.807701679986224,
+          "median": 89.57571782440277,
+          "p75": 141.08360157377842,
+          "p95": 176.55716832523945,
+          "p99": 179.87891495946934,
+          "max": 180,
+          "mean": 90.25360381041817,
+          "range": 180
+        },
+        "within15": 0.12309387551985213,
+        "within30": 0.2023602175381225,
+        "within45": 0.26891313878126516
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 2,
+        "transform": "PLUS_YAW_180",
+        "sign": 1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.65231905609603,
+          "median": 90,
+          "p75": 130.36848501181296,
+          "p95": 173.03461095032048,
+          "p99": 178.72013998364065,
+          "max": 180,
+          "mean": 90.25180205071077,
+          "range": 180
+        },
+        "within15": 0.0887332788303179,
+        "within30": 0.16080759250702023,
+        "within45": 0.22604533229066695
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 2,
+        "transform": "PLUS_YAW_270",
+        "sign": 1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 38.91639842622159,
+          "median": 90.42428217559723,
+          "p75": 139.19229832001378,
+          "p95": 175.5686041306208,
+          "p99": 179.7452410747007,
+          "max": 180,
+          "mean": 89.74639618958125,
+          "range": 180
+        },
+        "within15": 0.1303332977878885,
+        "within30": 0.20971812462232964,
+        "within45": 0.2744345312148248
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 2,
+        "transform": "MINUS_YAW_0",
+        "sign": -1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.631514988187035,
+          "median": 90,
+          "p75": 129.34768094390398,
+          "p95": 172.52253268409305,
+          "p99": 178.81358490695004,
+          "max": 180,
+          "mean": 89.74819794928926,
+          "range": 180
+        },
+        "within15": 0.09456273178592163,
+        "within30": 0.16455171269801774,
+        "within45": 0.23078472493749927
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 2,
+        "transform": "MINUS_YAW_90",
+        "sign": -1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.807701679986224,
+          "median": 89.57571782440277,
+          "p75": 141.08360157377842,
+          "p95": 176.55716832523945,
+          "p99": 179.87891495946934,
+          "max": 180,
+          "mean": 90.25360381041817,
+          "range": 180
+        },
+        "within15": 0.12309387551985213,
+        "within30": 0.2023602175381225,
+        "within45": 0.26891313878126516
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 2,
+        "transform": "MINUS_YAW_180",
+        "sign": -1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.65231905609603,
+          "median": 90,
+          "p75": 130.36848501181296,
+          "p95": 173.03461095032048,
+          "p99": 178.72013998364065,
+          "max": 180,
+          "mean": 90.25180205071077,
+          "range": 180
+        },
+        "within15": 0.0887332788303179,
+        "within30": 0.16080759250702023,
+        "within45": 0.22604533229066695
+      },
+      {
+        "field": "BODY_ROTATION",
+        "component": 2,
+        "transform": "MINUS_YAW_270",
+        "sign": -1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 38.91639842622159,
+          "median": 90.42428217559723,
+          "p75": 139.19229832001378,
+          "p95": 175.5686041306208,
+          "p99": 179.7452410747007,
+          "max": 180,
+          "mean": 89.74639618958125,
+          "range": 180
+        },
+        "within15": 0.1303332977878885,
+        "within30": 0.20971812462232964,
+        "within45": 0.2744345312148248
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 0,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 48.84219002793165,
+          "median": 90,
+          "p75": 130.30943906121553,
+          "p95": 171.49741968715108,
+          "p99": 178.4989044856797,
+          "max": 180,
+          "mean": 89.72195584262849,
+          "range": 180
+        },
+        "within15": 0.08911243024206449,
+        "within30": 0.16373416746643918,
+        "within45": 0.23296484555504213
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 0,
+        "transform": "PLUS_YAW_90",
+        "sign": 1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 41.47551987315815,
+          "median": 89.80174549880081,
+          "p75": 140.11387207202992,
+          "p95": 176.006495440449,
+          "p99": 179.82213508856836,
+          "max": 180,
+          "mean": 90.33350287419002,
+          "range": 180
+        },
+        "within15": 0.11353215085486795,
+        "within30": 0.19501415893553242,
+        "within45": 0.26653159397623194
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 0,
+        "transform": "PLUS_YAW_180",
+        "sign": 1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.69056093878447,
+          "median": 90,
+          "p75": 131.15780997206835,
+          "p95": 172.03729806088558,
+          "p99": 178.42458163303857,
+          "max": 180,
+          "mean": 90.27804415737168,
+          "range": 180
+        },
+        "within15": 0.08295121980118247,
+        "within30": 0.1592791383784168,
+        "within45": 0.2279292408677828
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 0,
+        "transform": "PLUS_YAW_270",
+        "sign": 1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 39.88612792797008,
+          "median": 90.19825450119919,
+          "p75": 138.52448012684187,
+          "p95": 175.09025308589065,
+          "p99": 179.70027234542374,
+          "max": 180,
+          "mean": 89.6664971258099,
+          "range": 180
+        },
+        "within15": 0.12096114882877759,
+        "within30": 0.20220618727710044,
+        "within45": 0.27262171352741144
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 0,
+        "transform": "MINUS_YAW_0",
+        "sign": -1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.767643739016535,
+          "median": 90,
+          "p75": 129.8843575540098,
+          "p95": 171.59740137361308,
+          "p99": 178.43170802416657,
+          "max": 180,
+          "mean": 89.86921608006018,
+          "range": 180
+        },
+        "within15": 0.08722852166494864,
+        "within30": 0.16142371355110843,
+        "within45": 0.22905484662140546
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 0,
+        "transform": "MINUS_YAW_90",
+        "sign": -1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.75946753378394,
+          "median": 89.54590920617147,
+          "p75": 140.59948728185475,
+          "p95": 176.12277417622022,
+          "p99": 179.8214727167595,
+          "max": 180,
+          "mean": 90.17227210727897,
+          "range": 180
+        },
+        "within15": 0.11765542245761205,
+        "within30": 0.19969430917427933,
+        "within45": 0.27041789594663446
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 0,
+        "transform": "MINUS_YAW_180",
+        "sign": -1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.115642445990204,
+          "median": 90,
+          "p75": 130.23235626098347,
+          "p95": 171.69340412539606,
+          "p99": 178.3792635526884,
+          "max": 180,
+          "mean": 90.13078391994071,
+          "range": 180
+        },
+        "within15": 0.08478773445183,
+        "within30": 0.15949241104752426,
+        "within45": 0.2270643017097359
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 0,
+        "transform": "MINUS_YAW_270",
+        "sign": -1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 39.40051271814525,
+          "median": 90.45409079382853,
+          "p75": 139.24053246621605,
+          "p95": 175.2528800564255,
+          "p99": 179.7268925410762,
+          "max": 180,
+          "mean": 89.8277278927208,
+          "range": 180
+        },
+        "within15": 0.12491854168888257,
+        "within30": 0.20629391343499331,
+        "within45": 0.27351034964869253
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 3.152580004950586,
+          "median": 11.821743831802593,
+          "p75": 41.552141451305204,
+          "p95": 150.64431172130548,
+          "p99": 175.37702927105704,
+          "max": 179.9946600944748,
+          "mean": 33.16422783643543,
+          "range": 179.9946600944748
+        },
+        "within15": 0.5488690624296496,
+        "within30": 0.6860270856289766,
+        "within45": 0.7652934276472471
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_90",
+        "sign": 1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.0001164543515983496,
+          "p25": 77.11876235116947,
+          "median": 89.16020922968042,
+          "p75": 98.02274214132746,
+          "p95": 143.23603721351714,
+          "p99": 172.86131071566825,
+          "max": 179.99036474009353,
+          "mean": 87.34814278876583,
+          "range": 179.99024828574193
+        },
+        "within15": 0.029076173888316213,
+        "within30": 0.057251863173734284,
+        "within45": 0.09609118591452505
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_180",
+        "sign": 1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.005339905525204358,
+          "p25": 138.4478585486948,
+          "median": 168.1782561681974,
+          "p75": 176.84741999504942,
+          "p95": 179.87673099753732,
+          "p99": 180,
+          "max": 180,
+          "mean": 146.83577216356332,
+          "range": 179.9946600944748
+        },
+        "within15": 0.029597507079467768,
+        "within30": 0.05081813765565943,
+        "within45": 0.0720980106399365
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_270",
+        "sign": 1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.009635259906474403,
+          "p25": 81.97725785867252,
+          "median": 90.83979077031958,
+          "p75": 102.88123764883053,
+          "p95": 153.57055023071885,
+          "p99": 174.93633790973684,
+          "max": 179.9998835456484,
+          "mean": 92.65185721123366,
+          "range": 179.99024828574193
+        },
+        "within15": 0.02026090356520812,
+        "within30": 0.03995308001279636,
+        "within45": 0.06651737579829145
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 1,
+        "transform": "MINUS_YAW_0",
+        "sign": -1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 42.12683445123275,
+          "median": 94.85487897623315,
+          "p75": 146.89777172452685,
+          "p95": 176.94311639838136,
+          "p99": 180,
+          "max": 180,
+          "mean": 93.93842517373471,
+          "range": 180
+        },
+        "within15": 0.10402966859796917,
+        "within30": 0.18758516096162275,
+        "within45": 0.26499129136601146
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 1,
+        "transform": "MINUS_YAW_90",
+        "sign": -1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.011066747431904389,
+          "p25": 52.095378802942676,
+          "median": 90,
+          "p75": 127.4925436904967,
+          "p95": 168.9113525591958,
+          "p99": 177.7944460370559,
+          "max": 179.99960063839495,
+          "mean": 89.75756344265179,
+          "range": 179.98853389096305
+        },
+        "within15": 0.07060510195618432,
+        "within30": 0.13782153816988352,
+        "within45": 0.2120759724641287
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 1,
+        "transform": "MINUS_YAW_180",
+        "sign": -1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 33.10222827547315,
+          "median": 85.14512102376685,
+          "p75": 137.87316554876725,
+          "p95": 173.1170419103764,
+          "p99": 178.71244034958767,
+          "max": 180,
+          "mean": 86.06157482626513,
+          "range": 180
+        },
+        "within15": 0.14124574935721987,
+        "within30": 0.2330477849263617,
+        "within45": 0.31153212715790474
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 1,
+        "transform": "MINUS_YAW_270",
+        "sign": -1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.00039936160504794316,
+          "p25": 52.5074563095033,
+          "median": 90,
+          "p75": 127.90462119705732,
+          "p95": 169.25401342345904,
+          "p99": 177.77599106676723,
+          "max": 179.9889332525681,
+          "mean": 90.24243655734941,
+          "range": 179.98853389096305
+        },
+        "within15": 0.06663586061446225,
+        "within30": 0.13558217514425527,
+        "within45": 0.21140060901195512
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 2,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.631514988187035,
+          "median": 90,
+          "p75": 129.34768094390398,
+          "p95": 172.52253268409305,
+          "p99": 178.81358490695004,
+          "max": 180,
+          "mean": 89.74819794928926,
+          "range": 180
+        },
+        "within15": 0.09456273178592163,
+        "within30": 0.16455171269801774,
+        "within45": 0.23078472493749927
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 2,
+        "transform": "PLUS_YAW_90",
+        "sign": 1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.807701679986224,
+          "median": 89.57571782440277,
+          "p75": 141.08360157377842,
+          "p95": 176.55716832523945,
+          "p99": 179.87891495946934,
+          "max": 180,
+          "mean": 90.25360381041817,
+          "range": 180
+        },
+        "within15": 0.12309387551985213,
+        "within30": 0.2023602175381225,
+        "within45": 0.26891313878126516
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 2,
+        "transform": "PLUS_YAW_180",
+        "sign": 1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.65231905609603,
+          "median": 90,
+          "p75": 130.36848501181296,
+          "p95": 173.03461095032048,
+          "p99": 178.72013998364065,
+          "max": 180,
+          "mean": 90.25180205071077,
+          "range": 180
+        },
+        "within15": 0.0887332788303179,
+        "within30": 0.16080759250702023,
+        "within45": 0.22604533229066695
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 2,
+        "transform": "PLUS_YAW_270",
+        "sign": 1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 38.91639842622159,
+          "median": 90.42428217559723,
+          "p75": 139.19229832001378,
+          "p95": 175.5686041306208,
+          "p99": 179.7452410747007,
+          "max": 180,
+          "mean": 89.74639618958125,
+          "range": 180
+        },
+        "within15": 0.1303332977878885,
+        "within30": 0.20971812462232964,
+        "within45": 0.2744345312148248
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 2,
+        "transform": "MINUS_YAW_0",
+        "sign": -1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.631514988187035,
+          "median": 90,
+          "p75": 129.34768094390398,
+          "p95": 172.52253268409305,
+          "p99": 178.81358490695004,
+          "max": 180,
+          "mean": 89.74819794928926,
+          "range": 180
+        },
+        "within15": 0.09456273178592163,
+        "within30": 0.16455171269801774,
+        "within45": 0.23078472493749927
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 2,
+        "transform": "MINUS_YAW_90",
+        "sign": -1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.807701679986224,
+          "median": 89.57571782440277,
+          "p75": 141.08360157377842,
+          "p95": 176.55716832523945,
+          "p99": 179.87891495946934,
+          "max": 180,
+          "mean": 90.25360381041817,
+          "range": 180
+        },
+        "within15": 0.12309387551985213,
+        "within30": 0.2023602175381225,
+        "within45": 0.26891313878126516
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 2,
+        "transform": "MINUS_YAW_180",
+        "sign": -1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.65231905609603,
+          "median": 90,
+          "p75": 130.36848501181296,
+          "p95": 173.03461095032048,
+          "p99": 178.72013998364065,
+          "max": 180,
+          "mean": 90.25180205071077,
+          "range": 180
+        },
+        "within15": 0.0887332788303179,
+        "within30": 0.16080759250702023,
+        "within45": 0.22604533229066695
+      },
+      {
+        "field": "EYE_ANGLES",
+        "component": 2,
+        "transform": "MINUS_YAW_270",
+        "sign": -1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 38.91639842622159,
+          "median": 90.42428217559723,
+          "p75": 139.19229832001378,
+          "p95": 175.5686041306208,
+          "p99": 179.7452410747007,
+          "max": 180,
+          "mean": 89.74639618958125,
+          "range": 180
+        },
+        "within15": 0.1303332977878885,
+        "within30": 0.20971812462232964,
+        "within45": 0.2744345312148248
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 0,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.0019474251715836388,
+          "p25": 48.49062752793165,
+          "median": 90,
+          "p75": 130.27501307378287,
+          "p95": 171.2046921657533,
+          "p99": 178.27672260700712,
+          "max": 180,
+          "mean": 89.67368943294167,
+          "range": 179.99805257482842
+        },
+        "within15": 0.08809346082299553,
+        "within30": 0.16218201637460158,
+        "within45": 0.23317811822414958
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 0,
+        "transform": "PLUS_YAW_90",
+        "sign": 1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 41.499824743951066,
+          "median": 89.86093615955949,
+          "p75": 139.82674443595002,
+          "p95": 173.33368760004214,
+          "p99": 178.8225918898942,
+          "max": 180,
+          "mean": 90.25441821909844,
+          "range": 180
+        },
+        "within15": 0.10256045687745116,
+        "within30": 0.1909027358144054,
+        "within45": 0.2668633514615102
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 0,
+        "transform": "PLUS_YAW_180",
+        "sign": 1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.72498692621713,
+          "median": 90,
+          "p75": 131.50937247206835,
+          "p95": 171.6061944915463,
+          "p99": 178.24714228769818,
+          "max": 179.99805257482842,
+          "mean": 90.32631056705799,
+          "range": 179.99805257482842
+        },
+        "within15": 0.08161234137845236,
+        "within30": 0.15495444258818233,
+        "within45": 0.22661405940828683
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 0,
+        "transform": "PLUS_YAW_270",
+        "sign": 1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.17325556404998,
+          "median": 90.13906384044054,
+          "p75": 138.50017525604892,
+          "p95": 172.95127368251752,
+          "p99": 178.59585311466668,
+          "max": 180,
+          "mean": 89.74558178090244,
+          "range": 180
+        },
+        "within15": 0.10701548596547353,
+        "within30": 0.19794073389495137,
+        "within45": 0.2733918648325217
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 0,
+        "transform": "MINUS_YAW_0",
+        "sign": -1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.0003749967572730384,
+          "p25": 49.94559622814566,
+          "median": 89.87278575671269,
+          "p75": 129.91638040512564,
+          "p95": 171.91607635157823,
+          "p99": 178.36725902562833,
+          "max": 180,
+          "mean": 89.93761356183533,
+          "range": 179.99962500324273
+        },
+        "within15": 0.08880436972002038,
+        "within30": 0.16264410715766775,
+        "within45": 0.228545361911871
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 0,
+        "transform": "MINUS_YAW_90",
+        "sign": -1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.463292786950674,
+          "median": 89.69799969084539,
+          "p75": 140.44460002154136,
+          "p95": 173.7256813491208,
+          "p99": 178.89860333143469,
+          "max": 180,
+          "mean": 90.07596803624375,
+          "range": 180
+        },
+        "within15": 0.10924300050948471,
+        "within30": 0.199208521427979,
+        "within45": 0.27009798694297327
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 0,
+        "transform": "MINUS_YAW_180",
+        "sign": -1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.08361959487437,
+          "median": 90.12721424328733,
+          "p75": 130.05440377185437,
+          "p95": 171.53627870916355,
+          "p99": 178.37193577759288,
+          "max": 179.99962500324273,
+          "mean": 90.06238643816538,
+          "range": 179.99962500324273
+        },
+        "within15": 0.08841336982665672,
+        "within30": 0.16144741051434258,
+        "within45": 0.22807142264718777
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 0,
+        "transform": "MINUS_YAW_270",
+        "sign": -1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 39.555399978458624,
+          "median": 90.30200030915461,
+          "p75": 139.53670721304934,
+          "p95": 173.451768123673,
+          "p99": 178.6535434039172,
+          "max": 180,
+          "mean": 89.92403196375564,
+          "range": 180
+        },
+        "within15": 0.1138046659320608,
+        "within30": 0.2044455503027287,
+        "within45": 0.2733326224244363
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 4.185188820001393,
+          "median": 16.12810069207643,
+          "p75": 46.15415162622436,
+          "p95": 151.8329771119811,
+          "p99": 177.5917103843443,
+          "max": 179.9982006477883,
+          "mean": 35.91672181023819,
+          "range": 179.9982006477883
+        },
+        "within15": 0.4850531404400526,
+        "within30": 0.6433844002891029,
+        "within45": 0.7429945852439009
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_90",
+        "sign": 1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.0017502778902098726,
+          "p25": 77.74105550979552,
+          "median": 90.20605395413418,
+          "p75": 105.71120514465278,
+          "p95": 152.55810937113057,
+          "p99": 176.25569652508884,
+          "max": 180,
+          "mean": 91.19987149592043,
+          "range": 179.9982497221098
+        },
+        "within15": 0.025782295998767756,
+        "within30": 0.05119728906740601,
+        "within45": 0.08831858197372007
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_180",
+        "sign": 1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.0017993522116910299,
+          "p25": 133.84584837377565,
+          "median": 163.87189930792357,
+          "p75": 175.81481117999863,
+          "p95": 179.7016012502201,
+          "p99": 179.9561221287503,
+          "max": 180,
+          "mean": 144.0832781897622,
+          "range": 179.9982006477883
+        },
+        "within15": 0.031718385288925226,
+        "within30": 0.05221625848647496,
+        "within45": 0.07376864654794488
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 1,
+        "transform": "PLUS_YAW_270",
+        "sign": 1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 74.28879485534722,
+          "median": 89.79394604586582,
+          "p75": 102.25894449020448,
+          "p95": 150.65562087103834,
+          "p99": 174.66028634573036,
+          "max": 179.9982497221098,
+          "mean": 88.8001285040793,
+          "range": 179.9982497221098
+        },
+        "within15": 0.02906432540669913,
+        "within30": 0.05515468192751099,
+        "within45": 0.09493003471605113
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 1,
+        "transform": "MINUS_YAW_0",
+        "sign": -1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 43.62123766811298,
+          "median": 95.28899041104216,
+          "p75": 144.92037363651798,
+          "p95": 174.62208266583198,
+          "p99": 178.98022501636996,
+          "max": 180,
+          "mean": 93.73793751837803,
+          "range": 180
+        },
+        "within15": 0.09827130653206792,
+        "within30": 0.18148319292882617,
+        "within45": 0.2568987784215453
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 1,
+        "transform": "MINUS_YAW_90",
+        "sign": -1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0.002203452624229385,
+          "p25": 51.6410236599657,
+          "median": 90.83138689583996,
+          "p75": 129.69066284671752,
+          "p95": 170.16706958249893,
+          "p99": 178.15290684697473,
+          "max": 180,
+          "mean": 90.65932027975573,
+          "range": 179.99779654737577
+        },
+        "within15": 0.07052216258486475,
+        "within30": 0.14007274967712888,
+        "within45": 0.21442197182431072
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 1,
+        "transform": "MINUS_YAW_180",
+        "sign": -1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 35.079626363482035,
+          "median": 84.71100958895784,
+          "p75": 136.378762331887,
+          "p95": 172.651506879583,
+          "p99": 178.6000833372868,
+          "max": 180,
+          "mean": 86.26206248162174,
+          "range": 180
+        },
+        "within15": 0.12343748148674748,
+        "within30": 0.22067797011812937,
+        "within45": 0.3049443713788078
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 1,
+        "transform": "MINUS_YAW_270",
+        "sign": -1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.309337153282485,
+          "median": 89.16861310416004,
+          "p75": 128.3589763400343,
+          "p95": 169.3533063316372,
+          "p99": 177.93102048276978,
+          "max": 179.99779654737577,
+          "mean": 89.34067972024441,
+          "range": 179.99779654737577
+        },
+        "within15": 0.07417149492292563,
+        "within30": 0.1485681109965758,
+        "within45": 0.2237467268569533
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 2,
+        "transform": "PLUS_YAW_0",
+        "sign": 1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.631514988187035,
+          "median": 90,
+          "p75": 129.34768094390398,
+          "p95": 172.52253268409305,
+          "p99": 178.81358490695004,
+          "max": 180,
+          "mean": 89.74819794928926,
+          "range": 180
+        },
+        "within15": 0.09456273178592163,
+        "within30": 0.16455171269801774,
+        "within45": 0.23078472493749927
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 2,
+        "transform": "PLUS_YAW_90",
+        "sign": 1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.807701679986224,
+          "median": 89.57571782440277,
+          "p75": 141.08360157377842,
+          "p95": 176.55716832523945,
+          "p99": 179.87891495946934,
+          "max": 180,
+          "mean": 90.25360381041817,
+          "range": 180
+        },
+        "within15": 0.12309387551985213,
+        "within30": 0.2023602175381225,
+        "within45": 0.26891313878126516
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 2,
+        "transform": "PLUS_YAW_180",
+        "sign": 1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.65231905609603,
+          "median": 90,
+          "p75": 130.36848501181296,
+          "p95": 173.03461095032048,
+          "p99": 178.72013998364065,
+          "max": 180,
+          "mean": 90.25180205071077,
+          "range": 180
+        },
+        "within15": 0.0887332788303179,
+        "within30": 0.16080759250702023,
+        "within45": 0.22604533229066695
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 2,
+        "transform": "PLUS_YAW_270",
+        "sign": 1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 38.91639842622159,
+          "median": 90.42428217559723,
+          "p75": 139.19229832001378,
+          "p95": 175.5686041306208,
+          "p99": 179.7452410747007,
+          "max": 180,
+          "mean": 89.74639618958125,
+          "range": 180
+        },
+        "within15": 0.1303332977878885,
+        "within30": 0.20971812462232964,
+        "within45": 0.2744345312148248
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 2,
+        "transform": "MINUS_YAW_0",
+        "sign": -1,
+        "offset": 0,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 49.631514988187035,
+          "median": 90,
+          "p75": 129.34768094390398,
+          "p95": 172.52253268409305,
+          "p99": 178.81358490695004,
+          "max": 180,
+          "mean": 89.74819794928926,
+          "range": 180
+        },
+        "within15": 0.09456273178592163,
+        "within30": 0.16455171269801774,
+        "within45": 0.23078472493749927
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 2,
+        "transform": "MINUS_YAW_90",
+        "sign": -1,
+        "offset": 90,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 40.807701679986224,
+          "median": 89.57571782440277,
+          "p75": 141.08360157377842,
+          "p95": 176.55716832523945,
+          "p99": 179.87891495946934,
+          "max": 180,
+          "mean": 90.25360381041817,
+          "range": 180
+        },
+        "within15": 0.12309387551985213,
+        "within30": 0.2023602175381225,
+        "within45": 0.26891313878126516
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 2,
+        "transform": "MINUS_YAW_180",
+        "sign": -1,
+        "offset": 180,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 50.65231905609603,
+          "median": 90,
+          "p75": 130.36848501181296,
+          "p95": 173.03461095032048,
+          "p99": 178.72013998364065,
+          "max": 180,
+          "mean": 90.25180205071077,
+          "range": 180
+        },
+        "within15": 0.0887332788303179,
+        "within30": 0.16080759250702023,
+        "within45": 0.22604533229066695
+      },
+      {
+        "field": "CAMERA_ANGLES",
+        "component": 2,
+        "transform": "MINUS_YAW_270",
+        "sign": -1,
+        "offset": 270,
+        "count": 84399,
+        "error": {
+          "count": 84399,
+          "min": 0,
+          "p25": 38.91639842622159,
+          "median": 90.42428217559723,
+          "p75": 139.19229832001378,
+          "p95": 175.5686041306208,
+          "p99": 179.7452410747007,
+          "max": 180,
+          "mean": 89.74639618958125,
+          "range": 180
+        },
+        "within15": 0.1303332977878885,
+        "within30": 0.20971812462232964,
+        "within45": 0.2744345312148248
+      }
+    ]
+  },
+  "interpretation": {
+    "fullCoverage": true,
+    "eyeCameraStronglyLinked": true,
+    "bodyTracksViewCandidate": false,
+    "movementAnchorsBody": true,
+    "worldYawConventionCandidate": {
+      "field": "BODY_ROTATION",
+      "component": 1,
+      "sign": 1,
+      "offset": 0,
+      "transform": "PLUS_YAW_0",
+      "semanticStatus": "PROVISIONAL_MOVEMENT_ANCHORED_WORLD_YAW_CONVENTION"
+    }
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "inputRowsPresent": {
+        "actual": 153420,
+        "expected": ">0",
+        "pass": true
+      },
+      "pawnRowsPresent": {
+        "actual": 153420,
+        "expected": ">0",
+        "pass": true
+      },
+      "bodyAnglesPresent": {
+        "actual": 153420,
+        "expected": ">0",
+        "pass": true
+      },
+      "eyeAnglesPresent": {
+        "actual": 153420,
+        "expected": ">0",
+        "pass": true
+      },
+      "cameraAnglesPresent": {
+        "actual": 153420,
+        "expected": ">0",
+        "pass": true
+      },
+      "movementSamplesPresent": {
+        "actual": 84399,
+        "expected": ">1000",
+        "pass": true
+      },
+      "eyeCameraPairSamplesPresent": {
+        "actual": 153420,
+        "expected": ">1000",
+        "pass": true
+      },
+      "yawCandidatesResolved": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\player_facing_angle_semantics_validation_v01.json"
+  }
+}

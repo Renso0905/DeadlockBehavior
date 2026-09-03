@@ -1,0 +1,4994 @@
+{
+  "version": "CROSS_REPLAY_REWARD_PATCH_ERA_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-03T20:09:50.580Z",
+  "patchEraSignatureStatus": "PRE_JUNE_30_REWARD_REGIME_STRONGLY_SUPPORTED",
+  "historicalModels": {
+    "PRE_JUNE_30_2026": {
+      "id": "PRE_JUNE_30_2026",
+      "totalIntercept": 116,
+      "totalSlope": 1.16,
+      "groundFraction": 0.6,
+      "groundIntercept": 69.6,
+      "groundSlope": 0.696
+    },
+    "POST_JUNE_30_2026": {
+      "id": "POST_JUNE_30_2026",
+      "totalIntercept": 100,
+      "totalSlope": 2,
+      "groundFraction": 0.5,
+      "groundIntercept": 50,
+      "groundSlope": 1
+    }
+  },
+  "methodology": {
+    "replicationUnit": "REPLAY",
+    "primaryCohort": "Strict mutually unique Trooper-death ↔ AssignedGold matches with unique exact-tick opposing last-hit credit, isolated normal termination, no exact-tick opposing-team positive currency delta, credited recipient present, leading credited team, pre-35-minute death, and normal-HP-like Trooper.",
+    "normalHpScreen": "maxHealth / baseHP <= 1.2",
+    "superTrooperHandling": "Obvious high-HP upgraded units are excluded from the primary reward-curve diagnostic. Exact Super classification is not claimed.",
+    "comebackHandling": "Trailing-team cases are excluded.",
+    "lateGameHandling": "Deaths at or after 35 minutes are excluded.",
+    "modelComparison": "Each historical model is evaluated under NONE, FLOOR, ROUND, and CEIL aggregate-team-total integerization. The best rounding result is reported separately for each model.",
+    "pooledUse": "Pooled cases are descriptive only. Cross-replay generalization is determined from replay-level model winners."
+  },
+  "replayCounts": {
+    "total": 5,
+    "informative": 5,
+    "preJune30Winner": 5,
+    "postJune30Winner": 0,
+    "preJune30SupportRate": 1
+  },
+  "distributions": {
+    "empiricalIntercept": {
+      "count": 5,
+      "min": 65.20269952667033,
+      "p25": 67.638956450422,
+      "median": 69.13866561533399,
+      "p75": 72.41069669011203,
+      "p95": 75.42458780786811,
+      "max": 76.17806058730713,
+      "mean": 70.1138157739691
+    },
+    "empiricalSlope": {
+      "count": 5,
+      "min": 0.34576836796359883,
+      "p25": 0.5752030188930829,
+      "median": 0.6796953261453321,
+      "p75": 0.8163351734005583,
+      "p95": 1.0886195928581515,
+      "max": 1.1566906977225497,
+      "mean": 0.7147385168250244
+    },
+    "preModelRMSE": {
+      "count": 5,
+      "min": 26.016959377040703,
+      "p25": 27.463472807469184,
+      "median": 27.57016365658051,
+      "p75": 30.44280760514248,
+      "p95": 32.95912205502873,
+      "max": 33.588200667500296,
+      "mean": 29.016320822746632
+    },
+    "postModelRMSE": {
+      "count": 5,
+      "min": 28.888314994170514,
+      "p25": 30.10756034409659,
+      "median": 31.980130817795096,
+      "p75": 35.071563051619485,
+      "p95": 38.116947756617826,
+      "max": 38.87829393286741,
+      "mean": 32.98517262810982
+    },
+    "rmseImprovementUsingPre": {
+      "count": 5,
+      "min": 0.08427772488094024,
+      "p25": 0.09939505359551894,
+      "median": 0.1319803009539167,
+      "p75": 0.13606804029265565,
+      "p95": 0.14020021304921873,
+      "max": 0.1412332562383595,
+      "mean": 0.1185908751922782
+    }
+  },
+  "replays": [
+    {
+      "replay": "rep01",
+      "strictMatches": 805,
+      "cleanEconomicCases": 709,
+      "filterCounts": {
+        "cleanEconomic": 709,
+        "pre35": 646,
+        "leading": 299,
+        "normalHpLike": 299,
+        "fullyEligible": 299
+      },
+      "eligibleCases": 299,
+      "empiricalRegression": {
+        "count": 299,
+        "intercept": 67.638956450422,
+        "slope": 1.1566906977225497,
+        "r2": 0.1113052808601972,
+        "rmse": 31.49006646230897
+      },
+      "models": {
+        "PRE_JUNE_30_2026": {
+          "model": {
+            "id": "PRE_JUNE_30_2026",
+            "totalIntercept": 116,
+            "totalSlope": 1.16,
+            "groundFraction": 0.6,
+            "groundIntercept": 69.6,
+            "groundSlope": 0.696
+          },
+          "best": {
+            "model": "PRE_JUNE_30_2026",
+            "rounding": "CEIL",
+            "cases": 299,
+            "rmse": 33.588200667500296,
+            "mae": 27.859531772575252,
+            "residual": {
+              "count": 299,
+              "min": -21,
+              "p25": -18,
+              "median": -14,
+              "p75": 41,
+              "p95": 66.09999999999997,
+              "max": 94,
+              "mean": 5.8595317725752505
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 0,
+            "within1Rate": 0,
+            "within2": 0,
+            "within2Rate": 0,
+            "within3": 0,
+            "within3Rate": 0
+          },
+          "roundingResults": [
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 299,
+              "rmse": 33.588200667500296,
+              "mae": 27.859531772575252,
+              "residual": {
+                "count": 299,
+                "min": -21,
+                "p25": -18,
+                "median": -14,
+                "p75": 41,
+                "p95": 66.09999999999997,
+                "max": 94,
+                "mean": 5.8595317725752505
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 299,
+              "rmse": 33.66950328568892,
+              "mae": 27.648829431438127,
+              "residual": {
+                "count": 299,
+                "min": -21,
+                "p25": -17,
+                "median": -13,
+                "p75": 42,
+                "p95": 67,
+                "max": 95,
+                "mean": 6.384615384615385
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 299,
+              "rmse": 33.67511888508465,
+              "mae": 27.665509276755838,
+              "residual": {
+                "count": 299,
+                "min": -20.68477999999999,
+                "p25": -17.233818749999998,
+                "median": -13.007249999999999,
+                "p75": 41.68514062500001,
+                "p95": 66.86669107499998,
+                "max": 94.68386175,
+                "mean": 6.3698953336120425
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 299,
+              "rmse": 33.77700826931566,
+              "mae": 27.494983277591974,
+              "residual": {
+                "count": 299,
+                "min": -20,
+                "p25": -17,
+                "median": -13,
+                "p75": 42,
+                "p95": 67.09999999999997,
+                "max": 95,
+                "mean": 6.8595317725752505
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            }
+          ]
+        },
+        "POST_JUNE_30_2026": {
+          "model": {
+            "id": "POST_JUNE_30_2026",
+            "totalIntercept": 100,
+            "totalSlope": 2,
+            "groundFraction": 0.5,
+            "groundIntercept": 50,
+            "groundSlope": 1
+          },
+          "best": {
+            "model": "POST_JUNE_30_2026",
+            "rounding": "CEIL",
+            "cases": 299,
+            "rmse": 38.87829393286741,
+            "mae": 22.585284280936456,
+            "residual": {
+              "count": 299,
+              "min": -2,
+              "p25": -2,
+              "median": -1,
+              "p75": 59,
+              "p95": 78,
+              "max": 114,
+              "mean": 20.752508361204015
+            },
+            "exact": 21,
+            "exactRate": 0.07023411371237458,
+            "within1": 113,
+            "within1Rate": 0.3779264214046823,
+            "within2": 204,
+            "within2Rate": 0.6822742474916388,
+            "within3": 204,
+            "within3Rate": 0.6822742474916388
+          },
+          "roundingResults": [
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 299,
+              "rmse": 38.87829393286741,
+              "mae": 22.585284280936456,
+              "residual": {
+                "count": 299,
+                "min": -2,
+                "p25": -2,
+                "median": -1,
+                "p75": 59,
+                "p95": 78,
+                "max": 114,
+                "mean": 20.752508361204015
+              },
+              "exact": 21,
+              "exactRate": 0.07023411371237458,
+              "within1": 113,
+              "within1Rate": 0.3779264214046823,
+              "within2": 204,
+              "within2Rate": 0.6822742474916388,
+              "within3": 204,
+              "within3Rate": 0.6822742474916388
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 299,
+              "rmse": 39.10528243186655,
+              "mae": 22.410701609531774,
+              "residual": {
+                "count": 299,
+                "min": -1.9521875000000009,
+                "p25": -1.0889322916666657,
+                "median": -0.3622812499999952,
+                "p75": 59.42156249999999,
+                "p95": 78.15659687499999,
+                "max": 114.04003125,
+                "mean": 21.244025606187286
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 113,
+              "within1Rate": 0.3779264214046823,
+              "within2": 204,
+              "within2Rate": 0.6822742474916388,
+              "within3": 204,
+              "within3Rate": 0.6822742474916388
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 299,
+              "rmse": 39.11021216577806,
+              "mae": 22.377926421404684,
+              "residual": {
+                "count": 299,
+                "min": -2,
+                "p25": -1,
+                "median": 0,
+                "p75": 59.5,
+                "p95": 78.09999999999997,
+                "max": 114,
+                "mean": 21.254180602006688
+              },
+              "exact": 64,
+              "exactRate": 0.2140468227424749,
+              "within1": 172,
+              "within1Rate": 0.5752508361204013,
+              "within2": 204,
+              "within2Rate": 0.6822742474916388,
+              "within3": 204,
+              "within3Rate": 0.6822742474916388
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 299,
+              "rmse": 39.421146049459836,
+              "mae": 22.361204013377925,
+              "residual": {
+                "count": 299,
+                "min": -1,
+                "p25": -1,
+                "median": 0,
+                "p75": 60,
+                "p95": 79,
+                "max": 115,
+                "mean": 21.752508361204015
+              },
+              "exact": 92,
+              "exactRate": 0.3076923076923077,
+              "within1": 204,
+              "within1Rate": 0.6822742474916388,
+              "within2": 204,
+              "within2Rate": 0.6822742474916388,
+              "within3": 204,
+              "within3Rate": 0.6822742474916388
+            }
+          ]
+        }
+      },
+      "modelWinner": "PRE_JUNE_30_2026",
+      "preVsPost": {
+        "preRMSE": 33.588200667500296,
+        "postRMSE": 38.87829393286741,
+        "rmseImprovementFraction": 0.13606804029265565
+      }
+    },
+    {
+      "replay": "rep02",
+      "strictMatches": 900,
+      "cleanEconomicCases": 796,
+      "filterCounts": {
+        "cleanEconomic": 796,
+        "pre35": 732,
+        "leading": 344,
+        "normalHpLike": 344,
+        "fullyEligible": 344
+      },
+      "eligibleCases": 344,
+      "empiricalRegression": {
+        "count": 344,
+        "intercept": 72.41069669011203,
+        "slope": 0.6796953261453321,
+        "r2": 0.04788261290752316,
+        "rmse": 29.19116654354659
+      },
+      "models": {
+        "PRE_JUNE_30_2026": {
+          "model": {
+            "id": "PRE_JUNE_30_2026",
+            "totalIntercept": 116,
+            "totalSlope": 1.16,
+            "groundFraction": 0.6,
+            "groundIntercept": 69.6,
+            "groundSlope": 0.696
+          },
+          "best": {
+            "model": "PRE_JUNE_30_2026",
+            "rounding": "CEIL",
+            "cases": 344,
+            "rmse": 30.44280760514248,
+            "mae": 24.787790697674417,
+            "residual": {
+              "count": 344,
+              "min": -21,
+              "p25": -17,
+              "median": -14,
+              "p75": 34.25,
+              "p95": 63,
+              "max": 106,
+              "mean": 2.1424418604651163
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 0,
+            "within1Rate": 0,
+            "within2": 0,
+            "within2Rate": 0,
+            "within3": 0,
+            "within3Rate": 0
+          },
+          "roundingResults": [
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 344,
+              "rmse": 30.44280760514248,
+              "mae": 24.787790697674417,
+              "residual": {
+                "count": 344,
+                "min": -21,
+                "p25": -17,
+                "median": -14,
+                "p75": 34.25,
+                "p95": 63,
+                "max": 106,
+                "mean": 2.1424418604651163
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 344,
+              "rmse": 30.46633674104264,
+              "mae": 24.540697674418606,
+              "residual": {
+                "count": 344,
+                "min": -21,
+                "p25": -16,
+                "median": -13,
+                "p75": 35,
+                "p95": 63,
+                "max": 106,
+                "mean": 2.645348837209302
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 344,
+              "rmse": 30.475616922486992,
+              "mae": 24.547722572674434,
+              "residual": {
+                "count": 344,
+                "min": -20.915177750000012,
+                "p25": -16.28649843749999,
+                "median": -13.251251875000001,
+                "p75": 34.727688875000005,
+                "p95": 63.30317008749999,
+                "max": 106.416425,
+                "mean": 2.650057658430235
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 344,
+              "rmse": 30.52948441432726,
+              "mae": 24.316860465116278,
+              "residual": {
+                "count": 344,
+                "min": -20,
+                "p25": -16,
+                "median": -13,
+                "p75": 35.25,
+                "p95": 64,
+                "max": 107,
+                "mean": 3.1424418604651163
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            }
+          ]
+        },
+        "POST_JUNE_30_2026": {
+          "model": {
+            "id": "POST_JUNE_30_2026",
+            "totalIntercept": 100,
+            "totalSlope": 2,
+            "groundFraction": 0.5,
+            "groundIntercept": 50,
+            "groundSlope": 1
+          },
+          "best": {
+            "model": "POST_JUNE_30_2026",
+            "rounding": "CEIL",
+            "cases": 344,
+            "rmse": 35.071563051619485,
+            "mae": 18.34011627906977,
+            "residual": {
+              "count": 344,
+              "min": -7,
+              "p25": -1,
+              "median": -1,
+              "p75": 55,
+              "p95": 75.84999999999997,
+              "max": 123,
+              "mean": 17.11918604651163
+            },
+            "exact": 51,
+            "exactRate": 0.14825581395348839,
+            "within1": 250,
+            "within1Rate": 0.7267441860465116,
+            "within2": 250,
+            "within2Rate": 0.7267441860465116,
+            "within3": 250,
+            "within3Rate": 0.7267441860465116
+          },
+          "roundingResults": [
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 344,
+              "rmse": 35.071563051619485,
+              "mae": 18.34011627906977,
+              "residual": {
+                "count": 344,
+                "min": -7,
+                "p25": -1,
+                "median": -1,
+                "p75": 55,
+                "p95": 75.84999999999997,
+                "max": 123,
+                "mean": 17.11918604651163
+              },
+              "exact": 51,
+              "exactRate": 0.14825581395348839,
+              "within1": 250,
+              "within1Rate": 0.7267441860465116,
+              "within2": 250,
+              "within2Rate": 0.7267441860465116,
+              "within3": 250,
+              "within3Rate": 0.7267441860465116
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 344,
+              "rmse": 35.2449072685983,
+              "mae": 18.13372093023256,
+              "residual": {
+                "count": 344,
+                "min": -6,
+                "p25": 0,
+                "median": 0,
+                "p75": 55,
+                "p95": 75.84999999999997,
+                "max": 123,
+                "mean": 17.593023255813954
+              },
+              "exact": 154,
+              "exactRate": 0.4476744186046512,
+              "within1": 249,
+              "within1Rate": 0.7238372093023255,
+              "within2": 250,
+              "within2Rate": 0.7267441860465116,
+              "within3": 250,
+              "within3Rate": 0.7267441860465116
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 344,
+              "rmse": 35.28085373335047,
+              "mae": 18.186273861434103,
+              "residual": {
+                "count": 344,
+                "min": -6.02781250000001,
+                "p25": -0.486867187500005,
+                "median": -0.11420312499999596,
+                "p75": 55.03061718749999,
+                "p95": 75.95850104166664,
+                "max": 123.471875,
+                "mean": 17.60266236676355
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 248,
+              "within1Rate": 0.7209302325581395,
+              "within2": 250,
+              "within2Rate": 0.7267441860465116,
+              "within3": 250,
+              "within3Rate": 0.7267441860465116
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 344,
+              "rmse": 35.570393685996,
+              "mae": 18.183139534883722,
+              "residual": {
+                "count": 344,
+                "min": -6,
+                "p25": 0,
+                "median": 0,
+                "p75": 56,
+                "p95": 76.84999999999997,
+                "max": 124,
+                "mean": 18.11918604651163
+              },
+              "exact": 197,
+              "exactRate": 0.5726744186046512,
+              "within1": 248,
+              "within1Rate": 0.7209302325581395,
+              "within2": 250,
+              "within2Rate": 0.7267441860465116,
+              "within3": 250,
+              "within3Rate": 0.7267441860465116
+            }
+          ]
+        }
+      },
+      "modelWinner": "PRE_JUNE_30_2026",
+      "preVsPost": {
+        "preRMSE": 30.44280760514248,
+        "postRMSE": 35.071563051619485,
+        "rmseImprovementFraction": 0.1319803009539167
+      }
+    },
+    {
+      "replay": "rep03",
+      "strictMatches": 1320,
+      "cleanEconomicCases": 1153,
+      "filterCounts": {
+        "cleanEconomic": 1153,
+        "pre35": 716,
+        "leading": 365,
+        "normalHpLike": 365,
+        "fullyEligible": 365
+      },
+      "eligibleCases": 365,
+      "empiricalRegression": {
+        "count": 365,
+        "intercept": 76.17806058730713,
+        "slope": 0.34576836796359883,
+        "r2": 0.01604209057143058,
+        "rmse": 26.207798885264303
+      },
+      "models": {
+        "PRE_JUNE_30_2026": {
+          "model": {
+            "id": "PRE_JUNE_30_2026",
+            "totalIntercept": 116,
+            "totalSlope": 1.16,
+            "groundFraction": 0.6,
+            "groundIntercept": 69.6,
+            "groundSlope": 0.696
+          },
+          "best": {
+            "model": "PRE_JUNE_30_2026",
+            "rounding": "NONE",
+            "cases": 365,
+            "rmse": 27.463472807469184,
+            "mae": 22.47153586849316,
+            "residual": {
+              "count": 365,
+              "min": -20.682235250000005,
+              "p25": -16.049331249999994,
+              "median": -13.035612499999985,
+              "p75": 7.485115500000006,
+              "p95": 54.106561250000034,
+              "max": 115.47474075,
+              "mean": 0.7304347178082177
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 0,
+            "within1Rate": 0,
+            "within2": 1,
+            "within2Rate": 0.0027397260273972603,
+            "within3": 1,
+            "within3Rate": 0.0027397260273972603
+          },
+          "roundingResults": [
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 365,
+              "rmse": 27.463472807469184,
+              "mae": 22.47153586849316,
+              "residual": {
+                "count": 365,
+                "min": -20.682235250000005,
+                "p25": -16.049331249999994,
+                "median": -13.035612499999985,
+                "p75": 7.485115500000006,
+                "p95": 54.106561250000034,
+                "max": 115.47474075,
+                "mean": 0.7304347178082177
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 1,
+              "within2Rate": 0.0027397260273972603,
+              "within3": 1,
+              "within3Rate": 0.0027397260273972603
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 365,
+              "rmse": 27.465096155835955,
+              "mae": 22.473972602739725,
+              "residual": {
+                "count": 365,
+                "min": -21,
+                "p25": -16,
+                "median": -13,
+                "p75": 7,
+                "p95": 54.400000000000034,
+                "max": 115,
+                "mean": 0.7205479452054795
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 1,
+              "within2Rate": 0.0027397260273972603,
+              "within3": 1,
+              "within3Rate": 0.0027397260273972603
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 365,
+              "rmse": 27.46514603229596,
+              "mae": 22.71232876712329,
+              "residual": {
+                "count": 365,
+                "min": -21,
+                "p25": -17,
+                "median": -14,
+                "p75": 7,
+                "p95": 53.60000000000002,
+                "max": 115,
+                "mean": 0.2465753424657534
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 1,
+              "within1Rate": 0.0027397260273972603,
+              "within2": 1,
+              "within2Rate": 0.0027397260273972603,
+              "within3": 1,
+              "within3Rate": 0.0027397260273972603
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 365,
+              "rmse": 27.492315240086164,
+              "mae": 22.23835616438356,
+              "residual": {
+                "count": 365,
+                "min": -20,
+                "p25": -16,
+                "median": -13,
+                "p75": 8,
+                "p95": 54.60000000000002,
+                "max": 116,
+                "mean": 1.2465753424657535
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 1,
+              "within2Rate": 0.0027397260273972603,
+              "within3": 1,
+              "within3Rate": 0.0027397260273972603
+            }
+          ]
+        },
+        "POST_JUNE_30_2026": {
+          "model": {
+            "id": "POST_JUNE_30_2026",
+            "totalIntercept": 100,
+            "totalSlope": 2,
+            "groundFraction": 0.5,
+            "groundIntercept": 50,
+            "groundSlope": 1
+          },
+          "best": {
+            "model": "POST_JUNE_30_2026",
+            "rounding": "CEIL",
+            "cases": 365,
+            "rmse": 31.980130817795096,
+            "mae": 16.421917808219177,
+            "residual": {
+              "count": 365,
+              "min": -6,
+              "p25": -1,
+              "median": -1,
+              "p75": 17,
+              "p95": 69.60000000000002,
+              "max": 125,
+              "mean": 15.287671232876713
+            },
+            "exact": 66,
+            "exactRate": 0.18082191780821918,
+            "within1": 268,
+            "within1Rate": 0.7342465753424657,
+            "within2": 268,
+            "within2Rate": 0.7342465753424657,
+            "within3": 268,
+            "within3Rate": 0.7342465753424657
+          },
+          "roundingResults": [
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 365,
+              "rmse": 31.980130817795096,
+              "mae": 16.421917808219177,
+              "residual": {
+                "count": 365,
+                "min": -6,
+                "p25": -1,
+                "median": -1,
+                "p75": 17,
+                "p95": 69.60000000000002,
+                "max": 125,
+                "mean": 15.287671232876713
+              },
+              "exact": 66,
+              "exactRate": 0.18082191780821918,
+              "within1": 268,
+              "within1Rate": 0.7342465753424657,
+              "within2": 268,
+              "within2Rate": 0.7342465753424657,
+              "within3": 268,
+              "within3Rate": 0.7342465753424657
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 365,
+              "rmse": 32.208226635654725,
+              "mae": 16.301369863013697,
+              "residual": {
+                "count": 365,
+                "min": -6,
+                "p25": -1,
+                "median": 0,
+                "p75": 18,
+                "p95": 70.40000000000003,
+                "max": 126,
+                "mean": 15.764383561643836
+              },
+              "exact": 157,
+              "exactRate": 0.4301369863013699,
+              "within1": 268,
+              "within1Rate": 0.7342465753424657,
+              "within2": 268,
+              "within2Rate": 0.7342465753424657,
+              "within3": 268,
+              "within3Rate": 0.7342465753424657
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 365,
+              "rmse": 32.214736775611726,
+              "mae": 16.322204109589048,
+              "residual": {
+                "count": 365,
+                "min": -5.629562500000006,
+                "p25": -0.5166666666666657,
+                "median": -0.10989583333333286,
+                "p75": 17.585437499999998,
+                "p95": 70.2750166666667,
+                "max": 125.56715625,
+                "mean": 15.778809132420095
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 267,
+              "within1Rate": 0.7315068493150685,
+              "within2": 268,
+              "within2Rate": 0.7342465753424657,
+              "within3": 268,
+              "within3Rate": 0.7342465753424657
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 365,
+              "rmse": 32.4700494238774,
+              "mae": 16.315068493150687,
+              "residual": {
+                "count": 365,
+                "min": -5,
+                "p25": 0,
+                "median": 0,
+                "p75": 18,
+                "p95": 70.60000000000002,
+                "max": 126,
+                "mean": 16.28767123287671
+              },
+              "exact": 201,
+              "exactRate": 0.5506849315068493,
+              "within1": 267,
+              "within1Rate": 0.7315068493150685,
+              "within2": 268,
+              "within2Rate": 0.7342465753424657,
+              "within3": 268,
+              "within3Rate": 0.7342465753424657
+            }
+          ]
+        }
+      },
+      "modelWinner": "PRE_JUNE_30_2026",
+      "preVsPost": {
+        "preRMSE": 27.463472807469184,
+        "postRMSE": 31.980130817795096,
+        "rmseImprovementFraction": 0.1412332562383595
+      }
+    },
+    {
+      "replay": "rep04",
+      "strictMatches": 919,
+      "cleanEconomicCases": 782,
+      "filterCounts": {
+        "cleanEconomic": 782,
+        "pre35": 717,
+        "leading": 339,
+        "normalHpLike": 331,
+        "fullyEligible": 331
+      },
+      "eligibleCases": 331,
+      "empiricalRegression": {
+        "count": 331,
+        "intercept": 69.13866561533399,
+        "slope": 0.5752030188930829,
+        "r2": 0.047224624666308834,
+        "rmse": 24.93902578359014
+      },
+      "models": {
+        "PRE_JUNE_30_2026": {
+          "model": {
+            "id": "PRE_JUNE_30_2026",
+            "totalIntercept": 116,
+            "totalSlope": 1.16,
+            "groundFraction": 0.6,
+            "groundIntercept": 69.6,
+            "groundSlope": 0.696
+          },
+          "best": {
+            "model": "PRE_JUNE_30_2026",
+            "rounding": "FLOOR",
+            "cases": 331,
+            "rmse": 26.016959377040703,
+            "mae": 21.595166163141993,
+            "residual": {
+              "count": 331,
+              "min": -20,
+              "p25": -17.5,
+              "median": -14,
+              "p75": -10,
+              "p95": 57,
+              "max": 74,
+              "mean": -2.175226586102719
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 0,
+            "within1Rate": 0,
+            "within2": 0,
+            "within2Rate": 0,
+            "within3": 0,
+            "within3Rate": 0
+          },
+          "roundingResults": [
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 331,
+              "rmse": 26.016959377040703,
+              "mae": 21.595166163141993,
+              "residual": {
+                "count": 331,
+                "min": -20,
+                "p25": -17.5,
+                "median": -14,
+                "p75": -10,
+                "p95": 57,
+                "max": 74,
+                "mean": -2.175226586102719
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 331,
+              "rmse": 26.09777069520404,
+              "mae": 21.903874192598174,
+              "residual": {
+                "count": 331,
+                "min": -20.77756550000001,
+                "p25": -17.987527375000006,
+                "median": -14.10394375,
+                "p75": -10.871158249999993,
+                "p95": 56.873545750000005,
+                "max": 73.04466875,
+                "mean": -2.638158975075532
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 331,
+              "rmse": 26.119583235549367,
+              "mae": 22.190332326283986,
+              "residual": {
+                "count": 331,
+                "min": -21,
+                "p25": -18.5,
+                "median": -15,
+                "p75": -11,
+                "p95": 56,
+                "max": 73,
+                "mean": -3.175226586102719
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 331,
+              "rmse": 26.14334179560241,
+              "mae": 21.909365558912388,
+              "residual": {
+                "count": 331,
+                "min": -21,
+                "p25": -18,
+                "median": -14,
+                "p75": -11,
+                "p95": 57,
+                "max": 73,
+                "mean": -2.59214501510574
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            }
+          ]
+        },
+        "POST_JUNE_30_2026": {
+          "model": {
+            "id": "POST_JUNE_30_2026",
+            "totalIntercept": 100,
+            "totalSlope": 2,
+            "groundFraction": 0.5,
+            "groundIntercept": 50,
+            "groundSlope": 1
+          },
+          "best": {
+            "model": "POST_JUNE_30_2026",
+            "rounding": "CEIL",
+            "cases": 331,
+            "rmse": 28.888314994170514,
+            "mae": 13.731117824773413,
+            "residual": {
+              "count": 331,
+              "min": -7,
+              "p25": -1,
+              "median": -1,
+              "p75": 0,
+              "p95": 70.5,
+              "max": 83,
+              "mean": 12.003021148036254
+            },
+            "exact": 49,
+            "exactRate": 0.14803625377643503,
+            "within1": 227,
+            "within1Rate": 0.6858006042296072,
+            "within2": 257,
+            "within2Rate": 0.7764350453172205,
+            "within3": 257,
+            "within3Rate": 0.7764350453172205
+          },
+          "roundingResults": [
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 331,
+              "rmse": 28.888314994170514,
+              "mae": 13.731117824773413,
+              "residual": {
+                "count": 331,
+                "min": -7,
+                "p25": -1,
+                "median": -1,
+                "p75": 0,
+                "p95": 70.5,
+                "max": 83,
+                "mean": 12.003021148036254
+              },
+              "exact": 49,
+              "exactRate": 0.14803625377643503,
+              "within1": 227,
+              "within1Rate": 0.6858006042296072,
+              "within2": 257,
+              "within2Rate": 0.7764350453172205,
+              "within3": 257,
+              "within3Rate": 0.7764350453172205
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 331,
+              "rmse": 29.08426137653716,
+              "mae": 13.54380664652568,
+              "residual": {
+                "count": 331,
+                "min": -6,
+                "p25": -1,
+                "median": 0,
+                "p75": 0,
+                "p95": 71,
+                "max": 83,
+                "mean": 12.419939577039274
+              },
+              "exact": 106,
+              "exactRate": 0.3202416918429003,
+              "within1": 257,
+              "within1Rate": 0.7764350453172205,
+              "within2": 257,
+              "within2Rate": 0.7764350453172205,
+              "within3": 257,
+              "within3Rate": 0.7764350453172205
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 331,
+              "rmse": 29.09850495535697,
+              "mae": 13.552308440332324,
+              "residual": {
+                "count": 331,
+                "min": -6.406968750000004,
+                "p25": -0.7575468750000027,
+                "median": -0.3372395833333286,
+                "p75": 0.3716562500000009,
+                "p95": 70.958984375,
+                "max": 83.38918749999999,
+                "mean": 12.470124402064451
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 227,
+              "within1Rate": 0.6858006042296072,
+              "within2": 257,
+              "within2Rate": 0.7764350453172205,
+              "within3": 257,
+              "within3Rate": 0.7764350453172205
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 331,
+              "rmse": 29.317926009499537,
+              "mae": 13.43202416918429,
+              "residual": {
+                "count": 331,
+                "min": -6,
+                "p25": 0,
+                "median": 0,
+                "p75": 1,
+                "p95": 71.5,
+                "max": 84,
+                "mean": 13.003021148036254
+              },
+              "exact": 178,
+              "exactRate": 0.5377643504531722,
+              "within1": 257,
+              "within1Rate": 0.7764350453172205,
+              "within2": 257,
+              "within2Rate": 0.7764350453172205,
+              "within3": 257,
+              "within3Rate": 0.7764350453172205
+            }
+          ]
+        }
+      },
+      "modelWinner": "PRE_JUNE_30_2026",
+      "preVsPost": {
+        "preRMSE": 26.016959377040703,
+        "postRMSE": 28.888314994170514,
+        "rmseImprovementFraction": 0.09939505359551894
+      }
+    },
+    {
+      "replay": "rep05",
+      "strictMatches": 884,
+      "cleanEconomicCases": 799,
+      "filterCounts": {
+        "cleanEconomic": 799,
+        "pre35": 678,
+        "leading": 316,
+        "normalHpLike": 316,
+        "fullyEligible": 316
+      },
+      "eligibleCases": 316,
+      "empiricalRegression": {
+        "count": 316,
+        "intercept": 65.20269952667033,
+        "slope": 0.8163351734005583,
+        "r2": 0.0855891713016288,
+        "rmse": 26.566056907130424
+      },
+      "models": {
+        "PRE_JUNE_30_2026": {
+          "model": {
+            "id": "PRE_JUNE_30_2026",
+            "totalIntercept": 116,
+            "totalSlope": 1.16,
+            "groundFraction": 0.6,
+            "groundIntercept": 69.6,
+            "groundSlope": 0.696
+          },
+          "best": {
+            "model": "PRE_JUNE_30_2026",
+            "rounding": "FLOOR",
+            "cases": 316,
+            "rmse": 27.57016365658051,
+            "mae": 21.968354430379748,
+            "residual": {
+              "count": 316,
+              "min": -82,
+              "p25": -17,
+              "median": -14,
+              "p75": -10,
+              "p95": 62,
+              "max": 109,
+              "mean": -2.0949367088607596
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 0,
+            "within1Rate": 0,
+            "within2": 1,
+            "within2Rate": 0.0031645569620253164,
+            "within3": 1,
+            "within3Rate": 0.0031645569620253164
+          },
+          "roundingResults": [
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 316,
+              "rmse": 27.57016365658051,
+              "mae": 21.968354430379748,
+              "residual": {
+                "count": 316,
+                "min": -82,
+                "p25": -17,
+                "median": -14,
+                "p75": -10,
+                "p95": 62,
+                "max": 109,
+                "mean": -2.0949367088607596
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 1,
+              "within2Rate": 0.0031645569620253164,
+              "within3": 1,
+              "within3Rate": 0.0031645569620253164
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 316,
+              "rmse": 27.631047966773885,
+              "mae": 22.2761284920886,
+              "residual": {
+                "count": 316,
+                "min": -82.67261249999999,
+                "p25": -17.639831437499996,
+                "median": -14.110141999999996,
+                "p75": -10.14976718749999,
+                "p95": 61.29054375000001,
+                "max": 108.10111625,
+                "mean": -2.5686405458860686
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 1,
+              "within3Rate": 0.0031645569620253164
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 316,
+              "rmse": 27.658347333403526,
+              "mae": 22.268987341772153,
+              "residual": {
+                "count": 316,
+                "min": -83,
+                "p25": -18,
+                "median": -14,
+                "p75": -10,
+                "p95": 61,
+                "max": 108,
+                "mean": -2.528481012658228
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 1,
+              "within3Rate": 0.0031645569620253164
+            },
+            {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 316,
+              "rmse": 27.664124737073365,
+              "mae": 22.582278481012658,
+              "residual": {
+                "count": 316,
+                "min": -83,
+                "p25": -18,
+                "median": -15,
+                "p75": -11,
+                "p95": 61,
+                "max": 108,
+                "mean": -3.0949367088607596
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 1,
+              "within3Rate": 0.0031645569620253164
+            }
+          ]
+        },
+        "POST_JUNE_30_2026": {
+          "model": {
+            "id": "POST_JUNE_30_2026",
+            "totalIntercept": 100,
+            "totalSlope": 2,
+            "groundFraction": 0.5,
+            "groundIntercept": 50,
+            "groundSlope": 1
+          },
+          "best": {
+            "model": "POST_JUNE_30_2026",
+            "rounding": "CEIL",
+            "cases": 316,
+            "rmse": 30.10756034409659,
+            "mae": 13.693037974683545,
+            "residual": {
+              "count": 316,
+              "min": -70,
+              "p25": -1,
+              "median": -1,
+              "p75": 0,
+              "p95": 73,
+              "max": 123,
+              "mean": 12.091772151898734
+            },
+            "exact": 73,
+            "exactRate": 0.2310126582278481,
+            "within1": 252,
+            "within1Rate": 0.7974683544303798,
+            "within2": 252,
+            "within2Rate": 0.7974683544303798,
+            "within3": 252,
+            "within3Rate": 0.7974683544303798
+          },
+          "roundingResults": [
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 316,
+              "rmse": 30.10756034409659,
+              "mae": 13.693037974683545,
+              "residual": {
+                "count": 316,
+                "min": -70,
+                "p25": -1,
+                "median": -1,
+                "p75": 0,
+                "p95": 73,
+                "max": 123,
+                "mean": 12.091772151898734
+              },
+              "exact": 73,
+              "exactRate": 0.2310126582278481,
+              "within1": 252,
+              "within1Rate": 0.7974683544303798,
+              "within2": 252,
+              "within2Rate": 0.7974683544303798,
+              "within3": 252,
+              "within3Rate": 0.7974683544303798
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 316,
+              "rmse": 30.228978468358907,
+              "mae": 13.481012658227849,
+              "residual": {
+                "count": 316,
+                "min": -69,
+                "p25": -0.25,
+                "median": 0,
+                "p75": 0,
+                "p95": 73,
+                "max": 123,
+                "mean": 12.518987341772151
+              },
+              "exact": 159,
+              "exactRate": 0.5031645569620253,
+              "within1": 252,
+              "within1Rate": 0.7974683544303798,
+              "within2": 252,
+              "within2Rate": 0.7974683544303798,
+              "within3": 252,
+              "within3Rate": 0.7974683544303798
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "NONE",
+              "cases": 316,
+              "rmse": 30.276102400312844,
+              "mae": 13.521207937763698,
+              "residual": {
+                "count": 316,
+                "min": -69.21927083333333,
+                "p25": -0.48828125,
+                "median": -0.05364583333333428,
+                "p75": 0.4613437499999957,
+                "p95": 73.41744791666667,
+                "max": 123.27171875,
+                "mean": 12.567317708333333
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 250,
+              "within1Rate": 0.7911392405063291,
+              "within2": 252,
+              "within2Rate": 0.7974683544303798,
+              "within3": 252,
+              "within3Rate": 0.7974683544303798
+            },
+            {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 316,
+              "rmse": 30.52292145547695,
+              "mae": 13.560126582278482,
+              "residual": {
+                "count": 316,
+                "min": -69,
+                "p25": 0,
+                "median": 0,
+                "p75": 1,
+                "p95": 74,
+                "max": 124,
+                "mean": 13.091772151898734
+              },
+              "exact": 177,
+              "exactRate": 0.560126582278481,
+              "within1": 250,
+              "within1Rate": 0.7911392405063291,
+              "within2": 252,
+              "within2Rate": 0.7974683544303798,
+              "within3": 252,
+              "within3Rate": 0.7974683544303798
+            }
+          ]
+        }
+      },
+      "modelWinner": "PRE_JUNE_30_2026",
+      "preVsPost": {
+        "preRMSE": 27.57016365658051,
+        "postRMSE": 30.10756034409659,
+        "rmseImprovementFraction": 0.08427772488094024
+      }
+    }
+  ],
+  "pooledDescriptive": {
+    "eligibleCases": 1655,
+    "empiricalRegression": {
+      "count": 1655,
+      "intercept": 70.24133847105422,
+      "slope": 0.7061452572893738,
+      "r2": 0.05665136683567995,
+      "rmse": 27.98765555033287
+    },
+    "modelComparison": {
+      "PRE_JUNE_30_2026": {
+        "model": {
+          "id": "PRE_JUNE_30_2026",
+          "totalIntercept": 116,
+          "totalSlope": 1.16,
+          "groundFraction": 0.6,
+          "groundIntercept": 69.6,
+          "groundSlope": 0.696
+        },
+        "best": {
+          "model": "PRE_JUNE_30_2026",
+          "rounding": "CEIL",
+          "cases": 1655,
+          "rmse": 29.075544899077087,
+          "mae": 23.94441087613293,
+          "residual": {
+            "count": 1655,
+            "min": -83,
+            "p25": -17,
+            "median": -14,
+            "p75": -9,
+            "p95": 62,
+            "max": 115,
+            "mean": 0.3323262839879154
+          },
+          "exact": 0,
+          "exactRate": 0,
+          "within1": 1,
+          "within1Rate": 0.0006042296072507553,
+          "within2": 1,
+          "within2Rate": 0.0006042296072507553,
+          "within3": 2,
+          "within3Rate": 0.0012084592145015106
+        },
+        "roundingResults": [
+          {
+            "model": "PRE_JUNE_30_2026",
+            "rounding": "CEIL",
+            "cases": 1655,
+            "rmse": 29.075544899077087,
+            "mae": 23.94441087613293,
+            "residual": {
+              "count": 1655,
+              "min": -83,
+              "p25": -17,
+              "median": -14,
+              "p75": -9,
+              "p95": 62,
+              "max": 115,
+              "mean": 0.3323262839879154
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 1,
+            "within1Rate": 0.0006042296072507553,
+            "within2": 1,
+            "within2Rate": 0.0006042296072507553,
+            "within3": 2,
+            "within3Rate": 0.0012084592145015106
+          },
+          {
+            "model": "PRE_JUNE_30_2026",
+            "rounding": "NONE",
+            "cases": 1655,
+            "rmse": 29.09057751080056,
+            "mae": 23.69060627915405,
+            "residual": {
+              "count": 1655,
+              "min": -82.67261249999999,
+              "p25": -16.891756249999993,
+              "median": -13.57773125,
+              "p75": -8.858257749999993,
+              "p95": 62.54383000000001,
+              "max": 115.47474075,
+              "mean": 0.8446563009063497
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 0,
+            "within1Rate": 0,
+            "within2": 1,
+            "within2Rate": 0.0006042296072507553,
+            "within3": 2,
+            "within3Rate": 0.0012084592145015106
+          },
+          {
+            "model": "PRE_JUNE_30_2026",
+            "rounding": "ROUND",
+            "cases": 1655,
+            "rmse": 29.100855979354247,
+            "mae": 23.686404833836857,
+            "residual": {
+              "count": 1655,
+              "min": -83,
+              "p25": -17,
+              "median": -14,
+              "p75": -9,
+              "p95": 63,
+              "max": 115,
+              "mean": 0.8610271903323263
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 0,
+            "within1Rate": 0,
+            "within2": 1,
+            "within2Rate": 0.0006042296072507553,
+            "within3": 2,
+            "within3Rate": 0.0012084592145015106
+          },
+          {
+            "model": "PRE_JUNE_30_2026",
+            "rounding": "FLOOR",
+            "cases": 1655,
+            "rmse": 29.10415715574364,
+            "mae": 23.43987915407855,
+            "residual": {
+              "count": 1655,
+              "min": -82,
+              "p25": -16,
+              "median": -13,
+              "p75": -8,
+              "p95": 63,
+              "max": 116,
+              "mean": 1.3323262839879153
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 0,
+            "within1Rate": 0,
+            "within2": 2,
+            "within2Rate": 0.0012084592145015106,
+            "within3": 2,
+            "within3Rate": 0.0012084592145015106
+          }
+        ]
+      },
+      "POST_JUNE_30_2026": {
+        "model": {
+          "id": "POST_JUNE_30_2026",
+          "totalIntercept": 100,
+          "totalSlope": 2,
+          "groundFraction": 0.5,
+          "groundIntercept": 50,
+          "groundSlope": 1
+        },
+        "best": {
+          "model": "POST_JUNE_30_2026",
+          "rounding": "CEIL",
+          "cases": 1655,
+          "rmse": 33.07996354162755,
+          "mae": 16.874924471299092,
+          "residual": {
+            "count": 1655,
+            "min": -70,
+            "p25": -1,
+            "median": -1,
+            "p75": 1,
+            "p95": 74,
+            "max": 125,
+            "mean": 15.388519637462236
+          },
+          "exact": 260,
+          "exactRate": 0.15709969788519637,
+          "within1": 1110,
+          "within1Rate": 0.6706948640483383,
+          "within2": 1231,
+          "within2Rate": 0.7438066465256797,
+          "within3": 1231,
+          "within3Rate": 0.7438066465256797
+        },
+        "roundingResults": [
+          {
+            "model": "POST_JUNE_30_2026",
+            "rounding": "CEIL",
+            "cases": 1655,
+            "rmse": 33.07996354162755,
+            "mae": 16.874924471299092,
+            "residual": {
+              "count": 1655,
+              "min": -70,
+              "p25": -1,
+              "median": -1,
+              "p75": 1,
+              "p95": 74,
+              "max": 125,
+              "mean": 15.388519637462236
+            },
+            "exact": 260,
+            "exactRate": 0.15709969788519637,
+            "within1": 1110,
+            "within1Rate": 0.6706948640483383,
+            "within2": 1231,
+            "within2Rate": 0.7438066465256797,
+            "within3": 1231,
+            "within3Rate": 0.7438066465256797
+          },
+          {
+            "model": "POST_JUNE_30_2026",
+            "rounding": "ROUND",
+            "cases": 1655,
+            "rmse": 33.27138251199999,
+            "mae": 16.690030211480362,
+            "residual": {
+              "count": 1655,
+              "min": -69,
+              "p25": -1,
+              "median": 0,
+              "p75": 1,
+              "p95": 74,
+              "max": 126,
+              "mean": 15.84773413897281
+            },
+            "exact": 640,
+            "exactRate": 0.3867069486404834,
+            "within1": 1198,
+            "within1Rate": 0.7238670694864048,
+            "within2": 1231,
+            "within2Rate": 0.7438066465256797,
+            "within3": 1231,
+            "within3Rate": 0.7438066465256797
+          },
+          {
+            "model": "POST_JUNE_30_2026",
+            "rounding": "NONE",
+            "cases": 1655,
+            "rmse": 33.29031128505283,
+            "mae": 16.720844889224562,
+            "residual": {
+              "count": 1655,
+              "min": -69.21927083333333,
+              "p25": -0.6342447916666671,
+              "median": -0.16881250000000847,
+              "p75": 1.3258749999999893,
+              "p95": 74.37247395833333,
+              "max": 125.56715625,
+              "mean": 15.870349496475324
+            },
+            "exact": 0,
+            "exactRate": 0,
+            "within1": 1105,
+            "within1Rate": 0.6676737160120846,
+            "within2": 1231,
+            "within2Rate": 0.7438066465256797,
+            "within3": 1231,
+            "within3Rate": 0.7438066465256797
+          },
+          {
+            "model": "POST_JUNE_30_2026",
+            "rounding": "FLOOR",
+            "cases": 1655,
+            "rmse": 33.55683279438529,
+            "mae": 16.693051359516616,
+            "residual": {
+              "count": 1655,
+              "min": -69,
+              "p25": 0,
+              "median": 0,
+              "p75": 2,
+              "p95": 75,
+              "max": 126,
+              "mean": 16.388519637462235
+            },
+            "exact": 845,
+            "exactRate": 0.5105740181268882,
+            "within1": 1226,
+            "within1Rate": 0.740785498489426,
+            "within2": 1231,
+            "within2Rate": 0.7438066465256797,
+            "within3": 1231,
+            "within3Rate": 0.7438066465256797
+          }
+        ]
+      }
+    },
+    "byRecipientCount": [
+      {
+        "recipientCount": 1,
+        "count": 706,
+        "models": {
+          "PRE_JUNE_30_2026": {
+            "model": {
+              "id": "PRE_JUNE_30_2026",
+              "totalIntercept": 116,
+              "totalSlope": 1.16,
+              "groundFraction": 0.6,
+              "groundIntercept": 69.6,
+              "groundSlope": 0.696
+            },
+            "best": {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 706,
+              "rmse": 29.29724580737952,
+              "mae": 23.756373937677054,
+              "residual": {
+                "count": 706,
+                "min": -83,
+                "p25": -16,
+                "median": -14,
+                "p75": -10,
+                "p95": 62,
+                "max": 74,
+                "mean": 0.9263456090651558
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 1,
+              "within1Rate": 0.00141643059490085,
+              "within2": 1,
+              "within2Rate": 0.00141643059490085,
+              "within3": 1,
+              "within3Rate": 0.00141643059490085
+            },
+            "roundingResults": [
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 706,
+                "rmse": 29.29724580737952,
+                "mae": 23.756373937677054,
+                "residual": {
+                  "count": 706,
+                  "min": -83,
+                  "p25": -16,
+                  "median": -14,
+                  "p75": -10,
+                  "p95": 62,
+                  "max": 74,
+                  "mean": 0.9263456090651558
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 1,
+                "within1Rate": 0.00141643059490085,
+                "within2": 1,
+                "within2Rate": 0.00141643059490085,
+                "within3": 1,
+                "within3Rate": 0.00141643059490085
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 706,
+                "rmse": 29.3144982951451,
+                "mae": 23.47050807365439,
+                "residual": {
+                  "count": 706,
+                  "min": -82.67261249999999,
+                  "p25": -15.52991718749999,
+                  "median": -13.247812499999995,
+                  "p75": -9.888348437499989,
+                  "p95": 62.570664062500015,
+                  "max": 74.69793750000001,
+                  "mean": 1.4639938031161555
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 1,
+                "within2Rate": 0.00141643059490085,
+                "within3": 1,
+                "within3Rate": 0.00141643059490085
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 706,
+                "rmse": 29.337853222893546,
+                "mae": 23.47167138810198,
+                "residual": {
+                  "count": 706,
+                  "min": -83,
+                  "p25": -16,
+                  "median": -13,
+                  "p75": -10,
+                  "p95": 63,
+                  "max": 75,
+                  "mean": 1.4915014164305949
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 1,
+                "within2Rate": 0.00141643059490085,
+                "within3": 1,
+                "within3Rate": 0.00141643059490085
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 706,
+                "rmse": 29.34589073645827,
+                "mae": 23.226628895184135,
+                "residual": {
+                  "count": 706,
+                  "min": -82,
+                  "p25": -15,
+                  "median": -13,
+                  "p75": -9,
+                  "p95": 63,
+                  "max": 75,
+                  "mean": 1.9263456090651558
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 1,
+                "within2Rate": 0.00141643059490085,
+                "within3": 1,
+                "within3Rate": 0.00141643059490085
+              }
+            ]
+          },
+          "POST_JUNE_30_2026": {
+            "model": {
+              "id": "POST_JUNE_30_2026",
+              "totalIntercept": 100,
+              "totalSlope": 2,
+              "groundFraction": 0.5,
+              "groundIntercept": 50,
+              "groundSlope": 1
+            },
+            "best": {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 706,
+              "rmse": 32.659957203471315,
+              "mae": 16.607648725212464,
+              "residual": {
+                "count": 706,
+                "min": -70,
+                "p25": -1,
+                "median": -1,
+                "p75": -1,
+                "p95": 74,
+                "max": 83,
+                "mean": 14.664305949008499
+              },
+              "exact": 1,
+              "exactRate": 0.00141643059490085,
+              "within1": 461,
+              "within1Rate": 0.6529745042492918,
+              "within2": 539,
+              "within2Rate": 0.7634560906515581,
+              "within3": 539,
+              "within3Rate": 0.7634560906515581
+            },
+            "roundingResults": [
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 706,
+                "rmse": 32.659957203471315,
+                "mae": 16.607648725212464,
+                "residual": {
+                  "count": 706,
+                  "min": -70,
+                  "p25": -1,
+                  "median": -1,
+                  "p75": -1,
+                  "p95": 74,
+                  "max": 83,
+                  "mean": 14.664305949008499
+                },
+                "exact": 1,
+                "exactRate": 0.00141643059490085,
+                "within1": 461,
+                "within1Rate": 0.6529745042492918,
+                "within2": 539,
+                "within2Rate": 0.7634560906515581,
+                "within3": 539,
+                "within3Rate": 0.7634560906515581
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 706,
+                "rmse": 32.835390808065824,
+                "mae": 16.335694050991503,
+                "residual": {
+                  "count": 706,
+                  "min": -69,
+                  "p25": -1,
+                  "median": 0,
+                  "p75": 0,
+                  "p95": 74,
+                  "max": 84,
+                  "mean": 15.120396600566572
+                },
+                "exact": 203,
+                "exactRate": 0.28753541076487255,
+                "within1": 515,
+                "within1Rate": 0.7294617563739377,
+                "within2": 539,
+                "within2Rate": 0.7634560906515581,
+                "within3": 539,
+                "within3Rate": 0.7634560906515581
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 706,
+                "rmse": 32.86331845686667,
+                "mae": 16.337729432247418,
+                "residual": {
+                  "count": 706,
+                  "min": -69.21927083333333,
+                  "p25": -0.8257812500000057,
+                  "median": -0.46106770833333144,
+                  "p75": -0.040104166666667496,
+                  "p95": 74.38313802083333,
+                  "max": 83.9453125,
+                  "mean": 15.14589972851747
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 461,
+                "within1Rate": 0.6529745042492918,
+                "within2": 539,
+                "within2Rate": 0.7634560906515581,
+                "within3": 539,
+                "within3Rate": 0.7634560906515581
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 706,
+                "rmse": 33.12101170602424,
+                "mae": 16.08073654390935,
+                "residual": {
+                  "count": 706,
+                  "min": -69,
+                  "p25": 0,
+                  "median": 0,
+                  "p75": 0,
+                  "p95": 75,
+                  "max": 84,
+                  "mean": 15.664305949008499
+                },
+                "exact": 460,
+                "exactRate": 0.6515580736543909,
+                "within1": 539,
+                "within1Rate": 0.7634560906515581,
+                "within2": 539,
+                "within2Rate": 0.7634560906515581,
+                "within3": 539,
+                "within3Rate": 0.7634560906515581
+              }
+            ]
+          }
+        }
+      },
+      {
+        "recipientCount": 2,
+        "count": 710,
+        "models": {
+          "PRE_JUNE_30_2026": {
+            "model": {
+              "id": "PRE_JUNE_30_2026",
+              "totalIntercept": 116,
+              "totalSlope": 1.16,
+              "groundFraction": 0.6,
+              "groundIntercept": 69.6,
+              "groundSlope": 0.696
+            },
+            "best": {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 710,
+              "rmse": 28.55476576488282,
+              "mae": 24.67042253521127,
+              "residual": {
+                "count": 710,
+                "min": -21,
+                "p25": -19,
+                "median": -15,
+                "p75": 35,
+                "p95": 50.549999999999955,
+                "max": 108,
+                "mean": 0.3154929577464789
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            "roundingResults": [
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 710,
+                "rmse": 28.55476576488282,
+                "mae": 24.67042253521127,
+                "residual": {
+                  "count": 710,
+                  "min": -21,
+                  "p25": -19,
+                  "median": -15,
+                  "p75": 35,
+                  "p95": 50.549999999999955,
+                  "max": 108,
+                  "mean": 0.3154929577464789
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 710,
+                "rmse": 28.55668935717608,
+                "mae": 24.898591549295773,
+                "residual": {
+                  "count": 710,
+                  "min": -21,
+                  "p25": -19,
+                  "median": -16,
+                  "p75": 34,
+                  "p95": 50.09999999999991,
+                  "max": 108,
+                  "mean": -0.19154929577464788
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 710,
+                "rmse": 28.563920114468374,
+                "mae": 24.685838151056366,
+                "residual": {
+                  "count": 710,
+                  "min": -20.915177750000012,
+                  "p25": -18.864145374999996,
+                  "median": -15.452280125000001,
+                  "p75": 34.5341285625,
+                  "p95": 50.69077096249991,
+                  "max": 108.10111625,
+                  "mean": 0.30713912781689634
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 710,
+                "rmse": 28.567488661951092,
+                "mae": 24.456338028169014,
+                "residual": {
+                  "count": 710,
+                  "min": -20,
+                  "p25": -18,
+                  "median": -15,
+                  "p75": 35,
+                  "p95": 51.09999999999991,
+                  "max": 109,
+                  "mean": 0.8084507042253521
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              }
+            ]
+          },
+          "POST_JUNE_30_2026": {
+            "model": {
+              "id": "POST_JUNE_30_2026",
+              "totalIntercept": 100,
+              "totalSlope": 2,
+              "groundFraction": 0.5,
+              "groundIntercept": 50,
+              "groundSlope": 1
+            },
+            "best": {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 710,
+              "rmse": 33.504172538130064,
+              "mae": 17.985915492957748,
+              "residual": {
+                "count": 710,
+                "min": -7,
+                "p25": -1,
+                "median": 0,
+                "p75": 55,
+                "p95": 67.09999999999991,
+                "max": 123,
+                "mean": 16.935211267605634
+              },
+              "exact": 223,
+              "exactRate": 0.31408450704225355,
+              "within1": 478,
+              "within1Rate": 0.6732394366197183,
+              "within2": 501,
+              "within2Rate": 0.7056338028169014,
+              "within3": 501,
+              "within3Rate": 0.7056338028169014
+            },
+            "roundingResults": [
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 710,
+                "rmse": 33.504172538130064,
+                "mae": 17.985915492957748,
+                "residual": {
+                  "count": 710,
+                  "min": -7,
+                  "p25": -1,
+                  "median": 0,
+                  "p75": 55,
+                  "p95": 67.09999999999991,
+                  "max": 123,
+                  "mean": 16.935211267605634
+                },
+                "exact": 223,
+                "exactRate": 0.31408450704225355,
+                "within1": 478,
+                "within1Rate": 0.6732394366197183,
+                "within2": 501,
+                "within2Rate": 0.7056338028169014,
+                "within3": 501,
+                "within3Rate": 0.7056338028169014
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 710,
+                "rmse": 33.719555909060034,
+                "mae": 17.892957746478874,
+                "residual": {
+                  "count": 710,
+                  "min": -6,
+                  "p25": 0,
+                  "median": 0,
+                  "p75": 55,
+                  "p95": 67.54999999999995,
+                  "max": 123,
+                  "mean": 17.3943661971831
+                },
+                "exact": 348,
+                "exactRate": 0.49014084507042255,
+                "within1": 496,
+                "within1Rate": 0.6985915492957746,
+                "within2": 501,
+                "within2Rate": 0.7056338028169014,
+                "within3": 501,
+                "within3Rate": 0.7056338028169014
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 710,
+                "rmse": 33.731199588043,
+                "mae": 17.95526377640847,
+                "residual": {
+                  "count": 710,
+                  "min": -6.406968750000004,
+                  "p25": -0.28278125000001,
+                  "median": 0.15887499999999832,
+                  "p75": 55.1172421875,
+                  "p95": 67.58214218749994,
+                  "max": 123.27171875,
+                  "mean": 17.413284727112686
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 477,
+                "within1Rate": 0.671830985915493,
+                "within2": 501,
+                "within2Rate": 0.7056338028169014,
+                "within3": 501,
+                "within3Rate": 0.7056338028169014
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 710,
+                "rmse": 34.02058200560361,
+                "mae": 18.174647887323943,
+                "residual": {
+                  "count": 710,
+                  "min": -6,
+                  "p25": 0,
+                  "median": 1,
+                  "p75": 56,
+                  "p95": 68.09999999999991,
+                  "max": 124,
+                  "mean": 17.935211267605634
+                },
+                "exact": 254,
+                "exactRate": 0.35774647887323946,
+                "within1": 500,
+                "within1Rate": 0.704225352112676,
+                "within2": 501,
+                "within2Rate": 0.7056338028169014,
+                "within3": 501,
+                "within3Rate": 0.7056338028169014
+              }
+            ]
+          }
+        }
+      },
+      {
+        "recipientCount": 3,
+        "count": 130,
+        "models": {
+          "PRE_JUNE_30_2026": {
+            "model": {
+              "id": "PRE_JUNE_30_2026",
+              "totalIntercept": 116,
+              "totalSlope": 1.16,
+              "groundFraction": 0.6,
+              "groundIntercept": 69.6,
+              "groundSlope": 0.696
+            },
+            "best": {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 130,
+              "rmse": 33.47478959547824,
+              "mae": 24.66923076923077,
+              "residual": {
+                "count": 130,
+                "min": -21,
+                "p25": -15,
+                "median": -12.5,
+                "p75": -10.25,
+                "p95": 73.64999999999999,
+                "max": 115,
+                "mean": 2.746153846153846
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            "roundingResults": [
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 130,
+                "rmse": 33.47478959547824,
+                "mae": 24.66923076923077,
+                "residual": {
+                  "count": 130,
+                  "min": -21,
+                  "p25": -15,
+                  "median": -12.5,
+                  "p75": -10.25,
+                  "p95": 73.64999999999999,
+                  "max": 115,
+                  "mean": 2.746153846153846
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 130,
+                "rmse": 33.55469902336781,
+                "mae": 24.441656313461525,
+                "residual": {
+                  "count": 130,
+                  "min": -20.398722500000005,
+                  "p25": -14.800100062500004,
+                  "median": -11.955518874999996,
+                  "p75": -10.029343312499996,
+                  "p95": 74.1882501625,
+                  "max": 115.47474075,
+                  "mean": 3.214270505769235
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 130,
+                "rmse": 33.56910209380965,
+                "mae": 24.46923076923077,
+                "residual": {
+                  "count": 130,
+                  "min": -20,
+                  "p25": -15,
+                  "median": -12,
+                  "p75": -10,
+                  "p95": 74.1,
+                  "max": 115,
+                  "mean": 3.1769230769230767
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 130,
+                "rmse": 33.571622632125575,
+                "mae": 24.130769230769232,
+                "residual": {
+                  "count": 130,
+                  "min": -20,
+                  "p25": -14,
+                  "median": -11.5,
+                  "p75": -9.25,
+                  "p95": 74.64999999999999,
+                  "max": 116,
+                  "mean": 3.746153846153846
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              }
+            ]
+          },
+          "POST_JUNE_30_2026": {
+            "model": {
+              "id": "POST_JUNE_30_2026",
+              "totalIntercept": 100,
+              "totalSlope": 2,
+              "groundFraction": 0.5,
+              "groundIntercept": 50,
+              "groundSlope": 1
+            },
+            "best": {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 130,
+              "rmse": 37.31704085885614,
+              "mae": 17.53076923076923,
+              "residual": {
+                "count": 130,
+                "min": -2,
+                "p25": -1,
+                "median": -1,
+                "p75": 0.75,
+                "p95": 84.55,
+                "max": 125,
+                "mean": 16.423076923076923
+              },
+              "exact": 29,
+              "exactRate": 0.2230769230769231,
+              "within1": 96,
+              "within1Rate": 0.7384615384615385,
+              "within2": 100,
+              "within2Rate": 0.7692307692307693,
+              "within3": 100,
+              "within3Rate": 0.7692307692307693
+            },
+            "roundingResults": [
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 130,
+                "rmse": 37.31704085885614,
+                "mae": 17.53076923076923,
+                "residual": {
+                  "count": 130,
+                  "min": -2,
+                  "p25": -1,
+                  "median": -1,
+                  "p75": 0.75,
+                  "p95": 84.55,
+                  "max": 125,
+                  "mean": 16.423076923076923
+                },
+                "exact": 29,
+                "exactRate": 0.2230769230769231,
+                "within1": 96,
+                "within1Rate": 0.7384615384615385,
+                "within2": 100,
+                "within2Rate": 0.7692307692307693,
+                "within3": 100,
+                "within3Rate": 0.7692307692307693
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 130,
+                "rmse": 37.49717938110094,
+                "mae": 17.46923076923077,
+                "residual": {
+                  "count": 130,
+                  "min": -2,
+                  "p25": -1,
+                  "median": 0,
+                  "p75": 1,
+                  "p95": 85.55,
+                  "max": 126,
+                  "mean": 16.823076923076922
+                },
+                "exact": 49,
+                "exactRate": 0.3769230769230769,
+                "within1": 97,
+                "within1Rate": 0.7461538461538462,
+                "within2": 100,
+                "within2Rate": 0.7692307692307693,
+                "within3": 100,
+                "within3Rate": 0.7692307692307693
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 130,
+                "rmse": 37.51494888146014,
+                "mae": 17.457185817307703,
+                "residual": {
+                  "count": 130,
+                  "min": -1.9521875000000009,
+                  "p25": -0.5343359375000034,
+                  "median": -0.02523437499999659,
+                  "p75": 1.0181406249999903,
+                  "p95": 85.3348421875,
+                  "max": 125.56715625,
+                  "mean": 16.88876177884615
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 93,
+                "within1Rate": 0.7153846153846154,
+                "within2": 100,
+                "within2Rate": 0.7692307692307693,
+                "within3": 100,
+                "within3Rate": 0.7692307692307693
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 130,
+                "rmse": 37.76781291401042,
+                "mae": 17.484615384615385,
+                "residual": {
+                  "count": 130,
+                  "min": -1,
+                  "p25": 0,
+                  "median": 0,
+                  "p75": 1.75,
+                  "p95": 85.55,
+                  "max": 126,
+                  "mean": 17.423076923076923
+                },
+                "exact": 64,
+                "exactRate": 0.49230769230769234,
+                "within1": 97,
+                "within1Rate": 0.7461538461538462,
+                "within2": 100,
+                "within2Rate": 0.7692307692307693,
+                "within3": 100,
+                "within3Rate": 0.7692307692307693
+              }
+            ]
+          }
+        }
+      },
+      {
+        "recipientCount": 4,
+        "count": 65,
+        "models": {
+          "PRE_JUNE_30_2026": {
+            "model": {
+              "id": "PRE_JUNE_30_2026",
+              "totalIntercept": 116,
+              "totalSlope": 1.16,
+              "groundFraction": 0.6,
+              "groundIntercept": 69.6,
+              "groundSlope": 0.696
+            },
+            "best": {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 65,
+              "rmse": 27.369269684756354,
+              "mae": 18.73846153846154,
+              "residual": {
+                "count": 65,
+                "min": -16,
+                "p25": -13,
+                "median": -11,
+                "p75": -10,
+                "p95": 59.599999999999994,
+                "max": 101,
+                "mean": -0.3076923076923077
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 1,
+              "within2Rate": 0.015384615384615385,
+              "within3": 1,
+              "within3Rate": 0.015384615384615385
+            },
+            "roundingResults": [
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 65,
+                "rmse": 27.369269684756354,
+                "mae": 18.73846153846154,
+                "residual": {
+                  "count": 65,
+                  "min": -16,
+                  "p25": -13,
+                  "median": -11,
+                  "p75": -10,
+                  "p95": 59.599999999999994,
+                  "max": 101,
+                  "mean": -0.3076923076923077
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 1,
+                "within2Rate": 0.015384615384615385,
+                "within3": 1,
+                "within3Rate": 0.015384615384615385
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 65,
+                "rmse": 27.381175249430907,
+                "mae": 19.063487403846153,
+                "residual": {
+                  "count": 65,
+                  "min": -16.077968749999997,
+                  "p25": -13.025556249999994,
+                  "median": -11.397349999999989,
+                  "p75": -10.141293749999988,
+                  "p95": 59.308887500000004,
+                  "max": 100.6707375,
+                  "mean": -0.834277596153835
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 1,
+                "within3Rate": 0.015384615384615385
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 65,
+                "rmse": 27.398764711065127,
+                "mae": 19.369230769230768,
+                "residual": {
+                  "count": 65,
+                  "min": -17,
+                  "p25": -14,
+                  "median": -12,
+                  "p75": -11,
+                  "p95": 58.599999999999994,
+                  "max": 100,
+                  "mean": -1.3076923076923077
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 1,
+                "within3Rate": 0.015384615384615385
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 65,
+                "rmse": 27.40971192282596,
+                "mae": 19.046153846153846,
+                "residual": {
+                  "count": 65,
+                  "min": -16,
+                  "p25": -13,
+                  "median": -11,
+                  "p75": -10,
+                  "p95": 59.39999999999999,
+                  "max": 101,
+                  "mean": -0.7692307692307693
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 1,
+                "within3Rate": 0.015384615384615385
+              }
+            ]
+          },
+          "POST_JUNE_30_2026": {
+            "model": {
+              "id": "POST_JUNE_30_2026",
+              "totalIntercept": 100,
+              "totalSlope": 2,
+              "groundFraction": 0.5,
+              "groundIntercept": 50,
+              "groundSlope": 1
+            },
+            "best": {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 65,
+              "rmse": 30.240065119995005,
+              "mae": 12.738461538461538,
+              "residual": {
+                "count": 65,
+                "min": -2,
+                "p25": -1,
+                "median": -1,
+                "p75": 0,
+                "p95": 71.6,
+                "max": 119,
+                "mean": 10.892307692307693
+              },
+              "exact": 3,
+              "exactRate": 0.046153846153846156,
+              "within1": 39,
+              "within1Rate": 0.6,
+              "within2": 51,
+              "within2Rate": 0.7846153846153846,
+              "within3": 51,
+              "within3Rate": 0.7846153846153846
+            },
+            "roundingResults": [
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 65,
+                "rmse": 30.240065119995005,
+                "mae": 12.738461538461538,
+                "residual": {
+                  "count": 65,
+                  "min": -2,
+                  "p25": -1,
+                  "median": -1,
+                  "p75": 0,
+                  "p95": 71.6,
+                  "max": 119,
+                  "mean": 10.892307692307693
+                },
+                "exact": 3,
+                "exactRate": 0.046153846153846156,
+                "within1": 39,
+                "within1Rate": 0.6,
+                "within2": 51,
+                "within2Rate": 0.7846153846153846,
+                "within3": 51,
+                "within3Rate": 0.7846153846153846
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 65,
+                "rmse": 30.438244343378663,
+                "mae": 12.492351762820512,
+                "residual": {
+                  "count": 65,
+                  "min": -1.4695312500000028,
+                  "p25": -0.8812499999999943,
+                  "median": -0.5153645833333371,
+                  "p75": 0.44869791666667425,
+                  "p95": 71.92744791666667,
+                  "max": 119.07864583333333,
+                  "mean": 11.419539262820512
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 39,
+                "within1Rate": 0.6,
+                "within2": 51,
+                "within2Rate": 0.7846153846153846,
+                "within3": 51,
+                "within3Rate": 0.7846153846153846
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 65,
+                "rmse": 30.469152117662066,
+                "mae": 12.461538461538462,
+                "residual": {
+                  "count": 65,
+                  "min": -1,
+                  "p25": -1,
+                  "median": -1,
+                  "p75": 0,
+                  "p95": 71.8,
+                  "max": 119,
+                  "mean": 11.446153846153846
+                },
+                "exact": 17,
+                "exactRate": 0.26153846153846155,
+                "within1": 51,
+                "within1Rate": 0.7846153846153846,
+                "within2": 51,
+                "within2Rate": 0.7846153846153846,
+                "within3": 51,
+                "within3Rate": 0.7846153846153846
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 65,
+                "rmse": 30.61447621381352,
+                "mae": 12.261538461538462,
+                "residual": {
+                  "count": 65,
+                  "min": -1,
+                  "p25": 0,
+                  "median": 0,
+                  "p75": 1,
+                  "p95": 72.6,
+                  "max": 120,
+                  "mean": 11.892307692307693
+                },
+                "exact": 36,
+                "exactRate": 0.5538461538461539,
+                "within1": 51,
+                "within1Rate": 0.7846153846153846,
+                "within2": 51,
+                "within2Rate": 0.7846153846153846,
+                "within3": 51,
+                "within3Rate": 0.7846153846153846
+              }
+            ]
+          }
+        }
+      },
+      {
+        "recipientCount": 5,
+        "count": 32,
+        "models": {
+          "PRE_JUNE_30_2026": {
+            "model": {
+              "id": "PRE_JUNE_30_2026",
+              "totalIntercept": 116,
+              "totalSlope": 1.16,
+              "groundFraction": 0.6,
+              "groundIntercept": 69.6,
+              "groundSlope": 0.696
+            },
+            "best": {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 32,
+              "rmse": 20.92247595290768,
+              "mae": 15.5,
+              "residual": {
+                "count": 32,
+                "min": -13,
+                "p25": -12,
+                "median": -11,
+                "p75": -10,
+                "p95": 59,
+                "max": 59,
+                "mean": -4.4375
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            "roundingResults": [
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 32,
+                "rmse": 20.92247595290768,
+                "mae": 15.5,
+                "residual": {
+                  "count": 32,
+                  "min": -13,
+                  "p25": -12,
+                  "median": -11,
+                  "p75": -10,
+                  "p95": 59,
+                  "max": 59,
+                  "mean": -4.4375
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 32,
+                "rmse": 21.053159291355506,
+                "mae": 15.91042871093749,
+                "residual": {
+                  "count": 32,
+                  "min": -13.431687499999995,
+                  "p25": -12.58589062499999,
+                  "median": -11.446581249999987,
+                  "p75": -10.342342187499998,
+                  "p95": 58.60601093750001,
+                  "max": 58.62635625,
+                  "mean": -4.920490429687488
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 32,
+                "rmse": 21.15124109833747,
+                "mae": 15.9375,
+                "residual": {
+                  "count": 32,
+                  "min": -13,
+                  "p25": -13,
+                  "median": -11,
+                  "p75": -10,
+                  "p95": 59,
+                  "max": 59,
+                  "mean": -4.875
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 32,
+                "rmse": 21.15715009163569,
+                "mae": 16.3125,
+                "residual": {
+                  "count": 32,
+                  "min": -14,
+                  "p25": -13,
+                  "median": -12,
+                  "p75": -11,
+                  "p95": 58,
+                  "max": 58,
+                  "mean": -5.4375
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              }
+            ]
+          },
+          "POST_JUNE_30_2026": {
+            "model": {
+              "id": "POST_JUNE_30_2026",
+              "totalIntercept": 100,
+              "totalSlope": 2,
+              "groundFraction": 0.5,
+              "groundIntercept": 50,
+              "groundSlope": 1
+            },
+            "best": {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 32,
+              "rmse": 21.748563170931547,
+              "mae": 7,
+              "residual": {
+                "count": 32,
+                "min": -1,
+                "p25": -1,
+                "median": 0,
+                "p75": 0,
+                "p95": 71,
+                "max": 71,
+                "mean": 6.4375
+              },
+              "exact": 19,
+              "exactRate": 0.59375,
+              "within1": 28,
+              "within1Rate": 0.875,
+              "within2": 29,
+              "within2Rate": 0.90625,
+              "within3": 29,
+              "within3Rate": 0.90625
+            },
+            "roundingResults": [
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 32,
+                "rmse": 21.748563170931547,
+                "mae": 7,
+                "residual": {
+                  "count": 32,
+                  "min": -1,
+                  "p25": -1,
+                  "median": 0,
+                  "p75": 0,
+                  "p95": 71,
+                  "max": 71,
+                  "mean": 6.4375
+                },
+                "exact": 19,
+                "exactRate": 0.59375,
+                "within1": 28,
+                "within1Rate": 0.875,
+                "within2": 29,
+                "within2Rate": 0.90625,
+                "within3": 29,
+                "within3Rate": 0.90625
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 32,
+                "rmse": 21.760055146988943,
+                "mae": 7.5,
+                "residual": {
+                  "count": 32,
+                  "min": -2,
+                  "p25": -1,
+                  "median": -1,
+                  "p75": -1,
+                  "p95": 71,
+                  "max": 71,
+                  "mean": 5.875
+                },
+                "exact": 3,
+                "exactRate": 0.09375,
+                "within1": 28,
+                "within1Rate": 0.875,
+                "within2": 29,
+                "within2Rate": 0.90625,
+                "within3": 29,
+                "within3Rate": 0.90625
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 32,
+                "rmse": 21.843803573152197,
+                "mae": 7.121687825520834,
+                "residual": {
+                  "count": 32,
+                  "min": -1.0044270833333258,
+                  "p25": -0.5185546874999964,
+                  "median": -0.26171875,
+                  "p75": -0.11992187500000284,
+                  "p95": 71.30748697916667,
+                  "max": 71.33671875,
+                  "mean": 6.404467773437499
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 27,
+                "within1Rate": 0.84375,
+                "within2": 29,
+                "within2Rate": 0.90625,
+                "within3": 29,
+                "within3Rate": 0.90625
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 32,
+                "rmse": 22.051077071199945,
+                "mae": 6.9375,
+                "residual": {
+                  "count": 32,
+                  "min": -1,
+                  "p25": 0,
+                  "median": 0,
+                  "p75": 0,
+                  "p95": 72,
+                  "max": 72,
+                  "mean": 6.875
+                },
+                "exact": 24,
+                "exactRate": 0.75,
+                "within1": 28,
+                "within1Rate": 0.875,
+                "within2": 29,
+                "within2Rate": 0.90625,
+                "within3": 29,
+                "within3Rate": 0.90625
+              }
+            ]
+          }
+        }
+      },
+      {
+        "recipientCount": 6,
+        "count": 12,
+        "models": {
+          "PRE_JUNE_30_2026": {
+            "model": {
+              "id": "PRE_JUNE_30_2026",
+              "totalIntercept": 116,
+              "totalSlope": 1.16,
+              "groundFraction": 0.6,
+              "groundIntercept": 69.6,
+              "groundSlope": 0.696
+            },
+            "best": {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 12,
+              "rmse": 20.876621693495654,
+              "mae": 15,
+              "residual": {
+                "count": 12,
+                "min": -12,
+                "p25": -11.25,
+                "median": -11,
+                "p75": -9.75,
+                "p95": 23.94999999999995,
+                "max": 63,
+                "mean": -4.5
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            "roundingResults": [
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 12,
+                "rmse": 20.876621693495654,
+                "mae": 15,
+                "residual": {
+                  "count": 12,
+                  "min": -12,
+                  "p25": -11.25,
+                  "median": -11,
+                  "p75": -9.75,
+                  "p95": 23.94999999999995,
+                  "max": 63,
+                  "mean": -4.5
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 12,
+                "rmse": 21.009394937022773,
+                "mae": 15.429490333333325,
+                "residual": {
+                  "count": 12,
+                  "min": -12.228331999999995,
+                  "p25": -11.71864249999999,
+                  "median": -11.377123999999988,
+                  "p75": -10.546408999999997,
+                  "p95": 23.290993399999962,
+                  "max": 62.620114000000015,
+                  "mean": -4.992804666666657
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 12,
+                "rmse": 21.07723890835799,
+                "mae": 15.416666666666666,
+                "residual": {
+                  "count": 12,
+                  "min": -12,
+                  "p25": -12,
+                  "median": -11,
+                  "p75": -10.75,
+                  "p95": 23.39999999999995,
+                  "max": 63,
+                  "mean": -4.916666666666667
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 12,
+                "rmse": 21.11476576553321,
+                "mae": 15.833333333333334,
+                "residual": {
+                  "count": 12,
+                  "min": -13,
+                  "p25": -12.25,
+                  "median": -12,
+                  "p75": -10.75,
+                  "p95": 22.94999999999995,
+                  "max": 62,
+                  "mean": -5.5
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              }
+            ]
+          },
+          "POST_JUNE_30_2026": {
+            "model": {
+              "id": "POST_JUNE_30_2026",
+              "totalIntercept": 100,
+              "totalSlope": 2,
+              "groundFraction": 0.5,
+              "groundIntercept": 50,
+              "groundSlope": 1
+            },
+            "best": {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "ROUND",
+              "cases": 12,
+              "rmse": 21.087120871912948,
+              "mae": 6.666666666666667,
+              "residual": {
+                "count": 12,
+                "min": -1,
+                "p25": -1,
+                "median": -1,
+                "p75": 0,
+                "p95": 32.84999999999995,
+                "max": 73,
+                "mean": 5.5
+              },
+              "exact": 4,
+              "exactRate": 0.3333333333333333,
+              "within1": 11,
+              "within1Rate": 0.9166666666666666,
+              "within2": 11,
+              "within2Rate": 0.9166666666666666,
+              "within3": 11,
+              "within3Rate": 0.9166666666666666
+            },
+            "roundingResults": [
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 12,
+                "rmse": 21.087120871912948,
+                "mae": 6.666666666666667,
+                "residual": {
+                  "count": 12,
+                  "min": -1,
+                  "p25": -1,
+                  "median": -1,
+                  "p75": 0,
+                  "p95": 32.84999999999995,
+                  "max": 73,
+                  "mean": 5.5
+                },
+                "exact": 4,
+                "exactRate": 0.3333333333333333,
+                "within1": 11,
+                "within1Rate": 0.9166666666666666,
+                "within2": 11,
+                "within2Rate": 0.9166666666666666,
+                "within3": 11,
+                "within3Rate": 0.9166666666666666
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 12,
+                "rmse": 21.11081871142535,
+                "mae": 7.166666666666667,
+                "residual": {
+                  "count": 12,
+                  "min": -2,
+                  "p25": -1.25,
+                  "median": -1,
+                  "p75": -1,
+                  "p95": 32.84999999999995,
+                  "max": 73,
+                  "mean": 5
+                },
+                "exact": 1,
+                "exactRate": 0.08333333333333333,
+                "within1": 8,
+                "within1Rate": 0.6666666666666666,
+                "within2": 11,
+                "within2Rate": 0.9166666666666666,
+                "within3": 11,
+                "within3Rate": 0.9166666666666666
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 12,
+                "rmse": 21.182579741627713,
+                "mae": 6.749416666666668,
+                "residual": {
+                  "count": 12,
+                  "min": -1.454499999999996,
+                  "p25": -0.8517499999999956,
+                  "median": -0.5921249999999958,
+                  "p75": -0.24187500000000384,
+                  "p95": 33.15602499999995,
+                  "max": 73.32775000000001,
+                  "mean": 5.519916666666668
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 8,
+                "within1Rate": 0.6666666666666666,
+                "within2": 11,
+                "within2Rate": 0.9166666666666666,
+                "within3": 11,
+                "within3Rate": 0.9166666666666666
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 12,
+                "rmse": 21.36976056643281,
+                "mae": 6.5,
+                "residual": {
+                  "count": 12,
+                  "min": -1,
+                  "p25": -0.25,
+                  "median": 0,
+                  "p75": 0,
+                  "p95": 33.84999999999995,
+                  "max": 74,
+                  "mean": 6
+                },
+                "exact": 7,
+                "exactRate": 0.5833333333333334,
+                "within1": 11,
+                "within1Rate": 0.9166666666666666,
+                "within2": 11,
+                "within2Rate": 0.9166666666666666,
+                "within3": 11,
+                "within3Rate": 0.9166666666666666
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "byTime": [
+      {
+        "id": "0_TO_10",
+        "minimum": 0,
+        "maximum": 10,
+        "count": 497,
+        "models": {
+          "PRE_JUNE_30_2026": {
+            "model": {
+              "id": "PRE_JUNE_30_2026",
+              "totalIntercept": 116,
+              "totalSlope": 1.16,
+              "groundFraction": 0.6,
+              "groundIntercept": 69.6,
+              "groundSlope": 0.696
+            },
+            "best": {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 497,
+              "rmse": 28.481488216491723,
+              "mae": 26.559356136820927,
+              "residual": {
+                "count": 497,
+                "min": -21,
+                "p25": -20,
+                "median": -19,
+                "p75": 36,
+                "p95": 43.19999999999999,
+                "max": 100,
+                "mean": 1.6257545271629779
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            "roundingResults": [
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 497,
+                "rmse": 28.481488216491723,
+                "mae": 26.559356136820927,
+                "residual": {
+                  "count": 497,
+                  "min": -21,
+                  "p25": -20,
+                  "median": -19,
+                  "p75": 36,
+                  "p95": 43.19999999999999,
+                  "max": 100,
+                  "mean": 1.6257545271629779
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 497,
+                "rmse": 28.523296229668393,
+                "mae": 26.422869700704222,
+                "residual": {
+                  "count": 497,
+                  "min": -20.915177750000012,
+                  "p25": -19.335016999999993,
+                  "median": -18.421320499999993,
+                  "p75": 36.1857425,
+                  "p95": 43.6128788,
+                  "max": 100.6707375,
+                  "mean": 2.1524997328973794
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 497,
+                "rmse": 28.524584334724544,
+                "mae": 26.41649899396378,
+                "residual": {
+                  "count": 497,
+                  "min": -21,
+                  "p25": -19,
+                  "median": -18,
+                  "p75": 36,
+                  "p95": 43.19999999999999,
+                  "max": 101,
+                  "mean": 2.162977867203219
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 497,
+                "rmse": 28.556027035995097,
+                "mae": 26.287726358148895,
+                "residual": {
+                  "count": 497,
+                  "min": -20,
+                  "p25": -19,
+                  "median": -18,
+                  "p75": 37,
+                  "p95": 44.19999999999999,
+                  "max": 101,
+                  "mean": 2.625754527162978
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              }
+            ]
+          },
+          "POST_JUNE_30_2026": {
+            "model": {
+              "id": "POST_JUNE_30_2026",
+              "totalIntercept": 100,
+              "totalSlope": 2,
+              "groundFraction": 0.5,
+              "groundIntercept": 50,
+              "groundSlope": 1
+            },
+            "best": {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 497,
+              "rmse": 35.29148528472002,
+              "mae": 21.480885311871226,
+              "residual": {
+                "count": 497,
+                "min": -2,
+                "p25": -1,
+                "median": 0,
+                "p75": 56,
+                "p95": 62,
+                "max": 119,
+                "mean": 20.76861167002012
+              },
+              "exact": 140,
+              "exactRate": 0.28169014084507044,
+              "within1": 315,
+              "within1Rate": 0.6338028169014085,
+              "within2": 316,
+              "within2Rate": 0.635814889336016,
+              "within3": 316,
+              "within3Rate": 0.635814889336016
+            },
+            "roundingResults": [
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 497,
+                "rmse": 35.29148528472002,
+                "mae": 21.480885311871226,
+                "residual": {
+                  "count": 497,
+                  "min": -2,
+                  "p25": -1,
+                  "median": 0,
+                  "p75": 56,
+                  "p95": 62,
+                  "max": 119,
+                  "mean": 20.76861167002012
+                },
+                "exact": 140,
+                "exactRate": 0.28169014084507044,
+                "within1": 315,
+                "within1Rate": 0.6338028169014085,
+                "within2": 316,
+                "within2Rate": 0.635814889336016,
+                "within3": 316,
+                "within3Rate": 0.635814889336016
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 497,
+                "rmse": 35.53454974179513,
+                "mae": 21.41649899396378,
+                "residual": {
+                  "count": 497,
+                  "min": -2,
+                  "p25": 0,
+                  "median": 0,
+                  "p75": 56,
+                  "p95": 62.19999999999999,
+                  "max": 119,
+                  "mean": 21.22334004024145
+                },
+                "exact": 247,
+                "exactRate": 0.4969818913480885,
+                "within1": 315,
+                "within1Rate": 0.6338028169014085,
+                "within2": 316,
+                "within2Rate": 0.635814889336016,
+                "within3": 316,
+                "within3Rate": 0.635814889336016
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 497,
+                "rmse": 35.54611439362131,
+                "mae": 21.500300406606314,
+                "residual": {
+                  "count": 497,
+                  "min": -1.9521875000000009,
+                  "p25": -0.16881250000000847,
+                  "median": 0.2755312500000002,
+                  "p75": 56.21703125,
+                  "p95": 62.32655,
+                  "max": 119.07864583333333,
+                  "mean": 21.240177754024135
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 315,
+                "within1Rate": 0.6338028169014085,
+                "within2": 316,
+                "within2Rate": 0.635814889336016,
+                "within3": 316,
+                "within3Rate": 0.635814889336016
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 497,
+                "rmse": 35.8890813053448,
+                "mae": 21.772635814889338,
+                "residual": {
+                  "count": 497,
+                  "min": -1,
+                  "p25": 0,
+                  "median": 1,
+                  "p75": 57,
+                  "p95": 63,
+                  "max": 120,
+                  "mean": 21.76861167002012
+                },
+                "exact": 175,
+                "exactRate": 0.352112676056338,
+                "within1": 316,
+                "within1Rate": 0.635814889336016,
+                "within2": 316,
+                "within2Rate": 0.635814889336016,
+                "within3": 316,
+                "within3Rate": 0.635814889336016
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "10_TO_20",
+        "minimum": 10,
+        "maximum": 20,
+        "count": 467,
+        "models": {
+          "PRE_JUNE_30_2026": {
+            "model": {
+              "id": "PRE_JUNE_30_2026",
+              "totalIntercept": 116,
+              "totalSlope": 1.16,
+              "groundFraction": 0.6,
+              "groundIntercept": 69.6,
+              "groundSlope": 0.696
+            },
+            "best": {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "FLOOR",
+              "cases": 467,
+              "rmse": 27.995258087303505,
+              "mae": 23.220556745182012,
+              "residual": {
+                "count": 467,
+                "min": -18,
+                "p25": -16,
+                "median": -15,
+                "p75": -14,
+                "p95": 54,
+                "max": 109,
+                "mean": -1.271948608137045
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 0,
+              "within1Rate": 0,
+              "within2": 0,
+              "within2Rate": 0,
+              "within3": 0,
+              "within3Rate": 0
+            },
+            "roundingResults": [
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 467,
+                "rmse": 27.995258087303505,
+                "mae": 23.220556745182012,
+                "residual": {
+                  "count": 467,
+                  "min": -18,
+                  "p25": -16,
+                  "median": -15,
+                  "p75": -14,
+                  "p95": 54,
+                  "max": 109,
+                  "mean": -1.271948608137045
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 467,
+                "rmse": 28.01694232657308,
+                "mae": 23.50272575267668,
+                "residual": {
+                  "count": 467,
+                  "min": -18.964026250000003,
+                  "p25": -16.36838474999999,
+                  "median": -15.511103000000006,
+                  "p75": -14.354337499999993,
+                  "p95": 53.200106250000005,
+                  "max": 108.10111625,
+                  "mean": -1.7662443854389647
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 467,
+                "rmse": 28.01831001205243,
+                "mae": 23.501070663811564,
+                "residual": {
+                  "count": 467,
+                  "min": -19,
+                  "p25": -16,
+                  "median": -16,
+                  "p75": -14,
+                  "p95": 53,
+                  "max": 108,
+                  "mean": -1.7580299785867237
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 467,
+                "rmse": 28.058481295162903,
+                "mae": 23.796573875803,
+                "residual": {
+                  "count": 467,
+                  "min": -19,
+                  "p25": -17,
+                  "median": -16,
+                  "p75": -15,
+                  "p95": 53,
+                  "max": 108,
+                  "mean": -2.271948608137045
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 0,
+                "within2Rate": 0,
+                "within3": 0,
+                "within3Rate": 0
+              }
+            ]
+          },
+          "POST_JUNE_30_2026": {
+            "model": {
+              "id": "POST_JUNE_30_2026",
+              "totalIntercept": 100,
+              "totalSlope": 2,
+              "groundFraction": 0.5,
+              "groundIntercept": 50,
+              "groundSlope": 1
+            },
+            "best": {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 467,
+              "rmse": 30.936973991375446,
+              "mae": 14.78372591006424,
+              "residual": {
+                "count": 467,
+                "min": -2,
+                "p25": -1,
+                "median": -1,
+                "p75": 0,
+                "p95": 67,
+                "max": 123,
+                "mean": 13.336188436830835
+              },
+              "exact": 63,
+              "exactRate": 0.1349036402569593,
+              "within1": 335,
+              "within1Rate": 0.7173447537473233,
+              "within2": 368,
+              "within2Rate": 0.7880085653104925,
+              "within3": 368,
+              "within3Rate": 0.7880085653104925
+            },
+            "roundingResults": [
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 467,
+                "rmse": 30.936973991375446,
+                "mae": 14.78372591006424,
+                "residual": {
+                  "count": 467,
+                  "min": -2,
+                  "p25": -1,
+                  "median": -1,
+                  "p75": 0,
+                  "p95": 67,
+                  "max": 123,
+                  "mean": 13.336188436830835
+                },
+                "exact": 63,
+                "exactRate": 0.1349036402569593,
+                "within1": 335,
+                "within1Rate": 0.7173447537473233,
+                "within2": 368,
+                "within2Rate": 0.7880085653104925,
+                "within3": 368,
+                "within3Rate": 0.7880085653104925
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 467,
+                "rmse": 31.123089193429756,
+                "mae": 14.629550321199144,
+                "residual": {
+                  "count": 467,
+                  "min": -2,
+                  "p25": -1,
+                  "median": 0,
+                  "p75": 1,
+                  "p95": 67,
+                  "max": 123,
+                  "mean": 13.781584582441113
+                },
+                "exact": 159,
+                "exactRate": 0.3404710920770878,
+                "within1": 354,
+                "within1Rate": 0.7580299785867237,
+                "within2": 368,
+                "within2Rate": 0.7880085653104925,
+                "within3": 368,
+                "within3Rate": 0.7880085653104925
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 467,
+                "rmse": 31.143735979549433,
+                "mae": 14.610233493932897,
+                "residual": {
+                  "count": 467,
+                  "min": -1.7750000000000057,
+                  "p25": -0.7250000000000014,
+                  "median": -0.22943750000000307,
+                  "p75": 0.5570468749999904,
+                  "p95": 67.24986979166667,
+                  "max": 123.471875,
+                  "mean": 13.810418272662382
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 335,
+                "within1Rate": 0.7173447537473233,
+                "within2": 368,
+                "within2Rate": 0.7880085653104925,
+                "within3": 368,
+                "within3Rate": 0.7880085653104925
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 467,
+                "rmse": 31.38102510461859,
+                "mae": 14.477516059957173,
+                "residual": {
+                  "count": 467,
+                  "min": -1,
+                  "p25": 0,
+                  "median": 0,
+                  "p75": 1,
+                  "p95": 68,
+                  "max": 124,
+                  "mean": 14.336188436830835
+                },
+                "exact": 272,
+                "exactRate": 0.582441113490364,
+                "within1": 368,
+                "within1Rate": 0.7880085653104925,
+                "within2": 368,
+                "within2Rate": 0.7880085653104925,
+                "within3": 368,
+                "within3Rate": 0.7880085653104925
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "20_TO_35",
+        "minimum": 20,
+        "maximum": 35,
+        "count": 691,
+        "models": {
+          "PRE_JUNE_30_2026": {
+            "model": {
+              "id": "PRE_JUNE_30_2026",
+              "totalIntercept": 116,
+              "totalSlope": 1.16,
+              "groundFraction": 0.6,
+              "groundIntercept": 69.6,
+              "groundSlope": 0.696
+            },
+            "best": {
+              "model": "PRE_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 691,
+              "rmse": 30.15380256240502,
+              "mae": 22.16353111432706,
+              "residual": {
+                "count": 691,
+                "min": -83,
+                "p25": -14,
+                "median": -12,
+                "p75": -11,
+                "p95": 66,
+                "max": 115,
+                "mean": 1.162083936324168
+              },
+              "exact": 0,
+              "exactRate": 0,
+              "within1": 1,
+              "within1Rate": 0.001447178002894356,
+              "within2": 1,
+              "within2Rate": 0.001447178002894356,
+              "within3": 2,
+              "within3Rate": 0.002894356005788712
+            },
+            "roundingResults": [
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 691,
+                "rmse": 30.15380256240502,
+                "mae": 22.16353111432706,
+                "residual": {
+                  "count": 691,
+                  "min": -83,
+                  "p25": -14,
+                  "median": -12,
+                  "p75": -11,
+                  "p95": 66,
+                  "max": 115,
+                  "mean": 1.162083936324168
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 1,
+                "within1Rate": 0.001447178002894356,
+                "within2": 1,
+                "within2Rate": 0.001447178002894356,
+                "within3": 2,
+                "within3Rate": 0.002894356005788712
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 691,
+                "rmse": 30.18619078769967,
+                "mae": 21.852408428726505,
+                "residual": {
+                  "count": 691,
+                  "min": -82.67261249999999,
+                  "p25": -13.264391250000003,
+                  "median": -11.499137750000003,
+                  "p75": -10.049109125000001,
+                  "p95": 66.588015625,
+                  "max": 115.47474075,
+                  "mean": 1.6685237897973975
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 1,
+                "within2Rate": 0.001447178002894356,
+                "within3": 2,
+                "within3Rate": 0.002894356005788712
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 691,
+                "rmse": 30.208177844469006,
+                "mae": 21.84804630969609,
+                "residual": {
+                  "count": 691,
+                  "min": -83,
+                  "p25": -13,
+                  "median": -11,
+                  "p75": -10,
+                  "p95": 67,
+                  "max": 115,
+                  "mean": 1.6946454413892909
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 1,
+                "within2Rate": 0.001447178002894356,
+                "within3": 2,
+                "within3Rate": 0.002894356005788712
+              },
+              {
+                "model": "PRE_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 691,
+                "rmse": 30.20887248549922,
+                "mae": 21.539797395079596,
+                "residual": {
+                  "count": 691,
+                  "min": -82,
+                  "p25": -13,
+                  "median": -11,
+                  "p75": -10,
+                  "p95": 67,
+                  "max": 116,
+                  "mean": 2.162083936324168
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 0,
+                "within1Rate": 0,
+                "within2": 2,
+                "within2Rate": 0.002894356005788712,
+                "within3": 2,
+                "within3Rate": 0.002894356005788712
+              }
+            ]
+          },
+          "POST_JUNE_30_2026": {
+            "model": {
+              "id": "POST_JUNE_30_2026",
+              "totalIntercept": 100,
+              "totalSlope": 2,
+              "groundFraction": 0.5,
+              "groundIntercept": 50,
+              "groundSlope": 1
+            },
+            "best": {
+              "model": "POST_JUNE_30_2026",
+              "rounding": "CEIL",
+              "cases": 691,
+              "rmse": 32.83665665472799,
+              "mae": 14.975397973950797,
+              "residual": {
+                "count": 691,
+                "min": -70,
+                "p25": -1,
+                "median": -1,
+                "p75": 0,
+                "p95": 78,
+                "max": 125,
+                "mean": 12.905933429811867
+              },
+              "exact": 57,
+              "exactRate": 0.0824891461649783,
+              "within1": 460,
+              "within1Rate": 0.6657018813314037,
+              "within2": 547,
+              "within2Rate": 0.7916063675832128,
+              "within3": 547,
+              "within3Rate": 0.7916063675832128
+            },
+            "roundingResults": [
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "CEIL",
+                "cases": 691,
+                "rmse": 32.83665665472799,
+                "mae": 14.975397973950797,
+                "residual": {
+                  "count": 691,
+                  "min": -70,
+                  "p25": -1,
+                  "median": -1,
+                  "p75": 0,
+                  "p95": 78,
+                  "max": 125,
+                  "mean": 12.905933429811867
+                },
+                "exact": 57,
+                "exactRate": 0.0824891461649783,
+                "within1": 460,
+                "within1Rate": 0.6657018813314037,
+                "within2": 547,
+                "within2Rate": 0.7916063675832128,
+                "within3": 547,
+                "within3Rate": 0.7916063675832128
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "ROUND",
+                "cases": 691,
+                "rmse": 32.99208342528485,
+                "mae": 14.683068017366136,
+                "residual": {
+                  "count": 691,
+                  "min": -69,
+                  "p25": -1,
+                  "median": 0,
+                  "p75": 0,
+                  "p95": 78.5,
+                  "max": 126,
+                  "mean": 13.377713458755427
+                },
+                "exact": 234,
+                "exactRate": 0.3386396526772793,
+                "within1": 529,
+                "within1Rate": 0.7655571635311144,
+                "within2": 547,
+                "within2Rate": 0.7916063675832128,
+                "within3": 547,
+                "within3Rate": 0.7916063675832128
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "NONE",
+                "cases": 691,
+                "rmse": 33.01567975617446,
+                "mae": 14.709652601905455,
+                "residual": {
+                  "count": 691,
+                  "min": -69.21927083333333,
+                  "p25": -0.7974635416666658,
+                  "median": -0.42239583333332575,
+                  "p75": 0.1993802083333307,
+                  "p95": 78.402234375,
+                  "max": 125.56715625,
+                  "mean": 13.400281822841288
+                },
+                "exact": 0,
+                "exactRate": 0,
+                "within1": 455,
+                "within1Rate": 0.658465991316932,
+                "within2": 547,
+                "within2Rate": 0.7916063675832128,
+                "within3": 547,
+                "within3Rate": 0.7916063675832128
+              },
+              {
+                "model": "POST_JUNE_30_2026",
+                "rounding": "FLOOR",
+                "cases": 691,
+                "rmse": 33.242410970326986,
+                "mae": 14.536903039073806,
+                "residual": {
+                  "count": 691,
+                  "min": -69,
+                  "p25": 0,
+                  "median": 0,
+                  "p75": 1,
+                  "p95": 79,
+                  "max": 126,
+                  "mean": 13.905933429811867
+                },
+                "exact": 398,
+                "exactRate": 0.5759768451519537,
+                "within1": 542,
+                "within1Rate": 0.784370477568741,
+                "within2": 547,
+                "within2Rate": 0.7916063675832128,
+                "within3": 547,
+                "within3Rate": 0.7916063675832128
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "residualDiagnostic": {
+    "winningHistoricalModel": "PRE_JUNE_30_2026",
+    "largeResidualThresholdSouls": 5,
+    "largeResidualCases": 1649,
+    "examples": [
+      {
+        "replay": "rep01",
+        "deathTick": 4405,
+        "minute": 0.6471354166666666,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 109,
+        "predictedTeamTotal": 76,
+        "residual": 33
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 4535,
+        "minute": 0.6809895833333334,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 55,
+        "predictedTeamTotal": 76,
+        "residual": -21
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 4560,
+        "minute": 0.6875,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 55,
+        "predictedTeamTotal": 76,
+        "residual": -21
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 4585,
+        "minute": 0.6940104166666666,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 109,
+        "predictedTeamTotal": 76,
+        "residual": 33
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 6438,
+        "minute": 1.1765625,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 1,
+        "observedTeamTotal": 51,
+        "predictedTeamTotal": 70,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 6874,
+        "minute": 1.2901041666666666,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 111,
+        "predictedTeamTotal": 76,
+        "residual": 35
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 7014,
+        "minute": 1.3265625,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 56,
+        "predictedTeamTotal": 76,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 7774,
+        "minute": 1.5244791666666666,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 111,
+        "predictedTeamTotal": 76,
+        "residual": 35
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 8366,
+        "minute": 1.6786458333333334,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 56,
+        "predictedTeamTotal": 76,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 8495,
+        "minute": 1.7122395833333333,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 56,
+        "predictedTeamTotal": 76,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 9686,
+        "minute": 2.0223958333333334,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 57,
+        "predictedTeamTotal": 77,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 9719,
+        "minute": 2.030989583333333,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 113,
+        "predictedTeamTotal": 77,
+        "residual": 36
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 9832,
+        "minute": 2.060416666666667,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 57,
+        "predictedTeamTotal": 77,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 10721,
+        "minute": 2.2919270833333334,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 113,
+        "predictedTeamTotal": 77,
+        "residual": 36
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 10946,
+        "minute": 2.3505208333333334,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 57,
+        "predictedTeamTotal": 77,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 11314,
+        "minute": 2.4463541666666666,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 57,
+        "predictedTeamTotal": 77,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 12284,
+        "minute": 2.698958333333333,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 57,
+        "predictedTeamTotal": 77,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 12589,
+        "minute": 2.7783854166666666,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 1,
+        "observedTeamTotal": 52,
+        "predictedTeamTotal": 72,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 13931,
+        "minute": 3.1278645833333334,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 58,
+        "predictedTeamTotal": 78,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 14428,
+        "minute": 3.2572916666666667,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 58,
+        "predictedTeamTotal": 78,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 14796,
+        "minute": 3.353125,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 58,
+        "predictedTeamTotal": 78,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 15118,
+        "minute": 3.4369791666666667,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 1,
+        "observedTeamTotal": 53,
+        "predictedTeamTotal": 72,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 16835,
+        "minute": 3.8841145833333335,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 1,
+        "observedTeamTotal": 53,
+        "predictedTeamTotal": 72,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 17971,
+        "minute": 4.179947916666666,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 1,
+        "observedTeamTotal": 54,
+        "predictedTeamTotal": 73,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 17981,
+        "minute": 4.182552083333333,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 1,
+        "observedTeamTotal": 54,
+        "predictedTeamTotal": 73,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 18230,
+        "minute": 4.247395833333333,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 117,
+        "predictedTeamTotal": 78,
+        "residual": 39
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 18507,
+        "minute": 4.31953125,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 59,
+        "predictedTeamTotal": 78,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 19939,
+        "minute": 4.692447916666667,
+        "baseType": "MELEE",
+        "maxHealth": 400,
+        "recipientCount": 2,
+        "observedTeamTotal": 117,
+        "predictedTeamTotal": 79,
+        "residual": 38
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 20138,
+        "minute": 4.744270833333333,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 1,
+        "observedTeamTotal": 54,
+        "predictedTeamTotal": 73,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 21081,
+        "minute": 4.98984375,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 59,
+        "predictedTeamTotal": 79,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 21836,
+        "minute": 5.186458333333333,
+        "baseType": "MELEE",
+        "maxHealth": 400,
+        "recipientCount": 2,
+        "observedTeamTotal": 60,
+        "predictedTeamTotal": 79,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 22337,
+        "minute": 5.316927083333334,
+        "baseType": "MELEE",
+        "maxHealth": 400,
+        "recipientCount": 1,
+        "observedTeamTotal": 55,
+        "predictedTeamTotal": 73,
+        "residual": -18
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 22550,
+        "minute": 5.372395833333333,
+        "baseType": "MELEE",
+        "maxHealth": 400,
+        "recipientCount": 2,
+        "observedTeamTotal": 60,
+        "predictedTeamTotal": 79,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 22588,
+        "minute": 5.382291666666666,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 119,
+        "predictedTeamTotal": 79,
+        "residual": 40
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 22597,
+        "minute": 5.384635416666667,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 1,
+        "observedTeamTotal": 55,
+        "predictedTeamTotal": 73,
+        "residual": -18
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 22949,
+        "minute": 5.476302083333334,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 1,
+        "observedTeamTotal": 55,
+        "predictedTeamTotal": 73,
+        "residual": -18
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 23111,
+        "minute": 5.518489583333333,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 3,
+        "observedTeamTotal": 174,
+        "predictedTeamTotal": 79,
+        "residual": 95
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 23624,
+        "minute": 5.652083333333334,
+        "baseType": "MELEE",
+        "maxHealth": 400,
+        "recipientCount": 2,
+        "observedTeamTotal": 60,
+        "predictedTeamTotal": 79,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 23838,
+        "minute": 5.7078125,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 60,
+        "predictedTeamTotal": 79,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 24153,
+        "minute": 5.78984375,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 1,
+        "observedTeamTotal": 110,
+        "predictedTeamTotal": 74,
+        "residual": 36
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 24330,
+        "minute": 5.8359375,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 60,
+        "predictedTeamTotal": 80,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 24390,
+        "minute": 5.8515625,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 60,
+        "predictedTeamTotal": 80,
+        "residual": -20
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 24925,
+        "minute": 5.990885416666667,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 119,
+        "predictedTeamTotal": 80,
+        "residual": 39
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 25748,
+        "minute": 6.205208333333333,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 61,
+        "predictedTeamTotal": 80,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 25758,
+        "minute": 6.2078125,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 61,
+        "predictedTeamTotal": 80,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 26023,
+        "minute": 6.276822916666666,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 61,
+        "predictedTeamTotal": 80,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 26305,
+        "minute": 6.350260416666667,
+        "baseType": "RANGED",
+        "maxHealth": 300,
+        "recipientCount": 2,
+        "observedTeamTotal": 121,
+        "predictedTeamTotal": 80,
+        "residual": 41
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 26956,
+        "minute": 6.519791666666666,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 61,
+        "predictedTeamTotal": 80,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 27335,
+        "minute": 6.618489583333333,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 2,
+        "observedTeamTotal": 61,
+        "predictedTeamTotal": 80,
+        "residual": -19
+      },
+      {
+        "replay": "rep01",
+        "deathTick": 27770,
+        "minute": 6.731770833333333,
+        "baseType": "MEDIC",
+        "maxHealth": 350,
+        "recipientCount": 1,
+        "observedTeamTotal": 56,
+        "predictedTeamTotal": 74,
+        "residual": -18
+      }
+    ]
+  },
+  "interpretation": {
+    "rewardDiscrepancyExplained": true,
+    "conclusion": "The replication cohort strongly expresses the documented pre-June-30-2026 Trooper economy signature: total bounty 116 + 1.16/min with 40% flying / 60% ground, yielding ground reward 69.6 + 0.696/min.",
+    "implication": "The test.dem post-June-30 reward curve and the independent replay cohort should be treated as different game-version strata rather than failed replications of one invariant reward formula.",
+    "recommendedAuthority": "Reward magnitude must be version-conditioned.",
+    "doNotDo": "Do not force one reward curve across both replay eras."
+  },
+  "nextStage": {
+    "ifPreJune30": "Update the foundational replication authority to treat reward magnitude as patch-version conditioned and proceed toward behavioral feature construction.",
+    "ifPostJune30": "Investigate economic modifiers or contamination.",
+    "ifMixed": "Extract or infer replay build/date information and stratify the cohort."
+  },
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\reward_patch_era_diagnostic_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\reward_patch_era_diagnostic_v01.md"
+  }
+}

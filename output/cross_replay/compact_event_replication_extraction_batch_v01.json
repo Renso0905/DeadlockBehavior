@@ -1,0 +1,403 @@
+{
+  "version": "COMPACT_EVENT_REPLICATION_EXTRACTION_BATCH_V01",
+  "canonical": false,
+  "createdAt": "2026-09-03T19:41:39.793Z",
+  "purpose": [
+    "Create one compact event-centered telemetry extract per independent replay.",
+    "Parse each raw replay exactly once in this stage.",
+    "Preserve Trooper deaths, exact-tick last-hit increments, AssignedGold lifecycle activations, player currency deltas, and player-attributed CItemXP damage directions.",
+    "Defer mechanic replication statistics to the next offline analysis script.",
+    "Do not fit new mechanic thresholds during extraction."
+  ],
+  "authority": {
+    "discoveryReplay": "test",
+    "replicationUnit": "REPLAY",
+    "note": "These extracts are replication evidence inputs, not canonical mechanic claims."
+  },
+  "cohortSize": 5,
+  "successCount": 5,
+  "validationPassCount": 5,
+  "batchPass": true,
+  "durationSeconds": 210.206,
+  "replays": [
+    {
+      "replayName": "rep01",
+      "success": true,
+      "status": "COMPACT_EVENT_EXTRACTION_PASS",
+      "counts": {
+        "trooperDeaths": 3145,
+        "economicTrooperDeaths": 1125,
+        "lastHitEvents": 1847,
+        "assignedGoldActivations": 1527,
+        "targetedActivations": 1451,
+        "targetlessActivations": 76,
+        "endedActivations": 1527,
+        "positiveCurrencyDeltas": 24849,
+        "citemxpDamageEvents": 23,
+        "playerAttributedCitemxpDamageEvents": 23,
+        "citemxpDamageEventsWithDirection": 23,
+        "deathActivationCandidateEdges": 1033,
+        "economicDeathsWithActivationCandidate": 909,
+        "activationsWithDeathCandidate": 913
+      },
+      "validation": {
+        "pass": true,
+        "checks": {
+          "trooperDeathsPresent": {
+            "actual": 3145,
+            "expected": ">0",
+            "pass": true
+          },
+          "economicDeathsPresent": {
+            "actual": 1125,
+            "expected": ">0",
+            "pass": true
+          },
+          "lastHitEventsPresent": {
+            "actual": 1847,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldActivationsPresent": {
+            "actual": 1527,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldEndCoverage": {
+            "actual": 1527,
+            "expected": ">=95%",
+            "pass": true
+          },
+          "positiveCurrencyDeltasPresent": {
+            "actual": 24849,
+            "expected": ">0",
+            "pass": true
+          },
+          "deathActivationCandidatesPresent": {
+            "actual": 909,
+            "expected": ">0",
+            "pass": true
+          },
+          "citemxpDamageTelemetryPresent": {
+            "actual": 23,
+            "expected": ">=0",
+            "pass": true
+          }
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep01\\compact_replication_event_extract_v01.json",
+        "trooperDeaths": "G:\\DeadlockBehavior\\output\\rep01\\replication_trooper_deaths_v01.jsonl",
+        "assignedGoldActivations": "G:\\DeadlockBehavior\\output\\rep01\\replication_assigned_gold_activations_v01.jsonl",
+        "lastHitEvents": "G:\\DeadlockBehavior\\output\\rep01\\replication_last_hit_events_v01.jsonl",
+        "positiveCurrencyDeltas": "G:\\DeadlockBehavior\\output\\rep01\\replication_currency0_deltas_v01.jsonl",
+        "citemxpDamageEvents": "G:\\DeadlockBehavior\\output\\rep01\\replication_citemxp_damage_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "status": "COMPACT_EVENT_EXTRACTION_PASS",
+      "counts": {
+        "trooperDeaths": 3354,
+        "economicTrooperDeaths": 1282,
+        "lastHitEvents": 1950,
+        "assignedGoldActivations": 1641,
+        "targetedActivations": 1573,
+        "targetlessActivations": 68,
+        "endedActivations": 1641,
+        "positiveCurrencyDeltas": 26180,
+        "citemxpDamageEvents": 20,
+        "playerAttributedCitemxpDamageEvents": 20,
+        "citemxpDamageEventsWithDirection": 20,
+        "deathActivationCandidateEdges": 1289,
+        "economicDeathsWithActivationCandidate": 1080,
+        "activationsWithDeathCandidate": 1081
+      },
+      "validation": {
+        "pass": true,
+        "checks": {
+          "trooperDeathsPresent": {
+            "actual": 3354,
+            "expected": ">0",
+            "pass": true
+          },
+          "economicDeathsPresent": {
+            "actual": 1282,
+            "expected": ">0",
+            "pass": true
+          },
+          "lastHitEventsPresent": {
+            "actual": 1950,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldActivationsPresent": {
+            "actual": 1641,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldEndCoverage": {
+            "actual": 1641,
+            "expected": ">=95%",
+            "pass": true
+          },
+          "positiveCurrencyDeltasPresent": {
+            "actual": 26180,
+            "expected": ">0",
+            "pass": true
+          },
+          "deathActivationCandidatesPresent": {
+            "actual": 1080,
+            "expected": ">0",
+            "pass": true
+          },
+          "citemxpDamageTelemetryPresent": {
+            "actual": 20,
+            "expected": ">=0",
+            "pass": true
+          }
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep02\\compact_replication_event_extract_v01.json",
+        "trooperDeaths": "G:\\DeadlockBehavior\\output\\rep02\\replication_trooper_deaths_v01.jsonl",
+        "assignedGoldActivations": "G:\\DeadlockBehavior\\output\\rep02\\replication_assigned_gold_activations_v01.jsonl",
+        "lastHitEvents": "G:\\DeadlockBehavior\\output\\rep02\\replication_last_hit_events_v01.jsonl",
+        "positiveCurrencyDeltas": "G:\\DeadlockBehavior\\output\\rep02\\replication_currency0_deltas_v01.jsonl",
+        "citemxpDamageEvents": "G:\\DeadlockBehavior\\output\\rep02\\replication_citemxp_damage_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "status": "COMPACT_EVENT_EXTRACTION_PASS",
+      "counts": {
+        "trooperDeaths": 5081,
+        "economicTrooperDeaths": 1881,
+        "lastHitEvents": 2858,
+        "assignedGoldActivations": 2387,
+        "targetedActivations": 2233,
+        "targetlessActivations": 154,
+        "endedActivations": 2387,
+        "positiveCurrencyDeltas": 34333,
+        "citemxpDamageEvents": 18,
+        "playerAttributedCitemxpDamageEvents": 18,
+        "citemxpDamageEventsWithDirection": 18,
+        "deathActivationCandidateEdges": 1860,
+        "economicDeathsWithActivationCandidate": 1550,
+        "activationsWithDeathCandidate": 1549
+      },
+      "validation": {
+        "pass": true,
+        "checks": {
+          "trooperDeathsPresent": {
+            "actual": 5081,
+            "expected": ">0",
+            "pass": true
+          },
+          "economicDeathsPresent": {
+            "actual": 1881,
+            "expected": ">0",
+            "pass": true
+          },
+          "lastHitEventsPresent": {
+            "actual": 2858,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldActivationsPresent": {
+            "actual": 2387,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldEndCoverage": {
+            "actual": 2387,
+            "expected": ">=95%",
+            "pass": true
+          },
+          "positiveCurrencyDeltasPresent": {
+            "actual": 34333,
+            "expected": ">0",
+            "pass": true
+          },
+          "deathActivationCandidatesPresent": {
+            "actual": 1550,
+            "expected": ">0",
+            "pass": true
+          },
+          "citemxpDamageTelemetryPresent": {
+            "actual": 18,
+            "expected": ">=0",
+            "pass": true
+          }
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep03\\compact_replication_event_extract_v01.json",
+        "trooperDeaths": "G:\\DeadlockBehavior\\output\\rep03\\replication_trooper_deaths_v01.jsonl",
+        "assignedGoldActivations": "G:\\DeadlockBehavior\\output\\rep03\\replication_assigned_gold_activations_v01.jsonl",
+        "lastHitEvents": "G:\\DeadlockBehavior\\output\\rep03\\replication_last_hit_events_v01.jsonl",
+        "positiveCurrencyDeltas": "G:\\DeadlockBehavior\\output\\rep03\\replication_currency0_deltas_v01.jsonl",
+        "citemxpDamageEvents": "G:\\DeadlockBehavior\\output\\rep03\\replication_citemxp_damage_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "status": "COMPACT_EVENT_EXTRACTION_PASS",
+      "counts": {
+        "trooperDeaths": 3216,
+        "economicTrooperDeaths": 1212,
+        "lastHitEvents": 2012,
+        "assignedGoldActivations": 1618,
+        "targetedActivations": 1493,
+        "targetlessActivations": 125,
+        "endedActivations": 1618,
+        "positiveCurrencyDeltas": 26020,
+        "citemxpDamageEvents": 22,
+        "playerAttributedCitemxpDamageEvents": 22,
+        "citemxpDamageEventsWithDirection": 22,
+        "deathActivationCandidateEdges": 1225,
+        "economicDeathsWithActivationCandidate": 1042,
+        "activationsWithDeathCandidate": 1042
+      },
+      "validation": {
+        "pass": true,
+        "checks": {
+          "trooperDeathsPresent": {
+            "actual": 3216,
+            "expected": ">0",
+            "pass": true
+          },
+          "economicDeathsPresent": {
+            "actual": 1212,
+            "expected": ">0",
+            "pass": true
+          },
+          "lastHitEventsPresent": {
+            "actual": 2012,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldActivationsPresent": {
+            "actual": 1618,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldEndCoverage": {
+            "actual": 1618,
+            "expected": ">=95%",
+            "pass": true
+          },
+          "positiveCurrencyDeltasPresent": {
+            "actual": 26020,
+            "expected": ">0",
+            "pass": true
+          },
+          "deathActivationCandidatesPresent": {
+            "actual": 1042,
+            "expected": ">0",
+            "pass": true
+          },
+          "citemxpDamageTelemetryPresent": {
+            "actual": 22,
+            "expected": ">=0",
+            "pass": true
+          }
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep04\\compact_replication_event_extract_v01.json",
+        "trooperDeaths": "G:\\DeadlockBehavior\\output\\rep04\\replication_trooper_deaths_v01.jsonl",
+        "assignedGoldActivations": "G:\\DeadlockBehavior\\output\\rep04\\replication_assigned_gold_activations_v01.jsonl",
+        "lastHitEvents": "G:\\DeadlockBehavior\\output\\rep04\\replication_last_hit_events_v01.jsonl",
+        "positiveCurrencyDeltas": "G:\\DeadlockBehavior\\output\\rep04\\replication_currency0_deltas_v01.jsonl",
+        "citemxpDamageEvents": "G:\\DeadlockBehavior\\output\\rep04\\replication_citemxp_damage_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "status": "COMPACT_EVENT_EXTRACTION_PASS",
+      "counts": {
+        "trooperDeaths": 3489,
+        "economicTrooperDeaths": 1301,
+        "lastHitEvents": 1866,
+        "assignedGoldActivations": 1677,
+        "targetedActivations": 1632,
+        "targetlessActivations": 45,
+        "endedActivations": 1677,
+        "positiveCurrencyDeltas": 24566,
+        "citemxpDamageEvents": 9,
+        "playerAttributedCitemxpDamageEvents": 9,
+        "citemxpDamageEventsWithDirection": 9,
+        "deathActivationCandidateEdges": 1355,
+        "economicDeathsWithActivationCandidate": 1085,
+        "activationsWithDeathCandidate": 1088
+      },
+      "validation": {
+        "pass": true,
+        "checks": {
+          "trooperDeathsPresent": {
+            "actual": 3489,
+            "expected": ">0",
+            "pass": true
+          },
+          "economicDeathsPresent": {
+            "actual": 1301,
+            "expected": ">0",
+            "pass": true
+          },
+          "lastHitEventsPresent": {
+            "actual": 1866,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldActivationsPresent": {
+            "actual": 1677,
+            "expected": ">0",
+            "pass": true
+          },
+          "assignedGoldEndCoverage": {
+            "actual": 1677,
+            "expected": ">=95%",
+            "pass": true
+          },
+          "positiveCurrencyDeltasPresent": {
+            "actual": 24566,
+            "expected": ">0",
+            "pass": true
+          },
+          "deathActivationCandidatesPresent": {
+            "actual": 1085,
+            "expected": ">0",
+            "pass": true
+          },
+          "citemxpDamageTelemetryPresent": {
+            "actual": 9,
+            "expected": ">=0",
+            "pass": true
+          }
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep05\\compact_replication_event_extract_v01.json",
+        "trooperDeaths": "G:\\DeadlockBehavior\\output\\rep05\\replication_trooper_deaths_v01.jsonl",
+        "assignedGoldActivations": "G:\\DeadlockBehavior\\output\\rep05\\replication_assigned_gold_activations_v01.jsonl",
+        "lastHitEvents": "G:\\DeadlockBehavior\\output\\rep05\\replication_last_hit_events_v01.jsonl",
+        "positiveCurrencyDeltas": "G:\\DeadlockBehavior\\output\\rep05\\replication_currency0_deltas_v01.jsonl",
+        "citemxpDamageEvents": "G:\\DeadlockBehavior\\output\\rep05\\replication_citemxp_damage_events_v01.jsonl"
+      }
+    }
+  ],
+  "nextStage": {
+    "ready": true,
+    "id": "CROSS_REPLAY_FOUNDATIONAL_METRICS",
+    "description": "Join compact event extracts with 4 Hz player_state telemetry and compute replay-level replication metrics for the frozen Script99 contracts."
+  },
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\compact_event_replication_extraction_batch_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\compact_event_replication_extraction_batch_v01.md"
+  }
+}

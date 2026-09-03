@@ -1,0 +1,550 @@
+{
+  "version": "CROSS_REPLAY_PLAYER_STATE_BASE_BATCH_V01",
+  "canonical": false,
+  "createdAt": "2026-09-03T19:23:53.833Z",
+  "force": false,
+  "purpose": [
+    "Create the common player-state substrate for every independent replication replay.",
+    "Reuse the existing validated Script 03 extractor rather than duplicating player-state logic inside the compact replication event parser.",
+    "Provide player identity, team, position, net worth, currency buckets, body orientation, eye orientation, camera orientation, and match-clock state for later replication tests.",
+    "Run replay parsing sequentially to reduce resource contention.",
+    "Do not treat successful extraction as mechanic replication evidence."
+  ],
+  "sourceManifest": {
+    "path": "G:\\DeadlockBehavior\\output\\cross_replay\\replication_manifest_v01.json",
+    "manifestVersion": "CROSS_REPLAY_REPLICATION_MANIFEST_V01",
+    "cohortStatus": "STRONG_INITIAL_REPLICATION_COHORT_AVAILABLE",
+    "discoveryReplay": "test",
+    "discoveryCheckpointReady": true
+  },
+  "extractor": {
+    "script": "G:\\DeadlockBehavior\\scripts\\03-extract-player-state.mjs",
+    "nodeExecutable": "G:\\Node\\node.exe",
+    "requiredOutputs": [
+      "player_state.jsonl",
+      "player_state_summary.json"
+    ]
+  },
+  "batch": {
+    "startedAt": "2026-09-03T19:22:05.410Z",
+    "finishedAt": "2026-09-03T19:23:53.833Z",
+    "durationSeconds": 108.423,
+    "cohortSize": 5,
+    "resultCount": 5,
+    "attempted": 5,
+    "skipped": 0,
+    "succeeded": 5,
+    "failed": 0
+  },
+  "structuralChecks": {
+    "allReady": true,
+    "allHavePlayers": false,
+    "allHaveRecords": true,
+    "allHaveMatchClock": true,
+    "allHaveStateFiles": true,
+    "baseExtractionReady": false
+  },
+  "replayInventory": [
+    {
+      "replayName": "rep01",
+      "status": "EXTRACTION_PASS",
+      "success": true,
+      "skipped": false,
+      "replaySizeMiB": 490.1824035644531,
+      "durationSeconds": 19.434,
+      "stateFileMiB": 142.21817874908447,
+      "recordsWritten": 113820,
+      "playerCount": null,
+      "firstMatchTime": -29.75,
+      "finalMatchTime": 2341.25
+    },
+    {
+      "replayName": "rep02",
+      "status": "EXTRACTION_PASS",
+      "success": true,
+      "skipped": false,
+      "replaySizeMiB": 521.7399187088013,
+      "durationSeconds": 20.827,
+      "stateFileMiB": 143.0220193862915,
+      "recordsWritten": 113868,
+      "playerCount": null,
+      "firstMatchTime": -29.75,
+      "finalMatchTime": 2342.75
+    },
+    {
+      "replayName": "rep03",
+      "status": "EXTRACTION_PASS",
+      "success": true,
+      "skipped": false,
+      "replaySizeMiB": 738.6448955535889,
+      "durationSeconds": 28.594,
+      "stateFileMiB": 201.63202571868896,
+      "recordsWritten": 161256,
+      "playerCount": null,
+      "firstMatchTime": -29.75,
+      "finalMatchTime": 3329.5
+    },
+    {
+      "replayName": "rep04",
+      "status": "EXTRACTION_PASS",
+      "success": true,
+      "skipped": false,
+      "replaySizeMiB": 506.7675848007202,
+      "durationSeconds": 19.494,
+      "stateFileMiB": 140.64838027954102,
+      "recordsWritten": 112200,
+      "playerCount": null,
+      "firstMatchTime": -29.75,
+      "finalMatchTime": 2307.5
+    },
+    {
+      "replayName": "rep05",
+      "status": "EXTRACTION_PASS",
+      "success": true,
+      "skipped": false,
+      "replaySizeMiB": 505.2706422805786,
+      "durationSeconds": 20.057,
+      "stateFileMiB": 148.6477756500244,
+      "recordsWritten": 118380,
+      "playerCount": null,
+      "firstMatchTime": -29.75,
+      "finalMatchTime": 2437.25
+    }
+  ],
+  "results": [
+    {
+      "replayName": "rep01",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep01.dem",
+      "replaySizeBytes": 513993504,
+      "status": "EXTRACTION_PASS",
+      "attempted": true,
+      "skipped": false,
+      "success": true,
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-09-03T19:22:05.412Z",
+      "finishedAt": "2026-09-03T19:22:24.846Z",
+      "durationSeconds": 19.434,
+      "inspection": {
+        "replayName": "rep01",
+        "valid": true,
+        "statePath": "G:\\DeadlockBehavior\\output\\rep01\\player_state.jsonl",
+        "summaryPath": "G:\\DeadlockBehavior\\output\\rep01\\player_state_summary.json",
+        "statePresent": true,
+        "summaryPresent": true,
+        "stateFileBytes": 149126569,
+        "summaryFileBytes": 868,
+        "summaryParseError": null,
+        "recordsWritten": 113820,
+        "playerCount": null,
+        "playerNames": null,
+        "firstMatchTime": -29.75,
+        "finalMatchTime": 2341.25,
+        "matchClockOffset": 30,
+        "hasMatchClock": true,
+        "parsedSummary": {
+          "replay": "rep01",
+          "tickRateAssumed": 64,
+          "sampleEveryTicks": 16,
+          "nominalSampleIntervalSeconds": 0.25,
+          "coordinateFormula": "world = cell * 512 - 16384 + vec",
+          "matchClockOffsetSeconds": 30,
+          "firstSampleTick": 16,
+          "finalSampleTick": 151760,
+          "firstMatchTimeSeconds": -29.75,
+          "finalMatchTimeSeconds": 2341.25,
+          "recordsWritten": 113820,
+          "playersSeen": [
+            "Archivist Eris",
+            "ArsonBoy5996",
+            "BlamBlam50",
+            "Goldinfer",
+            "Kabuto",
+            "Mushie",
+            "Nebula",
+            "Parker",
+            "Quackinator17",
+            "The White Samoan",
+            "Zaeleth",
+            "renso"
+          ],
+          "heroIdsSeen": [
+            1,
+            2,
+            3,
+            4,
+            10,
+            13,
+            14,
+            25,
+            27,
+            35,
+            64,
+            69
+          ],
+          "minimapBounds": {
+            "min": {
+              "0": -10752,
+              "1": -10752,
+              "2": 0
+            },
+            "max": {
+              "0": 10752,
+              "1": 10752,
+              "2": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "replayName": "rep02",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep02.dem",
+      "replaySizeBytes": 547083957,
+      "status": "EXTRACTION_PASS",
+      "attempted": true,
+      "skipped": false,
+      "success": true,
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-09-03T19:22:24.850Z",
+      "finishedAt": "2026-09-03T19:22:45.677Z",
+      "durationSeconds": 20.827,
+      "inspection": {
+        "replayName": "rep02",
+        "valid": true,
+        "statePath": "G:\\DeadlockBehavior\\output\\rep02\\player_state.jsonl",
+        "summaryPath": "G:\\DeadlockBehavior\\output\\rep02\\player_state_summary.json",
+        "statePresent": true,
+        "summaryPresent": true,
+        "stateFileBytes": 149969457,
+        "summaryFileBytes": 879,
+        "summaryParseError": null,
+        "recordsWritten": 113868,
+        "playerCount": null,
+        "playerNames": null,
+        "firstMatchTime": -29.75,
+        "finalMatchTime": 2342.75,
+        "matchClockOffset": 30,
+        "hasMatchClock": true,
+        "parsedSummary": {
+          "replay": "rep02",
+          "tickRateAssumed": 64,
+          "sampleEveryTicks": 16,
+          "nominalSampleIntervalSeconds": 0.25,
+          "coordinateFormula": "world = cell * 512 - 16384 + vec",
+          "matchClockOffsetSeconds": 30,
+          "firstSampleTick": 16,
+          "finalSampleTick": 151856,
+          "firstMatchTimeSeconds": -29.75,
+          "finalMatchTimeSeconds": 2342.75,
+          "recordsWritten": 113868,
+          "playersSeen": [
+            "Gnome Garden",
+            "Goldinfer",
+            "Moodamu",
+            "Nameless Shado",
+            "Nebula",
+            "Ripoleon BonerFarts",
+            "Rupa",
+            "Wild Willy",
+            "Zaeleth",
+            "cloudlightfellow",
+            "pistachio",
+            "renso"
+          ],
+          "heroIdsSeen": [
+            7,
+            15,
+            19,
+            25,
+            31,
+            35,
+            60,
+            63,
+            66,
+            67,
+            76,
+            80
+          ],
+          "minimapBounds": {
+            "min": {
+              "0": -10752,
+              "1": -10752,
+              "2": 0
+            },
+            "max": {
+              "0": 10752,
+              "1": 10752,
+              "2": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "replayName": "rep03",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep03.dem",
+      "replaySizeBytes": 774525310,
+      "status": "EXTRACTION_PASS",
+      "attempted": true,
+      "skipped": false,
+      "success": true,
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-09-03T19:22:45.680Z",
+      "finishedAt": "2026-09-03T19:23:14.274Z",
+      "durationSeconds": 28.594,
+      "inspection": {
+        "replayName": "rep03",
+        "valid": true,
+        "statePath": "G:\\DeadlockBehavior\\output\\rep03\\player_state.jsonl",
+        "summaryPath": "G:\\DeadlockBehavior\\output\\rep03\\player_state_summary.json",
+        "statePresent": true,
+        "summaryPresent": true,
+        "stateFileBytes": 211426503,
+        "summaryFileBytes": 871,
+        "summaryParseError": null,
+        "recordsWritten": 161256,
+        "playerCount": null,
+        "playerNames": null,
+        "firstMatchTime": -29.75,
+        "finalMatchTime": 3329.5,
+        "matchClockOffset": 30,
+        "hasMatchClock": true,
+        "parsedSummary": {
+          "replay": "rep03",
+          "tickRateAssumed": 64,
+          "sampleEveryTicks": 16,
+          "nominalSampleIntervalSeconds": 0.25,
+          "coordinateFormula": "world = cell * 512 - 16384 + vec",
+          "matchClockOffsetSeconds": 30,
+          "firstSampleTick": 16,
+          "finalSampleTick": 215008,
+          "firstMatchTimeSeconds": -29.75,
+          "finalMatchTimeSeconds": 3329.5,
+          "recordsWritten": 161256,
+          "playersSeen": [
+            "4rM4D1110",
+            "FwankToo",
+            "Jake",
+            "McThiccems",
+            "MiggyTCD",
+            "Paradox_Cowkitty",
+            "Pattern",
+            "Spiirit0",
+            "SpookFist Tha Strong",
+            "jmillay",
+            "phishymundo",
+            "renso"
+          ],
+          "heroIdsSeen": [
+            1,
+            2,
+            4,
+            11,
+            16,
+            31,
+            35,
+            58,
+            65,
+            66,
+            67,
+            79
+          ],
+          "minimapBounds": {
+            "min": {
+              "0": -10752,
+              "1": -10752,
+              "2": 0
+            },
+            "max": {
+              "0": 10752,
+              "1": 10752,
+              "2": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "replayName": "rep04",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep04.dem",
+      "replaySizeBytes": 531384327,
+      "status": "EXTRACTION_PASS",
+      "attempted": true,
+      "skipped": false,
+      "success": true,
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-09-03T19:23:14.277Z",
+      "finishedAt": "2026-09-03T19:23:33.771Z",
+      "durationSeconds": 19.494,
+      "inspection": {
+        "replayName": "rep04",
+        "valid": true,
+        "statePath": "G:\\DeadlockBehavior\\output\\rep04\\player_state.jsonl",
+        "summaryPath": "G:\\DeadlockBehavior\\output\\rep04\\player_state_summary.json",
+        "statePresent": true,
+        "summaryPresent": true,
+        "stateFileBytes": 147480516,
+        "summaryFileBytes": 868,
+        "summaryParseError": null,
+        "recordsWritten": 112200,
+        "playerCount": null,
+        "playerNames": null,
+        "firstMatchTime": -29.75,
+        "finalMatchTime": 2307.5,
+        "matchClockOffset": 30,
+        "hasMatchClock": true,
+        "parsedSummary": {
+          "replay": "rep04",
+          "tickRateAssumed": 64,
+          "sampleEveryTicks": 16,
+          "nominalSampleIntervalSeconds": 0.25,
+          "coordinateFormula": "world = cell * 512 - 16384 + vec",
+          "matchClockOffsetSeconds": 30,
+          "firstSampleTick": 16,
+          "finalSampleTick": 149600,
+          "firstMatchTimeSeconds": -29.75,
+          "finalMatchTimeSeconds": 2307.5,
+          "recordsWritten": 112200,
+          "playersSeen": [
+            "Coochieman",
+            "HPE",
+            "Normal Canard",
+            "Queenie Juices",
+            "Roronoa Zoro",
+            "Solace",
+            "Sympathy",
+            "aHUNTER360",
+            "butterflyflyhig",
+            "giga jimmy",
+            "renso",
+            "shoto"
+          ],
+          "heroIdsSeen": [
+            1,
+            2,
+            6,
+            8,
+            13,
+            18,
+            27,
+            31,
+            35,
+            67,
+            76,
+            81
+          ],
+          "minimapBounds": {
+            "min": {
+              "0": -10752,
+              "1": -10752,
+              "2": 0
+            },
+            "max": {
+              "0": 10752,
+              "1": 10752,
+              "2": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "replayName": "rep05",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep05.dem",
+      "replaySizeBytes": 529814669,
+      "status": "EXTRACTION_PASS",
+      "attempted": true,
+      "skipped": false,
+      "success": true,
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-09-03T19:23:33.774Z",
+      "finishedAt": "2026-09-03T19:23:53.831Z",
+      "durationSeconds": 20.057,
+      "inspection": {
+        "replayName": "rep05",
+        "valid": true,
+        "statePath": "G:\\DeadlockBehavior\\output\\rep05\\player_state.jsonl",
+        "summaryPath": "G:\\DeadlockBehavior\\output\\rep05\\player_state_summary.json",
+        "statePresent": true,
+        "summaryPresent": true,
+        "stateFileBytes": 155868490,
+        "summaryFileBytes": 853,
+        "summaryParseError": null,
+        "recordsWritten": 118380,
+        "playerCount": null,
+        "playerNames": null,
+        "firstMatchTime": -29.75,
+        "finalMatchTime": 2437.25,
+        "matchClockOffset": 30,
+        "hasMatchClock": true,
+        "parsedSummary": {
+          "replay": "rep05",
+          "tickRateAssumed": 64,
+          "sampleEveryTicks": 16,
+          "nominalSampleIntervalSeconds": 0.25,
+          "coordinateFormula": "world = cell * 512 - 16384 + vec",
+          "matchClockOffsetSeconds": 30,
+          "firstSampleTick": 16,
+          "finalSampleTick": 157904,
+          "firstMatchTimeSeconds": -29.75,
+          "finalMatchTimeSeconds": 2437.25,
+          "recordsWritten": 118380,
+          "playersSeen": [
+            "ACE_Lazzy",
+            "Aleister",
+            "Dolan_161",
+            "FlameHead58",
+            "Ghostt",
+            "Jack",
+            "JustJorsh",
+            "Mirzero",
+            "Senor watermelon",
+            "Spk",
+            "Sugon",
+            "renso"
+          ],
+          "heroIdsSeen": [
+            4,
+            11,
+            13,
+            19,
+            25,
+            27,
+            31,
+            35,
+            50,
+            60,
+            63,
+            81
+          ],
+          "minimapBounds": {
+            "min": {
+              "0": -10752,
+              "1": -10752,
+              "2": 0
+            },
+            "max": {
+              "0": 10752,
+              "1": 10752,
+              "2": 0
+            }
+          }
+        }
+      }
+    }
+  ],
+  "nextStage": {
+    "ready": false,
+    "id": "COMPACT_EVENT_REPLICATION_EXTRACTION",
+    "description": "Parse each independent replay once for the event-centered Trooper, AssignedGold, economy, lifecycle, geometry, and shot-direction telemetry required by the frozen Script 99 replication contract."
+  },
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\player_state_base_batch_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\player_state_base_batch_v01.md"
+  }
+}

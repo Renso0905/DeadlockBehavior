@@ -1,0 +1,549 @@
+{
+  "replay": "rep01",
+  "version": "FOUNDATIONAL_REPLICATION_METRICS_V02",
+  "supersedes": "FOUNDATIONAL_REPLICATION_METRICS_V01",
+  "canonical": false,
+  "sourceCounts": {
+    "deaths": 3145,
+    "activations": 1527,
+    "lastHitEvents": 1847,
+    "currencyEvents": 24849,
+    "citemxpDamageEvents": 23,
+    "playerStateSamples": 113820
+  },
+  "matching": {
+    "economicDeaths": 1125,
+    "candidateEdges": 1033,
+    "deathsWithCandidate": 909,
+    "activationsWithCandidate": 913,
+    "strictMutualOneToOneMatches": 805,
+    "ambiguousDeaths": 99,
+    "ambiguousActivations": 93
+  },
+  "productionLastHit": {
+    "economicDeaths": 1125,
+    "economicDeathsWithUniqueExactOpposingLastHit": 930,
+    "creditedDeathsWithAnyActivationCandidate": 907,
+    "creditedDeathsWithAnyActivationCandidateRate": 0.975268817204301,
+    "creditedDeathsWithStrictMatch": 805,
+    "creditedDeathsWithStrictMatchRate": 0.8655913978494624,
+    "strictMatches": 805,
+    "strictMatchesWithUniqueExactOpposingLastHit": 805,
+    "strictMatchesWithUniqueExactOpposingLastHitRate": 1
+  },
+  "lifecycle": {
+    "strictMatchedActivations": 805,
+    "targeted": 769,
+    "targetless": 36,
+    "targetedRate": 0.9552795031055901,
+    "immediateTargeted": 416,
+    "immediateTargetedRate": 0.540962288686606,
+    "delayedTargeted": 353,
+    "targetOnsetDelaySeconds": {
+      "count": 769,
+      "min": 0.015625,
+      "p25": 0.015625,
+      "median": 0.03125,
+      "p75": 0.53125,
+      "p95": 7.365624999999987,
+      "max": 39.6875,
+      "mean": 1.4323187581274381
+    },
+    "targetToInactiveSeconds": {
+      "count": 769,
+      "min": 0.3125,
+      "p25": 0.546875,
+      "median": 0.65625,
+      "p75": 0.734375,
+      "p95": 0.84375,
+      "max": 1.015625,
+      "mean": 0.6387760078023407
+    },
+    "targetToInactiveDiscoveryMedianDifference": 0.015650000000000053,
+    "targetlessTimeout": {
+      "comparable": 36,
+      "observed": {
+        "count": 36,
+        "min": 4.296875,
+        "p25": 39.51171875,
+        "median": 40,
+        "p75": 40,
+        "p95": 40,
+        "max": 67.296875,
+        "mean": 36.734375
+      },
+      "predicted": {
+        "count": 36,
+        "min": 18,
+        "p25": 40,
+        "median": 40,
+        "p75": 40,
+        "p95": 40,
+        "max": 40,
+        "mean": 37.06793703703704
+      },
+      "error": {
+        "count": 36,
+        "min": -35.703125,
+        "p25": -0.015625,
+        "median": 0,
+        "p75": 0,
+        "p95": 0,
+        "max": 45.721891666666664,
+        "mean": -0.3335620370370375
+      },
+      "absoluteError": {
+        "count": 36,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0.015625,
+        "p95": 11.937487500000003,
+        "max": 45.721891666666664,
+        "mean": 2.87366712962963
+      },
+      "within1": 28,
+      "within1Rate": 0.7777777777777778,
+      "within2": 29,
+      "within2Rate": 0.8055555555555556
+    }
+  },
+  "vacuumGeometry": {
+    "targetedComparable": 769,
+    "targetlessComparable": 36,
+    "totalComparable": 805,
+    "note": "4-Hz player positions make this an operational replication of the proximity envelope, not an exact engine-radius measurement.",
+    "xy": {
+      "observations": 805,
+      "positive": 769,
+      "negative": 36,
+      "bestThreshold": {
+        "thresholdHU": 790,
+        "tp": 767,
+        "tn": 26,
+        "fp": 10,
+        "fn": 2,
+        "sensitivity": 0.9973992197659298,
+        "specificity": 0.7222222222222222,
+        "accuracy": 0.9850931677018634,
+        "mcc": 0.811762510342554
+      },
+      "frozen735": {
+        "thresholdHU": 735,
+        "tp": 732,
+        "tn": 30,
+        "fp": 6,
+        "fn": 37,
+        "sensitivity": 0.951885565669701,
+        "specificity": 0.8333333333333334,
+        "accuracy": 0.9465838509316771,
+        "mcc": 0.5875428991185017
+      }
+    },
+    "threeD": {
+      "observations": 805,
+      "positive": 769,
+      "negative": 36,
+      "bestThreshold": {
+        "thresholdHU": 800,
+        "tp": 766,
+        "tn": 30,
+        "fp": 6,
+        "fn": 3,
+        "sensitivity": 0.9960988296488946,
+        "specificity": 0.8333333333333334,
+        "accuracy": 0.9888198757763975,
+        "mcc": 0.8646287498769347
+      },
+      "frozen735": {
+        "thresholdHU": 735,
+        "tp": 710,
+        "tn": 33,
+        "fp": 3,
+        "fn": 59,
+        "sensitivity": 0.9232769830949284,
+        "specificity": 0.9166666666666666,
+        "accuracy": 0.9229813664596274,
+        "mcc": 0.5456647418397281
+      }
+    }
+  },
+  "economicRecipientSet": {
+    "strictMatchesWithUniqueCredited": 805,
+    "strictMatchesWithEndTick": 805,
+    "isolatedCleanCases": 709,
+    "creditedIncluded": 709,
+    "creditedIncludedRate": 1,
+    "physicalTargetDifferentFromCredited": 172,
+    "physicalTargetEconomicallyAbsent": 20,
+    "physicalTargetEconomicallyAbsentRate": 0.11627906976744186
+  },
+  "recipientGeometry": {
+    "cleanEconomicCases": 709,
+    "geometryComparableCases": 709,
+    "xy": {
+      "comparableCases": 709,
+      "bestThreshold": {
+        "thresholdHU": 2155,
+        "tp": 1299,
+        "tn": 2906,
+        "fp": 24,
+        "fn": 25,
+        "sensitivity": 0.9811178247734139,
+        "specificity": 0.9918088737201365,
+        "mcc": 0.9731282775238327,
+        "exactSets": 666,
+        "exactSetRate": 0.9393511988716502
+      },
+      "frozen2150": {
+        "thresholdHU": 2150,
+        "tp": 1298,
+        "tn": 2907,
+        "fp": 23,
+        "fn": 26,
+        "sensitivity": 0.9803625377643505,
+        "specificity": 0.9921501706484641,
+        "mcc": 0.9731183176706613,
+        "exactSets": 665,
+        "exactSetRate": 0.9379407616361072
+      }
+    },
+    "threeD": {
+      "comparableCases": 709,
+      "bestThreshold": {
+        "thresholdHU": 2160,
+        "tp": 1300,
+        "tn": 2913,
+        "fp": 17,
+        "fn": 24,
+        "sensitivity": 0.9818731117824774,
+        "specificity": 0.99419795221843,
+        "mcc": 0.9774946297884654,
+        "exactSets": 673,
+        "exactSetRate": 0.9492242595204513
+      },
+      "frozen2150": {
+        "thresholdHU": 2150,
+        "tp": 1297,
+        "tn": 2913,
+        "fp": 17,
+        "fn": 27,
+        "sensitivity": 0.979607250755287,
+        "specificity": 0.99419795221843,
+        "mcc": 0.9758398416317413,
+        "exactSets": 670,
+        "exactSetRate": 0.9449929478138223
+      }
+    }
+  },
+  "rewardAllocation": {
+    "cleanCases": 709,
+    "recipientCounts": {
+      "1": 287,
+      "2": 314,
+      "3": 48,
+      "4": 41,
+      "5": 13,
+      "6": 6
+    },
+    "integerPartition": {
+      "exact": 675,
+      "exactRate": 0.9520451339915373
+    },
+    "remainderPriority": {
+      "comparable": 234,
+      "creditedGetsCeil": 220,
+      "creditedGetsCeilRate": 0.9401709401709402
+    }
+  },
+  "rewardScaling": {
+    "methodology": "Leading-team, match-minute <35 clean economic cases only.",
+    "leadingPre35Cases": 299,
+    "leadingPre35Regression": {
+      "count": 299,
+      "intercept": 67.638956450422,
+      "slope": 1.1566906977225497,
+      "r2": 0.1113052808601972,
+      "rmse": 31.49006646230897,
+      "residual": {
+        "count": 299,
+        "min": -24.488401595570537,
+        "p25": -22.213396824623473,
+        "median": -19.448684969602994,
+        "p75": 38.908051183407586,
+        "p95": 54.42982436043194,
+        "max": 87.08896909416866,
+        "mean": -4.6862551000632695e-14
+      }
+    },
+    "expectedUnsharedGroundCurve": "50 + 1 * matchMinute",
+    "byRecipientCount": [
+      {
+        "recipientCount": 1,
+        "count": 138,
+        "expectedTotalMultiplier": 1,
+        "observedTotalMultiplier": {
+          "count": 138,
+          "min": 0.972808647187975,
+          "p25": 0.9810868568362761,
+          "median": 0.9871238729981537,
+          "p75": 1.9680037221171678,
+          "p95": 1.9770260361942422,
+          "max": 1.979873815607969,
+          "mean": 1.285020315553503
+        },
+        "medianDifference": -0.01287612700184626
+      },
+      {
+        "recipientCount": 2,
+        "count": 125,
+        "expectedTotalMultiplier": 1.08,
+        "observedTotalMultiplier": {
+          "count": 125,
+          "min": 1.0531083400163717,
+          "p25": 1.072281655063112,
+          "median": 1.0810854920905637,
+          "p75": 2.120829277385415,
+          "p95": 2.1637053011090317,
+          "max": 2.1717826415547625,
+          "mean": 1.439000108268039
+        },
+        "medianDifference": 0.0010854920905636334
+      },
+      {
+        "recipientCount": 3,
+        "count": 22,
+        "expectedTotalMultiplier": 1.08,
+        "observedTotalMultiplier": {
+          "count": 22,
+          "min": 1.0465085109234686,
+          "p25": 1.069977190297826,
+          "median": 1.0753380987455774,
+          "p75": 2.1203704139472084,
+          "p95": 2.1501882956512115,
+          "max": 3.1340910263566473,
+          "mean": 1.5465738745348752
+        },
+        "medianDifference": -0.0046619012544226734
+      },
+      {
+        "recipientCount": 4,
+        "count": 9,
+        "expectedTotalMultiplier": 1,
+        "observedTotalMultiplier": {
+          "count": 9,
+          "min": 0.9785374425211943,
+          "p25": 0.9791407400641647,
+          "median": 0.9844341607067733,
+          "p75": 0.9861838474913323,
+          "p95": 0.9864303355401893,
+          "max": 0.9864577294392508,
+          "mean": 0.9832268761387356
+        },
+        "medianDifference": -0.015565839293226746
+      },
+      {
+        "recipientCount": 5,
+        "count": 1,
+        "expectedTotalMultiplier": 1,
+        "observedTotalMultiplier": {
+          "count": 1,
+          "min": 0.9867846239768107,
+          "p25": 0.9867846239768107,
+          "median": 0.9867846239768107,
+          "p75": 0.9867846239768107,
+          "p95": 0.9867846239768107,
+          "max": 0.9867846239768107,
+          "mean": 0.9867846239768107
+        },
+        "medianDifference": -0.01321537602318934
+      },
+      {
+        "recipientCount": 6,
+        "count": 4,
+        "expectedTotalMultiplier": 0.96,
+        "observedTotalMultiplier": {
+          "count": 4,
+          "min": 0.9412459958766763,
+          "p25": 0.9426449018336271,
+          "median": 0.9431318292998195,
+          "p75": 1.1830430570741426,
+          "p95": 1.7587805025792167,
+          "max": 1.9027148639554856,
+          "mean": 1.1825561296079503
+        },
+        "medianDifference": -0.01686817070018043
+      }
+    ]
+  },
+  "aimOrientation": {
+    "rawDamageEvents": 23,
+    "comparableAimCases": 23,
+    "conventionSearch": [
+      {
+        "directionSign": 1,
+        "pitchSign": -1,
+        "count": 23,
+        "error": {
+          "count": 23,
+          "min": 1.4548311187108187,
+          "p25": 4.084096437266106,
+          "median": 5.669910129327528,
+          "p75": 6.719095780607178,
+          "p95": 21.01455572291136,
+          "max": 44.48864359085301,
+          "mean": 8.07518515694773
+        },
+        "within10Rate": 0.8695652173913043
+      },
+      {
+        "directionSign": 1,
+        "pitchSign": 1,
+        "count": 23,
+        "error": {
+          "count": 23,
+          "min": 1.431673768879747,
+          "p25": 7.351078655994316,
+          "median": 23.72301826757584,
+          "p75": 27.950650939706446,
+          "p95": 32.576488972368516,
+          "max": 39.215934408007286,
+          "mean": 18.577363113184084
+        },
+        "within10Rate": 0.391304347826087
+      },
+      {
+        "directionSign": -1,
+        "pitchSign": 1,
+        "count": 23,
+        "error": {
+          "count": 23,
+          "min": 132.30440415866093,
+          "p25": 147.6095509546078,
+          "median": 150.8388067500801,
+          "p75": 165.7894315363339,
+          "p95": 172.05904744299184,
+          "max": 173.01400198634323,
+          "mean": 155.29027727731926
+        },
+        "within10Rate": 0
+      },
+      {
+        "directionSign": -1,
+        "pitchSign": -1,
+        "count": 23,
+        "error": {
+          "count": 23,
+          "min": 134.71044666675118,
+          "p25": 163.66111617159862,
+          "median": 168.5529172770879,
+          "p75": 171.24197374578216,
+          "p95": 174.702255680568,
+          "max": 175.73075994642917,
+          "mean": 164.82277384966196
+        },
+        "within10Rate": 0
+      }
+    ],
+    "selectedConvention": {
+      "directionSign": 1,
+      "pitchSign": -1,
+      "count": 23,
+      "medianError": 5.669910129327528
+    },
+    "discoveryConventionRecovered": true,
+    "eye": {
+      "primaryError": {
+        "count": 23,
+        "min": 1.4548311187108187,
+        "p25": 4.084096437266106,
+        "median": 5.669910129327528,
+        "p75": 6.719095780607178,
+        "p95": 21.01455572291136,
+        "max": 44.48864359085301,
+        "mean": 8.07518515694773
+      },
+      "placeboError": {
+        "count": 23,
+        "min": 3.0290640650455933,
+        "p25": 12.885533232801944,
+        "median": 19.0583553941033,
+        "p75": 31.240662549534278,
+        "p95": 42.289531952119404,
+        "max": 53.91405371950165,
+        "mean": 23.191350683913402
+      },
+      "primaryBeatsPlacebo": 22,
+      "primaryBeatsPlaceboRate": 0.9565217391304348,
+      "primaryWithin10Rate": 0.8695652173913043,
+      "primaryWithin15Rate": 0.9130434782608695
+    },
+    "camera": {
+      "primaryError": {
+        "count": 23,
+        "min": 1.7397982901748184,
+        "p25": 4.547133205147233,
+        "median": 6.4469460955654565,
+        "p75": 8.376867695962664,
+        "p95": 17.72698043071382,
+        "max": 24.928837431888795,
+        "mean": 7.676572887549486
+      }
+    },
+    "bodyYaw": {
+      "primaryError": {
+        "count": 23,
+        "min": 0.08487338241297948,
+        "p25": 0.8962373410247437,
+        "median": 2.228706239291583,
+        "p75": 3.2813721296555514,
+        "p95": 7.778034773134541,
+        "max": 11.512163638480672,
+        "mean": 2.88188405285401
+      },
+      "note": "Body is yaw-only and should not be directly ranked against full 3D eye error."
+    },
+    "eyeVsCamera": {
+      "eyeBeatsCamera": 18,
+      "cameraBeatsEye": 5,
+      "eyeWinRate": 0.782608695652174
+    }
+  },
+  "support": {
+    "productionLastHit": {
+      "informative": true,
+      "supported": true
+    },
+    "lifecycle": {
+      "informative": true,
+      "supported": true,
+      "targetedRelation": true,
+      "timeoutSupport": true
+    },
+    "vacuumProximity": {
+      "informative": true,
+      "supported": false
+    },
+    "economicRecipientSet": {
+      "informative": true,
+      "supported": true
+    },
+    "recipientGeometry": {
+      "informative": true,
+      "supported": true
+    },
+    "rewardAllocation": {
+      "informative": true,
+      "supported": false,
+      "partitionStrong": true,
+      "remainderStrong": true,
+      "scalingInformative": true,
+      "scalingStrong": false
+    },
+    "aimOrientation": {
+      "informative": false,
+      "supported": false,
+      "temporalGainDegrees": null
+    }
+  }
+}

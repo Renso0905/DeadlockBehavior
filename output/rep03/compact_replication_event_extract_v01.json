@@ -1,0 +1,129 @@
+{
+  "replay": "rep03",
+  "version": "COMPACT_REPLICATION_EVENT_EXTRACT_V01",
+  "canonical": false,
+  "status": "COMPACT_EVENT_EXTRACTION_PASS",
+  "purpose": [
+    "Capture the minimum raw event telemetry needed for cross-replay replication of the frozen foundational contracts.",
+    "Preserve raw observations separately from later inferred matches and mechanic claims.",
+    "Avoid fitting replay-specific mechanic thresholds during extraction."
+  ],
+  "extractionPolicy": {
+    "rawReplayPasses": 1,
+    "trooperDeathSignal": "health > 0 -> <= 0 OR lifeState 0 -> nonzero",
+    "assignedGoldActivationSignal": "became active OR active position jump OR first active observation",
+    "assignedGoldCreateAlone": "not treated as semantic spawn",
+    "assignedGoldDeathCandidateWindowTicks": [
+      -1,
+      4
+    ],
+    "assignedGoldDeathCandidateMaxDistance3D": 160,
+    "candidateEdgesOnly": true,
+    "oneToOneMatchingDeferred": true,
+    "trooperTypeMappingStatus": "DISCOVERY_REPLAY_MAPPING_PRIOR_NOT_CANONICAL"
+  },
+  "matchClockOffsetSeconds": 30,
+  "telemetry": {
+    "entityPackets": 215046,
+    "entityEvents": 15211800,
+    "trooperEvents": 7260298,
+    "controllerEvents": 492836,
+    "pawnEvents": 2539143,
+    "assignedGoldEvents": 181630,
+    "citemxpEvents": 578108,
+    "messagePackets": 4756296,
+    "damageLikeMessages": 231576,
+    "citemxpMatchedDamageMessages": 18
+  },
+  "counts": {
+    "trooperDeaths": 5081,
+    "economicTrooperDeaths": 1881,
+    "lastHitEvents": 2858,
+    "assignedGoldActivations": 2387,
+    "targetedActivations": 2233,
+    "targetlessActivations": 154,
+    "endedActivations": 2387,
+    "positiveCurrencyDeltas": 34333,
+    "citemxpDamageEvents": 18,
+    "playerAttributedCitemxpDamageEvents": 18,
+    "citemxpDamageEventsWithDirection": 18,
+    "deathActivationCandidateEdges": 1860,
+    "economicDeathsWithActivationCandidate": 1550,
+    "activationsWithDeathCandidate": 1549
+  },
+  "distributions": {
+    "trooperDeathsBySubclass": {
+      "1003135509": 791,
+      "1773848083": 770,
+      "2943225653": 320,
+      "3237674373": 3200
+    },
+    "trooperDeathsByBaseType": {
+      "NON_STANDARD_TROOPER_CANDIDATE": 3200,
+      "MEDIC": 791,
+      "RANGED": 770,
+      "MELEE": 320
+    },
+    "activationsByTeam": {
+      "2": 1160,
+      "3": 1227
+    },
+    "citemxpDamageBySubclass": {
+      "494398941": 16,
+      "3283937835": 2
+    }
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "trooperDeathsPresent": {
+        "actual": 5081,
+        "expected": ">0",
+        "pass": true
+      },
+      "economicDeathsPresent": {
+        "actual": 1881,
+        "expected": ">0",
+        "pass": true
+      },
+      "lastHitEventsPresent": {
+        "actual": 2858,
+        "expected": ">0",
+        "pass": true
+      },
+      "assignedGoldActivationsPresent": {
+        "actual": 2387,
+        "expected": ">0",
+        "pass": true
+      },
+      "assignedGoldEndCoverage": {
+        "actual": 2387,
+        "expected": ">=95%",
+        "pass": true
+      },
+      "positiveCurrencyDeltasPresent": {
+        "actual": 34333,
+        "expected": ">0",
+        "pass": true
+      },
+      "deathActivationCandidatesPresent": {
+        "actual": 1550,
+        "expected": ">0",
+        "pass": true
+      },
+      "citemxpDamageTelemetryPresent": {
+        "actual": 18,
+        "expected": ">=0",
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\rep03\\compact_replication_event_extract_v01.json",
+    "trooperDeaths": "G:\\DeadlockBehavior\\output\\rep03\\replication_trooper_deaths_v01.jsonl",
+    "assignedGoldActivations": "G:\\DeadlockBehavior\\output\\rep03\\replication_assigned_gold_activations_v01.jsonl",
+    "lastHitEvents": "G:\\DeadlockBehavior\\output\\rep03\\replication_last_hit_events_v01.jsonl",
+    "positiveCurrencyDeltas": "G:\\DeadlockBehavior\\output\\rep03\\replication_currency0_deltas_v01.jsonl",
+    "citemxpDamageEvents": "G:\\DeadlockBehavior\\output\\rep03\\replication_citemxp_damage_events_v01.jsonl"
+  }
+}

@@ -1,0 +1,863 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_VACUUM_TEMPORAL_GEOMETRY_VALIDATION_V01",
+  "canonical": false,
+  "status": "TEMPORAL_VACUUM_GEOMETRY_READY",
+  "purpose": [
+    "Measure the eventual vacuum-target player at the actual Trooper death tick, AssignedGold activation tick, and m_hVacuumTarget onset tick.",
+    "Test whether the lone >735 HU onset case was already within the candidate stable-floor range before target assignment and then moved outward.",
+    "Separate initial/death-time proximity from delayed floor-pickup proximity.",
+    "Compare the provisional 735-HU stable-floor envelope with the broader 45m gameplay-informed hypothesis."
+  ],
+  "semanticLimits": {
+    "stable735": "735 HU remains a single-replay empirical stable-floor target-acquisition envelope, not an engine-documented radius.",
+    "fortyFiveMeters": "45m is retained only as a gameplay-informed candidate and is not assumed correct.",
+    "deathAnchor": "Death-position geometry uses the exact target-player position at the death tick and the observed Trooper death/source position.",
+    "activationGeometry": "Activation geometry uses raw target-pawn and AssignedGold positions at the reconstructed activation tick.",
+    "targetIdentity": "The eventual m_hVacuumTarget player is used for temporal geometry. This player may differ from the credited last-hitter while remaining allied."
+  },
+  "sourceCounts": {
+    "cases": 947,
+    "requestedUniqueTicks": 1878,
+    "requestedPacketHits": 1878,
+    "uniqueRequestedTicksSeen": 1878,
+    "duplicateRequestedPacketHits": 0,
+    "captureRows": 2841,
+    "onsetExpectedTarget": 947,
+    "activationNullTarget": 947,
+    "deathGeometryResolved": 947,
+    "activationGeometryResolved": 947,
+    "onsetGeometryResolved": 947
+  },
+  "cohorts": {
+    "ALL": {
+      "count": 947,
+      "metrics": {
+        "TARGET_AT_DEATH_TO_DEATH_ANCHOR_XY": {
+          "distribution": {
+            "count": 947,
+            "min": 11.174792014283756,
+            "p25": 164.2787327216828,
+            "median": 374.50831959425483,
+            "p75": 622.559302691752,
+            "p95": 1423.344069631966,
+            "p99": 4548.988416872166,
+            "max": 16392.027838560924,
+            "mean": 576.1561285913368
+          },
+          "inside735": 770,
+          "inside735Rate": 0.8130939809926082,
+          "inside45m": 915,
+          "inside45mRate": 0.9662090813093981,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 1430.4568961141838,
+            "thresholdMeters": 36.33367782865593,
+            "supported": 900,
+            "total": 947
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 5311.250142129028,
+            "thresholdMeters": 134.90602342212418,
+            "supported": 938,
+            "total": 947
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 16392.027838560924,
+            "thresholdMeters": 416.3583398161271,
+            "supported": 947,
+            "total": 947
+          }
+        },
+        "TARGET_AT_ACTIVATION_TO_DEATH_ANCHOR_XY": {
+          "distribution": {
+            "count": 947,
+            "min": 11.174792014283756,
+            "p25": 164.2787327216828,
+            "median": 374.50831959425483,
+            "p75": 622.559302691752,
+            "p95": 1423.344069631966,
+            "p99": 4548.988416872166,
+            "max": 16392.027838560924,
+            "mean": 576.1561285913368
+          },
+          "inside735": 770,
+          "inside735Rate": 0.8130939809926082,
+          "inside45m": 915,
+          "inside45mRate": 0.9662090813093981,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 1430.4568961141838,
+            "thresholdMeters": 36.33367782865593,
+            "supported": 900,
+            "total": 947
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 5311.250142129028,
+            "thresholdMeters": 134.90602342212418,
+            "supported": 938,
+            "total": 947
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 16392.027838560924,
+            "thresholdMeters": 416.3583398161271,
+            "supported": 947,
+            "total": 947
+          }
+        },
+        "TARGET_AT_ACTIVATION_TO_SOUL_XY": {
+          "distribution": {
+            "count": 947,
+            "min": 9.978345695179136,
+            "p25": 163.3603114248628,
+            "median": 374.51276941263967,
+            "p75": 622.828645706571,
+            "p95": 1422.5368912981926,
+            "p99": 4549.808466414852,
+            "max": 16393.16808012182,
+            "mean": 576.0333866034853
+          },
+          "inside735": 771,
+          "inside735Rate": 0.8141499472016895,
+          "inside45m": 915,
+          "inside45mRate": 0.9662090813093981,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 1429.9738367635,
+            "thresholdMeters": 36.3214080966091,
+            "supported": 900,
+            "total": 947
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 5312.768752393261,
+            "thresholdMeters": 134.94459619998125,
+            "supported": 938,
+            "total": 947
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 16393.16808012182,
+            "thresholdMeters": 416.3873020096983,
+            "supported": 947,
+            "total": 947
+          }
+        },
+        "TARGET_AT_ONSET_TO_SOUL_XY": {
+          "distribution": {
+            "count": 947,
+            "min": 13.246793538909708,
+            "p25": 162.5097134757071,
+            "median": 362.43863300607524,
+            "p75": 604.8497762538507,
+            "p95": 727.5329389610848,
+            "p99": 731.1959724899837,
+            "max": 851.9632806879795,
+            "mean": 382.5662911578873
+          },
+          "inside735": 945,
+          "inside735Rate": 0.9978880675818373,
+          "inside45m": 947,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 727.5747256779282,
+            "thresholdMeters": 18.480434993089364,
+            "supported": 900,
+            "total": 947
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 731.2398089567643,
+            "thresholdMeters": 18.573528294558404,
+            "supported": 938,
+            "total": 947
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 851.9632806879795,
+            "thresholdMeters": 21.6399106092959,
+            "supported": 947,
+            "total": 947
+          }
+        }
+      },
+      "temporalClasses735": {
+        "INSIDE_735_AT_ALL_THREE": 770,
+        "OUTSIDE_735_AT_ALL_THREE": 2,
+        "OUTSIDE_THROUGH_ACTIVATION_INSIDE_AT_ONSET": 174,
+        "OUTSIDE_AT_DEATH_INSIDE_BY_ACTIVATION": 1
+      }
+    },
+    "IMMEDIATE_LE_0_25": {
+      "count": 489,
+      "metrics": {
+        "TARGET_AT_DEATH_TO_DEATH_ANCHOR_XY": {
+          "distribution": {
+            "count": 489,
+            "min": 12.214113570476574,
+            "p25": 128.8914612728962,
+            "median": 274.8788031939031,
+            "p75": 503.4366057564994,
+            "p95": 700.2952861625167,
+            "p99": 758.6578705614625,
+            "max": 874.5068504278926,
+            "mean": 319.934571017404
+          },
+          "inside735": 478,
+          "inside735Rate": 0.9775051124744376,
+          "inside45m": 489,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 702.4453937851682,
+            "thresholdMeters": 17.842148686440648,
+            "supported": 465,
+            "total": 489
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 774.3773992345803,
+            "thresholdMeters": 19.6692252790089,
+            "supported": 485,
+            "total": 489
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 874.5068504278926,
+            "thresholdMeters": 22.212518425905326,
+            "supported": 489,
+            "total": 489
+          }
+        },
+        "TARGET_AT_ACTIVATION_TO_DEATH_ANCHOR_XY": {
+          "distribution": {
+            "count": 489,
+            "min": 12.214113570476574,
+            "p25": 128.8914612728962,
+            "median": 274.8788031939031,
+            "p75": 503.4366057564994,
+            "p95": 700.2952861625167,
+            "p99": 758.6578705614625,
+            "max": 874.5068504278926,
+            "mean": 319.934571017404
+          },
+          "inside735": 478,
+          "inside735Rate": 0.9775051124744376,
+          "inside45m": 489,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 702.4453937851682,
+            "thresholdMeters": 17.842148686440648,
+            "supported": 465,
+            "total": 489
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 774.3773992345803,
+            "thresholdMeters": 19.6692252790089,
+            "supported": 485,
+            "total": 489
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 874.5068504278926,
+            "thresholdMeters": 22.212518425905326,
+            "supported": 489,
+            "total": 489
+          }
+        },
+        "TARGET_AT_ACTIVATION_TO_SOUL_XY": {
+          "distribution": {
+            "count": 489,
+            "min": 11.96552665472774,
+            "p25": 128.38463404088708,
+            "median": 273.74706940497555,
+            "p75": 504.2124757511708,
+            "p95": 700.5429995740751,
+            "p99": 757.5700944207514,
+            "max": 874.5068504278926,
+            "mean": 319.80869864843595
+          },
+          "inside735": 479,
+          "inside735Rate": 0.9795501022494888,
+          "inside45m": 489,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 702.5543420374149,
+            "thresholdMeters": 17.844915977582296,
+            "supported": 465,
+            "total": 489
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 773.2291891194034,
+            "thresholdMeters": 19.640060683754214,
+            "supported": 485,
+            "total": 489
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 874.5068504278926,
+            "thresholdMeters": 22.212518425905326,
+            "supported": 489,
+            "total": 489
+          }
+        },
+        "TARGET_AT_ONSET_TO_SOUL_XY": {
+          "distribution": {
+            "count": 489,
+            "min": 14.651451773203227,
+            "p25": 124.6014936770924,
+            "median": 274.93917828823976,
+            "p75": 501.17057506651366,
+            "p95": 695.3897293363511,
+            "p99": 726.6896139898467,
+            "max": 851.9632806879795,
+            "mean": 317.3227319444397
+          },
+          "inside735": 488,
+          "inside735Rate": 0.9979550102249489,
+          "inside45m": 489,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 695.517096303175,
+            "thresholdMeters": 17.666169578439803,
+            "supported": 465,
+            "total": 489
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 726.9153807033698,
+            "thresholdMeters": 18.46368759724079,
+            "supported": 485,
+            "total": 489
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 851.9632806879795,
+            "thresholdMeters": 21.6399106092959,
+            "supported": 489,
+            "total": 489
+          }
+        }
+      },
+      "temporalClasses735": {
+        "INSIDE_735_AT_ALL_THREE": 478,
+        "OUTSIDE_THROUGH_ACTIVATION_INSIDE_AT_ONSET": 9,
+        "OUTSIDE_735_AT_ALL_THREE": 1,
+        "OUTSIDE_AT_DEATH_INSIDE_BY_ACTIVATION": 1
+      }
+    },
+    "EARLY_GT_0_25_LT_1": {
+      "count": 327,
+      "metrics": {
+        "TARGET_AT_DEATH_TO_DEATH_ANCHOR_XY": {
+          "distribution": {
+            "count": 327,
+            "min": 11.174792014283756,
+            "p25": 166.84741314996683,
+            "median": 353.62559650002714,
+            "p75": 574.5600973553117,
+            "p95": 885.3328073069572,
+            "p99": 1088.2583393206432,
+            "max": 1192.1513330031762,
+            "mean": 388.43611304057794
+          },
+          "inside735": 286,
+          "inside735Rate": 0.8746177370030581,
+          "inside45m": 327,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 887.0976866524129,
+            "thresholdMeters": 22.5323263056239,
+            "supported": 311,
+            "total": 327
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 1106.0675807400119,
+            "thresholdMeters": 28.094172739141783,
+            "supported": 324,
+            "total": 327
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 1192.1513330031762,
+            "thresholdMeters": 30.280704419689517,
+            "supported": 327,
+            "total": 327
+          }
+        },
+        "TARGET_AT_ACTIVATION_TO_DEATH_ANCHOR_XY": {
+          "distribution": {
+            "count": 327,
+            "min": 11.174792014283756,
+            "p25": 166.84741314996683,
+            "median": 353.62559650002714,
+            "p75": 574.5600973553117,
+            "p95": 885.3328073069572,
+            "p99": 1088.2583393206432,
+            "max": 1192.1513330031762,
+            "mean": 388.43611304057794
+          },
+          "inside735": 286,
+          "inside735Rate": 0.8746177370030581,
+          "inside45m": 327,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 887.0976866524129,
+            "thresholdMeters": 22.5323263056239,
+            "supported": 311,
+            "total": 327
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 1106.0675807400119,
+            "thresholdMeters": 28.094172739141783,
+            "supported": 324,
+            "total": 327
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 1192.1513330031762,
+            "thresholdMeters": 30.280704419689517,
+            "supported": 327,
+            "total": 327
+          }
+        },
+        "TARGET_AT_ACTIVATION_TO_SOUL_XY": {
+          "distribution": {
+            "count": 327,
+            "min": 9.978345695179136,
+            "p25": 165.8960077019995,
+            "median": 354.7128253623803,
+            "p75": 574.9362879632683,
+            "p95": 883.9983357501267,
+            "p99": 1086.8944319804973,
+            "max": 1191.8961734485308,
+            "mean": 388.2601231885249
+          },
+          "inside735": 286,
+          "inside735Rate": 0.8746177370030581,
+          "inside45m": 327,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 885.9598134315264,
+            "thresholdMeters": 22.503424268009308,
+            "supported": 311,
+            "total": 327
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 1104.6877762552695,
+            "thresholdMeters": 28.059125635135118,
+            "supported": 324,
+            "total": 327
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 1191.8961734485308,
+            "thresholdMeters": 30.274223354039393,
+            "supported": 327,
+            "total": 327
+          }
+        },
+        "TARGET_AT_ONSET_TO_SOUL_XY": {
+          "distribution": {
+            "count": 327,
+            "min": 13.246793538909708,
+            "p25": 169.52416732128586,
+            "median": 326.3406243865449,
+            "p75": 557.8072665082057,
+            "p95": 727.076079823353,
+            "p99": 731.2040176726283,
+            "max": 776.4582230038603,
+            "mean": 363.077481362823
+          },
+          "inside735": 326,
+          "inside735Rate": 0.9969418960244648,
+          "inside45m": 327,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 727.1757338164981,
+            "thresholdMeters": 18.47030057954021,
+            "supported": 311,
+            "total": 327
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 731.337422658823,
+            "thresholdMeters": 18.57600768754948,
+            "supported": 324,
+            "total": 327
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 776.4582230038603,
+            "thresholdMeters": 19.72207830845467,
+            "supported": 327,
+            "total": 327
+          }
+        }
+      },
+      "temporalClasses735": {
+        "INSIDE_735_AT_ALL_THREE": 286,
+        "OUTSIDE_735_AT_ALL_THREE": 1,
+        "OUTSIDE_THROUGH_ACTIVATION_INSIDE_AT_ONSET": 40
+      }
+    },
+    "STABLE_GE_1": {
+      "count": 131,
+      "metrics": {
+        "TARGET_AT_DEATH_TO_DEATH_ANCHOR_XY": {
+          "distribution": {
+            "count": 131,
+            "min": 40.932418577760586,
+            "p25": 942.7880141728026,
+            "median": 1207.810137449177,
+            "p75": 1690.831618221482,
+            "p95": 6912.877623443661,
+            "p99": 14357.840825093337,
+            "max": 16392.027838560924,
+            "mean": 2001.1697678184487
+          },
+          "inside735": 6,
+          "inside735Rate": 0.04580152671755725,
+          "inside45m": 99,
+          "inside45mRate": 0.7557251908396947,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 7147.409438505718,
+            "thresholdMeters": 181.5445628271709,
+            "supported": 125,
+            "total": 131
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 16179.987826069519,
+            "thresholdMeters": 410.97251272719126,
+            "supported": 130,
+            "total": 131
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 16392.027838560924,
+            "thresholdMeters": 416.3583398161271,
+            "supported": 131,
+            "total": 131
+          }
+        },
+        "TARGET_AT_ACTIVATION_TO_DEATH_ANCHOR_XY": {
+          "distribution": {
+            "count": 131,
+            "min": 40.932418577760586,
+            "p25": 942.7880141728026,
+            "median": 1207.810137449177,
+            "p75": 1690.831618221482,
+            "p95": 6912.877623443661,
+            "p99": 14357.840825093337,
+            "max": 16392.027838560924,
+            "mean": 2001.1697678184487
+          },
+          "inside735": 6,
+          "inside735Rate": 0.04580152671755725,
+          "inside45m": 99,
+          "inside45mRate": 0.7557251908396947,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 7147.409438505718,
+            "thresholdMeters": 181.5445628271709,
+            "supported": 125,
+            "total": 131
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 16179.987826069519,
+            "thresholdMeters": 410.97251272719126,
+            "supported": 130,
+            "total": 131
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 16392.027838560924,
+            "thresholdMeters": 416.3583398161271,
+            "supported": 131,
+            "total": 131
+          }
+        },
+        "TARGET_AT_ACTIVATION_TO_SOUL_XY": {
+          "distribution": {
+            "count": 131,
+            "min": 42.073990815288724,
+            "p25": 942.0035202902374,
+            "median": 1206.2238456523369,
+            "p75": 1690.5937686105735,
+            "p95": 6913.974357755815,
+            "p99": 14357.531276115466,
+            "max": 16393.16808012182,
+            "mean": 2001.1916274180744
+          },
+          "inside735": 6,
+          "inside735Rate": 0.04580152671755725,
+          "inside45m": 99,
+          "inside45mRate": 0.7557251908396947,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 7148.546326494027,
+            "thresholdMeters": 181.57343983982798,
+            "supported": 125,
+            "total": 131
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 16179.043002796183,
+            "thresholdMeters": 410.9485141680514,
+            "supported": 130,
+            "total": 131
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 16393.16808012182,
+            "thresholdMeters": 416.3873020096983,
+            "supported": 131,
+            "total": 131
+          }
+        },
+        "TARGET_AT_ONSET_TO_SOUL_XY": {
+          "distribution": {
+            "count": 131,
+            "min": 90.379073646088,
+            "p25": 710.4034399187528,
+            "median": 724.2661924859706,
+            "p75": 727.5001193354626,
+            "p95": 730.6279564536819,
+            "p99": 731.5599272964889,
+            "max": 734.168575376468,
+            "mean": 674.7566824430914
+          },
+          "inside735": 131,
+          "inside735Rate": 1,
+          "inside45m": 131,
+          "inside45mRate": 1,
+          "minimum95": {
+            "coverage": 0.95,
+            "thresholdHU": 730.7117523613963,
+            "thresholdMeters": 18.560115630210728,
+            "supported": 125,
+            "total": 131
+          },
+          "minimum99": {
+            "coverage": 0.99,
+            "thresholdHU": 731.629365403216,
+            "thresholdMeters": 18.583423048087784,
+            "supported": 130,
+            "total": 131
+          },
+          "minimum100": {
+            "coverage": 1,
+            "thresholdHU": 734.168575376468,
+            "thresholdMeters": 18.647919110400508,
+            "supported": 131,
+            "total": 131
+          }
+        }
+      },
+      "temporalClasses735": {
+        "OUTSIDE_THROUGH_ACTIVATION_INSIDE_AT_ONSET": 125,
+        "INSIDE_735_AT_ALL_THREE": 6
+      }
+    }
+  },
+  "candidate735Transitions": {
+    "onsetOver735": 2,
+    "onsetOver735ButDeathInside735": 0,
+    "onsetOver735ButActivationInside735": 0,
+    "activationOutsideToOnsetInside735": 174,
+    "deathOutsideToActivationInside735": 1,
+    "onsetOver735Cases": [
+      {
+        "schemaVersion": 1,
+        "canonical": false,
+        "deathIndex": 5,
+        "clock": "0:47",
+        "baseType": "MEDIC",
+        "creditedPlayerName": "Zaeleth",
+        "targetPlayerName": "Zaeleth",
+        "targetDelaySeconds": 0.5,
+        "deathTick": 4939,
+        "activationTick": 4939,
+        "onsetTick": 4971,
+        "temporalGeometry": {
+          "targetAtDeathToDeathAnchorXY": 842.9172974334433,
+          "targetAtDeathToDeathAnchor3D": 842.9172980127188,
+          "targetAtActivationToDeathAnchorXY": 842.9172974334433,
+          "targetAtActivationToDeathAnchor3D": 842.9172980127188,
+          "targetAtActivationToSoulXY": 842.5040621424697,
+          "targetAtActivationToSoul3D": 843.4844547415353,
+          "targetAtOnsetToSoulXY": 776.4582230038603,
+          "targetAtOnsetToSoul3D": 776.8626010927302
+        },
+        "rangeStates": {
+          "deathAnchor735": false,
+          "activationSoul735": false,
+          "onsetSoul735": false,
+          "deathAnchor45m": true,
+          "activationSoul45m": true,
+          "onsetSoul45m": true
+        },
+        "temporalClass735": "OUTSIDE_735_AT_ALL_THREE",
+        "selectedRawTargetPawnEntityIndex": {
+          "death": null,
+          "activation": null,
+          "onset": 84
+        }
+      },
+      {
+        "schemaVersion": 1,
+        "canonical": false,
+        "deathIndex": 250,
+        "clock": "10:12",
+        "baseType": "RANGED",
+        "creditedPlayerName": "renso",
+        "targetPlayerName": "Zaeleth",
+        "targetDelaySeconds": 0.015625,
+        "deathTick": 41111,
+        "activationTick": 41111,
+        "onsetTick": 41112,
+        "temporalGeometry": {
+          "targetAtDeathToDeathAnchorXY": 853.6376235750229,
+          "targetAtDeathToDeathAnchor3D": 853.8081290834976,
+          "targetAtActivationToDeathAnchorXY": 853.6376235750229,
+          "targetAtActivationToDeathAnchor3D": 853.8081290834976,
+          "targetAtActivationToSoulXY": 853.4295959218384,
+          "targetAtActivationToSoul3D": 853.7565319341999,
+          "targetAtOnsetToSoulXY": 851.9632806879795,
+          "targetAtOnsetToSoul3D": 852.2907791743526
+        },
+        "rangeStates": {
+          "deathAnchor735": false,
+          "activationSoul735": false,
+          "onsetSoul735": false,
+          "deathAnchor45m": true,
+          "activationSoul45m": true,
+          "onsetSoul45m": true
+        },
+        "temporalClass735": "OUTSIDE_735_AT_ALL_THREE",
+        "selectedRawTargetPawnEntityIndex": {
+          "death": null,
+          "activation": null,
+          "onset": 84
+        }
+      }
+    ]
+  },
+  "death5": {
+    "schemaVersion": 1,
+    "canonical": false,
+    "deathIndex": 5,
+    "clock": "0:47",
+    "baseType": "MEDIC",
+    "creditedPlayerName": "Zaeleth",
+    "targetPlayerName": "Zaeleth",
+    "targetDelaySeconds": 0.5,
+    "deathTick": 4939,
+    "activationTick": 4939,
+    "onsetTick": 4971,
+    "temporalGeometry": {
+      "targetAtDeathToDeathAnchorXY": 842.9172974334433,
+      "targetAtDeathToDeathAnchor3D": 842.9172980127188,
+      "targetAtActivationToDeathAnchorXY": 842.9172974334433,
+      "targetAtActivationToDeathAnchor3D": 842.9172980127188,
+      "targetAtActivationToSoulXY": 842.5040621424697,
+      "targetAtActivationToSoul3D": 843.4844547415353,
+      "targetAtOnsetToSoulXY": 776.4582230038603,
+      "targetAtOnsetToSoul3D": 776.8626010927302
+    },
+    "rangeStates": {
+      "deathAnchor735": false,
+      "activationSoul735": false,
+      "onsetSoul735": false,
+      "deathAnchor45m": true,
+      "activationSoul45m": true,
+      "onsetSoul45m": true
+    },
+    "temporalClass735": "OUTSIDE_735_AT_ALL_THREE",
+    "selectedRawTargetPawnEntityIndex": {
+      "death": null,
+      "activation": null,
+      "onset": 84
+    }
+  },
+  "interpretationGuide": {
+    "death5ResolvedByEarlierEligibility": "If death 5 is <=735 HU at death or activation but >735 HU at target onset, its onset outlier is compatible with eligibility occurring earlier and m_hVacuumTarget appearing downstream.",
+    "distinctInitialRange": "If early/immediate target cases are frequently >735 HU at death/activation but remain tightly bounded by a larger threshold such as ~45m, initial automatic vacuum and later floor pickup may use different proximity rules.",
+    "sameRange": "If both initial and delayed cases are bounded near ~735 HU when measured at their relevant decision time, a common proximity rule becomes more plausible.",
+    "unresolved": "If death 5 remains outside 735 HU at death, activation, and onset, it remains an unresolved early-lifecycle exception."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script79Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script80Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "cleanTransitionCount": {
+        "actual": 947,
+        "expected": 947,
+        "pass": true
+      },
+      "requestedUniqueTicksCovered": {
+        "actual": 1878,
+        "expected": 1878,
+        "pass": true
+      },
+      "onsetExpectedTargetCoverage": {
+        "actual": 947,
+        "expected": 947,
+        "pass": true
+      },
+      "deathXYGeometryCoverage": {
+        "actual": 947,
+        "expected": ">=99% of 947",
+        "pass": true
+      },
+      "activationXYGeometryCoverage": {
+        "actual": 947,
+        "expected": ">=99% of 947",
+        "pass": true
+      },
+      "onsetXYGeometryCoverage": {
+        "actual": 947,
+        "expected": ">=99% of 947",
+        "pass": true
+      },
+      "stableCount": {
+        "actual": 131,
+        "expected": 131,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_vacuum_temporal_geometry_validation_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_vacuum_temporal_geometry_cases_v01.jsonl"
+  }
+}

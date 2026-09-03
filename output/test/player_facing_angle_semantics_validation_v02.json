@@ -1,0 +1,963 @@
+{
+  "replay": "test",
+  "version": "PLAYER_FACING_ANGLE_SEMANTICS_VALIDATION_V02",
+  "supersedes": "PLAYER_FACING_ANGLE_SEMANTICS_VALIDATION_V01",
+  "canonical": false,
+  "status": "YAW_COMPONENT_AND_WORLD_CONVENTION_STRONGLY_SUPPORTED",
+  "v01Correction": {
+    "issue": "V01 allowed invariant angle components to win cross-field component matching.",
+    "concreteFailure": "EYE_ANGLES component 2 and CAMERA_ANGLES component 2 were constant zero, producing a trivial 0-degree pair error and being incorrectly selected as yaw.",
+    "correction": "V02 excludes constant components from semantic mapping and independently infers yaw from non-degenerate circular structure before cross-field comparison.",
+    "v01SemanticStatusWithdrawn": true
+  },
+  "purpose": [
+    "Correct V01 constant-component degeneracy.",
+    "Identify yaw-like components from non-degenerate angular structure.",
+    "Identify eye/camera pitch candidates separately from yaw.",
+    "Compare body, eye, and camera yaw directly rather than optimizing over arbitrary component pairs.",
+    "Anchor the world-yaw sign and axis convention using observed movement heading.",
+    "Determine whether m_angEyeAngles is ready for direct attack/shot-linked semantic validation."
+  ],
+  "semanticLimits": {
+    "yaw": "Yaw-like behavior and world-coordinate alignment do not by themselves prove weapon-ray or targeting semantics.",
+    "movement": "Movement heading is an imperfect external anchor because Deadlock permits strafing, backpedaling, dashing, sliding, knockback, and movement abilities.",
+    "body": "Body rotation is interpreted only as an orientation field whose yaw is movement-aligned; exact animation/model-facing semantics remain separate.",
+    "eye": "m_angEyeAngles is a strong candidate for player view/aim orientation but exact weapon-aim semantics require attack-linked validation.",
+    "camera": "m_angClientCamera can legitimately diverge from eye/aim orientation because Deadlock uses a third-person camera.",
+    "pitch": "Eye/camera pitch component identification is structural until validated against a 3D target or shot direction.",
+    "canonical": "All results remain single-replay operational validation."
+  },
+  "input": {
+    "playerStatePath": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl",
+    "inputRows": 153420,
+    "pawnRows": 153420,
+    "movementValidRows": 128500,
+    "movementSamples": 84399,
+    "minimumDisplacementHU": 60
+  },
+  "fieldStructure": {
+    "BODY_ROTATION": {
+      "components": [
+        {
+          "component": 0,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 0,
+            "resultantLength": 1
+          },
+          "constant": true,
+          "variable": false
+        },
+        {
+          "component": 1,
+          "count": 153420,
+          "min": -180,
+          "p25": -94.78111267089844,
+          "median": -10.374870300292969,
+          "p75": 88.93741607666016,
+          "p95": 156.18746948242188,
+          "p99": 175.87496948242188,
+          "max": 179.96875,
+          "mean": -4.635257511638691,
+          "range": 359.96875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 254.43936982988362,
+            "resultantLength": 0.041266594429141906
+          },
+          "constant": false,
+          "variable": true
+        },
+        {
+          "component": 2,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 0,
+            "resultantLength": 1
+          },
+          "constant": true,
+          "variable": false
+        }
+      ],
+      "semanticInference": {
+        "yaw": {
+          "component": 1,
+          "range": 359.96875,
+          "resultantLength": 0.041266594429141906,
+          "basis": "BROAD_NONDEGENERATE_CIRCULAR_COMPONENT"
+        },
+        "pitch": null,
+        "constantComponents": [
+          0,
+          2
+        ]
+      }
+    },
+    "EYE_ANGLES": {
+      "components": [
+        {
+          "component": 0,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 5.9765625,
+          "p75": 16.875,
+          "p95": 355.95703125,
+          "p99": 359.47265625,
+          "max": 359.82421875,
+          "mean": 50.531073554213926,
+          "range": 359.82421875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 5.373688896947737,
+            "resultantLength": 0.9791351638656085
+          },
+          "constant": false,
+          "variable": true
+        },
+        {
+          "component": 1,
+          "count": 153420,
+          "min": 0,
+          "p25": 90.52734375,
+          "median": 190.8984375,
+          "p75": 267.5390625,
+          "p95": 334.86328125,
+          "p99": 355.4296875,
+          "max": 359.82421875,
+          "mean": 182.95770113291942,
+          "range": 359.82421875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 251.07150719029704,
+            "resultantLength": 0.0417375087992787
+          },
+          "constant": false,
+          "variable": true
+        },
+        {
+          "component": 2,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 0,
+            "resultantLength": 1
+          },
+          "constant": true,
+          "variable": false
+        }
+      ],
+      "semanticInference": {
+        "yaw": {
+          "component": 1,
+          "range": 359.82421875,
+          "resultantLength": 0.0417375087992787,
+          "basis": "BROAD_NONDEGENERATE_CIRCULAR_COMPONENT"
+        },
+        "pitch": {
+          "component": 0,
+          "range": 359.82421875,
+          "resultantLength": 0.9791351638656085,
+          "basis": "REMAINING_VARIABLE_CONCENTRATED_COMPONENT"
+        },
+        "constantComponents": [
+          2
+        ]
+      }
+    },
+    "CAMERA_ANGLES": {
+      "components": [
+        {
+          "component": 0,
+          "count": 153420,
+          "min": 0,
+          "p25": 2.8125,
+          "median": 9.4921875,
+          "p75": 20.91796875,
+          "p95": 356.1328125,
+          "p99": 359.296875,
+          "max": 359.82421875,
+          "mean": 58.37758558002542,
+          "range": 359.82421875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 6.928435331681937,
+            "resultantLength": 0.9750151797473098
+          },
+          "constant": false,
+          "variable": true
+        },
+        {
+          "component": 1,
+          "count": 153420,
+          "min": 0,
+          "p25": 51.6796875,
+          "median": 139.921875,
+          "p75": 257.87109375,
+          "p95": 332.9296875,
+          "p99": 354.90234375,
+          "max": 359.82421875,
+          "mean": 151.73548752505377,
+          "range": 359.82421875,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 358.7640869977953,
+            "resultantLength": 0.1440990765655109
+          },
+          "constant": false,
+          "variable": true
+        },
+        {
+          "component": 2,
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0,
+          "range": 0,
+          "circular": {
+            "count": 153420,
+            "meanDegrees": 0,
+            "resultantLength": 1
+          },
+          "constant": true,
+          "variable": false
+        }
+      ],
+      "semanticInference": {
+        "yaw": {
+          "component": 1,
+          "range": 359.82421875,
+          "resultantLength": 0.1440990765655109,
+          "basis": "BROAD_NONDEGENERATE_CIRCULAR_COMPONENT"
+        },
+        "pitch": {
+          "component": 0,
+          "range": 359.82421875,
+          "resultantLength": 0.9750151797473098,
+          "basis": "REMAINING_VARIABLE_CONCENTRATED_COMPONENT"
+        },
+        "constantComponents": [
+          2
+        ]
+      }
+    }
+  },
+  "resolvedComponents": {
+    "yaw": {
+      "BODY_ROTATION": 1,
+      "EYE_ANGLES": 1,
+      "CAMERA_ANGLES": 1
+    },
+    "pitch": {
+      "BODY_ROTATION": null,
+      "EYE_ANGLES": 0,
+      "CAMERA_ANGLES": 0
+    }
+  },
+  "directYawAgreement": {
+    "BODY_VS_EYE": {
+      "count": 153420,
+      "error": {
+        "count": 153420,
+        "min": 0,
+        "p25": 0.12874603271484375,
+        "median": 2.146453857421875,
+        "p75": 5.90240478515625,
+        "p95": 24.402540206909137,
+        "p99": 61.124839782714844,
+        "max": 179.98043060302734,
+        "mean": 5.848652531018765,
+        "range": 179.98043060302734
+      },
+      "signedDifference": {
+        "count": 153420,
+        "min": -179.98043060302734,
+        "p25": 0.07415771484375,
+        "median": 1.8790054321289062,
+        "p75": 5.5117034912109375,
+        "p95": 21.913940811157225,
+        "p99": 55.538978576660156,
+        "max": 179.72259521484375,
+        "mean": 4.712086330021458,
+        "range": 359.7030258178711
+      },
+      "within1": 0.3785751531742928,
+      "within5": 0.7099139616738366,
+      "within10": 0.8542432538130622,
+      "within30": 0.9608851518706818
+    },
+    "BODY_VS_CAMERA": {
+      "count": 153420,
+      "error": {
+        "count": 153420,
+        "min": 0,
+        "p25": 0.1407623291015625,
+        "median": 0.8243179321289062,
+        "p75": 14.187469482421875,
+        "p95": 112.81242370605469,
+        "p99": 139.56240844726562,
+        "max": 179.98043060302734,
+        "mean": 19.93978504717482,
+        "range": 179.98043060302734
+      },
+      "signedDifference": {
+        "count": 153420,
+        "min": -179.96875,
+        "p25": -1.0938262939453125,
+        "median": 0.07038116455078125,
+        "p75": 0.6681060791015625,
+        "p95": 81.28588485717755,
+        "p99": 130.93746948242188,
+        "max": 179.98043060302734,
+        "mean": -3.669923761760904,
+        "range": 359.94918060302734
+      },
+      "within1": 0.5246578021118499,
+      "within5": 0.6860774344935471,
+      "within10": 0.729663668361361,
+      "within30": 0.7909333854777735
+    },
+    "EYE_VS_CAMERA": {
+      "count": 153420,
+      "error": {
+        "count": 153420,
+        "min": 0,
+        "p25": 2.109375,
+        "median": 5.2734375,
+        "p75": 22.32421875,
+        "p95": 112.67578125,
+        "p99": 139.5703125,
+        "max": 180,
+        "mean": 23.04381851596109,
+        "range": 180
+      },
+      "signedDifference": {
+        "count": 153420,
+        "min": -180,
+        "p25": -10.546875,
+        "median": -3.515625,
+        "p75": -1.23046875,
+        "p95": 81.03515625,
+        "p99": 130.78125,
+        "max": 180,
+        "mean": -8.391396091000196,
+        "range": 360
+      },
+      "within1": 0.10588580367618303,
+      "within5": 0.485041063746578,
+      "within10": 0.6411941076782688,
+      "within30": 0.7768348324859862
+    }
+  },
+  "directPitchAgreement": {
+    "EYE_VS_CAMERA": {
+      "count": 153420,
+      "error": {
+        "count": 153420,
+        "min": 0,
+        "p25": 0,
+        "median": 0.3515625,
+        "p75": 1.7578125,
+        "p95": 17.578125,
+        "p99": 31.81640625,
+        "max": 140.625,
+        "mean": 2.9396349176280796,
+        "range": 140.625
+      },
+      "signedDifference": {
+        "count": 153420,
+        "min": -140.625,
+        "p25": -0.87890625,
+        "median": -0.17578125,
+        "p75": 0,
+        "p95": 2.98828125,
+        "p99": 17.72050781249959,
+        "max": 88.59375,
+        "mean": -1.5226950527962455,
+        "range": 229.21875
+      },
+      "within1": 0.668758962325642,
+      "within5": 0.8473080432798853,
+      "within10": 0.9006518055012385,
+      "within30": 0.9874462260461478
+    }
+  },
+  "nonDegenerateCrossFieldSearch": {
+    "BODY_EYE": {
+      "mappings": [
+        {
+          "aComponent": 1,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0.12874603271484375,
+            "median": 2.146453857421875,
+            "p75": 5.90240478515625,
+            "p95": 24.402540206909137,
+            "p99": 61.124839782714844,
+            "max": 179.98043060302734,
+            "mean": 5.848652531018765,
+            "range": 179.98043060302734
+          },
+          "signedDifference": {
+            "count": 153420,
+            "min": -179.98043060302734,
+            "p25": 0.07415771484375,
+            "median": 1.8790054321289062,
+            "p75": 5.5117034912109375,
+            "p95": 21.913940811157225,
+            "p99": 55.538978576660156,
+            "max": 179.72259521484375,
+            "mean": 4.712086330021458,
+            "range": 359.7030258178711
+          },
+          "within1": 0.3785751531742928,
+          "within5": 0.7099139616738366,
+          "within10": 0.8542432538130622,
+          "within30": 0.9608851518706818
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 56.53118133544922,
+            "median": 90.93761444091797,
+            "p75": 124.3868637084961,
+            "p95": 168.20348892211905,
+            "p99": 177.75775146484375,
+            "max": 180,
+            "mean": 90.82144729883788,
+            "range": 180
+          },
+          "signedDifference": {
+            "count": 153420,
+            "min": -179.9962158203125,
+            "p25": -96.0311508178711,
+            "median": -10.228443145751953,
+            "p75": 88.31256866455078,
+            "p95": 156.88682556152344,
+            "p99": 175.68753051757812,
+            "max": 180,
+            "mean": -4.359917299720427,
+            "range": 359.9962158203125
+          },
+          "within1": 0.004399687133359405,
+          "within5": 0.021222787120323296,
+          "within10": 0.042660670056055276,
+          "within30": 0.11911093729631078
+        }
+      ],
+      "best": {
+        "aComponent": 1,
+        "bComponent": 1,
+        "count": 153420,
+        "error": {
+          "count": 153420,
+          "min": 0,
+          "p25": 0.12874603271484375,
+          "median": 2.146453857421875,
+          "p75": 5.90240478515625,
+          "p95": 24.402540206909137,
+          "p99": 61.124839782714844,
+          "max": 179.98043060302734,
+          "mean": 5.848652531018765,
+          "range": 179.98043060302734
+        },
+        "signedDifference": {
+          "count": 153420,
+          "min": -179.98043060302734,
+          "p25": 0.07415771484375,
+          "median": 1.8790054321289062,
+          "p75": 5.5117034912109375,
+          "p95": 21.913940811157225,
+          "p99": 55.538978576660156,
+          "max": 179.72259521484375,
+          "mean": 4.712086330021458,
+          "range": 359.7030258178711
+        },
+        "within1": 0.3785751531742928,
+        "within5": 0.7099139616738366,
+        "within10": 0.8542432538130622,
+        "within30": 0.9608851518706818
+      }
+    },
+    "BODY_CAMERA": {
+      "mappings": [
+        {
+          "aComponent": 1,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0.1407623291015625,
+            "median": 0.8243179321289062,
+            "p75": 14.187469482421875,
+            "p95": 112.81242370605469,
+            "p99": 139.56240844726562,
+            "max": 179.98043060302734,
+            "mean": 19.93978504717482,
+            "range": 179.98043060302734
+          },
+          "signedDifference": {
+            "count": 153420,
+            "min": -179.96875,
+            "p25": -1.0938262939453125,
+            "median": 0.07038116455078125,
+            "p75": 0.6681060791015625,
+            "p95": 81.28588485717755,
+            "p99": 130.93746948242188,
+            "max": 179.98043060302734,
+            "mean": -3.669923761760904,
+            "range": 359.94918060302734
+          },
+          "within1": 0.5246578021118499,
+          "within5": 0.6860774344935471,
+          "within10": 0.729663668361361,
+          "within30": 0.7909333854777735
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 56.30270004272461,
+            "median": 92.1756362915039,
+            "p75": 124.61311340332031,
+            "p95": 168.04328002929682,
+            "p99": 177.67193603515625,
+            "max": 180,
+            "mean": 90.81359094399204,
+            "range": 180
+          },
+          "signedDifference": {
+            "count": 153420,
+            "min": -179.9962158203125,
+            "p25": -97.734375,
+            "median": -10.437355041503906,
+            "p75": 87.36328125,
+            "p95": 156.7150024414062,
+            "p99": 175.68753051757812,
+            "max": 180,
+            "mean": -4.53572146475758,
+            "range": 359.9962158203125
+          },
+          "within1": 0.003995567722591579,
+          "within5": 0.020584017729109633,
+          "within10": 0.041102854908095426,
+          "within30": 0.11772259157867293
+        }
+      ],
+      "best": {
+        "aComponent": 1,
+        "bComponent": 1,
+        "count": 153420,
+        "error": {
+          "count": 153420,
+          "min": 0,
+          "p25": 0.1407623291015625,
+          "median": 0.8243179321289062,
+          "p75": 14.187469482421875,
+          "p95": 112.81242370605469,
+          "p99": 139.56240844726562,
+          "max": 179.98043060302734,
+          "mean": 19.93978504717482,
+          "range": 179.98043060302734
+        },
+        "signedDifference": {
+          "count": 153420,
+          "min": -179.96875,
+          "p25": -1.0938262939453125,
+          "median": 0.07038116455078125,
+          "p75": 0.6681060791015625,
+          "p95": 81.28588485717755,
+          "p99": 130.93746948242188,
+          "max": 179.98043060302734,
+          "mean": -3.669923761760904,
+          "range": 359.94918060302734
+        },
+        "within1": 0.5246578021118499,
+        "within5": 0.6860774344935471,
+        "within10": 0.729663668361361,
+        "within30": 0.7909333854777735
+      }
+    },
+    "EYE_CAMERA": {
+      "mappings": [
+        {
+          "aComponent": 0,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 0,
+            "median": 0.3515625,
+            "p75": 1.7578125,
+            "p95": 17.578125,
+            "p99": 31.81640625,
+            "max": 140.625,
+            "mean": 2.9396349176280796,
+            "range": 140.625
+          },
+          "signedDifference": {
+            "count": 153420,
+            "min": -140.625,
+            "p25": -0.87890625,
+            "median": -0.17578125,
+            "p75": 0,
+            "p95": 2.98828125,
+            "p99": 17.72050781249959,
+            "max": 88.59375,
+            "mean": -1.5226950527962455,
+            "range": 229.21875
+          },
+          "within1": 0.668758962325642,
+          "within5": 0.8473080432798853,
+          "within10": 0.9006518055012385,
+          "within30": 0.9874462260461478
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 2.109375,
+            "median": 5.2734375,
+            "p75": 22.32421875,
+            "p95": 112.67578125,
+            "p99": 139.5703125,
+            "max": 180,
+            "mean": 23.04381851596109,
+            "range": 180
+          },
+          "signedDifference": {
+            "count": 153420,
+            "min": -180,
+            "p25": -10.546875,
+            "median": -3.515625,
+            "p75": -1.23046875,
+            "p95": 81.03515625,
+            "p99": 130.78125,
+            "max": 180,
+            "mean": -8.391396091000196,
+            "range": 360
+          },
+          "within1": 0.10588580367618303,
+          "within5": 0.485041063746578,
+          "within10": 0.6411941076782688,
+          "within30": 0.7768348324859862
+        },
+        {
+          "aComponent": 0,
+          "bComponent": 1,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 26.71875,
+            "median": 80.68359375,
+            "p75": 118.4765625,
+            "p95": 167.51953125,
+            "p99": 177.71484375,
+            "max": 180,
+            "mean": 77.09887876723211,
+            "range": 180
+          },
+          "signedDifference": {
+            "count": 153420,
+            "min": -180,
+            "p25": -77.51953125,
+            "median": 0,
+            "p75": 84.0234375,
+            "p95": 152.2265625,
+            "p99": 175.078125,
+            "max": 180,
+            "mean": 0.664182040110481,
+            "range": 360
+          },
+          "within1": 0.15515578151479598,
+          "within5": 0.17106635380002608,
+          "within10": 0.18998826750097772,
+          "within30": 0.2617520531873289
+        },
+        {
+          "aComponent": 1,
+          "bComponent": 0,
+          "count": 153420,
+          "error": {
+            "count": 153420,
+            "min": 0,
+            "p25": 56.25,
+            "median": 92.98828125,
+            "p75": 125.15625,
+            "p95": 168.046875,
+            "p99": 177.71484375,
+            "max": 180,
+            "mean": 90.977227799912,
+            "range": 180
+          },
+          "signedDifference": {
+            "count": 153420,
+            "min": -180,
+            "p25": -98.7890625,
+            "median": -11.07421875,
+            "p75": 86.1328125,
+            "p95": 156.09375,
+            "p99": 175.60546875,
+            "max": 180,
+            "mean": -5.3338461209425105,
+            "range": 360
+          },
+          "within1": 0.003773953852170512,
+          "within5": 0.02057749967409725,
+          "within10": 0.03977968974058141,
+          "within30": 0.11566288619475948
+        }
+      ],
+      "best": {
+        "aComponent": 0,
+        "bComponent": 0,
+        "count": 153420,
+        "error": {
+          "count": 153420,
+          "min": 0,
+          "p25": 0,
+          "median": 0.3515625,
+          "p75": 1.7578125,
+          "p95": 17.578125,
+          "p99": 31.81640625,
+          "max": 140.625,
+          "mean": 2.9396349176280796,
+          "range": 140.625
+        },
+        "signedDifference": {
+          "count": 153420,
+          "min": -140.625,
+          "p25": -0.87890625,
+          "median": -0.17578125,
+          "p75": 0,
+          "p95": 2.98828125,
+          "p99": 17.72050781249959,
+          "max": 88.59375,
+          "mean": -1.5226950527962455,
+          "range": 229.21875
+        },
+        "within1": 0.668758962325642,
+        "within5": 0.8473080432798853,
+        "within10": 0.9006518055012385,
+        "within30": 0.9874462260461478
+      }
+    }
+  },
+  "movementHeadingFit": {
+    "BODY_ROTATION": {
+      "field": "BODY_ROTATION",
+      "component": 1,
+      "transform": "PLUS_YAW_0",
+      "sign": 1,
+      "offset": 0,
+      "count": 84399,
+      "error": {
+        "count": 84399,
+        "min": 0,
+        "p25": 2.205411468154228,
+        "median": 10.531845436113453,
+        "p75": 39.62454369916154,
+        "p95": 149.2225490842439,
+        "p99": 176.93071594994774,
+        "max": 179.9994982672331,
+        "mean": 31.64994980115202,
+        "range": 179.9994982672331
+      },
+      "within15": 0.566677330300122,
+      "within30": 0.6967499614924347,
+      "within45": 0.7771182123010936
+    },
+    "EYE_ANGLES": {
+      "field": "EYE_ANGLES",
+      "component": 1,
+      "transform": "PLUS_YAW_0",
+      "sign": 1,
+      "offset": 0,
+      "count": 84399,
+      "error": {
+        "count": 84399,
+        "min": 0,
+        "p25": 3.152580004950586,
+        "median": 11.821743831802593,
+        "p75": 41.552141451305204,
+        "p95": 150.64431172130548,
+        "p99": 175.37702927105704,
+        "max": 179.9946600944748,
+        "mean": 33.16422783643543,
+        "range": 179.9946600944748
+      },
+      "within15": 0.5488690624296496,
+      "within30": 0.6860270856289766,
+      "within45": 0.7652934276472471
+    },
+    "CAMERA_ANGLES": {
+      "field": "CAMERA_ANGLES",
+      "component": 1,
+      "transform": "PLUS_YAW_0",
+      "sign": 1,
+      "offset": 0,
+      "count": 84399,
+      "error": {
+        "count": 84399,
+        "min": 0,
+        "p25": 4.185188820001393,
+        "median": 16.12810069207643,
+        "p75": 46.15415162622436,
+        "p95": 151.8329771119811,
+        "p99": 177.5917103843443,
+        "max": 179.9982006477883,
+        "mean": 35.91672181023819,
+        "range": 179.9982006477883
+      },
+      "within15": 0.4850531404400526,
+      "within30": 0.6433844002891029,
+      "within45": 0.7429945852439009
+    }
+  },
+  "worldYawConvention": {
+    "yawComponentByField": {
+      "BODY_ROTATION": 1,
+      "EYE_ANGLES": 1,
+      "CAMERA_ANGLES": 1
+    },
+    "sign": 1,
+    "offsetDegrees": 0,
+    "transform": "PLUS_YAW_0",
+    "coordinateInterpretation": {
+      "yaw0": "+X",
+      "yaw90": "+Y",
+      "yaw180": "-X",
+      "yaw270": "-Y"
+    },
+    "semanticStatus": "MOVEMENT_ANCHORED_SINGLE_REPLAY_WORLD_YAW_CONVENTION"
+  },
+  "interpretation": {
+    "yawComponentsNonConstant": true,
+    "yawComponentsBroad": true,
+    "allFieldsSameWorldTransform": true,
+    "bodyWorldYawStrong": true,
+    "eyeWorldYawStrong": true,
+    "cameraWorldYawSupported": true,
+    "worldYawConventionStrong": true,
+    "eyeCameraYawStronglyLinked": false,
+    "bodyEyeYawStronglyLinked": true,
+    "bodyCameraYawStronglyLinked": true,
+    "eyeCameraPitchStronglyLinked": true,
+    "viewOrientationStructurallyResolved": true,
+    "readyForShotLinkedValidation": true
+  },
+  "interpretationGuide": {
+    "component1": "If all three fields resolve component 1 as yaw and all three movement fits prefer PLUS_YAW_0, component 1 is strongly supported as world yaw.",
+    "bodyEye": "Small body-eye yaw error would imply the body orientation usually tracks view direction; large error would establish a useful distinction between body facing and view orientation.",
+    "eyeCamera": "Small eye-camera yaw/pitch error would support camera alignment with view. Larger systematic differences would be expected from independent third-person camera control.",
+    "shotValidation": "The next semantic test should compare eye yaw/pitch against attack or projectile direction. That is the appropriate point to promote m_angEyeAngles from view-orientation candidate to aim-orientation telemetry."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "inputRowsPresent": {
+        "actual": 153420,
+        "expected": ">0",
+        "pass": true
+      },
+      "pawnRowsPresent": {
+        "actual": 153420,
+        "expected": ">0",
+        "pass": true
+      },
+      "movementSamplesPresent": {
+        "actual": 84399,
+        "expected": ">1000",
+        "pass": true
+      },
+      "bodyYawResolved": {
+        "actual": 1,
+        "expected": "resolved",
+        "pass": true
+      },
+      "eyeYawResolved": {
+        "actual": 1,
+        "expected": "resolved",
+        "pass": true
+      },
+      "cameraYawResolved": {
+        "actual": 1,
+        "expected": "resolved",
+        "pass": true
+      },
+      "yawComponentsNonConstant": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "yawComponentsBroad": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "directYawComparisonsPresent": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "movementFitsResolved": {
+        "actual": 3,
+        "expected": 3,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\player_facing_angle_semantics_validation_v02.json"
+  }
+}

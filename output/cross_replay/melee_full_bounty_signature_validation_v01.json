@@ -1,0 +1,1060 @@
+{
+  "version": "MELEE_FULL_BOUNTY_SIGNATURE_VALIDATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-03T20:56:00.750Z",
+  "status": "MELEE_DIRECT_FULL_BOUNTY_SIGNATURE_STRONGLY_SUPPORTED_ATTACK_TYPE_NOT_DIRECTLY_VALIDATED",
+  "correctionToPriorInterpretation": {
+    "script106Label": "GROUND_PLUS_SECOND_COMPONENT",
+    "revisedCandidateMeaning": "DIRECT_FULL_BOUNTY",
+    "reason": "Script108 showed the putative second-component cases rarely carried the expected same-source flying-orb CItemXP relationship, whereas ordinary ground-only cases usually did.",
+    "script108Status": "INSUFFICIENT_REPLAY_COVERAGE"
+  },
+  "externalMechanicPrior": {
+    "claim": "A melee Trooper kill suppresses orb spawning and awards the full Trooper bounty directly.",
+    "role": "External prior only; Script109 evaluates whether replay telemetry expresses the corresponding signature."
+  },
+  "design": {
+    "replicationUnit": "REPLAY",
+    "rawReplayParsing": false,
+    "trooperCItemXPSubclass": "494398941",
+    "sourceCandidate": {
+      "tickOffsetMinimum": -1,
+      "tickOffsetMaximum": 4,
+      "maximum3DDistanceHU": 250
+    },
+    "proximity": "Credited-player distance is corroborating/exploratory and is not treated as an exact melee-range estimate.",
+    "attackType": "Not directly measured in this script."
+  },
+  "supportThresholds": {
+    "minimumCases": 100,
+    "minimumGroundOnlyCases": 50,
+    "minimumFullBountyCases": 20,
+    "minimumOrbAbsenceSensitivity": 0.8,
+    "minimumOrbPresenceSpecificity": 0.8,
+    "minimumOrbAbsenceMCC": 0.6,
+    "minimumGroundRewardWithin2Rate": 0.9,
+    "minimumFullRewardWithin2Rate": 0.9
+  },
+  "replayCounts": {
+    "total": 5,
+    "informative": 5,
+    "signatureSupported": 5
+  },
+  "distributions": {
+    "groundOnlyTrooperOrbCandidateRate": {
+      "count": 5,
+      "min": 1,
+      "p25": 1,
+      "median": 1,
+      "p75": 1,
+      "p95": 1,
+      "max": 1,
+      "mean": 1
+    },
+    "fullBountyTrooperOrbCandidateRate": {
+      "count": 5,
+      "min": 0.06557377049180328,
+      "p25": 0.06666666666666667,
+      "median": 0.07368421052631578,
+      "p75": 0.08888888888888889,
+      "p95": 0.12524046434494196,
+      "max": 0.13432835820895522,
+      "mean": 0.08582837895652598
+    },
+    "orbAbsenceMCC": {
+      "count": 5,
+      "min": 0.914949734268224,
+      "p25": 0.9398355837657449,
+      "median": 0.9463534930979691,
+      "p75": 0.9557219824355603,
+      "p95": 0.9584753285422213,
+      "max": 0.9591636650688865,
+      "mean": 0.943204891727277
+    },
+    "groundOnlyCreditedDistanceXYMedian": {
+      "count": 5,
+      "min": 438.98520449512307,
+      "p25": 527.6725658500388,
+      "median": 539.2559603970501,
+      "p75": 601.813987880892,
+      "p95": 606.438054738071,
+      "max": 607.5940714523657,
+      "mean": 543.064358015094
+    },
+    "fullBountyCreditedDistanceXYMedian": {
+      "count": 5,
+      "min": 62.41400333659106,
+      "p25": 64.59061282899397,
+      "median": 65.0627704155213,
+      "p75": 66.08987127524995,
+      "p95": 77.32414595481693,
+      "max": 80.13271462470868,
+      "mean": 67.65799449621299
+    },
+    "proximityBestThresholdHU": {
+      "count": 5,
+      "min": 110,
+      "p25": 170,
+      "median": 190,
+      "p75": 190,
+      "p95": 206,
+      "max": 210,
+      "mean": 174
+    },
+    "proximityBestMCC": {
+      "count": 5,
+      "min": 0.6009324662180687,
+      "p25": 0.7256355626392123,
+      "median": 0.736020574569247,
+      "p75": 0.7550349048220732,
+      "p95": 0.7566012134482608,
+      "max": 0.7569927906048077,
+      "mean": 0.7149232597706818
+    },
+    "groundRewardWithin2": {
+      "count": 5,
+      "min": 0.9734848484848485,
+      "p25": 0.9745454545454545,
+      "median": 0.984251968503937,
+      "p75": 0.9882352941176471,
+      "p95": 0.9976470588235294,
+      "max": 1,
+      "mean": 0.9841035131303775
+    },
+    "fullRewardWithin2": {
+      "count": 5,
+      "min": 0.9,
+      "p25": 0.9368421052631579,
+      "median": 0.9402985074626866,
+      "p75": 0.9444444444444444,
+      "p95": 0.9495446265938068,
+      "max": 0.9508196721311475,
+      "mean": 0.9344809458602873
+    }
+  },
+  "replays": [
+    {
+      "replay": "rep01",
+      "version": "MELEE_FULL_BOUNTY_SIGNATURE_VALIDATION_V01",
+      "canonical": false,
+      "counts": {
+        "total": 299,
+        "groundOnly": 204,
+        "fullBounty": 95
+      },
+      "orbCandidate": {
+        "groundOnly": {
+          "cases": 204,
+          "present": 204,
+          "absent": 0,
+          "presenceRate": 1
+        },
+        "fullBounty": {
+          "cases": 95,
+          "present": 7,
+          "absent": 88,
+          "presenceRate": 0.07368421052631578
+        },
+        "absencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 88,
+          "tn": 204,
+          "fp": 0,
+          "fn": 7,
+          "sensitivity": 0.9263157894736842,
+          "specificity": 1,
+          "accuracy": 0.9765886287625418,
+          "mcc": 0.9463534930979691
+        },
+        "strictSourceLinkAbsencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 90,
+          "tn": 196,
+          "fp": 8,
+          "fn": 5,
+          "sensitivity": 0.9473684210526315,
+          "specificity": 0.9607843137254902,
+          "accuracy": 0.9565217391304348,
+          "mcc": 0.900792403167439
+        }
+      },
+      "creditedDistance": {
+        "coverage": {
+          "all": 299,
+          "total": 299,
+          "rate": 1
+        },
+        "groundOnly": {
+          "xy": {
+            "count": 204,
+            "min": 13.225212663696565,
+            "p25": 289.3239850478311,
+            "median": 527.6725658500388,
+            "p75": 786.8515775680348,
+            "p95": 1279.4949822922026,
+            "max": 1623.449763548483,
+            "mean": 574.4139026724048
+          },
+          "threeD": {
+            "count": 204,
+            "min": 13.225249584128838,
+            "p25": 313.75504982059783,
+            "median": 568.0686899202967,
+            "p75": 839.3412783857009,
+            "p95": 1303.5278161294218,
+            "max": 1624.6801977980736,
+            "mean": 607.1745142867622
+          }
+        },
+        "fullBounty": {
+          "xy": {
+            "count": 95,
+            "min": 42.645305372485026,
+            "p25": 60.783605799754866,
+            "median": 64.59061282899397,
+            "p75": 113.49550323452485,
+            "p95": 247.9918566879722,
+            "max": 648.613667334512,
+            "mean": 107.2700415532322
+          },
+          "threeD": {
+            "count": 95,
+            "min": 55.58768059898704,
+            "p25": 69.75571241856099,
+            "median": 74.67505126379224,
+            "p75": 118.34719736930825,
+            "p95": 310.4341441145966,
+            "max": 719.4062730767556,
+            "mean": 121.90787817613995
+          }
+        },
+        "exploratoryThreshold": {
+          "best": {
+            "thresholdHU": 210,
+            "tp": 89,
+            "tn": 175,
+            "fp": 29,
+            "fn": 6,
+            "sensitivity": 0.9368421052631579,
+            "specificity": 0.8578431372549019,
+            "accuracy": 0.882943143812709,
+            "mcc": 0.7569927906048077
+          },
+          "note": "Exploratory discriminator only; not an inferred engine melee range."
+        }
+      },
+      "rewardMagnitude": {
+        "groundOnly": {
+          "count": 204,
+          "residual": {
+            "count": 204,
+            "min": -1,
+            "p25": -1,
+            "median": 0,
+            "p75": 0,
+            "p95": 1,
+            "max": 1,
+            "mean": -0.3431372549019608
+          },
+          "absoluteError": {
+            "count": 204,
+            "min": 0,
+            "p25": 0,
+            "median": 1,
+            "p75": 1,
+            "p95": 1,
+            "max": 1,
+            "mean": 0.5490196078431373
+          },
+          "exactRate": 0.45098039215686275,
+          "within1Rate": 1,
+          "within2Rate": 1
+        },
+        "fullBounty": {
+          "count": 95,
+          "residual": {
+            "count": 95,
+            "min": -8,
+            "p25": -2,
+            "median": 0,
+            "p75": 0,
+            "p95": 2,
+            "max": 56,
+            "mean": -0.11578947368421053
+          },
+          "absoluteError": {
+            "count": 95,
+            "min": 0,
+            "p25": 0,
+            "median": 1,
+            "p75": 2,
+            "p95": 3,
+            "max": 56,
+            "mean": 1.736842105263158
+          },
+          "exactRate": 0.35789473684210527,
+          "within1Rate": 0.5789473684210527,
+          "within2Rate": 0.9368421052631579
+        }
+      },
+      "support": {
+        "informative": true,
+        "directFullBountySignatureSupported": true,
+        "criteria": {
+          "cases": 299,
+          "groundOnlyCases": 204,
+          "fullBountyCases": 95,
+          "orbAbsenceSensitivity": 0.9263157894736842,
+          "orbPresenceSpecificity": 1,
+          "orbAbsenceMCC": 0.9463534930979691,
+          "groundRewardWithin2Rate": 1,
+          "fullRewardWithin2Rate": 0.9368421052631579,
+          "creditedDistanceCoverage": 1,
+          "exploratoryProximityMCC": 0.7569927906048077
+        }
+      }
+    },
+    {
+      "replay": "rep02",
+      "version": "MELEE_FULL_BOUNTY_SIGNATURE_VALIDATION_V01",
+      "canonical": false,
+      "counts": {
+        "total": 344,
+        "groundOnly": 254,
+        "fullBounty": 90
+      },
+      "orbCandidate": {
+        "groundOnly": {
+          "cases": 254,
+          "present": 254,
+          "absent": 0,
+          "presenceRate": 1
+        },
+        "fullBounty": {
+          "cases": 90,
+          "present": 8,
+          "absent": 82,
+          "presenceRate": 0.08888888888888889
+        },
+        "absencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 82,
+          "tn": 254,
+          "fp": 0,
+          "fn": 8,
+          "sensitivity": 0.9111111111111111,
+          "specificity": 1,
+          "accuracy": 0.9767441860465116,
+          "mcc": 0.9398355837657449
+        },
+        "strictSourceLinkAbsencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 83,
+          "tn": 249,
+          "fp": 5,
+          "fn": 7,
+          "sensitivity": 0.9222222222222223,
+          "specificity": 0.9803149606299213,
+          "accuracy": 0.9651162790697675,
+          "mcc": 0.9091633021661002
+        }
+      },
+      "creditedDistance": {
+        "coverage": {
+          "all": 344,
+          "total": 344,
+          "rate": 1
+        },
+        "groundOnly": {
+          "xy": {
+            "count": 254,
+            "min": 26.343916814418467,
+            "p25": 311.10543956387176,
+            "median": 539.2559603970501,
+            "p75": 951.4543579266665,
+            "p95": 1949.2550919459688,
+            "max": 3264.9329686900255,
+            "mean": 729.6019748464141
+          },
+          "threeD": {
+            "count": 254,
+            "min": 26.343916814418467,
+            "p25": 326.9856567224458,
+            "median": 576.1232221132113,
+            "p75": 962.3900417963935,
+            "p95": 1958.274209692297,
+            "max": 3264.961008153945,
+            "mean": 743.482938819387
+          }
+        },
+        "fullBounty": {
+          "xy": {
+            "count": 90,
+            "min": 23.12552786559693,
+            "p25": 59.79543714647323,
+            "median": 65.0627704155213,
+            "p75": 128.30777315322828,
+            "p95": 475.15794574389855,
+            "max": 1012.741204390496,
+            "mean": 128.7394774509205
+          },
+          "threeD": {
+            "count": 90,
+            "min": 23.12552786559693,
+            "p25": 69.37413010056923,
+            "median": 74.96382891045344,
+            "p75": 133.7592159997445,
+            "p95": 480.36856001363344,
+            "max": 1025.1079502034468,
+            "mean": 137.28669493152566
+          }
+        },
+        "exploratoryThreshold": {
+          "best": {
+            "thresholdHU": 170,
+            "tp": 78,
+            "tn": 232,
+            "fp": 22,
+            "fn": 12,
+            "sensitivity": 0.8666666666666667,
+            "specificity": 0.9133858267716536,
+            "accuracy": 0.9011627906976745,
+            "mcc": 0.7550349048220732
+          },
+          "note": "Exploratory discriminator only; not an inferred engine melee range."
+        }
+      },
+      "rewardMagnitude": {
+        "groundOnly": {
+          "count": 254,
+          "residual": {
+            "count": 254,
+            "min": -6,
+            "p25": 0,
+            "median": 0,
+            "p75": 0,
+            "p95": 1,
+            "max": 22,
+            "mean": 0.2874015748031496
+          },
+          "absoluteError": {
+            "count": 254,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 0,
+            "p95": 1,
+            "max": 22,
+            "mean": 0.37401574803149606
+          },
+          "exactRate": 0.7755905511811023,
+          "within1Rate": 0.9763779527559056,
+          "within2Rate": 0.984251968503937
+        },
+        "fullBounty": {
+          "count": 90,
+          "residual": {
+            "count": 90,
+            "min": -9,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 2.549999999999997,
+            "max": 67,
+            "mean": 1.6111111111111112
+          },
+          "absoluteError": {
+            "count": 90,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 8.549999999999997,
+            "max": 67,
+            "mean": 2.3666666666666667
+          },
+          "exactRate": 0.5666666666666667,
+          "within1Rate": 0.8333333333333334,
+          "within2Rate": 0.9
+        }
+      },
+      "support": {
+        "informative": true,
+        "directFullBountySignatureSupported": true,
+        "criteria": {
+          "cases": 344,
+          "groundOnlyCases": 254,
+          "fullBountyCases": 90,
+          "orbAbsenceSensitivity": 0.9111111111111111,
+          "orbPresenceSpecificity": 1,
+          "orbAbsenceMCC": 0.9398355837657449,
+          "groundRewardWithin2Rate": 0.984251968503937,
+          "fullRewardWithin2Rate": 0.9,
+          "creditedDistanceCoverage": 1,
+          "exploratoryProximityMCC": 0.7550349048220732
+        }
+      }
+    },
+    {
+      "replay": "rep03",
+      "version": "MELEE_FULL_BOUNTY_SIGNATURE_VALIDATION_V01",
+      "canonical": false,
+      "counts": {
+        "total": 365,
+        "groundOnly": 275,
+        "fullBounty": 90
+      },
+      "orbCandidate": {
+        "groundOnly": {
+          "cases": 275,
+          "present": 275,
+          "absent": 0,
+          "presenceRate": 1
+        },
+        "fullBounty": {
+          "cases": 90,
+          "present": 6,
+          "absent": 84,
+          "presenceRate": 0.06666666666666667
+        },
+        "absencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 84,
+          "tn": 275,
+          "fp": 0,
+          "fn": 6,
+          "sensitivity": 0.9333333333333333,
+          "specificity": 1,
+          "accuracy": 0.9835616438356164,
+          "mcc": 0.9557219824355603
+        },
+        "strictSourceLinkAbsencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 84,
+          "tn": 264,
+          "fp": 11,
+          "fn": 6,
+          "sensitivity": 0.9333333333333333,
+          "specificity": 0.96,
+          "accuracy": 0.9534246575342465,
+          "mcc": 0.877520874390036
+        }
+      },
+      "creditedDistance": {
+        "coverage": {
+          "all": 365,
+          "total": 365,
+          "rate": 1
+        },
+        "groundOnly": {
+          "xy": {
+            "count": 275,
+            "min": 24.796555015263714,
+            "p25": 337.6860044411839,
+            "median": 607.5940714523657,
+            "p75": 989.9541676270768,
+            "p95": 1857.117757523669,
+            "max": 12761.25891725892,
+            "mean": 776.8422011993745
+          },
+          "threeD": {
+            "count": 275,
+            "min": 24.796574706751333,
+            "p25": 340.2174847083398,
+            "median": 607.5940722559964,
+            "p75": 991.6441521979898,
+            "p95": 1857.1443358783913,
+            "max": 12808.951372027945,
+            "mean": 784.2782738307992
+          }
+        },
+        "fullBounty": {
+          "xy": {
+            "count": 90,
+            "min": 41.7293408841429,
+            "p25": 61.158590934237026,
+            "median": 66.08987127524995,
+            "p75": 106.98549878076207,
+            "p95": 602.8650201066878,
+            "max": 1098.1241187034027,
+            "mean": 134.88046565502907
+          },
+          "threeD": {
+            "count": 90,
+            "min": 42.69544902196837,
+            "p25": 69.525020021901,
+            "median": 75.00084846042748,
+            "p75": 113.0231818545142,
+            "p95": 603.8265154469098,
+            "max": 1107.135388538677,
+            "mean": 142.8906970366657
+          }
+        },
+        "exploratoryThreshold": {
+          "best": {
+            "thresholdHU": 110,
+            "tp": 69,
+            "tn": 261,
+            "fp": 14,
+            "fn": 21,
+            "sensitivity": 0.7666666666666667,
+            "specificity": 0.9490909090909091,
+            "accuracy": 0.9041095890410958,
+            "mcc": 0.736020574569247
+          },
+          "note": "Exploratory discriminator only; not an inferred engine melee range."
+        }
+      },
+      "rewardMagnitude": {
+        "groundOnly": {
+          "count": 275,
+          "residual": {
+            "count": 275,
+            "min": -5,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 1,
+            "max": 18,
+            "mean": 0.5963636363636363
+          },
+          "absoluteError": {
+            "count": 275,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 1,
+            "max": 18,
+            "mean": 0.6327272727272727
+          },
+          "exactRate": 0.730909090909091,
+          "within1Rate": 0.9709090909090909,
+          "within2Rate": 0.9745454545454545
+        },
+        "fullBounty": {
+          "count": 90,
+          "residual": {
+            "count": 90,
+            "min": -13,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 1.5499999999999972,
+            "max": 36,
+            "mean": 0.8555555555555555
+          },
+          "absoluteError": {
+            "count": 90,
+            "min": 0,
+            "p25": 0,
+            "median": 1,
+            "p75": 1,
+            "p95": 2.549999999999997,
+            "max": 36,
+            "mean": 1.5222222222222221
+          },
+          "exactRate": 0.4777777777777778,
+          "within1Rate": 0.9222222222222223,
+          "within2Rate": 0.9444444444444444
+        }
+      },
+      "support": {
+        "informative": true,
+        "directFullBountySignatureSupported": true,
+        "criteria": {
+          "cases": 365,
+          "groundOnlyCases": 275,
+          "fullBountyCases": 90,
+          "orbAbsenceSensitivity": 0.9333333333333333,
+          "orbPresenceSpecificity": 1,
+          "orbAbsenceMCC": 0.9557219824355603,
+          "groundRewardWithin2Rate": 0.9745454545454545,
+          "fullRewardWithin2Rate": 0.9444444444444444,
+          "creditedDistanceCoverage": 1,
+          "exploratoryProximityMCC": 0.736020574569247
+        }
+      }
+    },
+    {
+      "replay": "rep04",
+      "version": "MELEE_FULL_BOUNTY_SIGNATURE_VALIDATION_V01",
+      "canonical": false,
+      "counts": {
+        "total": 331,
+        "groundOnly": 264,
+        "fullBounty": 67
+      },
+      "orbCandidate": {
+        "groundOnly": {
+          "cases": 264,
+          "present": 264,
+          "absent": 0,
+          "presenceRate": 1
+        },
+        "fullBounty": {
+          "cases": 67,
+          "present": 9,
+          "absent": 58,
+          "presenceRate": 0.13432835820895522
+        },
+        "absencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 58,
+          "tn": 264,
+          "fp": 0,
+          "fn": 9,
+          "sensitivity": 0.8656716417910447,
+          "specificity": 1,
+          "accuracy": 0.972809667673716,
+          "mcc": 0.914949734268224
+        },
+        "strictSourceLinkAbsencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 60,
+          "tn": 250,
+          "fp": 14,
+          "fn": 7,
+          "sensitivity": 0.8955223880597015,
+          "specificity": 0.946969696969697,
+          "accuracy": 0.9365558912386707,
+          "mcc": 0.8124988832793024
+        }
+      },
+      "creditedDistance": {
+        "coverage": {
+          "all": 331,
+          "total": 331,
+          "rate": 1
+        },
+        "groundOnly": {
+          "xy": {
+            "count": 264,
+            "min": 35.06336340291673,
+            "p25": 369.07131934225595,
+            "median": 601.813987880892,
+            "p75": 870.4948761562575,
+            "p95": 1620.3233270477929,
+            "max": 2707.685534746996,
+            "mean": 683.2405998931587
+          },
+          "threeD": {
+            "count": 264,
+            "min": 44.79172722864123,
+            "p25": 392.1462278148023,
+            "median": 624.9725738664645,
+            "p75": 894.4936818416602,
+            "p95": 1644.911816499973,
+            "max": 2710.3419444886817,
+            "mean": 699.5783090343557
+          }
+        },
+        "fullBounty": {
+          "xy": {
+            "count": 67,
+            "min": 7.506377496835608,
+            "p25": 58.9414634409694,
+            "median": 62.41400333659106,
+            "p75": 119.81149085921506,
+            "p95": 707.4707887639512,
+            "max": 7824.314571929468,
+            "mean": 252.91211555659712
+          },
+          "threeD": {
+            "count": 67,
+            "min": 36.65189392275657,
+            "p25": 66.29773344607428,
+            "median": 71.98974536348909,
+            "p75": 123.89297387997081,
+            "p95": 707.7222843889723,
+            "max": 7824.318661743514,
+            "mean": 259.5399534629461
+          }
+        },
+        "exploratoryThreshold": {
+          "best": {
+            "thresholdHU": 190,
+            "tp": 59,
+            "tn": 239,
+            "fp": 25,
+            "fn": 8,
+            "sensitivity": 0.8805970149253731,
+            "specificity": 0.9053030303030303,
+            "accuracy": 0.9003021148036254,
+            "mcc": 0.7256355626392123
+          },
+          "note": "Exploratory discriminator only; not an inferred engine melee range."
+        }
+      },
+      "rewardMagnitude": {
+        "groundOnly": {
+          "count": 264,
+          "residual": {
+            "count": 264,
+            "min": -6,
+            "p25": 0,
+            "median": 0,
+            "p75": 0,
+            "p95": 1,
+            "max": 1,
+            "mean": -0.08333333333333333
+          },
+          "absoluteError": {
+            "count": 264,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 1,
+            "max": 6,
+            "mean": 0.45454545454545453
+          },
+          "exactRate": 0.6742424242424242,
+          "within1Rate": 0.9734848484848485,
+          "within2Rate": 0.9734848484848485
+        },
+        "fullBounty": {
+          "count": 67,
+          "residual": {
+            "count": 67,
+            "min": -14,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 1.6999999999999957,
+            "max": 5,
+            "mean": -0.26865671641791045
+          },
+          "absoluteError": {
+            "count": 67,
+            "min": 0,
+            "p25": 0,
+            "median": 1,
+            "p75": 1,
+            "p95": 4.099999999999987,
+            "max": 14,
+            "mean": 1.164179104477612
+          },
+          "exactRate": 0.4925373134328358,
+          "within1Rate": 0.835820895522388,
+          "within2Rate": 0.9402985074626866
+        }
+      },
+      "support": {
+        "informative": true,
+        "directFullBountySignatureSupported": true,
+        "criteria": {
+          "cases": 331,
+          "groundOnlyCases": 264,
+          "fullBountyCases": 67,
+          "orbAbsenceSensitivity": 0.8656716417910447,
+          "orbPresenceSpecificity": 1,
+          "orbAbsenceMCC": 0.914949734268224,
+          "groundRewardWithin2Rate": 0.9734848484848485,
+          "fullRewardWithin2Rate": 0.9402985074626866,
+          "creditedDistanceCoverage": 1,
+          "exploratoryProximityMCC": 0.7256355626392123
+        }
+      }
+    },
+    {
+      "replay": "rep05",
+      "version": "MELEE_FULL_BOUNTY_SIGNATURE_VALIDATION_V01",
+      "canonical": false,
+      "counts": {
+        "total": 316,
+        "groundOnly": 255,
+        "fullBounty": 61
+      },
+      "orbCandidate": {
+        "groundOnly": {
+          "cases": 255,
+          "present": 255,
+          "absent": 0,
+          "presenceRate": 1
+        },
+        "fullBounty": {
+          "cases": 61,
+          "present": 4,
+          "absent": 57,
+          "presenceRate": 0.06557377049180328
+        },
+        "absencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 57,
+          "tn": 255,
+          "fp": 0,
+          "fn": 4,
+          "sensitivity": 0.9344262295081968,
+          "specificity": 1,
+          "accuracy": 0.9873417721518988,
+          "mcc": 0.9591636650688865
+        },
+        "strictSourceLinkAbsencePredictsFullBounty": {
+          "thresholdHU": null,
+          "tp": 58,
+          "tn": 243,
+          "fp": 12,
+          "fn": 3,
+          "sensitivity": 0.9508196721311475,
+          "specificity": 0.9529411764705882,
+          "accuracy": 0.9525316455696202,
+          "mcc": 0.8589580569791699
+        }
+      },
+      "creditedDistance": {
+        "coverage": {
+          "all": 316,
+          "total": 316,
+          "rate": 1
+        },
+        "groundOnly": {
+          "xy": {
+            "count": 255,
+            "min": 19.573005366128626,
+            "p25": 266.0666335745725,
+            "median": 438.98520449512307,
+            "p75": 740.0996616098594,
+            "p95": 1530.7798897963773,
+            "max": 2556.5714133584383,
+            "mean": 571.4204697354542
+          },
+          "threeD": {
+            "count": 255,
+            "min": 19.573030312779878,
+            "p25": 277.6211344037773,
+            "median": 461.75479131752115,
+            "p75": 770.7008007478341,
+            "p95": 1569.5393366340688,
+            "max": 2558.519088605323,
+            "mean": 589.5784053629371
+          }
+        },
+        "fullBounty": {
+          "xy": {
+            "count": 61,
+            "min": 7.697909618851082,
+            "p25": 59.28286436916236,
+            "median": 80.13271462470868,
+            "p75": 163.14423078694048,
+            "p95": 349.69759257106705,
+            "max": 1242.2105548174995,
+            "mean": 140.68755480777403
+          },
+          "threeD": {
+            "count": 61,
+            "min": 40.11649296502001,
+            "p25": 67.1855304943892,
+            "median": 84.58089461796322,
+            "p75": 167.15702993368242,
+            "p95": 349.69759815624985,
+            "max": 1340.5724760252847,
+            "mean": 148.6378400362985
+          }
+        },
+        "exploratoryThreshold": {
+          "best": {
+            "thresholdHU": 190,
+            "tp": 53,
+            "tn": 212,
+            "fp": 43,
+            "fn": 8,
+            "sensitivity": 0.8688524590163934,
+            "specificity": 0.8313725490196079,
+            "accuracy": 0.8386075949367089,
+            "mcc": 0.6009324662180687
+          },
+          "note": "Exploratory discriminator only; not an inferred engine melee range."
+        }
+      },
+      "rewardMagnitude": {
+        "groundOnly": {
+          "count": 255,
+          "residual": {
+            "count": 255,
+            "min": -69,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 1,
+            "max": 8,
+            "mean": 0.043137254901960784
+          },
+          "absoluteError": {
+            "count": 255,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 1,
+            "max": 69,
+            "mean": 0.6235294117647059
+          },
+          "exactRate": 0.6941176470588235,
+          "within1Rate": 0.9803921568627451,
+          "within2Rate": 0.9882352941176471
+        },
+        "fullBounty": {
+          "count": 61,
+          "residual": {
+            "count": 61,
+            "min": -1,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 2,
+            "max": 51,
+            "mean": 1.9180327868852458
+          },
+          "absoluteError": {
+            "count": 61,
+            "min": 0,
+            "p25": 0,
+            "median": 0,
+            "p75": 1,
+            "p95": 2,
+            "max": 51,
+            "mean": 2.180327868852459
+          },
+          "exactRate": 0.5081967213114754,
+          "within1Rate": 0.9016393442622951,
+          "within2Rate": 0.9508196721311475
+        }
+      },
+      "support": {
+        "informative": true,
+        "directFullBountySignatureSupported": true,
+        "criteria": {
+          "cases": 316,
+          "groundOnlyCases": 255,
+          "fullBountyCases": 61,
+          "orbAbsenceSensitivity": 0.9344262295081968,
+          "orbPresenceSpecificity": 1,
+          "orbAbsenceMCC": 0.9591636650688865,
+          "groundRewardWithin2Rate": 0.9882352941176471,
+          "fullRewardWithin2Rate": 0.9508196721311475,
+          "creditedDistanceCoverage": 1,
+          "exploratoryProximityMCC": 0.6009324662180687
+        }
+      }
+    }
+  ],
+  "interpretation": {
+    "resolved": false,
+    "semanticStatus": "STRONG_WORKING_IDENTIFICATION",
+    "conclusion": "The Script106 high-reward class reproduces the expected direct-full-bounty/no-orb signature across independent replays. The earlier flying-orb-co-resolution explanation should be rejected.",
+    "bestWorkingExplanation": "Melee Trooper kill awarding the full bounty directly and suppressing ground/flying orb spawning.",
+    "evidenceChain": [
+      "The high-reward class is approximately the full 100% Trooper bounty.",
+      "The ordinary class is approximately the 50% ground component.",
+      "Trooper flying-orb CItemXP candidates are common in the ordinary class but absent from most full-bounty cases.",
+      "Credited-player death distance is evaluated as independent close-range corroboration."
+    ],
+    "remainingQuestion": "Can fatal Trooper damage telemetry directly distinguish melee attacks in these exact full-bounty cases?",
+    "nextStage": "Run one narrowly targeted fatal-damage attack-type validation. If melee attack telemetry aligns with the signature, close Trooper reward-source semantics."
+  },
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\melee_full_bounty_signature_validation_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\melee_full_bounty_signature_validation_v01.md"
+  }
+}

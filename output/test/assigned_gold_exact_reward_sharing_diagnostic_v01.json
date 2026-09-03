@@ -1,0 +1,5477 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_EXACT_REWARD_SHARING_DIAGNOSTIC_V01",
+  "canonical": false,
+  "status": "EXACT_REWARD_SHARING_DIAGNOSTIC_READY",
+  "purpose": [
+    "Characterize exact-tick same-team m_nCurrencies.0000 changes at AssignedGold resolution.",
+    "Determine whether multiple allied player deltas form a structured shared-reward pattern.",
+    "Compare credited-player, physical vacuum-target, and other-allied economic roles.",
+    "Identify clean single-recipient cases for later exact ground-soul amount modeling.",
+    "Describe reward amount distributions by Trooper type, match time, and number of same-team recipients."
+  ],
+  "semanticLimits": {
+    "sharing": "Multiple exact-tick allied currency deltas are strong evidence of shared economic credit only if their amount structure is systematic. This script describes that structure without assuming the engine rule.",
+    "rewardAmount": "Even isolated stable-floor exact-tick deltas can theoretically contain another economic event. Exact reward values remain provisional until amount patterns are internally consistent.",
+    "recipient": "Credited last-hitter, physical m_hVacuumTarget, and other allied recipients are kept as separate roles.",
+    "variants": "Trooper variant labels remain provisional and must not be promoted to canonical variant economics from this diagnostic alone.",
+    "targetless": "Occasional targetless exact-tick currency changes are treated as background economic coincidence unless independently linked to AssignedGold."
+  },
+  "selectedTelemetry": {
+    "field": {
+      "source": "PAWN",
+      "fieldName": "m_nCurrencies.0000",
+      "id": "PAWN:m_nCurrencies.0000"
+    },
+    "exactOffsetTicks": 0,
+    "exactOffsetSeconds": 0
+  },
+  "cohorts": {
+    "allJoined": 991,
+    "stableIsolated": 96,
+    "primaryClean": 91,
+    "primarySingleRecipient": 27,
+    "primaryMultiRecipient": 64,
+    "primaryTargetDiffersFromCredited": 53,
+    "primaryMismatchBothPositive": 40,
+    "primaryMismatchTargetAbsent": 13,
+    "targetlessControls": 38
+  },
+  "sharing": {
+    "classCounts": {
+      "CREDITED_TARGET_AND_OTHER_ALLY": 43,
+      "CREDITED_AND_TARGET": 15,
+      "CREDITED_ONLY": 27,
+      "CREDITED_AND_OTHER_ALLY_TARGET_ABSENT": 6
+    },
+    "recipientCountCounts": {
+      "1": 27,
+      "2": 28,
+      "3": 23,
+      "4": 8,
+      "5": 2,
+      "6": 3
+    },
+    "multiRecipientCases": 64,
+    "multiAllEqual": 22,
+    "multiAllEqualRate": 0.34375,
+    "creditedEqualsEveryPeer": 22,
+    "creditedEqualsEveryPeerRate": 0.34375,
+    "creditedGreaterThanEveryPeer": 19,
+    "creditedLessThanAnyPeer": 2,
+    "withNonTargetPeer": 49,
+    "withNonTargetPeerRate": 0.5384615384615384,
+    "mismatchWithNonTargetPeer": 31,
+    "peerToCreditedRatio": {
+      "count": 121,
+      "min": 0.02040816326530612,
+      "p25": 0.9629629629629629,
+      "median": 1,
+      "p75": 1,
+      "p95": 1,
+      "p99": 1.0421052631578944,
+      "max": 1.962962962962963,
+      "mean": 0.9684174695553934
+    },
+    "peerMinusCredited": {
+      "count": 121,
+      "min": -48,
+      "p25": -1,
+      "median": 0,
+      "p75": 0,
+      "p95": 0,
+      "p99": 0.7999999999999972,
+      "max": 52,
+      "mean": -1.0661157024793388
+    }
+  },
+  "physicalVacuumTarget": {
+    "mismatchCases": 53,
+    "targetPositive": 40,
+    "targetPositiveRate": 0.7547169811320755,
+    "targetAbsent": 13,
+    "targetEqualsCreditedAmount": 24,
+    "targetLessThanCredited": 14,
+    "targetGreaterThanCredited": 2,
+    "targetToCreditedRatio": {
+      "count": 40,
+      "min": 0.9375,
+      "p25": 0.971218487394958,
+      "median": 1,
+      "p75": 1,
+      "p95": 1.0026315789473683,
+      "p99": 1.6079337231968807,
+      "max": 1.962962962962963,
+      "mean": 1.0121138426728864
+    }
+  },
+  "amounts": {
+    "credited": {
+      "count": 91,
+      "min": 16,
+      "p25": 29,
+      "median": 36,
+      "p75": 66.5,
+      "p95": 99,
+      "p99": 109.99999999999994,
+      "max": 119,
+      "mean": 46.92307692307692
+    },
+    "target": {
+      "count": 78,
+      "min": 15,
+      "p25": 28,
+      "median": 34,
+      "p75": 55,
+      "p95": 98.14999999999999,
+      "p99": 108.99000000000005,
+      "max": 119,
+      "mean": 43.32051282051282
+    },
+    "peer": {
+      "count": 121,
+      "min": 1,
+      "p25": 19,
+      "median": 28,
+      "p75": 34,
+      "p95": 49,
+      "p99": 71.79999999999994,
+      "max": 106,
+      "mean": 28.60330578512397
+    },
+    "teamTotal": {
+      "count": 91,
+      "min": 54,
+      "p25": 66.5,
+      "median": 83,
+      "p75": 99.5,
+      "p95": 114.5,
+      "p99": 186.09999999999982,
+      "max": 214,
+      "mean": 84.95604395604396
+    },
+    "singleRecipient": {
+      "count": 27,
+      "min": 54,
+      "p25": 68,
+      "median": 83,
+      "p75": 95.5,
+      "p95": 106.3,
+      "p99": 116.39999999999999,
+      "max": 119,
+      "mean": 81.29629629629629
+    },
+    "multiRecipientCredited": {
+      "count": 64,
+      "min": 16,
+      "p25": 26.75,
+      "median": 30.5,
+      "p75": 36,
+      "p95": 53.69999999999999,
+      "p99": 62.769999999999946,
+      "max": 76,
+      "mean": 32.421875
+    },
+    "multiRecipientPeer": {
+      "count": 121,
+      "min": 1,
+      "p25": 19,
+      "median": 28,
+      "p75": 34,
+      "p95": 49,
+      "p99": 71.79999999999994,
+      "max": 106,
+      "mean": 28.60330578512397
+    },
+    "multiRecipientTeamTotal": {
+      "count": 64,
+      "min": 56,
+      "p25": 62,
+      "median": 85,
+      "p75": 101,
+      "p95": 122.74999999999991,
+      "p99": 194.4699999999999,
+      "max": 214,
+      "mean": 86.5
+    },
+    "modes": {
+      "credited": [
+        {
+          "value": 29,
+          "count": 9
+        },
+        {
+          "value": 36,
+          "count": 6
+        },
+        {
+          "value": 31,
+          "count": 5
+        },
+        {
+          "value": 28,
+          "count": 4
+        },
+        {
+          "value": 34,
+          "count": 4
+        },
+        {
+          "value": 35,
+          "count": 4
+        },
+        {
+          "value": 19,
+          "count": 3
+        },
+        {
+          "value": 24,
+          "count": 3
+        },
+        {
+          "value": 42,
+          "count": 3
+        },
+        {
+          "value": 55,
+          "count": 3
+        },
+        {
+          "value": 16,
+          "count": 2
+        },
+        {
+          "value": 22,
+          "count": 2
+        },
+        {
+          "value": 30,
+          "count": 2
+        },
+        {
+          "value": 49,
+          "count": 2
+        },
+        {
+          "value": 54,
+          "count": 2
+        },
+        {
+          "value": 68,
+          "count": 2
+        },
+        {
+          "value": 73,
+          "count": 2
+        },
+        {
+          "value": 83,
+          "count": 2
+        },
+        {
+          "value": 93,
+          "count": 2
+        },
+        {
+          "value": 99,
+          "count": 2
+        },
+        {
+          "value": 100,
+          "count": 2
+        },
+        {
+          "value": 17,
+          "count": 1
+        },
+        {
+          "value": 18,
+          "count": 1
+        },
+        {
+          "value": 20,
+          "count": 1
+        },
+        {
+          "value": 23,
+          "count": 1
+        }
+      ],
+      "target": [
+        {
+          "value": 28,
+          "count": 7
+        },
+        {
+          "value": 29,
+          "count": 6
+        },
+        {
+          "value": 36,
+          "count": 6
+        },
+        {
+          "value": 31,
+          "count": 4
+        },
+        {
+          "value": 34,
+          "count": 4
+        },
+        {
+          "value": 19,
+          "count": 3
+        },
+        {
+          "value": 35,
+          "count": 3
+        },
+        {
+          "value": 42,
+          "count": 3
+        },
+        {
+          "value": 55,
+          "count": 3
+        },
+        {
+          "value": 16,
+          "count": 2
+        },
+        {
+          "value": 22,
+          "count": 2
+        },
+        {
+          "value": 23,
+          "count": 2
+        },
+        {
+          "value": 24,
+          "count": 2
+        },
+        {
+          "value": 25,
+          "count": 2
+        },
+        {
+          "value": 30,
+          "count": 2
+        },
+        {
+          "value": 68,
+          "count": 2
+        },
+        {
+          "value": 83,
+          "count": 2
+        },
+        {
+          "value": 15,
+          "count": 1
+        },
+        {
+          "value": 18,
+          "count": 1
+        },
+        {
+          "value": 20,
+          "count": 1
+        },
+        {
+          "value": 26,
+          "count": 1
+        },
+        {
+          "value": 33,
+          "count": 1
+        },
+        {
+          "value": 37,
+          "count": 1
+        },
+        {
+          "value": 43,
+          "count": 1
+        },
+        {
+          "value": 54,
+          "count": 1
+        }
+      ],
+      "peer": [
+        {
+          "value": 28,
+          "count": 10
+        },
+        {
+          "value": 19,
+          "count": 9
+        },
+        {
+          "value": 16,
+          "count": 8
+        },
+        {
+          "value": 35,
+          "count": 8
+        },
+        {
+          "value": 18,
+          "count": 7
+        },
+        {
+          "value": 31,
+          "count": 7
+        },
+        {
+          "value": 34,
+          "count": 7
+        },
+        {
+          "value": 36,
+          "count": 7
+        },
+        {
+          "value": 15,
+          "count": 6
+        },
+        {
+          "value": 23,
+          "count": 5
+        },
+        {
+          "value": 24,
+          "count": 5
+        },
+        {
+          "value": 25,
+          "count": 5
+        },
+        {
+          "value": 22,
+          "count": 4
+        },
+        {
+          "value": 30,
+          "count": 4
+        },
+        {
+          "value": 33,
+          "count": 4
+        },
+        {
+          "value": 41,
+          "count": 4
+        },
+        {
+          "value": 29,
+          "count": 3
+        },
+        {
+          "value": 1,
+          "count": 2
+        },
+        {
+          "value": 26,
+          "count": 2
+        },
+        {
+          "value": 49,
+          "count": 2
+        },
+        {
+          "value": 17,
+          "count": 1
+        },
+        {
+          "value": 20,
+          "count": 1
+        },
+        {
+          "value": 21,
+          "count": 1
+        },
+        {
+          "value": 37,
+          "count": 1
+        },
+        {
+          "value": 42,
+          "count": 1
+        }
+      ],
+      "singleRecipient": [
+        {
+          "value": 68,
+          "count": 2
+        },
+        {
+          "value": 73,
+          "count": 2
+        },
+        {
+          "value": 83,
+          "count": 2
+        },
+        {
+          "value": 93,
+          "count": 2
+        },
+        {
+          "value": 99,
+          "count": 2
+        },
+        {
+          "value": 100,
+          "count": 2
+        },
+        {
+          "value": 54,
+          "count": 1
+        },
+        {
+          "value": 55,
+          "count": 1
+        },
+        {
+          "value": 58,
+          "count": 1
+        },
+        {
+          "value": 61,
+          "count": 1
+        },
+        {
+          "value": 66,
+          "count": 1
+        },
+        {
+          "value": 67,
+          "count": 1
+        },
+        {
+          "value": 69,
+          "count": 1
+        },
+        {
+          "value": 71,
+          "count": 1
+        },
+        {
+          "value": 75,
+          "count": 1
+        },
+        {
+          "value": 84,
+          "count": 1
+        },
+        {
+          "value": 86,
+          "count": 1
+        },
+        {
+          "value": 91,
+          "count": 1
+        },
+        {
+          "value": 98,
+          "count": 1
+        },
+        {
+          "value": 109,
+          "count": 1
+        },
+        {
+          "value": 119,
+          "count": 1
+        }
+      ],
+      "teamTotal": [
+        {
+          "value": 57,
+          "count": 6
+        },
+        {
+          "value": 93,
+          "count": 5
+        },
+        {
+          "value": 56,
+          "count": 4
+        },
+        {
+          "value": 58,
+          "count": 4
+        },
+        {
+          "value": 72,
+          "count": 4
+        },
+        {
+          "value": 83,
+          "count": 4
+        },
+        {
+          "value": 99,
+          "count": 4
+        },
+        {
+          "value": 101,
+          "count": 4
+        },
+        {
+          "value": 98,
+          "count": 3
+        },
+        {
+          "value": 104,
+          "count": 3
+        },
+        {
+          "value": 107,
+          "count": 3
+        },
+        {
+          "value": 60,
+          "count": 2
+        },
+        {
+          "value": 62,
+          "count": 2
+        },
+        {
+          "value": 66,
+          "count": 2
+        },
+        {
+          "value": 67,
+          "count": 2
+        },
+        {
+          "value": 68,
+          "count": 2
+        },
+        {
+          "value": 69,
+          "count": 2
+        },
+        {
+          "value": 70,
+          "count": 2
+        },
+        {
+          "value": 73,
+          "count": 2
+        },
+        {
+          "value": 74,
+          "count": 2
+        },
+        {
+          "value": 75,
+          "count": 2
+        },
+        {
+          "value": 91,
+          "count": 2
+        },
+        {
+          "value": 96,
+          "count": 2
+        },
+        {
+          "value": 100,
+          "count": 2
+        },
+        {
+          "value": 109,
+          "count": 2
+        }
+      ]
+    }
+  },
+  "groupedAmounts": {
+    "byRecipientCount": [
+      {
+        "group": "2",
+        "count": 28,
+        "recipientCount": {
+          "count": 28,
+          "min": 2,
+          "p25": 2,
+          "median": 2,
+          "p75": 2,
+          "p95": 2,
+          "p99": 2,
+          "max": 2,
+          "mean": 2
+        },
+        "credited": {
+          "count": 28,
+          "min": 28,
+          "p25": 29,
+          "median": 30,
+          "p75": 36.5,
+          "p95": 53.949999999999996,
+          "p99": 55,
+          "max": 55,
+          "mean": 34.607142857142854
+        },
+        "peer": {
+          "count": 28,
+          "min": 28,
+          "p25": 28,
+          "median": 30,
+          "p75": 36.25,
+          "p95": 52.65,
+          "p99": 54.459999999999994,
+          "max": 55,
+          "mean": 34.17857142857143
+        },
+        "teamTotal": {
+          "count": 28,
+          "min": 56,
+          "p25": 57,
+          "median": 60,
+          "p75": 72.75,
+          "p95": 106.6,
+          "p99": 109.46,
+          "max": 110,
+          "mean": 68.78571428571429
+        },
+        "allEqual": 17,
+        "allEqualRate": 0.6071428571428571,
+        "creditedModes": [
+          {
+            "value": 29,
+            "count": 9
+          },
+          {
+            "value": 28,
+            "count": 4
+          },
+          {
+            "value": 30,
+            "count": 2
+          },
+          {
+            "value": 31,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 42,
+            "count": 2
+          },
+          {
+            "value": 55,
+            "count": 2
+          },
+          {
+            "value": 34,
+            "count": 1
+          },
+          {
+            "value": 35,
+            "count": 1
+          },
+          {
+            "value": 38,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 28,
+            "count": 10
+          },
+          {
+            "value": 29,
+            "count": 3
+          },
+          {
+            "value": 30,
+            "count": 2
+          },
+          {
+            "value": 31,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 41,
+            "count": 2
+          },
+          {
+            "value": 33,
+            "count": 1
+          },
+          {
+            "value": 35,
+            "count": 1
+          },
+          {
+            "value": 37,
+            "count": 1
+          },
+          {
+            "value": 49,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "1",
+        "count": 27,
+        "recipientCount": {
+          "count": 27,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 27,
+          "min": 54,
+          "p25": 68,
+          "median": 83,
+          "p75": 95.5,
+          "p95": 106.3,
+          "p99": 116.39999999999999,
+          "max": 119,
+          "mean": 81.29629629629629
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 27,
+          "min": 54,
+          "p25": 68,
+          "median": 83,
+          "p75": 95.5,
+          "p95": 106.3,
+          "p99": 116.39999999999999,
+          "max": 119,
+          "mean": 81.29629629629629
+        },
+        "allEqual": 27,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 68,
+            "count": 2
+          },
+          {
+            "value": 73,
+            "count": 2
+          },
+          {
+            "value": 83,
+            "count": 2
+          },
+          {
+            "value": 93,
+            "count": 2
+          },
+          {
+            "value": 99,
+            "count": 2
+          },
+          {
+            "value": 100,
+            "count": 2
+          },
+          {
+            "value": 54,
+            "count": 1
+          },
+          {
+            "value": 55,
+            "count": 1
+          },
+          {
+            "value": 58,
+            "count": 1
+          },
+          {
+            "value": 61,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "3",
+        "count": 23,
+        "recipientCount": {
+          "count": 23,
+          "min": 3,
+          "p25": 3,
+          "median": 3,
+          "p75": 3,
+          "p95": 3,
+          "p99": 3,
+          "max": 3,
+          "mean": 3
+        },
+        "credited": {
+          "count": 23,
+          "min": 22,
+          "p25": 31,
+          "median": 35,
+          "p75": 36.5,
+          "p95": 53.49999999999999,
+          "p99": 71.16000000000003,
+          "max": 76,
+          "mean": 36.26086956521739
+        },
+        "peer": {
+          "count": 46,
+          "min": 1,
+          "p25": 30,
+          "median": 34,
+          "p75": 36,
+          "p95": 52.75,
+          "p99": 92.49999999999991,
+          "max": 106,
+          "mean": 34.869565217391305
+        },
+        "teamTotal": {
+          "count": 23,
+          "min": 66,
+          "p25": 92,
+          "median": 103,
+          "p75": 107,
+          "p95": 177.39999999999992,
+          "p99": 207.18000000000004,
+          "max": 214,
+          "mean": 106
+        },
+        "allEqual": 4,
+        "allEqualRate": 0.17391304347826086,
+        "creditedModes": [
+          {
+            "value": 36,
+            "count": 4
+          },
+          {
+            "value": 34,
+            "count": 3
+          },
+          {
+            "value": 35,
+            "count": 3
+          },
+          {
+            "value": 24,
+            "count": 2
+          },
+          {
+            "value": 31,
+            "count": 2
+          },
+          {
+            "value": 22,
+            "count": 1
+          },
+          {
+            "value": 23,
+            "count": 1
+          },
+          {
+            "value": 27,
+            "count": 1
+          },
+          {
+            "value": 37,
+            "count": 1
+          },
+          {
+            "value": 42,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 34,
+            "count": 7
+          },
+          {
+            "value": 35,
+            "count": 7
+          },
+          {
+            "value": 36,
+            "count": 5
+          },
+          {
+            "value": 23,
+            "count": 4
+          },
+          {
+            "value": 31,
+            "count": 3
+          },
+          {
+            "value": 33,
+            "count": 3
+          },
+          {
+            "value": 22,
+            "count": 2
+          },
+          {
+            "value": 24,
+            "count": 2
+          },
+          {
+            "value": 26,
+            "count": 2
+          },
+          {
+            "value": 30,
+            "count": 2
+          }
+        ]
+      },
+      {
+        "group": "4",
+        "count": 8,
+        "recipientCount": {
+          "count": 8,
+          "min": 4,
+          "p25": 4,
+          "median": 4,
+          "p75": 4,
+          "p95": 4,
+          "p99": 4,
+          "max": 4,
+          "mean": 4
+        },
+        "credited": {
+          "count": 8,
+          "min": 18,
+          "p25": 19,
+          "median": 23,
+          "p75": 25.25,
+          "p95": 29.25,
+          "p99": 30.65,
+          "max": 31,
+          "mean": 23
+        },
+        "peer": {
+          "count": 24,
+          "min": 1,
+          "p25": 18,
+          "median": 22,
+          "p75": 25,
+          "p95": 30.099999999999987,
+          "p99": 31,
+          "max": 31,
+          "mean": 21.333333333333332
+        },
+        "teamTotal": {
+          "count": 8,
+          "min": 72,
+          "p25": 74,
+          "median": 90.5,
+          "p75": 96,
+          "p95": 100.30000000000001,
+          "p99": 100.86000000000001,
+          "max": 101,
+          "mean": 87
+        },
+        "allEqual": 1,
+        "allEqualRate": 0.125,
+        "creditedModes": [
+          {
+            "value": 19,
+            "count": 2
+          },
+          {
+            "value": 18,
+            "count": 1
+          },
+          {
+            "value": 22,
+            "count": 1
+          },
+          {
+            "value": 24,
+            "count": 1
+          },
+          {
+            "value": 25,
+            "count": 1
+          },
+          {
+            "value": 26,
+            "count": 1
+          },
+          {
+            "value": 31,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 18,
+            "count": 7
+          },
+          {
+            "value": 25,
+            "count": 5
+          },
+          {
+            "value": 24,
+            "count": 3
+          },
+          {
+            "value": 19,
+            "count": 2
+          },
+          {
+            "value": 22,
+            "count": 2
+          },
+          {
+            "value": 31,
+            "count": 2
+          },
+          {
+            "value": 1,
+            "count": 1
+          },
+          {
+            "value": 21,
+            "count": 1
+          },
+          {
+            "value": 23,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "6",
+        "count": 3,
+        "recipientCount": {
+          "count": 3,
+          "min": 6,
+          "p25": 6,
+          "median": 6,
+          "p75": 6,
+          "p95": 6,
+          "p99": 6,
+          "max": 6,
+          "mean": 6
+        },
+        "credited": {
+          "count": 3,
+          "min": 16,
+          "p25": 16,
+          "median": 16,
+          "p75": 16.5,
+          "p95": 16.9,
+          "p99": 16.98,
+          "max": 17,
+          "mean": 16.333333333333332
+        },
+        "peer": {
+          "count": 15,
+          "min": 15,
+          "p25": 15,
+          "median": 16,
+          "p75": 16,
+          "p95": 16.299999999999997,
+          "p99": 16.86,
+          "max": 17,
+          "mean": 15.666666666666666
+        },
+        "teamTotal": {
+          "count": 3,
+          "min": 93,
+          "p25": 93,
+          "median": 93,
+          "p75": 95.5,
+          "p95": 97.5,
+          "p99": 97.89999999999999,
+          "max": 98,
+          "mean": 94.66666666666667
+        },
+        "allEqual": 0,
+        "allEqualRate": 0,
+        "creditedModes": [
+          {
+            "value": 16,
+            "count": 2
+          },
+          {
+            "value": 17,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 16,
+            "count": 8
+          },
+          {
+            "value": 15,
+            "count": 6
+          },
+          {
+            "value": 17,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "5",
+        "count": 2,
+        "recipientCount": {
+          "count": 2,
+          "min": 5,
+          "p25": 5,
+          "median": 5,
+          "p75": 5,
+          "p95": 5,
+          "p99": 5,
+          "max": 5,
+          "mean": 5
+        },
+        "credited": {
+          "count": 2,
+          "min": 19,
+          "p25": 19.25,
+          "median": 19.5,
+          "p75": 19.75,
+          "p95": 19.95,
+          "p99": 19.990000000000002,
+          "max": 20,
+          "mean": 19.5
+        },
+        "peer": {
+          "count": 8,
+          "min": 19,
+          "p25": 19,
+          "median": 19,
+          "p75": 19,
+          "p95": 19.65,
+          "p99": 19.93,
+          "max": 20,
+          "mean": 19.125
+        },
+        "teamTotal": {
+          "count": 2,
+          "min": 96,
+          "p25": 96,
+          "median": 96,
+          "p75": 96,
+          "p95": 96,
+          "p99": 96,
+          "max": 96,
+          "mean": 96
+        },
+        "allEqual": 0,
+        "allEqualRate": 0,
+        "creditedModes": [
+          {
+            "value": 19,
+            "count": 1
+          },
+          {
+            "value": 20,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 19,
+            "count": 7
+          },
+          {
+            "value": 20,
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "byBaseType": [
+      {
+        "group": "MEDIC",
+        "count": 41,
+        "recipientCount": {
+          "count": 41,
+          "min": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 3,
+          "p95": 4,
+          "p99": 5,
+          "max": 5,
+          "mean": 2.1951219512195124
+        },
+        "credited": {
+          "count": 41,
+          "min": 19,
+          "p25": 29,
+          "median": 34,
+          "p75": 66,
+          "p95": 99,
+          "p99": 105.4,
+          "max": 109,
+          "mean": 45.926829268292686
+        },
+        "peer": {
+          "count": 49,
+          "min": 18,
+          "p25": 22,
+          "median": 28,
+          "p75": 33,
+          "p95": 45.59999999999991,
+          "p99": 81.0399999999998,
+          "max": 106,
+          "mean": 29.306122448979593
+        },
+        "teamTotal": {
+          "count": 41,
+          "min": 54,
+          "p25": 58,
+          "median": 72,
+          "p75": 99,
+          "p95": 109,
+          "p99": 172.00000000000017,
+          "max": 214,
+          "mean": 80.95121951219512
+        },
+        "allEqual": 23,
+        "allEqualRate": 0.5609756097560976,
+        "creditedModes": [
+          {
+            "value": 29,
+            "count": 8
+          },
+          {
+            "value": 34,
+            "count": 3
+          },
+          {
+            "value": 19,
+            "count": 2
+          },
+          {
+            "value": 24,
+            "count": 2
+          },
+          {
+            "value": 28,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 54,
+            "count": 2
+          },
+          {
+            "value": 20,
+            "count": 1
+          },
+          {
+            "value": 22,
+            "count": 1
+          },
+          {
+            "value": 26,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 19,
+            "count": 8
+          },
+          {
+            "value": 28,
+            "count": 7
+          },
+          {
+            "value": 24,
+            "count": 4
+          },
+          {
+            "value": 34,
+            "count": 4
+          },
+          {
+            "value": 25,
+            "count": 3
+          },
+          {
+            "value": 29,
+            "count": 3
+          },
+          {
+            "value": 33,
+            "count": 3
+          },
+          {
+            "value": 36,
+            "count": 3
+          },
+          {
+            "value": 18,
+            "count": 2
+          },
+          {
+            "value": 22,
+            "count": 2
+          }
+        ]
+      },
+      {
+        "group": "RANGED",
+        "count": 31,
+        "recipientCount": {
+          "count": 31,
+          "min": 1,
+          "p25": 1.5,
+          "median": 2,
+          "p75": 3,
+          "p95": 5,
+          "p99": 6,
+          "max": 6,
+          "mean": 2.4516129032258065
+        },
+        "credited": {
+          "count": 31,
+          "min": 16,
+          "p25": 28.5,
+          "median": 36,
+          "p75": 61.5,
+          "p95": 94.5,
+          "p99": 98.69999999999999,
+          "max": 99,
+          "mean": 45.74193548387097
+        },
+        "peer": {
+          "count": 45,
+          "min": 1,
+          "p25": 18,
+          "median": 28,
+          "p75": 35,
+          "p95": 42.8,
+          "p99": 66.76000000000005,
+          "max": 76,
+          "mean": 28.288888888888888
+        },
+        "teamTotal": {
+          "count": 31,
+          "min": 55,
+          "p25": 69.5,
+          "median": 83,
+          "p75": 98.5,
+          "p95": 126,
+          "p99": 166.2,
+          "max": 183,
+          "mean": 86.80645161290323
+        },
+        "allEqual": 17,
+        "allEqualRate": 0.5483870967741935,
+        "creditedModes": [
+          {
+            "value": 31,
+            "count": 3
+          },
+          {
+            "value": 42,
+            "count": 3
+          },
+          {
+            "value": 28,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 55,
+            "count": 2
+          },
+          {
+            "value": 16,
+            "count": 1
+          },
+          {
+            "value": 17,
+            "count": 1
+          },
+          {
+            "value": 18,
+            "count": 1
+          },
+          {
+            "value": 23,
+            "count": 1
+          },
+          {
+            "value": 24,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 16,
+            "count": 6
+          },
+          {
+            "value": 31,
+            "count": 6
+          },
+          {
+            "value": 23,
+            "count": 4
+          },
+          {
+            "value": 41,
+            "count": 4
+          },
+          {
+            "value": 15,
+            "count": 3
+          },
+          {
+            "value": 18,
+            "count": 3
+          },
+          {
+            "value": 28,
+            "count": 3
+          },
+          {
+            "value": 35,
+            "count": 3
+          },
+          {
+            "value": 25,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          }
+        ]
+      },
+      {
+        "group": "MELEE",
+        "count": 19,
+        "recipientCount": {
+          "count": 19,
+          "min": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 3,
+          "p95": 4.199999999999996,
+          "p99": 5.640000000000001,
+          "max": 6,
+          "mean": 2.4210526315789473
+        },
+        "credited": {
+          "count": 19,
+          "min": 16,
+          "p25": 32.5,
+          "median": 36,
+          "p75": 62.5,
+          "p95": 101.89999999999996,
+          "p99": 115.58000000000001,
+          "max": 119,
+          "mean": 51
+        },
+        "peer": {
+          "count": 27,
+          "min": 1,
+          "p25": 18,
+          "median": 30,
+          "p75": 35,
+          "p95": 49,
+          "p99": 51.959999999999994,
+          "max": 53,
+          "mean": 27.85185185185185
+        },
+        "teamTotal": {
+          "count": 19,
+          "min": 58,
+          "p25": 79,
+          "median": 93,
+          "p75": 102.5,
+          "p95": 109.09999999999998,
+          "p99": 117.02000000000001,
+          "max": 119,
+          "mean": 90.57894736842105
+        },
+        "allEqual": 9,
+        "allEqualRate": 0.47368421052631576,
+        "creditedModes": [
+          {
+            "value": 31,
+            "count": 2
+          },
+          {
+            "value": 35,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 49,
+            "count": 2
+          },
+          {
+            "value": 16,
+            "count": 1
+          },
+          {
+            "value": 19,
+            "count": 1
+          },
+          {
+            "value": 22,
+            "count": 1
+          },
+          {
+            "value": 34,
+            "count": 1
+          },
+          {
+            "value": 55,
+            "count": 1
+          },
+          {
+            "value": 58,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 15,
+            "count": 3
+          },
+          {
+            "value": 34,
+            "count": 3
+          },
+          {
+            "value": 35,
+            "count": 3
+          },
+          {
+            "value": 16,
+            "count": 2
+          },
+          {
+            "value": 18,
+            "count": 2
+          },
+          {
+            "value": 22,
+            "count": 2
+          },
+          {
+            "value": 30,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 49,
+            "count": 2
+          },
+          {
+            "value": 1,
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "byMatchTimeBand": [
+      {
+        "group": "GE_45_MIN",
+        "count": 24,
+        "recipientCount": {
+          "count": 24,
+          "min": 1,
+          "p25": 3,
+          "median": 3,
+          "p75": 4,
+          "p95": 6,
+          "p99": 6,
+          "max": 6,
+          "mean": 3.25
+        },
+        "credited": {
+          "count": 24,
+          "min": 16,
+          "p25": 25.5,
+          "median": 35.5,
+          "p75": 45.25,
+          "p95": 100,
+          "p99": 114.63,
+          "max": 119,
+          "mean": 44.333333333333336
+        },
+        "peer": {
+          "count": 54,
+          "min": 15,
+          "p25": 16.25,
+          "median": 25,
+          "p75": 35,
+          "p95": 46.14999999999995,
+          "p99": 78.43999999999994,
+          "max": 106,
+          "mean": 28.444444444444443
+        },
+        "teamTotal": {
+          "count": 24,
+          "min": 93,
+          "p25": 98.75,
+          "median": 102,
+          "p75": 107,
+          "p95": 126.7,
+          "p99": 193.98999999999998,
+          "max": 214,
+          "mean": 108.33333333333333
+        },
+        "allEqual": 5,
+        "allEqualRate": 0.20833333333333334,
+        "creditedModes": [
+          {
+            "value": 36,
+            "count": 4
+          },
+          {
+            "value": 35,
+            "count": 3
+          },
+          {
+            "value": 16,
+            "count": 2
+          },
+          {
+            "value": 34,
+            "count": 2
+          },
+          {
+            "value": 100,
+            "count": 2
+          },
+          {
+            "value": 17,
+            "count": 1
+          },
+          {
+            "value": 19,
+            "count": 1
+          },
+          {
+            "value": 20,
+            "count": 1
+          },
+          {
+            "value": 24,
+            "count": 1
+          },
+          {
+            "value": 26,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 16,
+            "count": 8
+          },
+          {
+            "value": 19,
+            "count": 7
+          },
+          {
+            "value": 35,
+            "count": 7
+          },
+          {
+            "value": 15,
+            "count": 6
+          },
+          {
+            "value": 34,
+            "count": 6
+          },
+          {
+            "value": 25,
+            "count": 3
+          },
+          {
+            "value": 36,
+            "count": 3
+          },
+          {
+            "value": 24,
+            "count": 2
+          },
+          {
+            "value": 33,
+            "count": 2
+          },
+          {
+            "value": 41,
+            "count": 2
+          }
+        ]
+      },
+      {
+        "group": "LT_10_MIN",
+        "count": 20,
+        "recipientCount": {
+          "count": 20,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 2,
+          "p95": 2,
+          "p99": 2,
+          "max": 2,
+          "mean": 1.85
+        },
+        "credited": {
+          "count": 20,
+          "min": 28,
+          "p25": 29,
+          "median": 29,
+          "p75": 30.25,
+          "p95": 55.15,
+          "p99": 57.42999999999999,
+          "max": 58,
+          "mean": 33.1
+        },
+        "peer": {
+          "count": 17,
+          "min": 28,
+          "p25": 28,
+          "median": 28,
+          "p75": 29,
+          "p95": 31,
+          "p99": 31,
+          "max": 31,
+          "mean": 28.764705882352942
+        },
+        "teamTotal": {
+          "count": 20,
+          "min": 54,
+          "p25": 56,
+          "median": 57,
+          "p75": 58,
+          "p95": 62,
+          "p99": 62,
+          "max": 62,
+          "mean": 57.55
+        },
+        "allEqual": 14,
+        "allEqualRate": 0.7,
+        "creditedModes": [
+          {
+            "value": 29,
+            "count": 9
+          },
+          {
+            "value": 28,
+            "count": 4
+          },
+          {
+            "value": 30,
+            "count": 2
+          },
+          {
+            "value": 31,
+            "count": 2
+          },
+          {
+            "value": 54,
+            "count": 1
+          },
+          {
+            "value": 55,
+            "count": 1
+          },
+          {
+            "value": 58,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 28,
+            "count": 10
+          },
+          {
+            "value": 29,
+            "count": 3
+          },
+          {
+            "value": 30,
+            "count": 2
+          },
+          {
+            "value": 31,
+            "count": 2
+          }
+        ]
+      },
+      {
+        "group": "40_TO_LT_45_MIN",
+        "count": 11,
+        "recipientCount": {
+          "count": 11,
+          "min": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 3,
+          "p95": 3.5,
+          "p99": 3.9000000000000004,
+          "max": 4,
+          "mean": 2
+        },
+        "credited": {
+          "count": 11,
+          "min": 25,
+          "p25": 43,
+          "median": 55,
+          "p75": 93,
+          "p95": 103.5,
+          "p99": 107.9,
+          "max": 109,
+          "mean": 66.63636363636364
+        },
+        "peer": {
+          "count": 11,
+          "min": 1,
+          "p25": 25,
+          "median": 34,
+          "p75": 42.5,
+          "p95": 51,
+          "p99": 52.6,
+          "max": 53,
+          "mean": 33.18181818181818
+        },
+        "teamTotal": {
+          "count": 11,
+          "min": 91,
+          "p25": 95.5,
+          "median": 99,
+          "p75": 104.5,
+          "p95": 109,
+          "p99": 109,
+          "max": 109,
+          "mean": 99.81818181818181
+        },
+        "allEqual": 6,
+        "allEqualRate": 0.5454545454545454,
+        "creditedModes": [
+          {
+            "value": 49,
+            "count": 2
+          },
+          {
+            "value": 93,
+            "count": 2
+          },
+          {
+            "value": 25,
+            "count": 1
+          },
+          {
+            "value": 34,
+            "count": 1
+          },
+          {
+            "value": 37,
+            "count": 1
+          },
+          {
+            "value": 55,
+            "count": 1
+          },
+          {
+            "value": 91,
+            "count": 1
+          },
+          {
+            "value": 98,
+            "count": 1
+          },
+          {
+            "value": 109,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 25,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 49,
+            "count": 2
+          },
+          {
+            "value": 1,
+            "count": 1
+          },
+          {
+            "value": 24,
+            "count": 1
+          },
+          {
+            "value": 33,
+            "count": 1
+          },
+          {
+            "value": 34,
+            "count": 1
+          },
+          {
+            "value": 53,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "10_TO_LT_15_MIN",
+        "count": 8,
+        "recipientCount": {
+          "count": 8,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 3,
+          "p95": 3,
+          "p99": 3,
+          "max": 3,
+          "mean": 2.25
+        },
+        "credited": {
+          "count": 8,
+          "min": 22,
+          "p25": 23.75,
+          "median": 34.5,
+          "p75": 36,
+          "p95": 52.249999999999986,
+          "p99": 59.24999999999999,
+          "max": 61,
+          "mean": 33.875
+        },
+        "peer": {
+          "count": 10,
+          "min": 22,
+          "p25": 23,
+          "median": 23,
+          "p75": 34.5,
+          "p95": 36,
+          "p99": 36,
+          "max": 36,
+          "mean": 27.6
+        },
+        "teamTotal": {
+          "count": 8,
+          "min": 61,
+          "p25": 66.75,
+          "median": 69.5,
+          "p75": 70.5,
+          "p95": 72,
+          "p99": 72,
+          "max": 72,
+          "mean": 68.375
+        },
+        "allEqual": 6,
+        "allEqualRate": 0.75,
+        "creditedModes": [
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 22,
+            "count": 1
+          },
+          {
+            "value": 23,
+            "count": 1
+          },
+          {
+            "value": 24,
+            "count": 1
+          },
+          {
+            "value": 34,
+            "count": 1
+          },
+          {
+            "value": 35,
+            "count": 1
+          },
+          {
+            "value": 61,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 23,
+            "count": 4
+          },
+          {
+            "value": 22,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 33,
+            "count": 1
+          },
+          {
+            "value": 35,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "15_TO_LT_20_MIN",
+        "count": 7,
+        "recipientCount": {
+          "count": 7,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1.5,
+          "p95": 2.6999999999999993,
+          "p99": 2.9399999999999995,
+          "max": 3,
+          "mean": 1.4285714285714286
+        },
+        "credited": {
+          "count": 7,
+          "min": 24,
+          "p25": 52,
+          "median": 67,
+          "p75": 68,
+          "p95": 68.7,
+          "p99": 68.94,
+          "max": 69,
+          "mean": 57.142857142857146
+        },
+        "peer": {
+          "count": 3,
+          "min": 24,
+          "p25": 24,
+          "median": 24,
+          "p75": 30.5,
+          "p95": 35.7,
+          "p99": 36.739999999999995,
+          "max": 37,
+          "mean": 28.333333333333332
+        },
+        "teamTotal": {
+          "count": 7,
+          "min": 66,
+          "p25": 67.5,
+          "median": 68,
+          "p75": 70.5,
+          "p95": 74.1,
+          "p99": 74.82,
+          "max": 75,
+          "mean": 69.28571428571429
+        },
+        "allEqual": 6,
+        "allEqualRate": 0.8571428571428571,
+        "creditedModes": [
+          {
+            "value": 68,
+            "count": 2
+          },
+          {
+            "value": 24,
+            "count": 1
+          },
+          {
+            "value": 38,
+            "count": 1
+          },
+          {
+            "value": 66,
+            "count": 1
+          },
+          {
+            "value": 67,
+            "count": 1
+          },
+          {
+            "value": 69,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 24,
+            "count": 2
+          },
+          {
+            "value": 37,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "20_TO_LT_25_MIN",
+        "count": 7,
+        "recipientCount": {
+          "count": 7,
+          "min": 1,
+          "p25": 1,
+          "median": 3,
+          "p75": 4,
+          "p95": 4,
+          "p99": 4,
+          "max": 4,
+          "mean": 2.5714285714285716
+        },
+        "credited": {
+          "count": 7,
+          "min": 18,
+          "p25": 19,
+          "median": 27,
+          "p75": 72,
+          "p95": 73,
+          "p99": 73,
+          "max": 73,
+          "mean": 42.857142857142854
+        },
+        "peer": {
+          "count": 11,
+          "min": 18,
+          "p25": 18,
+          "median": 18,
+          "p75": 19,
+          "p95": 26,
+          "p99": 26,
+          "max": 26,
+          "mean": 19.636363636363637
+        },
+        "teamTotal": {
+          "count": 7,
+          "min": 71,
+          "p25": 72.5,
+          "median": 73,
+          "p75": 74,
+          "p95": 77.5,
+          "p99": 78.7,
+          "max": 79,
+          "mean": 73.71428571428571
+        },
+        "allEqual": 4,
+        "allEqualRate": 0.5714285714285714,
+        "creditedModes": [
+          {
+            "value": 19,
+            "count": 2
+          },
+          {
+            "value": 73,
+            "count": 2
+          },
+          {
+            "value": 18,
+            "count": 1
+          },
+          {
+            "value": 27,
+            "count": 1
+          },
+          {
+            "value": 71,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 18,
+            "count": 7
+          },
+          {
+            "value": 19,
+            "count": 2
+          },
+          {
+            "value": 26,
+            "count": 2
+          }
+        ]
+      },
+      {
+        "group": "30_TO_LT_35_MIN",
+        "count": 7,
+        "recipientCount": {
+          "count": 7,
+          "min": 1,
+          "p25": 1,
+          "median": 3,
+          "p75": 3,
+          "p95": 3.6999999999999993,
+          "p99": 3.9399999999999995,
+          "max": 4,
+          "mean": 2.2857142857142856
+        },
+        "credited": {
+          "count": 7,
+          "min": 22,
+          "p25": 31,
+          "median": 76,
+          "p75": 83,
+          "p95": 83.7,
+          "p99": 83.94,
+          "max": 84,
+          "mean": 58.57142857142857
+        },
+        "peer": {
+          "count": 9,
+          "min": 21,
+          "p25": 22,
+          "median": 30,
+          "p75": 31,
+          "p95": 57.999999999999986,
+          "p99": 72.39999999999999,
+          "max": 76,
+          "mean": 32.666666666666664
+        },
+        "teamTotal": {
+          "count": 7,
+          "min": 83,
+          "p25": 83.5,
+          "median": 87,
+          "p75": 92,
+          "p95": 155.99999999999994,
+          "p99": 177.59999999999994,
+          "max": 183,
+          "mean": 100.57142857142857
+        },
+        "allEqual": 4,
+        "allEqualRate": 0.5714285714285714,
+        "creditedModes": [
+          {
+            "value": 31,
+            "count": 2
+          },
+          {
+            "value": 83,
+            "count": 2
+          },
+          {
+            "value": 22,
+            "count": 1
+          },
+          {
+            "value": 76,
+            "count": 1
+          },
+          {
+            "value": 84,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 31,
+            "count": 3
+          },
+          {
+            "value": 22,
+            "count": 2
+          },
+          {
+            "value": 30,
+            "count": 2
+          },
+          {
+            "value": 21,
+            "count": 1
+          },
+          {
+            "value": 76,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "35_TO_LT_40_MIN",
+        "count": 4,
+        "recipientCount": {
+          "count": 4,
+          "min": 1,
+          "p25": 1,
+          "median": 1.5,
+          "p75": 2.5,
+          "p95": 3.6999999999999993,
+          "p99": 3.9399999999999995,
+          "max": 4,
+          "mean": 2
+        },
+        "credited": {
+          "count": 4,
+          "min": 31,
+          "p25": 49,
+          "median": 70.5,
+          "p75": 89.25,
+          "p95": 97.05,
+          "p99": 98.61,
+          "max": 99,
+          "mean": 67.75
+        },
+        "peer": {
+          "count": 4,
+          "min": 1,
+          "p25": 23.5,
+          "median": 31,
+          "p75": 37,
+          "p95": 51.39999999999999,
+          "p99": 54.279999999999994,
+          "max": 55,
+          "mean": 29.5
+        },
+        "teamTotal": {
+          "count": 4,
+          "min": 86,
+          "p25": 92,
+          "median": 96.5,
+          "p75": 101.75,
+          "p95": 108.35,
+          "p99": 109.67,
+          "max": 110,
+          "mean": 97.25
+        },
+        "allEqual": 3,
+        "allEqualRate": 0.75,
+        "creditedModes": [
+          {
+            "value": 31,
+            "count": 1
+          },
+          {
+            "value": 55,
+            "count": 1
+          },
+          {
+            "value": 86,
+            "count": 1
+          },
+          {
+            "value": 99,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 31,
+            "count": 2
+          },
+          {
+            "value": 1,
+            "count": 1
+          },
+          {
+            "value": 55,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "25_TO_LT_30_MIN",
+        "count": 3,
+        "recipientCount": {
+          "count": 3,
+          "min": 1,
+          "p25": 1.5,
+          "median": 2,
+          "p75": 2,
+          "p95": 2,
+          "p99": 2,
+          "max": 2,
+          "mean": 1.6666666666666667
+        },
+        "credited": {
+          "count": 3,
+          "min": 42,
+          "p25": 42,
+          "median": 42,
+          "p75": 58.5,
+          "p95": 71.7,
+          "p99": 74.34,
+          "max": 75,
+          "mean": 53
+        },
+        "peer": {
+          "count": 2,
+          "min": 41,
+          "p25": 41,
+          "median": 41,
+          "p75": 41,
+          "p95": 41,
+          "p99": 41,
+          "max": 41,
+          "mean": 41
+        },
+        "teamTotal": {
+          "count": 3,
+          "min": 75,
+          "p25": 79,
+          "median": 83,
+          "p75": 83,
+          "p95": 83,
+          "p99": 83,
+          "max": 83,
+          "mean": 80.33333333333333
+        },
+        "allEqual": 1,
+        "allEqualRate": 0.3333333333333333,
+        "creditedModes": [
+          {
+            "value": 42,
+            "count": 2
+          },
+          {
+            "value": 75,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 41,
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "byBaseTypeAndRecipientCount": [
+      {
+        "group": "MEDIC|N2",
+        "count": 14,
+        "recipientCount": {
+          "count": 14,
+          "min": 2,
+          "p25": 2,
+          "median": 2,
+          "p75": 2,
+          "p95": 2,
+          "p99": 2,
+          "max": 2,
+          "mean": 2
+        },
+        "credited": {
+          "count": 14,
+          "min": 28,
+          "p25": 29,
+          "median": 29,
+          "p75": 29.75,
+          "p95": 41.599999999999994,
+          "p99": 49.91999999999999,
+          "max": 52,
+          "mean": 31.428571428571427
+        },
+        "peer": {
+          "count": 14,
+          "min": 28,
+          "p25": 28,
+          "median": 28.5,
+          "p75": 29.75,
+          "p95": 41.599999999999994,
+          "p99": 49.91999999999999,
+          "max": 52,
+          "mean": 31
+        },
+        "teamTotal": {
+          "count": 14,
+          "min": 56,
+          "p25": 57,
+          "median": 57.5,
+          "p75": 59.5,
+          "p95": 83.19999999999999,
+          "p99": 99.83999999999997,
+          "max": 104,
+          "mean": 62.42857142857143
+        },
+        "allEqual": 8,
+        "allEqualRate": 0.5714285714285714,
+        "creditedModes": [
+          {
+            "value": 29,
+            "count": 8
+          },
+          {
+            "value": 28,
+            "count": 2
+          },
+          {
+            "value": 30,
+            "count": 1
+          },
+          {
+            "value": 34,
+            "count": 1
+          },
+          {
+            "value": 36,
+            "count": 1
+          },
+          {
+            "value": 52,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 28,
+            "count": 7
+          },
+          {
+            "value": 29,
+            "count": 3
+          },
+          {
+            "value": 30,
+            "count": 1
+          },
+          {
+            "value": 33,
+            "count": 1
+          },
+          {
+            "value": 36,
+            "count": 1
+          },
+          {
+            "value": 52,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "MEDIC|N1",
+        "count": 13,
+        "recipientCount": {
+          "count": 13,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 13,
+          "min": 54,
+          "p25": 68,
+          "median": 73,
+          "p75": 93,
+          "p95": 103.6,
+          "p99": 107.91999999999999,
+          "max": 109,
+          "mean": 79.38461538461539
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 13,
+          "min": 54,
+          "p25": 68,
+          "median": 73,
+          "p75": 93,
+          "p95": 103.6,
+          "p99": 107.91999999999999,
+          "max": 109,
+          "mean": 79.38461538461539
+        },
+        "allEqual": 13,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 54,
+            "count": 1
+          },
+          {
+            "value": 61,
+            "count": 1
+          },
+          {
+            "value": 66,
+            "count": 1
+          },
+          {
+            "value": 68,
+            "count": 1
+          },
+          {
+            "value": 69,
+            "count": 1
+          },
+          {
+            "value": 71,
+            "count": 1
+          },
+          {
+            "value": 73,
+            "count": 1
+          },
+          {
+            "value": 83,
+            "count": 1
+          },
+          {
+            "value": 86,
+            "count": 1
+          },
+          {
+            "value": 93,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED|N2",
+        "count": 10,
+        "recipientCount": {
+          "count": 10,
+          "min": 2,
+          "p25": 2,
+          "median": 2,
+          "p75": 2,
+          "p95": 2,
+          "p99": 2,
+          "max": 2,
+          "mean": 2
+        },
+        "credited": {
+          "count": 10,
+          "min": 28,
+          "p25": 29.25,
+          "median": 33,
+          "p75": 41,
+          "p95": 49.14999999999999,
+          "p99": 53.830000000000005,
+          "max": 55,
+          "mean": 35.8
+        },
+        "peer": {
+          "count": 10,
+          "min": 28,
+          "p25": 28.5,
+          "median": 33,
+          "p75": 40,
+          "p95": 48.69999999999999,
+          "p99": 53.74000000000001,
+          "max": 55,
+          "mean": 35.4
+        },
+        "teamTotal": {
+          "count": 10,
+          "min": 56,
+          "p25": 57.75,
+          "median": 66,
+          "p75": 81,
+          "p95": 97.84999999999997,
+          "p99": 107.57000000000001,
+          "max": 110,
+          "mean": 71.2
+        },
+        "allEqual": 6,
+        "allEqualRate": 0.6,
+        "creditedModes": [
+          {
+            "value": 28,
+            "count": 2
+          },
+          {
+            "value": 42,
+            "count": 2
+          },
+          {
+            "value": 29,
+            "count": 1
+          },
+          {
+            "value": 30,
+            "count": 1
+          },
+          {
+            "value": 31,
+            "count": 1
+          },
+          {
+            "value": 35,
+            "count": 1
+          },
+          {
+            "value": 38,
+            "count": 1
+          },
+          {
+            "value": 55,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 28,
+            "count": 3
+          },
+          {
+            "value": 41,
+            "count": 2
+          },
+          {
+            "value": 30,
+            "count": 1
+          },
+          {
+            "value": 31,
+            "count": 1
+          },
+          {
+            "value": 35,
+            "count": 1
+          },
+          {
+            "value": 37,
+            "count": 1
+          },
+          {
+            "value": 55,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "MEDIC|N3",
+        "count": 9,
+        "recipientCount": {
+          "count": 9,
+          "min": 3,
+          "p25": 3,
+          "median": 3,
+          "p75": 3,
+          "p95": 3,
+          "p99": 3,
+          "max": 3,
+          "mean": 3
+        },
+        "credited": {
+          "count": 9,
+          "min": 22,
+          "p25": 27,
+          "median": 34,
+          "p75": 36,
+          "p95": 47.19999999999999,
+          "p99": 52.63999999999999,
+          "max": 54,
+          "mean": 33.666666666666664
+        },
+        "peer": {
+          "count": 18,
+          "min": 22,
+          "p25": 26,
+          "median": 34,
+          "p75": 35,
+          "p95": 61.799999999999926,
+          "p99": 97.15999999999991,
+          "max": 106,
+          "mean": 36
+        },
+        "teamTotal": {
+          "count": 9,
+          "min": 66,
+          "p25": 79,
+          "median": 101,
+          "p75": 106,
+          "p95": 171.99999999999994,
+          "p99": 205.6,
+          "max": 214,
+          "mean": 105.66666666666667
+        },
+        "allEqual": 2,
+        "allEqualRate": 0.2222222222222222,
+        "creditedModes": [
+          {
+            "value": 34,
+            "count": 2
+          },
+          {
+            "value": 22,
+            "count": 1
+          },
+          {
+            "value": 24,
+            "count": 1
+          },
+          {
+            "value": 27,
+            "count": 1
+          },
+          {
+            "value": 35,
+            "count": 1
+          },
+          {
+            "value": 36,
+            "count": 1
+          },
+          {
+            "value": 37,
+            "count": 1
+          },
+          {
+            "value": 54,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 34,
+            "count": 4
+          },
+          {
+            "value": 22,
+            "count": 2
+          },
+          {
+            "value": 24,
+            "count": 2
+          },
+          {
+            "value": 26,
+            "count": 2
+          },
+          {
+            "value": 33,
+            "count": 2
+          },
+          {
+            "value": 35,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 54,
+            "count": 1
+          },
+          {
+            "value": 106,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "RANGED|N1",
+        "count": 8,
+        "recipientCount": {
+          "count": 8,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 8,
+          "min": 55,
+          "p25": 71.75,
+          "median": 79,
+          "p75": 92.75,
+          "p95": 98.65,
+          "p99": 98.92999999999999,
+          "max": 99,
+          "mean": 80.25
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 8,
+          "min": 55,
+          "p25": 71.75,
+          "median": 79,
+          "p75": 92.75,
+          "p95": 98.65,
+          "p99": 98.92999999999999,
+          "max": 99,
+          "mean": 80.25
+        },
+        "allEqual": 8,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 55,
+            "count": 1
+          },
+          {
+            "value": 68,
+            "count": 1
+          },
+          {
+            "value": 73,
+            "count": 1
+          },
+          {
+            "value": 75,
+            "count": 1
+          },
+          {
+            "value": 83,
+            "count": 1
+          },
+          {
+            "value": 91,
+            "count": 1
+          },
+          {
+            "value": 98,
+            "count": 1
+          },
+          {
+            "value": 99,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED|N3",
+        "count": 8,
+        "recipientCount": {
+          "count": 8,
+          "min": 3,
+          "p25": 3,
+          "median": 3,
+          "p75": 3,
+          "p95": 3,
+          "p99": 3,
+          "max": 3,
+          "mean": 3
+        },
+        "credited": {
+          "count": 8,
+          "min": 23,
+          "p25": 29.25,
+          "median": 36,
+          "p75": 42.25,
+          "p95": 64.44999999999999,
+          "p99": 73.69,
+          "max": 76,
+          "mean": 38.875
+        },
+        "peer": {
+          "count": 16,
+          "min": 23,
+          "p25": 29,
+          "median": 35,
+          "p75": 41,
+          "p95": 51.25,
+          "p99": 71.04999999999998,
+          "max": 76,
+          "mean": 35.625
+        },
+        "teamTotal": {
+          "count": 8,
+          "min": 69,
+          "p25": 87.25,
+          "median": 107,
+          "p75": 125.5,
+          "p95": 163.39999999999998,
+          "p99": 179.07999999999998,
+          "max": 183,
+          "mean": 110.125
+        },
+        "allEqual": 2,
+        "allEqualRate": 0.25,
+        "creditedModes": [
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 23,
+            "count": 1
+          },
+          {
+            "value": 24,
+            "count": 1
+          },
+          {
+            "value": 31,
+            "count": 1
+          },
+          {
+            "value": 42,
+            "count": 1
+          },
+          {
+            "value": 43,
+            "count": 1
+          },
+          {
+            "value": 76,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 23,
+            "count": 4
+          },
+          {
+            "value": 31,
+            "count": 3
+          },
+          {
+            "value": 35,
+            "count": 2
+          },
+          {
+            "value": 36,
+            "count": 2
+          },
+          {
+            "value": 41,
+            "count": 2
+          },
+          {
+            "value": 42,
+            "count": 1
+          },
+          {
+            "value": 43,
+            "count": 1
+          },
+          {
+            "value": 76,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "MELEE|N1",
+        "count": 6,
+        "recipientCount": {
+          "count": 6,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 6,
+          "min": 58,
+          "p25": 71.25,
+          "median": 88.5,
+          "p75": 98.25,
+          "p95": 114.25,
+          "p99": 118.05000000000001,
+          "max": 119,
+          "mean": 86.83333333333333
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 6,
+          "min": 58,
+          "p25": 71.25,
+          "median": 88.5,
+          "p75": 98.25,
+          "p95": 114.25,
+          "p99": 118.05000000000001,
+          "max": 119,
+          "mean": 86.83333333333333
+        },
+        "allEqual": 6,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 58,
+            "count": 1
+          },
+          {
+            "value": 67,
+            "count": 1
+          },
+          {
+            "value": 84,
+            "count": 1
+          },
+          {
+            "value": 93,
+            "count": 1
+          },
+          {
+            "value": 100,
+            "count": 1
+          },
+          {
+            "value": 119,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MELEE|N3",
+        "count": 6,
+        "recipientCount": {
+          "count": 6,
+          "min": 3,
+          "p25": 3,
+          "median": 3,
+          "p75": 3,
+          "p95": 3,
+          "p99": 3,
+          "max": 3,
+          "mean": 3
+        },
+        "credited": {
+          "count": 6,
+          "min": 31,
+          "p25": 34.25,
+          "median": 35,
+          "p75": 35.75,
+          "p95": 45.75,
+          "p99": 48.35000000000001,
+          "max": 49,
+          "mean": 36.666666666666664
+        },
+        "peer": {
+          "count": 12,
+          "min": 1,
+          "p25": 32.25,
+          "median": 34,
+          "p75": 35,
+          "p95": 41.849999999999994,
+          "p99": 47.57000000000001,
+          "max": 49,
+          "mean": 32.166666666666664
+        },
+        "teamTotal": {
+          "count": 6,
+          "min": 91,
+          "p25": 99.5,
+          "median": 102.5,
+          "p75": 104,
+          "p95": 106.25,
+          "p99": 106.85,
+          "max": 107,
+          "mean": 101
+        },
+        "allEqual": 0,
+        "allEqualRate": 0,
+        "creditedModes": [
+          {
+            "value": 35,
+            "count": 2
+          },
+          {
+            "value": 31,
+            "count": 1
+          },
+          {
+            "value": 34,
+            "count": 1
+          },
+          {
+            "value": 36,
+            "count": 1
+          },
+          {
+            "value": 49,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 34,
+            "count": 3
+          },
+          {
+            "value": 35,
+            "count": 3
+          },
+          {
+            "value": 30,
+            "count": 2
+          },
+          {
+            "value": 1,
+            "count": 1
+          },
+          {
+            "value": 33,
+            "count": 1
+          },
+          {
+            "value": 36,
+            "count": 1
+          },
+          {
+            "value": 49,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "MELEE|N2",
+        "count": 4,
+        "recipientCount": {
+          "count": 4,
+          "min": 2,
+          "p25": 2,
+          "median": 2,
+          "p75": 2,
+          "p95": 2,
+          "p99": 2,
+          "max": 2,
+          "mean": 2
+        },
+        "credited": {
+          "count": 4,
+          "min": 31,
+          "p25": 34.75,
+          "median": 42.5,
+          "p75": 50.5,
+          "p95": 54.099999999999994,
+          "p99": 54.82,
+          "max": 55,
+          "mean": 42.75
+        },
+        "peer": {
+          "count": 4,
+          "min": 31,
+          "p25": 34.75,
+          "median": 42.5,
+          "p75": 50,
+          "p95": 52.4,
+          "p99": 52.88,
+          "max": 53,
+          "mean": 42.25
+        },
+        "teamTotal": {
+          "count": 4,
+          "min": 62,
+          "p25": 69.5,
+          "median": 85,
+          "p75": 100.5,
+          "p95": 106.49999999999999,
+          "p99": 107.7,
+          "max": 108,
+          "mean": 85
+        },
+        "allEqual": 3,
+        "allEqualRate": 0.75,
+        "creditedModes": [
+          {
+            "value": 31,
+            "count": 1
+          },
+          {
+            "value": 36,
+            "count": 1
+          },
+          {
+            "value": 49,
+            "count": 1
+          },
+          {
+            "value": 55,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 31,
+            "count": 1
+          },
+          {
+            "value": 36,
+            "count": 1
+          },
+          {
+            "value": 49,
+            "count": 1
+          },
+          {
+            "value": 53,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "MEDIC|N4",
+        "count": 3,
+        "recipientCount": {
+          "count": 3,
+          "min": 4,
+          "p25": 4,
+          "median": 4,
+          "p75": 4,
+          "p95": 4,
+          "p99": 4,
+          "max": 4,
+          "mean": 4
+        },
+        "credited": {
+          "count": 3,
+          "min": 19,
+          "p25": 21.5,
+          "median": 24,
+          "p75": 25,
+          "p95": 25.8,
+          "p99": 25.96,
+          "max": 26,
+          "mean": 23
+        },
+        "peer": {
+          "count": 9,
+          "min": 18,
+          "p25": 19,
+          "median": 24,
+          "p75": 25,
+          "p95": 25,
+          "p99": 25,
+          "max": 25,
+          "mean": 22.333333333333332
+        },
+        "teamTotal": {
+          "count": 3,
+          "min": 74,
+          "p25": 84.5,
+          "median": 95,
+          "p75": 98,
+          "p95": 100.4,
+          "p99": 100.88000000000001,
+          "max": 101,
+          "mean": 90
+        },
+        "allEqual": 0,
+        "allEqualRate": 0,
+        "creditedModes": [
+          {
+            "value": 19,
+            "count": 1
+          },
+          {
+            "value": 24,
+            "count": 1
+          },
+          {
+            "value": 26,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 25,
+            "count": 3
+          },
+          {
+            "value": 18,
+            "count": 2
+          },
+          {
+            "value": 24,
+            "count": 2
+          },
+          {
+            "value": 19,
+            "count": 1
+          },
+          {
+            "value": 23,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "RANGED|N4",
+        "count": 3,
+        "recipientCount": {
+          "count": 3,
+          "min": 4,
+          "p25": 4,
+          "median": 4,
+          "p75": 4,
+          "p95": 4,
+          "p99": 4,
+          "max": 4,
+          "mean": 4
+        },
+        "credited": {
+          "count": 3,
+          "min": 18,
+          "p25": 21.5,
+          "median": 25,
+          "p75": 28,
+          "p95": 30.400000000000002,
+          "p99": 30.88,
+          "max": 31,
+          "mean": 24.666666666666668
+        },
+        "peer": {
+          "count": 9,
+          "min": 1,
+          "p25": 18,
+          "median": 24,
+          "p75": 25,
+          "p95": 31,
+          "p99": 31,
+          "max": 31,
+          "mean": 21.22222222222222
+        },
+        "teamTotal": {
+          "count": 3,
+          "min": 72,
+          "p25": 83,
+          "median": 94,
+          "p75": 96.5,
+          "p95": 98.5,
+          "p99": 98.89999999999999,
+          "max": 99,
+          "mean": 88.33333333333333
+        },
+        "allEqual": 1,
+        "allEqualRate": 0.3333333333333333,
+        "creditedModes": [
+          {
+            "value": 18,
+            "count": 1
+          },
+          {
+            "value": 25,
+            "count": 1
+          },
+          {
+            "value": 31,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 18,
+            "count": 3
+          },
+          {
+            "value": 25,
+            "count": 2
+          },
+          {
+            "value": 31,
+            "count": 2
+          },
+          {
+            "value": 1,
+            "count": 1
+          },
+          {
+            "value": 24,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "MEDIC|N5",
+        "count": 2,
+        "recipientCount": {
+          "count": 2,
+          "min": 5,
+          "p25": 5,
+          "median": 5,
+          "p75": 5,
+          "p95": 5,
+          "p99": 5,
+          "max": 5,
+          "mean": 5
+        },
+        "credited": {
+          "count": 2,
+          "min": 19,
+          "p25": 19.25,
+          "median": 19.5,
+          "p75": 19.75,
+          "p95": 19.95,
+          "p99": 19.990000000000002,
+          "max": 20,
+          "mean": 19.5
+        },
+        "peer": {
+          "count": 8,
+          "min": 19,
+          "p25": 19,
+          "median": 19,
+          "p75": 19,
+          "p95": 19.65,
+          "p99": 19.93,
+          "max": 20,
+          "mean": 19.125
+        },
+        "teamTotal": {
+          "count": 2,
+          "min": 96,
+          "p25": 96,
+          "median": 96,
+          "p75": 96,
+          "p95": 96,
+          "p99": 96,
+          "max": 96,
+          "mean": 96
+        },
+        "allEqual": 0,
+        "allEqualRate": 0,
+        "creditedModes": [
+          {
+            "value": 19,
+            "count": 1
+          },
+          {
+            "value": 20,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 19,
+            "count": 7
+          },
+          {
+            "value": 20,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "MELEE|N4",
+        "count": 2,
+        "recipientCount": {
+          "count": 2,
+          "min": 4,
+          "p25": 4,
+          "median": 4,
+          "p75": 4,
+          "p95": 4,
+          "p99": 4,
+          "max": 4,
+          "mean": 4
+        },
+        "credited": {
+          "count": 2,
+          "min": 19,
+          "p25": 19.75,
+          "median": 20.5,
+          "p75": 21.25,
+          "p95": 21.849999999999998,
+          "p99": 21.970000000000002,
+          "max": 22,
+          "mean": 20.5
+        },
+        "peer": {
+          "count": 6,
+          "min": 18,
+          "p25": 18.25,
+          "median": 20,
+          "p75": 21.75,
+          "p95": 22,
+          "p99": 22,
+          "max": 22,
+          "mean": 20
+        },
+        "teamTotal": {
+          "count": 2,
+          "min": 74,
+          "p25": 77.25,
+          "median": 80.5,
+          "p75": 83.75,
+          "p95": 86.35,
+          "p99": 86.86999999999999,
+          "max": 87,
+          "mean": 80.5
+        },
+        "allEqual": 0,
+        "allEqualRate": 0,
+        "creditedModes": [
+          {
+            "value": 19,
+            "count": 1
+          },
+          {
+            "value": 22,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 18,
+            "count": 2
+          },
+          {
+            "value": 22,
+            "count": 2
+          },
+          {
+            "value": 19,
+            "count": 1
+          },
+          {
+            "value": 21,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "RANGED|N6",
+        "count": 2,
+        "recipientCount": {
+          "count": 2,
+          "min": 6,
+          "p25": 6,
+          "median": 6,
+          "p75": 6,
+          "p95": 6,
+          "p99": 6,
+          "max": 6,
+          "mean": 6
+        },
+        "credited": {
+          "count": 2,
+          "min": 16,
+          "p25": 16.25,
+          "median": 16.5,
+          "p75": 16.75,
+          "p95": 16.95,
+          "p99": 16.99,
+          "max": 17,
+          "mean": 16.5
+        },
+        "peer": {
+          "count": 10,
+          "min": 15,
+          "p25": 15.25,
+          "median": 16,
+          "p75": 16,
+          "p95": 16.549999999999997,
+          "p99": 16.91,
+          "max": 17,
+          "mean": 15.8
+        },
+        "teamTotal": {
+          "count": 2,
+          "min": 93,
+          "p25": 94.25,
+          "median": 95.5,
+          "p75": 96.75,
+          "p95": 97.75,
+          "p99": 97.95,
+          "max": 98,
+          "mean": 95.5
+        },
+        "allEqual": 0,
+        "allEqualRate": 0,
+        "creditedModes": [
+          {
+            "value": 16,
+            "count": 1
+          },
+          {
+            "value": 17,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 16,
+            "count": 6
+          },
+          {
+            "value": 15,
+            "count": 3
+          },
+          {
+            "value": 17,
+            "count": 1
+          }
+        ]
+      },
+      {
+        "group": "MELEE|N6",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 6,
+          "p25": 6,
+          "median": 6,
+          "p75": 6,
+          "p95": 6,
+          "p99": 6,
+          "max": 6,
+          "mean": 6
+        },
+        "credited": {
+          "count": 1,
+          "min": 16,
+          "p25": 16,
+          "median": 16,
+          "p75": 16,
+          "p95": 16,
+          "p99": 16,
+          "max": 16,
+          "mean": 16
+        },
+        "peer": {
+          "count": 5,
+          "min": 15,
+          "p25": 15,
+          "median": 15,
+          "p75": 16,
+          "p95": 16,
+          "p99": 16,
+          "max": 16,
+          "mean": 15.4
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 93,
+          "p25": 93,
+          "median": 93,
+          "p75": 93,
+          "p95": 93,
+          "p99": 93,
+          "max": 93,
+          "mean": 93
+        },
+        "allEqual": 0,
+        "allEqualRate": 0,
+        "creditedModes": [
+          {
+            "value": 16,
+            "count": 1
+          }
+        ],
+        "peerModes": [
+          {
+            "value": 15,
+            "count": 3
+          },
+          {
+            "value": 16,
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "singleRecipientByBaseType": [
+      {
+        "group": "MEDIC",
+        "count": 13,
+        "recipientCount": {
+          "count": 13,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 13,
+          "min": 54,
+          "p25": 68,
+          "median": 73,
+          "p75": 93,
+          "p95": 103.6,
+          "p99": 107.91999999999999,
+          "max": 109,
+          "mean": 79.38461538461539
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 13,
+          "min": 54,
+          "p25": 68,
+          "median": 73,
+          "p75": 93,
+          "p95": 103.6,
+          "p99": 107.91999999999999,
+          "max": 109,
+          "mean": 79.38461538461539
+        },
+        "allEqual": 13,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 54,
+            "count": 1
+          },
+          {
+            "value": 61,
+            "count": 1
+          },
+          {
+            "value": 66,
+            "count": 1
+          },
+          {
+            "value": 68,
+            "count": 1
+          },
+          {
+            "value": 69,
+            "count": 1
+          },
+          {
+            "value": 71,
+            "count": 1
+          },
+          {
+            "value": 73,
+            "count": 1
+          },
+          {
+            "value": 83,
+            "count": 1
+          },
+          {
+            "value": 86,
+            "count": 1
+          },
+          {
+            "value": 93,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED",
+        "count": 8,
+        "recipientCount": {
+          "count": 8,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 8,
+          "min": 55,
+          "p25": 71.75,
+          "median": 79,
+          "p75": 92.75,
+          "p95": 98.65,
+          "p99": 98.92999999999999,
+          "max": 99,
+          "mean": 80.25
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 8,
+          "min": 55,
+          "p25": 71.75,
+          "median": 79,
+          "p75": 92.75,
+          "p95": 98.65,
+          "p99": 98.92999999999999,
+          "max": 99,
+          "mean": 80.25
+        },
+        "allEqual": 8,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 55,
+            "count": 1
+          },
+          {
+            "value": 68,
+            "count": 1
+          },
+          {
+            "value": 73,
+            "count": 1
+          },
+          {
+            "value": 75,
+            "count": 1
+          },
+          {
+            "value": 83,
+            "count": 1
+          },
+          {
+            "value": 91,
+            "count": 1
+          },
+          {
+            "value": 98,
+            "count": 1
+          },
+          {
+            "value": 99,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MELEE",
+        "count": 6,
+        "recipientCount": {
+          "count": 6,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 6,
+          "min": 58,
+          "p25": 71.25,
+          "median": 88.5,
+          "p75": 98.25,
+          "p95": 114.25,
+          "p99": 118.05000000000001,
+          "max": 119,
+          "mean": 86.83333333333333
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 6,
+          "min": 58,
+          "p25": 71.25,
+          "median": 88.5,
+          "p75": 98.25,
+          "p95": 114.25,
+          "p99": 118.05000000000001,
+          "max": 119,
+          "mean": 86.83333333333333
+        },
+        "allEqual": 6,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 58,
+            "count": 1
+          },
+          {
+            "value": 67,
+            "count": 1
+          },
+          {
+            "value": 84,
+            "count": 1
+          },
+          {
+            "value": 93,
+            "count": 1
+          },
+          {
+            "value": 100,
+            "count": 1
+          },
+          {
+            "value": 119,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      }
+    ],
+    "singleRecipientByBaseTypeAndTime": [
+      {
+        "group": "MEDIC|15_TO_LT_20_MIN",
+        "count": 3,
+        "recipientCount": {
+          "count": 3,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 3,
+          "min": 66,
+          "p25": 67,
+          "median": 68,
+          "p75": 68.5,
+          "p95": 68.9,
+          "p99": 68.98,
+          "max": 69,
+          "mean": 67.66666666666667
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 3,
+          "min": 66,
+          "p25": 67,
+          "median": 68,
+          "p75": 68.5,
+          "p95": 68.9,
+          "p99": 68.98,
+          "max": 69,
+          "mean": 67.66666666666667
+        },
+        "allEqual": 3,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 66,
+            "count": 1
+          },
+          {
+            "value": 68,
+            "count": 1
+          },
+          {
+            "value": 69,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MEDIC|20_TO_LT_25_MIN",
+        "count": 2,
+        "recipientCount": {
+          "count": 2,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 2,
+          "min": 71,
+          "p25": 71.5,
+          "median": 72,
+          "p75": 72.5,
+          "p95": 72.89999999999999,
+          "p99": 72.97999999999999,
+          "max": 73,
+          "mean": 72
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 2,
+          "min": 71,
+          "p25": 71.5,
+          "median": 72,
+          "p75": 72.5,
+          "p95": 72.89999999999999,
+          "p99": 72.97999999999999,
+          "max": 73,
+          "mean": 72
+        },
+        "allEqual": 2,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 71,
+            "count": 1
+          },
+          {
+            "value": 73,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MEDIC|40_TO_LT_45_MIN",
+        "count": 2,
+        "recipientCount": {
+          "count": 2,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 2,
+          "min": 93,
+          "p25": 97,
+          "median": 101,
+          "p75": 105,
+          "p95": 108.2,
+          "p99": 108.84,
+          "max": 109,
+          "mean": 101
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 2,
+          "min": 93,
+          "p25": 97,
+          "median": 101,
+          "p75": 105,
+          "p95": 108.2,
+          "p99": 108.84,
+          "max": 109,
+          "mean": 101
+        },
+        "allEqual": 2,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 93,
+            "count": 1
+          },
+          {
+            "value": 109,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MEDIC|GE_45_MIN",
+        "count": 2,
+        "recipientCount": {
+          "count": 2,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 2,
+          "min": 99,
+          "p25": 99.25,
+          "median": 99.5,
+          "p75": 99.75,
+          "p95": 99.95,
+          "p99": 99.99,
+          "max": 100,
+          "mean": 99.5
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 2,
+          "min": 99,
+          "p25": 99.25,
+          "median": 99.5,
+          "p75": 99.75,
+          "p95": 99.95,
+          "p99": 99.99,
+          "max": 100,
+          "mean": 99.5
+        },
+        "allEqual": 2,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 99,
+            "count": 1
+          },
+          {
+            "value": 100,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MELEE|GE_45_MIN",
+        "count": 2,
+        "recipientCount": {
+          "count": 2,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 2,
+          "min": 100,
+          "p25": 104.75,
+          "median": 109.5,
+          "p75": 114.25,
+          "p95": 118.05,
+          "p99": 118.81,
+          "max": 119,
+          "mean": 109.5
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 2,
+          "min": 100,
+          "p25": 104.75,
+          "median": 109.5,
+          "p75": 114.25,
+          "p95": 118.05,
+          "p99": 118.81,
+          "max": 119,
+          "mean": 109.5
+        },
+        "allEqual": 2,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 100,
+            "count": 1
+          },
+          {
+            "value": 119,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED|40_TO_LT_45_MIN",
+        "count": 2,
+        "recipientCount": {
+          "count": 2,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 2,
+          "min": 91,
+          "p25": 92.75,
+          "median": 94.5,
+          "p75": 96.25,
+          "p95": 97.65,
+          "p99": 97.92999999999999,
+          "max": 98,
+          "mean": 94.5
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 2,
+          "min": 91,
+          "p25": 92.75,
+          "median": 94.5,
+          "p75": 96.25,
+          "p95": 97.65,
+          "p99": 97.92999999999999,
+          "max": 98,
+          "mean": 94.5
+        },
+        "allEqual": 2,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 91,
+            "count": 1
+          },
+          {
+            "value": 98,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MEDIC|10_TO_LT_15_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 61,
+          "p25": 61,
+          "median": 61,
+          "p75": 61,
+          "p95": 61,
+          "p99": 61,
+          "max": 61,
+          "mean": 61
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 61,
+          "p25": 61,
+          "median": 61,
+          "p75": 61,
+          "p95": 61,
+          "p99": 61,
+          "max": 61,
+          "mean": 61
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 61,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MEDIC|30_TO_LT_35_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 83,
+          "p25": 83,
+          "median": 83,
+          "p75": 83,
+          "p95": 83,
+          "p99": 83,
+          "max": 83,
+          "mean": 83
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 83,
+          "p25": 83,
+          "median": 83,
+          "p75": 83,
+          "p95": 83,
+          "p99": 83,
+          "max": 83,
+          "mean": 83
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 83,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MEDIC|35_TO_LT_40_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 86,
+          "p25": 86,
+          "median": 86,
+          "p75": 86,
+          "p95": 86,
+          "p99": 86,
+          "max": 86,
+          "mean": 86
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 86,
+          "p25": 86,
+          "median": 86,
+          "p75": 86,
+          "p95": 86,
+          "p99": 86,
+          "max": 86,
+          "mean": 86
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 86,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MEDIC|LT_10_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 54,
+          "p25": 54,
+          "median": 54,
+          "p75": 54,
+          "p95": 54,
+          "p99": 54,
+          "max": 54,
+          "mean": 54
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 54,
+          "p25": 54,
+          "median": 54,
+          "p75": 54,
+          "p95": 54,
+          "p99": 54,
+          "max": 54,
+          "mean": 54
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 54,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MELEE|15_TO_LT_20_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 67,
+          "p25": 67,
+          "median": 67,
+          "p75": 67,
+          "p95": 67,
+          "p99": 67,
+          "max": 67,
+          "mean": 67
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 67,
+          "p25": 67,
+          "median": 67,
+          "p75": 67,
+          "p95": 67,
+          "p99": 67,
+          "max": 67,
+          "mean": 67
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 67,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MELEE|30_TO_LT_35_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 84,
+          "p25": 84,
+          "median": 84,
+          "p75": 84,
+          "p95": 84,
+          "p99": 84,
+          "max": 84,
+          "mean": 84
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 84,
+          "p25": 84,
+          "median": 84,
+          "p75": 84,
+          "p95": 84,
+          "p99": 84,
+          "max": 84,
+          "mean": 84
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 84,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MELEE|40_TO_LT_45_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 93,
+          "p25": 93,
+          "median": 93,
+          "p75": 93,
+          "p95": 93,
+          "p99": 93,
+          "max": 93,
+          "mean": 93
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 93,
+          "p25": 93,
+          "median": 93,
+          "p75": 93,
+          "p95": 93,
+          "p99": 93,
+          "max": 93,
+          "mean": 93
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 93,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "MELEE|LT_10_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 58,
+          "p25": 58,
+          "median": 58,
+          "p75": 58,
+          "p95": 58,
+          "p99": 58,
+          "max": 58,
+          "mean": 58
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 58,
+          "p25": 58,
+          "median": 58,
+          "p75": 58,
+          "p95": 58,
+          "p99": 58,
+          "max": 58,
+          "mean": 58
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 58,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED|15_TO_LT_20_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 68,
+          "p25": 68,
+          "median": 68,
+          "p75": 68,
+          "p95": 68,
+          "p99": 68,
+          "max": 68,
+          "mean": 68
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 68,
+          "p25": 68,
+          "median": 68,
+          "p75": 68,
+          "p95": 68,
+          "p99": 68,
+          "max": 68,
+          "mean": 68
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 68,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED|20_TO_LT_25_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 73,
+          "p25": 73,
+          "median": 73,
+          "p75": 73,
+          "p95": 73,
+          "p99": 73,
+          "max": 73,
+          "mean": 73
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 73,
+          "p25": 73,
+          "median": 73,
+          "p75": 73,
+          "p95": 73,
+          "p99": 73,
+          "max": 73,
+          "mean": 73
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 73,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED|25_TO_LT_30_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 75,
+          "p25": 75,
+          "median": 75,
+          "p75": 75,
+          "p95": 75,
+          "p99": 75,
+          "max": 75,
+          "mean": 75
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 75,
+          "p25": 75,
+          "median": 75,
+          "p75": 75,
+          "p95": 75,
+          "p99": 75,
+          "max": 75,
+          "mean": 75
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 75,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED|30_TO_LT_35_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 83,
+          "p25": 83,
+          "median": 83,
+          "p75": 83,
+          "p95": 83,
+          "p99": 83,
+          "max": 83,
+          "mean": 83
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 83,
+          "p25": 83,
+          "median": 83,
+          "p75": 83,
+          "p95": 83,
+          "p99": 83,
+          "max": 83,
+          "mean": 83
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 83,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED|35_TO_LT_40_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 99,
+          "p25": 99,
+          "median": 99,
+          "p75": 99,
+          "p95": 99,
+          "p99": 99,
+          "max": 99,
+          "mean": 99
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 99,
+          "p25": 99,
+          "median": 99,
+          "p75": 99,
+          "p95": 99,
+          "p99": 99,
+          "max": 99,
+          "mean": 99
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 99,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      },
+      {
+        "group": "RANGED|LT_10_MIN",
+        "count": 1,
+        "recipientCount": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "credited": {
+          "count": 1,
+          "min": 55,
+          "p25": 55,
+          "median": 55,
+          "p75": 55,
+          "p95": 55,
+          "p99": 55,
+          "max": 55,
+          "mean": 55
+        },
+        "peer": {
+          "count": 0,
+          "min": null,
+          "p25": null,
+          "median": null,
+          "p75": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "mean": null
+        },
+        "teamTotal": {
+          "count": 1,
+          "min": 55,
+          "p25": 55,
+          "median": 55,
+          "p75": 55,
+          "p95": 55,
+          "p99": 55,
+          "max": 55,
+          "mean": 55
+        },
+        "allEqual": 1,
+        "allEqualRate": 1,
+        "creditedModes": [
+          {
+            "value": 55,
+            "count": 1
+          }
+        ],
+        "peerModes": []
+      }
+    ]
+  },
+  "targetlessBackground": {
+    "controls": 38,
+    "anySameTeamPositive": 3,
+    "anySameTeamPositiveRate": 0.07894736842105263,
+    "creditedPositive": 1,
+    "creditedPositiveRate": 0.02631578947368421,
+    "teamTotalWhenPositive": {
+      "count": 3,
+      "min": 1,
+      "p25": 1,
+      "median": 1,
+      "p75": 1.5,
+      "p95": 1.9,
+      "p99": 1.98,
+      "max": 2,
+      "mean": 1.3333333333333333
+    }
+  },
+  "interpretiveFlags": {
+    "exactSharingStrong": false,
+    "physicalTargetNotRequiredForEconomicShare": true,
+    "nonTargetAlliesCanReceive": true,
+    "amountStillConfounded": true
+  },
+  "interpretationGuide": {
+    "equalMultiRecipientAmounts": "If most multi-recipient cases give identical amounts to every same-team recipient, a direct shared-reward event is strongly supported.",
+    "creditedPremium": "If credited player systematically receives more than peers, the ground-soul reward may contain a last-hit-assigned component plus a shared component.",
+    "targetSpecialRole": "If physical vacuum targets receive no amount advantage over other peers and can be economically absent while the credited player is paid, m_hVacuumTarget should remain a physical collection field rather than an economic ownership field.",
+    "singleRecipientAmounts": "Single-recipient stable isolated cases are the preferred next cohort for determining exact ground-soul reward values because no same-tick allied sharing decomposition is required.",
+    "amountVariation": "If single-recipient values form systematic groups by Trooper type and match time, Script 91 should fit the ground-soul amount schedule to those predictors.",
+    "next": "Inspect single-recipient and equal-sharing amount patterns. If structured, fit exact ground-soul reward value and sharing mechanics in Script 91."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script89Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script87Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "case89Count": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "joinedCaseCount": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "exactOffset": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "stableIsolatedCount": {
+        "actual": 96,
+        "expected": 96,
+        "pass": true
+      },
+      "primaryCleanCount": {
+        "actual": 91,
+        "expected": ">=80",
+        "pass": true
+      },
+      "singleRecipientCasesPresent": {
+        "actual": 27,
+        "expected": ">0",
+        "pass": true
+      },
+      "multiRecipientCasesPresent": {
+        "actual": 64,
+        "expected": ">0",
+        "pass": true
+      },
+      "mismatchCasesPresent": {
+        "actual": 53,
+        "expected": ">0",
+        "pass": true
+      },
+      "targetlessControlsPresent": {
+        "actual": 38,
+        "expected": ">0",
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_exact_reward_sharing_diagnostic_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_exact_reward_sharing_cases_v01.jsonl"
+  }
+}

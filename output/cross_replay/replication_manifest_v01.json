@@ -1,0 +1,647 @@
+{
+  "version": "CROSS_REPLAY_REPLICATION_MANIFEST_V01",
+  "canonical": false,
+  "createdAt": "2026-09-03T19:18:11.683Z",
+  "discoveryReplay": "test",
+  "discoveryCheckpointReady": true,
+  "readyToBeginReplication": true,
+  "cohortStatus": "STRONG_INITIAL_REPLICATION_COHORT_AVAILABLE",
+  "purpose": [
+    "Freeze test.dem as the discovery/calibration replay.",
+    "Discover independent .dem files automatically.",
+    "Prevent obvious duplicate replay files from being counted as independent replication.",
+    "Record current per-replay output readiness.",
+    "Create the persistent cohort manifest for compact cross-replay replication.",
+    "Separate replication of already-established relationships from further single-replay mechanic fitting."
+  ],
+  "authorityPolicy": {
+    "discoveryReplay": "test.dem",
+    "discoveryUse": "Used to discover and operationally validate telemetry semantics.",
+    "replicationUse": "Independent replay files are used to test whether those relationships generalize.",
+    "prohibition": "Failure on a new replay should first be treated as replication evidence or a version/schema difference, not automatically repaired by fitting a new threshold to that replay."
+  },
+  "replayInventory": {
+    "totalDemFiles": 6,
+    "independentReplicationFiles": 5,
+    "duplicateFingerprintGroups": 0
+  },
+  "duplicateFingerprintGroups": [],
+  "replayRows": [
+    {
+      "filename": "rep01.dem",
+      "replayName": "rep01",
+      "path": "G:\\DeadlockBehavior\\replays\\rep01.dem",
+      "sizeBytes": 513993504,
+      "sizeMiB": 490.1824035644531,
+      "modifiedTime": "2026-09-03T19:15:35.748Z",
+      "quickFingerprint": "8daac46727dab0273ab061fd",
+      "outputDirectory": "G:\\DeadlockBehavior\\output\\rep01",
+      "role": "INDEPENDENT_REPLICATION_CANDIDATE",
+      "stage": "RAW_REPLAY_ONLY",
+      "sameAsDiscovery": false,
+      "duplicateOfAnotherReplay": false,
+      "duplicateReplayNames": [],
+      "artifactCoverage": {
+        "present": 0,
+        "possible": 8,
+        "fraction": 0
+      },
+      "artifacts": {
+        "PLAYER_STATE": {
+          "filename": "player_state.jsonl",
+          "path": "G:\\DeadlockBehavior\\output\\rep01\\player_state.jsonl",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "GROUND_SOUL_LIFECYCLE": {
+          "filename": "assigned_gold_lifecycle_classifier_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep01\\assigned_gold_lifecycle_classifier_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "EXACT_CREDIT_ATTRIBUTION": {
+          "filename": "assigned_gold_exact_credit_attribution_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep01\\assigned_gold_exact_credit_attribution_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "SHARE_RECIPIENT_GEOMETRY": {
+          "filename": "assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep01\\assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FINAL_INTEGER_ALLOCATION": {
+          "filename": "assigned_gold_final_integer_allocation_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep01\\assigned_gold_final_integer_allocation_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FACING_ANGLE_SEMANTICS": {
+          "filename": "player_facing_angle_semantics_validation_v02.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep01\\player_facing_angle_semantics_validation_v02.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "AIM_ANGLE_SEMANTICS": {
+          "filename": "player_eye_angle_shot_direction_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep01\\player_eye_angle_shot_direction_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FOUNDATIONAL_CHECKPOINT": {
+          "filename": "foundational_discovery_checkpoint_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep01\\foundational_discovery_checkpoint_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        }
+      }
+    },
+    {
+      "filename": "rep02.dem",
+      "replayName": "rep02",
+      "path": "G:\\DeadlockBehavior\\replays\\rep02.dem",
+      "sizeBytes": 547083957,
+      "sizeMiB": 521.7399187088013,
+      "modifiedTime": "2026-09-03T19:14:21.465Z",
+      "quickFingerprint": "fe03e782284b1dfa31ab23f0",
+      "outputDirectory": "G:\\DeadlockBehavior\\output\\rep02",
+      "role": "INDEPENDENT_REPLICATION_CANDIDATE",
+      "stage": "RAW_REPLAY_ONLY",
+      "sameAsDiscovery": false,
+      "duplicateOfAnotherReplay": false,
+      "duplicateReplayNames": [],
+      "artifactCoverage": {
+        "present": 0,
+        "possible": 8,
+        "fraction": 0
+      },
+      "artifacts": {
+        "PLAYER_STATE": {
+          "filename": "player_state.jsonl",
+          "path": "G:\\DeadlockBehavior\\output\\rep02\\player_state.jsonl",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "GROUND_SOUL_LIFECYCLE": {
+          "filename": "assigned_gold_lifecycle_classifier_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep02\\assigned_gold_lifecycle_classifier_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "EXACT_CREDIT_ATTRIBUTION": {
+          "filename": "assigned_gold_exact_credit_attribution_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep02\\assigned_gold_exact_credit_attribution_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "SHARE_RECIPIENT_GEOMETRY": {
+          "filename": "assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep02\\assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FINAL_INTEGER_ALLOCATION": {
+          "filename": "assigned_gold_final_integer_allocation_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep02\\assigned_gold_final_integer_allocation_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FACING_ANGLE_SEMANTICS": {
+          "filename": "player_facing_angle_semantics_validation_v02.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep02\\player_facing_angle_semantics_validation_v02.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "AIM_ANGLE_SEMANTICS": {
+          "filename": "player_eye_angle_shot_direction_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep02\\player_eye_angle_shot_direction_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FOUNDATIONAL_CHECKPOINT": {
+          "filename": "foundational_discovery_checkpoint_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep02\\foundational_discovery_checkpoint_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        }
+      }
+    },
+    {
+      "filename": "rep03.dem",
+      "replayName": "rep03",
+      "path": "G:\\DeadlockBehavior\\replays\\rep03.dem",
+      "sizeBytes": 774525310,
+      "sizeMiB": 738.6448955535889,
+      "modifiedTime": "2026-09-03T19:08:24.487Z",
+      "quickFingerprint": "79110534bb643de935afaaf1",
+      "outputDirectory": "G:\\DeadlockBehavior\\output\\rep03",
+      "role": "INDEPENDENT_REPLICATION_CANDIDATE",
+      "stage": "RAW_REPLAY_ONLY",
+      "sameAsDiscovery": false,
+      "duplicateOfAnotherReplay": false,
+      "duplicateReplayNames": [],
+      "artifactCoverage": {
+        "present": 0,
+        "possible": 8,
+        "fraction": 0
+      },
+      "artifacts": {
+        "PLAYER_STATE": {
+          "filename": "player_state.jsonl",
+          "path": "G:\\DeadlockBehavior\\output\\rep03\\player_state.jsonl",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "GROUND_SOUL_LIFECYCLE": {
+          "filename": "assigned_gold_lifecycle_classifier_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep03\\assigned_gold_lifecycle_classifier_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "EXACT_CREDIT_ATTRIBUTION": {
+          "filename": "assigned_gold_exact_credit_attribution_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep03\\assigned_gold_exact_credit_attribution_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "SHARE_RECIPIENT_GEOMETRY": {
+          "filename": "assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep03\\assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FINAL_INTEGER_ALLOCATION": {
+          "filename": "assigned_gold_final_integer_allocation_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep03\\assigned_gold_final_integer_allocation_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FACING_ANGLE_SEMANTICS": {
+          "filename": "player_facing_angle_semantics_validation_v02.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep03\\player_facing_angle_semantics_validation_v02.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "AIM_ANGLE_SEMANTICS": {
+          "filename": "player_eye_angle_shot_direction_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep03\\player_eye_angle_shot_direction_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FOUNDATIONAL_CHECKPOINT": {
+          "filename": "foundational_discovery_checkpoint_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep03\\foundational_discovery_checkpoint_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        }
+      }
+    },
+    {
+      "filename": "rep04.dem",
+      "replayName": "rep04",
+      "path": "G:\\DeadlockBehavior\\replays\\rep04.dem",
+      "sizeBytes": 531384327,
+      "sizeMiB": 506.7675848007202,
+      "modifiedTime": "2026-09-03T19:09:14.323Z",
+      "quickFingerprint": "9983ecac7898a076f04a5358",
+      "outputDirectory": "G:\\DeadlockBehavior\\output\\rep04",
+      "role": "INDEPENDENT_REPLICATION_CANDIDATE",
+      "stage": "RAW_REPLAY_ONLY",
+      "sameAsDiscovery": false,
+      "duplicateOfAnotherReplay": false,
+      "duplicateReplayNames": [],
+      "artifactCoverage": {
+        "present": 0,
+        "possible": 8,
+        "fraction": 0
+      },
+      "artifacts": {
+        "PLAYER_STATE": {
+          "filename": "player_state.jsonl",
+          "path": "G:\\DeadlockBehavior\\output\\rep04\\player_state.jsonl",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "GROUND_SOUL_LIFECYCLE": {
+          "filename": "assigned_gold_lifecycle_classifier_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep04\\assigned_gold_lifecycle_classifier_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "EXACT_CREDIT_ATTRIBUTION": {
+          "filename": "assigned_gold_exact_credit_attribution_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep04\\assigned_gold_exact_credit_attribution_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "SHARE_RECIPIENT_GEOMETRY": {
+          "filename": "assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep04\\assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FINAL_INTEGER_ALLOCATION": {
+          "filename": "assigned_gold_final_integer_allocation_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep04\\assigned_gold_final_integer_allocation_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FACING_ANGLE_SEMANTICS": {
+          "filename": "player_facing_angle_semantics_validation_v02.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep04\\player_facing_angle_semantics_validation_v02.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "AIM_ANGLE_SEMANTICS": {
+          "filename": "player_eye_angle_shot_direction_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep04\\player_eye_angle_shot_direction_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FOUNDATIONAL_CHECKPOINT": {
+          "filename": "foundational_discovery_checkpoint_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep04\\foundational_discovery_checkpoint_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        }
+      }
+    },
+    {
+      "filename": "rep05.dem",
+      "replayName": "rep05",
+      "path": "G:\\DeadlockBehavior\\replays\\rep05.dem",
+      "sizeBytes": 529814669,
+      "sizeMiB": 505.2706422805786,
+      "modifiedTime": "2026-09-03T19:10:26.690Z",
+      "quickFingerprint": "8736c6890a7f7fda97deb7c5",
+      "outputDirectory": "G:\\DeadlockBehavior\\output\\rep05",
+      "role": "INDEPENDENT_REPLICATION_CANDIDATE",
+      "stage": "RAW_REPLAY_ONLY",
+      "sameAsDiscovery": false,
+      "duplicateOfAnotherReplay": false,
+      "duplicateReplayNames": [],
+      "artifactCoverage": {
+        "present": 0,
+        "possible": 8,
+        "fraction": 0
+      },
+      "artifacts": {
+        "PLAYER_STATE": {
+          "filename": "player_state.jsonl",
+          "path": "G:\\DeadlockBehavior\\output\\rep05\\player_state.jsonl",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "GROUND_SOUL_LIFECYCLE": {
+          "filename": "assigned_gold_lifecycle_classifier_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep05\\assigned_gold_lifecycle_classifier_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "EXACT_CREDIT_ATTRIBUTION": {
+          "filename": "assigned_gold_exact_credit_attribution_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep05\\assigned_gold_exact_credit_attribution_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "SHARE_RECIPIENT_GEOMETRY": {
+          "filename": "assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep05\\assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FINAL_INTEGER_ALLOCATION": {
+          "filename": "assigned_gold_final_integer_allocation_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep05\\assigned_gold_final_integer_allocation_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FACING_ANGLE_SEMANTICS": {
+          "filename": "player_facing_angle_semantics_validation_v02.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep05\\player_facing_angle_semantics_validation_v02.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "AIM_ANGLE_SEMANTICS": {
+          "filename": "player_eye_angle_shot_direction_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep05\\player_eye_angle_shot_direction_validation_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "FOUNDATIONAL_CHECKPOINT": {
+          "filename": "foundational_discovery_checkpoint_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\rep05\\foundational_discovery_checkpoint_v01.json",
+          "present": false,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        }
+      }
+    },
+    {
+      "filename": "test.dem",
+      "replayName": "test",
+      "path": "G:\\DeadlockBehavior\\replays\\test.dem",
+      "sizeBytes": 749953038,
+      "sizeMiB": 715.2109508514404,
+      "modifiedTime": "2026-08-31T23:59:56.016Z",
+      "quickFingerprint": "d15802d42c9157a87c41823c",
+      "outputDirectory": "G:\\DeadlockBehavior\\output\\test",
+      "role": "DISCOVERY_CALIBRATION",
+      "stage": "FOUNDATIONAL_CHECKPOINT_PRESENT",
+      "sameAsDiscovery": false,
+      "duplicateOfAnotherReplay": false,
+      "duplicateReplayNames": [],
+      "artifactCoverage": {
+        "present": 8,
+        "possible": 8,
+        "fraction": 1
+      },
+      "artifacts": {
+        "PLAYER_STATE": {
+          "filename": "player_state.jsonl",
+          "path": "G:\\DeadlockBehavior\\output\\test\\player_state.jsonl",
+          "present": true,
+          "validationPass": null,
+          "version": null,
+          "status": null
+        },
+        "GROUND_SOUL_LIFECYCLE": {
+          "filename": "assigned_gold_lifecycle_classifier_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_lifecycle_classifier_v01.json",
+          "present": true,
+          "validationPass": true,
+          "version": "ASSIGNED_GOLD_LIFECYCLE_CLASSIFIER_V01",
+          "status": "FORMAL_SINGLE_REPLAY_LIFECYCLE_CLASSIFIER_READY"
+        },
+        "EXACT_CREDIT_ATTRIBUTION": {
+          "filename": "assigned_gold_exact_credit_attribution_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_exact_credit_attribution_validation_v01.json",
+          "present": true,
+          "validationPass": true,
+          "version": "ASSIGNED_GOLD_EXACT_CREDIT_ATTRIBUTION_VALIDATION_V01",
+          "status": "CREDITED_PLAYER_EXACT_ECONOMIC_SIGNAL_STRONGLY_SUPPORTED"
+        },
+        "SHARE_RECIPIENT_GEOMETRY": {
+          "filename": "assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_share_recipient_geometry_comparison_v01.json",
+          "present": true,
+          "validationPass": true,
+          "version": "ASSIGNED_GOLD_SHARE_RECIPIENT_GEOMETRY_COMPARISON_V01",
+          "status": "COMPETING_SHARE_RECIPIENT_GEOMETRY_MODELS_READY"
+        },
+        "FINAL_INTEGER_ALLOCATION": {
+          "filename": "assigned_gold_final_integer_allocation_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_final_integer_allocation_validation_v01.json",
+          "present": true,
+          "validationPass": true,
+          "version": "ASSIGNED_GOLD_FINAL_INTEGER_ALLOCATION_VALIDATION_V01",
+          "status": "ASSIGNED_GOLD_ALLOCATION_SEMANTICS_STRONGLY_SUPPORTED"
+        },
+        "FACING_ANGLE_SEMANTICS": {
+          "filename": "player_facing_angle_semantics_validation_v02.json",
+          "path": "G:\\DeadlockBehavior\\output\\test\\player_facing_angle_semantics_validation_v02.json",
+          "present": true,
+          "validationPass": true,
+          "version": "PLAYER_FACING_ANGLE_SEMANTICS_VALIDATION_V02",
+          "status": "YAW_COMPONENT_AND_WORLD_CONVENTION_STRONGLY_SUPPORTED"
+        },
+        "AIM_ANGLE_SEMANTICS": {
+          "filename": "player_eye_angle_shot_direction_validation_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\test\\player_eye_angle_shot_direction_validation_v01.json",
+          "present": true,
+          "validationPass": true,
+          "version": "PLAYER_EYE_ANGLE_SHOT_DIRECTION_VALIDATION_V01",
+          "status": "EYE_ANGLES_SHOT_DIRECTION_STRONGLY_SUPPORTED"
+        },
+        "FOUNDATIONAL_CHECKPOINT": {
+          "filename": "foundational_discovery_checkpoint_v01.json",
+          "path": "G:\\DeadlockBehavior\\output\\test\\foundational_discovery_checkpoint_v01.json",
+          "present": true,
+          "validationPass": null,
+          "version": "FOUNDATIONAL_DISCOVERY_CHECKPOINT_V01",
+          "status": "READY_FOR_COMPACT_CROSS_REPLAY_REPLICATION"
+        }
+      }
+    }
+  ],
+  "selectedReplicationCohort": [
+    {
+      "order": 1,
+      "replayName": "rep01",
+      "filename": "rep01.dem",
+      "fingerprint": "8daac46727dab0273ab061fd",
+      "sizeMiB": 490.1824035644531,
+      "currentStage": "RAW_REPLAY_ONLY",
+      "nextAction": "Run base replay extraction, then compact replication metrics."
+    },
+    {
+      "order": 2,
+      "replayName": "rep02",
+      "filename": "rep02.dem",
+      "fingerprint": "fe03e782284b1dfa31ab23f0",
+      "sizeMiB": 521.7399187088013,
+      "currentStage": "RAW_REPLAY_ONLY",
+      "nextAction": "Run base replay extraction, then compact replication metrics."
+    },
+    {
+      "order": 3,
+      "replayName": "rep03",
+      "filename": "rep03.dem",
+      "fingerprint": "79110534bb643de935afaaf1",
+      "sizeMiB": 738.6448955535889,
+      "currentStage": "RAW_REPLAY_ONLY",
+      "nextAction": "Run base replay extraction, then compact replication metrics."
+    },
+    {
+      "order": 4,
+      "replayName": "rep04",
+      "filename": "rep04.dem",
+      "fingerprint": "9983ecac7898a076f04a5358",
+      "sizeMiB": 506.7675848007202,
+      "currentStage": "RAW_REPLAY_ONLY",
+      "nextAction": "Run base replay extraction, then compact replication metrics."
+    },
+    {
+      "order": 5,
+      "replayName": "rep05",
+      "filename": "rep05.dem",
+      "fingerprint": "8736c6890a7f7fda97deb7c5",
+      "sizeMiB": 505.2706422805786,
+      "currentStage": "RAW_REPLAY_ONLY",
+      "nextAction": "Run base replay extraction, then compact replication metrics."
+    }
+  ],
+  "replicationContract": [
+    {
+      "order": 1,
+      "id": "GROUND_SOUL_PRODUCTION_LAST_HIT_LINK",
+      "question": "Does player-last-hit Trooper death remain strongly associated with AssignedGold production?"
+    },
+    {
+      "order": 2,
+      "id": "GROUND_SOUL_LIFECYCLE",
+      "question": "Do targeted and targetless AssignedGold lifecycle classes reconstruct coherently?"
+    },
+    {
+      "order": 3,
+      "id": "VACUUM_PROXIMITY",
+      "question": "Does physical vacuum targeting remain strongly associated with proximity to the ground soul?"
+    },
+    {
+      "order": 4,
+      "id": "ECONOMIC_RECIPIENT_SET",
+      "question": "Is the credited last-hitter economically included while physical vacuum target remains distinct from economic ownership?"
+    },
+    {
+      "order": 5,
+      "id": "RECIPIENT_GEOMETRY",
+      "question": "Does death-time Trooper-centered 3D geometry continue to predict economic sharing membership?"
+    },
+    {
+      "order": 6,
+      "id": "REWARD_ALLOCATION",
+      "question": "Do reward scaling, sharing, integer partition, and credited remainder priority reproduce?"
+    },
+    {
+      "order": 7,
+      "id": "AIM_ORIENTATION",
+      "question": "Do component-1 yaw, component-0 eye pitch, pitch sign, and shot-linked eye orientation reproduce?"
+    }
+  ],
+  "recommendedInterpretation": {
+    "zeroIndependent": "Add independent Deadlock replay .dem files to the replays directory before beginning replication.",
+    "oneToTwo": "Useful for debugging the replication harness, but insufficient for strong generalization.",
+    "threeToFour": "Adequate minimum first replication cohort.",
+    "fiveOrMore": "Preferred initial cohort for assessing stability of the foundational telemetry relationships."
+  },
+  "nextStage": {
+    "id": "COMPACT_REPLICATION_EXECUTION",
+    "description": "Run the foundational relationship tests on each selected independent replay and aggregate replay-level effect sizes rather than pooling all events into one pseudo-replay.",
+    "unitOfReplication": "REPLAY",
+    "important": "Event counts within a replay provide precision, but independent replay-level reproduction is the evidence of generalization."
+  },
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\replication_manifest_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\replication_manifest_v01.md"
+  }
+}

@@ -1,0 +1,2006 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_FINAL_INTEGER_ALLOCATION_VALIDATION_V01",
+  "canonical": false,
+  "status": "ASSIGNED_GOLD_ALLOCATION_SEMANTICS_STRONGLY_SUPPORTED",
+  "purpose": [
+    "Perform final integer-allocation validation after incorporating ordinary reward scaling, recipient-count sharing, Super-Trooper bounty reduction, and comeback economy.",
+    "Confirm exact integer partition of reconstructed ground-soul rewards.",
+    "Re-test credited-last-hitter remainder priority without confounding from incorrect total-reward predictions.",
+    "Test whether the physical vacuum target has comparable integer-remainder priority.",
+    "Identify the residual amount error that should be deferred to cross-replay rather than overfit within test.dem."
+  ],
+  "semanticLimits": {
+    "allocation": "Observed partition validation uses the reconstructed exact-tick economic recipient set and observed team reward.",
+    "predictedReward": "Predicted team reward comes from Script95 best predefined Super+comeback model. Remaining ±1-3 errors may reflect rounding or exact comeback implementation.",
+    "creditedPriority": "Remainder priority means preferential receipt of the ceil integer share when one underlying reward cannot divide evenly among recipients.",
+    "otherRemainders": "This analysis does not assume a deterministic rule for which non-credited recipients receive any remaining +1 units.",
+    "physicalTarget": "m_hVacuumTarget remains a physical collection role and is tested separately from economic assignment.",
+    "canonical": "All conclusions remain within-replay validation until reproduced independently."
+  },
+  "cohort": {
+    "cases": 85,
+    "observedPartitionExact": 85,
+    "rewardTotalExact": 47,
+    "rewardWithin1": 77,
+    "rewardWithin2": 83,
+    "creditedRecipientCases": 85,
+    "creditedAbsentCases": 0,
+    "observedRemainderCases": 36,
+    "modelExactRemainderCases": 19
+  },
+  "correctedRewardPerformance": {
+    "exact": 47,
+    "exactRate": 0.5529411764705883,
+    "within1": 77,
+    "within1Rate": 0.9058823529411765,
+    "within2": 83,
+    "within2Rate": 0.9764705882352941,
+    "rewardError": {
+      "count": 85,
+      "min": -2,
+      "p25": -1,
+      "median": 0,
+      "p75": 0,
+      "p95": 1,
+      "p99": 3,
+      "max": 3,
+      "mean": -0.1411764705882353
+    },
+    "absoluteRewardError": {
+      "count": 85,
+      "min": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 1,
+      "p95": 2,
+      "p99": 3,
+      "max": 3,
+      "mean": 0.5647058823529412
+    }
+  },
+  "observedAllocation": {
+    "integerPartitionExact": 85,
+    "integerPartitionExactRate": 1,
+    "creditedAlwaysIncluded": true,
+    "creditedRemainder": {
+      "comparable": 36,
+      "getsCeil": 35,
+      "getsCeilRate": 0.9722222222222222,
+      "randomExpectedRate": 0.5064814814814814,
+      "priorityStrong": true
+    },
+    "physicalTargetRemainder": {
+      "comparable": 22,
+      "getsCeil": 8,
+      "getsCeilRate": 0.36363636363636365,
+      "randomExpectedRate": 0.484090909090909,
+      "priorityStrong": false
+    }
+  },
+  "modelExactAllocation": {
+    "rewardExactCases": 47,
+    "predictedAmountMultisetExact": 47,
+    "predictedAmountMultisetExactRate": 0.5529411764705883,
+    "creditedRemainder": {
+      "comparable": 19,
+      "getsCeil": 18,
+      "getsCeilRate": 0.9473684210526315,
+      "randomExpectedRate": 0.46842105263157896,
+      "confirmed": true
+    },
+    "physicalTargetRemainder": {
+      "comparable": 11,
+      "getsCeil": 5,
+      "getsCeilRate": 0.45454545454545453,
+      "randomExpectedRate": 0.43030303030303024
+    }
+  },
+  "residualGroups": {
+    "byVariant": [
+      {
+        "group": "NORMAL",
+        "count": 76,
+        "rewardError": {
+          "count": 76,
+          "min": -2,
+          "p25": -1,
+          "median": 0,
+          "p75": 0,
+          "p95": 1,
+          "p99": 1.5,
+          "max": 3,
+          "mean": -0.21052631578947367
+        },
+        "absoluteRewardError": {
+          "count": 76,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 1,
+          "p95": 2,
+          "p99": 2.25,
+          "max": 3,
+          "mean": 0.47368421052631576
+        },
+        "exactRate": 0.6052631578947368,
+        "within1Rate": 0.9342105263157895,
+        "within2Rate": 0.9868421052631579
+      },
+      {
+        "group": "SUPER",
+        "count": 8,
+        "rewardError": {
+          "count": 8,
+          "min": -1,
+          "p25": -1,
+          "median": 0.5,
+          "p75": 2,
+          "p95": 2.6499999999999995,
+          "p99": 2.9299999999999997,
+          "max": 3,
+          "mean": 0.625
+        },
+        "absoluteRewardError": {
+          "count": 8,
+          "min": 0,
+          "p25": 1,
+          "median": 1,
+          "p75": 2,
+          "p95": 2.6499999999999995,
+          "p99": 2.9299999999999997,
+          "max": 3,
+          "mean": 1.375
+        },
+        "exactRate": 0.125,
+        "within1Rate": 0.625,
+        "within2Rate": 0.875
+      },
+      {
+        "group": "UNRESOLVED",
+        "count": 1,
+        "rewardError": {
+          "count": 1,
+          "min": -1,
+          "p25": -1,
+          "median": -1,
+          "p75": -1,
+          "p95": -1,
+          "p99": -1,
+          "max": -1,
+          "mean": -1
+        },
+        "absoluteRewardError": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "exactRate": 0,
+        "within1Rate": 1,
+        "within2Rate": 1
+      }
+    ],
+    "bySuper": [
+      {
+        "group": "NON_SUPER",
+        "count": 77,
+        "rewardError": {
+          "count": 77,
+          "min": -2,
+          "p25": -1,
+          "median": 0,
+          "p75": 0,
+          "p95": 1,
+          "p99": 1.4799999999999898,
+          "max": 3,
+          "mean": -0.22077922077922077
+        },
+        "absoluteRewardError": {
+          "count": 77,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 1,
+          "p95": 2,
+          "p99": 2.239999999999995,
+          "max": 3,
+          "mean": 0.4805194805194805
+        },
+        "exactRate": 0.5974025974025974,
+        "within1Rate": 0.935064935064935,
+        "within2Rate": 0.987012987012987
+      },
+      {
+        "group": "SUPER",
+        "count": 8,
+        "rewardError": {
+          "count": 8,
+          "min": -1,
+          "p25": -1,
+          "median": 0.5,
+          "p75": 2,
+          "p95": 2.6499999999999995,
+          "p99": 2.9299999999999997,
+          "max": 3,
+          "mean": 0.625
+        },
+        "absoluteRewardError": {
+          "count": 8,
+          "min": 0,
+          "p25": 1,
+          "median": 1,
+          "p75": 2,
+          "p95": 2.6499999999999995,
+          "p99": 2.9299999999999997,
+          "max": 3,
+          "mean": 1.375
+        },
+        "exactRate": 0.125,
+        "within1Rate": 0.625,
+        "within2Rate": 0.875
+      }
+    ],
+    "byTeamStatus": [
+      {
+        "group": "TRAILING",
+        "count": 49,
+        "rewardError": {
+          "count": 49,
+          "min": -2,
+          "p25": -1,
+          "median": 0,
+          "p75": 0,
+          "p95": 2,
+          "p99": 3,
+          "max": 3,
+          "mean": -0.061224489795918366
+        },
+        "absoluteRewardError": {
+          "count": 49,
+          "min": 0,
+          "p25": 0,
+          "median": 1,
+          "p75": 1,
+          "p95": 2,
+          "p99": 3,
+          "max": 3,
+          "mean": 0.7142857142857143
+        },
+        "exactRate": 0.4897959183673469,
+        "within1Rate": 0.8367346938775511,
+        "within2Rate": 0.9591836734693877
+      },
+      {
+        "group": "LEADING",
+        "count": 36,
+        "rewardError": {
+          "count": 36,
+          "min": -1,
+          "p25": -1,
+          "median": 0,
+          "p75": 0,
+          "p95": 0.25,
+          "p99": 1,
+          "max": 1,
+          "mean": -0.25
+        },
+        "absoluteRewardError": {
+          "count": 36,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 0.3611111111111111
+        },
+        "exactRate": 0.6388888888888888,
+        "within1Rate": 1,
+        "within2Rate": 1
+      }
+    ],
+    "byRecipientCount": [
+      {
+        "group": "1",
+        "count": 27,
+        "rewardError": {
+          "count": 27,
+          "min": -1,
+          "p25": -1,
+          "median": 0,
+          "p75": 0,
+          "p95": 2.6999999999999993,
+          "p99": 3,
+          "max": 3,
+          "mean": 0
+        },
+        "absoluteRewardError": {
+          "count": 27,
+          "min": 0,
+          "p25": 0,
+          "median": 1,
+          "p75": 1,
+          "p95": 2.6999999999999993,
+          "p99": 3,
+          "max": 3,
+          "mean": 0.8148148148148148
+        },
+        "exactRate": 0.4074074074074074,
+        "within1Rate": 0.8518518518518519,
+        "within2Rate": 0.9259259259259259
+      },
+      {
+        "group": "2",
+        "count": 27,
+        "rewardError": {
+          "count": 27,
+          "min": -2,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 0.07407407407407407
+        },
+        "absoluteRewardError": {
+          "count": 27,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0.5,
+          "p95": 1,
+          "p99": 1.7399999999999984,
+          "max": 2,
+          "mean": 0.2962962962962963
+        },
+        "exactRate": 0.7407407407407407,
+        "within1Rate": 0.9629629629629629,
+        "within2Rate": 1
+      },
+      {
+        "group": "3",
+        "count": 19,
+        "rewardError": {
+          "count": 19,
+          "min": -2,
+          "p25": -1,
+          "median": 0,
+          "p75": 0,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": -0.47368421052631576
+        },
+        "absoluteRewardError": {
+          "count": 19,
+          "min": 0,
+          "p25": 0,
+          "median": 1,
+          "p75": 1,
+          "p95": 2,
+          "p99": 2,
+          "max": 2,
+          "mean": 0.6842105263157895
+        },
+        "exactRate": 0.42105263157894735,
+        "within1Rate": 0.8947368421052632,
+        "within2Rate": 1
+      },
+      {
+        "group": "4",
+        "count": 7,
+        "rewardError": {
+          "count": 7,
+          "min": -2,
+          "p25": -1,
+          "median": -1,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": -0.7142857142857143
+        },
+        "absoluteRewardError": {
+          "count": 7,
+          "min": 0,
+          "p25": 0,
+          "median": 1,
+          "p75": 1,
+          "p95": 1.6999999999999993,
+          "p99": 1.9399999999999995,
+          "max": 2,
+          "mean": 0.7142857142857143
+        },
+        "exactRate": 0.42857142857142855,
+        "within1Rate": 0.8571428571428571,
+        "within2Rate": 1
+      },
+      {
+        "group": "6",
+        "count": 3,
+        "rewardError": {
+          "count": 3,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "absoluteRewardError": {
+          "count": 3,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "exactRate": 1,
+        "within1Rate": 1,
+        "within2Rate": 1
+      },
+      {
+        "group": "5",
+        "count": 2,
+        "rewardError": {
+          "count": 2,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "absoluteRewardError": {
+          "count": 2,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "exactRate": 1,
+        "within1Rate": 1,
+        "within2Rate": 1
+      }
+    ],
+    "byTime": [
+      {
+        "group": "45_TO_LT_50_MIN",
+        "count": 16,
+        "rewardError": {
+          "count": 16,
+          "min": -1,
+          "p25": 0,
+          "median": 0,
+          "p75": 1.25,
+          "p95": 3,
+          "p99": 3,
+          "max": 3,
+          "mean": 0.6875
+        },
+        "absoluteRewardError": {
+          "count": 16,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 1.25,
+          "p95": 3,
+          "p99": 3,
+          "max": 3,
+          "mean": 0.8125
+        },
+        "exactRate": 0.5625,
+        "within1Rate": 0.75,
+        "within2Rate": 0.875
+      },
+      {
+        "group": "0_TO_LT_5_MIN",
+        "count": 14,
+        "rewardError": {
+          "count": 14,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 0.21428571428571427
+        },
+        "absoluteRewardError": {
+          "count": 14,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 0.21428571428571427
+        },
+        "exactRate": 0.7857142857142857,
+        "within1Rate": 1,
+        "within2Rate": 1
+      },
+      {
+        "group": "40_TO_LT_45_MIN",
+        "count": 9,
+        "rewardError": {
+          "count": 9,
+          "min": -2,
+          "p25": -1,
+          "median": 0,
+          "p75": 0,
+          "p95": 0.5999999999999996,
+          "p99": 0.9199999999999999,
+          "max": 1,
+          "mean": -0.4444444444444444
+        },
+        "absoluteRewardError": {
+          "count": 9,
+          "min": 0,
+          "p25": 0,
+          "median": 1,
+          "p75": 1,
+          "p95": 1.5999999999999996,
+          "p99": 1.92,
+          "max": 2,
+          "mean": 0.6666666666666666
+        },
+        "exactRate": 0.4444444444444444,
+        "within1Rate": 0.8888888888888888,
+        "within2Rate": 1
+      },
+      {
+        "group": "10_TO_LT_15_MIN",
+        "count": 8,
+        "rewardError": {
+          "count": 8,
+          "min": -2,
+          "p25": -1.25,
+          "median": -0.5,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": -0.75
+        },
+        "absoluteRewardError": {
+          "count": 8,
+          "min": 0,
+          "p25": 0,
+          "median": 0.5,
+          "p75": 1.25,
+          "p95": 2,
+          "p99": 2,
+          "max": 2,
+          "mean": 0.75
+        },
+        "exactRate": 0.5,
+        "within1Rate": 0.75,
+        "within2Rate": 1
+      },
+      {
+        "group": "15_TO_LT_20_MIN",
+        "count": 7,
+        "rewardError": {
+          "count": 7,
+          "min": -1,
+          "p25": -1,
+          "median": -1,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": -0.5714285714285714
+        },
+        "absoluteRewardError": {
+          "count": 7,
+          "min": 0,
+          "p25": 0,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 0.5714285714285714
+        },
+        "exactRate": 0.42857142857142855,
+        "within1Rate": 1,
+        "within2Rate": 1
+      },
+      {
+        "group": "20_TO_LT_25_MIN",
+        "count": 7,
+        "rewardError": {
+          "count": 7,
+          "min": -1,
+          "p25": -1,
+          "median": -1,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": -0.5714285714285714
+        },
+        "absoluteRewardError": {
+          "count": 7,
+          "min": 0,
+          "p25": 0,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 0.5714285714285714
+        },
+        "exactRate": 0.42857142857142855,
+        "within1Rate": 1,
+        "within2Rate": 1
+      },
+      {
+        "group": "30_TO_LT_35_MIN",
+        "count": 6,
+        "rewardError": {
+          "count": 6,
+          "min": -2,
+          "p25": -1,
+          "median": -1,
+          "p75": -0.25,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": -0.8333333333333334
+        },
+        "absoluteRewardError": {
+          "count": 6,
+          "min": 0,
+          "p25": 0.25,
+          "median": 1,
+          "p75": 1,
+          "p95": 1.75,
+          "p99": 1.9500000000000002,
+          "max": 2,
+          "mean": 0.8333333333333334
+        },
+        "exactRate": 0.3333333333333333,
+        "within1Rate": 0.8333333333333334,
+        "within2Rate": 1
+      },
+      {
+        "group": "5_TO_LT_10_MIN",
+        "count": 6,
+        "rewardError": {
+          "count": 6,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "absoluteRewardError": {
+          "count": 6,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "exactRate": 1,
+        "within1Rate": 1,
+        "within2Rate": 1
+      },
+      {
+        "group": "50_TO_LT_55_MIN",
+        "count": 6,
+        "rewardError": {
+          "count": 6,
+          "min": -1,
+          "p25": -1,
+          "median": -1,
+          "p75": -0.25,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "mean": -0.6666666666666666
+        },
+        "absoluteRewardError": {
+          "count": 6,
+          "min": 0,
+          "p25": 0.25,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 0.6666666666666666
+        },
+        "exactRate": 0.3333333333333333,
+        "within1Rate": 1,
+        "within2Rate": 1
+      },
+      {
+        "group": "25_TO_LT_30_MIN",
+        "count": 3,
+        "rewardError": {
+          "count": 3,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0.5,
+          "p95": 0.8999999999999999,
+          "p99": 0.98,
+          "max": 1,
+          "mean": 0.3333333333333333
+        },
+        "absoluteRewardError": {
+          "count": 3,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0.5,
+          "p95": 0.8999999999999999,
+          "p99": 0.98,
+          "max": 1,
+          "mean": 0.3333333333333333
+        },
+        "exactRate": 0.6666666666666666,
+        "within1Rate": 1,
+        "within2Rate": 1
+      },
+      {
+        "group": "35_TO_LT_40_MIN",
+        "count": 3,
+        "rewardError": {
+          "count": 3,
+          "min": -1,
+          "p25": -0.5,
+          "median": 0,
+          "p75": 0.5,
+          "p95": 0.8999999999999999,
+          "p99": 0.98,
+          "max": 1,
+          "mean": 0
+        },
+        "absoluteRewardError": {
+          "count": 3,
+          "min": 0,
+          "p25": 0.5,
+          "median": 1,
+          "p75": 1,
+          "p95": 1,
+          "p99": 1,
+          "max": 1,
+          "mean": 0.6666666666666666
+        },
+        "exactRate": 0.3333333333333333,
+        "within1Rate": 1,
+        "within2Rate": 1
+      }
+    ]
+  },
+  "largestRewardMismatches": [
+    {
+      "deathIndex": 1446,
+      "clock": "46:10",
+      "matchMinute": 46.17630208333333,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 1,
+      "observed": 119,
+      "predicted": 116,
+      "error": 3
+    },
+    {
+      "deathIndex": 1606,
+      "clock": "49:07",
+      "matchMinute": 49.12864583333333,
+      "variantLabel": "SUPER",
+      "isSuper": true,
+      "teamStatus": "TRAILING",
+      "recipientCount": 1,
+      "observed": 100,
+      "predicted": 97,
+      "error": 3
+    },
+    {
+      "deathIndex": 306,
+      "clock": "12:33",
+      "matchMinute": 12.561458333333333,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 2,
+      "observed": 67,
+      "predicted": 69,
+      "error": -2
+    },
+    {
+      "deathIndex": 350,
+      "clock": "14:13",
+      "matchMinute": 14.2171875,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 3,
+      "observed": 70,
+      "predicted": 72,
+      "error": -2
+    },
+    {
+      "deathIndex": 963,
+      "clock": "33:27",
+      "matchMinute": 33.455729166666664,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 3,
+      "observed": 93,
+      "predicted": 95,
+      "error": -2
+    },
+    {
+      "deathIndex": 1278,
+      "clock": "41:58",
+      "matchMinute": 41.96953125,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 4,
+      "observed": 99,
+      "predicted": 101,
+      "error": -2
+    },
+    {
+      "deathIndex": 1594,
+      "clock": "48:43",
+      "matchMinute": 48.7265625,
+      "variantLabel": "SUPER",
+      "isSuper": true,
+      "teamStatus": "TRAILING",
+      "recipientCount": 1,
+      "observed": 99,
+      "predicted": 97,
+      "error": 2
+    },
+    {
+      "deathIndex": 1607,
+      "clock": "49:08",
+      "matchMinute": 49.13697916666667,
+      "variantLabel": "SUPER",
+      "isSuper": true,
+      "teamStatus": "TRAILING",
+      "recipientCount": 1,
+      "observed": 100,
+      "predicted": 98,
+      "error": 2
+    },
+    {
+      "deathIndex": 9,
+      "clock": "1:15",
+      "matchMinute": 1.25390625,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 2,
+      "observed": 56,
+      "predicted": 55,
+      "error": 1
+    },
+    {
+      "deathIndex": 26,
+      "clock": "2:03",
+      "matchMinute": 2.062760416666667,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 2,
+      "observed": 57,
+      "predicted": 56,
+      "error": 1
+    },
+    {
+      "deathIndex": 28,
+      "clock": "2:05",
+      "matchMinute": 2.0950520833333335,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 2,
+      "observed": 57,
+      "predicted": 56,
+      "error": 1
+    },
+    {
+      "deathIndex": 290,
+      "clock": "11:49",
+      "matchMinute": 11.829427083333334,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 3,
+      "observed": 66,
+      "predicted": 67,
+      "error": -1
+    },
+    {
+      "deathIndex": 322,
+      "clock": "13:02",
+      "matchMinute": 13.0421875,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 3,
+      "observed": 69,
+      "predicted": 70,
+      "error": -1
+    },
+    {
+      "deathIndex": 393,
+      "clock": "15:48",
+      "matchMinute": 15.801302083333333,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 2,
+      "observed": 75,
+      "predicted": 76,
+      "error": -1
+    },
+    {
+      "deathIndex": 419,
+      "clock": "16:51",
+      "matchMinute": 16.85546875,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 1,
+      "observed": 66,
+      "predicted": 67,
+      "error": -1
+    },
+    {
+      "deathIndex": 451,
+      "clock": "17:58",
+      "matchMinute": 17.9828125,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 1,
+      "observed": 67,
+      "predicted": 68,
+      "error": -1
+    },
+    {
+      "deathIndex": 497,
+      "clock": "19:41",
+      "matchMinute": 19.684114583333333,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 1,
+      "observed": 69,
+      "predicted": 70,
+      "error": -1
+    },
+    {
+      "deathIndex": 548,
+      "clock": "21:46",
+      "matchMinute": 21.78203125,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 1,
+      "observed": 71,
+      "predicted": 72,
+      "error": -1
+    },
+    {
+      "deathIndex": 622,
+      "clock": "23:44",
+      "matchMinute": 23.733333333333334,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 1,
+      "observed": 73,
+      "predicted": 74,
+      "error": -1
+    },
+    {
+      "deathIndex": 623,
+      "clock": "23:45",
+      "matchMinute": 23.761979166666666,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 3,
+      "observed": 79,
+      "predicted": 80,
+      "error": -1
+    },
+    {
+      "deathIndex": 624,
+      "clock": "23:46",
+      "matchMinute": 23.76796875,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 1,
+      "observed": 73,
+      "predicted": 74,
+      "error": -1
+    },
+    {
+      "deathIndex": 717,
+      "clock": "26:20",
+      "matchMinute": 26.34296875,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 2,
+      "observed": 83,
+      "predicted": 82,
+      "error": 1
+    },
+    {
+      "deathIndex": 895,
+      "clock": "31:41",
+      "matchMinute": 31.6921875,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 3,
+      "observed": 91,
+      "predicted": 92,
+      "error": -1
+    },
+    {
+      "deathIndex": 968,
+      "clock": "33:36",
+      "matchMinute": 33.600520833333334,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 4,
+      "observed": 87,
+      "predicted": 88,
+      "error": -1
+    },
+    {
+      "deathIndex": 975,
+      "clock": "33:46",
+      "matchMinute": 33.77916666666667,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 1,
+      "observed": 83,
+      "predicted": 84,
+      "error": -1
+    },
+    {
+      "deathIndex": 1062,
+      "clock": "36:42",
+      "matchMinute": 36.70520833333333,
+      "variantLabel": "UNRESOLVED",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 1,
+      "observed": 86,
+      "predicted": 87,
+      "error": -1
+    },
+    {
+      "deathIndex": 1159,
+      "clock": "38:55",
+      "matchMinute": 38.93177083333333,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "TRAILING",
+      "recipientCount": 2,
+      "observed": 110,
+      "predicted": 109,
+      "error": 1
+    },
+    {
+      "deathIndex": 1268,
+      "clock": "41:38",
+      "matchMinute": 41.64036458333333,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 1,
+      "observed": 91,
+      "predicted": 92,
+      "error": -1
+    },
+    {
+      "deathIndex": 1348,
+      "clock": "43:30",
+      "matchMinute": 43.502604166666664,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 1,
+      "observed": 93,
+      "predicted": 94,
+      "error": -1
+    },
+    {
+      "deathIndex": 1350,
+      "clock": "43:32",
+      "matchMinute": 43.54140625,
+      "variantLabel": "NORMAL",
+      "isSuper": false,
+      "teamStatus": "LEADING",
+      "recipientCount": 1,
+      "observed": 93,
+      "predicted": 94,
+      "error": -1
+    }
+  ],
+  "remainderDetail": [
+    {
+      "deathIndex": 26,
+      "clock": "2:03",
+      "recipientCount": 2,
+      "observedTeamTotal": 57,
+      "remainder": 1,
+      "floorShare": 28,
+      "ceilShare": 29,
+      "creditedPlayerName": "Nacho4Sure",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "flem",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "Nacho4Sure"
+      ],
+      "floorRecipients": [
+        "flem"
+      ]
+    },
+    {
+      "deathIndex": 28,
+      "clock": "2:05",
+      "recipientCount": 2,
+      "observedTeamTotal": 57,
+      "remainder": 1,
+      "floorShare": 28,
+      "ceilShare": 29,
+      "creditedPlayerName": "TheWoogler",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "blooop354",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "TheWoogler"
+      ],
+      "floorRecipients": [
+        "blooop354"
+      ]
+    },
+    {
+      "deathIndex": 34,
+      "clock": "2:19",
+      "recipientCount": 2,
+      "observedTeamTotal": 57,
+      "remainder": 1,
+      "floorShare": 28,
+      "ceilShare": 29,
+      "creditedPlayerName": "Eriansan",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "viggoth 300",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "Eriansan"
+      ],
+      "floorRecipients": [
+        "viggoth 300"
+      ]
+    },
+    {
+      "deathIndex": 36,
+      "clock": "2:31",
+      "recipientCount": 2,
+      "observedTeamTotal": 57,
+      "remainder": 1,
+      "floorShare": 28,
+      "ceilShare": 29,
+      "creditedPlayerName": "blooop354",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "blooop354",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "blooop354"
+      ],
+      "floorRecipients": [
+        "TheWoogler"
+      ]
+    },
+    {
+      "deathIndex": 40,
+      "clock": "2:40",
+      "recipientCount": 2,
+      "observedTeamTotal": 57,
+      "remainder": 1,
+      "floorShare": 28,
+      "ceilShare": 29,
+      "creditedPlayerName": "Nebula",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Nebula",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Nebula"
+      ],
+      "floorRecipients": [
+        "Goldinfer"
+      ]
+    },
+    {
+      "deathIndex": 48,
+      "clock": "2:57",
+      "recipientCount": 2,
+      "observedTeamTotal": 57,
+      "remainder": 1,
+      "floorShare": 28,
+      "ceilShare": 29,
+      "creditedPlayerName": "TheWoogler",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "TheWoogler",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "TheWoogler"
+      ],
+      "floorRecipients": [
+        "blooop354"
+      ]
+    },
+    {
+      "deathIndex": 306,
+      "clock": "12:33",
+      "recipientCount": 2,
+      "observedTeamTotal": 67,
+      "remainder": 1,
+      "floorShare": 33,
+      "ceilShare": 34,
+      "creditedPlayerName": "Zaeleth",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Zaeleth",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Zaeleth"
+      ],
+      "floorRecipients": [
+        "Goldinfer"
+      ]
+    },
+    {
+      "deathIndex": 350,
+      "clock": "14:13",
+      "recipientCount": 3,
+      "observedTeamTotal": 70,
+      "remainder": 1,
+      "floorShare": 23,
+      "ceilShare": 24,
+      "creditedPlayerName": "Nebula",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "TheWoogler",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "Nebula"
+      ],
+      "floorRecipients": [
+        "Goldinfer",
+        "TheWoogler"
+      ]
+    },
+    {
+      "deathIndex": 393,
+      "clock": "15:48",
+      "recipientCount": 2,
+      "observedTeamTotal": 75,
+      "remainder": 1,
+      "floorShare": 37,
+      "ceilShare": 38,
+      "creditedPlayerName": "Zaeleth",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Goldinfer",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "Zaeleth"
+      ],
+      "floorRecipients": [
+        "Goldinfer"
+      ]
+    },
+    {
+      "deathIndex": 623,
+      "clock": "23:45",
+      "recipientCount": 3,
+      "observedTeamTotal": 79,
+      "remainder": 1,
+      "floorShare": 26,
+      "ceilShare": 27,
+      "creditedPlayerName": "renso",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Zaeleth",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "renso"
+      ],
+      "floorRecipients": [
+        "Goldinfer",
+        "Zaeleth"
+      ]
+    },
+    {
+      "deathIndex": 634,
+      "clock": "24:16",
+      "recipientCount": 4,
+      "observedTeamTotal": 74,
+      "remainder": 2,
+      "floorShare": 18,
+      "ceilShare": 19,
+      "creditedPlayerName": "flem",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "viggoth 300",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "flem",
+        "viggoth 300"
+      ],
+      "floorRecipients": [
+        "Snazzy314",
+        "Yosafire Worshipper [K]"
+      ]
+    },
+    {
+      "deathIndex": 640,
+      "clock": "24:21",
+      "recipientCount": 4,
+      "observedTeamTotal": 74,
+      "remainder": 2,
+      "floorShare": 18,
+      "ceilShare": 19,
+      "creditedPlayerName": "Nacho4Sure",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Nacho4Sure",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Nacho4Sure",
+        "Snazzy314"
+      ],
+      "floorRecipients": [
+        "viggoth 300",
+        "Yosafire Worshipper [K]"
+      ]
+    },
+    {
+      "deathIndex": 717,
+      "clock": "26:20",
+      "recipientCount": 2,
+      "observedTeamTotal": 83,
+      "remainder": 1,
+      "floorShare": 41,
+      "ceilShare": 42,
+      "creditedPlayerName": "Goldinfer",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Goldinfer",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Goldinfer"
+      ],
+      "floorRecipients": [
+        "renso"
+      ]
+    },
+    {
+      "deathIndex": 728,
+      "clock": "26:48",
+      "recipientCount": 2,
+      "observedTeamTotal": 83,
+      "remainder": 1,
+      "floorShare": 41,
+      "ceilShare": 42,
+      "creditedPlayerName": "Snazzy314",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Snazzy314",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Snazzy314"
+      ],
+      "floorRecipients": [
+        "viggoth 300"
+      ]
+    },
+    {
+      "deathIndex": 895,
+      "clock": "31:41",
+      "recipientCount": 3,
+      "observedTeamTotal": 91,
+      "remainder": 1,
+      "floorShare": 30,
+      "ceilShare": 31,
+      "creditedPlayerName": "blooop354",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "TheWoogler",
+      "targetIsRecipient": false,
+      "targetGetsCeil": null,
+      "ceilRecipients": [
+        "blooop354"
+      ],
+      "floorRecipients": [
+        "Nebula",
+        "Zaeleth"
+      ]
+    },
+    {
+      "deathIndex": 968,
+      "clock": "33:36",
+      "recipientCount": 4,
+      "observedTeamTotal": 87,
+      "remainder": 3,
+      "floorShare": 21,
+      "ceilShare": 22,
+      "creditedPlayerName": "Zaeleth",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Zaeleth",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Goldinfer",
+        "Nebula",
+        "Zaeleth"
+      ],
+      "floorRecipients": [
+        "renso"
+      ]
+    },
+    {
+      "deathIndex": 1278,
+      "clock": "41:58",
+      "recipientCount": 4,
+      "observedTeamTotal": 99,
+      "remainder": 3,
+      "floorShare": 24,
+      "ceilShare": 25,
+      "creditedPlayerName": "Nebula",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "renso",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Goldinfer",
+        "Nebula",
+        "renso"
+      ],
+      "floorRecipients": [
+        "blooop354"
+      ]
+    },
+    {
+      "deathIndex": 1279,
+      "clock": "42:00",
+      "recipientCount": 3,
+      "observedTeamTotal": 109,
+      "remainder": 1,
+      "floorShare": 36,
+      "ceilShare": 37,
+      "creditedPlayerName": "blooop354",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "renso",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "blooop354"
+      ],
+      "floorRecipients": [
+        "Goldinfer",
+        "renso"
+      ]
+    },
+    {
+      "deathIndex": 1337,
+      "clock": "43:19",
+      "recipientCount": 3,
+      "observedTeamTotal": 101,
+      "remainder": 2,
+      "floorShare": 33,
+      "ceilShare": 34,
+      "creditedPlayerName": "flem",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "flem",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "flem",
+        "Snazzy314"
+      ],
+      "floorRecipients": [
+        "Eriansan"
+      ]
+    },
+    {
+      "deathIndex": 1434,
+      "clock": "45:36",
+      "recipientCount": 5,
+      "observedTeamTotal": 96,
+      "remainder": 1,
+      "floorShare": 19,
+      "ceilShare": 20,
+      "creditedPlayerName": "flem",
+      "creditedGetsCeil": false,
+      "targetPlayerName": "Yosafire Worshipper [K]",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Yosafire Worshipper [K]"
+      ],
+      "floorRecipients": [
+        "Eriansan",
+        "flem",
+        "Snazzy314",
+        "viggoth 300"
+      ]
+    },
+    {
+      "deathIndex": 1437,
+      "clock": "45:48",
+      "recipientCount": 3,
+      "observedTeamTotal": 103,
+      "remainder": 1,
+      "floorShare": 34,
+      "ceilShare": 35,
+      "creditedPlayerName": "flem",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Yosafire Worshipper [K]",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "flem"
+      ],
+      "floorRecipients": [
+        "Snazzy314",
+        "Yosafire Worshipper [K]"
+      ]
+    },
+    {
+      "deathIndex": 1440,
+      "clock": "45:55",
+      "recipientCount": 4,
+      "observedTeamTotal": 95,
+      "remainder": 3,
+      "floorShare": 23,
+      "ceilShare": 24,
+      "creditedPlayerName": "Yosafire Worshipper [K]",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Snazzy314",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Snazzy314",
+        "viggoth 300",
+        "Yosafire Worshipper [K]"
+      ],
+      "floorRecipients": [
+        "flem"
+      ]
+    },
+    {
+      "deathIndex": 1447,
+      "clock": "46:15",
+      "recipientCount": 5,
+      "observedTeamTotal": 96,
+      "remainder": 1,
+      "floorShare": 19,
+      "ceilShare": 20,
+      "creditedPlayerName": "flem",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Eriansan",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "flem"
+      ],
+      "floorRecipients": [
+        "Eriansan",
+        "Snazzy314",
+        "viggoth 300",
+        "Yosafire Worshipper [K]"
+      ]
+    },
+    {
+      "deathIndex": 1455,
+      "clock": "46:24",
+      "recipientCount": 3,
+      "observedTeamTotal": 125,
+      "remainder": 2,
+      "floorShare": 41,
+      "ceilShare": 42,
+      "creditedPlayerName": "Zaeleth",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Nebula",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Nebula",
+        "Zaeleth"
+      ],
+      "floorRecipients": [
+        "Goldinfer"
+      ]
+    },
+    {
+      "deathIndex": 1473,
+      "clock": "46:39",
+      "recipientCount": 3,
+      "observedTeamTotal": 104,
+      "remainder": 2,
+      "floorShare": 34,
+      "ceilShare": 35,
+      "creditedPlayerName": "Eriansan",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Yosafire Worshipper [K]",
+      "targetIsRecipient": false,
+      "targetGetsCeil": null,
+      "ceilRecipients": [
+        "Eriansan",
+        "viggoth 300"
+      ],
+      "floorRecipients": [
+        "Nacho4Sure"
+      ]
+    },
+    {
+      "deathIndex": 1475,
+      "clock": "46:40",
+      "recipientCount": 6,
+      "observedTeamTotal": 93,
+      "remainder": 3,
+      "floorShare": 15,
+      "ceilShare": 16,
+      "creditedPlayerName": "Eriansan",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Nacho4Sure",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "Eriansan",
+        "Snazzy314",
+        "viggoth 300"
+      ],
+      "floorRecipients": [
+        "flem",
+        "Nacho4Sure",
+        "Yosafire Worshipper [K]"
+      ]
+    },
+    {
+      "deathIndex": 1499,
+      "clock": "46:45",
+      "recipientCount": 6,
+      "observedTeamTotal": 93,
+      "remainder": 3,
+      "floorShare": 15,
+      "ceilShare": 16,
+      "creditedPlayerName": "Yosafire Worshipper [K]",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Eriansan",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Eriansan",
+        "Snazzy314",
+        "Yosafire Worshipper [K]"
+      ],
+      "floorRecipients": [
+        "flem",
+        "Nacho4Sure",
+        "viggoth 300"
+      ]
+    },
+    {
+      "deathIndex": 1576,
+      "clock": "48:19",
+      "recipientCount": 3,
+      "observedTeamTotal": 106,
+      "remainder": 1,
+      "floorShare": 35,
+      "ceilShare": 36,
+      "creditedPlayerName": "Nacho4Sure",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Nacho4Sure",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Nacho4Sure"
+      ],
+      "floorRecipients": [
+        "Eriansan",
+        "Yosafire Worshipper [K]"
+      ]
+    },
+    {
+      "deathIndex": 1622,
+      "clock": "49:30",
+      "recipientCount": 3,
+      "observedTeamTotal": 107,
+      "remainder": 2,
+      "floorShare": 35,
+      "ceilShare": 36,
+      "creditedPlayerName": "flem",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Yosafire Worshipper [K]",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "flem",
+        "Yosafire Worshipper [K]"
+      ],
+      "floorRecipients": [
+        "viggoth 300"
+      ]
+    },
+    {
+      "deathIndex": 1623,
+      "clock": "49:31",
+      "recipientCount": 3,
+      "observedTeamTotal": 107,
+      "remainder": 2,
+      "floorShare": 35,
+      "ceilShare": 36,
+      "creditedPlayerName": "flem",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Yosafire Worshipper [K]",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "flem",
+        "Yosafire Worshipper [K]"
+      ],
+      "floorRecipients": [
+        "viggoth 300"
+      ]
+    },
+    {
+      "deathIndex": 1630,
+      "clock": "49:41",
+      "recipientCount": 3,
+      "observedTeamTotal": 107,
+      "remainder": 2,
+      "floorShare": 35,
+      "ceilShare": 36,
+      "creditedPlayerName": "TheWoogler",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "renso",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "Goldinfer",
+        "TheWoogler"
+      ],
+      "floorRecipients": [
+        "renso"
+      ]
+    },
+    {
+      "deathIndex": 1670,
+      "clock": "50:28",
+      "recipientCount": 3,
+      "observedTeamTotal": 104,
+      "remainder": 2,
+      "floorShare": 34,
+      "ceilShare": 35,
+      "creditedPlayerName": "TheWoogler",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "TheWoogler",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Goldinfer",
+        "TheWoogler"
+      ],
+      "floorRecipients": [
+        "renso"
+      ]
+    },
+    {
+      "deathIndex": 1679,
+      "clock": "50:41",
+      "recipientCount": 3,
+      "observedTeamTotal": 101,
+      "remainder": 2,
+      "floorShare": 33,
+      "ceilShare": 34,
+      "creditedPlayerName": "Nebula",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "renso",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "Goldinfer",
+        "Nebula"
+      ],
+      "floorRecipients": [
+        "renso"
+      ]
+    },
+    {
+      "deathIndex": 1683,
+      "clock": "50:56",
+      "recipientCount": 3,
+      "observedTeamTotal": 101,
+      "remainder": 2,
+      "floorShare": 33,
+      "ceilShare": 34,
+      "creditedPlayerName": "Goldinfer",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Goldinfer",
+      "targetIsRecipient": true,
+      "targetGetsCeil": true,
+      "ceilRecipients": [
+        "Goldinfer",
+        "renso"
+      ],
+      "floorRecipients": [
+        "Nebula"
+      ]
+    },
+    {
+      "deathIndex": 1715,
+      "clock": "51:51",
+      "recipientCount": 4,
+      "observedTeamTotal": 101,
+      "remainder": 1,
+      "floorShare": 25,
+      "ceilShare": 26,
+      "creditedPlayerName": "Nacho4Sure",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "Yosafire Worshipper [K]",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "Nacho4Sure"
+      ],
+      "floorRecipients": [
+        "Eriansan",
+        "Snazzy314",
+        "Yosafire Worshipper [K]"
+      ]
+    },
+    {
+      "deathIndex": 1723,
+      "clock": "52:06",
+      "recipientCount": 6,
+      "observedTeamTotal": 98,
+      "remainder": 2,
+      "floorShare": 16,
+      "ceilShare": 17,
+      "creditedPlayerName": "Nacho4Sure",
+      "creditedGetsCeil": true,
+      "targetPlayerName": "flem",
+      "targetIsRecipient": true,
+      "targetGetsCeil": false,
+      "ceilRecipients": [
+        "Eriansan",
+        "Nacho4Sure"
+      ],
+      "floorRecipients": [
+        "flem",
+        "Snazzy314",
+        "viggoth 300",
+        "Yosafire Worshipper [K]"
+      ]
+    }
+  ],
+  "interpretiveFlags": {
+    "observedIntegerPartitionStrong": true,
+    "correctedRewardStrong": true,
+    "creditedAlwaysIncluded": true,
+    "creditedRemainderPriorityStrong": true,
+    "creditedRemainderPriorityModelConfirmed": true,
+    "physicalTargetRemainderPriorityStrong": false
+  },
+  "interpretationGuide": {
+    "integerPartition": "A 100% observed partition rate establishes that the validated economic events divide into floor/ceil integer shares of one observed reward pool.",
+    "creditedPriority": "A credited-player ceil rate far above the random remainder expectation supports last-hitter priority for integer remainder allocation.",
+    "modelExact": "The model-exact subset is the strongest test because both the underlying predicted reward and observed reward agree before allocation is examined.",
+    "physicalTarget": "Lack of comparable remainder priority for m_hVacuumTarget further separates physical collection from economic assignment.",
+    "residuals": "If corrected totals are overwhelmingly within one or two souls, remaining exact-rounding differences should be replicated across independent matches rather than fitted further to test.dem.",
+    "next": "If pipeline and allocation semantics pass, close AssignedGold economic discovery on test.dem. Proceed to facing/aim field validation, then compact cross-replay replication of the foundational ground-soul mechanics."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script95Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script95CaseCount": {
+        "actual": 85,
+        "expected": 85,
+        "pass": true
+      },
+      "joinedCaseCount": {
+        "actual": 85,
+        "expected": 85,
+        "pass": true
+      },
+      "sourceTeamTotalAgreement": {
+        "actual": 85,
+        "expected": 85,
+        "pass": true
+      },
+      "observedPartitionExact": {
+        "actual": 85,
+        "expected": 85,
+        "pass": true
+      },
+      "creditedRecipientCoverage": {
+        "actual": 85,
+        "expected": 85,
+        "pass": true
+      },
+      "observedRemainderCasesPresent": {
+        "actual": 36,
+        "expected": ">0",
+        "pass": true
+      },
+      "modelExactCasesPresent": {
+        "actual": 47,
+        "expected": ">=30",
+        "pass": true
+      },
+      "modelExactRemainderCasesPresent": {
+        "actual": 19,
+        "expected": ">=10",
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_final_integer_allocation_validation_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_final_integer_allocation_cases_v01.jsonl"
+  }
+}

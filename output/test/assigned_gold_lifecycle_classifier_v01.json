@@ -1,0 +1,237 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_LIFECYCLE_CLASSIFIER_V01",
+  "canonical": false,
+  "status": "FORMAL_SINGLE_REPLAY_LIFECYCLE_CLASSIFIER_READY",
+  "purpose": [
+    "Consolidate validated AssignedGold production, target acquisition, floor persistence, proximity, and targetless timeout telemetry into one downstream lifecycle stream.",
+    "Create stable operational classes suitable for later resource-opportunity feature construction.",
+    "Preserve distinctions between observed telemetry, strongly supported inference, and unresolved canonical engine semantics."
+  ],
+  "semanticAuthority": {
+    "production": "Player last-hit bookkeeping is strongly associated with AssignedGold production in the clean isolated cohort.",
+    "vacuumTarget": "m_hVacuumTarget assignment is observed downstream vacuum-lifecycle telemetry and is not a last-hitter field.",
+    "vacuumTargetTeam": "Observed clean player targets are allied with the credited-player team in test.dem.",
+    "proximity": "Approximately 732-735 HU planar allied proximity is strongly associated with target assignment within test.dem. 735 HU is retained only as an operational envelope.",
+    "postTargetInactive": "m_bActive=false after target assignment is a strong lifecycle-termination signal but is not independently labeled economic payout.",
+    "timeout": "Targetless active-to-inactive lifetime follows an extremely tight match-time-scaled function in test.dem. These events are labeled timeout candidates rather than canonical expiration.",
+    "collector": "m_hVacuumTarget is not automatically promoted to a canonical economic collector field."
+  },
+  "operationalDefinitions": {
+    "immediateTargetMaximumSeconds": 0.25,
+    "stableFloorMinimumSeconds": 1,
+    "proximityEnvelopeHU": 735,
+    "targetlessTimeoutModel": "clamp(18, 4 * activationMatchMinute - 18, 40)",
+    "timeoutModelToleranceSeconds": 0.125
+  },
+  "counts": {
+    "classified": 991,
+    "targetAssigned": 947,
+    "targetless": 44,
+    "lifecycleClasses": {
+      "TARGETED_IMMEDIATE": 489,
+      "TARGETED_EARLY_FLOOR": 327,
+      "TARGETED_STABLE_FLOOR": 131,
+      "TARGETLESS_MATCH_TIME_SCALED_TIMEOUT_CANDIDATE": 43,
+      "TARGETLESS_CENSORED_NO_ACTIVE_FALSE": 1
+    },
+    "opportunityClasses": {
+      "MINIMAL_OBSERVED_FLOOR_WINDOW": 489,
+      "SHORT_FLOOR_PERSISTENCE_WINDOW": 327,
+      "PERSISTENT_FLOOR_PICKUP_WINDOW": 131,
+      "UNTARGETED_FLOOR_PERSISTENCE_TO_TIMEOUT_CANDIDATE": 43,
+      "UNTARGETED_FLOOR_PERSISTENCE_CENSORED": 1
+    },
+    "proximityClasses": {
+      "TARGET_WITH_OPERATIONAL_PROXIMITY_ENTRY": 946,
+      "TARGET_WITHOUT_OBSERVED_OPERATIONAL_PROXIMITY_ENTRY": 1,
+      "NO_TARGET_WITHOUT_OPERATIONAL_PROXIMITY_ENTRY": 39,
+      "NO_TARGET_WITH_OPERATIONAL_XY_PROXIMITY_ENTRY": 5
+    }
+  },
+  "targetLifecycle": {
+    "immediate": 489,
+    "earlyFloor": 327,
+    "stableFloor": 131,
+    "activeFalseObservedAfterTarget": 947,
+    "activeFalseObservedAfterTargetRate": 1,
+    "targetToInactiveSeconds": {
+      "count": 947,
+      "min": 0.234375,
+      "p25": 0.53125,
+      "median": 0.640625,
+      "p75": 0.734375,
+      "p95": 0.875,
+      "p99": 0.9771874999999994,
+      "max": 7.453125,
+      "mean": 0.6441723864836325
+    },
+    "preTargetDurationSeconds": {
+      "count": 947,
+      "min": 0.015625,
+      "p25": 0.015625,
+      "median": 0.09375,
+      "p75": 0.578125,
+      "p95": 5.746874999999996,
+      "p99": 21.214374999999905,
+      "max": 39.765625,
+      "mean": 1.1672716473072862
+    }
+  },
+  "targetIdentity": {
+    "comparable": 947,
+    "creditedPlayer": 715,
+    "creditedPlayerRate": 0.7550158394931362,
+    "otherSameTeamPlayer": 232,
+    "otherSameTeamPlayerRate": 0.24498416050686378,
+    "opposingTeamPlayer": 0
+  },
+  "proximity": {
+    "targetedEverInside735": 946,
+    "targetedEverInside735Rate": 0.9989440337909187,
+    "targetedNeverInside735": 1,
+    "targetlessEverInside735": 5,
+    "targetlessNeverInside735": 39
+  },
+  "targetlessLifecycle": {
+    "timeoutCandidates": 43,
+    "censoredNoActiveFalse": 1,
+    "unresolved": 0,
+    "persistenceSeconds": {
+      "count": 44,
+      "min": 14.25,
+      "p25": 39.78515625,
+      "median": 40,
+      "p75": 40,
+      "p95": 40,
+      "p99": 40,
+      "max": 40,
+      "mean": 35.70099431818182
+    },
+    "simpleTimeoutModelResidualSeconds": {
+      "count": 43,
+      "min": -0.015625,
+      "p25": -0.015625,
+      "median": 0,
+      "p75": 0,
+      "p95": 0.07239583333333,
+      "p99": 0.080437500000002,
+      "max": 0.08437500000000142,
+      "mean": 0.0024224806201549836
+    },
+    "simpleTimeoutModelAbsoluteResidualSeconds": {
+      "count": 43,
+      "min": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0.015625,
+      "p95": 0.07239583333333,
+      "p99": 0.080437500000002,
+      "max": 0.08437500000000142,
+      "mean": 0.011143410852713123
+    }
+  },
+  "downstreamUse": {
+    "recommended": [
+      "Use lifecycleClass as a stable descriptive AssignedGold lifecycle category.",
+      "Use behavioralWindow.opportunityClass when constructing resource-opportunity windows.",
+      "Use creditedPlayer separately from vacuum.targetPlayerName.",
+      "Preserve proximity metrics rather than replacing them with a binary 735-HU truth value.",
+      "Treat TARGETLESS_MATCH_TIME_SCALED_TIMEOUT_CANDIDATE as an unclaimed/untargeted termination candidate, not yet canonical expiration."
+    ],
+    "prohibited": [
+      "Do not label m_hVacuumTarget as exact last-hitter identity.",
+      "Do not label m_bActive=false alone as confirmed economic acquisition.",
+      "Do not call 735 HU an exact canonical engine radius.",
+      "Do not call the targetless timeout function globally canonical until independent replay replication."
+    ]
+  },
+  "next": {
+    "step": "CROSS_REPLAY_REPLICATION",
+    "description": "Run the compact production/proximity/timeout contracts on independent replay files before promoting these AssignedGold mechanics beyond single-replay authority."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script84Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script86Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "cleanSourceCount": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "classifiedCount": {
+        "actual": 991,
+        "expected": 991,
+        "pass": true
+      },
+      "targetAssignedCount": {
+        "actual": 947,
+        "expected": 947,
+        "pass": true
+      },
+      "targetlessCount": {
+        "actual": 44,
+        "expected": 44,
+        "pass": true
+      },
+      "immediateCount": {
+        "actual": 489,
+        "expected": 489,
+        "pass": true
+      },
+      "earlyCount": {
+        "actual": 327,
+        "expected": 327,
+        "pass": true
+      },
+      "stableCount": {
+        "actual": 131,
+        "expected": 131,
+        "pass": true
+      },
+      "timeoutCandidateCount": {
+        "actual": 43,
+        "expected": 43,
+        "pass": true
+      },
+      "censoredTargetlessCount": {
+        "actual": 1,
+        "expected": 1,
+        "pass": true
+      },
+      "classificationExhaustive": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "noUnresolvedLifecycle": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "targetPostInactiveCoverage": {
+        "actual": 947,
+        "expected": ">=99% of targeted cases",
+        "pass": true
+      },
+      "targetOpponentVacuumCount": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_lifecycle_classifier_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_lifecycle_classified_v01.jsonl"
+  }
+}

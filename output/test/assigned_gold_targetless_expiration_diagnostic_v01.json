@@ -1,0 +1,2476 @@
+{
+  "replay": "test",
+  "version": "ASSIGNED_GOLD_TARGETLESS_EXPIRATION_DIAGNOSTIC_V01",
+  "canonical": false,
+  "status": "TARGETLESS_TERMINATION_DIAGNOSTIC_READY",
+  "purpose": [
+    "Characterize the 44 clean AssignedGold episodes that never acquire a player m_hVacuumTarget.",
+    "Test whether approximately 40 seconds is the dominant targetless termination signature without assuming it is universally canonical expiration.",
+    "Diagnose shorter targetless lifetimes using exact raw m_bActive and m_bInteractive state, allied proximity, entity reuse timing, and global end-tick structure.",
+    "Investigate the five Script84 no-target episodes that nevertheless entered the approximately 735-HU planar proximity region."
+  ],
+  "semanticLimits": {
+    "expiration": "A targetless active=false transition near 40 seconds is treated as an expiration candidate, not automatically as proven engine expiration.",
+    "activeFalse": "m_bActive=false is a lifecycle termination signal and is not independently proven to mean economic acquisition or expiration.",
+    "interactive": "m_bInteractive is inspected as a candidate eligibility state. Its semantic role is not assumed in advance.",
+    "proximity": "Approximately 732-735 HU remains an empirical single-replay proximity envelope, not an engine-documented exact radius.",
+    "periodicity": "Global periodic fits are descriptive diagnostics only and do not establish a cleanup scheduler."
+  },
+  "sourceCounts": {
+    "targetlessCases": 44,
+    "rawInactive": 43,
+    "noRawInactive": 1,
+    "rawTargetStayedNull": 44,
+    "soulObserved": 44,
+    "demoPackets": 204690,
+    "packetsWithTargetlessCases": 63232,
+    "processedCaseSamples": 100599,
+    "maximumConcurrentCases": 5
+  },
+  "lifetimes": {
+    "script76DurationSeconds": {
+      "count": 44,
+      "min": 14.25,
+      "p25": 39.78515625,
+      "median": 40,
+      "p75": 40,
+      "p95": 40,
+      "p99": 40,
+      "max": 40,
+      "mean": 35.70099431818182
+    },
+    "rawActivationToInactiveSeconds": {
+      "count": 43,
+      "min": 17.984375,
+      "p25": 39.984375,
+      "median": 40,
+      "p75": 40,
+      "p95": 40,
+      "p99": 40,
+      "max": 40,
+      "mean": 36.19985465116279
+    },
+    "near40Raw": 33,
+    "non40RawInactive": 10,
+    "noRawInactive": 1,
+    "buckets": {
+      "LT_20_SECONDS": 6,
+      "GE_20_LT_30_SECONDS": 1,
+      "GE_30_LT_39_SECONDS": 2,
+      "GE_39_LT_39_95_SECONDS": 1,
+      "NEAR_40_SECONDS": 33,
+      "NO_RAW_ACTIVE_FALSE": 1
+    }
+  },
+  "proximity735Audit": {
+    "everInside735": 5,
+    "everInside735Interactive": 5,
+    "inside735OnlyWhileNotInteractiveOrUnresolved": 0,
+    "inside735WhileInteractive": 5,
+    "interactive735TerminationWithin1Second": 0,
+    "minimumVerticalDeltaAtMinXY": {
+      "count": 5,
+      "min": 47.875,
+      "p25": 904.6875,
+      "median": 1687.5625,
+      "p75": 1775.96875,
+      "p95": 1865.89375,
+      "p99": 1883.87875,
+      "max": 1888.375,
+      "mean": 1260.89375
+    },
+    "distance3DAtMinimumXY": {
+      "count": 5,
+      "min": 735.3753519143302,
+      "p25": 1108.1712307051198,
+      "median": 1744.6401606173872,
+      "p75": 1821.5758110896386,
+      "p95": 1885.5449973348964,
+      "p99": 1898.338834583948,
+      "max": 1901.537293896211,
+      "mean": 1462.2599696445373
+    },
+    "interactiveMinimumVerticalDelta": {
+      "count": 5,
+      "min": 47.875,
+      "p25": 904.6875,
+      "median": 1687.5625,
+      "p75": 1775.96875,
+      "p95": 1865.89375,
+      "p99": 1883.87875,
+      "max": 1888.375,
+      "mean": 1260.89375
+    },
+    "diagnosticCounts": {
+      "NEVER_INSIDE_735": 39,
+      "INTERACTIVE_XY_735_BUT_3D_OVER_768": 4,
+      "INTERACTIVE_735_ENTRY_WITHOUT_TARGET_UNRESOLVED": 1
+    }
+  },
+  "terminationDiagnostics": {
+    "diagnosticCounts": {
+      "EARLY_TERMINATION_UNRESOLVED": 10,
+      "NEAR_40S_TIMEOUT_CANDIDATE": 33,
+      "NO_RAW_ACTIVE_FALSE": 1
+    },
+    "reuseWithinOneSecondOfInactive": 4,
+    "non40ReuseWithinOneSecondOfInactive": 0,
+    "script75EndReasons": {
+      "BECAME_INACTIVE": 43,
+      "REPLAY_END_OR_LAST_OBSERVATION": 1
+    },
+    "script76EndReasons": {
+      "BECAME_INACTIVE": 43,
+      "REPLAY_END_OR_LAST_OBSERVATION": 1
+    }
+  },
+  "sharedTerminationTicks": {
+    "sharedTickCount": 0,
+    "groups": []
+  },
+  "periodicTerminationFits": {
+    "allRawInactive": [
+      {
+        "periodSeconds": 5,
+        "periodTicks": 320,
+        "count": 43,
+        "bestPhaseTick": 245,
+        "medianResidualTicks": 59,
+        "p95ResidualTicks": 153.60000000000002,
+        "maximumResidualTicks": 159,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 4
+      },
+      {
+        "periodSeconds": 10,
+        "periodTicks": 640,
+        "count": 43,
+        "bestPhaseTick": 194,
+        "medianResidualTicks": 115,
+        "p95ResidualTicks": 305.3,
+        "maximumResidualTicks": 320,
+        "within1Tick": 2,
+        "within4Ticks": 2,
+        "within16Ticks": 3
+      },
+      {
+        "periodSeconds": 15,
+        "periodTicks": 960,
+        "count": 43,
+        "bestPhaseTick": 780,
+        "medianResidualTicks": 164,
+        "p95ResidualTicks": 410.59999999999997,
+        "maximumResidualTicks": 479,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 2
+      },
+      {
+        "periodSeconds": 20,
+        "periodTicks": 1280,
+        "count": 43,
+        "bestPhaseTick": 1055,
+        "medianResidualTicks": 206,
+        "p95ResidualTicks": 593.8999999999999,
+        "maximumResidualTicks": 620,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 1
+      },
+      {
+        "periodSeconds": 30,
+        "periodTicks": 1920,
+        "count": 43,
+        "bestPhaseTick": 904,
+        "medianResidualTicks": 357,
+        "p95ResidualTicks": 883.4999999999999,
+        "maximumResidualTicks": 911,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 1
+      },
+      {
+        "periodSeconds": 40,
+        "periodTicks": 2560,
+        "count": 43,
+        "bestPhaseTick": 1151,
+        "medianResidualTicks": 391,
+        "p95ResidualTicks": 1237.8,
+        "maximumResidualTicks": 1256,
+        "within1Tick": 1,
+        "within4Ticks": 2,
+        "within16Ticks": 2
+      },
+      {
+        "periodSeconds": 60,
+        "periodTicks": 3840,
+        "count": 43,
+        "bestPhaseTick": 1376,
+        "medianResidualTicks": 664,
+        "p95ResidualTicks": 1759.3,
+        "maximumResidualTicks": 1803,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 2
+      }
+    ],
+    "non40RawInactive": [
+      {
+        "periodSeconds": 5,
+        "periodTicks": 320,
+        "count": 10,
+        "bestPhaseTick": 115,
+        "medianResidualTicks": 68.5,
+        "p95ResidualTicks": 149.10000000000002,
+        "maximumResidualTicks": 150,
+        "within1Tick": 1,
+        "within4Ticks": 2,
+        "within16Ticks": 3
+      },
+      {
+        "periodSeconds": 10,
+        "periodTicks": 640,
+        "count": 10,
+        "bestPhaseTick": 296,
+        "medianResidualTicks": 120.5,
+        "p95ResidualTicks": 310.1,
+        "maximumResidualTicks": 311,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 1
+      },
+      {
+        "periodSeconds": 15,
+        "periodTicks": 960,
+        "count": 10,
+        "bestPhaseTick": 712,
+        "medianResidualTicks": 114.5,
+        "p95ResidualTicks": 416.94999999999993,
+        "maximumResidualTicks": 457,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 2
+      },
+      {
+        "periodSeconds": 20,
+        "periodTicks": 1280,
+        "count": 10,
+        "bestPhaseTick": 194,
+        "medianResidualTicks": 228,
+        "p95ResidualTicks": 598.4499999999999,
+        "maximumResidualTicks": 625,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 1
+      },
+      {
+        "periodSeconds": 30,
+        "periodTicks": 1920,
+        "count": 10,
+        "bestPhaseTick": 438,
+        "medianResidualTicks": 357,
+        "p95ResidualTicks": 694.25,
+        "maximumResidualTicks": 701,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 1
+      },
+      {
+        "periodSeconds": 40,
+        "periodTicks": 2560,
+        "count": 10,
+        "bestPhaseTick": 1247,
+        "medianResidualTicks": 433,
+        "p95ResidualTicks": 1094.3999999999996,
+        "maximumResidualTicks": 1278,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 1
+      },
+      {
+        "periodSeconds": 60,
+        "periodTicks": 3840,
+        "count": 10,
+        "bestPhaseTick": 2358,
+        "medianResidualTicks": 357,
+        "p95ResidualTicks": 694.25,
+        "maximumResidualTicks": 701,
+        "within1Tick": 1,
+        "within4Ticks": 1,
+        "within16Ticks": 1
+      }
+    ]
+  },
+  "groupedLifetimes": {
+    "byBaseType": [
+      {
+        "group": "RANGED",
+        "count": 20,
+        "duration": {
+          "count": 19,
+          "min": 18,
+          "p25": 35.8671875,
+          "median": 40,
+          "p75": 40,
+          "p95": 40,
+          "p99": 40,
+          "max": 40,
+          "mean": 35.25986842105263
+        },
+        "near40": 13,
+        "non40": 6,
+        "noInactive": 1
+      },
+      {
+        "group": "MEDIC",
+        "count": 17,
+        "duration": {
+          "count": 17,
+          "min": 17.984375,
+          "p25": 39.984375,
+          "median": 39.984375,
+          "p75": 39.984375,
+          "p95": 40,
+          "p99": 40,
+          "max": 40,
+          "mean": 35.685661764705884
+        },
+        "near40": 13,
+        "non40": 4,
+        "noInactive": 0
+      },
+      {
+        "group": "MELEE",
+        "count": 7,
+        "duration": {
+          "count": 7,
+          "min": 40,
+          "p25": 40,
+          "median": 40,
+          "p75": 40,
+          "p95": 40,
+          "p99": 40,
+          "max": 40,
+          "mean": 40
+        },
+        "near40": 7,
+        "non40": 0,
+        "noInactive": 0
+      }
+    ],
+    "byVariant": [
+      {
+        "group": "NORMAL",
+        "count": 43,
+        "duration": {
+          "count": 42,
+          "min": 17.984375,
+          "p25": 39.984375,
+          "median": 40,
+          "p75": 40,
+          "p95": 40,
+          "p99": 40,
+          "max": 40,
+          "mean": 36.109747023809526
+        },
+        "near40": 32,
+        "non40": 10,
+        "noInactive": 1
+      },
+      {
+        "group": "SUPER",
+        "count": 1,
+        "duration": {
+          "count": 1,
+          "min": 39.984375,
+          "p25": 39.984375,
+          "median": 39.984375,
+          "p75": 39.984375,
+          "p95": 39.984375,
+          "p99": 39.984375,
+          "max": 39.984375,
+          "mean": 39.984375
+        },
+        "near40": 1,
+        "non40": 0,
+        "noInactive": 0
+      }
+    ],
+    "byGameTime": [
+      {
+        "group": "GE_40_MIN",
+        "count": 18,
+        "duration": {
+          "count": 17,
+          "min": 39.984375,
+          "p25": 39.984375,
+          "median": 40,
+          "p75": 40,
+          "p95": 40,
+          "p99": 40,
+          "max": 40,
+          "mean": 39.994485294117645
+        },
+        "near40": 17,
+        "non40": 0,
+        "noInactive": 1
+      },
+      {
+        "group": "30_TO_LT_40_MIN",
+        "count": 10,
+        "duration": {
+          "count": 10,
+          "min": 39.984375,
+          "p25": 40,
+          "median": 40,
+          "p75": 40,
+          "p95": 40,
+          "p99": 40,
+          "max": 40,
+          "mean": 39.9984375
+        },
+        "near40": 10,
+        "non40": 0,
+        "noInactive": 0
+      },
+      {
+        "group": "10_TO_LT_20_MIN",
+        "count": 6,
+        "duration": {
+          "count": 6,
+          "min": 24.203125,
+          "p25": 32.62109375,
+          "median": 36.015625,
+          "p75": 39.78515625,
+          "p95": 39.99609375,
+          "p99": 39.99921875,
+          "max": 40,
+          "mean": 34.794270833333336
+        },
+        "near40": 2,
+        "non40": 4,
+        "noInactive": 0
+      },
+      {
+        "group": "LT_10_MIN",
+        "count": 6,
+        "duration": {
+          "count": 6,
+          "min": 17.984375,
+          "p25": 17.984375,
+          "median": 17.9921875,
+          "p75": 18,
+          "p95": 18,
+          "p99": 18,
+          "max": 18,
+          "mean": 17.9921875
+        },
+        "near40": 0,
+        "non40": 6,
+        "noInactive": 0
+      },
+      {
+        "group": "20_TO_LT_30_MIN",
+        "count": 4,
+        "duration": {
+          "count": 4,
+          "min": 39.984375,
+          "p25": 39.99609375,
+          "median": 40,
+          "p75": 40,
+          "p95": 40,
+          "p99": 40,
+          "max": 40,
+          "mean": 39.99609375
+        },
+        "near40": 4,
+        "non40": 0,
+        "noInactive": 0
+      }
+    ]
+  },
+  "non40Cases": [
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 87,
+      "clock": "4:43",
+      "deathTimeSeconds": 283.875,
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Eriansan",
+      "creditedTeam": 2,
+      "entityIndex": 2914,
+      "activationTick": 20088,
+      "observationEndTick": 21240,
+      "script75": {
+        "endTick": 21240,
+        "durationSeconds": 18,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 20089
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 21240,
+        "durationSeconds": 18,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 826.0759277914849,
+        "minimumNearestAlly3D": 838.5920084526355,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 96,
+        "tick": 21455,
+        "secondsAfterActivation": 21.359375,
+        "secondsAfterScript76Inactive": 3.359375
+      },
+      "raw": {
+        "firstObservedTick": 20088,
+        "lastObservedTick": 21240,
+        "soulSamples": 1153,
+        "activeTrueSamples": 1152,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 1152,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 20088,
+        "lastActiveTrueTick": 21239,
+        "firstActiveFalseTick": 21240,
+        "firstInteractiveTrueTick": 20089,
+        "lastInteractiveTrueTick": 21240,
+        "firstInteractiveFalseTick": 20088,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 826.0759277914849,
+        "minimumNearestAllyXYTick": 20425,
+        "minimumNearestAllyPlayerName": "viggoth 300",
+        "minimumNearestAlly3DAtMinXY": 838.5920084526355,
+        "minimumVerticalDeltaAtMinXY": 144.34375,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 838.5920084526355,
+        "minimumNearestAlly3DTick": 20425,
+        "minimumNearestAllyXYAtMin3D": 826.0759277914849,
+        "minimumInteractiveNearestAllyXY": 826.0759277914849,
+        "minimumInteractiveNearestAllyXYTick": 20425,
+        "minimumInteractiveNearestAllyPlayerName": "viggoth 300",
+        "minimumInteractiveNearestAlly3DAtMinXY": 838.5920084526355,
+        "minimumInteractiveVerticalDeltaAtMinXY": 144.34375,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 18,
+        "rawDurationTicks": 1152,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 3.359375,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 90,
+      "clock": "4:48",
+      "deathTimeSeconds": 288.84375,
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Yosafire Worshipper [K]",
+      "creditedTeam": 2,
+      "entityIndex": 2917,
+      "activationTick": 20406,
+      "observationEndTick": 21558,
+      "script75": {
+        "endTick": 21558,
+        "durationSeconds": 18,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 20407
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 21558,
+        "durationSeconds": 18,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 839.4799182846037,
+        "minimumNearestAlly3D": 850.5753418183335,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 99,
+        "tick": 21740,
+        "secondsAfterActivation": 20.84375,
+        "secondsAfterScript76Inactive": 2.84375
+      },
+      "raw": {
+        "firstObservedTick": 20406,
+        "lastObservedTick": 21558,
+        "soulSamples": 1153,
+        "activeTrueSamples": 1152,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 1152,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 20406,
+        "lastActiveTrueTick": 21557,
+        "firstActiveFalseTick": 21558,
+        "firstInteractiveTrueTick": 20407,
+        "lastInteractiveTrueTick": 21558,
+        "firstInteractiveFalseTick": 20406,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 839.4799182846037,
+        "minimumNearestAllyXYTick": 20534,
+        "minimumNearestAllyPlayerName": "Yosafire Worshipper [K]",
+        "minimumNearestAlly3DAtMinXY": 850.5753418183335,
+        "minimumVerticalDeltaAtMinXY": 136.9375,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 845.2266349643302,
+        "minimumNearestAlly3DTick": 20542,
+        "minimumNearestAllyXYAtMin3D": 841.9810356849642,
+        "minimumInteractiveNearestAllyXY": 839.4799182846037,
+        "minimumInteractiveNearestAllyXYTick": 20534,
+        "minimumInteractiveNearestAllyPlayerName": "Yosafire Worshipper [K]",
+        "minimumInteractiveNearestAlly3DAtMinXY": 850.5753418183335,
+        "minimumInteractiveVerticalDeltaAtMinXY": 136.9375,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 18,
+        "rawDurationTicks": 1152,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 2.84375,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 93,
+      "clock": "4:55",
+      "deathTimeSeconds": 295.03125,
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Yosafire Worshipper [K]",
+      "creditedTeam": 2,
+      "entityIndex": 2956,
+      "activationTick": 20802,
+      "observationEndTick": 21954,
+      "script75": {
+        "endTick": 21954,
+        "durationSeconds": 18,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 20803
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 21954,
+        "durationSeconds": 18,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 1543.9052632574521,
+        "minimumNearestAlly3D": 1550.2935413827684,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 210,
+        "tick": 36908,
+        "secondsAfterActivation": 251.65625,
+        "secondsAfterScript76Inactive": 233.65625
+      },
+      "raw": {
+        "firstObservedTick": 20802,
+        "lastObservedTick": 21954,
+        "soulSamples": 1153,
+        "activeTrueSamples": 1152,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 1152,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 20802,
+        "lastActiveTrueTick": 21953,
+        "firstActiveFalseTick": 21954,
+        "firstInteractiveTrueTick": 20803,
+        "lastInteractiveTrueTick": 21954,
+        "firstInteractiveFalseTick": 20802,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 1543.9052632574521,
+        "minimumNearestAllyXYTick": 20961,
+        "minimumNearestAllyPlayerName": "Yosafire Worshipper [K]",
+        "minimumNearestAlly3DAtMinXY": 1550.2935413827684,
+        "minimumVerticalDeltaAtMinXY": 140.59375,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 1550.1095960497842,
+        "minimumNearestAlly3DTick": 20949,
+        "minimumNearestAllyXYAtMin3D": 1545.4018063804838,
+        "minimumInteractiveNearestAllyXY": 1543.9052632574521,
+        "minimumInteractiveNearestAllyXYTick": 20961,
+        "minimumInteractiveNearestAllyPlayerName": "Yosafire Worshipper [K]",
+        "minimumInteractiveNearestAlly3DAtMinXY": 1550.2935413827684,
+        "minimumInteractiveVerticalDeltaAtMinXY": 140.59375,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 18,
+        "rawDurationTicks": 1152,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 233.65625,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 115,
+      "clock": "5:51",
+      "deathTimeSeconds": 351.46875,
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "blooop354",
+      "creditedTeam": 3,
+      "entityIndex": 2914,
+      "activationTick": 24414,
+      "observationEndTick": 25565,
+      "script75": {
+        "endTick": 25565,
+        "durationSeconds": 17.984375,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 24415
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 25565,
+        "durationSeconds": 17.984375,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 888.4852261407123,
+        "minimumNearestAlly3D": 889.8165135208354,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 123,
+        "tick": 25697,
+        "secondsAfterActivation": 20.046875,
+        "secondsAfterScript76Inactive": 2.0625
+      },
+      "raw": {
+        "firstObservedTick": 24414,
+        "lastObservedTick": 25565,
+        "soulSamples": 1152,
+        "activeTrueSamples": 1151,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 1151,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 24414,
+        "lastActiveTrueTick": 25564,
+        "firstActiveFalseTick": 25565,
+        "firstInteractiveTrueTick": 24415,
+        "lastInteractiveTrueTick": 25565,
+        "firstInteractiveFalseTick": 24414,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 888.4852261407123,
+        "minimumNearestAllyXYTick": 24487,
+        "minimumNearestAllyPlayerName": "TheWoogler",
+        "minimumNearestAlly3DAtMinXY": 889.8165135208354,
+        "minimumVerticalDeltaAtMinXY": 48.65625,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 889.8165135208354,
+        "minimumNearestAlly3DTick": 24487,
+        "minimumNearestAllyXYAtMin3D": 888.4852261407123,
+        "minimumInteractiveNearestAllyXY": 888.4852261407123,
+        "minimumInteractiveNearestAllyXYTick": 24487,
+        "minimumInteractiveNearestAllyPlayerName": "TheWoogler",
+        "minimumInteractiveNearestAlly3DAtMinXY": 889.8165135208354,
+        "minimumInteractiveVerticalDeltaAtMinXY": 48.65625,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 17.984375,
+        "rawDurationTicks": 1151,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 2.0625,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 165,
+      "clock": "7:38",
+      "deathTimeSeconds": 458.8125,
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Snazzy314",
+      "creditedTeam": 2,
+      "entityIndex": 2917,
+      "activationTick": 31284,
+      "observationEndTick": 32435,
+      "script75": {
+        "endTick": 32435,
+        "durationSeconds": 17.984375,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 31285
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 32435,
+        "durationSeconds": 17.984375,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 1356.3367904977777,
+        "minimumNearestAlly3D": 1358.4959718983573,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 170,
+        "tick": 32642,
+        "secondsAfterActivation": 21.21875,
+        "secondsAfterScript76Inactive": 3.234375
+      },
+      "raw": {
+        "firstObservedTick": 31284,
+        "lastObservedTick": 32435,
+        "soulSamples": 1152,
+        "activeTrueSamples": 1151,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 1151,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 31284,
+        "lastActiveTrueTick": 32434,
+        "firstActiveFalseTick": 32435,
+        "firstInteractiveTrueTick": 31285,
+        "lastInteractiveTrueTick": 32435,
+        "firstInteractiveFalseTick": 31284,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 1356.3367904977777,
+        "minimumNearestAllyXYTick": 31329,
+        "minimumNearestAllyPlayerName": "Snazzy314",
+        "minimumNearestAlly3DAtMinXY": 1358.4959718983573,
+        "minimumVerticalDeltaAtMinXY": 76.5625,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 1358.4959718983573,
+        "minimumNearestAlly3DTick": 31329,
+        "minimumNearestAllyXYAtMin3D": 1356.3367904977777,
+        "minimumInteractiveNearestAllyXY": 1356.3367904977777,
+        "minimumInteractiveNearestAllyXYTick": 31329,
+        "minimumInteractiveNearestAllyPlayerName": "Snazzy314",
+        "minimumInteractiveNearestAlly3DAtMinXY": 1358.4959718983573,
+        "minimumInteractiveVerticalDeltaAtMinXY": 76.5625,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 17.984375,
+        "rawDurationTicks": 1151,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 3.234375,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 204,
+      "clock": "8:45",
+      "deathTimeSeconds": 525.28125,
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Yosafire Worshipper [K]",
+      "creditedTeam": 2,
+      "entityIndex": 2917,
+      "activationTick": 35538,
+      "observationEndTick": 36689,
+      "script75": {
+        "endTick": 36689,
+        "durationSeconds": 17.984375,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 35539
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 36689,
+        "durationSeconds": 17.984375,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 967.8829915602208,
+        "minimumNearestAlly3D": 968.2329840116608,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 208,
+        "tick": 36797,
+        "secondsAfterActivation": 19.671875,
+        "secondsAfterScript76Inactive": 1.6875
+      },
+      "raw": {
+        "firstObservedTick": 35538,
+        "lastObservedTick": 36689,
+        "soulSamples": 1152,
+        "activeTrueSamples": 1151,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 1151,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 35538,
+        "lastActiveTrueTick": 36688,
+        "firstActiveFalseTick": 36689,
+        "firstInteractiveTrueTick": 35539,
+        "lastInteractiveTrueTick": 36689,
+        "firstInteractiveFalseTick": 35538,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 967.8829915602208,
+        "minimumNearestAllyXYTick": 35893,
+        "minimumNearestAllyPlayerName": "Snazzy314",
+        "minimumNearestAlly3DAtMinXY": 968.2329840116608,
+        "minimumVerticalDeltaAtMinXY": 26.03125,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 968.2329840116608,
+        "minimumNearestAlly3DTick": 35893,
+        "minimumNearestAllyXYAtMin3D": 967.8829915602208,
+        "minimumInteractiveNearestAllyXY": 967.8829915602208,
+        "minimumInteractiveNearestAllyXYTick": 35893,
+        "minimumInteractiveNearestAllyPlayerName": "Snazzy314",
+        "minimumInteractiveNearestAlly3DAtMinXY": 968.2329840116608,
+        "minimumInteractiveVerticalDeltaAtMinXY": 26.03125,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 17.984375,
+        "rawDurationTicks": 1151,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 1.6875,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 257,
+      "clock": "10:31",
+      "deathTimeSeconds": 631.921875,
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "flem",
+      "creditedTeam": 2,
+      "entityIndex": 2914,
+      "activationTick": 42363,
+      "observationEndTick": 43912,
+      "script75": {
+        "endTick": 43912,
+        "durationSeconds": 24.203125,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 42396
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 43912,
+        "durationSeconds": 24.203125,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 794.1852798869181,
+        "minimumNearestAlly3D": 794.5816226657429,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 273,
+        "tick": 44796,
+        "secondsAfterActivation": 38.015625,
+        "secondsAfterScript76Inactive": 13.8125
+      },
+      "raw": {
+        "firstObservedTick": 42363,
+        "lastObservedTick": 43912,
+        "soulSamples": 1550,
+        "activeTrueSamples": 1549,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 1517,
+        "interactiveFalseSamples": 33,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 42363,
+        "lastActiveTrueTick": 43911,
+        "firstActiveFalseTick": 43912,
+        "firstInteractiveTrueTick": 42396,
+        "lastInteractiveTrueTick": 43912,
+        "firstInteractiveFalseTick": 42363,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 794.1852798869181,
+        "minimumNearestAllyXYTick": 43911,
+        "minimumNearestAllyPlayerName": "Eriansan",
+        "minimumNearestAlly3DAtMinXY": 794.5816226657429,
+        "minimumVerticalDeltaAtMinXY": 25.09375,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 794.5816226657429,
+        "minimumNearestAlly3DTick": 43911,
+        "minimumNearestAllyXYAtMin3D": 794.1852798869181,
+        "minimumInteractiveNearestAllyXY": 794.1852798869181,
+        "minimumInteractiveNearestAllyXYTick": 43911,
+        "minimumInteractiveNearestAllyPlayerName": "Eriansan",
+        "minimumInteractiveNearestAlly3DAtMinXY": 794.5816226657429,
+        "minimumInteractiveVerticalDeltaAtMinXY": 25.09375,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 24.203125,
+        "rawDurationTicks": 1549,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 13.8125,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 308,
+      "clock": "12:36",
+      "deathTimeSeconds": 756.9375,
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "flem",
+      "creditedTeam": 2,
+      "entityIndex": 2917,
+      "activationTick": 50364,
+      "observationEndTick": 52447,
+      "script75": {
+        "endTick": 52447,
+        "durationSeconds": 32.546875,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 50365
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 52447,
+        "durationSeconds": 32.546875,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 1456.692275247461,
+        "minimumNearestAlly3D": 1466.4269014928343,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 325,
+        "tick": 52542,
+        "secondsAfterActivation": 34.03125,
+        "secondsAfterScript76Inactive": 1.484375
+      },
+      "raw": {
+        "firstObservedTick": 50364,
+        "lastObservedTick": 52447,
+        "soulSamples": 2084,
+        "activeTrueSamples": 2083,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 2083,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 50364,
+        "lastActiveTrueTick": 52446,
+        "firstActiveFalseTick": 52447,
+        "firstInteractiveTrueTick": 50365,
+        "lastInteractiveTrueTick": 52447,
+        "firstInteractiveFalseTick": 50364,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 1456.692275247461,
+        "minimumNearestAllyXYTick": 50364,
+        "minimumNearestAllyPlayerName": "flem",
+        "minimumNearestAlly3DAtMinXY": 1466.4269014928343,
+        "minimumVerticalDeltaAtMinXY": 168.6875,
+        "interactiveAtMinXY": false,
+        "minimumNearestAlly3D": 1466.4269014928343,
+        "minimumNearestAlly3DTick": 50364,
+        "minimumNearestAllyXYAtMin3D": 1456.692275247461,
+        "minimumInteractiveNearestAllyXY": 1465.8687287348798,
+        "minimumInteractiveNearestAllyXYTick": 50365,
+        "minimumInteractiveNearestAllyPlayerName": "flem",
+        "minimumInteractiveNearestAlly3DAtMinXY": 1475.5428162337623,
+        "minimumInteractiveVerticalDeltaAtMinXY": 168.6875,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 32.546875,
+        "rawDurationTicks": 2083,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 1.484375,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": false,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 310,
+      "clock": "12:41",
+      "deathTimeSeconds": 761.78125,
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Nebula",
+      "creditedTeam": 3,
+      "entityIndex": 2927,
+      "activationTick": 50674,
+      "observationEndTick": 52776,
+      "script75": {
+        "endTick": 52776,
+        "durationSeconds": 32.84375,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 50707
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 52776,
+        "durationSeconds": 32.84375,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 959.8885377390504,
+        "minimumNearestAlly3D": 960.042962702386,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 361,
+        "tick": 57746,
+        "secondsAfterActivation": 110.5,
+        "secondsAfterScript76Inactive": 77.65625
+      },
+      "raw": {
+        "firstObservedTick": 50674,
+        "lastObservedTick": 52776,
+        "soulSamples": 2103,
+        "activeTrueSamples": 2102,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 2070,
+        "interactiveFalseSamples": 33,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 50674,
+        "lastActiveTrueTick": 52775,
+        "firstActiveFalseTick": 52776,
+        "firstInteractiveTrueTick": 50707,
+        "lastInteractiveTrueTick": 52776,
+        "firstInteractiveFalseTick": 50674,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 959.8885377390504,
+        "minimumNearestAllyXYTick": 51759,
+        "minimumNearestAllyPlayerName": "Goldinfer",
+        "minimumNearestAlly3DAtMinXY": 960.042962702386,
+        "minimumVerticalDeltaAtMinXY": 17.21875,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 960.042962702386,
+        "minimumNearestAlly3DTick": 51759,
+        "minimumNearestAllyXYAtMin3D": 959.8885377390504,
+        "minimumInteractiveNearestAllyXY": 959.8885377390504,
+        "minimumInteractiveNearestAllyXYTick": 51759,
+        "minimumInteractiveNearestAllyPlayerName": "Goldinfer",
+        "minimumInteractiveNearestAlly3DAtMinXY": 960.042962702386,
+        "minimumInteractiveVerticalDeltaAtMinXY": 17.21875,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 32.84375,
+        "rawDurationTicks": 2102,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 77.65625,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 354,
+      "clock": "14:16",
+      "deathTimeSeconds": 856.703125,
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "blooop354",
+      "creditedTeam": 3,
+      "entityIndex": 2920,
+      "activationTick": 56749,
+      "observationEndTick": 59257,
+      "script75": {
+        "endTick": 59257,
+        "durationSeconds": 39.1875,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 56750
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 59257,
+        "durationSeconds": 39.1875,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 1075.659980002103,
+        "minimumNearestAlly3D": 1076.4304014564468,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": 390,
+        "tick": 62403,
+        "secondsAfterActivation": 88.34375,
+        "secondsAfterScript76Inactive": 49.15625
+      },
+      "raw": {
+        "firstObservedTick": 56749,
+        "lastObservedTick": 59257,
+        "soulSamples": 2510,
+        "activeTrueSamples": 2509,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 2509,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 56749,
+        "lastActiveTrueTick": 59256,
+        "firstActiveFalseTick": 59257,
+        "firstInteractiveTrueTick": 56750,
+        "lastInteractiveTrueTick": 59257,
+        "firstInteractiveFalseTick": 56749,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 1075.659980002103,
+        "minimumNearestAllyXYTick": 58043,
+        "minimumNearestAllyPlayerName": "blooop354",
+        "minimumNearestAlly3DAtMinXY": 1076.4304014564468,
+        "minimumVerticalDeltaAtMinXY": 40.71875,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 1076.4304014564468,
+        "minimumNearestAlly3DTick": 58043,
+        "minimumNearestAllyXYAtMin3D": 1075.659980002103,
+        "minimumInteractiveNearestAllyXY": 1075.659980002103,
+        "minimumInteractiveNearestAllyXYTick": 58043,
+        "minimumInteractiveNearestAllyPlayerName": "blooop354",
+        "minimumInteractiveNearestAlly3DAtMinXY": 1076.4304014564468,
+        "minimumInteractiveVerticalDeltaAtMinXY": 40.71875,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 39.1875,
+        "rawDurationTicks": 2508,
+        "rawNear40Seconds": false,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": 49.15625,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "EARLY_TERMINATION_UNRESOLVED"
+      }
+    }
+  ],
+  "noInactiveCases": [
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 1725,
+      "clock": "52:15",
+      "deathTimeSeconds": 3135.765625,
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "flem",
+      "creditedTeam": 2,
+      "entityIndex": 2917,
+      "activationTick": 202609,
+      "observationEndTick": 203521,
+      "script75": {
+        "endTick": 203521,
+        "durationSeconds": 14.25,
+        "endReason": "REPLAY_END_OR_LAST_OBSERVATION",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 202646
+      },
+      "script76": {
+        "activeFalseObserved": false,
+        "activeFalseTick": null,
+        "durationSeconds": 14.25,
+        "endReason": "REPLAY_END_OR_LAST_OBSERVATION",
+        "near40Seconds": false,
+        "lifecycleClassification": "TARGETLESS_OTHER_TERMINATION"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 824.69048467156,
+        "minimumNearestAlly3D": 825.0712238431677,
+        "firstInside735Tick": null,
+        "firstInside735PlayerName": null,
+        "everInside735": false
+      },
+      "nextActivation": {
+        "deathIndex": null,
+        "tick": null,
+        "secondsAfterActivation": null,
+        "secondsAfterScript76Inactive": null
+      },
+      "raw": {
+        "firstObservedTick": 202609,
+        "lastObservedTick": 203521,
+        "soulSamples": 914,
+        "activeTrueSamples": 914,
+        "activeFalseSamples": 0,
+        "interactiveTrueSamples": 877,
+        "interactiveFalseSamples": 37,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 202609,
+        "lastActiveTrueTick": 203521,
+        "firstActiveFalseTick": null,
+        "firstInteractiveTrueTick": 202646,
+        "lastInteractiveTrueTick": 203521,
+        "firstInteractiveFalseTick": 202609,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 824.69048467156,
+        "minimumNearestAllyXYTick": 202789,
+        "minimumNearestAllyPlayerName": "flem",
+        "minimumNearestAlly3DAtMinXY": 825.0712238431677,
+        "minimumVerticalDeltaAtMinXY": 25.0625,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 825.0712238431677,
+        "minimumNearestAlly3DTick": 202789,
+        "minimumNearestAllyXYAtMin3D": 824.69048467156,
+        "minimumInteractiveNearestAllyXY": 824.69048467156,
+        "minimumInteractiveNearestAllyXYTick": 202789,
+        "minimumInteractiveNearestAllyPlayerName": "flem",
+        "minimumInteractiveNearestAlly3DAtMinXY": 825.0712238431677,
+        "minimumInteractiveVerticalDeltaAtMinXY": 25.0625,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "768": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": null,
+        "rawDurationTicks": null,
+        "rawNear40Seconds": null,
+        "rawMinusScript76DurationSeconds": null,
+        "any735ToInactiveSeconds": null,
+        "interactive735ToInactiveSeconds": null,
+        "nextActivationGapFromInactiveSeconds": null,
+        "targetFieldStayedNull": true,
+        "everInside735Any": false,
+        "everInside735Interactive": false,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "NEVER_INSIDE_735",
+        "terminationDiagnostic": "NO_RAW_ACTIVE_FALSE"
+      }
+    }
+  ],
+  "inside735NoTargetCases": [
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 1280,
+      "clock": "42:07",
+      "deathTimeSeconds": 2527.296875,
+      "baseType": "MELEE",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "renso",
+      "creditedTeam": 3,
+      "entityIndex": 2925,
+      "activationTick": 163667,
+      "observationEndTick": 166227,
+      "script75": {
+        "endTick": 166227,
+        "durationSeconds": 40,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 163668
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 166227,
+        "durationSeconds": 40,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": true,
+        "lifecycleClassification": "TARGETLESS_40S_EXPIRATION_CANDIDATE"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 639.9875029297447,
+        "minimumNearestAlly3D": 1108.1712307051198,
+        "firstInside735Tick": 165377,
+        "firstInside735PlayerName": "Nebula",
+        "everInside735": true
+      },
+      "nextActivation": {
+        "deathIndex": 1313,
+        "tick": 167582,
+        "secondsAfterActivation": 61.171875,
+        "secondsAfterScript76Inactive": 21.171875
+      },
+      "raw": {
+        "firstObservedTick": 163667,
+        "lastObservedTick": 166227,
+        "soulSamples": 2562,
+        "activeTrueSamples": 2561,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 2561,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 163667,
+        "lastActiveTrueTick": 166226,
+        "firstActiveFalseTick": 166227,
+        "firstInteractiveTrueTick": 163668,
+        "lastInteractiveTrueTick": 166227,
+        "firstInteractiveFalseTick": 163667,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 639.9875029297447,
+        "minimumNearestAllyXYTick": 166100,
+        "minimumNearestAllyPlayerName": "renso",
+        "minimumNearestAlly3DAtMinXY": 1108.1712307051198,
+        "minimumVerticalDeltaAtMinXY": 904.6875,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 902.1430913256291,
+        "minimumNearestAlly3DTick": 164265,
+        "minimumNearestAllyXYAtMin3D": 796.8932749129976,
+        "minimumInteractiveNearestAllyXY": 639.9875029297447,
+        "minimumInteractiveNearestAllyXYTick": 166100,
+        "minimumInteractiveNearestAllyPlayerName": "renso",
+        "minimumInteractiveNearestAlly3DAtMinXY": 1108.1712307051198,
+        "minimumInteractiveVerticalDeltaAtMinXY": 904.6875,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": 165378,
+            "lastInsideAnyTick": 166138,
+            "insideAnySamples": 403,
+            "firstInsideInteractiveTick": 165378,
+            "lastInsideInteractiveTick": 166138,
+            "insideInteractiveSamples": 403,
+            "firstInsideInteractivePlayerName": "Nebula"
+          },
+          "735": {
+            "firstInsideAnyTick": 165377,
+            "lastInsideAnyTick": 166138,
+            "insideAnySamples": 410,
+            "firstInsideInteractiveTick": 165377,
+            "lastInsideInteractiveTick": 166138,
+            "insideInteractiveSamples": 410,
+            "firstInsideInteractivePlayerName": "Nebula"
+          },
+          "768": {
+            "firstInsideAnyTick": 165361,
+            "lastInsideAnyTick": 166146,
+            "insideAnySamples": 519,
+            "firstInsideInteractiveTick": 165361,
+            "lastInsideInteractiveTick": 166146,
+            "insideInteractiveSamples": 519,
+            "firstInsideInteractivePlayerName": "Nebula"
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 40,
+        "rawDurationTicks": 2560,
+        "rawNear40Seconds": true,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": 13.28125,
+        "interactive735ToInactiveSeconds": 13.28125,
+        "nextActivationGapFromInactiveSeconds": 21.171875,
+        "targetFieldStayedNull": true,
+        "everInside735Any": true,
+        "everInside735Interactive": true,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "INTERACTIVE_XY_735_BUT_3D_OVER_768",
+        "terminationDiagnostic": "NEAR_40S_TIMEOUT_CANDIDATE"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 1358,
+      "clock": "43:48",
+      "deathTimeSeconds": 2628.046875,
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Eriansan",
+      "creditedTeam": 2,
+      "entityIndex": 2917,
+      "activationTick": 170115,
+      "observationEndTick": 172674,
+      "script75": {
+        "endTick": 172674,
+        "durationSeconds": 39.984375,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 170116
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 172674,
+        "durationSeconds": 39.984375,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": true,
+        "lifecycleClassification": "TARGETLESS_40S_EXPIRATION_CANDIDATE"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 733.8152986808908,
+        "minimumNearestAlly3D": 735.3753519143302,
+        "firstInside735Tick": 170136,
+        "firstInside735PlayerName": "Eriansan",
+        "everInside735": true
+      },
+      "nextActivation": {
+        "deathIndex": 1392,
+        "tick": 172814,
+        "secondsAfterActivation": 42.171875,
+        "secondsAfterScript76Inactive": 2.1875
+      },
+      "raw": {
+        "firstObservedTick": 170115,
+        "lastObservedTick": 172674,
+        "soulSamples": 2560,
+        "activeTrueSamples": 2559,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 2559,
+        "interactiveFalseSamples": 1,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 170115,
+        "lastActiveTrueTick": 172673,
+        "firstActiveFalseTick": 172674,
+        "firstInteractiveTrueTick": 170116,
+        "lastInteractiveTrueTick": 172674,
+        "firstInteractiveFalseTick": 170115,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 733.8152986808908,
+        "minimumNearestAllyXYTick": 170138,
+        "minimumNearestAllyPlayerName": "Eriansan",
+        "minimumNearestAlly3DAtMinXY": 735.3753519143302,
+        "minimumVerticalDeltaAtMinXY": 47.875,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 735.3753519143302,
+        "minimumNearestAlly3DTick": 170138,
+        "minimumNearestAllyXYAtMin3D": 733.8152986808908,
+        "minimumInteractiveNearestAllyXY": 733.8152986808908,
+        "minimumInteractiveNearestAllyXYTick": 170138,
+        "minimumInteractiveNearestAllyPlayerName": "Eriansan",
+        "minimumInteractiveNearestAlly3DAtMinXY": 735.3753519143302,
+        "minimumInteractiveVerticalDeltaAtMinXY": 47.875,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": null,
+            "lastInsideAnyTick": null,
+            "insideAnySamples": 0,
+            "firstInsideInteractiveTick": null,
+            "lastInsideInteractiveTick": null,
+            "insideInteractiveSamples": 0,
+            "firstInsideInteractivePlayerName": null
+          },
+          "735": {
+            "firstInsideAnyTick": 170136,
+            "lastInsideAnyTick": 170140,
+            "insideAnySamples": 5,
+            "firstInsideInteractiveTick": 170136,
+            "lastInsideInteractiveTick": 170140,
+            "insideInteractiveSamples": 5,
+            "firstInsideInteractivePlayerName": "Eriansan"
+          },
+          "768": {
+            "firstInsideAnyTick": 170115,
+            "lastInsideAnyTick": 170153,
+            "insideAnySamples": 39,
+            "firstInsideInteractiveTick": 170116,
+            "lastInsideInteractiveTick": 170153,
+            "insideInteractiveSamples": 38,
+            "firstInsideInteractivePlayerName": "Eriansan"
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 39.984375,
+        "rawDurationTicks": 2559,
+        "rawNear40Seconds": true,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": 39.65625,
+        "interactive735ToInactiveSeconds": 39.65625,
+        "nextActivationGapFromInactiveSeconds": 2.1875,
+        "targetFieldStayedNull": true,
+        "everInside735Any": true,
+        "everInside735Interactive": true,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "INTERACTIVE_735_ENTRY_WITHOUT_TARGET_UNRESOLVED",
+        "terminationDiagnostic": "NEAR_40S_TIMEOUT_CANDIDATE"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 1520,
+      "clock": "47:04",
+      "deathTimeSeconds": 2824.125,
+      "baseType": "MEDIC",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Nacho4Sure",
+      "creditedTeam": 2,
+      "entityIndex": 2925,
+      "activationTick": 182664,
+      "observationEndTick": 185224,
+      "script75": {
+        "endTick": 185224,
+        "durationSeconds": 40,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 182691
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 185224,
+        "durationSeconds": 40,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": true,
+        "lifecycleClassification": "TARGETLESS_40S_EXPIRATION_CANDIDATE"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 405.0597913522305,
+        "minimumNearestAlly3D": 1821.5758110896386,
+        "firstInside735Tick": 183073,
+        "firstInside735PlayerName": "Nacho4Sure",
+        "everInside735": true
+      },
+      "nextActivation": {
+        "deathIndex": 1550,
+        "tick": 185266,
+        "secondsAfterActivation": 40.65625,
+        "secondsAfterScript76Inactive": 0.65625
+      },
+      "raw": {
+        "firstObservedTick": 182664,
+        "lastObservedTick": 185224,
+        "soulSamples": 2562,
+        "activeTrueSamples": 2561,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 2535,
+        "interactiveFalseSamples": 27,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 182664,
+        "lastActiveTrueTick": 185223,
+        "firstActiveFalseTick": 185224,
+        "firstInteractiveTrueTick": 182691,
+        "lastInteractiveTrueTick": 185224,
+        "firstInteractiveFalseTick": 182664,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 405.0597913522305,
+        "minimumNearestAllyXYTick": 183438,
+        "minimumNearestAllyPlayerName": "Nacho4Sure",
+        "minimumNearestAlly3DAtMinXY": 1821.5758110896386,
+        "minimumVerticalDeltaAtMinXY": 1775.96875,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 1454.305837754412,
+        "minimumNearestAlly3DTick": 183610,
+        "minimumNearestAllyXYAtMin3D": 1406.3855827000511,
+        "minimumInteractiveNearestAllyXY": 405.0597913522305,
+        "minimumInteractiveNearestAllyXYTick": 183438,
+        "minimumInteractiveNearestAllyPlayerName": "Nacho4Sure",
+        "minimumInteractiveNearestAlly3DAtMinXY": 1821.5758110896386,
+        "minimumInteractiveVerticalDeltaAtMinXY": 1775.96875,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": 183074,
+            "lastInsideAnyTick": 183506,
+            "insideAnySamples": 433,
+            "firstInsideInteractiveTick": 183074,
+            "lastInsideInteractiveTick": 183506,
+            "insideInteractiveSamples": 433,
+            "firstInsideInteractivePlayerName": "Nacho4Sure"
+          },
+          "735": {
+            "firstInsideAnyTick": 183073,
+            "lastInsideAnyTick": 183506,
+            "insideAnySamples": 434,
+            "firstInsideInteractiveTick": 183073,
+            "lastInsideInteractiveTick": 183506,
+            "insideInteractiveSamples": 434,
+            "firstInsideInteractivePlayerName": "Nacho4Sure"
+          },
+          "768": {
+            "firstInsideAnyTick": 183064,
+            "lastInsideAnyTick": 183510,
+            "insideAnySamples": 447,
+            "firstInsideInteractiveTick": 183064,
+            "lastInsideInteractiveTick": 183510,
+            "insideInteractiveSamples": 447,
+            "firstInsideInteractivePlayerName": "Nacho4Sure"
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 40,
+        "rawDurationTicks": 2560,
+        "rawNear40Seconds": true,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": 33.609375,
+        "interactive735ToInactiveSeconds": 33.609375,
+        "nextActivationGapFromInactiveSeconds": 0.65625,
+        "targetFieldStayedNull": true,
+        "everInside735Any": true,
+        "everInside735Interactive": true,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "INTERACTIVE_XY_735_BUT_3D_OVER_768",
+        "terminationDiagnostic": "NEAR_40S_TIMEOUT_CANDIDATE"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 1521,
+      "clock": "47:04",
+      "deathTimeSeconds": 2824.75,
+      "baseType": "MELEE",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Nacho4Sure",
+      "creditedTeam": 2,
+      "entityIndex": 2927,
+      "activationTick": 182704,
+      "observationEndTick": 185264,
+      "script75": {
+        "endTick": 185264,
+        "durationSeconds": 40,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 182752
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 185264,
+        "durationSeconds": 40,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": true,
+        "lifecycleClassification": "TARGETLESS_40S_EXPIRATION_CANDIDATE"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 223.34712770287643,
+        "minimumNearestAlly3D": 1901.537293896211,
+        "firstInside735Tick": 183018,
+        "firstInside735PlayerName": "Nacho4Sure",
+        "everInside735": true
+      },
+      "nextActivation": {
+        "deathIndex": 1551,
+        "tick": 185297,
+        "secondsAfterActivation": 40.515625,
+        "secondsAfterScript76Inactive": 0.515625
+      },
+      "raw": {
+        "firstObservedTick": 182704,
+        "lastObservedTick": 185264,
+        "soulSamples": 2562,
+        "activeTrueSamples": 2561,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 2514,
+        "interactiveFalseSamples": 48,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 182704,
+        "lastActiveTrueTick": 185263,
+        "firstActiveFalseTick": 185264,
+        "firstInteractiveTrueTick": 182752,
+        "lastInteractiveTrueTick": 185264,
+        "firstInteractiveFalseTick": 182704,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 223.34712770287643,
+        "minimumNearestAllyXYTick": 183321,
+        "minimumNearestAllyPlayerName": "Nacho4Sure",
+        "minimumNearestAlly3DAtMinXY": 1901.537293896211,
+        "minimumVerticalDeltaAtMinXY": 1888.375,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 1477.3475290803067,
+        "minimumNearestAlly3DTick": 183612,
+        "minimumNearestAllyXYAtMin3D": 1432.4283147694075,
+        "minimumInteractiveNearestAllyXY": 223.34712770287643,
+        "minimumInteractiveNearestAllyXYTick": 183321,
+        "minimumInteractiveNearestAllyPlayerName": "Nacho4Sure",
+        "minimumInteractiveNearestAlly3DAtMinXY": 1901.537293896211,
+        "minimumInteractiveVerticalDeltaAtMinXY": 1888.375,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": 183019,
+            "lastInsideAnyTick": 183501,
+            "insideAnySamples": 483,
+            "firstInsideInteractiveTick": 183019,
+            "lastInsideInteractiveTick": 183501,
+            "insideInteractiveSamples": 483,
+            "firstInsideInteractivePlayerName": "Nacho4Sure"
+          },
+          "735": {
+            "firstInsideAnyTick": 183018,
+            "lastInsideAnyTick": 183501,
+            "insideAnySamples": 484,
+            "firstInsideInteractiveTick": 183018,
+            "lastInsideInteractiveTick": 183501,
+            "insideInteractiveSamples": 484,
+            "firstInsideInteractivePlayerName": "Nacho4Sure"
+          },
+          "768": {
+            "firstInsideAnyTick": 183008,
+            "lastInsideAnyTick": 183506,
+            "insideAnySamples": 499,
+            "firstInsideInteractiveTick": 183008,
+            "lastInsideInteractiveTick": 183506,
+            "insideInteractiveSamples": 499,
+            "firstInsideInteractivePlayerName": "Nacho4Sure"
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 40,
+        "rawDurationTicks": 2560,
+        "rawNear40Seconds": true,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": 35.09375,
+        "interactive735ToInactiveSeconds": 35.09375,
+        "nextActivationGapFromInactiveSeconds": 0.515625,
+        "targetFieldStayedNull": true,
+        "everInside735Any": true,
+        "everInside735Interactive": true,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "INTERACTIVE_XY_735_BUT_3D_OVER_768",
+        "terminationDiagnostic": "NEAR_40S_TIMEOUT_CANDIDATE"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "canonical": false,
+      "deathIndex": 1529,
+      "clock": "47:10",
+      "deathTimeSeconds": 2830.6875,
+      "baseType": "RANGED",
+      "variantLabel": "NORMAL",
+      "creditedPlayerName": "Nacho4Sure",
+      "creditedTeam": 2,
+      "entityIndex": 2914,
+      "activationTick": 183084,
+      "observationEndTick": 185644,
+      "script75": {
+        "endTick": 185644,
+        "durationSeconds": 40,
+        "endReason": "BECAME_INACTIVE",
+        "rawEndWindowSource": "SCRIPT55_ACTIVATION_STREAM_END_TICK",
+        "firstInteractiveTick": 183139
+      },
+      "script76": {
+        "activeFalseObserved": true,
+        "activeFalseTick": 185644,
+        "durationSeconds": 40,
+        "endReason": "BECAME_INACTIVE",
+        "near40Seconds": true,
+        "lifecycleClassification": "TARGETLESS_40S_EXPIRATION_CANDIDATE"
+      },
+      "script84": {
+        "minimumNearestAllyXY": 442.60829028929464,
+        "minimumNearestAlly3D": 1744.6401606173872,
+        "firstInside735Tick": 183123,
+        "firstInside735PlayerName": "Nacho4Sure",
+        "everInside735": true
+      },
+      "nextActivation": {
+        "deathIndex": 1554,
+        "tick": 185848,
+        "secondsAfterActivation": 43.1875,
+        "secondsAfterScript76Inactive": 3.1875
+      },
+      "raw": {
+        "firstObservedTick": 183084,
+        "lastObservedTick": 185644,
+        "soulSamples": 2562,
+        "activeTrueSamples": 2561,
+        "activeFalseSamples": 1,
+        "interactiveTrueSamples": 2507,
+        "interactiveFalseSamples": 55,
+        "interactiveNullSamples": 0,
+        "firstActiveTrueTick": 183084,
+        "lastActiveTrueTick": 185643,
+        "firstActiveFalseTick": 185644,
+        "firstInteractiveTrueTick": 183139,
+        "lastInteractiveTrueTick": 185644,
+        "firstInteractiveFalseTick": 183084,
+        "firstTargetTick": null,
+        "firstTargetPawnEntityIndex": null,
+        "firstMissingTickAfterObserved": null,
+        "minimumNearestAllyXY": 442.60829028929464,
+        "minimumNearestAllyXYTick": 183451,
+        "minimumNearestAllyPlayerName": "Nacho4Sure",
+        "minimumNearestAlly3DAtMinXY": 1744.6401606173872,
+        "minimumVerticalDeltaAtMinXY": 1687.5625,
+        "interactiveAtMinXY": true,
+        "minimumNearestAlly3D": 1450.0386235427059,
+        "minimumNearestAlly3DTick": 183610,
+        "minimumNearestAllyXYAtMin3D": 1401.8651697298005,
+        "minimumInteractiveNearestAllyXY": 442.60829028929464,
+        "minimumInteractiveNearestAllyXYTick": 183451,
+        "minimumInteractiveNearestAllyPlayerName": "Nacho4Sure",
+        "minimumInteractiveNearestAlly3DAtMinXY": 1744.6401606173872,
+        "minimumInteractiveVerticalDeltaAtMinXY": 1687.5625,
+        "thresholdStates": {
+          "732": {
+            "firstInsideAnyTick": 183123,
+            "lastInsideAnyTick": 183505,
+            "insideAnySamples": 349,
+            "firstInsideInteractiveTick": 183139,
+            "lastInsideInteractiveTick": 183505,
+            "insideInteractiveSamples": 333,
+            "firstInsideInteractivePlayerName": "Nacho4Sure"
+          },
+          "735": {
+            "firstInsideAnyTick": 183123,
+            "lastInsideAnyTick": 183505,
+            "insideAnySamples": 354,
+            "firstInsideInteractiveTick": 183139,
+            "lastInsideInteractiveTick": 183505,
+            "insideInteractiveSamples": 338,
+            "firstInsideInteractivePlayerName": "Nacho4Sure"
+          },
+          "768": {
+            "firstInsideAnyTick": 183115,
+            "lastInsideAnyTick": 183510,
+            "insideAnySamples": 396,
+            "firstInsideInteractiveTick": 183139,
+            "lastInsideInteractiveTick": 183510,
+            "insideInteractiveSamples": 372,
+            "firstInsideInteractivePlayerName": "Nacho4Sure"
+          }
+        }
+      },
+      "derived": {
+        "rawDurationSeconds": 40,
+        "rawDurationTicks": 2560,
+        "rawNear40Seconds": true,
+        "rawMinusScript76DurationSeconds": 0,
+        "any735ToInactiveSeconds": 39.390625,
+        "interactive735ToInactiveSeconds": 39.140625,
+        "nextActivationGapFromInactiveSeconds": 3.1875,
+        "targetFieldStayedNull": true,
+        "everInside735Any": true,
+        "everInside735Interactive": true,
+        "minimumXYWasInteractive": true,
+        "proximity735Diagnostic": "INTERACTIVE_XY_735_BUT_3D_OVER_768",
+        "terminationDiagnostic": "NEAR_40S_TIMEOUT_CANDIDATE"
+      }
+    }
+  ],
+  "interpretationGuide": {
+    "dominant40SecondTimeout": "If most targetless active-false episodes terminate tightly around 40 seconds while shorter episodes have separate explanations, a per-instance approximately 40-second expiration candidate becomes strong.",
+    "pooledReuse": "If shorter terminations occur immediately before reuse of the same AssignedGold pooled entity, some apparent short lifetimes may reflect pool lifecycle boundaries rather than expiration.",
+    "interactiveEligibility": "If Script84 <=735 false positives occurred only while m_bInteractive was not true, interactive state may explain the apparent proximity contradictions.",
+    "verticalEligibility": "If <=735 XY cases have large 3D or vertical separation, planar center-to-center distance alone may overstate true eligibility in those cases.",
+    "proximityTerminationWithoutTarget": "If an interactive <=735 entry is followed almost immediately by active=false without m_hVacuumTarget, targetless collection or an alternate termination path becomes a candidate requiring separate validation.",
+    "globalCleanup": "If non-40 terminations cluster on common exact ticks or exhibit very tight periodic phase alignment, a global cleanup schedule becomes worth testing.",
+    "unresolved": "If shorter lifetimes are neither reuse-related, proximity-associated, nor globally synchronized, their termination mechanism remains unresolved."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "script84Passed": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "targetless84Count": {
+        "actual": 44,
+        "expected": 44,
+        "pass": true
+      },
+      "joinedCaseCount": {
+        "actual": 44,
+        "expected": 44,
+        "pass": true
+      },
+      "script75JoinComplete": {
+        "actual": 44,
+        "expected": 44,
+        "pass": true
+      },
+      "script76JoinComplete": {
+        "actual": 44,
+        "expected": 44,
+        "pass": true
+      },
+      "soulObservationCoverage": {
+        "actual": 44,
+        "expected": 44,
+        "pass": true
+      },
+      "rawTargetStayedNull": {
+        "actual": 44,
+        "expected": 44,
+        "pass": true
+      },
+      "script76InactiveCount": {
+        "actual": 43,
+        "expected": 43,
+        "pass": true
+      },
+      "rawInactiveCount": {
+        "actual": 43,
+        "expected": 43,
+        "pass": true
+      },
+      "inactiveTickReplication": {
+        "actual": 43,
+        "expected": 43,
+        "pass": true
+      },
+      "script84Inside735Count": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      }
+    }
+  },
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_targetless_expiration_diagnostic_v01.json",
+    "cases": "G:\\DeadlockBehavior\\output\\test\\assigned_gold_targetless_expiration_cases_v01.jsonl"
+  }
+}
