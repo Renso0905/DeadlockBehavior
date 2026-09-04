@@ -1,0 +1,969 @@
+{
+  "version": "WORLD_STAT_BUFF_RESOURCE_CONTRACT_V02",
+  "canonical": false,
+  "versionBoundToInstalledBuild": true,
+  "createdAt": "2026-09-04T05:22:39.117Z",
+  "status": "WORLD_STAT_BUFF_RESOURCE_CONTRACT_V02_READY",
+  "supersedes": {
+    "artifact": "world_stat_buff_resource_contract_v01.json",
+    "reason": "V01 failed to parse nested permanent m_vecScriptValues and did not validate non-null permanent modifier values."
+  },
+  "source": {
+    "method": "LOCAL_INSTALLED_MISC_VDATA",
+    "pakPath": "G:\\SteamLibrary\\steamapps\\common\\Deadlock\\game\\citadel\\pak01_dir.vpk",
+    "resourcePath": "scripts/misc.vdata_c",
+    "resourceBytes": 125291,
+    "resourceSha256": "ef27cd77445392755c97fbe83e9e6cb4cfae21321688d5554009b125fdebb5e6"
+  },
+  "permanentPickups": {
+    "families": [
+      {
+        "family": "spirit_permanent_pickup",
+        "tiers": [
+          {
+            "tier": 1,
+            "recordKey": "spirit_permanent_pickup",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_TECH_POWER",
+                "value": 2
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_TECH_POWER",
+              "value": 2
+            }
+          },
+          {
+            "tier": 2,
+            "recordKey": "spirit_permanent_pickup_lv2",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_TECH_POWER",
+                "value": 3
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_TECH_POWER",
+              "value": 3
+            }
+          },
+          {
+            "tier": 3,
+            "recordKey": "spirit_permanent_pickup_lv3",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_TECH_POWER",
+                "value": 4
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_TECH_POWER",
+              "value": 4
+            }
+          }
+        ]
+      },
+      {
+        "family": "firerate_permanent_pickup",
+        "tiers": [
+          {
+            "tier": 1,
+            "recordKey": "firerate_permanent_pickup",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_FIRE_RATE",
+                "value": 1.5
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_FIRE_RATE",
+              "value": 1.5
+            }
+          },
+          {
+            "tier": 2,
+            "recordKey": "firerate_permanent_pickup_lv2",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_FIRE_RATE",
+                "value": 2
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_FIRE_RATE",
+              "value": 2
+            }
+          },
+          {
+            "tier": 3,
+            "recordKey": "firerate_permanent_pickup_lv3",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_FIRE_RATE",
+                "value": 2.5
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_FIRE_RATE",
+              "value": 2.5
+            }
+          }
+        ]
+      },
+      {
+        "family": "ammo_permanent_pickup",
+        "tiers": [
+          {
+            "tier": 1,
+            "recordKey": "ammo_permanent_pickup",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+                "value": 3
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+              "value": 3
+            }
+          },
+          {
+            "tier": 2,
+            "recordKey": "ammo_permanent_pickup_lv2",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+                "value": 5
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+              "value": 5
+            }
+          },
+          {
+            "tier": 3,
+            "recordKey": "ammo_permanent_pickup_lv3",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+                "value": 7
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+              "value": 7
+            }
+          }
+        ]
+      },
+      {
+        "family": "hp_permanent_pickup",
+        "tiers": [
+          {
+            "tier": 1,
+            "recordKey": "hp_permanent_pickup",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+                "value": 15
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+              "value": 15
+            }
+          },
+          {
+            "tier": 2,
+            "recordKey": "hp_permanent_pickup_lv2",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+                "value": 20
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+              "value": 20
+            }
+          },
+          {
+            "tier": 3,
+            "recordKey": "hp_permanent_pickup_lv3",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+                "value": 30
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+              "value": 30
+            }
+          }
+        ]
+      },
+      {
+        "family": "cd_permanent_pickup",
+        "tiers": [
+          {
+            "tier": 1,
+            "recordKey": "cd_permanent_pickup",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE",
+                "value": 0.5
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE",
+              "value": 0.5
+            }
+          },
+          {
+            "tier": 2,
+            "recordKey": "cd_permanent_pickup_lv2",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE",
+                "value": 0.75
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE",
+              "value": 0.75
+            }
+          },
+          {
+            "tier": 3,
+            "recordKey": "cd_permanent_pickup_lv3",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE",
+                "value": 1
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE",
+              "value": 1
+            }
+          }
+        ]
+      },
+      {
+        "family": "wp_permanent_pickup",
+        "tiers": [
+          {
+            "tier": 1,
+            "recordKey": "wp_permanent_pickup",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_WEAPON_DAMAGE_INCREASE",
+                "value": 3
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_WEAPON_DAMAGE_INCREASE",
+              "value": 3
+            }
+          },
+          {
+            "tier": 2,
+            "recordKey": "wp_permanent_pickup_lv2",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_WEAPON_DAMAGE_INCREASE",
+                "value": 4
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_WEAPON_DAMAGE_INCREASE",
+              "value": 4
+            }
+          },
+          {
+            "tier": 3,
+            "recordKey": "wp_permanent_pickup_lv3",
+            "found": true,
+            "permanent": true,
+            "modifierClass": "modifier_permanent_pickup",
+            "effects": [
+              {
+                "modifierValue": "MODIFIER_VALUE_WEAPON_DAMAGE_INCREASE",
+                "value": 6
+              }
+            ],
+            "expected": {
+              "modifierValue": "MODIFIER_VALUE_WEAPON_DAMAGE_INCREASE",
+              "value": 6
+            }
+          }
+        ]
+      }
+    ],
+    "validation": [
+      {
+        "family": "spirit_permanent_pickup",
+        "tier": 1,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "spirit_permanent_pickup",
+        "tier": 2,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "spirit_permanent_pickup",
+        "tier": 3,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "firerate_permanent_pickup",
+        "tier": 1,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "firerate_permanent_pickup",
+        "tier": 2,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "firerate_permanent_pickup",
+        "tier": 3,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "ammo_permanent_pickup",
+        "tier": 1,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "ammo_permanent_pickup",
+        "tier": 2,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "ammo_permanent_pickup",
+        "tier": 3,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "hp_permanent_pickup",
+        "tier": 1,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "hp_permanent_pickup",
+        "tier": 2,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "hp_permanent_pickup",
+        "tier": 3,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "cd_permanent_pickup",
+        "tier": 1,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "cd_permanent_pickup",
+        "tier": 2,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "cd_permanent_pickup",
+        "tier": 3,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "wp_permanent_pickup",
+        "tier": 1,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "wp_permanent_pickup",
+        "tier": 2,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      },
+      {
+        "family": "wp_permanent_pickup",
+        "tier": 3,
+        "found": true,
+        "permanent": true,
+        "modifierClassCorrect": true,
+        "exactlyOneEffect": true,
+        "modifierValueCorrect": true,
+        "numericValuePresent": true,
+        "valueCorrect": true
+      }
+    ],
+    "interpretation": {
+      "permanentFlag": "RESOURCE_VALIDATED",
+      "modifierToken": "RESOURCE_VALIDATED",
+      "exactValue": "RESOURCE_VALIDATED",
+      "actualReplayAcquisition": "UNRESOLVED",
+      "replayStackCount": "UNRESOLVED"
+    }
+  },
+  "bridgePowerups": {
+    "powerups": [
+      {
+        "recordKey": "gun_powerup_pickup",
+        "found": true,
+        "modifierClass": "modifier_citadel_powerup_gun",
+        "durationSeconds": 160,
+        "timeMinMinutes": 5,
+        "timeMaxMinutes": 40,
+        "effects": [
+          {
+            "modifierValue": "MODIFIER_VALUE_FIRE_RATE",
+            "valueMin": 12,
+            "valueMax": 35
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "valueMin": 35,
+            "valueMax": 70
+          }
+        ],
+        "uiDisplayTokens": [
+          "MODIFIER_VALUE_FIRE_RATE",
+          "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+        ],
+        "expected": {
+          "modifierClass": "modifier_citadel_powerup_gun",
+          "durationSeconds": 160,
+          "timeMinMinutes": 5,
+          "timeMaxMinutes": 40,
+          "effects": [
+            {
+              "modifierValue": "MODIFIER_VALUE_FIRE_RATE",
+              "valueMin": 12,
+              "valueMax": 35
+            },
+            {
+              "modifierValue": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+              "valueMin": 35,
+              "valueMax": 70
+            }
+          ]
+        }
+      },
+      {
+        "recordKey": "survival_powerup_pickup",
+        "found": true,
+        "modifierClass": "modifier_citadel_powerup_survival",
+        "durationSeconds": 160,
+        "timeMinMinutes": 5,
+        "timeMaxMinutes": 40,
+        "effects": [
+          {
+            "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+            "valueMin": 200,
+            "valueMax": 750
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_HEALTH_REGEN_PER_SECOND",
+            "valueMin": 4,
+            "valueMax": 40
+          }
+        ],
+        "uiDisplayTokens": [
+          "MODIFIER_VALUE_HEALTH_MAX",
+          "MODIFIER_VALUE_HEALTH_REGEN_PER_SECOND"
+        ],
+        "expected": {
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "durationSeconds": 160,
+          "timeMinMinutes": 5,
+          "timeMaxMinutes": 40,
+          "effects": [
+            {
+              "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+              "valueMin": 200,
+              "valueMax": 750
+            },
+            {
+              "modifierValue": "MODIFIER_VALUE_HEALTH_REGEN_PER_SECOND",
+              "valueMin": 4,
+              "valueMax": 40
+            }
+          ]
+        }
+      },
+      {
+        "recordKey": "casting_powerup_pickup",
+        "found": true,
+        "modifierClass": "modifier_citadel_powerup_casting",
+        "durationSeconds": 160,
+        "timeMinMinutes": 5,
+        "timeMaxMinutes": 40,
+        "effects": [
+          {
+            "modifierValue": "MODIFIER_VALUE_TECH_POWER",
+            "valueMin": 15,
+            "valueMax": 65
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE",
+            "valueMin": 12,
+            "valueMax": 20
+          }
+        ],
+        "uiDisplayTokens": [
+          "MODIFIER_VALUE_TECH_POWER",
+          "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE"
+        ],
+        "expected": {
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "durationSeconds": 160,
+          "timeMinMinutes": 5,
+          "timeMaxMinutes": 40,
+          "effects": [
+            {
+              "modifierValue": "MODIFIER_VALUE_TECH_POWER",
+              "valueMin": 15,
+              "valueMax": 65
+            },
+            {
+              "modifierValue": "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE",
+              "valueMin": 12,
+              "valueMax": 20
+            }
+          ]
+        }
+      },
+      {
+        "recordKey": "movement_powerup_pickup",
+        "found": true,
+        "modifierClass": "modifier_citadel_powerup_movement",
+        "durationSeconds": 160,
+        "timeMinMinutes": 5,
+        "timeMaxMinutes": 40,
+        "effects": [
+          {
+            "modifierValue": "MODIFIER_VALUE_STAMINA",
+            "valueMin": 2,
+            "valueMax": 4
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_SPRINT_SPEED_BONUS",
+            "valueMin": 59.0551,
+            "valueMax": 157.48
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_ZIP_LINE_SPEED_PERCENTAGE",
+            "valueMin": 40,
+            "valueMax": 80
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_STAMINA_REGEN_PER_SECOND_PERCENTAGE",
+            "valueMin": 20,
+            "valueMax": 50
+          }
+        ],
+        "uiDisplayTokens": [
+          "MODIFIER_VALUE_SPRINT_SPEED_BONUS",
+          "MODIFIER_VALUE_SPRINT_SPEED_BONUS",
+          "MODIFIER_VALUE_ZIP_LINE_SPEED_PERCENTAGE"
+        ],
+        "expected": {
+          "modifierClass": "modifier_citadel_powerup_movement",
+          "durationSeconds": 160,
+          "timeMinMinutes": 5,
+          "timeMaxMinutes": 40,
+          "effects": [
+            {
+              "modifierValue": "MODIFIER_VALUE_STAMINA",
+              "valueMin": 2,
+              "valueMax": 4
+            },
+            {
+              "modifierValue": "MODIFIER_VALUE_SPRINT_SPEED_BONUS",
+              "valueMin": 59.0551,
+              "valueMax": 157.48
+            },
+            {
+              "modifierValue": "MODIFIER_VALUE_ZIP_LINE_SPEED_PERCENTAGE",
+              "valueMin": 40,
+              "valueMax": 80
+            },
+            {
+              "modifierValue": "MODIFIER_VALUE_STAMINA_REGEN_PER_SECOND_PERCENTAGE",
+              "valueMin": 20,
+              "valueMax": 50
+            }
+          ]
+        }
+      }
+    ],
+    "validation": [
+      {
+        "recordKey": "gun_powerup_pickup",
+        "found": true,
+        "modifierClassCorrect": true,
+        "durationCorrect": true,
+        "timeMinCorrect": true,
+        "timeMaxCorrect": true,
+        "effectCountCorrect": true,
+        "effectChecks": [
+          {
+            "modifierValue": "MODIFIER_VALUE_FIRE_RATE",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          }
+        ],
+        "allEffectsCorrect": true
+      },
+      {
+        "recordKey": "survival_powerup_pickup",
+        "found": true,
+        "modifierClassCorrect": true,
+        "durationCorrect": true,
+        "timeMinCorrect": true,
+        "timeMaxCorrect": true,
+        "effectCountCorrect": true,
+        "effectChecks": [
+          {
+            "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_HEALTH_REGEN_PER_SECOND",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          }
+        ],
+        "allEffectsCorrect": true
+      },
+      {
+        "recordKey": "casting_powerup_pickup",
+        "found": true,
+        "modifierClassCorrect": true,
+        "durationCorrect": true,
+        "timeMinCorrect": true,
+        "timeMaxCorrect": true,
+        "effectCountCorrect": true,
+        "effectChecks": [
+          {
+            "modifierValue": "MODIFIER_VALUE_TECH_POWER",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          }
+        ],
+        "allEffectsCorrect": true
+      },
+      {
+        "recordKey": "movement_powerup_pickup",
+        "found": true,
+        "modifierClassCorrect": true,
+        "durationCorrect": true,
+        "timeMinCorrect": true,
+        "timeMaxCorrect": true,
+        "effectCountCorrect": true,
+        "effectChecks": [
+          {
+            "modifierValue": "MODIFIER_VALUE_STAMINA",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_SPRINT_SPEED_BONUS",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_ZIP_LINE_SPEED_PERCENTAGE",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          },
+          {
+            "modifierValue": "MODIFIER_VALUE_STAMINA_REGEN_PER_SECOND_PERCENTAGE",
+            "found": true,
+            "valueMinCorrect": true,
+            "valueMaxCorrect": true
+          }
+        ],
+        "allEffectsCorrect": true
+      }
+    ],
+    "interpretation": {
+      "duration": "RESOURCE_VALIDATED",
+      "timeBounds": "RESOURCE_VALIDATED",
+      "endpointValues": "RESOURCE_VALIDATED",
+      "exactInterpolationFunction": "UNRESOLVED",
+      "actualReplayAcquisition": "UNRESOLVED"
+    }
+  },
+  "producerCandidates": [
+    {
+      "recordKey": "citadel_breakable_item_container",
+      "found": true,
+      "referencedPermanentPickups": [
+        "spirit_permanent_pickup",
+        "spirit_permanent_pickup_lv2",
+        "spirit_permanent_pickup_lv3",
+        "firerate_permanent_pickup",
+        "firerate_permanent_pickup_lv2",
+        "firerate_permanent_pickup_lv3",
+        "ammo_permanent_pickup",
+        "ammo_permanent_pickup_lv2",
+        "ammo_permanent_pickup_lv3",
+        "hp_permanent_pickup",
+        "hp_permanent_pickup_lv2",
+        "hp_permanent_pickup_lv3",
+        "cd_permanent_pickup",
+        "cd_permanent_pickup_lv2",
+        "cd_permanent_pickup_lv3",
+        "wp_permanent_pickup",
+        "wp_permanent_pickup_lv2",
+        "wp_permanent_pickup_lv3"
+      ]
+    },
+    {
+      "recordKey": "citadel_breakable_prop_drop_powerups",
+      "found": true,
+      "referencedPermanentPickups": [
+        "spirit_permanent_pickup",
+        "spirit_permanent_pickup_lv2",
+        "spirit_permanent_pickup_lv3",
+        "firerate_permanent_pickup",
+        "firerate_permanent_pickup_lv2",
+        "firerate_permanent_pickup_lv3",
+        "ammo_permanent_pickup",
+        "ammo_permanent_pickup_lv2",
+        "ammo_permanent_pickup_lv3",
+        "hp_permanent_pickup",
+        "hp_permanent_pickup_lv2",
+        "hp_permanent_pickup_lv3",
+        "cd_permanent_pickup",
+        "cd_permanent_pickup_lv2",
+        "cd_permanent_pickup_lv3",
+        "wp_permanent_pickup",
+        "wp_permanent_pickup_lv2",
+        "wp_permanent_pickup_lv3"
+      ]
+    }
+  ],
+  "lionStatueInspection": {
+    "found": true,
+    "directPermanentPickupReferences": [],
+    "smallGoldPickupReferenced": true
+  },
+  "guardrails": {
+    "installedBuildOnly": "This contract is bound to the currently installed local Deadlock build.",
+    "futurePatch": "If the resource values change, this validator should fail and a new contract version should be created.",
+    "runtimeState": "Resource-defined effects are not evidence that a particular replay player possessed the effect at a specific time.",
+    "bridgeInterpolation": "m_valueMin/m_valueMax and m_flTimeMin/m_flTimeMax establish endpoints and time bounds but not the exact interpolation function.",
+    "movementUnits": "Raw sprint-speed modifier values remain in resource units. No player-facing unit conversion is frozen here."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "permanentRecords": {
+        "actual": 18,
+        "expected": 18,
+        "pass": true
+      },
+      "permanentModifierValuesParsed": {
+        "actual": 18,
+        "expected": 18,
+        "pass": true
+      },
+      "permanentExactContract": {
+        "actual": 18,
+        "expected": 18,
+        "pass": true
+      },
+      "bridgeRecords": {
+        "actual": 4,
+        "expected": 4,
+        "pass": true
+      },
+      "bridgeExactContract": {
+        "actual": 4,
+        "expected": 4,
+        "pass": true
+      }
+    }
+  },
+  "nextStage": "BUILD_CURRENT_PURCHASABLE_ITEM_STAT_CATALOG",
+  "output": "G:\\DeadlockBehavior\\output\\cross_replay\\world_stat_buff_resource_contract_v02.json"
+}

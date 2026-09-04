@@ -1,0 +1,2956 @@
+{
+  "version": "SOUL_HIT_SHOT_TIMING_PLACEBO_VALIDATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-04T02:38:13.332Z",
+  "status": "SOUL_HIT_SHOT_TIMING_EXCEEDS_SAME_PLAYER_PLACEBO",
+  "scope": {
+    "replays": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "trueSuccessfulHitAnchors": 529,
+    "placeboObservations": 4214,
+    "placeboOffsetsTicks": [
+      -1024,
+      -512,
+      -256,
+      -128,
+      128,
+      256,
+      512,
+      1024
+    ],
+    "placeboOffsetsSeconds": [
+      -16,
+      -8,
+      -4,
+      -2,
+      2,
+      4,
+      8,
+      16
+    ],
+    "rawReplayParsing": false,
+    "directShotToHitAttribution": false,
+    "projectileSpeedCalibration": false
+  },
+  "pooled": {
+    "true": {
+      "observations": 529,
+      "preceding": {
+        "nearestOffsetTicks": {
+          "count": 529,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 4,
+          "max": 1483
+        },
+        "nearestOffsetSeconds": {
+          "count": 529,
+          "min": 0.015625,
+          "p25": 0.03125,
+          "median": 0.03125,
+          "p75": 0.0625,
+          "max": 23.171875
+        },
+        "withinWindow": {
+          "4": {
+            "count": 436,
+            "total": 529,
+            "rate": 0.8241965973534972
+          },
+          "8": {
+            "count": 504,
+            "total": 529,
+            "rate": 0.9527410207939508
+          },
+          "16": {
+            "count": 518,
+            "total": 529,
+            "rate": 0.9792060491493384
+          },
+          "32": {
+            "count": 522,
+            "total": 529,
+            "rate": 0.9867674858223062
+          },
+          "64": {
+            "count": 523,
+            "total": 529,
+            "rate": 0.9886578449905482
+          }
+        }
+      },
+      "following": {
+        "nearestOffsetTicks": {
+          "count": 529,
+          "min": 1,
+          "p25": 4,
+          "median": 8,
+          "p75": 38,
+          "max": 2156
+        },
+        "nearestOffsetSeconds": {
+          "count": 529,
+          "min": 0.015625,
+          "p25": 0.0625,
+          "median": 0.125,
+          "p75": 0.59375,
+          "max": 33.6875
+        },
+        "withinWindow": {
+          "4": {
+            "count": 190,
+            "total": 529,
+            "rate": 0.3591682419659735
+          },
+          "8": {
+            "count": 276,
+            "total": 529,
+            "rate": 0.5217391304347826
+          },
+          "16": {
+            "count": 355,
+            "total": 529,
+            "rate": 0.6710775047258979
+          },
+          "32": {
+            "count": 379,
+            "total": 529,
+            "rate": 0.7164461247637051
+          },
+          "64": {
+            "count": 418,
+            "total": 529,
+            "rate": 0.7901701323251418
+          }
+        }
+      }
+    },
+    "placebo": {
+      "observations": 4214,
+      "preceding": {
+        "nearestOffsetTicks": {
+          "count": 4214,
+          "min": 0,
+          "p25": 17,
+          "median": 111,
+          "p75": 259.75,
+          "max": 9287
+        },
+        "nearestOffsetSeconds": {
+          "count": 4214,
+          "min": 0,
+          "p25": 0.265625,
+          "median": 1.734375,
+          "p75": 4.05859375,
+          "max": 145.109375
+        },
+        "withinWindow": {
+          "4": {
+            "count": 547,
+            "total": 4214,
+            "rate": 0.12980541053630754
+          },
+          "8": {
+            "count": 779,
+            "total": 4214,
+            "rate": 0.18485999050783103
+          },
+          "16": {
+            "count": 1043,
+            "total": 4214,
+            "rate": 0.24750830564784054
+          },
+          "32": {
+            "count": 1330,
+            "total": 4214,
+            "rate": 0.31561461794019935
+          },
+          "64": {
+            "count": 1690,
+            "total": 4214,
+            "rate": 0.40104413858566684
+          }
+        }
+      },
+      "following": {
+        "nearestOffsetTicks": {
+          "count": 4214,
+          "min": 0,
+          "p25": 17,
+          "median": 106,
+          "p75": 276,
+          "max": 8385
+        },
+        "nearestOffsetSeconds": {
+          "count": 4214,
+          "min": 0,
+          "p25": 0.265625,
+          "median": 1.65625,
+          "p75": 4.3125,
+          "max": 131.015625
+        },
+        "withinWindow": {
+          "4": {
+            "count": 560,
+            "total": 4214,
+            "rate": 0.132890365448505
+          },
+          "8": {
+            "count": 783,
+            "total": 4214,
+            "rate": 0.18580920740389179
+          },
+          "16": {
+            "count": 1042,
+            "total": 4214,
+            "rate": 0.24727100142382535
+          },
+          "32": {
+            "count": 1340,
+            "total": 4214,
+            "rate": 0.3179876601803512
+          },
+          "64": {
+            "count": 1709,
+            "total": 4214,
+            "rate": 0.4055529188419554
+          }
+        }
+      }
+    },
+    "contrasts": {
+      "4": {
+        "windowTicks": 4,
+        "seconds": 0.0625,
+        "truePrecedingRate": 0.8241965973534972,
+        "placeboPrecedingRate": 0.12980541053630754,
+        "absoluteDifference": 0.6943911868171896,
+        "riskRatio": 6.349477991311951
+      },
+      "8": {
+        "windowTicks": 8,
+        "seconds": 0.125,
+        "truePrecedingRate": 0.9527410207939508,
+        "placeboPrecedingRate": 0.18485999050783103,
+        "absoluteDifference": 0.7678810302861199,
+        "riskRatio": 5.15385194046946
+      },
+      "16": {
+        "windowTicks": 16,
+        "seconds": 0.25,
+        "truePrecedingRate": 0.9792060491493384,
+        "placeboPrecedingRate": 0.24750830564784054,
+        "absoluteDifference": 0.7316977435014979,
+        "riskRatio": 3.956255312670481
+      },
+      "32": {
+        "windowTicks": 32,
+        "seconds": 0.5,
+        "truePrecedingRate": 0.9867674858223062,
+        "placeboPrecedingRate": 0.31561461794019935,
+        "absoluteDifference": 0.6711528678821068,
+        "riskRatio": 3.126494876131728
+      },
+      "64": {
+        "windowTicks": 64,
+        "seconds": 1,
+        "truePrecedingRate": 0.9886578449905482,
+        "placeboPrecedingRate": 0.40104413858566684,
+        "absoluteDifference": 0.5876137064048814,
+        "riskRatio": 2.465209561414302
+      }
+    }
+  },
+  "placeboByOffset": [
+    {
+      "offsetTicks": -1024,
+      "offsetSeconds": -16,
+      "observations": 516,
+      "summary": {
+        "observations": 516,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 516,
+            "min": 0,
+            "p25": 41,
+            "median": 187,
+            "p75": 462.75,
+            "max": 8391
+          },
+          "nearestOffsetSeconds": {
+            "count": 516,
+            "min": 0,
+            "p25": 0.640625,
+            "median": 2.921875,
+            "p75": 7.23046875,
+            "max": 131.109375
+          },
+          "withinWindow": {
+            "4": {
+              "count": 49,
+              "total": 516,
+              "rate": 0.09496124031007752
+            },
+            "8": {
+              "count": 71,
+              "total": 516,
+              "rate": 0.1375968992248062
+            },
+            "16": {
+              "count": 93,
+              "total": 516,
+              "rate": 0.18023255813953487
+            },
+            "32": {
+              "count": 120,
+              "total": 516,
+              "rate": 0.23255813953488372
+            },
+            "64": {
+              "count": 161,
+              "total": 516,
+              "rate": 0.312015503875969
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 516,
+            "min": 0,
+            "p25": 30.5,
+            "median": 178.5,
+            "p75": 506.25,
+            "max": 1093
+          },
+          "nearestOffsetSeconds": {
+            "count": 516,
+            "min": 0,
+            "p25": 0.4765625,
+            "median": 2.7890625,
+            "p75": 7.91015625,
+            "max": 17.078125
+          },
+          "withinWindow": {
+            "4": {
+              "count": 48,
+              "total": 516,
+              "rate": 0.09302325581395349
+            },
+            "8": {
+              "count": 68,
+              "total": 516,
+              "rate": 0.13178294573643412
+            },
+            "16": {
+              "count": 92,
+              "total": 516,
+              "rate": 0.17829457364341086
+            },
+            "32": {
+              "count": 130,
+              "total": 516,
+              "rate": 0.25193798449612403
+            },
+            "64": {
+              "count": 168,
+              "total": 516,
+              "rate": 0.32558139534883723
+            }
+          }
+        }
+      }
+    },
+    {
+      "offsetTicks": -512,
+      "offsetSeconds": -8,
+      "observations": 528,
+      "summary": {
+        "observations": 528,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 23.75,
+            "median": 156,
+            "p75": 488.75,
+            "max": 8903
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.37109375,
+            "median": 2.4375,
+            "p75": 7.63671875,
+            "max": 139.109375
+          },
+          "withinWindow": {
+            "4": {
+              "count": 61,
+              "total": 528,
+              "rate": 0.11553030303030302
+            },
+            "8": {
+              "count": 88,
+              "total": 528,
+              "rate": 0.16666666666666666
+            },
+            "16": {
+              "count": 110,
+              "total": 528,
+              "rate": 0.20833333333333334
+            },
+            "32": {
+              "count": 151,
+              "total": 528,
+              "rate": 0.2859848484848485
+            },
+            "64": {
+              "count": 185,
+              "total": 528,
+              "rate": 0.3503787878787879
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 30.75,
+            "median": 157,
+            "p75": 287.25,
+            "max": 581
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.48046875,
+            "median": 2.453125,
+            "p75": 4.48828125,
+            "max": 9.078125
+          },
+          "withinWindow": {
+            "4": {
+              "count": 64,
+              "total": 528,
+              "rate": 0.12121212121212122
+            },
+            "8": {
+              "count": 82,
+              "total": 528,
+              "rate": 0.1553030303030303
+            },
+            "16": {
+              "count": 108,
+              "total": 528,
+              "rate": 0.20454545454545456
+            },
+            "32": {
+              "count": 137,
+              "total": 528,
+              "rate": 0.25946969696969696
+            },
+            "64": {
+              "count": 175,
+              "total": 528,
+              "rate": 0.3314393939393939
+            }
+          }
+        }
+      }
+    },
+    {
+      "offsetTicks": -256,
+      "offsetSeconds": -4,
+      "observations": 528,
+      "summary": {
+        "observations": 528,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 13,
+            "median": 101.5,
+            "p75": 347.75,
+            "max": 9159
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.203125,
+            "median": 1.5859375,
+            "p75": 5.43359375,
+            "max": 143.109375
+          },
+          "withinWindow": {
+            "4": {
+              "count": 72,
+              "total": 528,
+              "rate": 0.13636363636363635
+            },
+            "8": {
+              "count": 109,
+              "total": 528,
+              "rate": 0.20643939393939395
+            },
+            "16": {
+              "count": 143,
+              "total": 528,
+              "rate": 0.2708333333333333
+            },
+            "32": {
+              "count": 172,
+              "total": 528,
+              "rate": 0.32575757575757575
+            },
+            "64": {
+              "count": 222,
+              "total": 528,
+              "rate": 0.42045454545454547
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 11,
+            "median": 65.5,
+            "p75": 152.25,
+            "max": 847
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.171875,
+            "median": 1.0234375,
+            "p75": 2.37890625,
+            "max": 13.234375
+          },
+          "withinWindow": {
+            "4": {
+              "count": 82,
+              "total": 528,
+              "rate": 0.1553030303030303
+            },
+            "8": {
+              "count": 117,
+              "total": 528,
+              "rate": 0.2215909090909091
+            },
+            "16": {
+              "count": 152,
+              "total": 528,
+              "rate": 0.2878787878787879
+            },
+            "32": {
+              "count": 204,
+              "total": 528,
+              "rate": 0.38636363636363635
+            },
+            "64": {
+              "count": 263,
+              "total": 528,
+              "rate": 0.4981060606060606
+            }
+          }
+        }
+      }
+    },
+    {
+      "offsetTicks": -128,
+      "offsetSeconds": -2,
+      "observations": 529,
+      "summary": {
+        "observations": 529,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 529,
+            "min": 0,
+            "p25": 6,
+            "median": 35,
+            "p75": 174,
+            "max": 9287
+          },
+          "nearestOffsetSeconds": {
+            "count": 529,
+            "min": 0,
+            "p25": 0.09375,
+            "median": 0.546875,
+            "p75": 2.71875,
+            "max": 145.109375
+          },
+          "withinWindow": {
+            "4": {
+              "count": 111,
+              "total": 529,
+              "rate": 0.20982986767485823
+            },
+            "8": {
+              "count": 152,
+              "total": 529,
+              "rate": 0.28733459357277885
+            },
+            "16": {
+              "count": 206,
+              "total": 529,
+              "rate": 0.389413988657845
+            },
+            "32": {
+              "count": 260,
+              "total": 529,
+              "rate": 0.4914933837429111
+            },
+            "64": {
+              "count": 309,
+              "total": 529,
+              "rate": 0.5841209829867675
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 529,
+            "min": 0,
+            "p25": 6,
+            "median": 26,
+            "p75": 78,
+            "max": 719
+          },
+          "nearestOffsetSeconds": {
+            "count": 529,
+            "min": 0,
+            "p25": 0.09375,
+            "median": 0.40625,
+            "p75": 1.21875,
+            "max": 11.234375
+          },
+          "withinWindow": {
+            "4": {
+              "count": 109,
+              "total": 529,
+              "rate": 0.2060491493383743
+            },
+            "8": {
+              "count": 157,
+              "total": 529,
+              "rate": 0.29678638941398866
+            },
+            "16": {
+              "count": 213,
+              "total": 529,
+              "rate": 0.40264650283553877
+            },
+            "32": {
+              "count": 287,
+              "total": 529,
+              "rate": 0.5425330812854442
+            },
+            "64": {
+              "count": 372,
+              "total": 529,
+              "rate": 0.7032136105860114
+            }
+          }
+        }
+      }
+    },
+    {
+      "offsetTicks": 128,
+      "offsetSeconds": 2,
+      "observations": 529,
+      "summary": {
+        "observations": 529,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 529,
+            "min": 0,
+            "p25": 19,
+            "median": 87,
+            "p75": 119,
+            "max": 504
+          },
+          "nearestOffsetSeconds": {
+            "count": 529,
+            "min": 0,
+            "p25": 0.296875,
+            "median": 1.359375,
+            "p75": 1.859375,
+            "max": 7.875
+          },
+          "withinWindow": {
+            "4": {
+              "count": 64,
+              "total": 529,
+              "rate": 0.12098298676748583
+            },
+            "8": {
+              "count": 89,
+              "total": 529,
+              "rate": 0.16824196597353497
+            },
+            "16": {
+              "count": 124,
+              "total": 529,
+              "rate": 0.23440453686200377
+            },
+            "32": {
+              "count": 171,
+              "total": 529,
+              "rate": 0.32325141776937616
+            },
+            "64": {
+              "count": 229,
+              "total": 529,
+              "rate": 0.43289224952741023
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 529,
+            "min": 0,
+            "p25": 27,
+            "median": 133,
+            "p75": 356,
+            "max": 8385
+          },
+          "nearestOffsetSeconds": {
+            "count": 529,
+            "min": 0,
+            "p25": 0.421875,
+            "median": 2.078125,
+            "p75": 5.5625,
+            "max": 131.015625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 66,
+              "total": 529,
+              "rate": 0.12476370510396975
+            },
+            "8": {
+              "count": 96,
+              "total": 529,
+              "rate": 0.18147448015122875
+            },
+            "16": {
+              "count": 119,
+              "total": 529,
+              "rate": 0.22495274102079396
+            },
+            "32": {
+              "count": 136,
+              "total": 529,
+              "rate": 0.2570888468809074
+            },
+            "64": {
+              "count": 174,
+              "total": 529,
+              "rate": 0.32892249527410206
+            }
+          }
+        }
+      }
+    },
+    {
+      "offsetTicks": 256,
+      "offsetSeconds": 4,
+      "observations": 528,
+      "summary": {
+        "observations": 528,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 26,
+            "median": 131.5,
+            "p75": 236.25,
+            "max": 632
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.40625,
+            "median": 2.0546875,
+            "p75": 3.69140625,
+            "max": 9.875
+          },
+          "withinWindow": {
+            "4": {
+              "count": 64,
+              "total": 528,
+              "rate": 0.12121212121212122
+            },
+            "8": {
+              "count": 89,
+              "total": 528,
+              "rate": 0.16856060606060605
+            },
+            "16": {
+              "count": 117,
+              "total": 528,
+              "rate": 0.2215909090909091
+            },
+            "32": {
+              "count": 148,
+              "total": 528,
+              "rate": 0.2803030303030303
+            },
+            "64": {
+              "count": 185,
+              "total": 528,
+              "rate": 0.3503787878787879
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 28.75,
+            "median": 175,
+            "p75": 377.75,
+            "max": 8257
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.44921875,
+            "median": 2.734375,
+            "p75": 5.90234375,
+            "max": 129.015625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 66,
+              "total": 528,
+              "rate": 0.125
+            },
+            "8": {
+              "count": 86,
+              "total": 528,
+              "rate": 0.16287878787878787
+            },
+            "16": {
+              "count": 111,
+              "total": 528,
+              "rate": 0.21022727272727273
+            },
+            "32": {
+              "count": 139,
+              "total": 528,
+              "rate": 0.26325757575757575
+            },
+            "64": {
+              "count": 171,
+              "total": 528,
+              "rate": 0.32386363636363635
+            }
+          }
+        }
+      }
+    },
+    {
+      "offsetTicks": 512,
+      "offsetSeconds": 8,
+      "observations": 528,
+      "summary": {
+        "observations": 528,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 14,
+            "median": 130.5,
+            "p75": 370,
+            "max": 888
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.21875,
+            "median": 2.0390625,
+            "p75": 5.78125,
+            "max": 13.875
+          },
+          "withinWindow": {
+            "4": {
+              "count": 69,
+              "total": 528,
+              "rate": 0.13068181818181818
+            },
+            "8": {
+              "count": 103,
+              "total": 528,
+              "rate": 0.19507575757575757
+            },
+            "16": {
+              "count": 138,
+              "total": 528,
+              "rate": 0.26136363636363635
+            },
+            "32": {
+              "count": 163,
+              "total": 528,
+              "rate": 0.3087121212121212
+            },
+            "64": {
+              "count": 217,
+              "total": 528,
+              "rate": 0.4109848484848485
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 15,
+            "median": 126,
+            "p75": 388.25,
+            "max": 8001
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.234375,
+            "median": 1.96875,
+            "p75": 6.06640625,
+            "max": 125.015625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 62,
+              "total": 528,
+              "rate": 0.11742424242424243
+            },
+            "8": {
+              "count": 90,
+              "total": 528,
+              "rate": 0.17045454545454544
+            },
+            "16": {
+              "count": 135,
+              "total": 528,
+              "rate": 0.2556818181818182
+            },
+            "32": {
+              "count": 165,
+              "total": 528,
+              "rate": 0.3125
+            },
+            "64": {
+              "count": 200,
+              "total": 528,
+              "rate": 0.3787878787878788
+            }
+          }
+        }
+      }
+    },
+    {
+      "offsetTicks": 1024,
+      "offsetSeconds": 16,
+      "observations": 528,
+      "summary": {
+        "observations": 528,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 24,
+            "median": 151,
+            "p75": 413.25,
+            "max": 1123
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.375,
+            "median": 2.359375,
+            "p75": 6.45703125,
+            "max": 17.546875
+          },
+          "withinWindow": {
+            "4": {
+              "count": 57,
+              "total": 528,
+              "rate": 0.10795454545454546
+            },
+            "8": {
+              "count": 78,
+              "total": 528,
+              "rate": 0.14772727272727273
+            },
+            "16": {
+              "count": 112,
+              "total": 528,
+              "rate": 0.21212121212121213
+            },
+            "32": {
+              "count": 145,
+              "total": 528,
+              "rate": 0.2746212121212121
+            },
+            "64": {
+              "count": 182,
+              "total": 528,
+              "rate": 0.3446969696969697
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 528,
+            "min": 0,
+            "p25": 27.75,
+            "median": 144,
+            "p75": 425,
+            "max": 7489
+          },
+          "nearestOffsetSeconds": {
+            "count": 528,
+            "min": 0,
+            "p25": 0.43359375,
+            "median": 2.25,
+            "p75": 6.640625,
+            "max": 117.015625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 63,
+              "total": 528,
+              "rate": 0.11931818181818182
+            },
+            "8": {
+              "count": 87,
+              "total": 528,
+              "rate": 0.16477272727272727
+            },
+            "16": {
+              "count": 112,
+              "total": 528,
+              "rate": 0.21212121212121213
+            },
+            "32": {
+              "count": 142,
+              "total": 528,
+              "rate": 0.2689393939393939
+            },
+            "64": {
+              "count": 186,
+              "total": 528,
+              "rate": 0.3522727272727273
+            }
+          }
+        }
+      }
+    }
+  ],
+  "byReplay": [
+    {
+      "replay": "rep01",
+      "trueObservations": 81,
+      "placeboObservations": 645,
+      "true": {
+        "observations": 81,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 81,
+            "min": 1,
+            "p25": 2,
+            "median": 2,
+            "p75": 4,
+            "max": 9
+          },
+          "nearestOffsetSeconds": {
+            "count": 81,
+            "min": 0.015625,
+            "p25": 0.03125,
+            "median": 0.03125,
+            "p75": 0.0625,
+            "max": 0.140625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 70,
+              "total": 81,
+              "rate": 0.8641975308641975
+            },
+            "8": {
+              "count": 79,
+              "total": 81,
+              "rate": 0.9753086419753086
+            },
+            "16": {
+              "count": 81,
+              "total": 81,
+              "rate": 1
+            },
+            "32": {
+              "count": 81,
+              "total": 81,
+              "rate": 1
+            },
+            "64": {
+              "count": 81,
+              "total": 81,
+              "rate": 1
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 81,
+            "min": 2,
+            "p25": 4,
+            "median": 13,
+            "p75": 142,
+            "max": 1405
+          },
+          "nearestOffsetSeconds": {
+            "count": 81,
+            "min": 0.03125,
+            "p25": 0.0625,
+            "median": 0.203125,
+            "p75": 2.21875,
+            "max": 21.953125
+          },
+          "withinWindow": {
+            "4": {
+              "count": 25,
+              "total": 81,
+              "rate": 0.30864197530864196
+            },
+            "8": {
+              "count": 31,
+              "total": 81,
+              "rate": 0.38271604938271603
+            },
+            "16": {
+              "count": 42,
+              "total": 81,
+              "rate": 0.5185185185185185
+            },
+            "32": {
+              "count": 48,
+              "total": 81,
+              "rate": 0.5925925925925926
+            },
+            "64": {
+              "count": 55,
+              "total": 81,
+              "rate": 0.6790123456790124
+            }
+          }
+        }
+      },
+      "placebo": {
+        "observations": 645,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 645,
+            "min": 0,
+            "p25": 20,
+            "median": 108,
+            "p75": 252,
+            "max": 4065
+          },
+          "nearestOffsetSeconds": {
+            "count": 645,
+            "min": 0,
+            "p25": 0.3125,
+            "median": 1.6875,
+            "p75": 3.9375,
+            "max": 63.515625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 70,
+              "total": 645,
+              "rate": 0.10852713178294573
+            },
+            "8": {
+              "count": 101,
+              "total": 645,
+              "rate": 0.15658914728682172
+            },
+            "16": {
+              "count": 147,
+              "total": 645,
+              "rate": 0.22790697674418606
+            },
+            "32": {
+              "count": 196,
+              "total": 645,
+              "rate": 0.30387596899224806
+            },
+            "64": {
+              "count": 248,
+              "total": 645,
+              "rate": 0.38449612403100775
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 645,
+            "min": 0,
+            "p25": 23,
+            "median": 109,
+            "p75": 255,
+            "max": 2797
+          },
+          "nearestOffsetSeconds": {
+            "count": 645,
+            "min": 0,
+            "p25": 0.359375,
+            "median": 1.703125,
+            "p75": 3.984375,
+            "max": 43.703125
+          },
+          "withinWindow": {
+            "4": {
+              "count": 64,
+              "total": 645,
+              "rate": 0.09922480620155039
+            },
+            "8": {
+              "count": 93,
+              "total": 645,
+              "rate": 0.14418604651162792
+            },
+            "16": {
+              "count": 138,
+              "total": 645,
+              "rate": 0.21395348837209302
+            },
+            "32": {
+              "count": 190,
+              "total": 645,
+              "rate": 0.29457364341085274
+            },
+            "64": {
+              "count": 262,
+              "total": 645,
+              "rate": 0.4062015503875969
+            }
+          }
+        }
+      },
+      "precedingWithin8Difference": 0.8187194946884869,
+      "precedingWithin16Difference": 0.772093023255814
+    },
+    {
+      "replay": "rep02",
+      "trueObservations": 124,
+      "placeboObservations": 986,
+      "true": {
+        "observations": 124,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 124,
+            "min": 1,
+            "p25": 1,
+            "median": 2,
+            "p75": 3,
+            "max": 939
+          },
+          "nearestOffsetSeconds": {
+            "count": 124,
+            "min": 0.015625,
+            "p25": 0.015625,
+            "median": 0.03125,
+            "p75": 0.046875,
+            "max": 14.671875
+          },
+          "withinWindow": {
+            "4": {
+              "count": 111,
+              "total": 124,
+              "rate": 0.8951612903225806
+            },
+            "8": {
+              "count": 123,
+              "total": 124,
+              "rate": 0.9919354838709677
+            },
+            "16": {
+              "count": 123,
+              "total": 124,
+              "rate": 0.9919354838709677
+            },
+            "32": {
+              "count": 123,
+              "total": 124,
+              "rate": 0.9919354838709677
+            },
+            "64": {
+              "count": 123,
+              "total": 124,
+              "rate": 0.9919354838709677
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 124,
+            "min": 1,
+            "p25": 4,
+            "median": 5,
+            "p75": 11.25,
+            "max": 1636
+          },
+          "nearestOffsetSeconds": {
+            "count": 124,
+            "min": 0.015625,
+            "p25": 0.0625,
+            "median": 0.078125,
+            "p75": 0.17578125,
+            "max": 25.5625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 47,
+              "total": 124,
+              "rate": 0.3790322580645161
+            },
+            "8": {
+              "count": 84,
+              "total": 124,
+              "rate": 0.6774193548387096
+            },
+            "16": {
+              "count": 99,
+              "total": 124,
+              "rate": 0.7983870967741935
+            },
+            "32": {
+              "count": 104,
+              "total": 124,
+              "rate": 0.8387096774193549
+            },
+            "64": {
+              "count": 110,
+              "total": 124,
+              "rate": 0.8870967741935484
+            }
+          }
+        }
+      },
+      "placebo": {
+        "observations": 986,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 986,
+            "min": 0,
+            "p25": 13,
+            "median": 104.5,
+            "p75": 241,
+            "max": 3250
+          },
+          "nearestOffsetSeconds": {
+            "count": 986,
+            "min": 0,
+            "p25": 0.203125,
+            "median": 1.6328125,
+            "p75": 3.765625,
+            "max": 50.78125
+          },
+          "withinWindow": {
+            "4": {
+              "count": 155,
+              "total": 986,
+              "rate": 0.15720081135902636
+            },
+            "8": {
+              "count": 220,
+              "total": 986,
+              "rate": 0.2231237322515213
+            },
+            "16": {
+              "count": 265,
+              "total": 986,
+              "rate": 0.268762677484787
+            },
+            "32": {
+              "count": 328,
+              "total": 986,
+              "rate": 0.332657200811359
+            },
+            "64": {
+              "count": 408,
+              "total": 986,
+              "rate": 0.41379310344827586
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 986,
+            "min": 0,
+            "p25": 10,
+            "median": 96,
+            "p75": 257,
+            "max": 3301
+          },
+          "nearestOffsetSeconds": {
+            "count": 986,
+            "min": 0,
+            "p25": 0.15625,
+            "median": 1.5,
+            "p75": 4.015625,
+            "max": 51.578125
+          },
+          "withinWindow": {
+            "4": {
+              "count": 173,
+              "total": 986,
+              "rate": 0.17545638945233266
+            },
+            "8": {
+              "count": 229,
+              "total": 986,
+              "rate": 0.23225152129817445
+            },
+            "16": {
+              "count": 281,
+              "total": 986,
+              "rate": 0.28498985801217036
+            },
+            "32": {
+              "count": 345,
+              "total": 986,
+              "rate": 0.34989858012170383
+            },
+            "64": {
+              "count": 423,
+              "total": 986,
+              "rate": 0.4290060851926978
+            }
+          }
+        }
+      },
+      "precedingWithin8Difference": 0.7688117516194465,
+      "precedingWithin16Difference": 0.7231728063861808
+    },
+    {
+      "replay": "rep03",
+      "trueObservations": 125,
+      "placeboObservations": 999,
+      "true": {
+        "observations": 125,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 125,
+            "min": 1,
+            "p25": 2,
+            "median": 2,
+            "p75": 4,
+            "max": 376
+          },
+          "nearestOffsetSeconds": {
+            "count": 125,
+            "min": 0.015625,
+            "p25": 0.03125,
+            "median": 0.03125,
+            "p75": 0.0625,
+            "max": 5.875
+          },
+          "withinWindow": {
+            "4": {
+              "count": 99,
+              "total": 125,
+              "rate": 0.792
+            },
+            "8": {
+              "count": 119,
+              "total": 125,
+              "rate": 0.952
+            },
+            "16": {
+              "count": 121,
+              "total": 125,
+              "rate": 0.968
+            },
+            "32": {
+              "count": 121,
+              "total": 125,
+              "rate": 0.968
+            },
+            "64": {
+              "count": 122,
+              "total": 125,
+              "rate": 0.976
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 125,
+            "min": 1,
+            "p25": 4,
+            "median": 7,
+            "p75": 27,
+            "max": 2156
+          },
+          "nearestOffsetSeconds": {
+            "count": 125,
+            "min": 0.015625,
+            "p25": 0.0625,
+            "median": 0.109375,
+            "p75": 0.421875,
+            "max": 33.6875
+          },
+          "withinWindow": {
+            "4": {
+              "count": 48,
+              "total": 125,
+              "rate": 0.384
+            },
+            "8": {
+              "count": 68,
+              "total": 125,
+              "rate": 0.544
+            },
+            "16": {
+              "count": 90,
+              "total": 125,
+              "rate": 0.72
+            },
+            "32": {
+              "count": 95,
+              "total": 125,
+              "rate": 0.76
+            },
+            "64": {
+              "count": 104,
+              "total": 125,
+              "rate": 0.832
+            }
+          }
+        }
+      },
+      "placebo": {
+        "observations": 999,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 999,
+            "min": 0,
+            "p25": 24,
+            "median": 130,
+            "p75": 377,
+            "max": 9287
+          },
+          "nearestOffsetSeconds": {
+            "count": 999,
+            "min": 0,
+            "p25": 0.375,
+            "median": 2.03125,
+            "p75": 5.890625,
+            "max": 145.109375
+          },
+          "withinWindow": {
+            "4": {
+              "count": 128,
+              "total": 999,
+              "rate": 0.12812812812812813
+            },
+            "8": {
+              "count": 181,
+              "total": 999,
+              "rate": 0.18118118118118118
+            },
+            "16": {
+              "count": 223,
+              "total": 999,
+              "rate": 0.22322322322322322
+            },
+            "32": {
+              "count": 280,
+              "total": 999,
+              "rate": 0.2802802802802803
+            },
+            "64": {
+              "count": 354,
+              "total": 999,
+              "rate": 0.35435435435435436
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 999,
+            "min": 0,
+            "p25": 28,
+            "median": 132,
+            "p75": 350.5,
+            "max": 8385
+          },
+          "nearestOffsetSeconds": {
+            "count": 999,
+            "min": 0,
+            "p25": 0.4375,
+            "median": 2.0625,
+            "p75": 5.4765625,
+            "max": 131.015625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 125,
+              "total": 999,
+              "rate": 0.12512512512512514
+            },
+            "8": {
+              "count": 164,
+              "total": 999,
+              "rate": 0.16416416416416416
+            },
+            "16": {
+              "count": 207,
+              "total": 999,
+              "rate": 0.2072072072072072
+            },
+            "32": {
+              "count": 262,
+              "total": 999,
+              "rate": 0.26226226226226224
+            },
+            "64": {
+              "count": 340,
+              "total": 999,
+              "rate": 0.34034034034034033
+            }
+          }
+        }
+      },
+      "precedingWithin8Difference": 0.7708188188188188,
+      "precedingWithin16Difference": 0.7447767767767768
+    },
+    {
+      "replay": "rep04",
+      "trueObservations": 130,
+      "placeboObservations": 1033,
+      "true": {
+        "observations": 130,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 130,
+            "min": 1,
+            "p25": 2,
+            "median": 3,
+            "p75": 5,
+            "max": 118
+          },
+          "nearestOffsetSeconds": {
+            "count": 130,
+            "min": 0.015625,
+            "p25": 0.03125,
+            "median": 0.046875,
+            "p75": 0.078125,
+            "max": 1.84375
+          },
+          "withinWindow": {
+            "4": {
+              "count": 94,
+              "total": 130,
+              "rate": 0.7230769230769231
+            },
+            "8": {
+              "count": 116,
+              "total": 130,
+              "rate": 0.8923076923076924
+            },
+            "16": {
+              "count": 125,
+              "total": 130,
+              "rate": 0.9615384615384616
+            },
+            "32": {
+              "count": 129,
+              "total": 130,
+              "rate": 0.9923076923076923
+            },
+            "64": {
+              "count": 129,
+              "total": 130,
+              "rate": 0.9923076923076923
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 130,
+            "min": 1,
+            "p25": 3,
+            "median": 8,
+            "p75": 33.75,
+            "max": 922
+          },
+          "nearestOffsetSeconds": {
+            "count": 130,
+            "min": 0.015625,
+            "p25": 0.046875,
+            "median": 0.125,
+            "p75": 0.52734375,
+            "max": 14.40625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 56,
+              "total": 130,
+              "rate": 0.4307692307692308
+            },
+            "8": {
+              "count": 72,
+              "total": 130,
+              "rate": 0.5538461538461539
+            },
+            "16": {
+              "count": 90,
+              "total": 130,
+              "rate": 0.6923076923076923
+            },
+            "32": {
+              "count": 96,
+              "total": 130,
+              "rate": 0.7384615384615385
+            },
+            "64": {
+              "count": 104,
+              "total": 130,
+              "rate": 0.8
+            }
+          }
+        }
+      },
+      "placebo": {
+        "observations": 1033,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 1033,
+            "min": 0,
+            "p25": 14,
+            "median": 92,
+            "p75": 253,
+            "max": 4729
+          },
+          "nearestOffsetSeconds": {
+            "count": 1033,
+            "min": 0,
+            "p25": 0.21875,
+            "median": 1.4375,
+            "p75": 3.953125,
+            "max": 73.890625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 143,
+              "total": 1033,
+              "rate": 0.13843175217812198
+            },
+            "8": {
+              "count": 197,
+              "total": 1033,
+              "rate": 0.19070667957405615
+            },
+            "16": {
+              "count": 271,
+              "total": 1033,
+              "rate": 0.2623426911907067
+            },
+            "32": {
+              "count": 349,
+              "total": 1033,
+              "rate": 0.3378509196515005
+            },
+            "64": {
+              "count": 451,
+              "total": 1033,
+              "rate": 0.4365924491771539
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 1033,
+            "min": 0,
+            "p25": 13,
+            "median": 92,
+            "p75": 259,
+            "max": 3946
+          },
+          "nearestOffsetSeconds": {
+            "count": 1033,
+            "min": 0,
+            "p25": 0.203125,
+            "median": 1.4375,
+            "p75": 4.046875,
+            "max": 61.65625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 145,
+              "total": 1033,
+              "rate": 0.1403678606001936
+            },
+            "8": {
+              "count": 204,
+              "total": 1033,
+              "rate": 0.19748305905130686
+            },
+            "16": {
+              "count": 280,
+              "total": 1033,
+              "rate": 0.271055179090029
+            },
+            "32": {
+              "count": 353,
+              "total": 1033,
+              "rate": 0.34172313649564373
+            },
+            "64": {
+              "count": 439,
+              "total": 1033,
+              "rate": 0.4249757986447241
+            }
+          }
+        }
+      },
+      "precedingWithin8Difference": 0.7016010127336362,
+      "precedingWithin16Difference": 0.6991957703477549
+    },
+    {
+      "replay": "rep05",
+      "trueObservations": 69,
+      "placeboObservations": 551,
+      "true": {
+        "observations": 69,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 69,
+            "min": 1,
+            "p25": 1,
+            "median": 2,
+            "p75": 3,
+            "max": 1483
+          },
+          "nearestOffsetSeconds": {
+            "count": 69,
+            "min": 0.015625,
+            "p25": 0.015625,
+            "median": 0.03125,
+            "p75": 0.046875,
+            "max": 23.171875
+          },
+          "withinWindow": {
+            "4": {
+              "count": 62,
+              "total": 69,
+              "rate": 0.8985507246376812
+            },
+            "8": {
+              "count": 67,
+              "total": 69,
+              "rate": 0.9710144927536232
+            },
+            "16": {
+              "count": 68,
+              "total": 69,
+              "rate": 0.9855072463768116
+            },
+            "32": {
+              "count": 68,
+              "total": 69,
+              "rate": 0.9855072463768116
+            },
+            "64": {
+              "count": 68,
+              "total": 69,
+              "rate": 0.9855072463768116
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 69,
+            "min": 2,
+            "p25": 5,
+            "median": 21,
+            "p75": 91,
+            "max": 1121
+          },
+          "nearestOffsetSeconds": {
+            "count": 69,
+            "min": 0.03125,
+            "p25": 0.078125,
+            "median": 0.328125,
+            "p75": 1.421875,
+            "max": 17.515625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 14,
+              "total": 69,
+              "rate": 0.2028985507246377
+            },
+            "8": {
+              "count": 21,
+              "total": 69,
+              "rate": 0.30434782608695654
+            },
+            "16": {
+              "count": 34,
+              "total": 69,
+              "rate": 0.4927536231884058
+            },
+            "32": {
+              "count": 36,
+              "total": 69,
+              "rate": 0.5217391304347826
+            },
+            "64": {
+              "count": 45,
+              "total": 69,
+              "rate": 0.6521739130434783
+            }
+          }
+        }
+      },
+      "placebo": {
+        "observations": 551,
+        "preceding": {
+          "nearestOffsetTicks": {
+            "count": 551,
+            "min": 0,
+            "p25": 17,
+            "median": 107,
+            "p75": 250,
+            "max": 3585
+          },
+          "nearestOffsetSeconds": {
+            "count": 551,
+            "min": 0,
+            "p25": 0.265625,
+            "median": 1.671875,
+            "p75": 3.90625,
+            "max": 56.015625
+          },
+          "withinWindow": {
+            "4": {
+              "count": 51,
+              "total": 551,
+              "rate": 0.0925589836660617
+            },
+            "8": {
+              "count": 80,
+              "total": 551,
+              "rate": 0.14519056261343014
+            },
+            "16": {
+              "count": 137,
+              "total": 551,
+              "rate": 0.24863883847549909
+            },
+            "32": {
+              "count": 177,
+              "total": 551,
+              "rate": 0.32123411978221417
+            },
+            "64": {
+              "count": 229,
+              "total": 551,
+              "rate": 0.41560798548094374
+            }
+          }
+        },
+        "following": {
+          "nearestOffsetTicks": {
+            "count": 551,
+            "min": 0,
+            "p25": 17,
+            "median": 86,
+            "p75": 224,
+            "max": 2427
+          },
+          "nearestOffsetSeconds": {
+            "count": 551,
+            "min": 0,
+            "p25": 0.265625,
+            "median": 1.34375,
+            "p75": 3.5,
+            "max": 37.921875
+          },
+          "withinWindow": {
+            "4": {
+              "count": 53,
+              "total": 551,
+              "rate": 0.09618874773139746
+            },
+            "8": {
+              "count": 93,
+              "total": 551,
+              "rate": 0.16878402903811252
+            },
+            "16": {
+              "count": 136,
+              "total": 551,
+              "rate": 0.24682395644283123
+            },
+            "32": {
+              "count": 190,
+              "total": 551,
+              "rate": 0.3448275862068966
+            },
+            "64": {
+              "count": 245,
+              "total": 551,
+              "rate": 0.44464609800362975
+            }
+          }
+        }
+      },
+      "precedingWithin8Difference": 0.8258239301401931,
+      "precedingWithin16Difference": 0.7368684079013126
+    }
+  ],
+  "byHero": [
+    {
+      "heroId": 76,
+      "trueHits": 61,
+      "placeboObservations": 488,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.22745901639344263,
+      "within8Difference": 0.7725409836065573,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.24385245901639344,
+      "within16Difference": 0.7561475409836066,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 61,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 4,
+        "max": 6
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 488,
+        "min": 0,
+        "p25": 20,
+        "median": 134.5,
+        "p75": 377.25,
+        "max": 3759
+      },
+      "truePreVsPostWithin8Difference": 0.032786885245901676
+    },
+    {
+      "heroId": 2,
+      "trueHits": 53,
+      "placeboObservations": 419,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.20286396181384247,
+      "within8Difference": 0.7971360381861575,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.27684964200477324,
+      "within16Difference": 0.7231503579952268,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 53,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 3,
+        "max": 5
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 419,
+        "min": 0,
+        "p25": 14,
+        "median": 82,
+        "p75": 256.5,
+        "max": 4729
+      },
+      "truePreVsPostWithin8Difference": 0.16981132075471694
+    },
+    {
+      "heroId": 35,
+      "trueHits": 51,
+      "placeboObservations": 408,
+      "truePrecedingWithin8Rate": 0.9803921568627451,
+      "placeboPrecedingWithin8Rate": 0.17401960784313725,
+      "within8Difference": 0.8063725490196079,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.26715686274509803,
+      "within16Difference": 0.732843137254902,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 51,
+        "min": 1,
+        "p25": 2.5,
+        "median": 3,
+        "p75": 5,
+        "max": 9
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 408,
+        "min": 0,
+        "p25": 12,
+        "median": 100.5,
+        "p75": 222.25,
+        "max": 2112
+      },
+      "truePreVsPostWithin8Difference": 0.7843137254901961
+    },
+    {
+      "heroId": 31,
+      "trueHits": 43,
+      "placeboObservations": 342,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.1608187134502924,
+      "within8Difference": 0.8391812865497076,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.24853801169590642,
+      "within16Difference": 0.7514619883040936,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 43,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 3,
+        "max": 4
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 342,
+        "min": 0,
+        "p25": 17,
+        "median": 107.5,
+        "p75": 264.75,
+        "max": 5446
+      },
+      "truePreVsPostWithin8Difference": 0.13953488372093026
+    },
+    {
+      "heroId": 1,
+      "trueHits": 39,
+      "placeboObservations": 312,
+      "truePrecedingWithin8Rate": 0.9743589743589743,
+      "placeboPrecedingWithin8Rate": 0.2564102564102564,
+      "within8Difference": 0.717948717948718,
+      "truePrecedingWithin16Rate": 0.9743589743589743,
+      "placeboPrecedingWithin16Rate": 0.266025641025641,
+      "within16Difference": 0.7083333333333333,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 39,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 3,
+        "max": 160
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 312,
+        "min": 0,
+        "p25": 6.75,
+        "median": 88,
+        "p75": 214.25,
+        "max": 9287
+      },
+      "truePreVsPostWithin8Difference": 0.05128205128205121
+    },
+    {
+      "heroId": 11,
+      "trueHits": 29,
+      "placeboObservations": 231,
+      "truePrecedingWithin8Rate": 0.9655172413793104,
+      "placeboPrecedingWithin8Rate": 0.10822510822510822,
+      "within8Difference": 0.8572921331542022,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.20346320346320346,
+      "within16Difference": 0.7965367965367965,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 29,
+        "min": 1,
+        "p25": 2,
+        "median": 4,
+        "p75": 5,
+        "max": 11
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 231,
+        "min": 0,
+        "p25": 39.5,
+        "median": 187,
+        "p75": 485,
+        "max": 4069
+      },
+      "truePreVsPostWithin8Difference": 0.896551724137931
+    },
+    {
+      "heroId": 13,
+      "trueHits": 24,
+      "placeboObservations": 192,
+      "truePrecedingWithin8Rate": 0.9583333333333334,
+      "placeboPrecedingWithin8Rate": 0.3125,
+      "within8Difference": 0.6458333333333334,
+      "truePrecedingWithin16Rate": 0.9583333333333334,
+      "placeboPrecedingWithin16Rate": 0.3489583333333333,
+      "within16Difference": 0.609375,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 24,
+        "min": 1,
+        "p25": 1,
+        "median": 2,
+        "p75": 2,
+        "max": 118
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 192,
+        "min": 0,
+        "p25": 5,
+        "median": 102.5,
+        "p75": 239,
+        "max": 3585
+      },
+      "truePreVsPostWithin8Difference": 0.125
+    },
+    {
+      "heroId": 19,
+      "trueHits": 24,
+      "placeboObservations": 192,
+      "truePrecedingWithin8Rate": 0.9583333333333334,
+      "placeboPrecedingWithin8Rate": 0.078125,
+      "within8Difference": 0.8802083333333334,
+      "truePrecedingWithin16Rate": 0.9583333333333334,
+      "placeboPrecedingWithin16Rate": 0.14583333333333334,
+      "within16Difference": 0.8125,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 24,
+        "min": 1,
+        "p25": 1,
+        "median": 2,
+        "p75": 2,
+        "max": 939
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 192,
+        "min": 0,
+        "p25": 26.75,
+        "median": 94,
+        "p75": 214,
+        "max": 2510
+      },
+      "truePreVsPostWithin8Difference": 0.9583333333333334
+    },
+    {
+      "heroId": 7,
+      "trueHits": 20,
+      "placeboObservations": 158,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.3987341772151899,
+      "within8Difference": 0.6012658227848101,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.43037974683544306,
+      "within16Difference": 0.5696202531645569,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 20,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 2.25,
+        "max": 3
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 158,
+        "min": 0,
+        "p25": 3,
+        "median": 52,
+        "p75": 124.25,
+        "max": 1823
+      },
+      "truePreVsPostWithin8Difference": 0.15000000000000002
+    },
+    {
+      "heroId": 27,
+      "trueHits": 18,
+      "placeboObservations": 144,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.05555555555555555,
+      "within8Difference": 0.9444444444444444,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.1875,
+      "within16Difference": 0.8125,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 18,
+        "min": 2,
+        "p25": 3,
+        "median": 4,
+        "p75": 5,
+        "max": 7
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 144,
+        "min": 1,
+        "p25": 21.75,
+        "median": 76.5,
+        "p75": 219.75,
+        "max": 2842
+      },
+      "truePreVsPostWithin8Difference": 1
+    },
+    {
+      "heroId": 66,
+      "trueHits": 17,
+      "placeboObservations": 135,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.16296296296296298,
+      "within8Difference": 0.837037037037037,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.2222222222222222,
+      "within16Difference": 0.7777777777777778,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 17,
+        "min": 1,
+        "p25": 4,
+        "median": 5,
+        "p75": 5,
+        "max": 7
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 135,
+        "min": 0,
+        "p25": 28.5,
+        "median": 132,
+        "p75": 340,
+        "max": 2162
+      },
+      "truePreVsPostWithin8Difference": 0.47058823529411764
+    },
+    {
+      "heroId": 67,
+      "trueHits": 17,
+      "placeboObservations": 132,
+      "truePrecedingWithin8Rate": 0.23529411764705882,
+      "placeboPrecedingWithin8Rate": 0.06060606060606061,
+      "within8Difference": 0.1746880570409982,
+      "truePrecedingWithin16Rate": 0.7058823529411765,
+      "placeboPrecedingWithin16Rate": 0.15151515151515152,
+      "within16Difference": 0.554367201426025,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 17,
+        "min": 3,
+        "p25": 11,
+        "median": 14,
+        "p75": 17,
+        "max": 34
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 132,
+        "min": 0,
+        "p25": 30.25,
+        "median": 131,
+        "p75": 313.75,
+        "max": 2669
+      },
+      "truePreVsPostWithin8Difference": 0.1764705882352941
+    },
+    {
+      "heroId": 4,
+      "trueHits": 15,
+      "placeboObservations": 120,
+      "truePrecedingWithin8Rate": 0.9333333333333333,
+      "placeboPrecedingWithin8Rate": 0.058333333333333334,
+      "within8Difference": 0.875,
+      "truePrecedingWithin16Rate": 0.9333333333333333,
+      "placeboPrecedingWithin16Rate": 0.13333333333333333,
+      "within16Difference": 0.8,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 15,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 2.5,
+        "max": 1483
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 120,
+        "min": 2,
+        "p25": 49.5,
+        "median": 187,
+        "p75": 447.75,
+        "max": 4431
+      },
+      "truePreVsPostWithin8Difference": 0.9333333333333333
+    },
+    {
+      "heroId": 8,
+      "trueHits": 11,
+      "placeboObservations": 88,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.3068181818181818,
+      "within8Difference": 0.6931818181818181,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.3522727272727273,
+      "within16Difference": 0.6477272727272727,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 11,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 2,
+        "max": 3
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 88,
+        "min": 0,
+        "p25": 4.75,
+        "median": 116.5,
+        "p75": 250.5,
+        "max": 2120
+      },
+      "truePreVsPostWithin8Difference": 0.36363636363636365
+    },
+    {
+      "heroId": 18,
+      "trueHits": 11,
+      "placeboObservations": 87,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.25287356321839083,
+      "within8Difference": 0.7471264367816092,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.3218390804597701,
+      "within16Difference": 0.6781609195402298,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 11,
+        "min": 2,
+        "p25": 2,
+        "median": 3,
+        "p75": 4,
+        "max": 6
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 87,
+        "min": 0,
+        "p25": 8.5,
+        "median": 81,
+        "p75": 200,
+        "max": 802
+      },
+      "truePreVsPostWithin8Difference": 0.5454545454545454
+    },
+    {
+      "heroId": 25,
+      "trueHits": 11,
+      "placeboObservations": 88,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.1590909090909091,
+      "within8Difference": 0.8409090909090909,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.3409090909090909,
+      "within16Difference": 0.6590909090909092,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 11,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 3.5,
+        "max": 4
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 88,
+        "min": 0,
+        "p25": 12,
+        "median": 97,
+        "p75": 242.25,
+        "max": 998
+      },
+      "truePreVsPostWithin8Difference": 0.9090909090909091
+    },
+    {
+      "heroId": 58,
+      "trueHits": 10,
+      "placeboObservations": 80,
+      "truePrecedingWithin8Rate": 0.8,
+      "placeboPrecedingWithin8Rate": 0.125,
+      "within8Difference": 0.675,
+      "truePrecedingWithin16Rate": 0.8,
+      "placeboPrecedingWithin16Rate": 0.125,
+      "within16Difference": 0.675,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 10,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 2.75,
+        "max": 376
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 80,
+        "min": 0,
+        "p25": 101.5,
+        "median": 237.5,
+        "p75": 536.5,
+        "max": 1686
+      },
+      "truePreVsPostWithin8Difference": 0
+    },
+    {
+      "heroId": 63,
+      "trueHits": 10,
+      "placeboObservations": 79,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.16455696202531644,
+      "within8Difference": 0.8354430379746836,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.25316455696202533,
+      "within16Difference": 0.7468354430379747,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 10,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 2,
+        "max": 3
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 79,
+        "min": 0,
+        "p25": 15,
+        "median": 114,
+        "p75": 213.5,
+        "max": 1956
+      },
+      "truePreVsPostWithin8Difference": 1
+    },
+    {
+      "heroId": 60,
+      "trueHits": 9,
+      "placeboObservations": 72,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.06944444444444445,
+      "within8Difference": 0.9305555555555556,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.125,
+      "within16Difference": 0.875,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 9,
+        "min": 2,
+        "p25": 3,
+        "median": 3,
+        "p75": 4,
+        "max": 8
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 72,
+        "min": 0,
+        "p25": 30,
+        "median": 130.5,
+        "p75": 291.75,
+        "max": 2136
+      },
+      "truePreVsPostWithin8Difference": 0.5555555555555556
+    },
+    {
+      "heroId": 65,
+      "trueHits": 9,
+      "placeboObservations": 72,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.3194444444444444,
+      "within8Difference": 0.6805555555555556,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.3333333333333333,
+      "within16Difference": 0.6666666666666667,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 9,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 72,
+        "min": 0,
+        "p25": 5.75,
+        "median": 80,
+        "p75": 209.25,
+        "max": 1829
+      },
+      "truePreVsPostWithin8Difference": 0.4444444444444444
+    },
+    {
+      "heroId": 14,
+      "trueHits": 8,
+      "placeboObservations": 64,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.0625,
+      "within8Difference": 0.9375,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.109375,
+      "within16Difference": 0.890625,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 8,
+        "min": 1,
+        "p25": 1,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 64,
+        "min": 0,
+        "p25": 47.75,
+        "median": 123,
+        "p75": 226.75,
+        "max": 2451
+      },
+      "truePreVsPostWithin8Difference": 1
+    },
+    {
+      "heroId": 15,
+      "trueHits": 7,
+      "placeboObservations": 56,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.35714285714285715,
+      "within8Difference": 0.6428571428571428,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.39285714285714285,
+      "within16Difference": 0.6071428571428572,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 7,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 56,
+        "min": 0,
+        "p25": 4,
+        "median": 64,
+        "p75": 246.25,
+        "max": 3250
+      },
+      "truePreVsPostWithin8Difference": 0
+    },
+    {
+      "heroId": 64,
+      "trueHits": 7,
+      "placeboObservations": 56,
+      "truePrecedingWithin8Rate": 0.8571428571428571,
+      "placeboPrecedingWithin8Rate": 0.03571428571428571,
+      "within8Difference": 0.8214285714285714,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.08928571428571429,
+      "within16Difference": 0.9107142857142857,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 7,
+        "min": 7,
+        "p25": 7,
+        "median": 8,
+        "p75": 8,
+        "max": 9
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 56,
+        "min": 1,
+        "p25": 62,
+        "median": 138.5,
+        "p75": 269,
+        "max": 1529
+      },
+      "truePreVsPostWithin8Difference": 0.8571428571428571
+    },
+    {
+      "heroId": 50,
+      "trueHits": 6,
+      "placeboObservations": 48,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.125,
+      "within8Difference": 0.875,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.22916666666666666,
+      "within16Difference": 0.7708333333333334,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 6,
+        "min": 2,
+        "p25": 2,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 48,
+        "min": 0,
+        "p25": 18.5,
+        "median": 86,
+        "p75": 276.75,
+        "max": 1386
+      },
+      "truePreVsPostWithin8Difference": 1
+    },
+    {
+      "heroId": 69,
+      "trueHits": 5,
+      "placeboObservations": 40,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.05,
+      "within8Difference": 0.95,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.075,
+      "within16Difference": 0.925,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 5,
+        "min": 3,
+        "p25": 3,
+        "median": 3,
+        "p75": 3,
+        "max": 5
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 40,
+        "min": 1,
+        "p25": 42.5,
+        "median": 150,
+        "p75": 289.75,
+        "max": 1049
+      },
+      "truePreVsPostWithin8Difference": 1
+    },
+    {
+      "heroId": 10,
+      "trueHits": 4,
+      "placeboObservations": 32,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.375,
+      "within8Difference": 0.625,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.40625,
+      "within16Difference": 0.59375,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 4,
+        "min": 1,
+        "p25": 1.75,
+        "median": 2.5,
+        "p75": 3,
+        "max": 3
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 32,
+        "min": 0,
+        "p25": 3,
+        "median": 49.5,
+        "p75": 133,
+        "max": 891
+      },
+      "truePreVsPostWithin8Difference": 0.25
+    },
+    {
+      "heroId": 16,
+      "trueHits": 3,
+      "placeboObservations": 23,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.13043478260869565,
+      "within8Difference": 0.8695652173913043,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.17391304347826086,
+      "within16Difference": 0.8260869565217391,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 3,
+        "min": 3,
+        "p25": 3,
+        "median": 3,
+        "p75": 3.5,
+        "max": 4
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 23,
+        "min": 2,
+        "p25": 68,
+        "median": 246,
+        "p75": 494,
+        "max": 1013
+      },
+      "truePreVsPostWithin8Difference": 1
+    },
+    {
+      "heroId": 79,
+      "trueHits": 3,
+      "placeboObservations": 24,
+      "truePrecedingWithin8Rate": 0.6666666666666666,
+      "placeboPrecedingWithin8Rate": 0.20833333333333334,
+      "within8Difference": 0.45833333333333326,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.2916666666666667,
+      "within16Difference": 0.7083333333333333,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 3,
+        "min": 5,
+        "p25": 5.5,
+        "median": 6,
+        "p75": 8,
+        "max": 10
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 24,
+        "min": 2,
+        "p25": 13.25,
+        "median": 149.5,
+        "p75": 338.25,
+        "max": 3660
+      },
+      "truePreVsPostWithin8Difference": 0.3333333333333333
+    },
+    {
+      "heroId": 81,
+      "trueHits": 2,
+      "placeboObservations": 16,
+      "truePrecedingWithin8Rate": 0,
+      "placeboPrecedingWithin8Rate": 0,
+      "within8Difference": 0,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.125,
+      "within16Difference": 0.875,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 2,
+        "min": 13,
+        "p25": 13.25,
+        "median": 13.5,
+        "p75": 13.75,
+        "max": 14
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 16,
+        "min": 14,
+        "p25": 26,
+        "median": 82.5,
+        "p75": 252,
+        "max": 874
+      },
+      "truePreVsPostWithin8Difference": 0
+    },
+    {
+      "heroId": 3,
+      "trueHits": 1,
+      "placeboObservations": 8,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0,
+      "within8Difference": 1,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.125,
+      "within16Difference": 0.875,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 1,
+        "min": 2,
+        "p25": 2,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 8,
+        "min": 11,
+        "p25": 67.75,
+        "median": 142,
+        "p75": 256,
+        "max": 455
+      },
+      "truePreVsPostWithin8Difference": 1
+    },
+    {
+      "heroId": 6,
+      "trueHits": 1,
+      "placeboObservations": 8,
+      "truePrecedingWithin8Rate": 1,
+      "placeboPrecedingWithin8Rate": 0.125,
+      "within8Difference": 0.875,
+      "truePrecedingWithin16Rate": 1,
+      "placeboPrecedingWithin16Rate": 0.125,
+      "within16Difference": 0.875,
+      "trueNearestPrecedingOffsetTicks": {
+        "count": 1,
+        "min": 2,
+        "p25": 2,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "placeboNearestPrecedingOffsetTicks": {
+        "count": 8,
+        "min": 2,
+        "p25": 105.25,
+        "median": 381.5,
+        "p75": 3926,
+        "max": 4566
+      },
+      "truePreVsPostWithin8Difference": 1
+    }
+  ],
+  "integrity": {
+    "pass": true,
+    "checks": {
+      "allFiveReplaysLoaded": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "successfulHitCohortPreserved": {
+        "actual": 529,
+        "expected": 529,
+        "pass": true
+      },
+      "placeboObservationsAvailable": {
+        "actual": 4214,
+        "expected": ">0",
+        "pass": true
+      },
+      "everyTrueAnchorHasPlayerShotTimeline": {
+        "actual": 529,
+        "expected": 529,
+        "pass": true
+      }
+    }
+  },
+  "interpretiveEvidence": {
+    "timingDiscriminative": true,
+    "thresholds": {
+      "minimumTruePrecedingWithin8Rate": 0.9,
+      "minimumTrueMinusPlaceboWithin8": 0.1,
+      "minimumTrueMinusPlaceboWithin16": 0.08
+    },
+    "checks": {
+      "truePrecedingWithin8High": {
+        "actual": 0.9527410207939508,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "trueTimingExceedsPlaceboWithin8": {
+        "actual": 0.7678810302861199,
+        "expected": ">=0.1",
+        "pass": true
+      },
+      "trueTimingExceedsPlaceboWithin16": {
+        "actual": 0.7316977435014979,
+        "expected": ">=0.08",
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "ifTimingExceedsPlacebo": "Successful CItemXP impacts occur unusually soon after same-player weapon discharge compared with shifted times from the same player and replay. This supports using discharge timing as a source-shot assignment signal, but does not itself prove which specific shot produced the hit.",
+    "ifTimingDoesNotExceedPlacebo": "A recent same-player shot is too common during ordinary firing to identify source shots reliably by nearest-preceding timing alone. Weapon-resource mechanics or a stronger physical assignment model is required.",
+    "precedingVsFollowing": "Preceding-versus-following comparisons are descriptive because sustained automatic fire can continue through and after the soul impact.",
+    "placeboMeaning": "Shifted controls preserve player identity, hero, replay, and the player-specific firing stream while removing the exact soul-impact time relationship.",
+    "guardrail": "No value produced here is a canonical projectile velocity or exact shot-to-hit attribution."
+  },
+  "nextStage": "BUILD_HERO_SPECIFIC_CANDIDATE_SHOT_ASSIGNMENT_AND_TRAVEL_MODEL",
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\soul_hit_shot_timing_placebo_validation_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\soul_hit_shot_timing_placebo_validation_v01.md",
+    "rows": "G:\\DeadlockBehavior\\output\\cross_replay\\soul_hit_shot_timing_placebo_rows_v01.jsonl"
+  }
+}

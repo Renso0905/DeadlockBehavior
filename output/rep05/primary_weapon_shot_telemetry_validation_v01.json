@@ -1,0 +1,673 @@
+{
+  "replay": "rep05",
+  "version": "PRIMARY_WEAPON_SHOT_TELEMETRY_VALIDATION_V01",
+  "canonical": false,
+  "status": "PRIMARY_WEAPON_SHOT_TELEMETRY_STRONGLY_SUPPORTED",
+  "purpose": [
+    "Recover actual primary-weapon discharge signals independently of CItemXP Damage.",
+    "Link weapon entities to owning players and heroes.",
+    "Test whether known successful CItemXP hits are preceded by same-player weapon discharge telemetry.",
+    "Preserve nearest-shot matching as candidate attribution rather than proof.",
+    "Prepare a substrate for hero-specific projectile travel and weapon-ready modeling."
+  ],
+  "inputs": {
+    "replay": "G:\\DeadlockBehavior\\replays\\rep05.dem",
+    "positiveAnchors": "G:\\DeadlockBehavior\\output\\rep05\\flying_soul_positive_actionability_anchors_v01.jsonl",
+    "playerState": "G:\\DeadlockBehavior\\output\\rep05\\player_state.jsonl"
+  },
+  "weaponTelemetry": {
+    "candidateWeaponEvents": 76003,
+    "weaponEntityEvents": 76003,
+    "uniqueWeaponEntities": 15,
+    "playerLinkedWeaponEntities": 15,
+    "unlinkedWeaponEntities": 0,
+    "totalDischargeEvents": 17918,
+    "playerLinkedDischargeEvents": 17918,
+    "weaponClassCounts": {
+      "CCitadel_Ability_PrimaryWeapon_Empty": 60711,
+      "CCitadel_Ability_PrimaryWeapon_ScalingAltFire": 7045,
+      "CCitadel_Ability_ShivWeapon": 4642,
+      "CCitadel_Ability_Unicorn_PrimaryWeapon": 3605
+    },
+    "weaponSubclassCounts": {
+      "225271804": 3579,
+      "440716503": 2608,
+      "602440127": 11112,
+      "816395058": 5441,
+      "1558668879": 5046,
+      "2014234803": 8096,
+      "2502155040": 4290,
+      "2679155647": 8880,
+      "2725537392": 1390,
+      "2896288811": 8607,
+      "3121968594": 4642,
+      "3383556212": 2747,
+      "3413773852": 3884,
+      "3744272782": 3605,
+      "3819944797": 2076
+    },
+    "changedFieldCounts": {
+      "m_flNextPrimaryAttack": 22736,
+      "m_nNumContinuousShots": 22276,
+      "m_flNextAttackDelayStartTime": 20020,
+      "m_flAmmoFrac": 19763,
+      "m_iClip": 19501,
+      "m_flLastAttackTime": 18563,
+      "m_nShotNumber": 18563,
+      "m_reloadQueuedStartTime": 16415,
+      "m_bFiredRecently": 7291,
+      "m_nBurstShotsRemaining": 4435,
+      "m_flNextAttackDelayEndTime": 3345,
+      "m_bInReload": 3231,
+      "m_flLastReloadStartTime": 1938,
+      "m_flReloadAvailableTime": 1216,
+      "m_iBonusClip": 1085,
+      "m_eActiveFireMode": 831
+    },
+    "shotSignalCounts": {
+      "LAST_ATTACK_TIME_ADVANCED": 17918,
+      "SHOT_NUMBER_INCREMENT": 17918,
+      "CLIP_DECREASE_SUPPORT": 8623,
+      "FIRED_RECENTLY_RISE_SUPPORT": 2669
+    }
+  },
+  "successfulHitAlignment": {
+    "successfulHitAnchors": 69,
+    "hitsWithAnyPrecedingShotWithin64": 68,
+    "hitMatchRates": {
+      "8": {
+        "windowTicks": 8,
+        "seconds": 0.125,
+        "matched": 67,
+        "total": 69,
+        "rate": 0.9710144927536232
+      },
+      "16": {
+        "windowTicks": 16,
+        "seconds": 0.25,
+        "matched": 68,
+        "total": 69,
+        "rate": 0.9855072463768116
+      },
+      "32": {
+        "windowTicks": 32,
+        "seconds": 0.5,
+        "matched": 68,
+        "total": 69,
+        "rate": 0.9855072463768116
+      },
+      "64": {
+        "windowTicks": 64,
+        "seconds": 1,
+        "matched": 68,
+        "total": 69,
+        "rate": 0.9855072463768116
+      }
+    },
+    "nearestPrecedingShotOffsetTicks": {
+      "count": 68,
+      "min": 1,
+      "p25": 1,
+      "median": 2,
+      "p75": 3,
+      "max": 14
+    },
+    "nearestPrecedingShotOffsetSeconds": {
+      "count": 68,
+      "min": 0.015625,
+      "p25": 0.015625,
+      "median": 0.03125,
+      "p75": 0.046875,
+      "max": 0.21875
+    },
+    "approximateShotToImpactDistanceHU": {
+      "count": 68,
+      "min": 285.1602351230525,
+      "p25": 434.19648909751527,
+      "median": 634.5031345767567,
+      "p75": 765.5853466668674,
+      "max": 1630.792068812518
+    },
+    "impliedSpeedHUPerSecondDiagnosticOnly": {
+      "count": 68,
+      "min": 2924.533084926174,
+      "p25": 14090.18844758705,
+      "median": 19347.168758139163,
+      "p75": 22705.194413655903,
+      "max": 41250.239284154464
+    },
+    "heroComparableMatches": 68,
+    "heroAgreement": 68,
+    "heroAgreementRate": 1
+  },
+  "byHero": [
+    {
+      "heroId": 19,
+      "hits": 13,
+      "matched": 13,
+      "within32": 13,
+      "within32Rate": 1,
+      "within64": 13,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 13,
+        "min": 1,
+        "p25": 1,
+        "median": 2,
+        "p75": 2,
+        "max": 4
+      },
+      "distanceHU": {
+        "count": 13,
+        "min": 288.8274281714951,
+        "p25": 409.9931809998053,
+        "median": 541.1371452429601,
+        "p75": 651.4250169817196,
+        "max": 1223.2443485780448
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 13,
+        "min": 17052.851884838794,
+        "p25": 18969.12809466674,
+        "median": 19571.909577248716,
+        "p75": 23436.24004080006,
+        "max": 26500.63134507365
+      }
+    },
+    {
+      "heroId": 31,
+      "hits": 11,
+      "matched": 11,
+      "within32": 11,
+      "within32Rate": 1,
+      "within64": 11,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 11,
+        "min": 1,
+        "p25": 2,
+        "median": 3,
+        "p75": 3,
+        "max": 3
+      },
+      "distanceHU": {
+        "count": 11,
+        "min": 335.53566228355294,
+        "p25": 562.517167663621,
+        "median": 861.327712159765,
+        "p75": 930.5815110086484,
+        "max": 1120.3038414681994
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 11,
+        "min": 15227.012010424927,
+        "p25": 18503.728583561227,
+        "median": 20004.79431425266,
+        "p75": 20630.072034164274,
+        "max": 23899.81528465492
+      }
+    },
+    {
+      "heroId": 35,
+      "hits": 7,
+      "matched": 7,
+      "within32": 7,
+      "within32Rate": 1,
+      "within64": 7,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 7,
+        "min": 2,
+        "p25": 2.5,
+        "median": 3,
+        "p75": 4.5,
+        "max": 6
+      },
+      "distanceHU": {
+        "count": 7,
+        "min": 426.457102524485,
+        "p25": 474.55228386485226,
+        "median": 657.4224909942153,
+        "p75": 757.3045678399099,
+        "max": 961.0989612550314
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 7,
+        "min": 9097.751520522346,
+        "p25": 10064.967759989591,
+        "median": 10341.853532642252,
+        "p75": 13036.393061684857,
+        "max": 22612.858510148602
+      }
+    },
+    {
+      "heroId": 13,
+      "hits": 7,
+      "matched": 7,
+      "within32": 7,
+      "within32Rate": 1,
+      "within64": 7,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 7,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1.5,
+        "max": 2
+      },
+      "distanceHU": {
+        "count": 7,
+        "min": 411.40917470713157,
+        "p25": 421.91059292823354,
+        "median": 602.210184772457,
+        "p75": 754.994400993578,
+        "max": 903.700971129802
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 7,
+        "min": 26330.18718125642,
+        "p25": 27002.277947406947,
+        "median": 27694.522021511762,
+        "p75": 33729.94145079546,
+        "max": 41250.239284154464
+      }
+    },
+    {
+      "heroId": 60,
+      "hits": 6,
+      "matched": 6,
+      "within32": 6,
+      "within32Rate": 1,
+      "within64": 6,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 6,
+        "min": 3,
+        "p25": 3,
+        "median": 3,
+        "p75": 3.75,
+        "max": 8
+      },
+      "distanceHU": {
+        "count": 6,
+        "min": 441.14441581753545,
+        "p25": 589.5094855147372,
+        "median": 681.0499266639431,
+        "p75": 1238.061204835647,
+        "max": 1630.792068812518
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 6,
+        "min": 9411.080870774089,
+        "p25": 11425.416518656319,
+        "median": 12328.69073309926,
+        "p75": 12748.674220084396,
+        "max": 34790.23080133372
+      }
+    },
+    {
+      "heroId": 50,
+      "hits": 6,
+      "matched": 6,
+      "within32": 6,
+      "within32Rate": 1,
+      "within64": 6,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 6,
+        "min": 2,
+        "p25": 2,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "distanceHU": {
+        "count": 6,
+        "min": 436.77628462185874,
+        "p25": 474.3045425023548,
+        "median": 586.010214021002,
+        "p75": 660.4355134165737,
+        "max": 718.1938163805562
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 6,
+        "min": 13976.84110789948,
+        "p25": 15177.745360075354,
+        "median": 18752.326848672063,
+        "p75": 21133.93642933036,
+        "max": 22982.2021241778
+      }
+    },
+    {
+      "heroId": 63,
+      "hits": 6,
+      "matched": 6,
+      "within32": 6,
+      "within32Rate": 1,
+      "within64": 6,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 6,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1.75,
+        "max": 2
+      },
+      "distanceHU": {
+        "count": 6,
+        "min": 288.9801204734317,
+        "p25": 318.46621838351774,
+        "median": 377.8002393123826,
+        "p75": 600.5388673690054,
+        "max": 779.0429406138743
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 6,
+        "min": 18494.72771029963,
+        "p25": 20183.391782625236,
+        "median": 21631.5532258718,
+        "p75": 24204.141978160886,
+        "max": 26329.985018273368
+      }
+    },
+    {
+      "heroId": 11,
+      "hits": 4,
+      "matched": 4,
+      "within32": 4,
+      "within32Rate": 1,
+      "within64": 4,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 4,
+        "min": 3,
+        "p25": 3.75,
+        "median": 4,
+        "p75": 4.25,
+        "max": 5
+      },
+      "distanceHU": {
+        "count": 4,
+        "min": 465.1332449547482,
+        "p25": 631.6230636168382,
+        "median": 735.5731880001906,
+        "p75": 831.5049282027863,
+        "max": 973.9395943226059
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 4,
+        "min": 9922.842559034629,
+        "p25": 10726.146677809076,
+        "median": 11730.170762364956,
+        "p75": 12485.926930148402,
+        "max": 12544.427298605544
+      }
+    },
+    {
+      "heroId": 25,
+      "hits": 4,
+      "matched": 4,
+      "within32": 4,
+      "within32Rate": 1,
+      "within64": 4,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 4,
+        "min": 1,
+        "p25": 1,
+        "median": 1.5,
+        "p75": 2.25,
+        "max": 3
+      },
+      "distanceHU": {
+        "count": 4,
+        "min": 285.1602351230525,
+        "p25": 288.65273014780405,
+        "median": 365.65799279911437,
+        "p75": 508.9233997290877,
+        "max": 711.1963275898282
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 4,
+        "min": 14127.970894149574,
+        "p25": 14911.133964974644,
+        "median": 16711.22168489585,
+        "p75": 18324.761608403394,
+        "max": 18548.28128998749
+      }
+    },
+    {
+      "heroId": 4,
+      "hits": 3,
+      "matched": 2,
+      "within32": 2,
+      "within32Rate": 0.6666666666666666,
+      "within64": 2,
+      "within64Rate": 0.6666666666666666,
+      "offsetTicks": {
+        "count": 2,
+        "min": 1,
+        "p25": 1.25,
+        "median": 1.5,
+        "p75": 1.75,
+        "max": 2
+      },
+      "distanceHU": {
+        "count": 2,
+        "min": 304.74091518964923,
+        "p25": 435.6431500775223,
+        "median": 566.5453849653954,
+        "p75": 697.4476198532684,
+        "max": 828.3498547411416
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 2,
+        "min": 19503.41857213755,
+        "p25": 21254.362767032297,
+        "median": 23005.30696192704,
+        "p75": 24756.251156821785,
+        "max": 26507.19535171653
+      }
+    },
+    {
+      "heroId": 27,
+      "hits": 1,
+      "matched": 1,
+      "within32": 1,
+      "within32Rate": 1,
+      "within64": 1,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 1,
+        "min": 5,
+        "p25": 5,
+        "median": 5,
+        "p75": 5,
+        "max": 5
+      },
+      "distanceHU": {
+        "count": 1,
+        "min": 751.7524029991783,
+        "p25": 751.7524029991783,
+        "median": 751.7524029991783,
+        "p75": 751.7524029991783,
+        "max": 751.7524029991783
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 1,
+        "min": 9622.430758389482,
+        "p25": 9622.430758389482,
+        "median": 9622.430758389482,
+        "p75": 9622.430758389482,
+        "max": 9622.430758389482
+      }
+    },
+    {
+      "heroId": 81,
+      "hits": 1,
+      "matched": 1,
+      "within32": 1,
+      "within32Rate": 1,
+      "within64": 1,
+      "within64Rate": 1,
+      "offsetTicks": {
+        "count": 1,
+        "min": 14,
+        "p25": 14,
+        "median": 14,
+        "p75": 14,
+        "max": 14
+      },
+      "distanceHU": {
+        "count": 1,
+        "min": 639.7416123276006,
+        "p25": 639.7416123276006,
+        "median": 639.7416123276006,
+        "p75": 639.7416123276006,
+        "max": 639.7416123276006
+      },
+      "impliedSpeedHUPerSecond": {
+        "count": 1,
+        "min": 2924.533084926174,
+        "p25": 2924.533084926174,
+        "median": 2924.533084926174,
+        "p75": 2924.533084926174,
+        "max": 2924.533084926174
+      }
+    }
+  ],
+  "byPlayer": [
+    {
+      "playerName": "ACE_Lazzy",
+      "heroId": 63,
+      "shotEvents": 1458,
+      "shotUnits": 1458,
+      "successfulSoulHits": 6
+    },
+    {
+      "playerName": "Aleister",
+      "heroId": 50,
+      "shotEvents": 527,
+      "shotUnits": 527,
+      "successfulSoulHits": 6
+    },
+    {
+      "playerName": "Dolan_161",
+      "heroId": 25,
+      "shotEvents": 2153,
+      "shotUnits": 2153,
+      "successfulSoulHits": 4
+    },
+    {
+      "playerName": "FlameHead58",
+      "heroId": 27,
+      "shotEvents": 475,
+      "shotUnits": 475,
+      "successfulSoulHits": 1
+    },
+    {
+      "playerName": "Ghostt",
+      "heroId": 13,
+      "shotEvents": 4873,
+      "shotUnits": 4873,
+      "successfulSoulHits": 7
+    },
+    {
+      "playerName": "Jack",
+      "heroId": 19,
+      "shotEvents": 782,
+      "shotUnits": 782,
+      "successfulSoulHits": 13
+    },
+    {
+      "playerName": "JustJorsh",
+      "heroId": 4,
+      "shotEvents": 680,
+      "shotUnits": 680,
+      "successfulSoulHits": 3
+    },
+    {
+      "playerName": "Mirzero",
+      "heroId": 11,
+      "shotEvents": 1790,
+      "shotUnits": 1790,
+      "successfulSoulHits": 4
+    },
+    {
+      "playerName": "Senor watermelon",
+      "heroId": 60,
+      "shotEvents": 1095,
+      "shotUnits": 1095,
+      "successfulSoulHits": 6
+    },
+    {
+      "playerName": "Spk",
+      "heroId": 81,
+      "shotEvents": 618,
+      "shotUnits": 618,
+      "successfulSoulHits": 1
+    },
+    {
+      "playerName": "Sugon",
+      "heroId": 31,
+      "shotEvents": 2510,
+      "shotUnits": 2510,
+      "successfulSoulHits": 11
+    },
+    {
+      "playerName": "renso",
+      "heroId": 35,
+      "shotEvents": 957,
+      "shotUnits": 957,
+      "successfulSoulHits": 7
+    }
+  ],
+  "semanticLimits": {
+    "damage": "CItemXP Damage is a successful impact/outcome anchor.",
+    "weaponDischarge": "m_nShotNumber / m_flLastAttackTime weapon telemetry is treated as observed actual weapon discharge, not target attribution.",
+    "nearestMatching": "The nearest preceding same-player shot is only a candidate source shot. Automatic weapons may produce multiple plausible preceding shots.",
+    "firingOrigin": "Shot-distance diagnostics use pawn position +64 HU as an operational firing-origin proxy, not an exact muzzle location.",
+    "impliedSpeed": "Distance divided by nearest-shot tick offset is exploratory only and must not yet be treated as canonical projectile velocity.",
+    "triggerInput": "This script does not inspect USER_COMMAND input. A player pressing fire when the weapon cannot discharge remains a separate future attempt-level signal."
+  },
+  "validation": {
+    "pass": true,
+    "thresholds": {
+      "minimumPositiveAnchors": 50,
+      "minimumPlayerLinkedShotEvents": 100,
+      "minimumHitWithPrecedingShotWithin64Rate": 0.9,
+      "minimumHeroAgreementRate": 0.95
+    },
+    "checks": {
+      "positiveHitAnchorsAvailable": {
+        "actual": 69,
+        "expected": ">=50",
+        "pass": true
+      },
+      "playerLinkedShotTelemetryObserved": {
+        "actual": 17918,
+        "expected": ">=100",
+        "pass": true
+      },
+      "successfulHitsHavePrecedingShotWithin64": {
+        "actual": 0.9855072463768116,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "nearestShotHeroIdentityAgrees": {
+        "actual": 1,
+        "expected": ">=0.95",
+        "pass": true
+      }
+    }
+  },
+  "nextStage": "CALIBRATE_HERO_SPECIFIC_SHOT_TO_HIT_TRAVEL_AND_WEAPON_READY_STATE",
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\rep05\\primary_weapon_shot_telemetry_validation_v01.json",
+    "shots": "G:\\DeadlockBehavior\\output\\rep05\\primary_weapon_shot_events_v01.jsonl",
+    "matches": "G:\\DeadlockBehavior\\output\\rep05\\primary_weapon_soul_hit_matches_v01.jsonl",
+    "markdown": "G:\\DeadlockBehavior\\output\\rep05\\primary_weapon_shot_telemetry_validation_v01.md"
+  }
+}

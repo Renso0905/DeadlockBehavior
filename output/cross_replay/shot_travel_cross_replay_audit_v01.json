@@ -1,0 +1,2821 @@
+{
+  "version": "SHOT_TRAVEL_CROSS_REPLAY_AUDIT_V01",
+  "canonical": false,
+  "createdAt": "2026-09-04T03:44:13.742Z",
+  "status": "SHOT_TRAVEL_CROSS_REPLAY_AUDIT_READY",
+  "inputs": {
+    "script128": "G:\\DeadlockBehavior\\output\\cross_replay\\hero_specific_shot_travel_candidate_models_v01.json",
+    "heroMap": "G:\\DeadlockBehavior\\output\\cross_replay\\hero_id_display_name_map_v05.json"
+  },
+  "thresholds": {
+    "minimumAvailableFolds": 2,
+    "maximumHeldOutMedianResidualTicks": 1.5,
+    "minimumHeldOutWithinOneTickRate": 0.7,
+    "minimumHeldOutWithinTwoTickRate": 0.9,
+    "stableSpeedRangeRatio": 1.5,
+    "stableDelayRangeTicks": 1,
+    "highSpeedBoundaryHUPerSecond": 72000
+  },
+  "scope": {
+    "successfulHitCohort": 529,
+    "heroModels": 31,
+    "multiReplayModeledHeroes": 15
+  },
+  "aggregate": {
+    "timingGeneralizes": 0,
+    "timingGeneralizesParametersStableInCohort": 0,
+    "timingGeneralizesParametersVariable": 0,
+    "highSpeedTimingGeneralizesExactSpeedUnresolved": 0,
+    "timingDoesNotGeneralizeCleanly": 11,
+    "classificationCounts": {
+      "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY": 11,
+      "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL": 10,
+      "INSUFFICIENT_FOR_TRAVEL_MODEL": 6,
+      "SINGLE_REPLAY_HIGH_SPEED_TIMING_ONLY": 3,
+      "SINGLE_REPLAY_MODEL_WEAK_OR_UNRESOLVED": 1
+    }
+  },
+  "integrity": {
+    "pass": true,
+    "checks": {
+      "successfulHitCohortPreserved": {
+        "actual": 529,
+        "expected": 529,
+        "pass": true
+      },
+      "heroIdentityReady": {
+        "actual": "DEADLOCK_HERO_ID_DISPLAY_NAME_MAP_READY",
+        "expected": "DEADLOCK_HERO_ID_DISPLAY_NAME_MAP_READY",
+        "pass": true
+      },
+      "heroAuditsAvailable": {
+        "actual": 31,
+        "expected": ">0",
+        "pass": true
+      },
+      "multiReplayModelsAvailable": {
+        "actual": 15,
+        "expected": ">0",
+        "pass": true
+      },
+      "leaveOneReplayOutEvidenceAvailable": {
+        "actual": 15,
+        "expected": ">0",
+        "pass": true
+      }
+    }
+  },
+  "heroAudits": [
+    {
+      "heroId": 76,
+      "displayName": "Graves",
+      "internalKey": "necro",
+      "hits": 61,
+      "modeledHits": 61,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep04"
+      ],
+      "script128Status": "HIGH_SPEED_TIMING_RESOLUTION_LIMITED",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 79999.99999999994,
+        "fixedDelayTicks": 1.75,
+        "medianResidualTicks": 1.1160048447445732,
+        "p75ResidualTicks": 1.9247992476146552,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 2,
+      "totalFoldCount": 2,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 2,
+        "min": 8740.401922846495,
+        "p25": 25528.289951166043,
+        "median": 42316.17797948559,
+        "p75": 59104.066007805144,
+        "max": 75891.95403612469
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 2,
+        "min": 1,
+        "p25": 1.125,
+        "median": 1.25,
+        "p75": 1.375,
+        "max": 1.5
+      },
+      "speedRangeRatio": 8.682890638901979,
+      "delayRangeTicks": 0.5,
+      "foldHighSpeedCount": 1,
+      "heldOutMedianResidualTicks": {
+        "count": 2,
+        "min": 2.134694118903245,
+        "p25": 2.1910470455404436,
+        "median": 2.2473999721776425,
+        "p75": 2.3037528988148415,
+        "max": 2.36010582545204
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 2,
+        "min": 0.16666666666666666,
+        "p25": 0.18313953488372092,
+        "median": 0.1996124031007752,
+        "p75": 0.21608527131782945,
+        "max": 0.23255813953488372
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": true
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep02",
+          "trainingHits": 18,
+          "testHits": 43,
+          "trainedSpeedHUPerSecond": 8740.401922846495,
+          "trainedFixedDelayTicks": 1,
+          "heldOutMedianResidualTicks": 2.36010582545204,
+          "heldOutP75ResidualTicks": 2.841331214935148,
+          "heldOutWithinOneTickRate": 0.23255813953488372,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep04",
+          "trainingHits": 43,
+          "testHits": 18,
+          "trainedSpeedHUPerSecond": 75891.95403612469,
+          "trainedFixedDelayTicks": 1.5,
+          "heldOutMedianResidualTicks": 2.134694118903245,
+          "heldOutP75ResidualTicks": 3.0340960882093735,
+          "heldOutWithinOneTickRate": 0.16666666666666666,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 2,
+      "displayName": "Seven",
+      "internalKey": "gigawatt",
+      "hits": 53,
+      "modeledHits": 53,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep03",
+        "rep04"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 26442.998200425744,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.24454644327163244,
+        "p75ResidualTicks": 0.40512894299228464,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 3,
+      "totalFoldCount": 3,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 3,
+        "min": 23382.490908847874,
+        "p25": 24456.15862896787,
+        "median": 25529.826349087867,
+        "p75": 26949.162910206636,
+        "max": 28368.499471325405
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 3,
+        "min": 0.25,
+        "p25": 0.375,
+        "median": 0.5,
+        "p75": 0.5,
+        "max": 0.5
+      },
+      "speedRangeRatio": 1.2132368438381747,
+      "delayRangeTicks": 0.25,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 3,
+        "min": 0.1755528521469878,
+        "p25": 0.23182537923299973,
+        "median": 0.28809790631901167,
+        "p75": 0.3308007689822038,
+        "max": 0.3735036316453959
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 3,
+        "min": 0.9,
+        "p25": 0.95,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": true,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep01",
+          "trainingHits": 43,
+          "testHits": 10,
+          "trainedSpeedHUPerSecond": 25529.826349087867,
+          "trainedFixedDelayTicks": 0.5,
+          "heldOutMedianResidualTicks": 0.3735036316453959,
+          "heldOutP75ResidualTicks": 0.5183656604055178,
+          "heldOutWithinOneTickRate": 0.9,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep03",
+          "trainingHits": 42,
+          "testHits": 11,
+          "trainedSpeedHUPerSecond": 23382.490908847874,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.1755528521469878,
+          "heldOutP75ResidualTicks": 0.4643325060574456,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep04",
+          "trainingHits": 21,
+          "testHits": 32,
+          "trainedSpeedHUPerSecond": 28368.499471325405,
+          "trainedFixedDelayTicks": 0.5,
+          "heldOutMedianResidualTicks": 0.28809790631901167,
+          "heldOutP75ResidualTicks": 0.4480412302123238,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 35,
+      "displayName": "Viscous",
+      "internalKey": "viscous",
+      "hits": 51,
+      "modeledHits": 51,
+      "replayCount": 5,
+      "replays": [
+        "rep01",
+        "rep02",
+        "rep03",
+        "rep04",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 15069.725480563324,
+        "fixedDelayTicks": 0.25,
+        "medianResidualTicks": 0.4926344905609259,
+        "p75ResidualTicks": 1.3367185864403124,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 5,
+      "totalFoldCount": 5,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 5,
+        "min": 15069.725480563324,
+        "p25": 15336.870775444808,
+        "median": 15336.870775444808,
+        "p75": 16745.33518100699,
+        "max": 17042.184483974666
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 5,
+        "min": 0.25,
+        "p25": 0.25,
+        "median": 0.25,
+        "p75": 0.5,
+        "max": 0.75
+      },
+      "speedRangeRatio": 1.130888847706973,
+      "delayRangeTicks": 0.5,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 5,
+        "min": 0.3351478578020677,
+        "p25": 0.5618497164446064,
+        "median": 1.01197634028697,
+        "p75": 1.0809743669571361,
+        "max": 1.3613167056387723
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 5,
+        "min": 0.4,
+        "p25": 0.42857142857142855,
+        "median": 0.4666666666666667,
+        "p75": 0.7272727272727273,
+        "max": 0.7692307692307693
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": true,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep01",
+          "trainingHits": 40,
+          "testHits": 11,
+          "trainedSpeedHUPerSecond": 16745.33518100699,
+          "trainedFixedDelayTicks": 0.75,
+          "heldOutMedianResidualTicks": 0.5618497164446064,
+          "heldOutP75ResidualTicks": 1.175570524928633,
+          "heldOutWithinOneTickRate": 0.7272727272727273,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep02",
+          "trainingHits": 38,
+          "testHits": 13,
+          "trainedSpeedHUPerSecond": 15336.870775444808,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.3351478578020677,
+          "heldOutP75ResidualTicks": 0.4186584000099276,
+          "heldOutWithinOneTickRate": 0.7692307692307693,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep03",
+          "trainingHits": 46,
+          "testHits": 5,
+          "trainedSpeedHUPerSecond": 15069.725480563324,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 1.3613167056387723,
+          "heldOutP75ResidualTicks": 1.5764362616147318,
+          "heldOutWithinOneTickRate": 0.4,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep04",
+          "trainingHits": 36,
+          "testHits": 15,
+          "trainedSpeedHUPerSecond": 17042.184483974666,
+          "trainedFixedDelayTicks": 0.5,
+          "heldOutMedianResidualTicks": 1.0809743669571361,
+          "heldOutP75ResidualTicks": 1.6725999926615531,
+          "heldOutWithinOneTickRate": 0.4666666666666667,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep05",
+          "trainingHits": 44,
+          "testHits": 7,
+          "trainedSpeedHUPerSecond": 15336.870775444808,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 1.01197634028697,
+          "heldOutP75ResidualTicks": 1.2871808438753891,
+          "heldOutWithinOneTickRate": 0.42857142857142855,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 31,
+      "displayName": "Lash",
+      "internalKey": "lash",
+      "hits": 43,
+      "modeledHits": 43,
+      "replayCount": 4,
+      "replays": [
+        "rep02",
+        "rep03",
+        "rep04",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 25085.135050050496,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.2741974425359901,
+        "p75ResidualTicks": 0.3567409033607951,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 4,
+      "totalFoldCount": 4,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 4,
+        "min": 22975.20297375557,
+        "p25": 24891.17050525479,
+        "median": 25756.113582956084,
+        "p75": 26097.550162724663,
+        "max": 26442.998200425744
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 4,
+        "min": 0.25,
+        "p25": 0.4375,
+        "median": 0.5,
+        "p75": 0.5625,
+        "max": 0.75
+      },
+      "speedRangeRatio": 1.1509364348437492,
+      "delayRangeTicks": 0.5,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 4,
+        "min": 0.2633472828328234,
+        "p25": 0.30068231092808184,
+        "median": 0.3398071209536244,
+        "p75": 0.38896837671474815,
+        "max": 0.4564127420167501
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 4,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": true,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep02",
+          "trainingHits": 33,
+          "testHits": 10,
+          "trainedSpeedHUPerSecond": 22975.20297375557,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.36648692161408086,
+          "heldOutP75ResidualTicks": 0.4914864122270869,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep03",
+          "trainingHits": 27,
+          "testHits": 16,
+          "trainedSpeedHUPerSecond": 26442.998200425744,
+          "trainedFixedDelayTicks": 0.75,
+          "heldOutMedianResidualTicks": 0.4564127420167501,
+          "heldOutP75ResidualTicks": 0.5088573729085598,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep04",
+          "trainingHits": 37,
+          "testHits": 6,
+          "trainedSpeedHUPerSecond": 25529.826349087867,
+          "trainedFixedDelayTicks": 0.5,
+          "heldOutMedianResidualTicks": 0.31312732029316803,
+          "heldOutP75ResidualTicks": 0.4233350725707494,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep05",
+          "trainingHits": 32,
+          "testHits": 11,
+          "trainedSpeedHUPerSecond": 25982.4008168243,
+          "trainedFixedDelayTicks": 0.5,
+          "heldOutMedianResidualTicks": 0.2633472828328234,
+          "heldOutP75ResidualTicks": 0.32717079577287345,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 1,
+      "displayName": "Infernus",
+      "internalKey": "inferno",
+      "hits": 39,
+      "modeledHits": 38,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep03",
+        "rep04"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 31522.80596234232,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.11052654729269018,
+        "p75ResidualTicks": 0.23910807974239906,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 3,
+      "totalFoldCount": 3,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 3,
+        "min": 28368.499471325405,
+        "p25": 29945.652716833865,
+        "median": 31522.80596234232,
+        "p75": 35222.70448303173,
+        "max": 38922.60300372114
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 3,
+        "min": 0.25,
+        "p25": 0.375,
+        "median": 0.5,
+        "p75": 0.75,
+        "max": 1
+      },
+      "speedRangeRatio": 1.3720360163238001,
+      "delayRangeTicks": 0.75,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 3,
+        "min": 0.09728259557693675,
+        "p25": 0.1736651733550682,
+        "median": 0.25004775113319966,
+        "p75": 0.2599656020468695,
+        "max": 0.2698834529605394
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 3,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": true,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep01",
+          "trainingHits": 30,
+          "testHits": 8,
+          "trainedSpeedHUPerSecond": 28368.499471325405,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.25004775113319966,
+          "heldOutP75ResidualTicks": 0.5850187964551723,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep03",
+          "trainingHits": 10,
+          "testHits": 28,
+          "trainedSpeedHUPerSecond": 38922.60300372114,
+          "trainedFixedDelayTicks": 1,
+          "heldOutMedianResidualTicks": 0.2698834529605394,
+          "heldOutP75ResidualTicks": 0.4379365202078737,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep04",
+          "trainingHits": 36,
+          "testHits": 2,
+          "trainedSpeedHUPerSecond": 31522.80596234232,
+          "trainedFixedDelayTicks": 0.5,
+          "heldOutMedianResidualTicks": 0.09728259557693675,
+          "heldOutP75ResidualTicks": 0.14575244700112522,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 11,
+      "displayName": "Dynamo",
+      "internalKey": "dynamo",
+      "hits": 29,
+      "modeledHits": 29,
+      "replayCount": 2,
+      "replays": [
+        "rep03",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 12865.379014791055,
+        "fixedDelayTicks": 0.25,
+        "medianResidualTicks": 0.2041106282699383,
+        "p75ResidualTicks": 0.34301965547347635,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 1,
+      "totalFoldCount": 2,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 1,
+        "min": 12865.379014791055,
+        "p25": 12865.379014791055,
+        "median": 12865.379014791055,
+        "p75": 12865.379014791055,
+        "max": 12865.379014791055
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 1,
+        "min": 0.25,
+        "p25": 0.25,
+        "median": 0.25,
+        "p75": 0.25,
+        "max": 0.25
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 1,
+        "min": 0.24142338949301578,
+        "p25": 0.24142338949301578,
+        "median": 0.24142338949301578,
+        "p75": 0.24142338949301578,
+        "max": 0.24142338949301578
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 1,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": [
+        {
+          "heldOutReplay": "rep05",
+          "trainingHits": 25,
+          "testHits": 4,
+          "trainedSpeedHUPerSecond": 12865.379014791055,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.24142338949301578,
+          "heldOutP75ResidualTicks": 0.36364250474922677,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 13,
+      "displayName": "Haze",
+      "internalKey": "haze",
+      "hits": 24,
+      "modeledHits": 23,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep04",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 36280.74591056955,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.24664452890036026,
+        "p75ResidualTicks": 0.4513516626195392,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 3,
+      "totalFoldCount": 3,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 3,
+        "min": 26911.760724395703,
+        "p25": 30070.451096448494,
+        "median": 33229.141468501286,
+        "p75": 42851.07536539987,
+        "max": 52473.009262298445
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 3,
+        "min": 0,
+        "p25": 0.125,
+        "median": 0.25,
+        "p75": 0.75,
+        "max": 1.25
+      },
+      "speedRangeRatio": 1.9498170260829975,
+      "delayRangeTicks": 1.25,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 3,
+        "min": 0.35842974564385954,
+        "p25": 0.42444140260443525,
+        "median": 0.49045305956501095,
+        "p75": 0.6251960397356412,
+        "max": 0.7599390199062714
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 3,
+        "min": 0.8571428571428571,
+        "p25": 0.9285714285714286,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep01",
+          "trainingHits": 13,
+          "testHits": 10,
+          "trainedSpeedHUPerSecond": 33229.141468501286,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.35842974564385954,
+          "heldOutP75ResidualTicks": 0.556957324740676,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep04",
+          "trainingHits": 17,
+          "testHits": 6,
+          "trainedSpeedHUPerSecond": 26911.760724395703,
+          "trainedFixedDelayTicks": 0,
+          "heldOutMedianResidualTicks": 0.49045305956501095,
+          "heldOutP75ResidualTicks": 0.589966446073553,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep05",
+          "trainingHits": 16,
+          "testHits": 7,
+          "trainedSpeedHUPerSecond": 52473.009262298445,
+          "trainedFixedDelayTicks": 1.25,
+          "heldOutMedianResidualTicks": 0.7599390199062714,
+          "heldOutP75ResidualTicks": 0.8732263777949235,
+          "heldOutWithinOneTickRate": 0.8571428571428571,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 19,
+      "displayName": "Shiv",
+      "internalKey": "shiv",
+      "hits": 24,
+      "modeledHits": 23,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 24218.855097940283,
+        "fixedDelayTicks": 0.25,
+        "medianResidualTicks": 0.18569610601443687,
+        "p75ResidualTicks": 0.3094395374539294,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 2,
+      "totalFoldCount": 2,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 2,
+        "min": 19614.47105193526,
+        "p25": 21321.60283905788,
+        "median": 23028.7346261805,
+        "p75": 24735.86641330312,
+        "max": 26442.998200425744
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 2,
+        "min": 0,
+        "p25": 0.0625,
+        "median": 0.125,
+        "p75": 0.1875,
+        "max": 0.25
+      },
+      "speedRangeRatio": 1.348137205964407,
+      "delayRangeTicks": 0.25,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 2,
+        "min": 0.19095545555795734,
+        "p25": 0.19588964254803498,
+        "median": 0.20082382953811262,
+        "p75": 0.20575801652819026,
+        "max": 0.2106922035182679
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 2,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": true,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep02",
+          "trainingHits": 13,
+          "testHits": 10,
+          "trainedSpeedHUPerSecond": 19614.47105193526,
+          "trainedFixedDelayTicks": 0,
+          "heldOutMedianResidualTicks": 0.19095545555795734,
+          "heldOutP75ResidualTicks": 0.34277351682969365,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep05",
+          "trainingHits": 10,
+          "testHits": 13,
+          "trainedSpeedHUPerSecond": 26442.998200425744,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.2106922035182679,
+          "heldOutP75ResidualTicks": 0.29828609795729544,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 7,
+      "displayName": "Wraith",
+      "internalKey": "wraith",
+      "hits": 20,
+      "modeledHits": 20,
+      "replayCount": 1,
+      "replays": [
+        "rep02"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 25529.826349087867,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.1343921259224211,
+        "p75ResidualTicks": 0.20375536127015592,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": []
+    },
+    {
+      "heroId": 27,
+      "displayName": "Yamato",
+      "internalKey": "yamato",
+      "hits": 18,
+      "modeledHits": 18,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep04",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 10604.177642751412,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.30346741050598647,
+        "p75ResidualTicks": 0.4212166941289066,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 3,
+      "totalFoldCount": 3,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 3,
+        "min": 9712.251228700647,
+        "p25": 9712.251228700647,
+        "median": 9712.251228700647,
+        "p75": 10158.21443572603,
+        "max": 10604.177642751412
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 3,
+        "min": 0,
+        "p25": 0.125,
+        "median": 0.25,
+        "p75": 0.375,
+        "max": 0.5
+      },
+      "speedRangeRatio": 1.0918351876457888,
+      "delayRangeTicks": 0.5,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 3,
+        "min": 0.03155798084189243,
+        "p25": 0.19078243158364883,
+        "median": 0.3500068823254052,
+        "p75": 0.39827379678678076,
+        "max": 0.4465407112481563
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 3,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": true,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep01",
+          "trainingHits": 11,
+          "testHits": 7,
+          "trainedSpeedHUPerSecond": 9712.251228700647,
+          "trainedFixedDelayTicks": 0,
+          "heldOutMedianResidualTicks": 0.3500068823254052,
+          "heldOutP75ResidualTicks": 0.41986154065930736,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep04",
+          "trainingHits": 8,
+          "testHits": 10,
+          "trainedSpeedHUPerSecond": 9712.251228700647,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.4465407112481563,
+          "heldOutP75ResidualTicks": 0.607289822918864,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep05",
+          "trainingHits": 17,
+          "testHits": 1,
+          "trainedSpeedHUPerSecond": 10604.177642751412,
+          "trainedFixedDelayTicks": 0.5,
+          "heldOutMedianResidualTicks": 0.03155798084189243,
+          "heldOutP75ResidualTicks": 0.03155798084189243,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 66,
+      "displayName": "Victor",
+      "internalKey": "frank",
+      "hits": 17,
+      "modeledHits": 17,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep03"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 7594.165636117954,
+        "fixedDelayTicks": 0,
+        "medianResidualTicks": 0.1626545965306434,
+        "p75ResidualTicks": 0.35106533349786684,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 2,
+      "totalFoldCount": 2,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 2,
+        "min": 7461.886656400155,
+        "p25": 7597.7248103351385,
+        "median": 7733.562964270122,
+        "p75": 7869.401118205105,
+        "max": 8005.239272140089
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 2,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0,
+        "max": 0
+      },
+      "speedRangeRatio": 1.0728170556267957,
+      "delayRangeTicks": 0,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 2,
+        "min": 0.32498774829850696,
+        "p25": 0.35025964662034526,
+        "median": 0.3755315449421835,
+        "p75": 0.40080344326402173,
+        "max": 0.42607534158586
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 2,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": true,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep02",
+          "trainingHits": 7,
+          "testHits": 10,
+          "trainedSpeedHUPerSecond": 8005.239272140089,
+          "trainedFixedDelayTicks": 0,
+          "heldOutMedianResidualTicks": 0.32498774829850696,
+          "heldOutP75ResidualTicks": 0.39500835315732263,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep03",
+          "trainingHits": 10,
+          "testHits": 7,
+          "trainedSpeedHUPerSecond": 7461.886656400155,
+          "trainedFixedDelayTicks": 0,
+          "heldOutMedianResidualTicks": 0.42607534158586,
+          "heldOutP75ResidualTicks": 0.5200297325130783,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 67,
+      "displayName": "Paige",
+      "internalKey": "bookworm",
+      "hits": 17,
+      "modeledHits": 17,
+      "replayCount": 2,
+      "replays": [
+        "rep03",
+        "rep04"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 2992.3676224154297,
+        "fixedDelayTicks": 0,
+        "medianResidualTicks": 0.22182007481062982,
+        "p75ResidualTicks": 0.8572190560229678,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 1,
+      "totalFoldCount": 2,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 1,
+        "min": 2992.3676224154297,
+        "p25": 2992.3676224154297,
+        "median": 2992.3676224154297,
+        "p75": 2992.3676224154297,
+        "max": 2992.3676224154297
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 1,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0,
+        "max": 0
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 1,
+        "min": 2.4090219006563274,
+        "p25": 2.4090219006563274,
+        "median": 2.4090219006563274,
+        "p75": 2.4090219006563274,
+        "max": 2.4090219006563274
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 1,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0,
+        "max": 0
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": [
+        {
+          "heldOutReplay": "rep03",
+          "trainingHits": 16,
+          "testHits": 1,
+          "trainedSpeedHUPerSecond": 2992.3676224154297,
+          "trainedFixedDelayTicks": 0,
+          "heldOutMedianResidualTicks": 2.4090219006563274,
+          "heldOutP75ResidualTicks": 2.4090219006563274,
+          "heldOutWithinOneTickRate": 0,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 4,
+      "displayName": "Lady Geist",
+      "internalKey": "ghost",
+      "hits": 15,
+      "modeledHits": 14,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep03",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 30973.725943504025,
+        "fixedDelayTicks": 0.25,
+        "medianResidualTicks": 0.12394449500960786,
+        "p75ResidualTicks": 0.3052954929221069,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 3,
+      "totalFoldCount": 3,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 3,
+        "min": 30973.725943504025,
+        "p25": 30973.725943504025,
+        "median": 30973.725943504025,
+        "p75": 31248.265952923175,
+        "max": 31522.80596234232
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 3,
+        "min": 0.25,
+        "p25": 0.25,
+        "median": 0.25,
+        "p75": 0.25,
+        "max": 0.25
+      },
+      "speedRangeRatio": 1.017727283434993,
+      "delayRangeTicks": 0,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 3,
+        "min": 0.1030207947974594,
+        "p25": 0.13608019520982,
+        "median": 0.16913959562218062,
+        "p75": 0.1767452998396698,
+        "max": 0.18435100405715898
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 3,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": true,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep01",
+          "trainingHits": 8,
+          "testHits": 6,
+          "trainedSpeedHUPerSecond": 30973.725943504025,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.16913959562218062,
+          "heldOutP75ResidualTicks": 0.3052954929221069,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep03",
+          "trainingHits": 8,
+          "testHits": 6,
+          "trainedSpeedHUPerSecond": 30973.725943504025,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.18435100405715898,
+          "heldOutP75ResidualTicks": 0.3091756200157803,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep05",
+          "trainingHits": 12,
+          "testHits": 2,
+          "trainedSpeedHUPerSecond": 31522.80596234232,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.1030207947974594,
+          "heldOutP75ResidualTicks": 0.11933100338831765,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 8,
+      "displayName": "McGinnis",
+      "internalKey": "forge",
+      "hits": 11,
+      "modeledHits": 11,
+      "replayCount": 1,
+      "replays": [
+        "rep04"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 22975.20297375557,
+        "fixedDelayTicks": 0.25,
+        "medianResidualTicks": 0.22351343148833314,
+        "p75ResidualTicks": 0.32005027849730316,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": []
+    },
+    {
+      "heroId": 18,
+      "displayName": "Mo & Krill",
+      "internalKey": "krill",
+      "hits": 11,
+      "modeledHits": 11,
+      "replayCount": 1,
+      "replays": [
+        "rep04"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 14549.313649350526,
+        "fixedDelayTicks": 0.75,
+        "medianResidualTicks": 0.1517310295462586,
+        "p75ResidualTicks": 0.5286255208047237,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": []
+    },
+    {
+      "heroId": 25,
+      "displayName": "Warden",
+      "internalKey": "warden",
+      "hits": 11,
+      "modeledHits": 11,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep02",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 15336.870775444808,
+        "fixedDelayTicks": 0,
+        "medianResidualTicks": 0.25481487241602974,
+        "p75ResidualTicks": 0.41265290799738064,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 3,
+      "totalFoldCount": 3,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 3,
+        "min": 15336.870775444808,
+        "p25": 15336.870775444808,
+        "median": 15336.870775444808,
+        "p75": 17475.67091369003,
+        "max": 19614.47105193526
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 3,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0.125,
+        "max": 0.25
+      },
+      "speedRangeRatio": 1.278909585868007,
+      "delayRangeTicks": 0.25,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 3,
+        "min": 0.25007981361753495,
+        "p25": 0.25244734301678234,
+        "median": 0.25481487241602974,
+        "p75": 0.4404213514318315,
+        "max": 0.6260278304476332
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 3,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": true,
+        "everyFoldResidualAcceptable": true,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": true,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "CROSS_REPLAY_TIMING_DOES_NOT_GENERALIZE_CLEANLY",
+      "folds": [
+        {
+          "heldOutReplay": "rep01",
+          "trainingHits": 7,
+          "testHits": 4,
+          "trainedSpeedHUPerSecond": 15336.870775444808,
+          "trainedFixedDelayTicks": 0,
+          "heldOutMedianResidualTicks": 0.6260278304476332,
+          "heldOutP75ResidualTicks": 0.8558471423968851,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep02",
+          "trainingHits": 8,
+          "testHits": 3,
+          "trainedSpeedHUPerSecond": 15336.870775444808,
+          "trainedFixedDelayTicks": 0,
+          "heldOutMedianResidualTicks": 0.25481487241602974,
+          "heldOutP75ResidualTicks": 0.33222293829863925,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        },
+        {
+          "heldOutReplay": "rep05",
+          "trainingHits": 7,
+          "testHits": 4,
+          "trainedSpeedHUPerSecond": 19614.47105193526,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.25007981361753495,
+          "heldOutP75ResidualTicks": 0.345701444596858,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 58,
+      "displayName": "Vyper",
+      "internalKey": "viper",
+      "hits": 10,
+      "modeledHits": 8,
+      "replayCount": 1,
+      "replays": [
+        "rep03"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 17964.681184371715,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.06269043134893904,
+        "p75ResidualTicks": 0.20480417045071936,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": []
+    },
+    {
+      "heroId": 63,
+      "displayName": "Mina",
+      "internalKey": "vampirebat",
+      "hits": 10,
+      "modeledHits": 10,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 24218.855097940283,
+        "fixedDelayTicks": 0.25,
+        "medianResidualTicks": 0.19288126416713458,
+        "p75ResidualTicks": 0.323199576946513,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 1,
+      "totalFoldCount": 2,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 1,
+        "min": 28368.499471325405,
+        "p25": 28368.499471325405,
+        "median": 28368.499471325405,
+        "p75": 28368.499471325405,
+        "max": 28368.499471325405
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 1,
+        "min": 0.25,
+        "p25": 0.25,
+        "median": 0.25,
+        "p75": 0.25,
+        "max": 0.25
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 1,
+        "min": 0.3929040297090326,
+        "p25": 0.3929040297090326,
+        "median": 0.3929040297090326,
+        "p75": 0.3929040297090326,
+        "max": 0.3929040297090326
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 1,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": [
+        {
+          "heldOutReplay": "rep02",
+          "trainingHits": 6,
+          "testHits": 4,
+          "trainedSpeedHUPerSecond": 28368.499471325405,
+          "trainedFixedDelayTicks": 0.25,
+          "heldOutMedianResidualTicks": 0.3929040297090326,
+          "heldOutP75ResidualTicks": 0.487755593003923,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 60,
+      "displayName": "Sinclair",
+      "internalKey": "magician",
+      "hits": 9,
+      "modeledHits": 9,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep05"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 11578.014286402764,
+        "fixedDelayTicks": 0,
+        "medianResidualTicks": 0.2749209444247116,
+        "p75ResidualTicks": 0.4874470589675237,
+        "nearestAssignedRate": 0.8888888888888888
+      },
+      "availableFoldCount": 1,
+      "totalFoldCount": 2,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 1,
+        "min": 11578.014286402764,
+        "p25": 11578.014286402764,
+        "median": 11578.014286402764,
+        "p75": 11578.014286402764,
+        "max": 11578.014286402764
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 1,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0,
+        "max": 0
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 1,
+        "min": 0.4874470589675237,
+        "p25": 0.4874470589675237,
+        "median": 0.4874470589675237,
+        "p75": 0.4874470589675237,
+        "max": 0.4874470589675237
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 1,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": [
+        {
+          "heldOutReplay": "rep02",
+          "trainingHits": 6,
+          "testHits": 3,
+          "trainedSpeedHUPerSecond": 11578.014286402764,
+          "trainedFixedDelayTicks": 0,
+          "heldOutMedianResidualTicks": 0.4874470589675237,
+          "heldOutP75ResidualTicks": 0.5550969112132869,
+          "heldOutWithinOneTickRate": 1,
+          "heldOutWithinTwoTickRate": null
+        }
+      ]
+    },
+    {
+      "heroId": 65,
+      "displayName": "Venator",
+      "internalKey": "priest",
+      "hits": 9,
+      "modeledHits": 9,
+      "replayCount": 1,
+      "replays": [
+        "rep03"
+      ],
+      "script128Status": "HIGH_SPEED_TIMING_RESOLUTION_LIMITED",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 79999.99999999994,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.16305678294421355,
+        "p75ResidualTicks": 0.2622551494332539,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": true
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_HIGH_SPEED_TIMING_ONLY",
+      "folds": []
+    },
+    {
+      "heroId": 14,
+      "displayName": "Holliday",
+      "internalKey": "astro",
+      "hits": 8,
+      "modeledHits": 8,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 46399.7937274689,
+        "fixedDelayTicks": 0.75,
+        "medianResidualTicks": 0.13632847232015588,
+        "p75ResidualTicks": 0.19878286144128826,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": []
+    },
+    {
+      "heroId": 15,
+      "displayName": "Bebop",
+      "internalKey": "bebop",
+      "hits": 7,
+      "modeledHits": 7,
+      "replayCount": 1,
+      "replays": [
+        "rep02"
+      ],
+      "script128Status": "HIGH_SPEED_TIMING_RESOLUTION_LIMITED",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 79999.99999999994,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.0750812201118527,
+        "p75ResidualTicks": 0.11289435023314942,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": true
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_HIGH_SPEED_TIMING_ONLY",
+      "folds": []
+    },
+    {
+      "heroId": 64,
+      "displayName": "Drifter",
+      "internalKey": "drifter",
+      "hits": 7,
+      "modeledHits": 7,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "script128Status": "MODEL_WEAK_OR_UNRESOLVED",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 4252.489926698948,
+        "fixedDelayTicks": 2,
+        "medianResidualTicks": 1.372681930055144,
+        "p75ResidualTicks": 2.1694802989198907,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_MODEL_WEAK_OR_UNRESOLVED",
+      "folds": []
+    },
+    {
+      "heroId": 50,
+      "displayName": "Pocket",
+      "internalKey": "synth",
+      "hits": 6,
+      "modeledHits": 6,
+      "replayCount": 1,
+      "replays": [
+        "rep05"
+      ],
+      "script128Status": "HIGH_SPEED_TIMING_RESOLUTION_LIMITED",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 79999.99999999994,
+        "fixedDelayTicks": 1.5,
+        "medianResidualTicks": 0.07907194565666942,
+        "p75ResidualTicks": 0.12205656121937253,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": true
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_HIGH_SPEED_TIMING_ONLY",
+      "folds": []
+    },
+    {
+      "heroId": 69,
+      "displayName": "The Doorman",
+      "internalKey": "doorman",
+      "hits": 5,
+      "modeledHits": 5,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "script128Status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "pooledModelAvailable": true,
+      "pooled": {
+        "speedHUPerSecond": 12204.734410598103,
+        "fixedDelayTicks": 0.5,
+        "medianResidualTicks": 0.11103658640967007,
+        "p75ResidualTicks": 0.37454021591612596,
+        "nearestAssignedRate": 1
+      },
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "SINGLE_REPLAY_FINITE_MODEL_PROVISIONAL",
+      "folds": []
+    },
+    {
+      "heroId": 10,
+      "displayName": "Paradox",
+      "internalKey": "chrono",
+      "hits": 4,
+      "modeledHits": 4,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "script128Status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "pooledModelAvailable": false,
+      "pooled": null,
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "INSUFFICIENT_FOR_TRAVEL_MODEL",
+      "folds": []
+    },
+    {
+      "heroId": 16,
+      "displayName": "Calico",
+      "internalKey": "nano",
+      "hits": 3,
+      "modeledHits": 3,
+      "replayCount": 1,
+      "replays": [
+        "rep03"
+      ],
+      "script128Status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "pooledModelAvailable": false,
+      "pooled": null,
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "INSUFFICIENT_FOR_TRAVEL_MODEL",
+      "folds": []
+    },
+    {
+      "heroId": 79,
+      "displayName": "Rem",
+      "internalKey": "familiar",
+      "hits": 3,
+      "modeledHits": 3,
+      "replayCount": 1,
+      "replays": [
+        "rep03"
+      ],
+      "script128Status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "pooledModelAvailable": false,
+      "pooled": null,
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "INSUFFICIENT_FOR_TRAVEL_MODEL",
+      "folds": []
+    },
+    {
+      "heroId": 81,
+      "displayName": "Celeste",
+      "internalKey": "unicorn",
+      "hits": 2,
+      "modeledHits": 2,
+      "replayCount": 2,
+      "replays": [
+        "rep04",
+        "rep05"
+      ],
+      "script128Status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "pooledModelAvailable": false,
+      "pooled": null,
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "INSUFFICIENT_FOR_TRAVEL_MODEL",
+      "folds": []
+    },
+    {
+      "heroId": 3,
+      "displayName": "Vindicta",
+      "internalKey": "hornet",
+      "hits": 1,
+      "modeledHits": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "script128Status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "pooledModelAvailable": false,
+      "pooled": null,
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "INSUFFICIENT_FOR_TRAVEL_MODEL",
+      "folds": []
+    },
+    {
+      "heroId": 6,
+      "displayName": "Abrams",
+      "internalKey": "atlas",
+      "hits": 1,
+      "modeledHits": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep04"
+      ],
+      "script128Status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "pooledModelAvailable": false,
+      "pooled": null,
+      "availableFoldCount": 0,
+      "totalFoldCount": 0,
+      "foldTrainingSpeedHUPerSecond": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "foldTrainingFixedDelayTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "speedRangeRatio": null,
+      "delayRangeTicks": null,
+      "foldHighSpeedCount": 0,
+      "heldOutMedianResidualTicks": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinOneTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "heldOutWithinTwoTickRate": {
+        "count": 0,
+        "min": null,
+        "p25": null,
+        "median": null,
+        "p75": null,
+        "max": null
+      },
+      "diagnostics": {
+        "enoughFolds": false,
+        "everyFoldResidualAcceptable": false,
+        "everyFoldWithinTwoAcceptable": false,
+        "parameterStableInCohort": false,
+        "pooledHighSpeed": false
+      },
+      "crossReplayTimingGeneralizes": false,
+      "auditClassification": "INSUFFICIENT_FOR_TRAVEL_MODEL",
+      "folds": []
+    }
+  ],
+  "interpretation": {
+    "keyDistinction": "Cross-replay timing generalization and exact parameter stability are separate questions.",
+    "itemModifierGuardrail": "Fire-rate and projectile-velocity modifiers may change during a match. Fold-to-fold parameter variation may therefore reflect real loadout/state differences rather than failure of the distance-time relationship.",
+    "pooledSpeedGuardrail": "Script128 fitted speeds remain empirical mixture parameters for the represented observations. They are not intrinsic hero constants.",
+    "stableParameterMeaning": "Parameters stable in the current cohort means only that the fitted folds happened to be similar across these observations. It does not establish that items cannot modify them.",
+    "variableParameterMeaning": "Timing generalization with variable parameters is especially important evidence for investigating time-varying weapon/item state.",
+    "behavioralGuardrail": "Mechanical reachability is still below attention, attempt, and response in the behavioral hierarchy."
+  },
+  "nextStage": "DISCOVER_TIME_VARYING_EFFECTIVE_WEAPON_FIRE_RATE_PROJECTILE_VELOCITY_AND_MODIFIER_STATE",
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\shot_travel_cross_replay_audit_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\shot_travel_cross_replay_audit_v01.md"
+  }
+}

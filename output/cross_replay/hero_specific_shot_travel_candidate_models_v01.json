@@ -1,0 +1,3590 @@
+{
+  "version": "HERO_SPECIFIC_SHOT_TRAVEL_CANDIDATE_MODELS_V01",
+  "canonical": false,
+  "createdAt": "2026-09-04T02:43:46.764Z",
+  "status": "HERO_SPECIFIC_SHOT_TRAVEL_CANDIDATE_MODELS_READY_FOR_INTERPRETATION",
+  "scope": {
+    "replays": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "successfulHitCohort": 529,
+    "candidateShotPairs": 2257,
+    "successfulHitsWithAtLeastOneCandidate": 523,
+    "candidateCoverage": 0.9886578449905482,
+    "maximumPrecedingTicks": 64,
+    "maximumPrecedingSeconds": 1,
+    "firingOriginZOffsetsHU": [
+      64,
+      80
+    ],
+    "rawReplayParsing": false,
+    "directShotAttribution": false,
+    "canonicalProjectileSpeed": false
+  },
+  "modelDefinition": {
+    "equation": "predictedLatencyTicks = fixedDelayTicks + distanceHU * 64 / speedHUPerSecond",
+    "speedSearch": {
+      "minimumHUPerSecond": 1200,
+      "maximumHUPerSecond": 80000,
+      "gridPoints": 240,
+      "spacing": "LOGARITHMIC"
+    },
+    "fixedDelayTicks": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1,
+      1.25,
+      1.5,
+      1.75,
+      2
+    ],
+    "perHitAssignment": "candidate preceding shot minimizing absolute timing residual under shared hero model",
+    "robustObjective": "mean(min(bestAbsoluteResidualTicks, 4))",
+    "ambiguity": "unambiguous when second-best residual minus best residual >= 0.5 tick"
+  },
+  "replayCounts": {
+    "shots": {
+      "rep01": 26073,
+      "rep02": 29889,
+      "rep03": 37194,
+      "rep04": 30650,
+      "rep05": 17918
+    },
+    "hits": {
+      "rep01": 81,
+      "rep02": 124,
+      "rep03": 125,
+      "rep04": 130,
+      "rep05": 69
+    }
+  },
+  "integrity": {
+    "pass": true,
+    "checks": {
+      "fiveReplayCohortLoaded": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "successfulHitCohortPreserved": {
+        "actual": 529,
+        "expected": 529,
+        "pass": true
+      },
+      "candidatePairsAvailable": {
+        "actual": 2257,
+        "expected": ">0",
+        "pass": true
+      },
+      "candidateCoverageHigh": {
+        "actual": 0.9886578449905482,
+        "expected": ">=0.95",
+        "pass": true
+      }
+    }
+  },
+  "heroModels": [
+    {
+      "heroId": 76,
+      "status": "HIGH_SPEED_TIMING_RESOLUTION_LIMITED",
+      "hits": 61,
+      "modeledHits": 61,
+      "modelCoverage": 1,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep04"
+      ],
+      "candidateShotPairs": 407,
+      "candidatesPerHit": {
+        "count": 61,
+        "min": 1,
+        "p25": 5,
+        "median": 7,
+        "p75": 8,
+        "max": 12
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 79999.99999999994,
+        "fixedDelayTicks": 1.75,
+        "fixedDelaySeconds": 0.02734375,
+        "robustObjective": 1.32855864416445,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": true,
+          "highSpeedTimingResolutionLimited": true
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 61,
+          "min": 0.005672992022545342,
+          "p25": 0.2463721906057108,
+          "median": 1.1160048447445732,
+          "p75": 1.9247992476146552,
+          "max": 3.9967537089334755
+        },
+        "assignedLatencyTicks": {
+          "count": 61,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 4,
+          "max": 6
+        },
+        "assignedDistanceHU": {
+          "count": 61,
+          "min": 167.49394406928332,
+          "p25": 337.02368401028014,
+          "median": 451.93044807909587,
+          "p75": 529.2757915006576,
+          "max": 643.0055951233909
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 61,
+          "min": 3376.6172142203227,
+          "p25": 6227.822148094218,
+          "median": 8916.36013687967,
+          "p75": 19854.887624228424,
+          "max": 40660.221058067254
+        },
+        "precedingRank": {
+          "count": 61,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 61,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 61,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 17,
+        "residualWithinHalfTickRate": 0.2786885245901639,
+        "residualWithinOneTick": 23,
+        "residualWithinOneTickRate": 0.3770491803278688,
+        "residualWithinTwoTicks": 47,
+        "residualWithinTwoTicksRate": 0.7704918032786885
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep02",
+            "available": true,
+            "trainingHits": 18,
+            "testHits": 43,
+            "trainedModel": {
+              "speedHUPerSecond": 8740.401922846495,
+              "fixedDelayTicks": 1
+            },
+            "heldOutResidualTicks": {
+              "count": 43,
+              "min": 0.33447690838324284,
+              "p25": 1.3492325300865216,
+              "median": 2.36010582545204,
+              "p75": 2.841331214935148,
+              "max": 4.651985276762353
+            },
+            "heldOutWithinOneTickRate": 0.23255813953488372,
+            "heldOutWithinTwoTicksRate": 0.3953488372093023,
+            "heldOutUnambiguousRate": 0.9534883720930233
+          },
+          {
+            "heldOutReplay": "rep04",
+            "available": true,
+            "trainingHits": 43,
+            "testHits": 18,
+            "trainedModel": {
+              "speedHUPerSecond": 75891.95403612469,
+              "fixedDelayTicks": 1.5
+            },
+            "heldOutResidualTicks": {
+              "count": 18,
+              "min": 0.2650248896573286,
+              "p25": 1.259535900546807,
+              "median": 2.134694118903245,
+              "p75": 3.0340960882093735,
+              "max": 4.146377133187187
+            },
+            "heldOutWithinOneTickRate": 0.16666666666666666,
+            "heldOutWithinTwoTicksRate": 0.3888888888888889,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 2,
+        "heldOutMedianResidualTicks": {
+          "count": 2,
+          "min": 2.134694118903245,
+          "p25": 2.1910470455404436,
+          "median": 2.2473999721776425,
+          "p75": 2.3037528988148415,
+          "max": 2.36010582545204
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 2,
+          "min": 0.16666666666666666,
+          "p25": 0.18313953488372092,
+          "median": 0.1996124031007752,
+          "p75": 0.21608527131782945,
+          "max": 0.23255813953488372
+        }
+      },
+      "interpretation": "Successful-hit timing is compatible with a very fast projectile, but 64-tick replay resolution and observed soul distances do not identify a precise upper-end speed. Do not use the fitted boundary value as a constant."
+    },
+    {
+      "heroId": 2,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 53,
+      "modeledHits": 53,
+      "modelCoverage": 1,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep03",
+        "rep04"
+      ],
+      "candidateShotPairs": 244,
+      "candidatesPerHit": {
+        "count": 53,
+        "min": 1,
+        "p25": 4,
+        "median": 5,
+        "p75": 6,
+        "max": 6
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 26442.998200425744,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.2711857846988379,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 53,
+          "min": 0.003987113496084049,
+          "p25": 0.1051148334215779,
+          "median": 0.24454644327163244,
+          "p75": 0.40512894299228464,
+          "max": 1.4724863480049568
+        },
+        "assignedLatencyTicks": {
+          "count": 53,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 3,
+          "max": 5
+        },
+        "assignedDistanceHU": {
+          "count": 53,
+          "min": 209.8750814419789,
+          "p25": 519.2596398967498,
+          "median": 689.852745014633,
+          "p75": 850.1559783507953,
+          "max": 1973.1298148866101
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 53,
+          "min": 13432.00521228665,
+          "p25": 18136.660871483633,
+          "median": 19945.663335623678,
+          "p75": 22189.209317923574,
+          "max": 39300.72557554258
+        },
+        "precedingRank": {
+          "count": 53,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 53,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 53,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 51,
+        "residualWithinHalfTickRate": 0.9622641509433962,
+        "residualWithinOneTick": 52,
+        "residualWithinOneTickRate": 0.9811320754716981,
+        "residualWithinTwoTicks": 53,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep01",
+            "available": true,
+            "trainingHits": 43,
+            "testHits": 10,
+            "trainedModel": {
+              "speedHUPerSecond": 25529.826349087867,
+              "fixedDelayTicks": 0.5
+            },
+            "heldOutResidualTicks": {
+              "count": 10,
+              "min": 0.052228061235067624,
+              "p25": 0.24940404906826863,
+              "median": 0.3735036316453959,
+              "p75": 0.5183656604055178,
+              "max": 1.5788086873882494
+            },
+            "heldOutWithinOneTickRate": 0.9,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep03",
+            "available": true,
+            "trainingHits": 42,
+            "testHits": 11,
+            "trainedModel": {
+              "speedHUPerSecond": 23382.490908847874,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 11,
+              "min": 0.06774046749646612,
+              "p25": 0.17165233513163813,
+              "median": 0.1755528521469878,
+              "p75": 0.4643325060574456,
+              "max": 0.6506354004379791
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep04",
+            "available": true,
+            "trainingHits": 21,
+            "testHits": 32,
+            "trainedModel": {
+              "speedHUPerSecond": 28368.499471325405,
+              "fixedDelayTicks": 0.5
+            },
+            "heldOutResidualTicks": {
+              "count": 32,
+              "min": 0.035173821470681155,
+              "p25": 0.09971898599174084,
+              "median": 0.28809790631901167,
+              "p75": 0.4480412302123238,
+              "max": 0.6878494888485807
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 3,
+        "heldOutMedianResidualTicks": {
+          "count": 3,
+          "min": 0.1755528521469878,
+          "p25": 0.23182537923299973,
+          "median": 0.28809790631901167,
+          "p75": 0.3308007689822038,
+          "max": 0.3735036316453959
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 3,
+          "min": 0.9,
+          "p25": 0.95,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 35,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 51,
+      "modeledHits": 51,
+      "modelCoverage": 1,
+      "replayCount": 5,
+      "replays": [
+        "rep01",
+        "rep02",
+        "rep03",
+        "rep04",
+        "rep05"
+      ],
+      "candidateShotPairs": 175,
+      "candidatesPerHit": {
+        "count": 51,
+        "min": 1,
+        "p25": 2,
+        "median": 4,
+        "p75": 5,
+        "max": 5
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 15069.725480563324,
+        "fixedDelayTicks": 0.25,
+        "fixedDelaySeconds": 0.00390625,
+        "robustObjective": 0.8637037307815956,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 51,
+          "min": 0.025302146096258138,
+          "p25": 0.29100093828884255,
+          "median": 0.4926344905609259,
+          "p75": 1.3367185864403124,
+          "max": 5.667972895568613
+        },
+        "assignedLatencyTicks": {
+          "count": 51,
+          "min": 1,
+          "p25": 2.5,
+          "median": 3,
+          "p75": 5,
+          "max": 9
+        },
+        "assignedDistanceHU": {
+          "count": 51,
+          "min": 212.41711903860022,
+          "p25": 570.4653515045381,
+          "median": 728.509566281652,
+          "p75": 904.7363546265965,
+          "max": 1486.1249181565195
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 51,
+          "min": 5160.589154159608,
+          "p25": 10289.445079187464,
+          "median": 13811.481140658527,
+          "p75": 16070.171129257225,
+          "max": 23312.306121012865
+        },
+        "precedingRank": {
+          "count": 51,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 51,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 51,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 26,
+        "residualWithinHalfTickRate": 0.5098039215686274,
+        "residualWithinOneTick": 31,
+        "residualWithinOneTickRate": 0.6078431372549019,
+        "residualWithinTwoTicks": 47,
+        "residualWithinTwoTicksRate": 0.9215686274509803
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep01",
+            "available": true,
+            "trainingHits": 40,
+            "testHits": 11,
+            "trainedModel": {
+              "speedHUPerSecond": 16745.33518100699,
+              "fixedDelayTicks": 0.75
+            },
+            "heldOutResidualTicks": {
+              "count": 11,
+              "min": 0.01567712142658939,
+              "p25": 0.31653622951685834,
+              "median": 0.5618497164446064,
+              "p75": 1.175570524928633,
+              "max": 5.476373680467383
+            },
+            "heldOutWithinOneTickRate": 0.7272727272727273,
+            "heldOutWithinTwoTicksRate": 0.9090909090909091,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep02",
+            "available": true,
+            "trainingHits": 38,
+            "testHits": 13,
+            "trainedModel": {
+              "speedHUPerSecond": 15336.870775444808,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 13,
+              "min": 0.09018079840378457,
+              "p25": 0.3032999425480445,
+              "median": 0.3351478578020677,
+              "p75": 0.4186584000099276,
+              "max": 1.7075573437760818
+            },
+            "heldOutWithinOneTickRate": 0.7692307692307693,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep03",
+            "available": true,
+            "trainingHits": 46,
+            "testHits": 5,
+            "trainedModel": {
+              "speedHUPerSecond": 15069.725480563324,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 5,
+              "min": 0.4114890750189213,
+              "p25": 0.6945740535203422,
+              "median": 1.3613167056387723,
+              "p75": 1.5764362616147318,
+              "max": 2.3417614086889547
+            },
+            "heldOutWithinOneTickRate": 0.4,
+            "heldOutWithinTwoTicksRate": 0.8,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep04",
+            "available": true,
+            "trainingHits": 36,
+            "testHits": 15,
+            "trainedModel": {
+              "speedHUPerSecond": 17042.184483974666,
+              "fixedDelayTicks": 0.5
+            },
+            "heldOutResidualTicks": {
+              "count": 15,
+              "min": 0.0909988353355029,
+              "p25": 0.3806909192343251,
+              "median": 1.0809743669571361,
+              "p75": 1.6725999926615531,
+              "max": 2.5241623266500692
+            },
+            "heldOutWithinOneTickRate": 0.4666666666666667,
+            "heldOutWithinTwoTicksRate": 0.8,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": true,
+            "trainingHits": 44,
+            "testHits": 7,
+            "trainedModel": {
+              "speedHUPerSecond": 15336.870775444808,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 7,
+              "min": 0.27113042339119264,
+              "p25": 0.8993651996172256,
+              "median": 1.01197634028697,
+              "p75": 1.2871808438753891,
+              "max": 1.7416907943814532
+            },
+            "heldOutWithinOneTickRate": 0.42857142857142855,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 5,
+        "heldOutMedianResidualTicks": {
+          "count": 5,
+          "min": 0.3351478578020677,
+          "p25": 0.5618497164446064,
+          "median": 1.01197634028697,
+          "p75": 1.0809743669571361,
+          "max": 1.3613167056387723
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 5,
+          "min": 0.4,
+          "p25": 0.42857142857142855,
+          "median": 0.4666666666666667,
+          "p75": 0.7272727272727273,
+          "max": 0.7692307692307693
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 31,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 43,
+      "modeledHits": 43,
+      "modelCoverage": 1,
+      "replayCount": 4,
+      "replays": [
+        "rep02",
+        "rep03",
+        "rep04",
+        "rep05"
+      ],
+      "candidateShotPairs": 194,
+      "candidatesPerHit": {
+        "count": 43,
+        "min": 1,
+        "p25": 4,
+        "median": 5,
+        "p75": 5,
+        "max": 7
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 25085.135050050496,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.2645663441070876,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 43,
+          "min": 0.0027958098744793602,
+          "p25": 0.13795010483231962,
+          "median": 0.2741974425359901,
+          "p75": 0.3567409033607951,
+          "max": 0.554827778003324
+        },
+        "assignedLatencyTicks": {
+          "count": 43,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 3,
+          "max": 4
+        },
+        "assignedDistanceHU": {
+          "count": 43,
+          "min": 172.65971395739666,
+          "p25": 473.4477095530001,
+          "median": 749.6585726210737,
+          "p75": 916.3793799495443,
+          "max": 1564.456104516693
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 43,
+          "min": 11050.221693273386,
+          "p25": 18486.460678313335,
+          "median": 19991.374126210245,
+          "p75": 22860.220742381098,
+          "max": 25772.816157904283
+        },
+        "precedingRank": {
+          "count": 43,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 43,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 43,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 40,
+        "residualWithinHalfTickRate": 0.9302325581395349,
+        "residualWithinOneTick": 43,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 43,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep02",
+            "available": true,
+            "trainingHits": 33,
+            "testHits": 10,
+            "trainedModel": {
+              "speedHUPerSecond": 22975.20297375557,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 10,
+              "min": 0.03244847929021777,
+              "p25": 0.23507476832529908,
+              "median": 0.36648692161408086,
+              "p75": 0.4914864122270869,
+              "max": 0.6079676228950284
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep03",
+            "available": true,
+            "trainingHits": 27,
+            "testHits": 16,
+            "trainedModel": {
+              "speedHUPerSecond": 26442.998200425744,
+              "fixedDelayTicks": 0.75
+            },
+            "heldOutResidualTicks": {
+              "count": 16,
+              "min": 0.048250020723715537,
+              "p25": 0.16482917884119186,
+              "median": 0.4564127420167501,
+              "p75": 0.5088573729085598,
+              "max": 0.5643989680782964
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep04",
+            "available": true,
+            "trainingHits": 37,
+            "testHits": 6,
+            "trainedModel": {
+              "speedHUPerSecond": 25529.826349087867,
+              "fixedDelayTicks": 0.5
+            },
+            "heldOutResidualTicks": {
+              "count": 6,
+              "min": 0.21895887565402594,
+              "p25": 0.2728591174008865,
+              "median": 0.31312732029316803,
+              "p75": 0.4233350725707494,
+              "max": 0.5044498695781623
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": true,
+            "trainingHits": 32,
+            "testHits": 11,
+            "trainedModel": {
+              "speedHUPerSecond": 25982.4008168243,
+              "fixedDelayTicks": 0.5
+            },
+            "heldOutResidualTicks": {
+              "count": 11,
+              "min": 0.0505845461429697,
+              "p25": 0.13768763830815733,
+              "median": 0.2633472828328234,
+              "p75": 0.32717079577287345,
+              "max": 0.37994163012530224
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 4,
+        "heldOutMedianResidualTicks": {
+          "count": 4,
+          "min": 0.2633472828328234,
+          "p25": 0.30068231092808184,
+          "median": 0.3398071209536244,
+          "p75": 0.38896837671474815,
+          "max": 0.4564127420167501
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 4,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 1,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 39,
+      "modeledHits": 38,
+      "modelCoverage": 0.9743589743589743,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep03",
+        "rep04"
+      ],
+      "candidateShotPairs": 228,
+      "candidatesPerHit": {
+        "count": 38,
+        "min": 1,
+        "p25": 4,
+        "median": 6,
+        "p75": 7,
+        "max": 11
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 31522.80596234232,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.1757444873029347,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 38,
+          "min": 0.0003428927285598071,
+          "p25": 0.034087246949522365,
+          "median": 0.11052654729269018,
+          "p75": 0.23910807974239906,
+          "max": 0.7232283350804343
+        },
+        "assignedLatencyTicks": {
+          "count": 38,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 3,
+          "max": 3
+        },
+        "assignedDistanceHU": {
+          "count": 38,
+          "min": 254.92050575495975,
+          "p25": 598.1345395312704,
+          "median": 772.2995234465261,
+          "p75": 878.545357501207,
+          "max": 1243.9006827928006
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 38,
+          "min": 16314.912368317424,
+          "p25": 20491.284921044287,
+          "median": 23541.324562035425,
+          "p75": 25691.745088447064,
+          "max": 28898.515130268024
+        },
+        "precedingRank": {
+          "count": 38,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 38,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 38,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 35,
+        "residualWithinHalfTickRate": 0.9210526315789473,
+        "residualWithinOneTick": 38,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 38,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep01",
+            "available": true,
+            "trainingHits": 30,
+            "testHits": 8,
+            "trainedModel": {
+              "speedHUPerSecond": 28368.499471325405,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 8,
+              "min": 0.038722572614984685,
+              "p25": 0.07994018381770962,
+              "median": 0.25004775113319966,
+              "p75": 0.5850187964551723,
+              "max": 0.7654186717044746
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep03",
+            "available": true,
+            "trainingHits": 10,
+            "testHits": 28,
+            "trainedModel": {
+              "speedHUPerSecond": 38922.60300372114,
+              "fixedDelayTicks": 1
+            },
+            "heldOutResidualTicks": {
+              "count": 28,
+              "min": 0.007061000373039139,
+              "p25": 0.15103042498756625,
+              "median": 0.2698834529605394,
+              "p75": 0.4379365202078737,
+              "max": 0.7424610098020739
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep04",
+            "available": true,
+            "trainingHits": 36,
+            "testHits": 2,
+            "trainedModel": {
+              "speedHUPerSecond": 31522.80596234232,
+              "fixedDelayTicks": 0.5
+            },
+            "heldOutResidualTicks": {
+              "count": 2,
+              "min": 0.0003428927285598071,
+              "p25": 0.04881274415274828,
+              "median": 0.09728259557693675,
+              "p75": 0.14575244700112522,
+              "max": 0.1942222984253137
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 3,
+        "heldOutMedianResidualTicks": {
+          "count": 3,
+          "min": 0.09728259557693675,
+          "p25": 0.1736651733550682,
+          "median": 0.25004775113319966,
+          "p75": 0.2599656020468695,
+          "max": 0.2698834529605394
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 3,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 11,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 29,
+      "modeledHits": 29,
+      "modelCoverage": 1,
+      "replayCount": 2,
+      "replays": [
+        "rep03",
+        "rep05"
+      ],
+      "candidateShotPairs": 85,
+      "candidatesPerHit": {
+        "count": 29,
+        "min": 1,
+        "p25": 2,
+        "median": 3,
+        "p75": 4,
+        "max": 4
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 12865.379014791055,
+        "fixedDelayTicks": 0.25,
+        "fixedDelaySeconds": 0.00390625,
+        "robustObjective": 0.2277613461013062,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 29,
+          "min": 0.006177817758470372,
+          "p25": 0.0806709895695299,
+          "median": 0.2041106282699383,
+          "p75": 0.34301965547347635,
+          "max": 0.551422230355123
+        },
+        "assignedLatencyTicks": {
+          "count": 29,
+          "min": 1,
+          "p25": 2,
+          "median": 4,
+          "p75": 5,
+          "max": 11
+        },
+        "assignedDistanceHU": {
+          "count": 29,
+          "min": 166.4652513482531,
+          "p25": 392.8183417113161,
+          "median": 686.186249792768,
+          "p75": 971.0689558838715,
+          "max": 2195.903537321825
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 29,
+          "min": 9558.637305783112,
+          "p25": 11207.458768752582,
+          "median": 11766.770774576124,
+          "p75": 12570.186934762116,
+          "max": 16616.697906069898
+        },
+        "precedingRank": {
+          "count": 29,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 29,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 29,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 27,
+        "residualWithinHalfTickRate": 0.9310344827586207,
+        "residualWithinOneTick": 29,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 29,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep03",
+            "available": false,
+            "trainingHits": 4,
+            "testHits": 25,
+            "reason": "INSUFFICIENT_TRAIN_OR_TEST_SAMPLE"
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": true,
+            "trainingHits": 25,
+            "testHits": 4,
+            "trainedModel": {
+              "speedHUPerSecond": 12865.379014791055,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 4,
+              "min": 0.09671020600974867,
+              "p25": 0.1339346463089217,
+              "median": 0.24142338949301578,
+              "p75": 0.36364250474922677,
+              "max": 0.44505806126475056
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 1,
+        "heldOutMedianResidualTicks": {
+          "count": 1,
+          "min": 0.24142338949301578,
+          "p25": 0.24142338949301578,
+          "median": 0.24142338949301578,
+          "p75": 0.24142338949301578,
+          "max": 0.24142338949301578
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 13,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 24,
+      "modeledHits": 23,
+      "modelCoverage": 0.9583333333333334,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep04",
+        "rep05"
+      ],
+      "candidateShotPairs": 162,
+      "candidatesPerHit": {
+        "count": 23,
+        "min": 1,
+        "p25": 6,
+        "median": 8,
+        "p75": 9,
+        "max": 12
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 36280.74591056955,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.2936058782248711,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 23,
+          "min": 0.016662285513005415,
+          "p25": 0.11968869505529012,
+          "median": 0.24664452890036026,
+          "p75": 0.4513516626195392,
+          "max": 0.6360947605257659
+        },
+        "assignedLatencyTicks": {
+          "count": 23,
+          "min": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 2,
+          "max": 3
+        },
+        "assignedDistanceHU": {
+          "count": 23,
+          "min": 322.6478094794562,
+          "p25": 483.0730867184378,
+          "median": 599.5335204237049,
+          "p75": 747.8428548666244,
+          "max": 1430.5301858807481
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 23,
+          "min": 16760.80315597425,
+          "p25": 19992.257211333625,
+          "median": 26245.091497738133,
+          "p75": 28319.19441530028,
+          "max": 41218.36533696467
+        },
+        "precedingRank": {
+          "count": 23,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 23,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 23,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 18,
+        "residualWithinHalfTickRate": 0.782608695652174,
+        "residualWithinOneTick": 23,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 23,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep01",
+            "available": true,
+            "trainingHits": 13,
+            "testHits": 10,
+            "trainedModel": {
+              "speedHUPerSecond": 33229.141468501286,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 10,
+              "min": 0.04507240989415684,
+              "p25": 0.10865518725700077,
+              "median": 0.35842974564385954,
+              "p75": 0.556957324740676,
+              "max": 0.7411985434915782
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep04",
+            "available": true,
+            "trainingHits": 17,
+            "testHits": 6,
+            "trainedModel": {
+              "speedHUPerSecond": 26911.760724395703,
+              "fixedDelayTicks": 0
+            },
+            "heldOutResidualTicks": {
+              "count": 6,
+              "min": 0.26718962924467915,
+              "p25": 0.39510567897640136,
+              "median": 0.49045305956501095,
+              "p75": 0.589966446073553,
+              "max": 0.733020514476002
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": true,
+            "trainingHits": 16,
+            "testHits": 7,
+            "trainedModel": {
+              "speedHUPerSecond": 52473.009262298445,
+              "fixedDelayTicks": 1.25
+            },
+            "heldOutResidualTicks": {
+              "count": 7,
+              "min": 0.30434669960912863,
+              "p25": 0.5506095923476333,
+              "median": 0.7599390199062714,
+              "p75": 0.8732263777949235,
+              "max": 1.0355155615513714
+            },
+            "heldOutWithinOneTickRate": 0.8571428571428571,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 3,
+        "heldOutMedianResidualTicks": {
+          "count": 3,
+          "min": 0.35842974564385954,
+          "p25": 0.42444140260443525,
+          "median": 0.49045305956501095,
+          "p75": 0.6251960397356412,
+          "max": 0.7599390199062714
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 3,
+          "min": 0.8571428571428571,
+          "p25": 0.9285714285714286,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 19,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 24,
+      "modeledHits": 23,
+      "modelCoverage": 0.9583333333333334,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep05"
+      ],
+      "candidateShotPairs": 40,
+      "candidatesPerHit": {
+        "count": 23,
+        "min": 1,
+        "p25": 1.5,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 24218.855097940283,
+        "fixedDelayTicks": 0.25,
+        "fixedDelaySeconds": 0.00390625,
+        "robustObjective": 0.19314763339053048,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 23,
+          "min": 0.00681753191563228,
+          "p25": 0.05421452305662633,
+          "median": 0.18569610601443687,
+          "p75": 0.3094395374539294,
+          "max": 0.5172983128154232
+        },
+        "assignedLatencyTicks": {
+          "count": 23,
+          "min": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 2,
+          "max": 4
+        },
+        "assignedDistanceHU": {
+          "count": 23,
+          "min": 153.5869873688141,
+          "p25": 329.2540696220087,
+          "median": 541.9213918263395,
+          "p75": 657.2590505557102,
+          "max": 1223.3177146373491
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 23,
+          "min": 9829.567191604103,
+          "p25": 18560.67580639963,
+          "median": 20351.95664613388,
+          "p75": 23315.502776944217,
+          "max": 26344.93691264434
+        },
+        "precedingRank": {
+          "count": 23,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 23,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 23,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 22,
+        "residualWithinHalfTickRate": 0.9565217391304348,
+        "residualWithinOneTick": 23,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 23,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep02",
+            "available": true,
+            "trainingHits": 13,
+            "testHits": 10,
+            "trainedModel": {
+              "speedHUPerSecond": 19614.47105193526,
+              "fixedDelayTicks": 0
+            },
+            "heldOutResidualTicks": {
+              "count": 10,
+              "min": 0.06810352333494052,
+              "p25": 0.09334351576603311,
+              "median": 0.19095545555795734,
+              "p75": 0.34277351682969365,
+              "max": 0.4988614699026376
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": true,
+            "trainingHits": 10,
+            "testHits": 13,
+            "trainedModel": {
+              "speedHUPerSecond": 26442.998200425744,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 13,
+              "min": 0.02288305773344934,
+              "p25": 0.056839035342430066,
+              "median": 0.2106922035182679,
+              "p75": 0.29828609795729544,
+              "max": 0.7892036053033578
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 2,
+        "heldOutMedianResidualTicks": {
+          "count": 2,
+          "min": 0.19095545555795734,
+          "p25": 0.19588964254803498,
+          "median": 0.20082382953811262,
+          "p75": 0.20575801652819026,
+          "max": 0.2106922035182679
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 2,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 7,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 20,
+      "modeledHits": 20,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep02"
+      ],
+      "candidateShotPairs": 139,
+      "candidatesPerHit": {
+        "count": 20,
+        "min": 1,
+        "p25": 6,
+        "median": 7,
+        "p75": 8.25,
+        "max": 10
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 25529.826349087867,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.17865412257883964,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 20,
+          "min": 0.0038374472146021077,
+          "p25": 0.07795224569122072,
+          "median": 0.1343921259224211,
+          "p75": 0.20375536127015592,
+          "max": 0.5821318977806715
+        },
+        "assignedLatencyTicks": {
+          "count": 20,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 2.25,
+          "max": 3
+        },
+        "assignedDistanceHU": {
+          "count": 20,
+          "min": 168.19353478202206,
+          "p25": 556.2992663554123,
+          "median": 635.9411536021839,
+          "p75": 703.4265458600173,
+          "max": 1009.726564273069
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 20,
+          "min": 10764.386226049412,
+          "p25": 17565.96040810447,
+          "median": 19578.370927397664,
+          "p75": 21274.066966054103,
+          "max": 23043.610424976774
+        },
+        "precedingRank": {
+          "count": 20,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 20,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 20,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 18,
+        "residualWithinHalfTickRate": 0.9,
+        "residualWithinOneTick": 20,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 20,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 27,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 18,
+      "modeledHits": 18,
+      "modelCoverage": 1,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep04",
+        "rep05"
+      ],
+      "candidateShotPairs": 35,
+      "candidatesPerHit": {
+        "count": 18,
+        "min": 1,
+        "p25": 1.25,
+        "median": 2,
+        "p75": 2,
+        "max": 3
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 10604.177642751412,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.27926435566722474,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 18,
+          "min": 0.03155798084189243,
+          "p25": 0.06476340180110673,
+          "median": 0.30346741050598647,
+          "p75": 0.4212166941289066,
+          "max": 0.6313890832039668
+        },
+        "assignedLatencyTicks": {
+          "count": 18,
+          "min": 2,
+          "p25": 3,
+          "median": 4,
+          "p75": 5,
+          "max": 7
+        },
+        "assignedDistanceHU": {
+          "count": 18,
+          "min": 239.65552109158898,
+          "p25": 512.116144324041,
+          "median": 587.8808376223732,
+          "p75": 747.2046626553525,
+          "max": 1030.941118012171
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 18,
+          "min": 7668.976674930847,
+          "p25": 8491.687251642092,
+          "median": 9425.279298135782,
+          "p75": 10399.262687573138,
+          "max": 11068.602035622449
+        },
+        "precedingRank": {
+          "count": 18,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 18,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 18,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 15,
+        "residualWithinHalfTickRate": 0.8333333333333334,
+        "residualWithinOneTick": 18,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 18,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep01",
+            "available": true,
+            "trainingHits": 11,
+            "testHits": 7,
+            "trainedModel": {
+              "speedHUPerSecond": 9712.251228700647,
+              "fixedDelayTicks": 0
+            },
+            "heldOutResidualTicks": {
+              "count": 7,
+              "min": 0.20149827402754017,
+              "p25": 0.28306513548271506,
+              "median": 0.3500068823254052,
+              "p75": 0.41986154065930736,
+              "max": 0.5378263573139392
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep04",
+            "available": true,
+            "trainingHits": 8,
+            "testHits": 10,
+            "trainedModel": {
+              "speedHUPerSecond": 9712.251228700647,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 10,
+              "min": 0.04350543958345643,
+              "p25": 0.14200794471034706,
+              "median": 0.4465407112481563,
+              "p75": 0.607289822918864,
+              "max": 0.6622819244439242
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": true,
+            "trainingHits": 17,
+            "testHits": 1,
+            "trainedModel": {
+              "speedHUPerSecond": 10604.177642751412,
+              "fixedDelayTicks": 0.5
+            },
+            "heldOutResidualTicks": {
+              "count": 1,
+              "min": 0.03155798084189243,
+              "p25": 0.03155798084189243,
+              "median": 0.03155798084189243,
+              "p75": 0.03155798084189243,
+              "max": 0.03155798084189243
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 3,
+        "heldOutMedianResidualTicks": {
+          "count": 3,
+          "min": 0.03155798084189243,
+          "p25": 0.19078243158364883,
+          "median": 0.3500068823254052,
+          "p75": 0.39827379678678076,
+          "max": 0.4465407112481563
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 3,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 66,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 17,
+      "modeledHits": 17,
+      "modelCoverage": 1,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep03"
+      ],
+      "candidateShotPairs": 59,
+      "candidatesPerHit": {
+        "count": 17,
+        "min": 2,
+        "p25": 3,
+        "median": 4,
+        "p75": 4,
+        "max": 5
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 7594.165636117954,
+        "fixedDelayTicks": 0,
+        "fixedDelaySeconds": 0,
+        "robustObjective": 0.2175526290083174,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 17,
+          "min": 0.016304866584611943,
+          "p25": 0.06558086120602313,
+          "median": 0.1626545965306434,
+          "p75": 0.35106533349786684,
+          "max": 0.5434062020066426
+        },
+        "assignedLatencyTicks": {
+          "count": 17,
+          "min": 1,
+          "p25": 4,
+          "median": 5,
+          "p75": 5,
+          "max": 7
+        },
+        "assignedDistanceHU": {
+          "count": 17,
+          "min": 126.44058685430869,
+          "p25": 431.6478948989414,
+          "median": 590.7605153032382,
+          "p75": 634.9511948792431,
+          "max": 885.4151445073696
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 17,
+          "min": 6806.782897872981,
+          "p25": 7489.075421726717,
+          "median": 7667.2502471346,
+          "p75": 8095.2241783530935,
+          "max": 10990.925262134064
+        },
+        "precedingRank": {
+          "count": 17,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 17,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 17,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 16,
+        "residualWithinHalfTickRate": 0.9411764705882353,
+        "residualWithinOneTick": 17,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 17,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep02",
+            "available": true,
+            "trainingHits": 7,
+            "testHits": 10,
+            "trainedModel": {
+              "speedHUPerSecond": 8005.239272140089,
+              "fixedDelayTicks": 0
+            },
+            "heldOutResidualTicks": {
+              "count": 10,
+              "min": 0.010862671755271558,
+              "p25": 0.21915165139962067,
+              "median": 0.32498774829850696,
+              "p75": 0.39500835315732263,
+              "max": 0.5490768814775269
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep03",
+            "available": true,
+            "trainingHits": 10,
+            "testHits": 7,
+            "trainedModel": {
+              "speedHUPerSecond": 7461.886656400155,
+              "fixedDelayTicks": 0
+            },
+            "heldOutResidualTicks": {
+              "count": 7,
+              "min": 0.04144703662039362,
+              "p25": 0.1592524089172338,
+              "median": 0.42607534158586,
+              "p75": 0.5200297325130783,
+              "max": 0.6239484515099205
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 2,
+        "heldOutMedianResidualTicks": {
+          "count": 2,
+          "min": 0.32498774829850696,
+          "p25": 0.35025964662034526,
+          "median": 0.3755315449421835,
+          "p75": 0.40080344326402173,
+          "max": 0.42607534158586
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 2,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 67,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 17,
+      "modeledHits": 17,
+      "modelCoverage": 1,
+      "replayCount": 2,
+      "replays": [
+        "rep03",
+        "rep04"
+      ],
+      "candidateShotPairs": 30,
+      "candidatesPerHit": {
+        "count": 17,
+        "min": 1,
+        "p25": 1,
+        "median": 2,
+        "p75": 2,
+        "max": 3
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 2992.3676224154297,
+        "fixedDelayTicks": 0,
+        "fixedDelaySeconds": 0,
+        "robustObjective": 0.7008601134266639,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 17,
+          "min": 0.038400571537895445,
+          "p25": 0.08051198515829228,
+          "median": 0.22182007481062982,
+          "p75": 0.8572190560229678,
+          "max": 9.590771608642026
+        },
+        "assignedLatencyTicks": {
+          "count": 17,
+          "min": 3,
+          "p25": 11,
+          "median": 14,
+          "p75": 17,
+          "max": 34
+        },
+        "assignedDistanceHU": {
+          "count": 17,
+          "min": 166.30988124630136,
+          "p25": 507.7751886237968,
+          "median": 652.4469495162791,
+          "p75": 741.9856852691757,
+          "max": 1477.0596878892334
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 17,
+          "min": 1844.4030449881677,
+          "p25": 2954.328370174818,
+          "median": 2985.9838098069717,
+          "p75": 3156.1504353916534,
+          "max": 3847.4058052689784
+        },
+        "precedingRank": {
+          "count": 17,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 17,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 17,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 10,
+        "residualWithinHalfTickRate": 0.5882352941176471,
+        "residualWithinOneTick": 13,
+        "residualWithinOneTickRate": 0.7647058823529411,
+        "residualWithinTwoTicks": 15,
+        "residualWithinTwoTicksRate": 0.8823529411764706
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep03",
+            "available": true,
+            "trainingHits": 16,
+            "testHits": 1,
+            "trainedModel": {
+              "speedHUPerSecond": 2992.3676224154297,
+              "fixedDelayTicks": 0
+            },
+            "heldOutResidualTicks": {
+              "count": 1,
+              "min": 2.4090219006563274,
+              "p25": 2.4090219006563274,
+              "median": 2.4090219006563274,
+              "p75": 2.4090219006563274,
+              "max": 2.4090219006563274
+            },
+            "heldOutWithinOneTickRate": 0,
+            "heldOutWithinTwoTicksRate": 0,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep04",
+            "available": false,
+            "trainingHits": 1,
+            "testHits": 16,
+            "reason": "INSUFFICIENT_TRAIN_OR_TEST_SAMPLE"
+          }
+        ],
+        "availableFoldCount": 1,
+        "heldOutMedianResidualTicks": {
+          "count": 1,
+          "min": 2.4090219006563274,
+          "p25": 2.4090219006563274,
+          "median": 2.4090219006563274,
+          "p75": 2.4090219006563274,
+          "max": 2.4090219006563274
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 1,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 4,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 15,
+      "modeledHits": 14,
+      "modelCoverage": 0.9333333333333333,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep03",
+        "rep05"
+      ],
+      "candidateShotPairs": 24,
+      "candidatesPerHit": {
+        "count": 14,
+        "min": 1,
+        "p25": 1.25,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 30973.725943504025,
+        "fixedDelayTicks": 0.25,
+        "fixedDelaySeconds": 0.00390625,
+        "robustObjective": 0.17225702940085189,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 14,
+          "min": 0.02033287992235211,
+          "p25": 0.05580181530589373,
+          "median": 0.12394449500960786,
+          "p75": 0.3052954929221069,
+          "max": 0.3860647095552505
+        },
+        "assignedLatencyTicks": {
+          "count": 14,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 2,
+          "max": 4
+        },
+        "assignedDistanceHU": {
+          "count": 14,
+          "min": 302.5986385318787,
+          "p25": 665.1703909559104,
+          "median": 842.0273315807151,
+          "p75": 992.7396914498186,
+          "max": 1826.367880963413
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 14,
+          "min": 19366.312866040236,
+          "p25": 22716.625988360418,
+          "median": 27027.952387662106,
+          "p75": 28897.323407207004,
+          "max": 32055.221617591404
+        },
+        "precedingRank": {
+          "count": 14,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 14,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 14,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 14,
+        "residualWithinHalfTickRate": 1,
+        "residualWithinOneTick": 14,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 14,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep01",
+            "available": true,
+            "trainingHits": 8,
+            "testHits": 6,
+            "trainedModel": {
+              "speedHUPerSecond": 30973.725943504025,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 6,
+              "min": 0.02376440260564472,
+              "p25": 0.06452907689195742,
+              "median": 0.16913959562218062,
+              "p75": 0.3052954929221069,
+              "max": 0.3441263091366027
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep03",
+            "available": true,
+            "trainingHits": 8,
+            "testHits": 6,
+            "trainedModel": {
+              "speedHUPerSecond": 30973.725943504025,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 6,
+              "min": 0.02033287992235211,
+              "p25": 0.07145983928568694,
+              "median": 0.18435100405715898,
+              "p75": 0.3091756200157803,
+              "max": 0.3860647095552505
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": true,
+            "trainingHits": 12,
+            "testHits": 2,
+            "trainedModel": {
+              "speedHUPerSecond": 31522.80596234232,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 2,
+              "min": 0.07040037761574292,
+              "p25": 0.08671058620660116,
+              "median": 0.1030207947974594,
+              "p75": 0.11933100338831765,
+              "max": 0.1356412119791759
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 3,
+        "heldOutMedianResidualTicks": {
+          "count": 3,
+          "min": 0.1030207947974594,
+          "p25": 0.13608019520982,
+          "median": 0.16913959562218062,
+          "p75": 0.1767452998396698,
+          "max": 0.18435100405715898
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 3,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 8,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 11,
+      "modeledHits": 11,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep04"
+      ],
+      "candidateShotPairs": 69,
+      "candidatesPerHit": {
+        "count": 11,
+        "min": 2,
+        "p25": 4,
+        "median": 6,
+        "p75": 7,
+        "max": 12
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 22975.20297375557,
+        "fixedDelayTicks": 0.25,
+        "fixedDelaySeconds": 0.00390625,
+        "robustObjective": 0.21574108270710776,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 11,
+          "min": 0.0011336075724543981,
+          "p25": 0.09363593710235685,
+          "median": 0.22351343148833314,
+          "p75": 0.32005027849730316,
+          "max": 0.4335761465827199
+        },
+        "assignedLatencyTicks": {
+          "count": 11,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 2,
+          "max": 3
+        },
+        "assignedDistanceHU": {
+          "count": 11,
+          "min": 289.2457969184828,
+          "p25": 522.0565130198912,
+          "median": 644.7303172589702,
+          "p75": 729.5842153870193,
+          "max": 906.9772144066055
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 11,
+          "min": 15122.552615877732,
+          "p25": 17716.996372677488,
+          "median": 19348.84724067425,
+          "p75": 21122.90651432726,
+          "max": 24354.16554949235
+        },
+        "precedingRank": {
+          "count": 11,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 11,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 11,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 11,
+        "residualWithinHalfTickRate": 1,
+        "residualWithinOneTick": 11,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 11,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 18,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 11,
+      "modeledHits": 11,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep04"
+      ],
+      "candidateShotPairs": 32,
+      "candidatesPerHit": {
+        "count": 11,
+        "min": 1,
+        "p25": 1,
+        "median": 3,
+        "p75": 4.5,
+        "max": 5
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 14549.313649350526,
+        "fixedDelayTicks": 0.75,
+        "fixedDelaySeconds": 0.01171875,
+        "robustObjective": 0.28971329934223145,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 11,
+          "min": 0.0023755014483000103,
+          "p25": 0.12887522144278862,
+          "median": 0.1517310295462586,
+          "p75": 0.5286255208047237,
+          "max": 0.65476798068158
+        },
+        "assignedLatencyTicks": {
+          "count": 11,
+          "min": 2,
+          "p25": 2,
+          "median": 3,
+          "p75": 4,
+          "max": 6
+        },
+        "assignedDistanceHU": {
+          "count": 11,
+          "min": 257.4128950893446,
+          "p25": 375.83821235212423,
+          "median": 616.2905818183808,
+          "p75": 722.2148220935446,
+          "max": 1054.4394833709023
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 11,
+          "min": 8237.212642859027,
+          "p25": 10214.902841925139,
+          "median": 11298.197445807578,
+          "p75": 13033.295301506165,
+          "max": 13856.533390088178
+        },
+        "precedingRank": {
+          "count": 11,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 11,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 11,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 8,
+        "residualWithinHalfTickRate": 0.7272727272727273,
+        "residualWithinOneTick": 11,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 11,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 25,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 11,
+      "modeledHits": 11,
+      "modelCoverage": 1,
+      "replayCount": 3,
+      "replays": [
+        "rep01",
+        "rep02",
+        "rep05"
+      ],
+      "candidateShotPairs": 35,
+      "candidatesPerHit": {
+        "count": 11,
+        "min": 1,
+        "p25": 3,
+        "median": 3,
+        "p75": 4,
+        "max": 4
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 15336.870775444808,
+        "fixedDelayTicks": 0,
+        "fixedDelaySeconds": 0,
+        "robustObjective": 0.35969014947015066,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 11,
+          "min": 0.037883000879844086,
+          "p25": 0.18688706102748553,
+          "median": 0.25481487241602974,
+          "p75": 0.41265290799738064,
+          "max": 0.9142460223422786
+        },
+        "assignedLatencyTicks": {
+          "count": 11,
+          "min": 1,
+          "p25": 2,
+          "median": 2,
+          "p75": 3.5,
+          "max": 4
+        },
+        "assignedDistanceHU": {
+          "count": 11,
+          "min": 282.64560197456296,
+          "p25": 489.86607247392175,
+          "median": 577.4406144942675,
+          "p75": 733.9814354500762,
+          "max": 1177.6430656782372
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 11,
+          "min": 12130.00452508889,
+          "p25": 14274.698792771856,
+          "median": 17290.902160397858,
+          "p75": 18203.133480026023,
+          "max": 18842.289050851796
+        },
+        "precedingRank": {
+          "count": 11,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 11,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 11,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 9,
+        "residualWithinHalfTickRate": 0.8181818181818182,
+        "residualWithinOneTick": 11,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 11,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep01",
+            "available": true,
+            "trainingHits": 7,
+            "testHits": 4,
+            "trainedModel": {
+              "speedHUPerSecond": 15336.870775444808,
+              "fixedDelayTicks": 0
+            },
+            "heldOutResidualTicks": {
+              "count": 4,
+              "min": 0.3265793879015604,
+              "p25": 0.3934009558355245,
+              "median": 0.6260278304476332,
+              "p75": 0.8558471423968851,
+              "max": 0.9142460223422786
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep02",
+            "available": true,
+            "trainingHits": 8,
+            "testHits": 3,
+            "trainedModel": {
+              "speedHUPerSecond": 15336.870775444808,
+              "fixedDelayTicks": 0
+            },
+            "heldOutResidualTicks": {
+              "count": 3,
+              "min": 0.22116628098397317,
+              "p25": 0.23799057670000145,
+              "median": 0.25481487241602974,
+              "p75": 0.33222293829863925,
+              "max": 0.40963100418124876
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": true,
+            "trainingHits": 7,
+            "testHits": 4,
+            "trainedModel": {
+              "speedHUPerSecond": 19614.47105193526,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 4,
+              "min": 0.17224350473051642,
+              "p25": 0.18094740656039232,
+              "median": 0.25007981361753495,
+              "p75": 0.345701444596858,
+              "max": 0.43387301819327506
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          }
+        ],
+        "availableFoldCount": 3,
+        "heldOutMedianResidualTicks": {
+          "count": 3,
+          "min": 0.25007981361753495,
+          "p25": 0.25244734301678234,
+          "median": 0.25481487241602974,
+          "p75": 0.4404213514318315,
+          "max": 0.6260278304476332
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 3,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 58,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 10,
+      "modeledHits": 8,
+      "modelCoverage": 0.8,
+      "replayCount": 1,
+      "replays": [
+        "rep03"
+      ],
+      "candidateShotPairs": 47,
+      "candidatesPerHit": {
+        "count": 8,
+        "min": 1,
+        "p25": 3.75,
+        "median": 5.5,
+        "p75": 9,
+        "max": 10
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 17964.681184371715,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.16507470171263722,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 8,
+          "min": 0.007174402690233617,
+          "p25": 0.020071820747775693,
+          "median": 0.06269043134893904,
+          "p75": 0.20480417045071936,
+          "max": 0.5318878645183513
+        },
+        "assignedLatencyTicks": {
+          "count": 8,
+          "min": 1,
+          "p25": 1.75,
+          "median": 2,
+          "p75": 2,
+          "max": 3
+        },
+        "assignedDistanceHU": {
+          "count": 8,
+          "min": 285.097547677427,
+          "p25": 366.8966319665193,
+          "median": 403.4501275634866,
+          "p75": 423.8773453356042,
+          "max": 707.4978572721516
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 8,
+          "min": 12564.6668798891,
+          "p25": 12926.819097083255,
+          "median": 13590.196284690712,
+          "p75": 15881.526479193257,
+          "max": 18537.536504094336
+        },
+        "precedingRank": {
+          "count": 8,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 8,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 8,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 6,
+        "residualWithinHalfTickRate": 0.75,
+        "residualWithinOneTick": 8,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 8,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 63,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 10,
+      "modeledHits": 10,
+      "modelCoverage": 1,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep05"
+      ],
+      "candidateShotPairs": 25,
+      "candidatesPerHit": {
+        "count": 10,
+        "min": 2,
+        "p25": 2,
+        "median": 2,
+        "p75": 3,
+        "max": 4
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 24218.855097940283,
+        "fixedDelayTicks": 0.25,
+        "fixedDelaySeconds": 0.00390625,
+        "robustObjective": 0.2050017285755862,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 10,
+          "min": 0.00027559541498400897,
+          "p25": 0.06316482917633492,
+          "median": 0.19288126416713458,
+          "p75": 0.323199576946513,
+          "max": 0.51433320401023
+        },
+        "assignedLatencyTicks": {
+          "count": 10,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 2,
+          "max": 3
+        },
+        "assignedDistanceHU": {
+          "count": 10,
+          "min": 196.49452140391531,
+          "p25": 316.38114869210517,
+          "median": 443.41148190311446,
+          "p75": 626.0541592512982,
+          "max": 1016.6485326238205
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 10,
+          "min": 12575.64936985058,
+          "p25": 18674.012798680473,
+          "median": 21438.331468647673,
+          "p75": 24146.19936835319,
+          "max": 30620.70266343833
+        },
+        "precedingRank": {
+          "count": 10,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 10,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 10,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 9,
+        "residualWithinHalfTickRate": 0.9,
+        "residualWithinOneTick": 10,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 10,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep02",
+            "available": true,
+            "trainingHits": 6,
+            "testHits": 4,
+            "trainedModel": {
+              "speedHUPerSecond": 28368.499471325405,
+              "fixedDelayTicks": 0.25
+            },
+            "heldOutResidualTicks": {
+              "count": 4,
+              "min": 0.3067037522530256,
+              "p25": 0.3237191788254995,
+              "median": 0.3929040297090326,
+              "p75": 0.487755593003923,
+              "max": 0.5817711568104689
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": false,
+            "trainingHits": 4,
+            "testHits": 6,
+            "reason": "INSUFFICIENT_TRAIN_OR_TEST_SAMPLE"
+          }
+        ],
+        "availableFoldCount": 1,
+        "heldOutMedianResidualTicks": {
+          "count": 1,
+          "min": 0.3929040297090326,
+          "p25": 0.3929040297090326,
+          "median": 0.3929040297090326,
+          "p75": 0.3929040297090326,
+          "max": 0.3929040297090326
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 60,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 9,
+      "modeledHits": 9,
+      "modelCoverage": 1,
+      "replayCount": 2,
+      "replays": [
+        "rep02",
+        "rep05"
+      ],
+      "candidateShotPairs": 23,
+      "candidatesPerHit": {
+        "count": 9,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 3,
+        "max": 4
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 11578.014286402764,
+        "fixedDelayTicks": 0,
+        "fixedDelaySeconds": 0,
+        "robustObjective": 0.3032032312294717,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 9,
+          "min": 0.01792345953689889,
+          "p25": 0.19911785148754202,
+          "median": 0.2749209444247116,
+          "p75": 0.4874470589675237,
+          "max": 0.62274676345905
+        },
+        "assignedLatencyTicks": {
+          "count": 9,
+          "min": 2,
+          "p25": 3,
+          "median": 4,
+          "p75": 5,
+          "max": 9
+        },
+        "assignedDistanceHU": {
+          "count": 9,
+          "min": 273.630618128352,
+          "p25": 583.79578699329,
+          "median": 730.1023293160433,
+          "p75": 791.873445435529,
+          "max": 1631.4007288782009
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 9,
+          "min": 8756.179780107264,
+          "p25": 10135.98010157477,
+          "median": 11601.071849800539,
+          "p75": 12154.361618702911,
+          "max": 12816.600008392435
+        },
+        "precedingRank": {
+          "count": 9,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 2
+        },
+        "assignedNearestShotCount": 8,
+        "assignedNearestShotRate": 0.8888888888888888,
+        "unambiguousCount": 9,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 7,
+        "residualWithinHalfTickRate": 0.7777777777777778,
+        "residualWithinOneTick": 9,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 9,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": true,
+        "folds": [
+          {
+            "heldOutReplay": "rep02",
+            "available": true,
+            "trainingHits": 6,
+            "testHits": 3,
+            "trainedModel": {
+              "speedHUPerSecond": 11578.014286402764,
+              "fixedDelayTicks": 0
+            },
+            "heldOutResidualTicks": {
+              "count": 3,
+              "min": 0.03579991528448012,
+              "p25": 0.2616234871260019,
+              "median": 0.4874470589675237,
+              "p75": 0.5550969112132869,
+              "max": 0.62274676345905
+            },
+            "heldOutWithinOneTickRate": 1,
+            "heldOutWithinTwoTicksRate": 1,
+            "heldOutUnambiguousRate": 1
+          },
+          {
+            "heldOutReplay": "rep05",
+            "available": false,
+            "trainingHits": 3,
+            "testHits": 6,
+            "reason": "INSUFFICIENT_TRAIN_OR_TEST_SAMPLE"
+          }
+        ],
+        "availableFoldCount": 1,
+        "heldOutMedianResidualTicks": {
+          "count": 1,
+          "min": 0.4874470589675237,
+          "p25": 0.4874470589675237,
+          "median": 0.4874470589675237,
+          "p75": 0.4874470589675237,
+          "max": 0.4874470589675237
+        },
+        "heldOutWithinOneTickRates": {
+          "count": 1,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        }
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 65,
+      "status": "HIGH_SPEED_TIMING_RESOLUTION_LIMITED",
+      "hits": 9,
+      "modeledHits": 9,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep03"
+      ],
+      "candidateShotPairs": 51,
+      "candidatesPerHit": {
+        "count": 9,
+        "min": 3,
+        "p25": 5,
+        "median": 5,
+        "p75": 6,
+        "max": 10
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 79999.99999999994,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.1797679826960334,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": true,
+          "highSpeedTimingResolutionLimited": true
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 9,
+          "min": 0.022971420551986643,
+          "p25": 0.10667657224534999,
+          "median": 0.16305678294421355,
+          "p75": 0.2622551494332539,
+          "max": 0.35391591475505824
+        },
+        "assignedLatencyTicks": {
+          "count": 9,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedDistanceHU": {
+          "count": 9,
+          "min": 182.60510655617708,
+          "p25": 421.17902131973267,
+          "median": 653.7142756899827,
+          "p75": 773.9275101452178,
+          "max": 952.8189367915667
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 9,
+          "min": 11686.726819595333,
+          "p25": 26955.45736446289,
+          "median": 41837.713644158895,
+          "p75": 49531.360649293936,
+          "max": 60980.41195466027
+        },
+        "precedingRank": {
+          "count": 9,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 9,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 9,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 9,
+        "residualWithinHalfTickRate": 1,
+        "residualWithinOneTick": 9,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 9,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "Successful-hit timing is compatible with a very fast projectile, but 64-tick replay resolution and observed soul distances do not identify a precise upper-end speed. Do not use the fitted boundary value as a constant."
+    },
+    {
+      "heroId": 14,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 8,
+      "modeledHits": 8,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "candidateShotPairs": 12,
+      "candidatesPerHit": {
+        "count": 8,
+        "min": 1,
+        "p25": 1,
+        "median": 1.5,
+        "p75": 2,
+        "max": 2
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 46399.7937274689,
+        "fixedDelayTicks": 0.75,
+        "fixedDelaySeconds": 0.01171875,
+        "robustObjective": 0.26917546470655274,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 8,
+          "min": 0.009697591875645672,
+          "p25": 0.11511132388103579,
+          "median": 0.13632847232015588,
+          "p75": 0.19878286144128826,
+          "max": 1.1929306874238783
+        },
+        "assignedLatencyTicks": {
+          "count": 8,
+          "min": 1,
+          "p25": 1,
+          "median": 2,
+          "p75": 2,
+          "max": 2
+        },
+        "assignedDistanceHU": {
+          "count": 8,
+          "min": 242.78881240088003,
+          "p25": 660.9497567693569,
+          "median": 811.7845959505546,
+          "p75": 935.9414607400853,
+          "max": 1127.0123912765696
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 8,
+          "min": 15538.483993656322,
+          "p25": 23396.491646908155,
+          "median": 25977.107070417747,
+          "p75": 30597.265091457426,
+          "max": 66951.68625950287
+        },
+        "precedingRank": {
+          "count": 8,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 8,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 8,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 7,
+        "residualWithinHalfTickRate": 0.875,
+        "residualWithinOneTick": 7,
+        "residualWithinOneTickRate": 0.875,
+        "residualWithinTwoTicks": 8,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 15,
+      "status": "HIGH_SPEED_TIMING_RESOLUTION_LIMITED",
+      "hits": 7,
+      "modeledHits": 7,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep02"
+      ],
+      "candidateShotPairs": 59,
+      "candidatesPerHit": {
+        "count": 7,
+        "min": 1,
+        "p25": 5,
+        "median": 11,
+        "p75": 12,
+        "max": 13
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 79999.99999999994,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.12951708651029342,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": true,
+          "highSpeedTimingResolutionLimited": true
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 7,
+          "min": 0.0002955110696987173,
+          "p25": 0.013616477918619418,
+          "median": 0.0750812201118527,
+          "p75": 0.11289435023314942,
+          "max": 0.5782212180869648
+        },
+        "assignedLatencyTicks": {
+          "count": 7,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedDistanceHU": {
+          "count": 7,
+          "min": 624.6306111628762,
+          "p25": 642.0205973982738,
+          "median": 718.8515251398153,
+          "p75": 766.1179377914361,
+          "max": 1347.776522608705
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 7,
+          "min": 39976.35911442408,
+          "p25": 41089.318233489525,
+          "median": 46006.49760894818,
+          "p75": 49031.54801865191,
+          "max": 86257.69744695711
+        },
+        "precedingRank": {
+          "count": 7,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 7,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 7,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 6,
+        "residualWithinHalfTickRate": 0.8571428571428571,
+        "residualWithinOneTick": 7,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 7,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "Successful-hit timing is compatible with a very fast projectile, but 64-tick replay resolution and observed soul distances do not identify a precise upper-end speed. Do not use the fitted boundary value as a constant."
+    },
+    {
+      "heroId": 64,
+      "status": "MODEL_WEAK_OR_UNRESOLVED",
+      "hits": 7,
+      "modeledHits": 7,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "candidateShotPairs": 13,
+      "candidatesPerHit": {
+        "count": 7,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 4252.489926698948,
+        "fixedDelayTicks": 2,
+        "fixedDelaySeconds": 0.03125,
+        "robustObjective": 1.545596119846301,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 7,
+          "min": 0.07763517660242147,
+          "p25": 0.5149475672133801,
+          "median": 1.372681930055144,
+          "p75": 2.1694802989198907,
+          "max": 4.651214500973509
+        },
+        "assignedLatencyTicks": {
+          "count": 7,
+          "min": 7,
+          "p25": 7,
+          "median": 8,
+          "p75": 8,
+          "max": 9
+        },
+        "assignedDistanceHU": {
+          "count": 7,
+          "min": 137.9277589356739,
+          "p25": 257.12723082191076,
+          "median": 393.5124492770999,
+          "p75": 450.39463544121406,
+          "max": 774.1667546749775
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 7,
+          "min": 1261.053795983304,
+          "p25": 2350.877538943184,
+          "median": 3148.0995942167992,
+          "p75": 3603.1570835297125,
+          "max": 5505.185811022062
+        },
+        "precedingRank": {
+          "count": 7,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 7,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 7,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 2,
+        "residualWithinHalfTickRate": 0.2857142857142857,
+        "residualWithinOneTick": 3,
+        "residualWithinOneTickRate": 0.42857142857142855,
+        "residualWithinTwoTicks": 5,
+        "residualWithinTwoTicksRate": 0.7142857142857143
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "Candidate-shot timing does not yet support a sufficiently tight hero-specific travel model. Preserve as unresolved rather than forcing a projectile-speed estimate."
+    },
+    {
+      "heroId": 50,
+      "status": "HIGH_SPEED_TIMING_RESOLUTION_LIMITED",
+      "hits": 6,
+      "modeledHits": 6,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep05"
+      ],
+      "candidateShotPairs": 8,
+      "candidatesPerHit": {
+        "count": 6,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1.75,
+        "max": 2
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 79999.99999999994,
+        "fixedDelayTicks": 1.5,
+        "fixedDelaySeconds": 0.0234375,
+        "robustObjective": 0.08204553583728565,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": true,
+          "highSpeedTimingResolutionLimited": true
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 6,
+          "min": 0.01748391104370617,
+          "p25": 0.04132049155011064,
+          "median": 0.07907194565666942,
+          "p75": 0.12205656121937253,
+          "max": 0.15152397274513763
+        },
+        "assignedLatencyTicks": {
+          "count": 6,
+          "min": 2,
+          "p25": 2,
+          "median": 2,
+          "p75": 2,
+          "max": 2
+        },
+        "assignedDistanceHU": {
+          "count": 6,
+          "min": 435.59503406857766,
+          "p25": 472.42929847578387,
+          "median": 583.1404697546194,
+          "p75": 659.0878579272257,
+          "max": 717.1059148462798
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 6,
+          "min": 13939.041090194485,
+          "p25": 15117.737551225084,
+          "median": 18660.49503214782,
+          "p75": 21090.811453671224,
+          "max": 22947.389275080954
+        },
+        "precedingRank": {
+          "count": 6,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 6,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 6,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 6,
+        "residualWithinHalfTickRate": 1,
+        "residualWithinOneTick": 6,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 6,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "Successful-hit timing is compatible with a very fast projectile, but 64-tick replay resolution and observed soul distances do not identify a precise upper-end speed. Do not use the fitted boundary value as a constant."
+    },
+    {
+      "heroId": 69,
+      "status": "PROVISIONAL_FINITE_TRAVEL_MODEL",
+      "hits": 5,
+      "modeledHits": 5,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "candidateShotPairs": 9,
+      "candidatesPerHit": {
+        "count": 5,
+        "min": 1,
+        "p25": 2,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "fittedModel": {
+        "speedHUPerSecond": 12204.734410598103,
+        "fixedDelayTicks": 0.5,
+        "fixedDelaySeconds": 0.0078125,
+        "robustObjective": 0.2837810880842472,
+        "searchBoundary": {
+          "atMinimumSpeed": false,
+          "atMaximumSpeed": false,
+          "highSpeedTimingResolutionLimited": false
+        }
+      },
+      "assignments": {
+        "residualTicks": {
+          "count": 5,
+          "min": 0.01281665545250954,
+          "p25": 0.0383420208769909,
+          "median": 0.11103658640967007,
+          "p75": 0.37454021591612596,
+          "max": 0.8821699617659395
+        },
+        "assignedLatencyTicks": {
+          "count": 5,
+          "min": 3,
+          "p25": 3,
+          "median": 3,
+          "p75": 3,
+          "max": 5
+        },
+        "assignedDistanceHU": {
+          "count": 5,
+          "min": 455.57287467977824,
+          "p25": 479.1915609738325,
+          "median": 548.1718732474944,
+          "p75": 644.9763455446255,
+          "max": 850.8336041581591
+        },
+        "assignedImpliedSpeedHUPerSecond": {
+          "count": 5,
+          "min": 9718.887993168602,
+          "p25": 10222.753300775094,
+          "median": 10890.670133224437,
+          "p75": 11694.333295946548,
+          "max": 13759.495371618677
+        },
+        "precedingRank": {
+          "count": 5,
+          "min": 1,
+          "p25": 1,
+          "median": 1,
+          "p75": 1,
+          "max": 1
+        },
+        "assignedNearestShotCount": 5,
+        "assignedNearestShotRate": 1,
+        "unambiguousCount": 5,
+        "unambiguousRate": 1,
+        "residualWithinHalfTick": 4,
+        "residualWithinHalfTickRate": 0.8,
+        "residualWithinOneTick": 5,
+        "residualWithinOneTickRate": 1,
+        "residualWithinTwoTicks": 5,
+        "residualWithinTwoTicksRate": 1
+      },
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "HERO_PRESENT_IN_ONLY_ONE_REPLAY",
+        "folds": []
+      },
+      "interpretation": "A finite common hero-specific timing-distance parameter is compatible with the observed successful hits. Treat the fitted speed as provisional until cross-replay and/or game-resource validation."
+    },
+    {
+      "heroId": 10,
+      "status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "hits": 4,
+      "modeledHits": 4,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "candidateShotPairs": 23,
+      "candidatesPerHit": {
+        "count": 4,
+        "min": 2,
+        "p25": 2.75,
+        "median": 5.5,
+        "p75": 8.5,
+        "max": 10
+      },
+      "fittedModel": null,
+      "assignments": null,
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "INSUFFICIENT_HITS_FOR_MODEL",
+        "folds": []
+      },
+      "interpretation": "Insufficient successful-hit sample for a hero-specific latent travel model."
+    },
+    {
+      "heroId": 16,
+      "status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "hits": 3,
+      "modeledHits": 3,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep03"
+      ],
+      "candidateShotPairs": 7,
+      "candidatesPerHit": {
+        "count": 3,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 3,
+        "max": 5
+      },
+      "fittedModel": null,
+      "assignments": null,
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "INSUFFICIENT_HITS_FOR_MODEL",
+        "folds": []
+      },
+      "interpretation": "Insufficient successful-hit sample for a hero-specific latent travel model."
+    },
+    {
+      "heroId": 79,
+      "status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "hits": 3,
+      "modeledHits": 3,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep03"
+      ],
+      "candidateShotPairs": 12,
+      "candidatesPerHit": {
+        "count": 3,
+        "min": 4,
+        "p25": 4,
+        "median": 4,
+        "p75": 4,
+        "max": 4
+      },
+      "fittedModel": null,
+      "assignments": null,
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "INSUFFICIENT_HITS_FOR_MODEL",
+        "folds": []
+      },
+      "interpretation": "Insufficient successful-hit sample for a hero-specific latent travel model."
+    },
+    {
+      "heroId": 81,
+      "status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "hits": 2,
+      "modeledHits": 2,
+      "modelCoverage": 1,
+      "replayCount": 2,
+      "replays": [
+        "rep04",
+        "rep05"
+      ],
+      "candidateShotPairs": 4,
+      "candidatesPerHit": {
+        "count": 2,
+        "min": 1,
+        "p25": 1.5,
+        "median": 2,
+        "p75": 2.5,
+        "max": 3
+      },
+      "fittedModel": null,
+      "assignments": null,
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "INSUFFICIENT_HITS_FOR_MODEL",
+        "folds": []
+      },
+      "interpretation": "Insufficient successful-hit sample for a hero-specific latent travel model."
+    },
+    {
+      "heroId": 3,
+      "status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "hits": 1,
+      "modeledHits": 1,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep01"
+      ],
+      "candidateShotPairs": 4,
+      "candidatesPerHit": {
+        "count": 1,
+        "min": 4,
+        "p25": 4,
+        "median": 4,
+        "p75": 4,
+        "max": 4
+      },
+      "fittedModel": null,
+      "assignments": null,
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "INSUFFICIENT_HITS_FOR_MODEL",
+        "folds": []
+      },
+      "interpretation": "Insufficient successful-hit sample for a hero-specific latent travel model."
+    },
+    {
+      "heroId": 6,
+      "status": "INSUFFICIENT_HITS_FOR_MODEL",
+      "hits": 1,
+      "modeledHits": 1,
+      "modelCoverage": 1,
+      "replayCount": 1,
+      "replays": [
+        "rep04"
+      ],
+      "candidateShotPairs": 2,
+      "candidatesPerHit": {
+        "count": 1,
+        "min": 2,
+        "p25": 2,
+        "median": 2,
+        "p75": 2,
+        "max": 2
+      },
+      "fittedModel": null,
+      "assignments": null,
+      "leaveOneReplayOut": {
+        "available": false,
+        "reason": "INSUFFICIENT_HITS_FOR_MODEL",
+        "folds": []
+      },
+      "interpretation": "Insufficient successful-hit sample for a hero-specific latent travel model."
+    }
+  ],
+  "aggregateInterpretation": {
+    "interpretableHeroModels": 24,
+    "finiteTravelModels": 20,
+    "highSpeedTimingResolutionLimitedModels": 4,
+    "warning": "A fitted finite speed is an empirical latent travel parameter, not yet a canonical weapon projectile velocity.",
+    "highSpeedWarning": "Models near the upper search boundary indicate that 64-tick replay timing cannot cleanly distinguish very high projectile speed from effectively near-instant travel at observed soul distances.",
+    "attributionWarning": "The assigned candidate is the shot most compatible with the shared hero timing model. It is not proven to be the exact source projectile.",
+    "behavioralUse": "No fitted travel parameter should enter the final actionable-opportunity denominator until model quality and weapon-ready state are separately validated."
+  },
+  "nextStage": "INSPECT_FINITE_VS_QUANTIZATION_LIMITED_HEROES_THEN_VALIDATE_WEAPON_READY_STATE",
+  "outputs": {
+    "candidates": "G:\\DeadlockBehavior\\output\\cross_replay\\hero_specific_shot_travel_candidates_v01.jsonl",
+    "assignments": "G:\\DeadlockBehavior\\output\\cross_replay\\hero_specific_shot_travel_assignments_v01.jsonl",
+    "summary": "G:\\DeadlockBehavior\\output\\cross_replay\\hero_specific_shot_travel_candidate_models_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\hero_specific_shot_travel_candidate_models_v01.md"
+  }
+}

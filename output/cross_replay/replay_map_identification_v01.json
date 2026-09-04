@@ -1,0 +1,181 @@
+{
+  "version": "REPLAY_MAP_IDENTIFICATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-03T23:49:55.203Z",
+  "status": "REPLAY_MAP_UNRESOLVED",
+  "methodology": {
+    "primaryReplayMapSource": "CNETMsg_SignonState.mapName",
+    "secondaryReplayMapSource": "CNETMsg_SpawnGroup_Load.worldname",
+    "rawReplayParsing": true,
+    "physicsExtraction": false,
+    "losClassification": false
+  },
+  "replayCounts": {
+    "total": 6,
+    "resolvedPrimary": 0,
+    "allResolved": false,
+    "allPrimaryMapsAgree": false,
+    "replicationTotal": 5,
+    "replicationResolved": 0,
+    "replicationCohortAgrees": false
+  },
+  "mapResolution": {
+    "frozenDiscoveryMap": null,
+    "uniqueAllReplayMaps": [],
+    "uniqueReplicationMaps": [],
+    "authoritativeAllReplayMap": null,
+    "authoritativeReplicationMap": null
+  },
+  "script119Audit": {
+    "hardcodedMap": "dl_streets",
+    "matchesReplicationMap": null,
+    "disposition": "SCRIPT119_MAP_ASSOCIATION_REMAINS_UNRESOLVED",
+    "guardrail": "The existing Script119 extraction must not be used for replay LOS unless its hardcoded map is directly confirmed by Script120."
+  },
+  "secondaryAgreement": [
+    {
+      "replay": "test",
+      "primaryMapName": null,
+      "secondaryCandidates": [],
+      "secondaryMatchesPrimary": null
+    },
+    {
+      "replay": "rep01",
+      "primaryMapName": null,
+      "secondaryCandidates": [],
+      "secondaryMatchesPrimary": null
+    },
+    {
+      "replay": "rep02",
+      "primaryMapName": null,
+      "secondaryCandidates": [],
+      "secondaryMatchesPrimary": null
+    },
+    {
+      "replay": "rep03",
+      "primaryMapName": null,
+      "secondaryCandidates": [],
+      "secondaryMatchesPrimary": null
+    },
+    {
+      "replay": "rep04",
+      "primaryMapName": null,
+      "secondaryCandidates": [],
+      "secondaryMatchesPrimary": null
+    },
+    {
+      "replay": "rep05",
+      "primaryMapName": null,
+      "secondaryCandidates": [],
+      "secondaryMatchesPrimary": null
+    }
+  ],
+  "replays": [
+    {
+      "replay": "test",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\test.dem",
+      "messagePackets": 4493855,
+      "signonStateMessages": 3,
+      "spawnGroupLoadMessages": 0,
+      "rawSignonMapNames": [],
+      "uniqueSignonMapNames": [],
+      "primaryMapName": null,
+      "primaryStatus": "PRIMARY_SIGNON_MAP_UNRESOLVED",
+      "spawnGroupWorldNames": [],
+      "spawnGroupMapCandidates": [],
+      "relevantMessageTypes": {
+        "net_SignonState": 3
+      }
+    },
+    {
+      "replay": "rep01",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep01.dem",
+      "messagePackets": 3181046,
+      "signonStateMessages": 3,
+      "spawnGroupLoadMessages": 0,
+      "rawSignonMapNames": [],
+      "uniqueSignonMapNames": [],
+      "primaryMapName": null,
+      "primaryStatus": "PRIMARY_SIGNON_MAP_UNRESOLVED",
+      "spawnGroupWorldNames": [],
+      "spawnGroupMapCandidates": [],
+      "relevantMessageTypes": {
+        "net_SignonState": 3
+      }
+    },
+    {
+      "replay": "rep02",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep02.dem",
+      "messagePackets": 3571547,
+      "signonStateMessages": 3,
+      "spawnGroupLoadMessages": 0,
+      "rawSignonMapNames": [],
+      "uniqueSignonMapNames": [],
+      "primaryMapName": null,
+      "primaryStatus": "PRIMARY_SIGNON_MAP_UNRESOLVED",
+      "spawnGroupWorldNames": [],
+      "spawnGroupMapCandidates": [],
+      "relevantMessageTypes": {
+        "net_SignonState": 3
+      }
+    },
+    {
+      "replay": "rep03",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep03.dem",
+      "messagePackets": 4756296,
+      "signonStateMessages": 3,
+      "spawnGroupLoadMessages": 0,
+      "rawSignonMapNames": [],
+      "uniqueSignonMapNames": [],
+      "primaryMapName": null,
+      "primaryStatus": "PRIMARY_SIGNON_MAP_UNRESOLVED",
+      "spawnGroupWorldNames": [],
+      "spawnGroupMapCandidates": [],
+      "relevantMessageTypes": {
+        "net_SignonState": 3
+      }
+    },
+    {
+      "replay": "rep04",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep04.dem",
+      "messagePackets": 3469963,
+      "signonStateMessages": 3,
+      "spawnGroupLoadMessages": 0,
+      "rawSignonMapNames": [],
+      "uniqueSignonMapNames": [],
+      "primaryMapName": null,
+      "primaryStatus": "PRIMARY_SIGNON_MAP_UNRESOLVED",
+      "spawnGroupWorldNames": [],
+      "spawnGroupMapCandidates": [],
+      "relevantMessageTypes": {
+        "net_SignonState": 3
+      }
+    },
+    {
+      "replay": "rep05",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep05.dem",
+      "messagePackets": 3313483,
+      "signonStateMessages": 3,
+      "spawnGroupLoadMessages": 0,
+      "rawSignonMapNames": [],
+      "uniqueSignonMapNames": [],
+      "primaryMapName": null,
+      "primaryStatus": "PRIMARY_SIGNON_MAP_UNRESOLVED",
+      "spawnGroupWorldNames": [],
+      "spawnGroupMapCandidates": [],
+      "relevantMessageTypes": {
+        "net_SignonState": 3
+      }
+    }
+  ],
+  "interpretation": {
+    "mapIdentity": "The replay cohort does not yet support one common authoritative map.",
+    "nextRule": "Do not perform authoritative world-physics extraction until the replication map is resolved.",
+    "staticLosGuardrail": "Map identity is necessary but not sufficient. The matching world-physics resource still requires coordinate/raycast validation against known successful soul-hit paths."
+  },
+  "nextStage": "DIAGNOSE_REPLAY_MAP_METADATA",
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\replay_map_identification_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\replay_map_identification_v01.md"
+  }
+}

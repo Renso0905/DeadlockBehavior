@@ -1,0 +1,191 @@
+{
+  "version": "FLYING_SOUL_STATIC_PROJECTILE_ACCESS_WINDOWS_V02",
+  "canonical": false,
+  "createdAt": "2026-09-04T01:51:05.613Z",
+  "replay": "rep05",
+  "status": "FLYING_SOUL_STATIC_PROJECTILE_ACCESS_WINDOWS_REPLAY_READY",
+  "mapCache": {
+    "physicsGlbPath": "G:\\DeadlockBehavior\\resources\\dl_midtown\\world_physics_v01\\world_physics_physics.glb",
+    "physicsGlbSha256": "d24c4a3fe43765462abc90a7e618617c4dcfe309d748906817dcba5c39083096",
+    "cacheDirectory": "G:\\DeadlockBehavior\\resources\\dl_midtown\\world_physics_v01\\static_bullet_grid_cache_v02",
+    "cacheVersion": "STATIC_BULLET_GRID_CACHE_V02",
+    "gridCellSizeHU": 512,
+    "totalTriangles": 3370441,
+    "meshNames": [
+      "physics_group",
+      "physics_group_wood",
+      "physics_group_brick",
+      "physics_group_metal",
+      "physics_group_concrete",
+      "physics_group_vrf_unknown_key_358143640",
+      "physics_group_glass",
+      "physics_group_vrf_unknown_key_250761778",
+      "physics_group_carpet",
+      "physics_group_metalpanel",
+      "physics_group_rock",
+      "physics_group_wet",
+      "physics_group_vrf_unknown_key_2414045314",
+      "physics_group_dirt",
+      "physics_Citadel_Camera_Can_Pass_Through_solid",
+      "physics_Citadel_Camera_Can_Pass_Through_solid_wood",
+      "physics_Citadel_Camera_Can_Pass_Through_solid_brick",
+      "physics_Citadel_Camera_Can_Pass_Through_solid_metal",
+      "physics_Citadel_Camera_Can_Pass_Through_solid_concrete",
+      "physics_Citadel_Camera_Can_Pass_Through_solid_vrf_unknown_key_250761778",
+      "physics_Citadel_Camera_Can_Pass_Through_solid_rock",
+      "physics_Citadel_Camera_Can_Pass_Through_solid_metalgrate",
+      "physics_Citadel_BlockCamera_solid",
+      "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid",
+      "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid_metal",
+      "physics_window_glass",
+      "physics_sky"
+    ],
+    "cells": 501696,
+    "assignments": 4192576,
+    "largeTriangles": 71
+  },
+  "method": {
+    "outputUnit": "PLAYER_X_FLYING_SOUL_EVENT",
+    "exhaustiveAcrossCandidateAnalysisWindow": true,
+    "originProbesHU": [
+      64,
+      80
+    ],
+    "collisionFilter": "BULLET_SOLID_CANDIDATE_V01",
+    "tickClasses": {
+      "ROBUST_STATIC_CLEAR": "both Z+64 and Z+80 probes clear",
+      "ROBUST_STATIC_BLOCKED": "both Z+64 and Z+80 probes blocked",
+      "ORIGIN_SENSITIVE": "one probe clear and one blocked",
+      "NOT_EVALUATED": "player/orb state unavailable or player not alive"
+    },
+    "persistedTickRepresentation": "run-length encoded tick classes per candidate",
+    "resume": "100-candidate atomic chunk checkpoints"
+  },
+  "candidates": {
+    "total": 7776
+  },
+  "coverage": {
+    "priorAliveGeometryCandidates": 6651,
+    "staticEvaluatedCandidates": 6651,
+    "staticEvaluatedCandidateRateAmongPriorAliveGeometry": 1,
+    "staticEvaluatedTicks": 283081
+  },
+  "staticAccess": {
+    "robustClearTicks": 67144,
+    "robustBlockedTicks": 214514,
+    "originSensitiveTicks": 1423,
+    "robustClearTickRate": 0.23719006220834318,
+    "robustBlockedTickRate": 0.7577831080150205,
+    "originSensitiveTickRate": 0.005026829776636369,
+    "everRobustClearCandidates": 1789,
+    "everRobustBlockedCandidates": 5224,
+    "everOriginSensitiveCandidates": 222,
+    "everRobustClearRateAmongEvaluated": 0.26898210795369115
+  },
+  "positiveControls": {
+    "observedHitCandidates": 64,
+    "everRobustClear": 62,
+    "neverRobustClear": 2,
+    "everRobustClearRate": 0.96875
+  },
+  "blockers": {
+    "robustBlockedFirstDetectedMeshes": {
+      "physics_group": 187941,
+      "physics_Citadel_Camera_Can_Pass_Through_solid": 17093,
+      "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1581,
+      "physics_group_concrete": 1310,
+      "physics_window_glass": 1279,
+      "physics_group_brick": 1146,
+      "physics_group_wood": 1049,
+      "physics_group_metal": 983,
+      "physics_Citadel_BlockCamera_solid": 971,
+      "physics_Citadel_Camera_Can_Pass_Through_solid_vrf_unknown_key_250761778": 854,
+      "physics_Citadel_Camera_Can_Pass_Through_solid_rock": 147,
+      "physics_group_vrf_unknown_key_250761778": 80,
+      "physics_group_rock": 37,
+      "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid": 28,
+      "physics_group_metalpanel": 9,
+      "physics_group_glass": 6
+    }
+  },
+  "distributions": {
+    "robustClearFractionAmongEvaluatedTicks": {
+      "count": 6651,
+      "min": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0.28888888888888886,
+      "max": 1
+    },
+    "robustBlockedFractionAmongEvaluatedTicks": {
+      "count": 6651,
+      "min": 0,
+      "p25": 0.6222222222222222,
+      "median": 1,
+      "p75": 1,
+      "max": 1
+    },
+    "originSensitiveFractionAmongEvaluatedTicks": {
+      "count": 6651,
+      "min": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0,
+      "max": 1
+    },
+    "firstRobustClearSecondsAfterAttackableStart": {
+      "count": 1789,
+      "min": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0,
+      "max": 0.6875
+    },
+    "longestRobustClearRunSeconds": {
+      "count": 7776,
+      "min": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0,
+      "max": 0.703125
+    }
+  },
+  "validation": {
+    "pass": true,
+    "thresholds": {
+      "minimumEvaluatedCandidateCoverageAmongPriorAliveGeometry": 0.99,
+      "minimumPositiveHitCandidateEverRobustClearRate": 0.95
+    },
+    "checks": {
+      "evaluatedCandidateCoverageAmongPriorAliveGeometry": {
+        "actual": 1,
+        "expected": ">=0.99",
+        "pass": true
+      },
+      "positiveHitCandidateEverRobustClearRate": {
+        "actual": 0.96875,
+        "expected": ">=0.95",
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "establishedIfPass": "Static Midtown projectile-path access is persisted per candidate and per tick for this replay, using the Script123-validated collision substrate and two origin-height probes.",
+    "staticClearGuardrail": "ROBUST_STATIC_CLEAR is not visual visibility, weapon readiness, temporal reachability, action attempt, or actionable opportunity.",
+    "staticBlockedGuardrail": "ROBUST_STATIC_BLOCKED is an operational static-world blocking classification. Dynamic geometry and replay/map-version drift can still create disagreement.",
+    "reuse": "The binary Midtown acceleration cache is map-level and should be reused for rep02-rep05 and future compatible Midtown replays without rebuilding the map index.",
+    "nextStage": "INSPECT_REPLAY_STATIC_ACCESS_THEN_REUSE_CACHE_FOR_LATER_REPLAYS_OR_ADD_DYNAMIC_VISUAL_ACCESS"
+  },
+  "performance": {
+    "completedBeforeRun": 0,
+    "processedThisRun": 7776,
+    "raysThisRun": 566162,
+    "workElapsedSeconds": 37.892
+  },
+  "outputs": {
+    "candidates": "G:\\DeadlockBehavior\\output\\rep05\\flying_soul_static_projectile_access_windows_v02.jsonl",
+    "summary": "G:\\DeadlockBehavior\\output\\rep05\\flying_soul_static_projectile_access_windows_summary_v02.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\rep05\\flying_soul_static_projectile_access_windows_summary_v02.md",
+    "checkpoints": "G:\\DeadlockBehavior\\output\\rep05\\flying_soul_static_projectile_access_windows_v02_chunks"
+  }
+}

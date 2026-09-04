@@ -1,0 +1,117 @@
+{
+  "version": "PLAYER_STAT_MODIFIER_SOURCE_UNIVERSE_DISCOVERY_V01",
+  "canonical": false,
+  "createdAt": "2026-09-04T04:39:41.033Z",
+  "status": "PLAYER_STAT_MODIFIER_SOURCE_UNIVERSE_REQUIRES_DIAGNOSIS",
+  "foundation": {
+    "intrinsicHeroStats": "G:\\DeadlockBehavior\\output\\cross_replay\\hero_stat_progression_schema_discovery_v01.json",
+    "categoryGoldThresholdProgression": "G:\\DeadlockBehavior\\output\\cross_replay\\hero_stat_progression_schema_discovery_v02.json"
+  },
+  "source": {
+    "method": "LOCAL_INSTALLED_DEADLOCK_VDATA_DISCOVERY",
+    "pakPath": "G:\\SteamLibrary\\steamapps\\common\\Deadlock\\game\\citadel\\pak01_dir.vpk",
+    "pakBytes": 6890162,
+    "source2ViewerPath": "G:\\DeadlockBehavior\\tools\\source2viewer\\Source2Viewer-CLI.exe",
+    "extractedResources": [
+      {
+        "resourcePath": "scripts/abilities.vdata_c",
+        "bytes": 7162865,
+        "sha256": "c722bb1717807e0819ebfc33ac84e28087039729071f1321c6987e95bbae2414"
+      },
+      {
+        "resourcePath": "scripts/misc.vdata_c",
+        "bytes": 125291,
+        "sha256": "ef27cd77445392755c97fbe83e9e6cb4cfae21321688d5554009b125fdebb5e6"
+      },
+      {
+        "resourcePath": "scripts/generic_data.vdata_c",
+        "bytes": 23423,
+        "sha256": "49681ac09407fe6b6b4613b543afd07b27f02475fe6a6d67fd45d518ed35039a"
+      },
+      {
+        "resourcePath": "scripts/npc_units.vdata_c",
+        "bytes": 183846,
+        "sha256": "aeb386dd286938a76d045a3eec767a8340e850e3b5cdcd61dda2eeefc8dbc02c"
+      }
+    ],
+    "temporaryResourcesDeleted": true
+  },
+  "counts": {
+    "topLevelRecords": 0,
+    "modifierBearingRecords": 0,
+    "shopItemCandidates": 0,
+    "heroBoundAbilities": 0,
+    "permanentWorldBuffCandidates": 0,
+    "temporaryPowerupCandidates": 0,
+    "objectiveStateCandidates": 0,
+    "otherBuffDebuffCandidates": 0,
+    "otherModifierBearingRecords": 0,
+    "statTokens": 0,
+    "abilityPropertyKeys": 0
+  },
+  "sourceClassCounts": {},
+  "itemSummary": {
+    "itemSlotCounts": {},
+    "itemTierCounts": {}
+  },
+  "statTokenUniverse": [],
+  "abilityPropertyKeyUniverse": [],
+  "shopItemCandidates": [],
+  "heroAbilityCandidates": [],
+  "permanentWorldCandidates": [],
+  "powerupCandidates": [],
+  "objectiveCandidates": [],
+  "otherBuffDebuffCandidates": [],
+  "otherModifierRecords": [],
+  "specialKeywordCandidates": [],
+  "records": [],
+  "interpretation": {
+    "candidateOnly": "Source classes in this checkpoint are discovery classifications, not finalized gameplay semantics.",
+    "itemProperties": "m_mapAbilityProperties is treated as a stat/modifier substrate. Individual property semantics and stacking order remain unresolved.",
+    "heroAbilities": "Hero-bound ability classification is grounded in m_mapBoundAbilities from heroes.vdata rather than name guessing where possible.",
+    "permanentWorld": "Statue/permanent/Sinner/Goose-related matches identify records for dedicated follow-up. Keyword presence alone does not prove permanent-stat application.",
+    "powerups": "Powerup matches identify the bridge/world temporary-buff branch for dedicated follow-up.",
+    "objectives": "Urn/Midboss/Rejuvenator matches are separated because objective state can alter player state but is conceptually distinct from owned items.",
+    "finalGoal": "The eventual PlayerState(t) engine must combine hero intrinsic state, boon progression, category investment, owned items, permanent buffs, temporary buffs, ability/passive state, ally/enemy effects and objective state."
+  },
+  "validation": {
+    "pass": false,
+    "checks": {
+      "progressionFoundationReady": {
+        "actual": "HERO_CATEGORY_GOLD_THRESHOLD_PROGRESSION_SCHEMA_READY",
+        "expected": "HERO_CATEGORY_GOLD_THRESHOLD_PROGRESSION_SCHEMA_READY",
+        "pass": true
+      },
+      "abilitiesResourceExtracted": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "topLevelRecordsParsed": {
+        "actual": 0,
+        "expected": ">0",
+        "pass": false
+      },
+      "modifierBearingRecordsFound": {
+        "actual": 0,
+        "expected": ">0",
+        "pass": false
+      },
+      "abilityPropertyKeysFound": {
+        "actual": 0,
+        "expected": ">0",
+        "pass": false
+      },
+      "statTokensFound": {
+        "actual": 0,
+        "expected": ">0",
+        "pass": false
+      }
+    }
+  },
+  "nextStage": "DIAGNOSE_RESOURCE_OR_PROPERTY_DISCOVERY",
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\player_stat_modifier_source_universe_discovery_v01.json",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\player_stat_modifier_source_universe_discovery_v01.md"
+  }
+}

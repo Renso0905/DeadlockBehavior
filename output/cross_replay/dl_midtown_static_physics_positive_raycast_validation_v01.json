@@ -1,0 +1,3455 @@
+{
+  "version": "DL_MIDTOWN_STATIC_PHYSICS_POSITIVE_RAYCAST_VALIDATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-04T00:46:32.958Z",
+  "status": "DL_MIDTOWN_STATIC_PROJECTILE_RAYCAST_POSITIVE_CONTROL_READY",
+  "map": {
+    "name": "dl_midtown",
+    "vpkSha256": "2c54e22cdf0180d71f3c1d8170154ad3fe3c9d9fd68bbb7988b4ac98bdcb1dc1",
+    "worldPhysicsSha256": "912d5138172c4e4ba01cf19cde690f7d6baefa664442b6deb9ac7acaf7e1503b",
+    "physicsGlbPath": "G:\\DeadlockBehavior\\resources\\dl_midtown\\world_physics_v01\\world_physics_physics.glb"
+  },
+  "coordinateInterpretation": {
+    "method": "RAYCAST_REPLAY_SOURCE_COORDINATES_DIRECTLY_AGAINST_RAW_GLTF_POSITION_ACCESSORS",
+    "rationale": "ValveResourceFormat leaves physics vertices in Source-space local coordinates and applies Source->glTF scale/rotation at the node transform. Script123 therefore does not apply the glTF node matrix to the raw POSITION accessor data for replay-space raycasts.",
+    "rawPhysicsBounds": {
+      "min": {
+        "x": -35585,
+        "y": -17321.751953125,
+        "z": -3639.9990234375
+      },
+      "max": {
+        "x": 32945,
+        "y": 31437.25,
+        "z": 15962.701171875
+      }
+    },
+    "nodeTransformSummary": {
+      "nodesObserved": 36,
+      "nodesWithMatrix": 36,
+      "primitivesWithExactlyOneNode": 36,
+      "uniqueMatrixCount": 1,
+      "matrices": {
+        "[0,0,0.0254,0,0.0254,0,0,0,0,0.0254,0,0,0,0,0,1]": 36
+      }
+    },
+    "positiveAnchorBoundsCoverage": {
+      "anchors": 529,
+      "playersInside": 529,
+      "playerRate": 1,
+      "orbsInside": 529,
+      "orbRate": 1
+    }
+  },
+  "spatialIndex": {
+    "cellSizeHU": 1024,
+    "maxCellsPerTriangle": 256,
+    "dimensions": {
+      "x": 67,
+      "y": 48,
+      "z": 20
+    },
+    "cells": 64320,
+    "totalTriangles": 3456299,
+    "assignments": 3889955,
+    "largeTriangles": 26
+  },
+  "collisionFilters": [
+    {
+      "filter": "ALL_PHYSICS",
+      "bit": 1,
+      "meshes": 36,
+      "triangles": 3456299,
+      "meshNames": [
+        "physics_group",
+        "physics_group_wood",
+        "physics_group_brick",
+        "physics_group_metal",
+        "physics_group_concrete",
+        "physics_group_vrf_unknown_key_358143640",
+        "physics_group_glass",
+        "physics_group_vrf_unknown_key_250761778",
+        "physics_group_carpet",
+        "physics_group_metalpanel",
+        "physics_group_rock",
+        "physics_group_wet",
+        "physics_group_vrf_unknown_key_2414045314",
+        "physics_group_dirt",
+        "physics_Citadel_Camera_Can_Pass_Through_solid",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_wood",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_brick",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_metal",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_concrete",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_vrf_unknown_key_250761778",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_rock",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_metalgrate",
+        "physics_blocklos_Citadel_Foliage_foliage",
+        "physics_Citadel_BlockCamera_solid",
+        "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid",
+        "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid_metal",
+        "physics_passbullets",
+        "physics_passbullets_foliage",
+        "physics_npcclip_playerclip",
+        "physics_blocklos_Citadel_Obscured_NavIgnore",
+        "physics_playerclip",
+        "physics_window_glass",
+        "physics_npcclip",
+        "physics_Citadel_Skyclip_playerclip",
+        "physics_sky",
+        "physics_blocklos_Citadel_Obscured"
+      ]
+    },
+    {
+      "filter": "EXCLUDE_PASSBULLETS",
+      "bit": 2,
+      "meshes": 34,
+      "triangles": 3455959,
+      "meshNames": [
+        "physics_group",
+        "physics_group_wood",
+        "physics_group_brick",
+        "physics_group_metal",
+        "physics_group_concrete",
+        "physics_group_vrf_unknown_key_358143640",
+        "physics_group_glass",
+        "physics_group_vrf_unknown_key_250761778",
+        "physics_group_carpet",
+        "physics_group_metalpanel",
+        "physics_group_rock",
+        "physics_group_wet",
+        "physics_group_vrf_unknown_key_2414045314",
+        "physics_group_dirt",
+        "physics_Citadel_Camera_Can_Pass_Through_solid",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_wood",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_brick",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_metal",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_concrete",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_vrf_unknown_key_250761778",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_rock",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_metalgrate",
+        "physics_blocklos_Citadel_Foliage_foliage",
+        "physics_Citadel_BlockCamera_solid",
+        "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid",
+        "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid_metal",
+        "physics_npcclip_playerclip",
+        "physics_blocklos_Citadel_Obscured_NavIgnore",
+        "physics_playerclip",
+        "physics_window_glass",
+        "physics_npcclip",
+        "physics_Citadel_Skyclip_playerclip",
+        "physics_sky",
+        "physics_blocklos_Citadel_Obscured"
+      ]
+    },
+    {
+      "filter": "BULLET_SOLID_CANDIDATE",
+      "bit": 4,
+      "meshes": 27,
+      "triangles": 3370441,
+      "meshNames": [
+        "physics_group",
+        "physics_group_wood",
+        "physics_group_brick",
+        "physics_group_metal",
+        "physics_group_concrete",
+        "physics_group_vrf_unknown_key_358143640",
+        "physics_group_glass",
+        "physics_group_vrf_unknown_key_250761778",
+        "physics_group_carpet",
+        "physics_group_metalpanel",
+        "physics_group_rock",
+        "physics_group_wet",
+        "physics_group_vrf_unknown_key_2414045314",
+        "physics_group_dirt",
+        "physics_Citadel_Camera_Can_Pass_Through_solid",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_wood",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_brick",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_metal",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_concrete",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_vrf_unknown_key_250761778",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_rock",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_metalgrate",
+        "physics_Citadel_BlockCamera_solid",
+        "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid",
+        "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid_metal",
+        "physics_window_glass",
+        "physics_sky"
+      ]
+    },
+    {
+      "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+      "bit": 8,
+      "meshes": 25,
+      "triangles": 3363150,
+      "meshNames": [
+        "physics_group",
+        "physics_group_wood",
+        "physics_group_brick",
+        "physics_group_metal",
+        "physics_group_concrete",
+        "physics_group_vrf_unknown_key_358143640",
+        "physics_group_glass",
+        "physics_group_vrf_unknown_key_250761778",
+        "physics_group_carpet",
+        "physics_group_metalpanel",
+        "physics_group_rock",
+        "physics_group_wet",
+        "physics_group_vrf_unknown_key_2414045314",
+        "physics_group_dirt",
+        "physics_Citadel_Camera_Can_Pass_Through_solid",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_wood",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_brick",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_metal",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_concrete",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_vrf_unknown_key_250761778",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_rock",
+        "physics_Citadel_Camera_Can_Pass_Through_solid_metalgrate",
+        "physics_Citadel_BlockCamera_solid",
+        "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid",
+        "physics_Citadel_BlockCamera_Citadel_Camera_Can_Pass_Through_solid_metal"
+      ]
+    }
+  ],
+  "originProbes": {
+    "offsetsHU": [
+      0,
+      48,
+      64,
+      80
+    ],
+    "primaryOffsetHU": 64,
+    "semanticGuardrail": "These are vertical firing-origin probes above pawn world origin, not validated hero muzzle/eye origins."
+  },
+  "positiveControls": {
+    "anchors": 529,
+    "aggregate": {
+      "Z0|ALL_PHYSICS": {
+        "zOffsetHU": 0,
+        "filter": "ALL_PHYSICS",
+        "total": 529,
+        "clear": 453,
+        "blocked": 76,
+        "clearRate": 0.8563327032136105,
+        "blockedRate": 0.14366729678638943,
+        "intersectionDistanceHU": {
+          "count": 76,
+          "min": 4.288056030904873,
+          "p25": 15.793819578121486,
+          "median": 53.75148059367173,
+          "p75": 135.60518775303478,
+          "max": 605.7626766066321
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 40,
+          "physics_group": 29,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 2,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+          "physics_group_vrf_unknown_key_250761778": 1
+        }
+      },
+      "Z0|EXCLUDE_PASSBULLETS": {
+        "zOffsetHU": 0,
+        "filter": "EXCLUDE_PASSBULLETS",
+        "total": 529,
+        "clear": 453,
+        "blocked": 76,
+        "clearRate": 0.8563327032136105,
+        "blockedRate": 0.14366729678638943,
+        "intersectionDistanceHU": {
+          "count": 76,
+          "min": 4.288056030904873,
+          "p25": 15.793819578121486,
+          "median": 53.75148059367173,
+          "p75": 135.60518775303478,
+          "max": 605.7626766066321
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 40,
+          "physics_group": 29,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 2,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+          "physics_group_vrf_unknown_key_250761778": 1
+        }
+      },
+      "Z0|BULLET_SOLID_CANDIDATE": {
+        "zOffsetHU": 0,
+        "filter": "BULLET_SOLID_CANDIDATE",
+        "total": 529,
+        "clear": 477,
+        "blocked": 52,
+        "clearRate": 0.9017013232514177,
+        "blockedRate": 0.09829867674858223,
+        "intersectionDistanceHU": {
+          "count": 52,
+          "min": 4.369037377329226,
+          "p25": 22.716120046008093,
+          "median": 50.726920077113014,
+          "p75": 88.23276370805516,
+          "max": 514.0218807946951
+        },
+        "blockerMeshes": {
+          "physics_group": 45,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 2,
+          "physics_group_vrf_unknown_key_250761778": 1
+        }
+      },
+      "Z0|STRICT_SOLID_OR_DEFAULT_GROUP": {
+        "zOffsetHU": 0,
+        "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+        "total": 529,
+        "clear": 477,
+        "blocked": 52,
+        "clearRate": 0.9017013232514177,
+        "blockedRate": 0.09829867674858223,
+        "intersectionDistanceHU": {
+          "count": 52,
+          "min": 4.369037377329226,
+          "p25": 22.716120046008093,
+          "median": 50.726920077113014,
+          "p75": 88.23276370805516,
+          "max": 514.0218807946951
+        },
+        "blockerMeshes": {
+          "physics_group": 45,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 2,
+          "physics_group_vrf_unknown_key_250761778": 1
+        }
+      },
+      "Z48|ALL_PHYSICS": {
+        "zOffsetHU": 48,
+        "filter": "ALL_PHYSICS",
+        "total": 529,
+        "clear": 505,
+        "blocked": 24,
+        "clearRate": 0.9546313799621928,
+        "blockedRate": 0.045368620037807186,
+        "intersectionDistanceHU": {
+          "count": 24,
+          "min": 28.117556064035938,
+          "p25": 101.44749378036373,
+          "median": 171.73670132256248,
+          "p75": 195.97215650181104,
+          "max": 595.2501049476631
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 14,
+          "physics_group": 4,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z48|EXCLUDE_PASSBULLETS": {
+        "zOffsetHU": 48,
+        "filter": "EXCLUDE_PASSBULLETS",
+        "total": 529,
+        "clear": 505,
+        "blocked": 24,
+        "clearRate": 0.9546313799621928,
+        "blockedRate": 0.045368620037807186,
+        "intersectionDistanceHU": {
+          "count": 24,
+          "min": 28.117556064035938,
+          "p25": 101.44749378036373,
+          "median": 171.73670132256248,
+          "p75": 195.97215650181104,
+          "max": 595.2501049476631
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 14,
+          "physics_group": 4,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z48|BULLET_SOLID_CANDIDATE": {
+        "zOffsetHU": 48,
+        "filter": "BULLET_SOLID_CANDIDATE",
+        "total": 529,
+        "clear": 518,
+        "blocked": 11,
+        "clearRate": 0.9792060491493384,
+        "blockedRate": 0.020793950850661626,
+        "intersectionDistanceHU": {
+          "count": 11,
+          "min": 44.34851078267209,
+          "p25": 56.743639049965196,
+          "median": 170.6340105289713,
+          "p75": 197.01069959675368,
+          "max": 495.3132371618663
+        },
+        "blockerMeshes": {
+          "physics_group": 6,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z48|STRICT_SOLID_OR_DEFAULT_GROUP": {
+        "zOffsetHU": 48,
+        "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+        "total": 529,
+        "clear": 518,
+        "blocked": 11,
+        "clearRate": 0.9792060491493384,
+        "blockedRate": 0.020793950850661626,
+        "intersectionDistanceHU": {
+          "count": 11,
+          "min": 44.34851078267209,
+          "p25": 56.743639049965196,
+          "median": 170.6340105289713,
+          "p75": 197.01069959675368,
+          "max": 495.3132371618663
+        },
+        "blockerMeshes": {
+          "physics_group": 6,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z64|ALL_PHYSICS": {
+        "zOffsetHU": 64,
+        "filter": "ALL_PHYSICS",
+        "total": 529,
+        "clear": 510,
+        "blocked": 19,
+        "clearRate": 0.9640831758034026,
+        "blockedRate": 0.035916824196597356,
+        "intersectionDistanceHU": {
+          "count": 19,
+          "min": 44.06950227398376,
+          "p25": 124.20683945571197,
+          "median": 172.81489039637012,
+          "p75": 198.1688013075218,
+          "max": 592.4580557987564
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 11,
+          "physics_group": 4,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z64|EXCLUDE_PASSBULLETS": {
+        "zOffsetHU": 64,
+        "filter": "EXCLUDE_PASSBULLETS",
+        "total": 529,
+        "clear": 510,
+        "blocked": 19,
+        "clearRate": 0.9640831758034026,
+        "blockedRate": 0.035916824196597356,
+        "intersectionDistanceHU": {
+          "count": 19,
+          "min": 44.06950227398376,
+          "p25": 124.20683945571197,
+          "median": 172.81489039637012,
+          "p75": 198.1688013075218,
+          "max": 592.4580557987564
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 11,
+          "physics_group": 4,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z64|BULLET_SOLID_CANDIDATE": {
+        "zOffsetHU": 64,
+        "filter": "BULLET_SOLID_CANDIDATE",
+        "total": 529,
+        "clear": 521,
+        "blocked": 8,
+        "clearRate": 0.9848771266540642,
+        "blockedRate": 0.015122873345935728,
+        "intersectionDistanceHU": {
+          "count": 8,
+          "min": 44.06950227398376,
+          "p25": 78.08686677072565,
+          "median": 178.67475329628053,
+          "p75": 205.90454573766235,
+          "max": 488.54442418990686
+        },
+        "blockerMeshes": {
+          "physics_group": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z64|STRICT_SOLID_OR_DEFAULT_GROUP": {
+        "zOffsetHU": 64,
+        "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+        "total": 529,
+        "clear": 521,
+        "blocked": 8,
+        "clearRate": 0.9848771266540642,
+        "blockedRate": 0.015122873345935728,
+        "intersectionDistanceHU": {
+          "count": 8,
+          "min": 44.06950227398376,
+          "p25": 78.08686677072565,
+          "median": 178.67475329628053,
+          "p75": 205.90454573766235,
+          "max": 488.54442418990686
+        },
+        "blockerMeshes": {
+          "physics_group": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z80|ALL_PHYSICS": {
+        "zOffsetHU": 80,
+        "filter": "ALL_PHYSICS",
+        "total": 529,
+        "clear": 511,
+        "blocked": 18,
+        "clearRate": 0.9659735349716446,
+        "blockedRate": 0.034026465028355386,
+        "intersectionDistanceHU": {
+          "count": 18,
+          "min": 43.80838740561631,
+          "p25": 119.46462134044057,
+          "median": 165.2289952551883,
+          "p75": 198.25774443751342,
+          "max": 590.0310393219761
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 10,
+          "physics_group": 3,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z80|EXCLUDE_PASSBULLETS": {
+        "zOffsetHU": 80,
+        "filter": "EXCLUDE_PASSBULLETS",
+        "total": 529,
+        "clear": 511,
+        "blocked": 18,
+        "clearRate": 0.9659735349716446,
+        "blockedRate": 0.034026465028355386,
+        "intersectionDistanceHU": {
+          "count": 18,
+          "min": 43.80838740561631,
+          "p25": 119.46462134044057,
+          "median": 165.2289952551883,
+          "p75": 198.25774443751342,
+          "max": 590.0310393219761
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 10,
+          "physics_group": 3,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z80|BULLET_SOLID_CANDIDATE": {
+        "zOffsetHU": 80,
+        "filter": "BULLET_SOLID_CANDIDATE",
+        "total": 529,
+        "clear": 521,
+        "blocked": 8,
+        "clearRate": 0.9848771266540642,
+        "blockedRate": 0.015122873345935728,
+        "intersectionDistanceHU": {
+          "count": 8,
+          "min": 43.80838740561631,
+          "p25": 77.88889916113912,
+          "median": 173.85398037023853,
+          "p75": 205.60241275115328,
+          "max": 481.73753915720386
+        },
+        "blockerMeshes": {
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_group": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "Z80|STRICT_SOLID_OR_DEFAULT_GROUP": {
+        "zOffsetHU": 80,
+        "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+        "total": 529,
+        "clear": 521,
+        "blocked": 8,
+        "clearRate": 0.9848771266540642,
+        "blockedRate": 0.015122873345935728,
+        "intersectionDistanceHU": {
+          "count": 8,
+          "min": 43.80838740561631,
+          "p25": 77.88889916113912,
+          "median": 173.85398037023853,
+          "p75": 205.60241275115328,
+          "max": 481.73753915720386
+        },
+        "blockerMeshes": {
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_group": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      }
+    },
+    "byReplay": {
+      "rep01": {
+        "Z0|ALL_PHYSICS": {
+          "zOffsetHU": 0,
+          "filter": "ALL_PHYSICS",
+          "total": 81,
+          "clear": 60,
+          "blocked": 21,
+          "clearRate": 0.7407407407407407,
+          "blockedRate": 0.25925925925925924,
+          "intersectionDistanceHU": {
+            "count": 21,
+            "min": 4.5401491337996305,
+            "p25": 14.306243071126627,
+            "median": 52.364619601763245,
+            "p75": 66.94521380302862,
+            "max": 514.0218807946951
+          },
+          "blockerMeshes": {
+            "physics_group": 11,
+            "physics_npcclip_playerclip": 9,
+            "physics_npcclip": 1
+          }
+        },
+        "Z0|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 0,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 81,
+          "clear": 60,
+          "blocked": 21,
+          "clearRate": 0.7407407407407407,
+          "blockedRate": 0.25925925925925924,
+          "intersectionDistanceHU": {
+            "count": 21,
+            "min": 4.5401491337996305,
+            "p25": 14.306243071126627,
+            "median": 52.364619601763245,
+            "p75": 66.94521380302862,
+            "max": 514.0218807946951
+          },
+          "blockerMeshes": {
+            "physics_group": 11,
+            "physics_npcclip_playerclip": 9,
+            "physics_npcclip": 1
+          }
+        },
+        "Z0|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 0,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 81,
+          "clear": 62,
+          "blocked": 19,
+          "clearRate": 0.7654320987654321,
+          "blockedRate": 0.2345679012345679,
+          "intersectionDistanceHU": {
+            "count": 19,
+            "min": 4.5401491337996305,
+            "p25": 27.35710439520154,
+            "median": 59.950966822904554,
+            "p75": 91.31558526816661,
+            "max": 514.0218807946951
+          },
+          "blockerMeshes": {
+            "physics_group": 18,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1
+          }
+        },
+        "Z0|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 0,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 81,
+          "clear": 62,
+          "blocked": 19,
+          "clearRate": 0.7654320987654321,
+          "blockedRate": 0.2345679012345679,
+          "intersectionDistanceHU": {
+            "count": 19,
+            "min": 4.5401491337996305,
+            "p25": 27.35710439520154,
+            "median": 59.950966822904554,
+            "p75": 91.31558526816661,
+            "max": 514.0218807946951
+          },
+          "blockerMeshes": {
+            "physics_group": 18,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1
+          }
+        },
+        "Z48|ALL_PHYSICS": {
+          "zOffsetHU": 48,
+          "filter": "ALL_PHYSICS",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 60.20639752431316,
+            "p25": 168.98310743370143,
+            "median": 277.7598173430897,
+            "p75": 386.53652725247804,
+            "max": 495.3132371618663
+          },
+          "blockerMeshes": {
+            "physics_group": 1,
+            "physics_npcclip": 1
+          }
+        },
+        "Z48|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 48,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 60.20639752431316,
+            "p25": 168.98310743370143,
+            "median": 277.7598173430897,
+            "p75": 386.53652725247804,
+            "max": 495.3132371618663
+          },
+          "blockerMeshes": {
+            "physics_group": 1,
+            "physics_npcclip": 1
+          }
+        },
+        "Z48|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 48,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 73.16430407979325,
+            "p25": 178.70153735031153,
+            "median": 284.23877062082977,
+            "p75": 389.77600389134807,
+            "max": 495.3132371618663
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "Z48|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 48,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 73.16430407979325,
+            "p25": 178.70153735031153,
+            "median": 284.23877062082977,
+            "p75": 389.77600389134807,
+            "max": 495.3132371618663
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "Z64|ALL_PHYSICS": {
+          "zOffsetHU": 64,
+          "filter": "ALL_PHYSICS",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 59.907799280599384,
+            "p25": 167.06695550792625,
+            "median": 274.22611173525314,
+            "p75": 381.38526796258003,
+            "max": 488.54442418990686
+          },
+          "blockerMeshes": {
+            "physics_group": 1,
+            "physics_npcclip": 1
+          }
+        },
+        "Z64|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 64,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 59.907799280599384,
+            "p25": 167.06695550792625,
+            "median": 274.22611173525314,
+            "p75": 381.38526796258003,
+            "max": 488.54442418990686
+          },
+          "blockerMeshes": {
+            "physics_group": 1,
+            "physics_npcclip": 1
+          }
+        },
+        "Z64|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 72.80144010521406,
+            "p25": 176.73718612638726,
+            "median": 280.67293214756046,
+            "p75": 384.6086781687337,
+            "max": 488.54442418990686
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "Z64|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 64,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 72.80144010521406,
+            "p25": 176.73718612638726,
+            "median": 280.67293214756046,
+            "p75": 384.6086781687337,
+            "max": 488.54442418990686
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "Z80|ALL_PHYSICS": {
+          "zOffsetHU": 80,
+          "filter": "ALL_PHYSICS",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 59.647310135181876,
+            "p25": 165.1698673906874,
+            "median": 270.6924246461929,
+            "p75": 376.21498190169837,
+            "max": 481.73753915720386
+          },
+          "blockerMeshes": {
+            "physics_group": 1,
+            "physics_npcclip": 1
+          }
+        },
+        "Z80|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 80,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 59.647310135181876,
+            "p25": 165.1698673906874,
+            "median": 270.6924246461929,
+            "p75": 376.21498190169837,
+            "max": 481.73753915720386
+          },
+          "blockerMeshes": {
+            "physics_group": 1,
+            "physics_npcclip": 1
+          }
+        },
+        "Z80|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 80,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 72.48488724989473,
+            "p25": 174.798050226722,
+            "median": 277.1112132035493,
+            "p75": 379.42437618037656,
+            "max": 481.73753915720386
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "Z80|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 80,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 72.48488724989473,
+            "p25": 174.798050226722,
+            "median": 277.1112132035493,
+            "p75": 379.42437618037656,
+            "max": 481.73753915720386
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        }
+      },
+      "rep02": {
+        "Z0|ALL_PHYSICS": {
+          "zOffsetHU": 0,
+          "filter": "ALL_PHYSICS",
+          "total": 124,
+          "clear": 117,
+          "blocked": 7,
+          "clearRate": 0.9435483870967742,
+          "blockedRate": 0.056451612903225805,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 4.288056030904873,
+            "p25": 6.600024369355827,
+            "median": 27.581436659541822,
+            "p75": 78.03577210344004,
+            "max": 193.55833313661435
+          },
+          "blockerMeshes": {
+            "physics_group": 3,
+            "physics_npcclip_playerclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z0|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 0,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 124,
+          "clear": 117,
+          "blocked": 7,
+          "clearRate": 0.9435483870967742,
+          "blockedRate": 0.056451612903225805,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 4.288056030904873,
+            "p25": 6.600024369355827,
+            "median": 27.581436659541822,
+            "p75": 78.03577210344004,
+            "max": 193.55833313661435
+          },
+          "blockerMeshes": {
+            "physics_group": 3,
+            "physics_npcclip_playerclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z0|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 0,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 124,
+          "clear": 119,
+          "blocked": 5,
+          "clearRate": 0.9596774193548387,
+          "blockedRate": 0.04032258064516129,
+          "intersectionDistanceHU": {
+            "count": 5,
+            "min": 6.2436864490353505,
+            "p25": 6.956362289676303,
+            "median": 27.581436659541822,
+            "p75": 39.51573666378818,
+            "max": 116.55580754309189
+          },
+          "blockerMeshes": {
+            "physics_group": 3,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z0|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 0,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 124,
+          "clear": 119,
+          "blocked": 5,
+          "clearRate": 0.9596774193548387,
+          "blockedRate": 0.04032258064516129,
+          "intersectionDistanceHU": {
+            "count": 5,
+            "min": 6.2436864490353505,
+            "p25": 6.956362289676303,
+            "median": 27.581436659541822,
+            "p75": 39.51573666378818,
+            "max": 116.55580754309189
+          },
+          "blockerMeshes": {
+            "physics_group": 3,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z48|ALL_PHYSICS": {
+          "zOffsetHU": 48,
+          "filter": "ALL_PHYSICS",
+          "total": 124,
+          "clear": 122,
+          "blocked": 2,
+          "clearRate": 0.9838709677419355,
+          "blockedRate": 0.016129032258064516,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 118.57650781297434,
+            "p25": 135.68491607239832,
+            "median": 152.7933243318223,
+            "p75": 169.9017325912463,
+            "max": 187.01014085067027
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 2
+          }
+        },
+        "Z48|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 48,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 124,
+          "clear": 122,
+          "blocked": 2,
+          "clearRate": 0.9838709677419355,
+          "blockedRate": 0.016129032258064516,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 118.57650781297434,
+            "p25": 135.68491607239832,
+            "median": 152.7933243318223,
+            "p75": 169.9017325912463,
+            "max": 187.01014085067027
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 2
+          }
+        },
+        "Z48|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 48,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 124,
+          "clear": 124,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z48|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 48,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 124,
+          "clear": 124,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z64|ALL_PHYSICS": {
+          "zOffsetHU": 64,
+          "filter": "ALL_PHYSICS",
+          "total": 124,
+          "clear": 123,
+          "blocked": 1,
+          "clearRate": 0.9919354838709677,
+          "blockedRate": 0.008064516129032258,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 185.14819604108206,
+            "p25": 185.14819604108206,
+            "median": 185.14819604108206,
+            "p75": 185.14819604108206,
+            "max": 185.14819604108206
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 1
+          }
+        },
+        "Z64|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 64,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 124,
+          "clear": 123,
+          "blocked": 1,
+          "clearRate": 0.9919354838709677,
+          "blockedRate": 0.008064516129032258,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 185.14819604108206,
+            "p25": 185.14819604108206,
+            "median": 185.14819604108206,
+            "p75": 185.14819604108206,
+            "max": 185.14819604108206
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 1
+          }
+        },
+        "Z64|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 124,
+          "clear": 124,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z64|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 64,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 124,
+          "clear": 124,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z80|ALL_PHYSICS": {
+          "zOffsetHU": 80,
+          "filter": "ALL_PHYSICS",
+          "total": 124,
+          "clear": 123,
+          "blocked": 1,
+          "clearRate": 0.9919354838709677,
+          "blockedRate": 0.008064516129032258,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 183.4551343770249,
+            "p25": 183.4551343770249,
+            "median": 183.4551343770249,
+            "p75": 183.4551343770249,
+            "max": 183.4551343770249
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 1
+          }
+        },
+        "Z80|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 80,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 124,
+          "clear": 123,
+          "blocked": 1,
+          "clearRate": 0.9919354838709677,
+          "blockedRate": 0.008064516129032258,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 183.4551343770249,
+            "p25": 183.4551343770249,
+            "median": 183.4551343770249,
+            "p75": 183.4551343770249,
+            "max": 183.4551343770249
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 1
+          }
+        },
+        "Z80|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 80,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 124,
+          "clear": 124,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z80|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 80,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 124,
+          "clear": 124,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        }
+      },
+      "rep03": {
+        "Z0|ALL_PHYSICS": {
+          "zOffsetHU": 0,
+          "filter": "ALL_PHYSICS",
+          "total": 125,
+          "clear": 109,
+          "blocked": 16,
+          "clearRate": 0.872,
+          "blockedRate": 0.128,
+          "intersectionDistanceHU": {
+            "count": 16,
+            "min": 4.691791682082544,
+            "p25": 12.012720018796498,
+            "median": 84.75836053576037,
+            "p75": 143.05937461312953,
+            "max": 390.0887998500792
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 13,
+            "physics_group": 3
+          }
+        },
+        "Z0|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 0,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 125,
+          "clear": 109,
+          "blocked": 16,
+          "clearRate": 0.872,
+          "blockedRate": 0.128,
+          "intersectionDistanceHU": {
+            "count": 16,
+            "min": 4.691791682082544,
+            "p25": 12.012720018796498,
+            "median": 84.75836053576037,
+            "p75": 143.05937461312953,
+            "max": 390.0887998500792
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 13,
+            "physics_group": 3
+          }
+        },
+        "Z0|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 0,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 125,
+          "clear": 119,
+          "blocked": 6,
+          "clearRate": 0.952,
+          "blockedRate": 0.048,
+          "intersectionDistanceHU": {
+            "count": 6,
+            "min": 5.902321237922895,
+            "p25": 22.651159488445586,
+            "median": 62.00294118383785,
+            "p75": 102.4141099771428,
+            "max": 213.54532448561258
+          },
+          "blockerMeshes": {
+            "physics_group": 6
+          }
+        },
+        "Z0|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 0,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 125,
+          "clear": 119,
+          "blocked": 6,
+          "clearRate": 0.952,
+          "blockedRate": 0.048,
+          "intersectionDistanceHU": {
+            "count": 6,
+            "min": 5.902321237922895,
+            "p25": 22.651159488445586,
+            "median": 62.00294118383785,
+            "p75": 102.4141099771428,
+            "max": 213.54532448561258
+          },
+          "blockerMeshes": {
+            "physics_group": 6
+          }
+        },
+        "Z48|ALL_PHYSICS": {
+          "zOffsetHU": 48,
+          "filter": "ALL_PHYSICS",
+          "total": 125,
+          "clear": 122,
+          "blocked": 3,
+          "clearRate": 0.976,
+          "blockedRate": 0.024,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 180.49109567785328,
+            "p25": 185.96299387702436,
+            "median": 191.4348920761954,
+            "p75": 331.42317649463604,
+            "max": 471.41146091307667
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 3
+          }
+        },
+        "Z48|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 48,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 125,
+          "clear": 122,
+          "blocked": 3,
+          "clearRate": 0.976,
+          "blockedRate": 0.024,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 180.49109567785328,
+            "p25": 185.96299387702436,
+            "median": 191.4348920761954,
+            "p75": 331.42317649463604,
+            "max": 471.41146091307667
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 3
+          }
+        },
+        "Z48|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 48,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 125,
+          "clear": 124,
+          "blocked": 1,
+          "clearRate": 0.992,
+          "blockedRate": 0.008,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 192.5830165705249,
+            "p25": 192.5830165705249,
+            "median": 192.5830165705249,
+            "p75": 192.5830165705249,
+            "max": 192.5830165705249
+          },
+          "blockerMeshes": {
+            "physics_group": 1
+          }
+        },
+        "Z48|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 48,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 125,
+          "clear": 124,
+          "blocked": 1,
+          "clearRate": 0.992,
+          "blockedRate": 0.008,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 192.5830165705249,
+            "p25": 192.5830165705249,
+            "median": 192.5830165705249,
+            "p75": 192.5830165705249,
+            "max": 192.5830165705249
+          },
+          "blockerMeshes": {
+            "physics_group": 1
+          }
+        },
+        "Z64|ALL_PHYSICS": {
+          "zOffsetHU": 64,
+          "filter": "ALL_PHYSICS",
+          "total": 125,
+          "clear": 124,
+          "blocked": 1,
+          "clearRate": 0.992,
+          "blockedRate": 0.008,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 190.4179337480751,
+            "p25": 190.4179337480751,
+            "median": 190.4179337480751,
+            "p75": 190.4179337480751,
+            "max": 190.4179337480751
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 1
+          }
+        },
+        "Z64|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 64,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 125,
+          "clear": 124,
+          "blocked": 1,
+          "clearRate": 0.992,
+          "blockedRate": 0.008,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 190.4179337480751,
+            "p25": 190.4179337480751,
+            "median": 190.4179337480751,
+            "p75": 190.4179337480751,
+            "max": 190.4179337480751
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 1
+          }
+        },
+        "Z64|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 125,
+          "clear": 125,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z64|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 64,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 125,
+          "clear": 125,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z80|ALL_PHYSICS": {
+          "zOffsetHU": 80,
+          "filter": "ALL_PHYSICS",
+          "total": 125,
+          "clear": 125,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z80|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 80,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 125,
+          "clear": 125,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z80|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 80,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 125,
+          "clear": 125,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "Z80|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 80,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 125,
+          "clear": 125,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        }
+      },
+      "rep04": {
+        "Z0|ALL_PHYSICS": {
+          "zOffsetHU": 0,
+          "filter": "ALL_PHYSICS",
+          "total": 130,
+          "clear": 114,
+          "blocked": 16,
+          "clearRate": 0.8769230769230769,
+          "blockedRate": 0.12307692307692308,
+          "intersectionDistanceHU": {
+            "count": 16,
+            "min": 4.369037377329226,
+            "p25": 25.643803754012424,
+            "median": 42.4566718524711,
+            "p75": 142.40438209577863,
+            "max": 204.51472895823315
+          },
+          "blockerMeshes": {
+            "physics_group": 8,
+            "physics_npcclip_playerclip": 5,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z0|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 0,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 130,
+          "clear": 114,
+          "blocked": 16,
+          "clearRate": 0.8769230769230769,
+          "blockedRate": 0.12307692307692308,
+          "intersectionDistanceHU": {
+            "count": 16,
+            "min": 4.369037377329226,
+            "p25": 25.643803754012424,
+            "median": 42.4566718524711,
+            "p75": 142.40438209577863,
+            "max": 204.51472895823315
+          },
+          "blockerMeshes": {
+            "physics_group": 8,
+            "physics_npcclip_playerclip": 5,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z0|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 0,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 130,
+          "clear": 117,
+          "blocked": 13,
+          "clearRate": 0.9,
+          "blockedRate": 0.1,
+          "intersectionDistanceHU": {
+            "count": 13,
+            "min": 4.369037377329226,
+            "p25": 28.43883738009632,
+            "median": 41.12883717901821,
+            "p75": 136.16834151659998,
+            "max": 204.51472895823315
+          },
+          "blockerMeshes": {
+            "physics_group": 11,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z0|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 0,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 130,
+          "clear": 117,
+          "blocked": 13,
+          "clearRate": 0.9,
+          "blockedRate": 0.1,
+          "intersectionDistanceHU": {
+            "count": 13,
+            "min": 4.369037377329226,
+            "p25": 28.43883738009632,
+            "median": 41.12883717901821,
+            "p75": 136.16834151659998,
+            "max": 204.51472895823315
+          },
+          "blockerMeshes": {
+            "physics_group": 11,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z48|ALL_PHYSICS": {
+          "zOffsetHU": 48,
+          "filter": "ALL_PHYSICS",
+          "total": 130,
+          "clear": 122,
+          "blocked": 8,
+          "clearRate": 0.9384615384615385,
+          "blockedRate": 0.06153846153846154,
+          "intersectionDistanceHU": {
+            "count": 8,
+            "min": 56.270766727800435,
+            "p25": 128.76903112134764,
+            "median": 152.21206678566395,
+            "p75": 189.57401187314332,
+            "max": 199.08778578663905
+          },
+          "blockerMeshes": {
+            "physics_group": 2,
+            "physics_npcclip": 2,
+            "physics_npcclip_playerclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z48|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 48,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 130,
+          "clear": 122,
+          "blocked": 8,
+          "clearRate": 0.9384615384615385,
+          "blockedRate": 0.06153846153846154,
+          "intersectionDistanceHU": {
+            "count": 8,
+            "min": 56.270766727800435,
+            "p25": 128.76903112134764,
+            "median": 152.21206678566395,
+            "p75": 189.57401187314332,
+            "max": 199.08778578663905
+          },
+          "blockerMeshes": {
+            "physics_group": 2,
+            "physics_npcclip": 2,
+            "physics_npcclip_playerclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z48|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 48,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 130,
+          "clear": 126,
+          "blocked": 4,
+          "clearRate": 0.9692307692307692,
+          "blockedRate": 0.03076923076923077,
+          "intersectionDistanceHU": {
+            "count": 4,
+            "min": 56.270766727800435,
+            "p25": 142.04319957867858,
+            "median": 182.7838119679198,
+            "p75": 195.97215650181104,
+            "max": 199.08778578663905
+          },
+          "blockerMeshes": {
+            "physics_group": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z48|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 48,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 130,
+          "clear": 126,
+          "blocked": 4,
+          "clearRate": 0.9692307692307692,
+          "blockedRate": 0.03076923076923077,
+          "intersectionDistanceHU": {
+            "count": 4,
+            "min": 56.270766727800435,
+            "p25": 142.04319957867858,
+            "median": 182.7838119679198,
+            "p75": 195.97215650181104,
+            "max": 199.08778578663905
+          },
+          "blockerMeshes": {
+            "physics_group": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z64|ALL_PHYSICS": {
+          "zOffsetHU": 64,
+          "filter": "ALL_PHYSICS",
+          "total": 130,
+          "clear": 123,
+          "blocked": 7,
+          "clearRate": 0.9461538461538461,
+          "blockedRate": 0.05384615384615385,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 114.95142181378682,
+            "p25": 142.786943311512,
+            "median": 160.49508186434684,
+            "p75": 192.0721149874987,
+            "max": 199.48317788682937
+          },
+          "blockerMeshes": {
+            "physics_group": 2,
+            "physics_npcclip": 2,
+            "physics_npcclip_playerclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z64|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 64,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 130,
+          "clear": 123,
+          "blocked": 7,
+          "clearRate": 0.9461538461538461,
+          "blockedRate": 0.05384615384615385,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 114.95142181378682,
+            "p25": 142.786943311512,
+            "median": 160.49508186434684,
+            "p75": 192.0721149874987,
+            "max": 199.48317788682937
+          },
+          "blockerMeshes": {
+            "physics_group": 2,
+            "physics_npcclip": 2,
+            "physics_npcclip_playerclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z64|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 130,
+          "clear": 127,
+          "blocked": 3,
+          "clearRate": 0.9769230769230769,
+          "blockedRate": 0.023076923076923078,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 160.49508186434684,
+            "p25": 178.67475329628053,
+            "median": 196.85442472821418,
+            "p75": 198.1688013075218,
+            "max": 199.48317788682937
+          },
+          "blockerMeshes": {
+            "physics_group": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z64|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 64,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 130,
+          "clear": 127,
+          "blocked": 3,
+          "clearRate": 0.9769230769230769,
+          "blockedRate": 0.023076923076923078,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 160.49508186434684,
+            "p25": 178.67475329628053,
+            "median": 196.85442472821418,
+            "p75": 198.1688013075218,
+            "max": 199.48317788682937
+          },
+          "blockerMeshes": {
+            "physics_group": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z80|ALL_PHYSICS": {
+          "zOffsetHU": 80,
+          "filter": "ALL_PHYSICS",
+          "total": 130,
+          "clear": 123,
+          "blocked": 7,
+          "clearRate": 0.9461538461538461,
+          "blockedRate": 0.05384615384615385,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 114.72309430191905,
+            "p25": 142.4109871793611,
+            "median": 155.19947953781724,
+            "p75": 191.72260349035778,
+            "max": 198.81859630409787
+          },
+          "blockerMeshes": {
+            "physics_npcclip": 2,
+            "physics_npcclip_playerclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1,
+            "physics_group": 1
+          }
+        },
+        "Z80|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 80,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 130,
+          "clear": 123,
+          "blocked": 7,
+          "clearRate": 0.9461538461538461,
+          "blockedRate": 0.05384615384615385,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 114.72309430191905,
+            "p25": 142.4109871793611,
+            "median": 155.19947953781724,
+            "p75": 191.72260349035778,
+            "max": 198.81859630409787
+          },
+          "blockerMeshes": {
+            "physics_npcclip": 2,
+            "physics_npcclip_playerclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1,
+            "physics_group": 1
+          }
+        },
+        "Z80|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 80,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 130,
+          "clear": 127,
+          "blocked": 3,
+          "clearRate": 0.9769230769230769,
+          "blockedRate": 0.023076923076923078,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 151.132771902717,
+            "p25": 173.85398037023853,
+            "median": 196.57518883776007,
+            "p75": 197.69689257092898,
+            "max": 198.81859630409787
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1,
+            "physics_group": 1
+          }
+        },
+        "Z80|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 80,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 130,
+          "clear": 127,
+          "blocked": 3,
+          "clearRate": 0.9769230769230769,
+          "blockedRate": 0.023076923076923078,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 151.132771902717,
+            "p25": 173.85398037023853,
+            "median": 196.57518883776007,
+            "p75": 197.69689257092898,
+            "max": 198.81859630409787
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1,
+            "physics_group": 1
+          }
+        }
+      },
+      "rep05": {
+        "Z0|ALL_PHYSICS": {
+          "zOffsetHU": 0,
+          "filter": "ALL_PHYSICS",
+          "total": 69,
+          "clear": 53,
+          "blocked": 16,
+          "clearRate": 0.7681159420289855,
+          "blockedRate": 0.2318840579710145,
+          "intersectionDistanceHU": {
+            "count": 16,
+            "min": 8.09529472718208,
+            "p25": 23.626940276107128,
+            "median": 51.58821790760031,
+            "p75": 154.68120893715135,
+            "max": 605.7626766066321
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 11,
+            "physics_group": 4,
+            "physics_group_vrf_unknown_key_250761778": 1
+          }
+        },
+        "Z0|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 0,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 69,
+          "clear": 53,
+          "blocked": 16,
+          "clearRate": 0.7681159420289855,
+          "blockedRate": 0.2318840579710145,
+          "intersectionDistanceHU": {
+            "count": 16,
+            "min": 8.09529472718208,
+            "p25": 23.626940276107128,
+            "median": 51.58821790760031,
+            "p75": 154.68120893715135,
+            "max": 605.7626766066321
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 11,
+            "physics_group": 4,
+            "physics_group_vrf_unknown_key_250761778": 1
+          }
+        },
+        "Z0|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 0,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 69,
+          "clear": 60,
+          "blocked": 9,
+          "clearRate": 0.8695652173913043,
+          "blockedRate": 0.13043478260869565,
+          "intersectionDistanceHU": {
+            "count": 9,
+            "min": 8.09529472718208,
+            "p25": 24.95569158772396,
+            "median": 45.28948518962554,
+            "p75": 57.46065127729745,
+            "max": 86.05439688307249
+          },
+          "blockerMeshes": {
+            "physics_group": 7,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group_vrf_unknown_key_250761778": 1
+          }
+        },
+        "Z0|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 0,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 69,
+          "clear": 60,
+          "blocked": 9,
+          "clearRate": 0.8695652173913043,
+          "blockedRate": 0.13043478260869565,
+          "intersectionDistanceHU": {
+            "count": 9,
+            "min": 8.09529472718208,
+            "p25": 24.95569158772396,
+            "median": 45.28948518962554,
+            "p75": 57.46065127729745,
+            "max": 86.05439688307249
+          },
+          "blockerMeshes": {
+            "physics_group": 7,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group_vrf_unknown_key_250761778": 1
+          }
+        },
+        "Z48|ALL_PHYSICS": {
+          "zOffsetHU": 48,
+          "filter": "ALL_PHYSICS",
+          "total": 69,
+          "clear": 60,
+          "blocked": 9,
+          "clearRate": 0.8695652173913043,
+          "blockedRate": 0.13043478260869565,
+          "intersectionDistanceHU": {
+            "count": 9,
+            "min": 28.117556064035938,
+            "p25": 53.69233434454628,
+            "median": 161.21028708749168,
+            "p75": 445.9664937313037,
+            "max": 595.2501049476631
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 7,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "Z48|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 48,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 69,
+          "clear": 60,
+          "blocked": 9,
+          "clearRate": 0.8695652173913043,
+          "blockedRate": 0.13043478260869565,
+          "intersectionDistanceHU": {
+            "count": 9,
+            "min": 28.117556064035938,
+            "p25": 53.69233434454628,
+            "median": 161.21028708749168,
+            "p75": 445.9664937313037,
+            "max": 595.2501049476631
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 7,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "Z48|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 48,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 69,
+          "clear": 65,
+          "blocked": 4,
+          "clearRate": 0.9420289855072463,
+          "blockedRate": 0.057971014492753624,
+          "intersectionDistanceHU": {
+            "count": 4,
+            "min": 44.34851078267209,
+            "p25": 51.5381492396575,
+            "median": 55.57560338205796,
+            "p75": 99.27090976679051,
+            "max": 225.43410495077222
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_group": 2
+          }
+        },
+        "Z48|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 48,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 69,
+          "clear": 65,
+          "blocked": 4,
+          "clearRate": 0.9420289855072463,
+          "blockedRate": 0.057971014492753624,
+          "intersectionDistanceHU": {
+            "count": 4,
+            "min": 44.34851078267209,
+            "p25": 51.5381492396575,
+            "median": 55.57560338205796,
+            "p75": 99.27090976679051,
+            "max": 225.43410495077222
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_group": 2
+          }
+        },
+        "Z64|ALL_PHYSICS": {
+          "zOffsetHU": 64,
+          "filter": "ALL_PHYSICS",
+          "total": 69,
+          "clear": 61,
+          "blocked": 8,
+          "clearRate": 0.8840579710144928,
+          "blockedRate": 0.11594202898550725,
+          "intersectionDistanceHU": {
+            "count": 8,
+            "min": 44.06950227398376,
+            "p25": 61.26832197724421,
+            "median": 166.0755564040981,
+            "p75": 477.9842546278389,
+            "max": 592.4580557987564
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 7,
+            "physics_group": 1
+          }
+        },
+        "Z64|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 64,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 69,
+          "clear": 61,
+          "blocked": 8,
+          "clearRate": 0.8840579710144928,
+          "blockedRate": 0.11594202898550725,
+          "intersectionDistanceHU": {
+            "count": 8,
+            "min": 44.06950227398376,
+            "p25": 61.26832197724421,
+            "median": 166.0755564040981,
+            "p75": 477.9842546278389,
+            "max": 592.4580557987564
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 7,
+            "physics_group": 1
+          }
+        },
+        "Z64|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 69,
+          "clear": 66,
+          "blocked": 3,
+          "clearRate": 0.9565217391304348,
+          "blockedRate": 0.043478260869565216,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 44.06950227398376,
+            "p25": 61.959088966606636,
+            "median": 79.84867565922951,
+            "p75": 152.5086624746954,
+            "max": 225.16864929016128
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_group": 1
+          }
+        },
+        "Z64|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 64,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 69,
+          "clear": 66,
+          "blocked": 3,
+          "clearRate": 0.9565217391304348,
+          "blockedRate": 0.043478260869565216,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 44.06950227398376,
+            "p25": 61.959088966606636,
+            "median": 79.84867565922951,
+            "p75": 152.5086624746954,
+            "max": 225.16864929016128
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_group": 1
+          }
+        },
+        "Z80|ALL_PHYSICS": {
+          "zOffsetHU": 80,
+          "filter": "ALL_PHYSICS",
+          "total": 69,
+          "clear": 61,
+          "blocked": 8,
+          "clearRate": 0.8840579710144928,
+          "blockedRate": 0.11594202898550725,
+          "intersectionDistanceHU": {
+            "count": 8,
+            "min": 43.80838740561631,
+            "p25": 64.53849348046803,
+            "median": 165.2289952551883,
+            "p75": 474.6190581483913,
+            "max": 590.0310393219761
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 7,
+            "physics_group": 1
+          }
+        },
+        "Z80|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 80,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 69,
+          "clear": 61,
+          "blocked": 8,
+          "clearRate": 0.8840579710144928,
+          "blockedRate": 0.11594202898550725,
+          "intersectionDistanceHU": {
+            "count": 8,
+            "min": 43.80838740561631,
+            "p25": 64.53849348046803,
+            "median": 165.2289952551883,
+            "p75": 474.6190581483913,
+            "max": 590.0310393219761
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 7,
+            "physics_group": 1
+          }
+        },
+        "Z80|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 80,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 69,
+          "clear": 66,
+          "blocked": 3,
+          "clearRate": 0.9565217391304348,
+          "blockedRate": 0.043478260869565216,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 43.80838740561631,
+            "p25": 61.74931193525178,
+            "median": 79.69023646488726,
+            "p75": 152.82204927860334,
+            "max": 225.9538620923194
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_group": 1
+          }
+        },
+        "Z80|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 80,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 69,
+          "clear": 66,
+          "blocked": 3,
+          "clearRate": 0.9565217391304348,
+          "blockedRate": 0.043478260869565216,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 43.80838740561631,
+            "p25": 61.74931193525178,
+            "median": 79.69023646488726,
+            "p75": 152.82204927860334,
+            "max": 225.9538620923194
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_group": 1
+          }
+        }
+      }
+    },
+    "byRole": {
+      "SECURE_HIT": {
+        "Z0|ALL_PHYSICS": {
+          "zOffsetHU": 0,
+          "filter": "ALL_PHYSICS",
+          "total": 381,
+          "clear": 332,
+          "blocked": 49,
+          "clearRate": 0.8713910761154856,
+          "blockedRate": 0.12860892388451445,
+          "intersectionDistanceHU": {
+            "count": 49,
+            "min": 4.288056030904873,
+            "p25": 16.28967841378644,
+            "median": 46.09167257017908,
+            "p75": 134.17869715561577,
+            "max": 605.7626766066321
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 22,
+            "physics_group": 21,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 2,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group_vrf_unknown_key_250761778": 1
+          }
+        },
+        "Z0|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 0,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 381,
+          "clear": 332,
+          "blocked": 49,
+          "clearRate": 0.8713910761154856,
+          "blockedRate": 0.12860892388451445,
+          "intersectionDistanceHU": {
+            "count": 49,
+            "min": 4.288056030904873,
+            "p25": 16.28967841378644,
+            "median": 46.09167257017908,
+            "p75": 134.17869715561577,
+            "max": 605.7626766066321
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 22,
+            "physics_group": 21,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 2,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group_vrf_unknown_key_250761778": 1
+          }
+        },
+        "Z0|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 0,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 381,
+          "clear": 342,
+          "blocked": 39,
+          "clearRate": 0.8976377952755905,
+          "blockedRate": 0.10236220472440945,
+          "intersectionDistanceHU": {
+            "count": 39,
+            "min": 5.902321237922895,
+            "p25": 26.268564123632892,
+            "median": 52.364619601763245,
+            "p75": 84.43811672647047,
+            "max": 514.0218807946951
+          },
+          "blockerMeshes": {
+            "physics_group": 33,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 2,
+            "physics_group_vrf_unknown_key_250761778": 1
+          }
+        },
+        "Z0|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 0,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 381,
+          "clear": 342,
+          "blocked": 39,
+          "clearRate": 0.8976377952755905,
+          "blockedRate": 0.10236220472440945,
+          "intersectionDistanceHU": {
+            "count": 39,
+            "min": 5.902321237922895,
+            "p25": 26.268564123632892,
+            "median": 52.364619601763245,
+            "p75": 84.43811672647047,
+            "max": 514.0218807946951
+          },
+          "blockerMeshes": {
+            "physics_group": 33,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 2,
+            "physics_group_vrf_unknown_key_250761778": 1
+          }
+        },
+        "Z48|ALL_PHYSICS": {
+          "zOffsetHU": 48,
+          "filter": "ALL_PHYSICS",
+          "total": 381,
+          "clear": 366,
+          "blocked": 15,
+          "clearRate": 0.9606299212598425,
+          "blockedRate": 0.03937007874015748,
+          "intersectionDistanceHU": {
+            "count": 15,
+            "min": 28.117556064035938,
+            "p25": 56.743639049965196,
+            "median": 170.6340105289713,
+            "p75": 322.5271397589714,
+            "max": 595.2501049476631
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 6,
+            "physics_group": 4,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z48|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 48,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 381,
+          "clear": 366,
+          "blocked": 15,
+          "clearRate": 0.9606299212598425,
+          "blockedRate": 0.03937007874015748,
+          "intersectionDistanceHU": {
+            "count": 15,
+            "min": 28.117556064035938,
+            "p25": 56.743639049965196,
+            "median": 170.6340105289713,
+            "p75": 322.5271397589714,
+            "max": 595.2501049476631
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 6,
+            "physics_group": 4,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z48|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 48,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 381,
+          "clear": 372,
+          "blocked": 9,
+          "clearRate": 0.9763779527559056,
+          "blockedRate": 0.023622047244094488,
+          "intersectionDistanceHU": {
+            "count": 9,
+            "min": 44.34851078267209,
+            "p25": 56.270766727800435,
+            "median": 73.16430407979325,
+            "p75": 194.93361340686835,
+            "max": 495.3132371618663
+          },
+          "blockerMeshes": {
+            "physics_group": 5,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z48|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 48,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 381,
+          "clear": 372,
+          "blocked": 9,
+          "clearRate": 0.9763779527559056,
+          "blockedRate": 0.023622047244094488,
+          "intersectionDistanceHU": {
+            "count": 9,
+            "min": 44.34851078267209,
+            "p25": 56.270766727800435,
+            "median": 73.16430407979325,
+            "p75": 194.93361340686835,
+            "max": 495.3132371618663
+          },
+          "blockerMeshes": {
+            "physics_group": 5,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z64|ALL_PHYSICS": {
+          "zOffsetHU": 64,
+          "filter": "ALL_PHYSICS",
+          "total": 381,
+          "clear": 369,
+          "blocked": 12,
+          "clearRate": 0.968503937007874,
+          "blockedRate": 0.031496062992125984,
+          "intersectionDistanceHU": {
+            "count": 12,
+            "min": 44.06950227398376,
+            "p25": 62.84241575636988,
+            "median": 192.0721149874987,
+            "p75": 453.46550690456434,
+            "max": 592.4580557987564
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 5,
+            "physics_group": 4,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z64|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 64,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 381,
+          "clear": 369,
+          "blocked": 12,
+          "clearRate": 0.968503937007874,
+          "blockedRate": 0.031496062992125984,
+          "intersectionDistanceHU": {
+            "count": 12,
+            "min": 44.06950227398376,
+            "p25": 62.84241575636988,
+            "median": 192.0721149874987,
+            "p75": 453.46550690456434,
+            "max": 592.4580557987564
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 5,
+            "physics_group": 4,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z64|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 381,
+          "clear": 374,
+          "blocked": 7,
+          "clearRate": 0.9816272965879265,
+          "blockedRate": 0.01837270341207349,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 44.06950227398376,
+            "p25": 76.32505788222178,
+            "median": 160.49508186434684,
+            "p75": 198.1688013075218,
+            "max": 488.54442418990686
+          },
+          "blockerMeshes": {
+            "physics_group": 4,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z64|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 64,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 381,
+          "clear": 374,
+          "blocked": 7,
+          "clearRate": 0.9816272965879265,
+          "blockedRate": 0.01837270341207349,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 44.06950227398376,
+            "p25": 76.32505788222178,
+            "median": 160.49508186434684,
+            "p75": 198.1688013075218,
+            "max": 488.54442418990686
+          },
+          "blockerMeshes": {
+            "physics_group": 4,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z80|ALL_PHYSICS": {
+          "zOffsetHU": 80,
+          "filter": "ALL_PHYSICS",
+          "total": 381,
+          "clear": 369,
+          "blocked": 12,
+          "clearRate": 0.968503937007874,
+          "blockedRate": 0.031496062992125984,
+          "intersectionDistanceHU": {
+            "count": 12,
+            "min": 43.80838740561631,
+            "p25": 66.06245642597659,
+            "median": 191.72260349035778,
+            "p75": 449.00172383928725,
+            "max": 590.0310393219761
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 5,
+            "physics_group": 3,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z80|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 80,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 381,
+          "clear": 369,
+          "blocked": 12,
+          "clearRate": 0.968503937007874,
+          "blockedRate": 0.031496062992125984,
+          "intersectionDistanceHU": {
+            "count": 12,
+            "min": 43.80838740561631,
+            "p25": 66.06245642597659,
+            "median": 191.72260349035778,
+            "p75": 449.00172383928725,
+            "max": 590.0310393219761
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 5,
+            "physics_group": 3,
+            "physics_npcclip": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z80|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 80,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 381,
+          "clear": 374,
+          "blocked": 7,
+          "clearRate": 0.9816272965879265,
+          "blockedRate": 0.01837270341207349,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 43.80838740561631,
+            "p25": 76.087561857391,
+            "median": 151.132771902717,
+            "p75": 197.69689257092898,
+            "max": 481.73753915720386
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+            "physics_group": 3,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "Z80|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 80,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 381,
+          "clear": 374,
+          "blocked": 7,
+          "clearRate": 0.9816272965879265,
+          "blockedRate": 0.01837270341207349,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 43.80838740561631,
+            "p25": 76.087561857391,
+            "median": 151.132771902717,
+            "p75": 197.69689257092898,
+            "max": 481.73753915720386
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+            "physics_group": 3,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        }
+      },
+      "DENY_HIT": {
+        "Z0|ALL_PHYSICS": {
+          "zOffsetHU": 0,
+          "filter": "ALL_PHYSICS",
+          "total": 148,
+          "clear": 121,
+          "blocked": 27,
+          "clearRate": 0.8175675675675675,
+          "blockedRate": 0.18243243243243243,
+          "intersectionDistanceHU": {
+            "count": 27,
+            "min": 4.369037377329226,
+            "p25": 12.456821088476868,
+            "median": 63.87551496403339,
+            "p75": 135.23886238660268,
+            "max": 233.8860158423017
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 18,
+            "physics_group": 8,
+            "physics_npcclip": 1
+          }
+        },
+        "Z0|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 0,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 148,
+          "clear": 121,
+          "blocked": 27,
+          "clearRate": 0.8175675675675675,
+          "blockedRate": 0.18243243243243243,
+          "intersectionDistanceHU": {
+            "count": 27,
+            "min": 4.369037377329226,
+            "p25": 12.456821088476868,
+            "median": 63.87551496403339,
+            "p75": 135.23886238660268,
+            "max": 233.8860158423017
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 18,
+            "physics_group": 8,
+            "physics_npcclip": 1
+          }
+        },
+        "Z0|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 0,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 148,
+          "clear": 135,
+          "blocked": 13,
+          "clearRate": 0.9121621621621622,
+          "blockedRate": 0.08783783783783784,
+          "intersectionDistanceHU": {
+            "count": 13,
+            "min": 4.369037377329226,
+            "p25": 6.956362289676303,
+            "median": 49.089220552462784,
+            "p75": 86.05439688307249,
+            "max": 239.48753649295128
+          },
+          "blockerMeshes": {
+            "physics_group": 12,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1
+          }
+        },
+        "Z0|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 0,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 148,
+          "clear": 135,
+          "blocked": 13,
+          "clearRate": 0.9121621621621622,
+          "blockedRate": 0.08783783783783784,
+          "intersectionDistanceHU": {
+            "count": 13,
+            "min": 4.369037377329226,
+            "p25": 6.956362289676303,
+            "median": 49.089220552462784,
+            "p75": 86.05439688307249,
+            "max": 239.48753649295128
+          },
+          "blockerMeshes": {
+            "physics_group": 12,
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1
+          }
+        },
+        "Z48|ALL_PHYSICS": {
+          "zOffsetHU": 48,
+          "filter": "ALL_PHYSICS",
+          "total": 148,
+          "clear": 139,
+          "blocked": 9,
+          "clearRate": 0.9391891891891891,
+          "blockedRate": 0.060810810810810814,
+          "intersectionDistanceHU": {
+            "count": 9,
+            "min": 115.19452586571391,
+            "p25": 133.7901230423566,
+            "median": 172.83939211615368,
+            "p75": 187.01014085067027,
+            "max": 471.41146091307667
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 8,
+            "physics_npcclip": 1
+          }
+        },
+        "Z48|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 48,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 148,
+          "clear": 139,
+          "blocked": 9,
+          "clearRate": 0.9391891891891891,
+          "blockedRate": 0.060810810810810814,
+          "intersectionDistanceHU": {
+            "count": 9,
+            "min": 115.19452586571391,
+            "p25": 133.7901230423566,
+            "median": 172.83939211615368,
+            "p75": 187.01014085067027,
+            "max": 471.41146091307667
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 8,
+            "physics_npcclip": 1
+          }
+        },
+        "Z48|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 48,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 148,
+          "clear": 146,
+          "blocked": 2,
+          "clearRate": 0.9864864864864865,
+          "blockedRate": 0.013513513513513514,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 192.5830165705249,
+            "p25": 200.7957886655867,
+            "median": 209.00856076064855,
+            "p75": 217.2213328557104,
+            "max": 225.43410495077222
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "Z48|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 48,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 148,
+          "clear": 146,
+          "blocked": 2,
+          "clearRate": 0.9864864864864865,
+          "blockedRate": 0.013513513513513514,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 192.5830165705249,
+            "p25": 200.7957886655867,
+            "median": 209.00856076064855,
+            "p75": 217.2213328557104,
+            "max": 225.43410495077222
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "Z64|ALL_PHYSICS": {
+          "zOffsetHU": 64,
+          "filter": "ALL_PHYSICS",
+          "total": 148,
+          "clear": 141,
+          "blocked": 7,
+          "clearRate": 0.9527027027027027,
+          "blockedRate": 0.0472972972972973,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 114.95142181378682,
+            "p25": 142.786943311512,
+            "median": 159.33622241182607,
+            "p75": 178.98154321872607,
+            "max": 190.4179337480751
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 6,
+            "physics_npcclip": 1
+          }
+        },
+        "Z64|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 64,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 148,
+          "clear": 141,
+          "blocked": 7,
+          "clearRate": 0.9527027027027027,
+          "blockedRate": 0.0472972972972973,
+          "intersectionDistanceHU": {
+            "count": 7,
+            "min": 114.95142181378682,
+            "p25": 142.786943311512,
+            "median": 159.33622241182607,
+            "p75": 178.98154321872607,
+            "max": 190.4179337480751
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 6,
+            "physics_npcclip": 1
+          }
+        },
+        "Z64|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 148,
+          "clear": 147,
+          "blocked": 1,
+          "clearRate": 0.9932432432432432,
+          "blockedRate": 0.006756756756756757,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 225.16864929016128,
+            "p25": 225.16864929016128,
+            "median": 225.16864929016128,
+            "p75": 225.16864929016128,
+            "max": 225.16864929016128
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1
+          }
+        },
+        "Z64|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 64,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 148,
+          "clear": 147,
+          "blocked": 1,
+          "clearRate": 0.9932432432432432,
+          "blockedRate": 0.006756756756756757,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 225.16864929016128,
+            "p25": 225.16864929016128,
+            "median": 225.16864929016128,
+            "p75": 225.16864929016128,
+            "max": 225.16864929016128
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1
+          }
+        },
+        "Z80|ALL_PHYSICS": {
+          "zOffsetHU": 80,
+          "filter": "ALL_PHYSICS",
+          "total": 148,
+          "clear": 142,
+          "blocked": 6,
+          "clearRate": 0.9594594594594594,
+          "blockedRate": 0.04054054054054054,
+          "intersectionDistanceHU": {
+            "count": 6,
+            "min": 114.72309430191905,
+            "p25": 139.06677172645817,
+            "median": 156.39227744517703,
+            "p75": 169.05095520651406,
+            "max": 183.4551343770249
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 5,
+            "physics_npcclip": 1
+          }
+        },
+        "Z80|EXCLUDE_PASSBULLETS": {
+          "zOffsetHU": 80,
+          "filter": "EXCLUDE_PASSBULLETS",
+          "total": 148,
+          "clear": 142,
+          "blocked": 6,
+          "clearRate": 0.9594594594594594,
+          "blockedRate": 0.04054054054054054,
+          "intersectionDistanceHU": {
+            "count": 6,
+            "min": 114.72309430191905,
+            "p25": 139.06677172645817,
+            "median": 156.39227744517703,
+            "p75": 169.05095520651406,
+            "max": 183.4551343770249
+          },
+          "blockerMeshes": {
+            "physics_npcclip_playerclip": 5,
+            "physics_npcclip": 1
+          }
+        },
+        "Z80|BULLET_SOLID_CANDIDATE": {
+          "zOffsetHU": 80,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 148,
+          "clear": 147,
+          "blocked": 1,
+          "clearRate": 0.9932432432432432,
+          "blockedRate": 0.006756756756756757,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 225.9538620923194,
+            "p25": 225.9538620923194,
+            "median": 225.9538620923194,
+            "p75": 225.9538620923194,
+            "max": 225.9538620923194
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1
+          }
+        },
+        "Z80|STRICT_SOLID_OR_DEFAULT_GROUP": {
+          "zOffsetHU": 80,
+          "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+          "total": 148,
+          "clear": 147,
+          "blocked": 1,
+          "clearRate": 0.9932432432432432,
+          "blockedRate": 0.006756756756756757,
+          "intersectionDistanceHU": {
+            "count": 1,
+            "min": 225.9538620923194,
+            "p25": 225.9538620923194,
+            "median": 225.9538620923194,
+            "p75": 225.9538620923194,
+            "max": 225.9538620923194
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1
+          }
+        }
+      }
+    },
+    "primary": {
+      "key": "Z64|BULLET_SOLID_CANDIDATE",
+      "filter": "BULLET_SOLID_CANDIDATE",
+      "zOffsetHU": 64,
+      "overall": {
+        "zOffsetHU": 64,
+        "filter": "BULLET_SOLID_CANDIDATE",
+        "total": 529,
+        "clear": 521,
+        "blocked": 8,
+        "clearRate": 0.9848771266540642,
+        "blockedRate": 0.015122873345935728,
+        "intersectionDistanceHU": {
+          "count": 8,
+          "min": 44.06950227398376,
+          "p25": 78.08686677072565,
+          "median": 178.67475329628053,
+          "p75": 205.90454573766235,
+          "max": 488.54442418990686
+        },
+        "blockerMeshes": {
+          "physics_group": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      "byReplay": {
+        "rep01": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 81,
+          "clear": 79,
+          "blocked": 2,
+          "clearRate": 0.9753086419753086,
+          "blockedRate": 0.024691358024691357,
+          "intersectionDistanceHU": {
+            "count": 2,
+            "min": 72.80144010521406,
+            "p25": 176.73718612638726,
+            "median": 280.67293214756046,
+            "p75": 384.6086781687337,
+            "max": 488.54442418990686
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+            "physics_group": 1
+          }
+        },
+        "rep02": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 124,
+          "clear": 124,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "rep03": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 125,
+          "clear": 125,
+          "blocked": 0,
+          "clearRate": 1,
+          "blockedRate": 0,
+          "intersectionDistanceHU": {
+            "count": 0,
+            "min": null,
+            "p25": null,
+            "median": null,
+            "p75": null,
+            "max": null
+          },
+          "blockerMeshes": {}
+        },
+        "rep04": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 130,
+          "clear": 127,
+          "blocked": 3,
+          "clearRate": 0.9769230769230769,
+          "blockedRate": 0.023076923076923078,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 160.49508186434684,
+            "p25": 178.67475329628053,
+            "median": 196.85442472821418,
+            "p75": 198.1688013075218,
+            "max": 199.48317788682937
+          },
+          "blockerMeshes": {
+            "physics_group": 2,
+            "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+          }
+        },
+        "rep05": {
+          "zOffsetHU": 64,
+          "filter": "BULLET_SOLID_CANDIDATE",
+          "total": 69,
+          "clear": 66,
+          "blocked": 3,
+          "clearRate": 0.9565217391304348,
+          "blockedRate": 0.043478260869565216,
+          "intersectionDistanceHU": {
+            "count": 3,
+            "min": 44.06950227398376,
+            "p25": 61.959088966606636,
+            "median": 79.84867565922951,
+            "p75": 152.5086624746954,
+            "max": 225.16864929016128
+          },
+          "blockerMeshes": {
+            "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+            "physics_group": 1
+          }
+        }
+      },
+      "blockerMeshes": {
+        "physics_group": 4,
+        "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+        "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+      }
+    },
+    "bestDescriptiveProbePairs": [
+      {
+        "zOffsetHU": 64,
+        "filter": "BULLET_SOLID_CANDIDATE",
+        "total": 529,
+        "clear": 521,
+        "blocked": 8,
+        "clearRate": 0.9848771266540642,
+        "blockedRate": 0.015122873345935728,
+        "intersectionDistanceHU": {
+          "count": 8,
+          "min": 44.06950227398376,
+          "p25": 78.08686677072565,
+          "median": 178.67475329628053,
+          "p75": 205.90454573766235,
+          "max": 488.54442418990686
+        },
+        "blockerMeshes": {
+          "physics_group": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 64,
+        "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+        "total": 529,
+        "clear": 521,
+        "blocked": 8,
+        "clearRate": 0.9848771266540642,
+        "blockedRate": 0.015122873345935728,
+        "intersectionDistanceHU": {
+          "count": 8,
+          "min": 44.06950227398376,
+          "p25": 78.08686677072565,
+          "median": 178.67475329628053,
+          "p75": 205.90454573766235,
+          "max": 488.54442418990686
+        },
+        "blockerMeshes": {
+          "physics_group": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 80,
+        "filter": "BULLET_SOLID_CANDIDATE",
+        "total": 529,
+        "clear": 521,
+        "blocked": 8,
+        "clearRate": 0.9848771266540642,
+        "blockedRate": 0.015122873345935728,
+        "intersectionDistanceHU": {
+          "count": 8,
+          "min": 43.80838740561631,
+          "p25": 77.88889916113912,
+          "median": 173.85398037023853,
+          "p75": 205.60241275115328,
+          "max": 481.73753915720386
+        },
+        "blockerMeshes": {
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_group": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 80,
+        "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+        "total": 529,
+        "clear": 521,
+        "blocked": 8,
+        "clearRate": 0.9848771266540642,
+        "blockedRate": 0.015122873345935728,
+        "intersectionDistanceHU": {
+          "count": 8,
+          "min": 43.80838740561631,
+          "p25": 77.88889916113912,
+          "median": 173.85398037023853,
+          "p75": 205.60241275115328,
+          "max": 481.73753915720386
+        },
+        "blockerMeshes": {
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_group": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 48,
+        "filter": "BULLET_SOLID_CANDIDATE",
+        "total": 529,
+        "clear": 518,
+        "blocked": 11,
+        "clearRate": 0.9792060491493384,
+        "blockedRate": 0.020793950850661626,
+        "intersectionDistanceHU": {
+          "count": 11,
+          "min": 44.34851078267209,
+          "p25": 56.743639049965196,
+          "median": 170.6340105289713,
+          "p75": 197.01069959675368,
+          "max": 495.3132371618663
+        },
+        "blockerMeshes": {
+          "physics_group": 6,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 48,
+        "filter": "STRICT_SOLID_OR_DEFAULT_GROUP",
+        "total": 529,
+        "clear": 518,
+        "blocked": 11,
+        "clearRate": 0.9792060491493384,
+        "blockedRate": 0.020793950850661626,
+        "intersectionDistanceHU": {
+          "count": 11,
+          "min": 44.34851078267209,
+          "p25": 56.743639049965196,
+          "median": 170.6340105289713,
+          "p75": 197.01069959675368,
+          "max": 495.3132371618663
+        },
+        "blockerMeshes": {
+          "physics_group": 6,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 4,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 80,
+        "filter": "ALL_PHYSICS",
+        "total": 529,
+        "clear": 511,
+        "blocked": 18,
+        "clearRate": 0.9659735349716446,
+        "blockedRate": 0.034026465028355386,
+        "intersectionDistanceHU": {
+          "count": 18,
+          "min": 43.80838740561631,
+          "p25": 119.46462134044057,
+          "median": 165.2289952551883,
+          "p75": 198.25774443751342,
+          "max": 590.0310393219761
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 10,
+          "physics_group": 3,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 80,
+        "filter": "EXCLUDE_PASSBULLETS",
+        "total": 529,
+        "clear": 511,
+        "blocked": 18,
+        "clearRate": 0.9659735349716446,
+        "blockedRate": 0.034026465028355386,
+        "intersectionDistanceHU": {
+          "count": 18,
+          "min": 43.80838740561631,
+          "p25": 119.46462134044057,
+          "median": 165.2289952551883,
+          "p75": 198.25774443751342,
+          "max": 590.0310393219761
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 10,
+          "physics_group": 3,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 1,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 64,
+        "filter": "ALL_PHYSICS",
+        "total": 529,
+        "clear": 510,
+        "blocked": 19,
+        "clearRate": 0.9640831758034026,
+        "blockedRate": 0.035916824196597356,
+        "intersectionDistanceHU": {
+          "count": 19,
+          "min": 44.06950227398376,
+          "p25": 124.20683945571197,
+          "median": 172.81489039637012,
+          "p75": 198.1688013075218,
+          "max": 592.4580557987564
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 11,
+          "physics_group": 4,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 64,
+        "filter": "EXCLUDE_PASSBULLETS",
+        "total": 529,
+        "clear": 510,
+        "blocked": 19,
+        "clearRate": 0.9640831758034026,
+        "blockedRate": 0.035916824196597356,
+        "intersectionDistanceHU": {
+          "count": 19,
+          "min": 44.06950227398376,
+          "p25": 124.20683945571197,
+          "median": 172.81489039637012,
+          "p75": 198.1688013075218,
+          "max": 592.4580557987564
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 11,
+          "physics_group": 4,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 48,
+        "filter": "ALL_PHYSICS",
+        "total": 529,
+        "clear": 505,
+        "blocked": 24,
+        "clearRate": 0.9546313799621928,
+        "blockedRate": 0.045368620037807186,
+        "intersectionDistanceHU": {
+          "count": 24,
+          "min": 28.117556064035938,
+          "p25": 101.44749378036373,
+          "median": 171.73670132256248,
+          "p75": 195.97215650181104,
+          "max": 595.2501049476631
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 14,
+          "physics_group": 4,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      },
+      {
+        "zOffsetHU": 48,
+        "filter": "EXCLUDE_PASSBULLETS",
+        "total": 529,
+        "clear": 505,
+        "blocked": 24,
+        "clearRate": 0.9546313799621928,
+        "blockedRate": 0.045368620037807186,
+        "intersectionDistanceHU": {
+          "count": 24,
+          "min": 28.117556064035938,
+          "p25": 101.44749378036373,
+          "median": 171.73670132256248,
+          "p75": 195.97215650181104,
+          "max": 595.2501049476631
+        },
+        "blockerMeshes": {
+          "physics_npcclip_playerclip": 14,
+          "physics_group": 4,
+          "physics_npcclip": 3,
+          "physics_Citadel_Camera_Can_Pass_Through_solid": 2,
+          "physics_Citadel_Camera_Can_Pass_Through_solid_wood": 1
+        }
+      }
+    ]
+  },
+  "validation": {
+    "pass": true,
+    "thresholds": {
+      "minimumAnchorPlayerInsideRawPhysicsBoundsRate": 0.99,
+      "minimumAnchorOrbInsideRawPhysicsBoundsRate": 0.99,
+      "minimumPrimaryClearRateOverall": 0.95,
+      "minimumPrimaryClearRatePerReplay": 0.9
+    },
+    "checks": {
+      "playerRawBoundsCoverage": {
+        "actual": 1,
+        "expected": ">=0.99",
+        "pass": true
+      },
+      "orbRawBoundsCoverage": {
+        "actual": 1,
+        "expected": ">=0.99",
+        "pass": true
+      },
+      "primaryPositiveControlClearRateOverall": {
+        "actual": 0.9848771266540642,
+        "expected": ">=0.95",
+        "pass": true
+      },
+      "primaryPositiveControlClearRateEveryReplay": {
+        "actual": {
+          "rep01": 0.9753086419753086,
+          "rep02": 1,
+          "rep03": 1,
+          "rep04": 0.9769230769230769,
+          "rep05": 0.9565217391304348
+        },
+        "expected": "each >=0.9",
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "establishedIfPass": "A replay-coordinate static projectile-path raycast against selected Midtown world-physics triangles is consistent with observed successful soul-hit positive controls at the stated validation thresholds.",
+    "notEstablished": [
+      "Exact hero muzzle or eye origin.",
+      "Visual visibility/opacity semantics.",
+      "Dynamic doors, breakables, temporary walls, props, or player bodies.",
+      "Weapon readiness or projectile travel timing.",
+      "Actionable opportunity for Script117 nonresponders.",
+      "Avoidable secure/deny loss."
+    ],
+    "collisionTagGuardrail": "The world-physics GLB contains interaction classes such as passbullets, blocklos, foliage, playerclip, and solid. All physics triangles are therefore not semantically interchangeable.",
+    "positiveControlGuardrail": "A blocked successful-hit ray is a diagnostic contradiction, not proof that the replay hit or physics mesh is wrong. Approximate firing origin and impact-time player position are known sources of disagreement."
+  },
+  "nextStage": "SEPARATE_STATIC_VISUAL_OCCLUSION_FROM_PROJECTILE_BLOCKING_AND_ADD_DYNAMIC_OCCLUDER_STATE",
+  "outputs": {
+    "json": "G:\\DeadlockBehavior\\output\\cross_replay\\dl_midtown_static_physics_positive_raycast_validation_v01.json",
+    "anchors": "G:\\DeadlockBehavior\\output\\cross_replay\\dl_midtown_static_physics_positive_raycast_anchors_v01.jsonl",
+    "markdown": "G:\\DeadlockBehavior\\output\\cross_replay\\dl_midtown_static_physics_positive_raycast_validation_v01.md"
+  }
+}
