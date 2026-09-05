@@ -1,0 +1,1397 @@
+{
+  "version": "CLAIM_AUTHORITY_REGISTRY_V03",
+  "canonical": true,
+  "purpose": "Operational authority index for major DeadlockBehavior findings. Preserves the usefulness of numbered-script discoveries while preventing withdrawn/provisional claims from silently becoming downstream truth.",
+  "validationDimensions": {
+    "integrityValidation": "Computation/schema/invariant correctness.",
+    "semanticValidation": "Independent support for the game-mechanical meaning.",
+    "replicationStatus": "Evidence beyond the discovery replay/build."
+  },
+  "authorityStatuses": {
+    "current": "Usable as current authority within stated scope.",
+    "provisional": "Useful but not unrestricted authority.",
+    "withdrawn": "Superseded/rejected; must not be consumed as current truth.",
+    "missing": "Needed downstream but not yet resolved."
+  },
+  "claims": [
+    {
+      "claimId": "replay_tick_rate_64hz",
+      "domain": "replay_substrate",
+      "construct": "Replay tick-rate interpretation",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "03-player-state",
+        "101-v02-replay-state-validation",
+        "102-cross-replay-raw-extraction"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "time conversion",
+        "event alignment",
+        "PlayerState(t)"
+      ],
+      "valueSummary": {
+        "ticksPerSecond": 64
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "64 Hz is the working replay-time authority. Preserve exact tick indices alongside converted seconds."
+    },
+    {
+      "claimId": "replay_clock_30s_offset",
+      "domain": "replay_substrate",
+      "construct": "Gameplay clock offset from replay time",
+      "authorityStatus": "provisional",
+      "integrityValidation": "pass",
+      "semanticValidation": "provisional",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "05-clock",
+        "101-v02-replay-state-validation",
+        "102-cross-replay-raw-extraction"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "presentation clock only"
+      ],
+      "valueSummary": {
+        "approximateOffsetSeconds": 30
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Many scripts hard-code ~30 s. Do not use as an unrestricted semantic constant until a native clock authority is frozen."
+    },
+    {
+      "claimId": "world_position_reconstruction",
+      "domain": "replay_substrate",
+      "construct": "Source2 world-position reconstruction from cell and local vectors",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "03-player-state",
+        "43-exposure-distance-calibration",
+        "44-accessibility-geometry-calibration",
+        "117-flying-soul-dynamic-geometry"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "geometry",
+        "distance",
+        "opportunity models"
+      ],
+      "valueSummary": {
+        "cellSizeHU": 512,
+        "offsetHU": -16384
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Operationally exercised across many downstream geometry analyses."
+    },
+    {
+      "claimId": "player_controller_pawn_identity",
+      "domain": "identity",
+      "construct": "Player/controller/pawn identity mapping",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "74-player-identity",
+        "101-v02-replay-state-validation",
+        "102-cross-replay-raw-extraction"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "all player-indexed telemetry",
+        "PlayerState(t)"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": ""
+    },
+    {
+      "claimId": "hero_display_identity",
+      "domain": "identity",
+      "construct": "heroId to stable internal/display identity",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "129-v05-hero-display-identity"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "presentation",
+        "hero grouping"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Display names are presentation only; heroId/internal key remain mechanic identifiers."
+    },
+    {
+      "claimId": "melee_attempt_action_authority",
+      "domain": "actions",
+      "construct": "HoldMelee input to game-recognized melee action/hit reconstruction",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "single_replay_only",
+      "scope": "",
+      "sourceScripts": [
+        "16-holdmelee-authority"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "attempt vs action vs outcome",
+        "combat behavior"
+      ],
+      "valueSummary": {
+        "attacks": 13710,
+        "hits": 4789,
+        "inputMatchedAttacks": 13379
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Strong within discovery replay; cross-replay replication remains desirable before unrestricted use."
+    },
+    {
+      "claimId": "primary_weapon_discharge_telemetry",
+      "domain": "actions",
+      "construct": "Primary weapon discharge reconstruction independent of CItemXP outcome",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "126-primary-weapon-discharge-telemetry"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "shot attempts",
+        "weapon state",
+        "flying-soul opportunity"
+      ],
+      "valueSummary": {
+        "reconstructedDischarges": 141724
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": ""
+    },
+    {
+      "claimId": "shot_to_soul_hit_timing_association",
+      "domain": "actions",
+      "construct": "Successful flying-soul hits are tightly associated with same-player prior weapon discharge",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "126-primary-weapon-discharge-telemetry",
+        "127-within-player-shot-placebo"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "flying-soul shot attribution",
+        "travel model"
+      ],
+      "valueSummary": {
+        "within8TicksPercent": 95.27,
+        "within64TicksPercent": 98.87,
+        "placeboWithin8TicksPercent": 18.49
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Association is strong; nearest prior shot is not by itself causal projectile identity."
+    },
+    {
+      "claimId": "hero_projectile_travel_models",
+      "domain": "actions",
+      "construct": "Hero-level shot travel timing models",
+      "authorityStatus": "provisional",
+      "integrityValidation": "pass",
+      "semanticValidation": "provisional",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "128-latent-hero-shot-travel-models",
+        "130-v02-cross-replay-travel-validation"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "projectile feasibility",
+        "opportunity timing"
+      ],
+      "valueSummary": {
+        "crossReplayGeneralizingHeroes": 9
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Single hero-fixed speed is inadequate broadly; runtime item/loadout weapon state is likely required."
+    },
+    {
+      "claimId": "camp_identity_and_lifecycle",
+      "domain": "resources",
+      "construct": "Neutral camp identity/lifecycle substrate",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "17-camp-discovery",
+        "18-camp-geometry",
+        "19-camp-logical-identity",
+        "20-camp-entity-mapping",
+        "21-camp-fow",
+        "24-camp-assignment",
+        "25-camp-respawn",
+        "26-camp-validation"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "camp availability",
+        "routing",
+        "resource opportunities"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Use native/game-structure identity and lifecycle rather than only proximity clustering."
+    },
+    {
+      "claimId": "breakable_catalog_and_break_events",
+      "domain": "resources",
+      "construct": "Canonical breakable slots and break-event attribution",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "single_replay_only",
+      "scope": "",
+      "sourceScripts": [
+        "41-canonical-breakables"
+      ],
+      "currentArtifacts": [
+        "output/breakable_catalog_v1.json"
+      ],
+      "downstreamUses": [
+        "breakable availability",
+        "break actions",
+        "resource opportunities"
+      ],
+      "valueSummary": {
+        "slots": 691,
+        "everBroken": 485,
+        "breaks": 1261,
+        "attributedBreaks": 724
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Artifact itself marks canonical true for its replay; broader replication still pending."
+    },
+    {
+      "claimId": "breakable_reward_acquisition",
+      "domain": "resources",
+      "construct": "Breakable reward production/acquisition and breaker/collector distinction",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "single_replay_only",
+      "scope": "",
+      "sourceScripts": [
+        "46-breakable-reward-diagnostic",
+        "47-breakable-pickup-classifier",
+        "48-breakable-action-stream"
+      ],
+      "currentArtifacts": [
+        "output/breakable_reward_acquisition_summary_v1.json",
+        "output/breakable_action_stream_summary_v1.json"
+      ],
+      "downstreamUses": [
+        "reward consequence",
+        "collector behavior"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": ""
+    },
+    {
+      "claimId": "broad_behavioral_exposure",
+      "domain": "behavioral_substrate",
+      "construct": "Broad resource exposure episodes",
+      "authorityStatus": "provisional",
+      "integrityValidation": "pass",
+      "semanticValidation": "provisional",
+      "replicationStatus": "single_replay_only",
+      "scope": "",
+      "sourceScripts": [
+        "42-behavioral-resource-features",
+        "43-exposure-distance-calibration",
+        "44-accessibility-geometry-calibration",
+        "45-provisional-thresholds"
+      ],
+      "currentArtifacts": [
+        "output/behavioral_resource_features_summary_v01.json",
+        "output/behavioral_exposure_distance_calibration.json",
+        "output/behavioral_accessibility_geometry_calibration.json"
+      ],
+      "downstreamUses": [
+        "descriptive exploratory metrics only"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Broad exposure is NOT equivalent to visibility, accessibility, direct interaction, or opportunity."
+    },
+    {
+      "claimId": "trooper_death_transition",
+      "domain": "troopers",
+      "construct": "Trooper death transition semantics from health/life state",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "49b-dual-death-transition",
+        "102-cross-replay-raw-extraction",
+        "103-foundational-replication"
+      ],
+      "currentArtifacts": [
+        "output/trooper_death_transition_verification.json"
+      ],
+      "downstreamUses": [
+        "trooper lifecycle",
+        "soul matching",
+        "economy"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": ""
+    },
+    {
+      "claimId": "trooper_type_variant_classification",
+      "domain": "troopers",
+      "construct": "Trooper type/variant labels",
+      "authorityStatus": "provisional",
+      "integrityValidation": "pass",
+      "semanticValidation": "provisional",
+      "replicationStatus": "single_replay_only",
+      "scope": "",
+      "sourceScripts": [
+        "52-trooper-types",
+        "53-helper-economy-exclusion",
+        "54-variant-classification"
+      ],
+      "currentArtifacts": [
+        "output/trooper_type_classification_v01.json",
+        "output/trooper_variant_classification_v01.json"
+      ],
+      "downstreamUses": [
+        "descriptive trooper subtyping"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Some classifications are prior-assisted/hardcoded; do not use as unrestricted authority."
+    },
+    {
+      "claimId": "ground_soul_one_to_one_matching",
+      "domain": "souls",
+      "construct": "Trooper death to ground-soul/AssignedGold one-to-one matching substrate",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "55-ground-soul-one-to-one",
+        "56-unmatched-diagnostic",
+        "102-cross-replay-raw-extraction",
+        "103-foundational-replication",
+        "104-foundational-replication"
+      ],
+      "currentArtifacts": [
+        "output/trooper_ground_soul_one_to_one_summary_v01.json",
+        "output/trooper_ground_soul_unmatched_diagnostic_v01.json"
+      ],
+      "downstreamUses": [
+        "ground-soul lifecycle",
+        "economy attribution"
+      ],
+      "valueSummary": {
+        "testReplayEligibleDeaths": 1727,
+        "testReplayMatched": 1388
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": ""
+    },
+    {
+      "claimId": "ground_soul_45m_production_relationship",
+      "domain": "souls",
+      "construct": "~45 m upstream proximity relationship for ground-soul production/eligibility",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "",
+      "sourceScripts": [
+        "57-ground-soul-range-validation",
+        "103-foundational-replication",
+        "104-foundational-replication"
+      ],
+      "currentArtifacts": [
+        "output/trooper_ground_soul_range_validation_v01.json"
+      ],
+      "downstreamUses": [
+        "ground-soul production opportunity"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Treat as the upstream ground-soul production relationship, distinct from downstream AssignedGold vacuum targeting."
+    },
+    {
+      "claimId": "citemxp_source_context_classification",
+      "domain": "souls",
+      "construct": "CItemXP source/subclass contextual classification",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "58-flying-orb-discovery",
+        "59-citemxp-source-classification",
+        "60-urn-subclass-validation",
+        "102-cross-replay-raw-extraction"
+      ],
+      "currentArtifacts": [
+        "output/citemxp_source_classification_v01.json",
+        "output/urn_citemxp_subclass_validation_v01.json"
+      ],
+      "downstreamUses": [
+        "soul source typing"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Subclass IDs are source-contextual; avoid universal semantics detached from source context."
+    },
+    {
+      "claimId": "urn_citemxp_subclass",
+      "domain": "souls",
+      "construct": "Urn-linked CItemXP subtype/source family",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "single_replay_only",
+      "scope": "",
+      "sourceScripts": [
+        "60-urn-subclass-validation"
+      ],
+      "currentArtifacts": [
+        "output/urn_citemxp_subclass_validation_v01.json"
+      ],
+      "downstreamUses": [
+        "Urn resource typing"
+      ],
+      "valueSummary": {
+        "burstOrbs": 10
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "10-orb bursts are structurally linked observations, not independent samples."
+    },
+    {
+      "claimId": "citemxp_shot_outcome_signal",
+      "domain": "souls",
+      "construct": "Shot vs no-shot outcome signal for CItemXP",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "61-shot-outcome-validation",
+        "62-race-resolution",
+        "116-successful-action-positive-anchors"
+      ],
+      "currentArtifacts": [
+        "output/citemxp_shot_outcome_validation_v01.json",
+        "output/citemxp_race_resolution_validation_v01.json"
+      ],
+      "downstreamUses": [
+        "flying-soul success outcomes"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": ""
+    },
+    {
+      "claimId": "untouched_trooper_soul_auto_award",
+      "domain": "souls",
+      "construct": "Untouched trooper soul auto-award/controller-economy signal",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "single_replay_only",
+      "scope": "",
+      "sourceScripts": [
+        "64-direct-award-calibration",
+        "65-outcome-builder",
+        "69-auto-award-resolution-v02",
+        "69b-auto-award-placebo"
+      ],
+      "currentArtifacts": [
+        "output/citemxp_award_field_discovery_v01.json"
+      ],
+      "downstreamUses": [
+        "soul outcome classification"
+      ],
+      "valueSummary": {
+        "realSignalPercent": 96.93,
+        "placeboPercent": 5.93
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Script65 overpromoted Script64 integrity validation; Script69+ repairs semantic authority."
+    },
+    {
+      "claimId": "assigned_gold_vacuum_target_semantics",
+      "domain": "economy",
+      "construct": "m_hVacuumTarget is a physical/vacuum target lifecycle field, not sole economic recipient or last-hitter authority",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "",
+      "sourceScripts": [
+        "75-v02-assigned-gold",
+        "76-target-transitions",
+        "82-credited-distance",
+        "83-nearest-ally",
+        "84-unified-proximity",
+        "89-exact-credit-attribution",
+        "103-foundational-replication",
+        "104-foundational-replication"
+      ],
+      "currentArtifacts": [
+        "output/trooper_assigned_gold_correlation.json"
+      ],
+      "downstreamUses": [
+        "soul transport/collection modeling"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Never equate vacuumTarget with economic owner/recipient."
+    },
+    {
+      "claimId": "assigned_gold_exact_732_735hu_threshold",
+      "domain": "economy",
+      "construct": "Exact ~732\u2013735 HU AssignedGold vacuum-onset threshold",
+      "authorityStatus": "withdrawn",
+      "integrityValidation": "pass",
+      "semanticValidation": "fail",
+      "replicationStatus": "not_replicated",
+      "scope": "",
+      "sourceScripts": [
+        "77-delayed-geometry",
+        "79-stable-onset",
+        "84-unified-proximity",
+        "103-foundational-replication",
+        "104-foundational-replication"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [],
+      "valueSummary": {
+        "testReplayApproxThresholdHU": "732-735"
+      },
+      "supersedes": [],
+      "supersededBy": "assigned_gold_proximity_relationship_nonfixed",
+      "notes": "Strong in test.dem but exact threshold failed independent replay replication."
+    },
+    {
+      "claimId": "assigned_gold_proximity_relationship_nonfixed",
+      "domain": "economy",
+      "construct": "Downstream proximity/vacuum-onset relationship without a universal exact threshold",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "",
+      "sourceScripts": [
+        "75-v02-assigned-gold",
+        "84-unified-proximity",
+        "103-foundational-replication",
+        "104-foundational-replication"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "vacuum opportunity/transport modeling"
+      ],
+      "valueSummary": {},
+      "supersedes": [
+        "assigned_gold_exact_732_735hu_threshold"
+      ],
+      "supersededBy": null,
+      "notes": "Keep distinct from the upstream ~45 m ground-soul production relationship."
+    },
+    {
+      "claimId": "economic_recipient_set",
+      "domain": "economy",
+      "construct": "Economic recipient set reconstructed from controller currency deltas",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "",
+      "sourceScripts": [
+        "88-recipient-field-discovery",
+        "89-exact-credit-attribution",
+        "90-reward-sharing",
+        "91-integer-sharing",
+        "92-recipient-geometry",
+        "96-final-allocation",
+        "103-foundational-replication",
+        "104-foundational-replication"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "soul sharing",
+        "team economy",
+        "consequence modeling"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Economic recipient set is distinct from physical vacuum target."
+    },
+    {
+      "claimId": "reward_integer_partition_and_remainder",
+      "domain": "economy",
+      "construct": "Integer reward partition with credited-player remainder behavior",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "91-integer-sharing",
+        "96-final-allocation",
+        "103-foundational-replication",
+        "104-foundational-replication"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "reward allocation"
+      ],
+      "valueSummary": {
+        "testReplayExactIntegerPartitionsPercent": 93.41,
+        "creditedRemainderPercent": 97.22
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Allocation semantics are stronger than total reward-magnitude semantics."
+    },
+    {
+      "claimId": "old_ground_soul_reward_formula",
+      "domain": "economy",
+      "construct": "Old 100+2/min total / 50+1/min ground reward-magnitude formula as universal authority",
+      "authorityStatus": "withdrawn",
+      "integrityValidation": "pass",
+      "semanticValidation": "fail",
+      "replicationStatus": "not_replicated",
+      "scope": "",
+      "sourceScripts": [
+        "93-documented-reward-schedule",
+        "95-super-comeback-interaction",
+        "96-final-allocation",
+        "103-foundational-replication",
+        "104-foundational-replication",
+        "105-112-reward-era-diagnostics"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": "post_june30_reward_mixture_model",
+      "notes": "Structural reward semantics survived; exact old magnitude formula did not."
+    },
+    {
+      "claimId": "post_june30_reward_mixture_model",
+      "domain": "economy",
+      "construct": "Post-June-30 baseline plus second reward component",
+      "authorityStatus": "provisional",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "105-112-reward-era-diagnostics"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "reward magnitude research"
+      ],
+      "valueSummary": {
+        "secondComponentApproxPercentRange": "19-32",
+        "mixtureWithin2ApproxPercentRange": "96-98"
+      },
+      "supersedes": [
+        "old_ground_soul_reward_formula"
+      ],
+      "supersededBy": null,
+      "notes": "Strongly supported for the observed post-patch cohort; source/mechanism of second component remains incomplete."
+    },
+    {
+      "claimId": "eye_angle_aim_orientation",
+      "domain": "orientation",
+      "construct": "Eye-angle interpretation as player aim/orientation signal",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "single_replay_only",
+      "scope": "",
+      "sourceScripts": [
+        "97-v02-angle-semantics",
+        "98-shot-direction-validation"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "orientation",
+        "aim opportunity"
+      ],
+      "valueSummary": {
+        "medianAngularErrorDeg": 7.2,
+        "within10DegPercent": 70.5,
+        "primaryBeatsPlaceboPercent": 93.3
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "97 V01 invariant-component interpretation is withdrawn; V02 is authority."
+    },
+    {
+      "claimId": "eye_angle_invariant_component_v01",
+      "domain": "orientation",
+      "construct": "97 V01 invariant eye/camera component as yaw",
+      "authorityStatus": "withdrawn",
+      "integrityValidation": "pass",
+      "semanticValidation": "fail",
+      "replicationStatus": "not_replicated",
+      "scope": "",
+      "sourceScripts": [
+        "97-v01-angle-semantics",
+        "97-v02-angle-semantics"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": "eye_angle_aim_orientation",
+      "notes": ""
+    },
+    {
+      "claimId": "flying_soul_temporal_phases",
+      "domain": "souls",
+      "construct": "Flying-soul launch \u2192 attackable \u2192 resolution phase substrate",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "113-flying-soul-temporal-discovery",
+        "114-flying-soul-lifecycle",
+        "115-flying-soul-attackable",
+        "116-success-anchors"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "flying-soul opportunity",
+        "attempt/outcome timing"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Attackable timing is available across the multi-replay cohort."
+    },
+    {
+      "claimId": "flying_soul_dynamic_geometry",
+      "domain": "souls",
+      "construct": "All-player dynamic player\u2013orb geometry substrate",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "117-flying-soul-dynamic-geometry"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "distance/orientation opportunity features"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Geometry alone is not a complete opportunity denominator."
+    },
+    {
+      "claimId": "static_projectile_obstruction_model",
+      "domain": "geometry",
+      "construct": "Midtown static projectile-obstruction approximation using extracted physics",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "121-map-package",
+        "122-world-physics-extraction",
+        "123-collision-semantic-validation",
+        "124-v02-collision-engine",
+        "125-obstruction-checkpoint"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "line-of-fire approximation",
+        "flying-soul opportunity"
+      ],
+      "valueSummary": {
+        "positiveControlSuccessfulHits": 529,
+        "clearPathPercent": 98.49,
+        "primaryPawnOriginOffsetHU": 64
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Validates static obstruction approximation, not exact engine raycast; dynamic blockers remain unresolved."
+    },
+    {
+      "claimId": "map_package_midtown",
+      "domain": "geometry",
+      "construct": "Replay map package identity as dl_midtown",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "",
+      "sourceScripts": [
+        "120-v03-map-evidence",
+        "121-identify-map-package"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "static world resources"
+      ],
+      "valueSummary": {
+        "mapPackage": "dl_midtown"
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Demo header mapName='start' is bootstrap/generic and is not gameplay-map authority."
+    },
+    {
+      "claimId": "ordinary_world_physics_glb",
+      "domain": "geometry",
+      "construct": "Ordinary world_physics.glb as collision geometry authority",
+      "authorityStatus": "withdrawn",
+      "integrityValidation": "pass",
+      "semanticValidation": "fail",
+      "replicationStatus": "not_replicated",
+      "scope": "",
+      "sourceScripts": [
+        "119-world-physics-v01",
+        "122-world-physics-corrected"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": "static_projectile_obstruction_model",
+      "notes": "Correct VRF export is world_physics_physics.glb."
+    },
+    {
+      "claimId": "hero_intrinsic_stat_schema",
+      "domain": "player_state_static",
+      "construct": "Hero starting/intrinsic stat schema",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "resource_contract",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "131-v01-hero-stat-progression",
+        "131-v02-hero-stat-progression"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "PlayerState(t) base stats"
+      ],
+      "valueSummary": {
+        "selectableHeroes": 42,
+        "startingStatKeys": 31
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Build-bound static resource contract."
+    },
+    {
+      "claimId": "hero_category_gold_threshold_progression",
+      "domain": "player_state_static",
+      "construct": "Weapon/Vitality/Spirit gold-threshold progression",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "resource_contract",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "131-v02-hero-stat-progression"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "PlayerState(t) progression"
+      ],
+      "valueSummary": {
+        "categories": 3,
+        "purchaseBonusRows": 1386
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "m_MapModCostBonuses is category gold-threshold progression; V01 interpretation of m_mapPurchaseBonuses was corrected."
+    },
+    {
+      "claimId": "modifier_source_universe",
+      "domain": "player_state_static",
+      "construct": "Broad static modifier-source universe",
+      "authorityStatus": "provisional",
+      "integrityValidation": "pass",
+      "semanticValidation": "provisional",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "132-v02-modifier-source-universe"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "discovery recall only"
+      ],
+      "valueSummary": {
+        "topLevelRecords": 967,
+        "modifierBearingRecords": 848,
+        "statTokens": 128
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "High-recall source classification is not mechanic semantics. 132 V01 is fully withdrawn due KV3-root parser failure."
+    },
+    {
+      "claimId": "permanent_world_buff_resource_contract",
+      "domain": "player_state_static",
+      "construct": "Permanent world-stat pickup resource effects",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "resource_contract",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "133-world-stat-buff-catalog",
+        "134-effects-source-trace",
+        "135-bridge-layout-diagnostic",
+        "136-v02-world-buff-contract"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "PlayerState(t) permanent buffs"
+      ],
+      "valueSummary": {
+        "spirit": [
+          2,
+          3,
+          4
+        ],
+        "fireRate": [
+          1.5,
+          2,
+          2.5
+        ],
+        "ammoClipPercent": [
+          3,
+          5,
+          7
+        ],
+        "maxHp": [
+          15,
+          20,
+          30
+        ],
+        "cooldownReductionPercent": [
+          0.5,
+          0.75,
+          1
+        ],
+        "weaponDamageIncrease": [
+          3,
+          4,
+          6
+        ]
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "136 V01 is withdrawn: it falsely reported READY while permanent token/value extraction was null."
+    },
+    {
+      "claimId": "bridge_powerup_resource_contract",
+      "domain": "player_state_static",
+      "construct": "Temporary bridge powerup resource effects and duration envelope",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "resource_contract",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "134-effects-source-trace",
+        "135-bridge-layout-diagnostic",
+        "136-v02-world-buff-contract"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "PlayerState(t) temporary buffs"
+      ],
+      "valueSummary": {
+        "durationSeconds": 160,
+        "timeMinMinutes": 5,
+        "timeMaxMinutes": 40
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Exact interpolation across time bounds remains unresolved."
+    },
+    {
+      "claimId": "golden_idol_is_urn_resource_family",
+      "domain": "resources",
+      "construct": "Golden Idol resource-family interpretation",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "134-effects-source-trace"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "avoid false statue/buff linkage"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Resource references strongly support Urn context."
+    },
+    {
+      "claimId": "lion_statue_direct_permanent_buff_link",
+      "domain": "resources",
+      "construct": "Direct resource-graph proof that lion statue grants permanent stat pickup",
+      "authorityStatus": "missing",
+      "integrityValidation": "pass",
+      "semanticValidation": "not_established",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "134-effects-source-trace"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Lion statue references small_gold_pickup; no direct permanent-pickup reference was established."
+    },
+    {
+      "claimId": "standard_shop_catalog_v02",
+      "domain": "items",
+      "construct": "Current installed-build standard Curiosity Shop catalog",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "resource_contract",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "137-shop-item-schema",
+        "138-v01-current-shop-catalog",
+        "138-v02-current-shop-catalog"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/current_purchasable_item_catalog_v02.json"
+      ],
+      "downstreamUses": [
+        "item effect resolution",
+        "runtime item ownership",
+        "PlayerState(t)"
+      ],
+      "valueSummary": {
+        "standardItemCount": 156,
+        "streetBrawlCount": 23,
+        "infrastructureCount": 25,
+        "cosmeticsCount": 3,
+        "unresolvedCount": 0,
+        "standardTierPrices": {
+          "1": 800,
+          "2": 1600,
+          "3": 3200,
+          "4": 6400
+        },
+        "bySlot": {
+          "armor": 54,
+          "tech": 49,
+          "weapon": 53
+        },
+        "byTier": {
+          "1": 23,
+          "2": 43,
+          "3": 46,
+          "4": 44
+        }
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Tier-5/9999 resource branch is not standard Curiosity Shop authority; Street Brawl is separated."
+    },
+    {
+      "claimId": "shop_item_effect_contract",
+      "domain": "items",
+      "construct": "Per-item direct vs conditional/passive/active effect semantics",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "resource_contract",
+      "replicationStatus": "resource_build_bound",
+      "scope": "",
+      "sourceScripts": [
+        "139-v01-standard-shop-item-effect-substrate",
+        "139-v02-standard-shop-item-effect-substrate",
+        "139-v03-standard-shop-item-effect-substrate"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/standard_shop_item_effect_substrate_v03.json"
+      ],
+      "downstreamUses": [
+        "PlayerState(t) item modifiers",
+        "weapon state"
+      ],
+      "valueSummary": {
+        "catalogRows": 156,
+        "analyzedItems": 156,
+        "itemsWithDirectProvidedStats": 156,
+        "itemsWithMeaningfulDirectProvidedStats": 153,
+        "itemsWithNonDirectModifierTokens": 8,
+        "itemsWithNestedModifierClasses": 156,
+        "itemsWithWeaponEffectEvidence": 57,
+        "itemsWithWeaponOperationEvidence": 35,
+        "itemsWithWeaponDamageOrPowerEvidence": 33,
+        "directProvidedTokenTypes": 65,
+        "nonDirectModifierTokenTypes": 7,
+        "weaponRelevantTokenTypes": 12
+      },
+      "supersedes": [
+        "139-v01-interpretation",
+        "139-v02-weapon-relevance-classification"
+      ],
+      "supersededBy": null,
+      "notes": "Current authority is the installed-build resource-defined item-effect substrate from Script139 V03. It separates meaningful direct provided stats from location-aware non-direct modifier tokens and prevents zero-valued schema/default rows from promoting mechanic relevance. This does NOT establish runtime ownership, activation context, stacking/composition, or effective PlayerState(t) values."
+    },
+    {
+      "claimId": "runtime_item_ownership",
+      "domain": "player_state_runtime",
+      "construct": "Per-player standard-shop item ownership over time",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "CCitadelPlayerController.m_vecUpgrades set membership mapped through Deadlock/Source2 MurmurHash2 item IDs to the validated 156-item standard-shop catalog. Ownership state is authoritative within the replay/build cohort; exact removal transaction subtype is not implied.",
+      "sourceScripts": [
+        "140-v01-runtime-item-ownership-substrate",
+        "141-v02-runtime-item-vector-semantic-validation",
+        "142-v02-runtime-item-ownership-cross-replay-replication"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/runtime_item_ownership_cross_replay_replication_v02.json"
+      ],
+      "downstreamUses": [
+        "PlayerState(t)",
+        "effective weapon state",
+        "item-conditioned opportunity models"
+      ],
+      "valueSummary": {
+        "discoveryReplay": "test",
+        "independentReplicationReplays": 5,
+        "substrateReadyReplays": 5,
+        "semanticStrongReplays": 5,
+        "allBestSpentBucketZero": true,
+        "minKnownResourceMappingRate": 1,
+        "minStandardShopMappingRate": 1,
+        "weightedImmediateSpendAssociation8Ticks": 0.9907321594068582,
+        "weightedShiftedPlaceboAssociation32Ticks": 0.023478529502625887,
+        "weightedTemporalAdvantage32Ticks": 0.9700339820821748,
+        "weightedExactAmountAgreement": 0.9729477611940298
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Current authority: m_vecUpgrades set membership is the player runtime standard-shop ownership vector. All five independent replication replays reproduced 100% current-catalog ID mapping, the same spent-currency bucket 0, very high immediate spend association, low shifted-time placebo association, and high exact full/net price agreement. Item additions therefore have strong acquisition/transaction support. Do NOT infer that every removal is a sale: removals can occur during component consumption, upgrade replacement, vector restructuring, or other transaction subtypes until separately classified."
+    },
+    {
+      "claimId": "runtime_permanent_buff_ownership",
+      "domain": "player_state_runtime",
+      "construct": "Per-player permanent world-buff acquisition/stack count over time",
+      "authorityStatus": "missing",
+      "integrityValidation": "not_applicable",
+      "semanticValidation": "not_established",
+      "replicationStatus": "pending",
+      "scope": "",
+      "sourceScripts": [],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "PlayerState(t)"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": ""
+    },
+    {
+      "claimId": "runtime_bridge_buff_ownership",
+      "domain": "player_state_runtime",
+      "construct": "Per-player bridge-powerup acquisition/expiration over time",
+      "authorityStatus": "missing",
+      "integrityValidation": "not_applicable",
+      "semanticValidation": "not_established",
+      "replicationStatus": "pending",
+      "scope": "",
+      "sourceScripts": [],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "PlayerState(t)"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": ""
+    },
+    {
+      "claimId": "effective_weapon_state",
+      "domain": "player_state_runtime",
+      "construct": "Runtime ammo/reload/cadence/projectile state after hero/item/buff composition",
+      "authorityStatus": "missing",
+      "integrityValidation": "not_applicable",
+      "semanticValidation": "not_established",
+      "replicationStatus": "pending",
+      "scope": "",
+      "sourceScripts": [
+        "126-primary-weapon-discharge-telemetry",
+        "128-latent-hero-shot-travel-models",
+        "130-v02-cross-replay-travel-validation"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "flying-soul opportunity",
+        "combat behavior"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": ""
+    },
+    {
+      "claimId": "player_state_t_v1",
+      "domain": "player_state_runtime",
+      "construct": "Integrated time-indexed PlayerState(t)",
+      "authorityStatus": "missing",
+      "integrityValidation": "not_applicable",
+      "semanticValidation": "not_established",
+      "replicationStatus": "pending",
+      "scope": "",
+      "sourceScripts": [
+        "131-v02-hero-stat-progression",
+        "136-v02-world-buff-contract",
+        "138-v02-current-shop-catalog"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [
+        "opportunity engine",
+        "behavioral metrics",
+        "prediction"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Static pieces exist, but runtime ownership/composition is not yet resolved."
+    },
+    {
+      "claimId": "behavioral_metrics_v01",
+      "domain": "behavior",
+      "construct": "Early behavioral metric layer",
+      "authorityStatus": "provisional",
+      "integrityValidation": "pass",
+      "semanticValidation": "provisional",
+      "replicationStatus": "single_replay_only",
+      "scope": "",
+      "sourceScripts": [
+        "42-behavioral-resource-features",
+        "42a-stale-schema",
+        "43-exposure-distance-calibration",
+        "44-accessibility-geometry-calibration",
+        "45-provisional-thresholds"
+      ],
+      "currentArtifacts": [
+        "output/behavioral_metrics_v01.json"
+      ],
+      "downstreamUses": [
+        "exploratory/descriptive analysis only"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Do not interpret proximity/exposure alone as missed opportunity, preference, or avoidance."
+    },
+    {
+      "claimId": "prediction_readiness",
+      "domain": "prediction",
+      "construct": "Dataset readiness for lane/match behavioral prediction",
+      "authorityStatus": "missing",
+      "integrityValidation": "not_applicable",
+      "semanticValidation": "not_established",
+      "replicationStatus": "pending",
+      "scope": "",
+      "sourceScripts": [
+        "100-independent-replay-cohort"
+      ],
+      "currentArtifacts": [],
+      "downstreamUses": [],
+      "valueSummary": {
+        "independentReplayCohort": 5
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Do not train substantive predictive models yet; future validation should leave match/player/party groups out rather than random row/time splits."
+    }
+  ]
+}

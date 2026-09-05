@@ -1,0 +1,573 @@
+import { createHash } from 'node:crypto';
+import {
+    existsSync,
+    mkdirSync,
+    mkdtempSync,
+    readFileSync,
+    readdirSync,
+    rmSync,
+    writeFileSync
+} from 'node:fs';
+import { tmpdir } from 'node:os';
+import { basename, dirname, join, resolve } from 'node:path';
+import { spawnSync } from 'node:child_process';
+
+import {
+    extractKv3Root,
+    parseTopLevelEntries,
+    parseFlatScalarMap
+} from '../src/vdata/kv3-parser.mjs';
+
+import {
+    analyzeItemEffectRecord
+} from '../src/vdata/item-effect-parser.mjs';
+
+const VERSION = 'STANDARD_SHOP_ITEM_EFFECT_SUBSTRATE_V02';
+
+// ============================================================
+// PURPOSE
+//
+// Script138 V02 froze the installed-build standard Curiosity Shop
+// catalog (156 items in the current build) and explicitly excluded
+// Street Brawl, item-system infrastructure, cosmetics, disabled /
+// development records, and unresolved structural candidates.
+//
+// Script139 V02 corrects V01 weapon-relevance saturation and makes non-direct token separation location-aware while retaining the effect substrate for ONLY that frozen catalog.
+//
+// It separates:
+//
+//   1. DIRECT PROVIDED PROPERTY SUBSTRATE
+//      m_mapAbilityProperties rows that explicitly publish
+//      m_eProvidedPropertyType.
+//
+//   2. NON-DIRECT MODIFIER TOKEN SUBSTRATE
+//      MODIFIER_VALUE_* tokens that occur elsewhere in the item
+//      record and may represent passive, conditional, triggered,
+//      active, aura, proc, internal, or target-applied effects.
+//
+//   3. WEAPON-STATE-RELEVANT SUBSTRATE
+//      direct or non-direct fields/tokens plausibly relevant to
+//      ammo, fire rate, reload, bullet/projectile velocity, weapon
+//      damage, shot cadence, range, spread, etc.
+//
+// IMPORTANT:
+//
+// - This does NOT assume every record-wide MODIFIER_VALUE_* token is
+//   continuously active.
+// - This does NOT infer runtime item ownership.
+// - This does NOT infer stacking order.
+// - This does NOT force string formulas / expressions into numbers.
+// - This does NOT promote display names as mechanical identifiers.
+//
+// The output is an item-effect RESOURCE SUBSTRATE for the later
+// PlayerState(t) engine, not PlayerState(t) itself.
+// ============================================================
+
+const SOURCE2VIEWER_PATH = resolve('tools', 'source2viewer', 'Source2Viewer-CLI.exe');
+const CATALOG_PATH = resolve('output', 'cross_replay', 'current_purchasable_item_catalog_v02.json');
+const ABILITIES_RESOURCE = 'scripts/abilities.vdata_c';
+const OUTPUT_JSON_PATH = resolve('output', 'cross_replay', 'standard_shop_item_effect_substrate_v02.json');
+
+const installCandidates = [
+    process.env.DEADLOCK_CITADEL_DIR
+        ? resolve(process.env.DEADLOCK_CITADEL_DIR, 'pak01_dir.vpk')
+        : null,
+    'G:\\SteamLibrary\\steamapps\\common\\Deadlock\\game\\citadel\\pak01_dir.vpk',
+    'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Deadlock\\game\\citadel\\pak01_dir.vpk',
+    'C:\\Program Files\\Steam\\steamapps\\common\\Deadlock\\game\\citadel\\pak01_dir.vpk',
+    'D:\\SteamLibrary\\steamapps\\common\\Deadlock\\game\\citadel\\pak01_dir.vpk',
+    'E:\\SteamLibrary\\steamapps\\common\\Deadlock\\game\\citadel\\pak01_dir.vpk',
+    'F:\\SteamLibrary\\steamapps\\common\\Deadlock\\game\\citadel\\pak01_dir.vpk'
+].filter(Boolean);
+
+const WEAPON_OPERATION_TOKEN_REGEX = /(FIRE_RATE|AMMO|CLIP|RELOAD|PROJECTILE_(?:SPEED|VELOCITY)|BULLET_(?:SPEED|VELOCITY)|SHOT_(?:INTERVAL|DELAY)|SPREAD|WEAPON_RANGE|BULLET_RANGE)/i;
+const WEAPON_DAMAGE_TOKEN_REGEX = /(WEAPON_(?:DAMAGE|POWER)|BULLET_DAMAGE|CRIT|HEADSHOT)/i;
+const WEAPON_EFFECT_TOKEN_REGEX = new RegExp(`${WEAPON_OPERATION_TOKEN_REGEX.source}|${WEAPON_DAMAGE_TOKEN_REGEX.source}`, 'i');
+// Whole-record field-name matching is diagnostic only. V01 incorrectly allowed
+// generic/inherited metadata fields to make an item 'weapon-state relevant'.
+const WEAPON_METADATA_FIELD_REGEX = /(fire.?rate|ammo|clip|reload|bullet|projectile|weapon|shot|range|spread|velocity)/i;
+const TIMING_FIELD_REGEX = /(cooldown|duration|delay|interval|time|frequency|rate)/i;
+const TARGETING_FIELD_REGEX = /(target|range|radius|los|line.?of.?sight)/i;
+
+if (!existsSync(SOURCE2VIEWER_PATH)) {
+    throw new Error(`Source2Viewer CLI not found:\n${SOURCE2VIEWER_PATH}`);
+}
+
+if (!existsSync(CATALOG_PATH)) {
+    throw new Error(`Missing Script138 V02 catalog:\n${CATALOG_PATH}`);
+}
+
+const catalogArtifact = JSON.parse(readFileSync(CATALOG_PATH, 'utf8'));
+if (catalogArtifact?.status !== 'CURRENT_PURCHASABLE_ITEM_CATALOG_V02_STANDARD_SHOP_RESOURCE_READY') {
+    throw new Error(`Script138 V02 catalog not ready. Status=${catalogArtifact?.status}`);
+}
+
+const catalogRows = Array.isArray(catalogArtifact.catalog)
+    ? catalogArtifact.catalog
+    : Array.isArray(catalogArtifact.standardShopCatalog)
+        ? catalogArtifact.standardShopCatalog
+        : Array.isArray(catalogArtifact.purchasable)
+            ? catalogArtifact.purchasable
+            : [];
+
+if (catalogRows.length === 0) {
+    throw new Error('Script138 V02 output does not expose a non-empty standard catalog array.');
+}
+
+const catalogKeys = new Set(catalogRows.map(row => row.recordKey));
+const pakPath = installCandidates.find(path => existsSync(path)) ?? null;
+
+if (!pakPath) {
+    throw new Error([
+        'Could not locate Deadlock pak01_dir.vpk.',
+        '',
+        ...installCandidates.map(path => `  ${path}`)
+    ].join('\n'));
+}
+
+console.log('');
+console.log('========================================================');
+console.log('STANDARD SHOP ITEM EFFECT SUBSTRATE V0.2');
+console.log('========================================================');
+console.log('');
+console.log(`Deadlock VPK: ${pakPath}`);
+console.log(`Catalog:      ${CATALOG_PATH}`);
+console.log(`Catalog rows: ${catalogRows.length}`);
+console.log(`Abilities:    ${ABILITIES_RESOURCE}`);
+console.log('Replay parse: NONE');
+console.log('');
+
+const temporaryDirectory = mkdtempSync(join(tmpdir(), 'deadlock-item-effects-v01-'));
+
+try {
+    const extraction = extractSingleResource({
+        source2ViewerPath: SOURCE2VIEWER_PATH,
+        pakPath,
+        resourcePath: ABILITIES_RESOURCE,
+        temporaryDirectory
+    });
+
+    if (!extraction.success) {
+        throw new Error(`Failed to extract ${ABILITIES_RESOURCE}`);
+    }
+
+    const resourceBuffer = readFileSync(extraction.localPath);
+    const resourceText = resourceBuffer.toString('utf8');
+    const resourceSha256 = createHash('sha256').update(resourceBuffer).digest('hex');
+
+    const root = extractKv3Root(resourceText);
+    if (!root) throw new Error('Could not locate abilities.vdata KV3 root.');
+
+    const allRecords = parseTopLevelEntries(root.inner)
+        .filter(entry => entry.type === 'object')
+        .map(entry => ({ recordKey: entry.key, recordText: entry.inner }));
+
+    const recordMap = new Map(allRecords.map(row => [row.recordKey, row.recordText]));
+    const missingCatalogRecords = [...catalogKeys].filter(key => !recordMap.has(key));
+
+    const itemEffects = [];
+
+    for (const catalogRow of catalogRows) {
+        const recordText = recordMap.get(catalogRow.recordKey) ?? null;
+        if (!recordText) continue;
+
+        const topLevelScalars = parseFlatScalarMap(recordText);
+        const parsedEffects = analyzeItemEffectRecord(recordText);
+        const assignmentFieldNames = parsedEffects.assignmentFieldNames;
+        const directProvidedStats = parsedEffects.directProvidedStats;
+        const directProvidedTokens = new Set(parsedEffects.directProvidedTokens);
+        const recordModifierTokens = parsedEffects.recordModifierTokens;
+        const nonDirectModifierTokens = parsedEffects.nonDirectModifierTokens;
+
+        const weaponRelevantDirectStats = directProvidedStats.filter(row =>
+            WEAPON_EFFECT_TOKEN_REGEX.test(String(row.providedPropertyType ?? ''))
+        );
+        const weaponOperationDirectStats = weaponRelevantDirectStats.filter(row =>
+            WEAPON_OPERATION_TOKEN_REGEX.test(String(row.providedPropertyType ?? ''))
+        );
+        const weaponDamageDirectStats = weaponRelevantDirectStats.filter(row =>
+            WEAPON_DAMAGE_TOKEN_REGEX.test(String(row.providedPropertyType ?? ''))
+        );
+
+        const weaponRelevantNonDirectTokens = nonDirectModifierTokens.filter(token => WEAPON_EFFECT_TOKEN_REGEX.test(token));
+        const weaponOperationNonDirectTokens = weaponRelevantNonDirectTokens.filter(token => WEAPON_OPERATION_TOKEN_REGEX.test(token));
+        const weaponDamageNonDirectTokens = weaponRelevantNonDirectTokens.filter(token => WEAPON_DAMAGE_TOKEN_REGEX.test(token));
+        const weaponMetadataFieldsDiagnostic = assignmentFieldNames.filter(fieldName => WEAPON_METADATA_FIELD_REGEX.test(fieldName));
+        const timingFields = assignmentFieldNames.filter(fieldName => TIMING_FIELD_REGEX.test(fieldName));
+        const targetingFields = assignmentFieldNames.filter(fieldName => TARGETING_FIELD_REGEX.test(fieldName));
+
+        const nestedModifierClasses = parsedEffects.nestedModifierClasses;
+        const modifierBearingFieldNames = assignmentFieldNames.filter(fieldName => /modifier/i.test(fieldName));
+
+        const unresolvedDirectValues = directProvidedStats.filter(row => row.value === null).length;
+        const numericDirectValues = directProvidedStats.filter(row => Number.isFinite(row.numericValue)).length;
+        const expressionDirectValues = directProvidedStats.filter(row => row.value !== null && !Number.isFinite(row.numericValue)).length;
+
+        itemEffects.push({
+            recordKey: catalogRow.recordKey,
+            slot: catalogRow.itemSlot ?? null,
+            tier: catalogRow.itemTier ?? null,
+            shopPrice: catalogRow.shopPrice ?? null,
+            directProvidedStats,
+            directProvidedStatCount: directProvidedStats.length,
+            directProvidedTokenCount: directProvidedTokens.size,
+            directValueSummary: {
+                numeric: numericDirectValues,
+                expressionOrString: expressionDirectValues,
+                unresolved: unresolvedDirectValues
+            },
+            nonDirectModifierTokens,
+            recordModifierTokens,
+            nestedModifierClasses,
+            modifierBearingFieldNames,
+            weaponStateRelevant: {
+                directProvidedStats: weaponRelevantDirectStats,
+                nonDirectModifierTokens: weaponRelevantNonDirectTokens,
+                operation: {
+                    directProvidedStats: weaponOperationDirectStats,
+                    nonDirectModifierTokens: weaponOperationNonDirectTokens,
+                    hasEffectEvidence: weaponOperationDirectStats.length > 0 || weaponOperationNonDirectTokens.length > 0
+                },
+                damageOrPower: {
+                    directProvidedStats: weaponDamageDirectStats,
+                    nonDirectModifierTokens: weaponDamageNonDirectTokens,
+                    hasEffectEvidence: weaponDamageDirectStats.length > 0 || weaponDamageNonDirectTokens.length > 0
+                },
+                genericRecordFieldNamesDiagnosticOnly: weaponMetadataFieldsDiagnostic,
+                hasMechanicEffectEvidence:
+                    weaponRelevantDirectStats.length > 0
+                    || weaponRelevantNonDirectTokens.length > 0
+            },
+            timingFieldNames: timingFields,
+            targetingFieldNames: targetingFields,
+            selectedTopLevelMetadata: selectTopLevelMetadata(topLevelScalars),
+            interpretation: {
+                directProvidedStats: 'STRONGEST_RESOURCE_CANDIDATE_FOR_DIRECT_ITEM_PROVIDED_STATS',
+                nonDirectModifierTokens: 'CONDITIONAL_PASSIVE_ACTIVE_PROC_AURA_OR_INTERNAL_SEMANTICS_UNRESOLVED',
+                weaponStateRelevant: 'EFFECT_TOKEN_SUBSTRATE_ONLY_NOT_RUNTIME_EFFECTIVE_WEAPON_STATE'
+            }
+        });
+    }
+
+    const itemsWithDirectProvidedStats = itemEffects.filter(row => row.directProvidedStatCount > 0);
+    const itemsWithNonDirectModifierTokens = itemEffects.filter(row => row.nonDirectModifierTokens.length > 0);
+    const itemsWithWeaponStateEvidence = itemEffects.filter(row => row.weaponStateRelevant.hasMechanicEffectEvidence);
+    const itemsWithNestedModifierClasses = itemEffects.filter(row => row.nestedModifierClasses.length > 0);
+    const itemsWithWeaponOperationEvidence = itemEffects.filter(row => row.weaponStateRelevant.operation.hasEffectEvidence);
+    const itemsWithWeaponDamageEvidence = itemEffects.filter(row => row.weaponStateRelevant.damageOrPower.hasEffectEvidence);
+    const itemsWithNoEffectEvidence = itemEffects.filter(row =>
+        row.directProvidedStatCount === 0
+        && row.nonDirectModifierTokens.length === 0
+        && row.nestedModifierClasses.length === 0
+    );
+
+    const directProvidedTokenUniverse = summarizeTokenUniverse(
+        itemEffects,
+        row => row.directProvidedStats.map(stat => stat.providedPropertyType).filter(Boolean)
+    );
+
+    const nonDirectTokenUniverse = summarizeTokenUniverse(
+        itemEffects,
+        row => row.nonDirectModifierTokens
+    );
+
+    const weaponTokenUniverse = summarizeTokenUniverse(
+        itemEffects,
+        row => [
+            ...row.weaponStateRelevant.directProvidedStats.map(stat => stat.providedPropertyType).filter(Boolean),
+            ...row.weaponStateRelevant.nonDirectModifierTokens
+        ]
+    );
+
+    const nestedModifierClassUniverse = summarizeTokenUniverse(
+        itemEffects,
+        row => row.nestedModifierClasses
+    );
+
+    const validationChecks = {
+        script138CatalogReady: check(
+            catalogArtifact.status,
+            'CURRENT_PURCHASABLE_ITEM_CATALOG_V02_STANDARD_SHOP_RESOURCE_READY',
+            true
+        ),
+        catalogRowCountExpected: check(
+            catalogRows.length,
+            156,
+            catalogRows.length === 156
+        ),
+        abilitiesRecordsParsed: check(
+            allRecords.length,
+            '>500',
+            allRecords.length > 500
+        ),
+        everyCatalogRecordResolved: check(
+            missingCatalogRecords.length,
+            0,
+            missingCatalogRecords.length === 0
+        ),
+        everyCatalogRowAnalyzed: check(
+            itemEffects.length,
+            catalogRows.length,
+            itemEffects.length === catalogRows.length
+        ),
+        directProvidedStatsFound: check(
+            itemsWithDirectProvidedStats.length,
+            '>100',
+            itemsWithDirectProvidedStats.length > 100
+        ),
+        directProvidedTokenUniverseFound: check(
+            directProvidedTokenUniverse.length,
+            '>10',
+            directProvidedTokenUniverse.length > 10
+        ),
+        nonDirectModifierSubstrateFound: check(
+            itemsWithNonDirectModifierTokens.length,
+            '>0',
+            itemsWithNonDirectModifierTokens.length > 0
+        ),
+        weaponStateRelevantSubstrateFound: check(
+            itemsWithWeaponStateEvidence.length,
+            '>0',
+            itemsWithWeaponStateEvidence.length > 0
+        ),
+        weaponStateClassifierNotMetadataSaturated: check(
+            itemsWithWeaponStateEvidence.length,
+            `<${catalogRows.length}`,
+            itemsWithWeaponStateEvidence.length < catalogRows.length
+        )
+    };
+
+    const validationPass = Object.values(validationChecks).every(row => row.pass);
+
+    const status = validationPass
+        ? 'STANDARD_SHOP_ITEM_EFFECT_SUBSTRATE_V02_READY'
+        : 'STANDARD_SHOP_ITEM_EFFECT_SUBSTRATE_V02_REQUIRES_DIAGNOSIS';
+
+    const nextStage = validationPass
+        ? 'CLASSIFY_MODIFIER_CONTEXTS_AND_THEN_DISCOVER_REPLAY_ITEM_OWNERSHIP'
+        : 'DIAGNOSE_ONLY_FAILED_ITEM_EFFECT_SUBSTRATE_FIELDS';
+
+    const output = {
+        version: VERSION,
+        canonical: false,
+        versionBoundToInstalledBuild: true,
+        createdAt: new Date().toISOString(),
+        status,
+        foundation: {
+            catalogArtifact: CATALOG_PATH,
+            catalogStatus: catalogArtifact.status,
+            standardCatalogRows: catalogRows.length
+        },
+        source: {
+            method: 'LOCAL_INSTALLED_ABILITIES_VDATA_PLUS_SCRIPT138_V02_CATALOG',
+            pakPath,
+            resourcePath: ABILITIES_RESOURCE,
+            resourceBytes: resourceBuffer.length,
+            resourceSha256
+        },
+        counts: {
+            abilitiesTopLevelObjectRecords: allRecords.length,
+            catalogRows: catalogRows.length,
+            analyzedItems: itemEffects.length,
+            missingCatalogRecords: missingCatalogRecords.length,
+            itemsWithDirectProvidedStats: itemsWithDirectProvidedStats.length,
+            itemsWithNonDirectModifierTokens: itemsWithNonDirectModifierTokens.length,
+            itemsWithNestedModifierClasses: itemsWithNestedModifierClasses.length,
+            itemsWithWeaponStateEvidence: itemsWithWeaponStateEvidence.length,
+            itemsWithWeaponOperationEvidence: itemsWithWeaponOperationEvidence.length,
+            itemsWithWeaponDamageOrPowerEvidence: itemsWithWeaponDamageEvidence.length,
+            itemsWithNoEffectEvidence: itemsWithNoEffectEvidence.length,
+            directProvidedTokenTypes: directProvidedTokenUniverse.length,
+            nonDirectModifierTokenTypes: nonDirectTokenUniverse.length,
+            weaponRelevantTokenTypes: weaponTokenUniverse.length,
+            nestedModifierClassTypes: nestedModifierClassUniverse.length
+        },
+        missingCatalogRecords,
+        universes: {
+            directProvidedPropertyTypes: directProvidedTokenUniverse,
+            nonDirectModifierValueTypes: nonDirectTokenUniverse,
+            weaponStateRelevantModifierTypes: weaponTokenUniverse,
+            nestedModifierClasses: nestedModifierClassUniverse
+        },
+        noEffectEvidenceItems: itemsWithNoEffectEvidence.map(row => row.recordKey),
+        items: itemEffects,
+        interpretation: {
+            directProvidedProperties:
+                'm_mapAbilityProperties rows with m_eProvidedPropertyType are the strongest resource-defined direct stat substrate, but exact composition/stacking semantics remain to be validated before use as effective PlayerState(t).',
+            nonDirectModifierTokens:
+                'Record-wide MODIFIER_VALUE_* tokens not represented by direct provided properties are preserved as conditional/passive/active/proc/aura/internal candidates and are not assumed continuously active.',
+            weaponState:
+                'Only effect-bearing direct provided-property tokens or location-aware non-direct modifier tokens can classify weapon relevance. Generic whole-record field names are retained as diagnostics only and cannot promote an item. Operation/cadence effects are separated from damage/power effects. Runtime applicability and exact formulas remain unresolved.',
+            ownership:
+                'This artifact contains no replay item ownership. A later replay stage must establish which player possessed which item at each time.',
+            expressions:
+                'String/expression property values are preserved verbatim instead of coerced into numeric values.'
+        },
+        validation: {
+            pass: validationPass,
+            checks: validationChecks
+        },
+        nextStage,
+        output: OUTPUT_JSON_PATH
+    };
+
+    mkdirSync(dirname(OUTPUT_JSON_PATH), { recursive: true });
+    writeFileSync(OUTPUT_JSON_PATH, JSON.stringify(output, null, 2), 'utf8');
+
+    console.log('========================================================');
+    console.log('ITEM EFFECT SUBSTRATE RESULT');
+    console.log('========================================================');
+    console.log('');
+    console.log(`status:                     ${status}`);
+    console.log(`catalog rows:               ${catalogRows.length}`);
+    console.log(`analyzed:                   ${itemEffects.length}`);
+    console.log(`missing catalog records:    ${missingCatalogRecords.length}`);
+    console.log(`with direct provided stats: ${itemsWithDirectProvidedStats.length}`);
+    console.log(`with non-direct modifiers:  ${itemsWithNonDirectModifierTokens.length}`);
+    console.log(`with nested modifiers:      ${itemsWithNestedModifierClasses.length}`);
+    console.log(`weapon-effect relevant:     ${itemsWithWeaponStateEvidence.length}`);
+    console.log(`weapon-operation relevant:  ${itemsWithWeaponOperationEvidence.length}`);
+    console.log(`weapon-damage/power relevant:${itemsWithWeaponDamageEvidence.length}`);
+    console.log(`no effect evidence:         ${itemsWithNoEffectEvidence.length}`);
+    console.log(`direct stat token types:    ${directProvidedTokenUniverse.length}`);
+    console.log(`non-direct token types:     ${nonDirectTokenUniverse.length}`);
+    console.log(`weapon token types:         ${weaponTokenUniverse.length}`);
+    console.log('');
+    console.log('VALIDATION');
+    console.log('----------');
+    for (const [name, row] of Object.entries(validationChecks)) {
+        console.log(`${name.padEnd(38)} ${row.pass} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`);
+    }
+    console.log('');
+    console.log(`JSON:\n${OUTPUT_JSON_PATH}`);
+    console.log('');
+
+} finally {
+    rmSync(temporaryDirectory, { recursive: true, force: true });
+}
+
+function selectTopLevelMetadata(flat) {
+    const wanted = [
+        'm_eAbilityType',
+        'm_eItemSlotType',
+        'm_iItemTier',
+        'm_bDisabled',
+        'm_bInDevelopment',
+        'm_eAbilityRequirements',
+        'm_eShopFilters',
+        'm_AbilityBehaviorsBits',
+        'm_nAbilityTargetTypes',
+        'm_nAbilityTargetFlags',
+        'm_eAbilityTargetingShape',
+        'm_eTargettingLOSCheck',
+        'm_strCSSClass',
+        'm_strShopIconLarge'
+    ];
+
+    const output = {};
+    for (const key of wanted) {
+        if (Object.prototype.hasOwnProperty.call(flat, key)) output[key] = flat[key];
+    }
+    return output;
+}
+
+function summarizeTokenUniverse(items, selector) {
+    const map = new Map();
+
+    for (const item of items) {
+        for (const token of new Set(selector(item).filter(Boolean))) {
+            if (!map.has(token)) {
+                map.set(token, {
+                    token,
+                    itemKeys: [],
+                    slots: new Set(),
+                    tiers: new Set()
+                });
+            }
+            const row = map.get(token);
+            row.itemKeys.push(item.recordKey);
+            if (item.slot) row.slots.add(item.slot);
+            if (item.tier !== null && item.tier !== undefined) row.tiers.add(item.tier);
+        }
+    }
+
+    return [...map.values()]
+        .map(row => ({
+            token: row.token,
+            itemCount: row.itemKeys.length,
+            itemKeys: row.itemKeys.sort(),
+            slots: [...row.slots].sort(),
+            tiers: [...row.tiers].sort((a, b) => a - b)
+        }))
+        .sort((a, b) => b.itemCount - a.itemCount || a.token.localeCompare(b.token));
+}
+
+function firstPresent(object, keys) {
+    for (const key of keys) {
+        if (Object.prototype.hasOwnProperty.call(object, key)) return object[key];
+    }
+    return null;
+}
+
+function check(actual, expected, pass) {
+    return { actual, expected, pass: Boolean(pass) };
+}
+
+function extractSingleResource({ source2ViewerPath, pakPath, resourcePath, temporaryDirectory }) {
+    const safeName = resourcePath
+        .replace(/[\\/:*?"<>|]/g, '_')
+        .replace(/_c$/, '');
+
+    const desiredOutput = join(temporaryDirectory, safeName);
+
+    const result = spawnSync(
+        source2ViewerPath,
+        [
+            '--input', pakPath,
+            '--vpk_filepath', resourcePath,
+            '--output', desiredOutput,
+            '--vpk_decompile'
+        ],
+        {
+            encoding: 'utf8',
+            windowsHide: true,
+            maxBuffer: 256 * 1024 * 1024
+        }
+    );
+
+    if (result.status !== 0) {
+        return {
+            success: false,
+            status: result.status,
+            stderr: result.stderr,
+            stdout: result.stdout
+        };
+    }
+
+    let localPath = existsSync(desiredOutput) ? desiredOutput : null;
+
+    if (!localPath) {
+        localPath = findFileRecursive(
+            temporaryDirectory,
+            fileName => fileName.toLowerCase().includes(basename(safeName).toLowerCase())
+        );
+    }
+
+    return {
+        success: Boolean(localPath),
+        localPath
+    };
+}
+
+function findFileRecursive(directory, predicate) {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+        const fullPath = join(directory, entry.name);
+        if (entry.isDirectory()) {
+            const nested = findFileRecursive(fullPath, predicate);
+            if (nested) return nested;
+        } else if (predicate(entry.name)) {
+            return fullPath;
+        }
+    }
+    return null;
+}

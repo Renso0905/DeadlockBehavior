@@ -1,0 +1,587 @@
+import { createReadStream, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { basename, dirname, extname, resolve } from 'node:path';
+
+import {
+  EntityOperation,
+  InterceptorStage,
+  Logger,
+  Parser,
+  ParserConfiguration,
+} from 'deadem';
+
+import { requireClaim } from '../src/contracts/claim-registry.mjs';
+import {
+  buildDeadlockStringTokenIndex,
+  murmurHash2,
+} from '../src/source2/murmurhash2.mjs';
+
+const VERSION = 'RUNTIME_ITEM_OWNERSHIP_SUBSTRATE_V01';
+const TICKS_PER_SECOND = 64;
+const INVALID_HANDLE = 16777215;
+
+// ============================================================
+// PURPOSE
+//
+// Script138 V02 froze the installed-build standard shop catalog.
+// Script139 V03 froze the resource-defined item-effect substrate.
+//
+// Script140 begins the replay-runtime bridge. It tests whether the
+// CCitadelPlayerController m_vecUpgrades vector can be decoded as
+// Deadlock item string-token IDs and reconstructs the vector as a
+// time-varying SET of item IDs/class names.
+//
+// IMPORTANT: this is an OWNERSHIP-CANDIDATE SUBSTRATE, not yet a
+// purchase/sale semantic contract. A vector addition is not called a
+// purchase here; a removal is not called a sale. Components can be
+// consumed by upgrades, arrays can compact, and replay/build mismatch
+// can leave historical IDs outside the current standard catalog.
+//
+// The next validation stage should correlate vector transitions with
+// economy deltas, shop-zone state, consumed-component telemetry, and
+// replacement/upgrade relations before promoting runtime ownership.
+// ============================================================
+
+const replayArgument = process.argv[2] ?? resolve('replays', 'test.dem');
+const replayPath = resolve(replayArgument);
+const replayName = basename(replayPath, extname(replayPath));
+
+const CATALOG_PATH = resolve('output', 'cross_replay', 'current_purchasable_item_catalog_v02.json');
+const EFFECTS_PATH = resolve('output', 'cross_replay', 'standard_shop_item_effect_substrate_v03.json');
+const OUTPUT_PATH = resolve('output', replayName, 'runtime_item_ownership_substrate_v01.json');
+
+if (!existsSync(replayPath)) throw new Error(`Replay not found:\n${replayPath}`);
+if (!existsSync(CATALOG_PATH)) throw new Error(`Script138 V02 catalog missing:\n${CATALOG_PATH}`);
+if (!existsSync(EFFECTS_PATH)) throw new Error(`Script139 V03 effect substrate missing:\n${EFFECTS_PATH}`);
+
+// Enforce the current operational authority layer before consuming artifacts.
+const shopClaim = requireClaim('standard_shop_catalog_v02', { requireSemantic: true });
+const effectClaim = requireClaim('shop_item_effect_contract', { requireSemantic: true });
+
+const catalogArtifact = JSON.parse(readFileSync(CATALOG_PATH, 'utf8'));
+const effectsArtifact = JSON.parse(readFileSync(EFFECTS_PATH, 'utf8'));
+
+if (catalogArtifact?.status !== 'CURRENT_PURCHASABLE_ITEM_CATALOG_V02_STANDARD_SHOP_RESOURCE_READY') {
+  throw new Error(`Script138 V02 catalog is not ready. status=${catalogArtifact?.status}`);
+}
+if (effectsArtifact?.status !== 'STANDARD_SHOP_ITEM_EFFECT_SUBSTRATE_V03_READY') {
+  throw new Error(`Script139 V03 substrate is not ready. status=${effectsArtifact?.status}`);
+}
+
+const standardRows = Array.isArray(catalogArtifact.catalog) ? catalogArtifact.catalog : [];
+const allResourceRows = [
+  ...standardRows.map(row => ({ ...row, runtimeResourceClass: 'STANDARD_SHOP' })),
+  ...(catalogArtifact.nonStandardModeItems ?? []).map(row => ({ ...row, runtimeResourceClass: 'NON_STANDARD_MODE_ITEM' })),
+  ...(catalogArtifact.infrastructure ?? []).map(row => ({ ...row, runtimeResourceClass: 'ITEM_SYSTEM_INFRASTRUCTURE' })),
+  ...(catalogArtifact.cosmetics ?? []).map(row => ({ ...row, runtimeResourceClass: 'COSMETIC_ITEM' })),
+  ...(catalogArtifact.excluded ?? []).map(row => ({ ...row, runtimeResourceClass: 'EXCLUDED_RESOURCE_ITEM' })),
+];
+
+const standardByKey = new Map(standardRows.map(row => [row.recordKey, row]));
+const allResourceByKey = new Map(allResourceRows.map(row => [row.recordKey, row]));
+
+const standardTokenIndex = buildDeadlockStringTokenIndex(standardRows.map(row => row.recordKey));
+const allResourceTokenIndex = buildDeadlockStringTokenIndex(allResourceRows.map(row => row.recordKey));
+
+const resourceById = new Map();
+for (const row of allResourceRows) {
+  const itemId = murmurHash2(row.recordKey);
+  resourceById.set(itemId, { ...row, itemId });
+}
+
+const magicReachExpectedId = 754480263;
+const magicReachComputedId = murmurHash2('upgrade_magic_reach');
+const magicReachCatalogRow = standardByKey.get('upgrade_magic_reach') ?? null;
+
+console.log('');
+console.log('========================================================');
+console.log('RUNTIME ITEM OWNERSHIP SUBSTRATE V0.1');
+console.log('========================================================');
+console.log('');
+console.log(`Replay:       ${replayPath}`);
+console.log(`Catalog:      ${CATALOG_PATH}`);
+console.log(`Effects:      ${EFFECTS_PATH}`);
+console.log(`Catalog rows: ${standardRows.length}`);
+console.log(`Hash fixture: upgrade_magic_reach -> ${magicReachComputedId}`);
+console.log('');
+
+const config = new ParserConfiguration({
+  entityClasses: [
+    'CCitadelPlayerController',
+    'CCitadelGameRulesProxy',
+  ],
+});
+
+const parser = new Parser(config, Logger.CONSOLE_INFO);
+
+let matchClockOffsetSeconds = null;
+let controllerMutationEvents = 0;
+let upgradeRootMutations = 0;
+let upgradeChildMutations = 0;
+let consumedComponentMutations = 0;
+let fullSellPriceItemMutations = 0;
+
+const controllerStates = new Map();
+const transitions = [];
+const observedUpgradeIdCounts = new Map();
+const observedConsumedComponentIdCounts = new Map();
+const observedFullSellPriceIdCounts = new Map();
+
+parser.registerPostInterceptor(
+  InterceptorStage.ENTITY_PACKET,
+  (demoPacket, messagePacket, events) => {
+    const tick = Number.isFinite(demoPacket?.tick) ? demoPacket.tick : null;
+
+    for (const event of events) {
+      if (event.operation !== EntityOperation.CREATE && event.operation !== EntityOperation.UPDATE) continue;
+
+      const entity = event.entity;
+      const className = entity?.class?.name;
+
+      if (className === 'CCitadelGameRulesProxy') {
+        const gameStartTime = entity.getField('m_pGameRules.m_flGameStartTime');
+        const gameStateStartTime = entity.getField('m_pGameRules.m_flGameStateStartTime');
+        if (
+          matchClockOffsetSeconds === null
+          && Number.isFinite(gameStartTime)
+          && Number.isFinite(gameStateStartTime)
+        ) {
+          matchClockOffsetSeconds = gameStartTime - gameStateStartTime;
+        }
+        continue;
+      }
+
+      if (className !== 'CCitadelPlayerController') continue;
+      controllerMutationEvents++;
+
+      const changes = safeChanges(event);
+      const state = getControllerState(controllerStates, entity.index);
+
+      // Refresh identity from the current entity image after the packet mutation.
+      const playerName = entity.getField('m_iszPlayerName');
+      if (playerName !== undefined && playerName !== null) state.playerName = String(playerName);
+      const steamId = entity.getField('m_steamID');
+      if (steamId !== undefined && steamId !== null) state.steamId = safeValue(steamId);
+      const heroId = entity.getField('m_nHeroID');
+      if (heroId !== undefined && heroId !== null) state.heroId = heroId;
+      const team = entity.getField('m_iTeamNum');
+      if (team !== undefined && team !== null) state.team = team;
+      state.lastTick = tick;
+
+      const beforeSet = currentUpgradeIdSet(state);
+      const beforeSlots = new Map(state.upgradeSlots);
+      const vectorTouched = Object.keys(changes).some(field => field === 'm_vecUpgrades' || /^m_vecUpgrades\.\d{4}$/.test(field));
+
+      if (Object.prototype.hasOwnProperty.call(changes, 'm_vecUpgrades')) {
+        upgradeRootMutations++;
+        const declaredLength = normalizeVectorLength(changes.m_vecUpgrades);
+        if (declaredLength !== null) {
+          state.declaredUpgradeLength = declaredLength;
+          for (const slot of [...state.upgradeSlots.keys()]) {
+            if (slot >= declaredLength) state.upgradeSlots.delete(slot);
+          }
+        }
+      }
+
+      for (const [fieldName, rawValue] of Object.entries(changes)) {
+        const upgradeMatch = /^m_vecUpgrades\.(\d{4})$/.exec(fieldName);
+        if (upgradeMatch) {
+          upgradeChildMutations++;
+          const slot = Number.parseInt(upgradeMatch[1], 10);
+          const itemId = normalizeItemId(rawValue);
+          if (itemId === null || itemId === 0) state.upgradeSlots.delete(slot);
+          else {
+            state.upgradeSlots.set(slot, itemId);
+            increment(observedUpgradeIdCounts, itemId);
+          }
+          continue;
+        }
+
+        const consumedMatch = /^m_vecConsumedComponents\.(\d{4})\.m_unComponentID$/.exec(fieldName);
+        if (consumedMatch) {
+          const itemId = normalizeItemId(rawValue);
+          if (itemId !== null && itemId !== 0) {
+            consumedComponentMutations++;
+            increment(observedConsumedComponentIdCounts, itemId);
+          }
+          continue;
+        }
+
+        const fullSellMatch = /^m_vecFullSellPriceItems\.(\d{4})$/.exec(fieldName);
+        if (fullSellMatch) {
+          const itemId = normalizeItemId(rawValue);
+          if (itemId !== null && itemId !== 0) {
+            fullSellPriceItemMutations++;
+            increment(observedFullSellPriceIdCounts, itemId);
+          }
+        }
+      }
+
+      if (!vectorTouched) continue;
+
+      const afterSet = currentUpgradeIdSet(state);
+      const addedIds = difference(afterSet, beforeSet);
+      const removedIds = difference(beforeSet, afterSet);
+
+      if (addedIds.length === 0 && removedIds.length === 0) continue;
+
+      const eventType = event.operation === EntityOperation.CREATE
+        ? 'INITIAL_VECTOR_STATE_CHANGE'
+        : addedIds.length > 0 && removedIds.length > 0
+          ? 'VECTOR_REPLACEMENT_OR_COMPACTION_CANDIDATE'
+          : addedIds.length > 0
+            ? 'VECTOR_ADDITION_CANDIDATE'
+            : 'VECTOR_REMOVAL_CANDIDATE';
+
+      transitions.push({
+        tick,
+        demoSeconds: tick === null ? null : tick / TICKS_PER_SECOND,
+        matchTimeSeconds: tick === null || !Number.isFinite(matchClockOffsetSeconds)
+          ? null
+          : tick / TICKS_PER_SECOND - matchClockOffsetSeconds,
+        controllerEntityIndex: entity.index,
+        playerName: state.playerName,
+        steamId: state.steamId,
+        heroId: state.heroId,
+        team: state.team,
+        eventType,
+        declaredUpgradeLength: state.declaredUpgradeLength,
+        added: addedIds.map(resolveObservedItemId),
+        removed: removedIds.map(resolveObservedItemId),
+        beforeSlots: serializeSlots(beforeSlots),
+        afterSlots: serializeSlots(state.upgradeSlots),
+        samePacketHints: extractTransactionHints(changes),
+      });
+    }
+  }
+);
+
+try {
+  await parser.parse(createReadStream(replayPath));
+} finally {
+  await parser.dispose();
+}
+
+const playerStates = [...controllerStates.entries()]
+  .map(([entityIndex, state]) => ({
+    entityIndex,
+    playerName: state.playerName,
+    steamId: state.steamId,
+    heroId: state.heroId,
+    team: state.team,
+    declaredUpgradeLength: state.declaredUpgradeLength,
+    finalUpgradeSlots: serializeSlots(state.upgradeSlots),
+    finalUpgradeItems: [...currentUpgradeIdSet(state)].map(resolveObservedItemId),
+  }))
+  .filter(row => row.playerName && row.playerName !== 'SourceTV');
+
+const distinctUpgradeIds = [...observedUpgradeIdCounts.keys()];
+const distinctKnownResourceUpgradeIds = distinctUpgradeIds.filter(id => resourceById.has(id));
+const distinctStandardUpgradeIds = distinctUpgradeIds.filter(id => {
+  const resource = resourceById.get(id);
+  return resource?.runtimeResourceClass === 'STANDARD_SHOP';
+});
+const distinctUnknownUpgradeIds = distinctUpgradeIds.filter(id => !resourceById.has(id));
+
+const upgradeObservationTotal = sumMap(observedUpgradeIdCounts);
+const knownResourceObservationTotal = sumCountsForIds(observedUpgradeIdCounts, id => resourceById.has(id));
+const standardObservationTotal = sumCountsForIds(
+  observedUpgradeIdCounts,
+  id => resourceById.get(id)?.runtimeResourceClass === 'STANDARD_SHOP'
+);
+
+const knownResourceMappingRate = safeRatio(knownResourceObservationTotal, upgradeObservationTotal);
+const standardCatalogMappingRate = safeRatio(standardObservationTotal, upgradeObservationTotal);
+
+const additionCount = transitions.reduce((sum, row) => sum + row.added.length, 0);
+const removalCount = transitions.reduce((sum, row) => sum + row.removed.length, 0);
+const replacementCandidateCount = transitions.filter(row => row.added.length > 0 && row.removed.length > 0).length;
+
+const checks = {
+  registryStandardCatalogCurrent: check(shopClaim.authorityStatus, 'current', shopClaim.authorityStatus === 'current'),
+  registryItemEffectContractCurrent: check(effectClaim.authorityStatus, 'current', effectClaim.authorityStatus === 'current'),
+  catalogRowsExpected: check(standardRows.length, 156, standardRows.length === 156),
+  standardHashCollisionsAbsent: check(standardTokenIndex.collisions.length, 0, standardTokenIndex.collisions.length === 0),
+  allResourceHashCollisionsAbsent: check(allResourceTokenIndex.collisions.length, 0, allResourceTokenIndex.collisions.length === 0),
+  magicReachHashFixture: check(magicReachComputedId, magicReachExpectedId, magicReachComputedId === magicReachExpectedId && Boolean(magicReachCatalogRow)),
+  playerControllersObserved: check(playerStates.length, '>=10', playerStates.length >= 10),
+  upgradeChildMutationsObserved: check(upgradeChildMutations, '>0', upgradeChildMutations > 0),
+  distinctUpgradeIdsObserved: check(distinctUpgradeIds.length, '>20', distinctUpgradeIds.length > 20),
+  knownResourceMappingRateStrong: check(knownResourceMappingRate, '>=0.90', knownResourceMappingRate !== null && knownResourceMappingRate >= 0.90),
+  standardCatalogMappingRateSubstantial: check(standardCatalogMappingRate, '>=0.70', standardCatalogMappingRate !== null && standardCatalogMappingRate >= 0.70),
+  vectorTransitionsObserved: check(transitions.length, '>0', transitions.length > 0),
+};
+
+const validationPass = Object.values(checks).every(row => row.pass);
+const status = validationPass
+  ? 'RUNTIME_ITEM_VECTOR_SUBSTRATE_V01_READY_FOR_SEMANTIC_VALIDATION'
+  : 'RUNTIME_ITEM_VECTOR_SUBSTRATE_V01_REQUIRES_DIAGNOSIS';
+
+const output = {
+  version: VERSION,
+  canonical: false,
+  createdAt: new Date().toISOString(),
+  status,
+  replay: {
+    replayName,
+    replayPath,
+    ticksPerSecond: TICKS_PER_SECOND,
+    matchClockOffsetSeconds,
+  },
+  foundations: {
+    standardShopClaim: shopClaim.claimId,
+    itemEffectClaim: effectClaim.claimId,
+    catalogArtifact: CATALOG_PATH,
+    itemEffectArtifact: EFFECTS_PATH,
+    standardCatalogRows: standardRows.length,
+  },
+  itemIdResolution: {
+    method: 'MURMURHASH2_UTF8_CLASS_NAME',
+    seedHex: '0x31415926',
+    magicReachFixture: {
+      recordKey: 'upgrade_magic_reach',
+      computedItemId: magicReachComputedId,
+      expectedReplayObservedItemId: magicReachExpectedId,
+      pass: magicReachComputedId === magicReachExpectedId && Boolean(magicReachCatalogRow),
+    },
+    standardCatalogHashCollisions: standardTokenIndex.collisions,
+    allResourceHashCollisions: allResourceTokenIndex.collisions,
+  },
+  counts: {
+    controllerMutationEvents,
+    playerControllers: playerStates.length,
+    upgradeRootMutations,
+    upgradeChildMutations,
+    consumedComponentMutations,
+    fullSellPriceItemMutations,
+    distinctObservedUpgradeIds: distinctUpgradeIds.length,
+    distinctKnownResourceUpgradeIds: distinctKnownResourceUpgradeIds.length,
+    distinctStandardUpgradeIds: distinctStandardUpgradeIds.length,
+    distinctUnknownUpgradeIds: distinctUnknownUpgradeIds.length,
+    upgradeIdObservations: upgradeObservationTotal,
+    knownResourceUpgradeIdObservations: knownResourceObservationTotal,
+    standardUpgradeIdObservations: standardObservationTotal,
+    transitions: transitions.length,
+    additions: additionCount,
+    removals: removalCount,
+    replacementOrCompactionCandidates: replacementCandidateCount,
+  },
+  mapping: {
+    knownResourceObservationRate: knownResourceMappingRate,
+    standardCatalogObservationRate: standardCatalogMappingRate,
+    distinctUnknownUpgradeIds: distinctUnknownUpgradeIds.map(id => ({ id, observations: observedUpgradeIdCounts.get(id) ?? 0 })),
+  },
+  supportingTelemetry: {
+    consumedComponentIds: summarizeIdCounts(observedConsumedComponentIdCounts),
+    fullSellPriceItemIds: summarizeIdCounts(observedFullSellPriceIdCounts),
+  },
+  players: playerStates,
+  transitions,
+  interpretation: {
+    supported:
+      'm_vecUpgrades is tested as a replay-runtime vector of Source2 item string-token IDs. The artifact reconstructs set membership changes and maps observed IDs to installed-build resource records when possible.',
+    notYetSupported:
+      'Vector additions are not yet labeled purchases, removals are not yet labeled sales, and mixed add/remove packets are not yet labeled upgrades. Those semantics require economy/shop-zone/component validation.',
+    arraySemantics:
+      'Set differences are used instead of slot-position differences so ordinary vector compaction does not create false item removal/addition events.',
+    buildScope:
+      'Mapping is against the current installed-build resource catalog. Unknown IDs may represent replay/build drift or resource classes outside Script138 V02 coverage and must be diagnosed rather than discarded.',
+  },
+  validation: {
+    pass: validationPass,
+    checks,
+  },
+  nextStage: validationPass
+    ? 'VALIDATE_VECTOR_ADDITIONS_REMOVALS_AGAINST_ECONOMY_SHOP_ZONE_CONSUMED_COMPONENTS_AND_UPGRADE_RELATIONS'
+    : 'DIAGNOSE_ITEM_ID_MAPPING_OR_VECTOR_RECONSTRUCTION_BEFORE_SEMANTIC_PROMOTION',
+};
+
+mkdirSync(dirname(OUTPUT_PATH), { recursive: true });
+writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2), 'utf8');
+
+console.log('========================================================');
+console.log('RUNTIME ITEM VECTOR RESULT');
+console.log('========================================================');
+console.log('');
+console.log(`status:                    ${status}`);
+console.log(`players:                   ${playerStates.length}`);
+console.log(`upgrade child mutations:   ${upgradeChildMutations}`);
+console.log(`distinct upgrade IDs:      ${distinctUpgradeIds.length}`);
+console.log(`known-resource IDs:        ${distinctKnownResourceUpgradeIds.length}`);
+console.log(`standard-shop IDs:         ${distinctStandardUpgradeIds.length}`);
+console.log(`unknown IDs:               ${distinctUnknownUpgradeIds.length}`);
+console.log(`known mapping rate:        ${formatPercent(knownResourceMappingRate)}`);
+console.log(`standard mapping rate:     ${formatPercent(standardCatalogMappingRate)}`);
+console.log(`vector transitions:        ${transitions.length}`);
+console.log(`additions/removals:        ${additionCount}/${removalCount}`);
+console.log(`replacement candidates:    ${replacementCandidateCount}`);
+console.log(`consumed-component changes:${String(consumedComponentMutations).padStart(5)}`);
+console.log(`full-sell-price changes:   ${fullSellPriceItemMutations}`);
+console.log('');
+console.log('VALIDATION');
+console.log('----------');
+for (const [name, row] of Object.entries(checks)) {
+  console.log(`${name.padEnd(38)} ${String(row.pass).padEnd(5)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`);
+}
+console.log('');
+console.log(`JSON:\n${OUTPUT_PATH}`);
+console.log('');
+
+function getControllerState(map, entityIndex) {
+  if (!map.has(entityIndex)) {
+    map.set(entityIndex, {
+      playerName: null,
+      steamId: null,
+      heroId: null,
+      team: null,
+      declaredUpgradeLength: null,
+      upgradeSlots: new Map(),
+      lastTick: null,
+    });
+  }
+  return map.get(entityIndex);
+}
+
+function currentUpgradeIdSet(state) {
+  return new Set([...state.upgradeSlots.values()].filter(id => Number.isInteger(id) && id > 0));
+}
+
+function difference(left, right) {
+  return [...left].filter(value => !right.has(value)).sort((a, b) => a - b);
+}
+
+function normalizeVectorLength(value) {
+  if (typeof value === 'bigint') value = Number(value);
+  if (!Number.isFinite(value)) return null;
+  const integer = Math.trunc(value);
+  return integer >= 0 && integer <= 128 ? integer : null;
+}
+
+function normalizeItemId(value) {
+  if (typeof value === 'bigint') {
+    const n = Number(value);
+    return Number.isSafeInteger(n) ? n >>> 0 : null;
+  }
+  if (typeof value === 'number' && Number.isFinite(value)) return Math.trunc(value) >>> 0;
+  if (typeof value === 'string' && /^\d+$/.test(value)) {
+    const n = Number(value);
+    return Number.isSafeInteger(n) ? n >>> 0 : null;
+  }
+  return null;
+}
+
+function resolveObservedItemId(itemId) {
+  const resource = resourceById.get(itemId);
+  if (!resource) {
+    return {
+      itemId,
+      mapped: false,
+      resourceClass: 'UNKNOWN_TO_CURRENT_RESOURCE_COHORT',
+      recordKey: null,
+      itemSlot: null,
+      itemTier: null,
+      standardShopPrice: null,
+    };
+  }
+  return {
+    itemId,
+    mapped: true,
+    resourceClass: resource.runtimeResourceClass,
+    recordKey: resource.recordKey,
+    itemSlot: resource.itemSlot ?? null,
+    itemTier: resource.itemTier ?? null,
+    standardShopPrice: resource.standardShopPrice ?? resource.shopPrice ?? null,
+  };
+}
+
+function serializeSlots(slots) {
+  return [...slots.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([slot, itemId]) => ({ slot, ...resolveObservedItemId(itemId) }));
+}
+
+function extractTransactionHints(changes) {
+  const hints = {
+    goldNetWorth: null,
+    spentCurrencyChanges: {},
+    consumedComponentIds: [],
+    fullSellPriceItemIds: [],
+  };
+
+  if (Object.prototype.hasOwnProperty.call(changes, 'm_iGoldNetWorth')) {
+    hints.goldNetWorth = safeValue(changes.m_iGoldNetWorth);
+  }
+
+  for (const [fieldName, rawValue] of Object.entries(changes)) {
+    if (/^m_nSpentCurrencies\.\d{4}$/.test(fieldName)) {
+      hints.spentCurrencyChanges[fieldName] = safeValue(rawValue);
+      continue;
+    }
+    if (/^m_vecConsumedComponents\.\d{4}\.m_unComponentID$/.test(fieldName)) {
+      const itemId = normalizeItemId(rawValue);
+      if (itemId) hints.consumedComponentIds.push(resolveObservedItemId(itemId));
+      continue;
+    }
+    if (/^m_vecFullSellPriceItems\.\d{4}$/.test(fieldName)) {
+      const itemId = normalizeItemId(rawValue);
+      if (itemId) hints.fullSellPriceItemIds.push(resolveObservedItemId(itemId));
+    }
+  }
+
+  return hints;
+}
+
+function summarizeIdCounts(map) {
+  return [...map.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([itemId, observations]) => ({
+      ...resolveObservedItemId(itemId),
+      observations,
+    }));
+}
+
+function increment(map, key) {
+  map.set(key, (map.get(key) ?? 0) + 1);
+}
+
+function sumMap(map) {
+  let total = 0;
+  for (const value of map.values()) total += value;
+  return total;
+}
+
+function sumCountsForIds(map, predicate) {
+  let total = 0;
+  for (const [id, count] of map.entries()) if (predicate(id)) total += count;
+  return total;
+}
+
+function safeRatio(numerator, denominator) {
+  return denominator > 0 ? numerator / denominator : null;
+}
+
+function check(actual, expected, pass) {
+  return { actual, expected, pass: Boolean(pass) };
+}
+
+function safeChanges(event) {
+  try {
+    return event.getChanges() ?? {};
+  } catch {
+    return {};
+  }
+}
+
+function safeValue(value) {
+  if (value === null || value === undefined) return value;
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') return value;
+  if (typeof value === 'bigint') return value.toString();
+  try {
+    return JSON.parse(JSON.stringify(value, (_, v) => typeof v === 'bigint' ? v.toString() : v));
+  } catch {
+    return String(value);
+  }
+}
+
+function formatPercent(value) {
+  return value === null ? 'n/a' : `${(value * 100).toFixed(2)}%`;
+}

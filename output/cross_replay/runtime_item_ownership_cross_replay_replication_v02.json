@@ -1,0 +1,270 @@
+{
+  "version": "RUNTIME_ITEM_OWNERSHIP_CROSS_REPLAY_REPLICATION_V02",
+  "canonical": false,
+  "createdAt": "2026-09-05T04:27:39.150Z",
+  "status": "RUNTIME_ITEM_OWNERSHIP_V02_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+  "discoveryReplayExcluded": "test",
+  "replicationPolicy": {
+    "unit": "REPLAY",
+    "cohortSource": "G:\\DeadlockBehavior\\output\\cross_replay\\replication_manifest_v01.json",
+    "childScripts": [
+      "G:\\DeadlockBehavior\\scripts\\140-discover-runtime-item-ownership-substrate-v01.mjs",
+      "G:\\DeadlockBehavior\\scripts\\141-validate-runtime-item-vector-semantics-v02.mjs"
+    ],
+    "thresholdPolicy": "Use Script140 V01 and Script141 V02 unchanged. Do not refit thresholds per replay.",
+    "failurePolicy": "Treat failures as replication evidence or possible replay/build drift requiring diagnosis before any model changes."
+  },
+  "counts": {
+    "independentReplays": 5,
+    "substrateReadyReplays": 5,
+    "strongSemanticReplicationReplays": 5,
+    "failedReplays": 0
+  },
+  "replayResults": [
+    {
+      "replayName": "rep01",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep01.dem",
+      "success": true,
+      "failureStage": null,
+      "script140": {
+        "status": "RUNTIME_ITEM_VECTOR_SUBSTRATE_V01_READY_FOR_SEMANTIC_VALIDATION",
+        "playerControllers": 12,
+        "distinctObservedUpgradeIds": 88,
+        "distinctUnknownUpgradeIds": 0,
+        "vectorTransitions": 206,
+        "additions": 201,
+        "removals": 79,
+        "knownResourceObservationRate": 1,
+        "standardCatalogObservationRate": 1
+      },
+      "script141": {
+        "status": "RUNTIME_ITEM_VECTOR_V02_STRONG_SINGLE_REPLAY_OWNERSHIP_SEMANTICS",
+        "controllersObserved": 12,
+        "additionTransitions": 201,
+        "mixedTransitions": 73,
+        "bestSpentBucket": 0,
+        "additionAssociationWithin8": 0.9800995024875622,
+        "additionAssociationWithin32": 0.9850746268656716,
+        "shiftedPlaceboAssociationWithin32": 0.024875621890547265,
+        "temporalAdvantageWithin32": 0.9601990049751243,
+        "exactAmountAgreementCountWithin32": 193,
+        "associatedAdditionsWithin32": 198,
+        "exactAmountAgreementRateAmongAssociated": 0.9747474747474747
+      }
+    },
+    {
+      "replayName": "rep02",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep02.dem",
+      "success": true,
+      "failureStage": null,
+      "script140": {
+        "status": "RUNTIME_ITEM_VECTOR_SUBSTRATE_V01_READY_FOR_SEMANTIC_VALIDATION",
+        "playerControllers": 12,
+        "distinctObservedUpgradeIds": 100,
+        "distinctUnknownUpgradeIds": 0,
+        "vectorTransitions": 211,
+        "additions": 203,
+        "removals": 82,
+        "knownResourceObservationRate": 1,
+        "standardCatalogObservationRate": 1
+      },
+      "script141": {
+        "status": "RUNTIME_ITEM_VECTOR_V02_STRONG_SINGLE_REPLAY_OWNERSHIP_SEMANTICS",
+        "controllersObserved": 12,
+        "additionTransitions": 203,
+        "mixedTransitions": 73,
+        "bestSpentBucket": 0,
+        "additionAssociationWithin8": 0.9950738916256158,
+        "additionAssociationWithin32": 0.9950738916256158,
+        "shiftedPlaceboAssociationWithin32": 0.024630541871921183,
+        "temporalAdvantageWithin32": 0.9704433497536946,
+        "exactAmountAgreementCountWithin32": 195,
+        "associatedAdditionsWithin32": 202,
+        "exactAmountAgreementRateAmongAssociated": 0.9653465346534653
+      }
+    },
+    {
+      "replayName": "rep03",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep03.dem",
+      "success": true,
+      "failureStage": null,
+      "script140": {
+        "status": "RUNTIME_ITEM_VECTOR_SUBSTRATE_V01_READY_FOR_SEMANTIC_VALIDATION",
+        "playerControllers": 12,
+        "distinctObservedUpgradeIds": 114,
+        "distinctUnknownUpgradeIds": 0,
+        "vectorTransitions": 288,
+        "additions": 266,
+        "removals": 122,
+        "knownResourceObservationRate": 1,
+        "standardCatalogObservationRate": 1
+      },
+      "script141": {
+        "status": "RUNTIME_ITEM_VECTOR_V02_STRONG_SINGLE_REPLAY_OWNERSHIP_SEMANTICS",
+        "controllersObserved": 12,
+        "additionTransitions": 266,
+        "mixedTransitions": 99,
+        "bestSpentBucket": 0,
+        "additionAssociationWithin8": 0.9924812030075187,
+        "additionAssociationWithin32": 0.9924812030075187,
+        "shiftedPlaceboAssociationWithin32": 0.013784461152882205,
+        "temporalAdvantageWithin32": 0.9786967418546365,
+        "exactAmountAgreementCountWithin32": 258,
+        "associatedAdditionsWithin32": 264,
+        "exactAmountAgreementRateAmongAssociated": 0.9772727272727273
+      }
+    },
+    {
+      "replayName": "rep04",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep04.dem",
+      "success": true,
+      "failureStage": null,
+      "script140": {
+        "status": "RUNTIME_ITEM_VECTOR_SUBSTRATE_V01_READY_FOR_SEMANTIC_VALIDATION",
+        "playerControllers": 12,
+        "distinctObservedUpgradeIds": 84,
+        "distinctUnknownUpgradeIds": 0,
+        "vectorTransitions": 205,
+        "additions": 201,
+        "removals": 74,
+        "knownResourceObservationRate": 1,
+        "standardCatalogObservationRate": 1
+      },
+      "script141": {
+        "status": "RUNTIME_ITEM_VECTOR_V02_STRONG_SINGLE_REPLAY_OWNERSHIP_SEMANTICS",
+        "controllersObserved": 12,
+        "additionTransitions": 201,
+        "mixedTransitions": 70,
+        "bestSpentBucket": 0,
+        "additionAssociationWithin8": 0.9900497512437811,
+        "additionAssociationWithin32": 1,
+        "shiftedPlaceboAssociationWithin32": 0.03482587064676617,
+        "temporalAdvantageWithin32": 0.9651741293532339,
+        "exactAmountAgreementCountWithin32": 193,
+        "associatedAdditionsWithin32": 201,
+        "exactAmountAgreementRateAmongAssociated": 0.9601990049751243
+      }
+    },
+    {
+      "replayName": "rep05",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep05.dem",
+      "success": true,
+      "failureStage": null,
+      "script140": {
+        "status": "RUNTIME_ITEM_VECTOR_SUBSTRATE_V01_READY_FOR_SEMANTIC_VALIDATION",
+        "playerControllers": 12,
+        "distinctObservedUpgradeIds": 83,
+        "distinctUnknownUpgradeIds": 0,
+        "vectorTransitions": 213,
+        "additions": 209,
+        "removals": 81,
+        "knownResourceObservationRate": 1,
+        "standardCatalogObservationRate": 1
+      },
+      "script141": {
+        "status": "RUNTIME_ITEM_VECTOR_V02_STRONG_SINGLE_REPLAY_OWNERSHIP_SEMANTICS",
+        "controllersObserved": 12,
+        "additionTransitions": 208,
+        "mixedTransitions": 76,
+        "bestSpentBucket": 0,
+        "additionAssociationWithin8": 0.9951923076923077,
+        "additionAssociationWithin32": 0.9951923076923077,
+        "shiftedPlaceboAssociationWithin32": 0.022435897435897436,
+        "temporalAdvantageWithin32": 0.9727564102564102,
+        "exactAmountAgreementCountWithin32": 204,
+        "associatedAdditionsWithin32": 207,
+        "exactAmountAgreementRateAmongAssociated": 0.9855072463768116
+      }
+    }
+  ],
+  "crossReplayEvidence": {
+    "allBestSpentBucketZero": true,
+    "minimumKnownResourceObservationRate": 1,
+    "minimumStandardCatalogObservationRate": 1,
+    "weighted": {
+      "additionTransitions": 1079,
+      "additionAssociationWithin8": 0.9907321594068582,
+      "additionAssociationWithin32": 0.9935125115848007,
+      "shiftedPlaceboAssociationWithin32": 0.023478529502625887,
+      "temporalAdvantageWithin32": 0.9700339820821748,
+      "exactAmountAgreementCountWithin32": 1043,
+      "associatedAdditionsWithin32": 1072,
+      "exactAmountAgreementRateAmongAssociated": 0.9729477611940298
+    }
+  },
+  "interpretation": {
+    "supported": "Across the frozen independent replay cohort, m_vecUpgrades strongly replicates as the standard-shop runtime item-ownership vector: IDs map to the installed standard catalog, additions align tightly with same-player item spending, shifted-time placebo remains low, and transaction amounts substantially agree with catalog/component-credit expectations.",
+    "notClaimed": [
+      "A vector removal is not automatically classified as a sale.",
+      "A mixed add/remove transition is not automatically classified as a component upgrade.",
+      "Installed-build item resource effects are not assumed active continuously merely because an item is owned.",
+      "Cross-replay validation does not establish compatibility with replays from materially different game builds."
+    ]
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "manifestReady": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "independentCohortExpected": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "allSubstratesReady": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "allSemanticReplicationsStrong": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "sameSpentBucketReplicates": {
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": "all bucket 0",
+        "pass": true
+      },
+      "standardCatalogMappingReplicates": {
+        "actual": 1,
+        "expected": ">=0.95 in every replay",
+        "pass": true
+      },
+      "knownResourceMappingReplicates": {
+        "actual": 1,
+        "expected": ">=0.95 in every replay",
+        "pass": true
+      },
+      "weightedImmediateSpendAssociationStrong": {
+        "actual": 0.9907321594068582,
+        "expected": ">=0.90",
+        "pass": true
+      },
+      "weightedPlaceboLow": {
+        "actual": 0.023478529502625887,
+        "expected": "<=0.10",
+        "pass": true
+      },
+      "weightedTemporalAdvantageStrong": {
+        "actual": 0.9700339820821748,
+        "expected": ">=0.75",
+        "pass": true
+      },
+      "weightedExactAmountAgreementStrong": {
+        "actual": 0.9729477611940298,
+        "expected": ">=0.75",
+        "pass": true
+      }
+    }
+  }
+}
