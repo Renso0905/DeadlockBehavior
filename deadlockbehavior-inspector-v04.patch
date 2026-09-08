@@ -1,0 +1,1374 @@
+diff --git a/inspector-v04/.gitignore b/inspector-v04/.gitignore
+new file mode 100644
+index 0000000..b1e5b82
+--- /dev/null
++++ b/inspector-v04/.gitignore
+@@ -0,0 +1,5 @@
++.cache/
++*.log
++model_api.json
++dom_after.html
++screenshot.png
+diff --git a/inspector-v04/README.md b/inspector-v04/README.md
+new file mode 100644
+index 0000000..f1a59c5
+--- /dev/null
++++ b/inspector-v04/README.md
+@@ -0,0 +1,123 @@
++# DeadlockBehavior Research Inspector V04
++
++A dependency-free local research inspector for the DeadlockBehavior replay-mining repository.
++
++## What V04 does
++
++- Discovers replay output directories under `output/` (`test`, `rep01`, ...).
++- Builds a cached per-replay match model from current research outputs.
++- Exposes player/team scoreboard, PlayerState, economy, builds, permanent buffs, bridge buffs, movement, melee, resource exposure, breakables, Troopers/souls, flying soul-orb behavior, automatic awards, and primary-fire cadence.
++- Provides one global match-time scrubber so time-sensitive state (health, net worth, build, buffs, position) can be inspected at the same moment.
++- Lets aggregate cards drill into their underlying JSON/JSONL evidence rows.
++- Shows source health instead of inventing metrics when an upstream output is absent.
++- Keeps unresolved semantics explicit: item removal is not called a sale, vacuum targeting is not called collection, camp clear during exposure is not called player-caused, and current ammo/effective magazine/effective DPS are excluded.
++- Supports `.dem` import and a **versioned explicit processing manifest** (`pipeline.json`).
++
++## Scientific boundary
++
++The inspector is a consumer of the repository's evidence/authority layer. It does **not** reinterpret a numbered script passing as scientific validation, and it does not automatically run the historical research notebook as a production ETL.
++
++`pipeline.json` is intentionally empty in V04 until replay-safe current entrypoints are consolidated. Importing a `.dem` therefore saves it to `replays/` and reports `PROCESSING_MANIFEST_EMPTY` instead of silently guessing which of 200+ historical scripts should run.
++
++## Install
++
++Place this directory at:
++
++```text
++G:\DeadlockBehavior\inspector-v04\
++```
++
++No npm install is required.
++
++## Run
++
++From PowerShell:
++
++```powershell
++cd G:\DeadlockBehavior
++.\inspector-v04\run-inspector.ps1
++```
++
++The launcher automatically uses `G:\Node\node.exe` when it exists; otherwise it uses `node` from PATH.
++
++Then open:
++
++```text
++http://127.0.0.1:4177
++```
++
++Alternative port:
++
++```powershell
++.\inspector-v04\run-inspector.ps1 -Port 4188
++```
++
++Explicit Node path:
++
++```powershell
++.\inspector-v04\run-inspector.ps1 -NodePath "G:\Node\node.exe"
++```
++
++## Test
++
++```powershell
++.\inspector-v04\test-inspector.ps1
++```
++
++Current V04 test coverage includes:
++
++1. A/B metric-registry integrity and exclusions.
++2. PlayerState + authoritative ownership + scoreboard/team joins.
++3. Nested player-evidence matching across current schemas.
++4. End-to-end HTTP API smoke test (replay discovery → model → evidence).
++
++## Primary endpoints
++
++```text
++GET  /api/config
++GET  /api/metrics
++GET  /api/replays
++GET  /api/replay/:name/model
++GET  /api/replay/:name/health
++GET  /api/replay/:name/evidence/:kind
++POST /api/import
++POST /api/process/:name
++```
++
++Evidence kinds currently include:
++
++```text
++breakables
++rewards
++resources
++troopers
++groundSouls
++autoAwards
++urnBursts
++weapon
++melee
++playerState
++orbs
++items
++```
++
++Trooper death rows are replay-global because that stream does not encode player attribution. Other evidence streams use nested player-reference matching where the source supports it.
++
++## Data/cache behavior
++
++The first load of a replay scans the needed JSON/JSONL files and writes a fingerprinted cache under `inspector-v04/.cache/`. Use **Rebuild cache** in the UI when you intentionally want to force reconstruction. Cache files are derived and should generally remain untracked.
++
++Recommended `.gitignore` entry:
++
++```gitignore
++inspector-v04/.cache/
++```
++
++## Processing new replays
++
++V04 deliberately separates two concerns:
++
++1. **Inspector** — consumes current output contracts and makes them inspectable.
++2. **Replay processing** — must be promoted into explicit replay-safe entrypoints before being automated.
++
++When consolidation produces those entrypoints, add ordered steps to `pipeline.json`; the existing import/process API and UI are already wired for them. Required-step failures are surfaced rather than suppressed.
+diff --git a/inspector-v04/lib/io.mjs b/inspector-v04/lib/io.mjs
+new file mode 100644
+index 0000000..ef732ab
+--- /dev/null
++++ b/inspector-v04/lib/io.mjs
+@@ -0,0 +1,97 @@
++import { createReadStream, existsSync, promises as fs } from 'node:fs';
++import { createInterface } from 'node:readline';
++import { join } from 'node:path';
++
++export async function readJson(path, fallback=null) {
++  try { return JSON.parse(await fs.readFile(path,'utf8')); } catch { return fallback; }
++}
++
++export async function *readJsonl(path) {
++  if (!existsSync(path)) return;
++  const rl = createInterface({ input:createReadStream(path,{encoding:'utf8'}), crlfDelay:Infinity });
++  for await (const line of rl) {
++    if (!line.trim()) continue;
++    try { yield JSON.parse(line); } catch { /* preserve processing: bad rows are skipped and health exposes source file */ }
++  }
++}
++
++export async function listReplayDirs(outputRoot) {
++  let entries=[];
++  try { entries = await fs.readdir(outputRoot,{withFileTypes:true}); } catch { return []; }
++  return entries.filter(e=>e.isDirectory() && e.name !== 'cross_replay' && !e.name.startsWith('.')).map(e=>e.name).sort(replaySort);
++}
++
++export async function sourceHealth(replayDir) {
++  const defs = [
++    ['player_state','player_state.jsonl','A','Core state / scoreboard / trajectory'],
++    ['integrated_state','integrated_authoritative_player_state_substrate_v01.json','A','Items, permanent buffs, bridge intervals'],
++    ['behavioral_metrics','behavioral_metrics_v02.json','B','Movement, melee, resource exposure, breakables'],
++    ['resource_features','behavioral_resource_features_summary_v01.json','B','Close/core accessibility + camp exposure'],
++    ['breakable_catalog','breakable_catalog_v1.json','B','Persistent breakable slots / availability'],
++    ['breakable_actions','breakable_action_stream_v1.jsonl','B','Breakable event evidence'],
++    ['breakable_rewards','breakable_reward_acquisition_summary_v1.json','B','Reward acquisition summaries'],
++    ['breakable_reward_events','breakable_reward_acquisition_v1.jsonl','B','Reward lifecycle evidence'],
++    ['trooper_deaths','trooper_deaths_typed_v02.jsonl','B','Typed Trooper deaths'],
++    ['ground_souls','trooper_ground_soul_one_to_one_v01.jsonl','B','Death→ground-soul one-to-one evidence'],
++    ['ground_soul_summary','trooper_ground_soul_one_to_one_summary_v01.json','B','Ground-soul aggregate semantics'],
++    ['citemxp','citemxp_inspector_events_v01.json','B','Flying Trooper / Urn soul objects'],
++    ['auto_awards','citemxp_auto_award_units_v02.jsonl','B','No-shot automatic-award categories'],
++    ['urn_bursts','citemxp_auto_award_urn_bursts_v02.jsonl','B','Urn payout bursts'],
++    ['weapon_events','effective_weapon_runtime_events_v01.jsonl','A/B','Primary fire/reload evidence'],
++    ['primary_ready','observed_primary_attack_ready_schedule_candidate_v01.json','A','Primary ready-schedule replay validation'],
++  ];
++  const result=[];
++  for (const [id,file,status,purpose] of defs) {
++    const path=join(replayDir,file); let st=null;
++    try { st=await fs.stat(path); } catch {}
++    result.push({id,file,status,purpose,present:Boolean(st),bytes:st?.size??0,mtimeMs:st?.mtimeMs??null});
++  }
++  return result;
++}
++
++export async function fileFingerprint(paths) {
++  const rows=[];
++  for (const path of paths) {
++    try { const s=await fs.stat(path); rows.push(`${path}:${s.size}:${Math.trunc(s.mtimeMs)}`); } catch { rows.push(`${path}:missing`); }
++  }
++  return rows.join('|');
++}
++
++export async function jsonlPage(path,{player=null,offset=0,limit=100,predicate=null}={}) {
++  const rows=[]; let matched=0; let scanned=0;
++  for await (const row of readJsonl(path)) {
++    scanned++;
++    if (player && !rowMatchesPlayer(row,player)) continue;
++    if (predicate && !predicate(row)) continue;
++    if (matched++ < offset) continue;
++    if (rows.length < limit) rows.push(row);
++  }
++  return { rows, matched, scanned, offset, limit };
++}
++
++export function rowMatchesPlayer(row,player) {
++  const target=String(player);
++  return containsPlayerReference(row,target);
++}
++
++function containsPlayerReference(value,target,key='') {
++  if (value === null || value === undefined) return false;
++  if (Array.isArray(value)) {
++    if (/^(positivePlayers|players)$/i.test(key) && value.some(v=>String(v)===target)) return true;
++    return value.some(v=>containsPlayerReference(v,target,key));
++  }
++  if (typeof value !== 'object') {
++    return /(playerName|playerKey|winnerPlayerName|firstHitPlayerName|shooterPlayerName|vacuumTargetPlayerName)$/i.test(key)
++      && String(value)===target;
++  }
++  for (const [k,v] of Object.entries(value)) {
++    if (containsPlayerReference(v,target,k)) return true;
++  }
++  return false;
++}
++
++function replaySort(a,b) {
++  if (a==='test') return -1; if (b==='test') return 1;
++  const na=Number(a.match(/\d+/)?.[0]??Infinity), nb=Number(b.match(/\d+/)?.[0]??Infinity);
++  return na-nb || a.localeCompare(b);
++}
+diff --git a/inspector-v04/lib/metric-registry.mjs b/inspector-v04/lib/metric-registry.mjs
+new file mode 100644
+index 0000000..e7c9119
+--- /dev/null
++++ b/inspector-v04/lib/metric-registry.mjs
+@@ -0,0 +1,220 @@
++const A = 'A';
++const B = 'B';
++
++export const METRIC_REGISTRY = [
++  section('identity', 'Match & identity', [
++    m('match_clock','Match clock',A,'time','Canonical/demo timing','Current match clock and demo tick.'),
++    m('match_duration','Match duration',A,'seconds','Canonical/demo timing','Observed replay duration.'),
++    m('player_name','Player name',A,'text','Player identity','Resolved player identity.'),
++    m('steam_id','Steam ID',A,'text','Player identity','Resolved Steam identity.'),
++    m('hero_id','Hero ID',A,'integer','Player identity','Resolved hero identifier.'),
++    m('team','Team',A,'integer','Player identity','Resolved team identifier.'),
++    m('controller_entity','Controller entity',A,'integer','Player identity','Controller entity index.'),
++    m('pawn_entity','Pawn entity',A,'integer','Player identity','Pawn/hero entity index when available.'),
++    m('roster','Team roster',A,'count','Player identity','Players resolved to each team.'),
++    m('composition','Hero composition',A,'count','Player identity','Heroes resolved to each team.'),
++  ]),
++  section('state', 'Core player state', [
++    m('level','Level',A,'integer','PlayerState','Observed runtime level.'),
++    m('level_timing','Level timings',A,'time','PlayerState','First observed time at each level.'),
++    m('level_rate','Level rate',A,'per_min','PlayerState','Observed level gain per match minute.'),
++    m('alive_time','Alive time',A,'seconds','PlayerState','Integrated observed alive duration.'),
++    m('dead_time','Dead time',A,'seconds','PlayerState','Integrated observed dead duration.'),
++    m('alive_share','Alive %',A,'percent','PlayerState','Alive duration / observed duration.'),
++    m('death_count','Deaths',A,'integer','PlayerState','Observed alive→dead transitions; scoreboard counter also shown.'),
++    m('death_timing','Death timings',A,'time','PlayerState','Observed alive→dead transition timestamps.'),
++    m('survival_intervals','Survival intervals',A,'seconds','PlayerState','Observed intervals between spawn and death.'),
++    m('average_life','Average life duration',A,'seconds','PlayerState','Mean completed survival interval.'),
++    m('respawn_time','Respawn durations',A,'seconds','PlayerState','Observed dead→alive intervals.'),
++    m('respawn_downtime','Total respawn downtime',A,'seconds','PlayerState','Sum of observed respawn intervals.'),
++    m('health','Health',A,'number','PlayerState','Observed runtime health.'),
++    m('health_max','Max health',A,'number','PlayerState','Observed runtime maximum health.'),
++    m('health_percent','Health %',A,'percent','PlayerState','Health / max health.'),
++    m('health_minmax','Health extrema',A,'number','PlayerState','Observed minimum and maximum health.'),
++    m('low_health_25','Time below 25% HP',A,'seconds','PlayerState','Integrated observed time below 25% max HP.'),
++    m('low_health_50','Time below 50% HP',A,'seconds','PlayerState','Integrated observed time below 50% max HP.'),
++    m('health_regen','Health regeneration',A,'number','PlayerState','Observed runtime health regeneration field.'),
++    m('gold_networth','Gold net worth',A,'number','PlayerState','Observed controller gold net-worth counter.'),
++    m('ap_networth','AP net worth',A,'number','PlayerState','Observed controller AP net-worth counter.'),
++    m('networth_rate','Net-worth gain rate',A,'per_min','PlayerState','Observed net-worth change per match minute; deliberately not labeled souls/min.'),
++    m('networth_checkpoints','Net-worth checkpoints',A,'number','PlayerState','Net worth at standard match-time checkpoints.'),
++    m('networth_rank','Net-worth rank',A,'integer','PlayerState','Final rank within match and team.'),
++  ]),
++  section('scoreboard', 'Conventional scoreboard', [
++    m('kills','Kills',B,'integer','Controller counter','Observed m_iPlayerKills counter.'),
++    m('deaths_scoreboard','Deaths (scoreboard)',B,'integer','Controller counter','Observed death counter from player-state telemetry.'),
++    m('assists','Assists',B,'integer','Controller counter','Observed m_iPlayerAssists counter.'),
++    m('kd','K/D',B,'ratio','Controller counters','Kills divided by deaths.'),
++    m('kda','KDA',B,'ratio','Controller counters','(Kills + assists) divided by deaths.'),
++    m('last_hits','Last hits',B,'integer','Controller counter','Observed m_iLastHits counter.'),
++    m('denies','Denies',B,'integer','Controller counter','Observed m_iDenies counter.'),
++    m('kills_rate','Kills/min',B,'per_min','Controller counters','Final kills / match minutes.'),
++    m('assists_rate','Assists/min',B,'per_min','Controller counters','Final assists / match minutes.'),
++    m('last_hits_rate','Last hits/min',B,'per_min','Controller counters','Final last hits / match minutes.'),
++    m('denies_rate','Denies/min',B,'per_min','Controller counters','Final denies / match minutes.'),
++    m('scoreboard_timelines','Counter timelines',B,'series','Controller counters','Time series for kill/assist/last-hit/deny counters.'),
++  ]),
++  section('economy', 'Economy & team advantage', [
++    m('team_networth','Team net worth',A,'number','PlayerState aggregation','Sum of observed player net worth by team.'),
++    m('team_networth_diff','Team net-worth differential',A,'number','PlayerState aggregation','Difference between team net-worth totals.'),
++    m('player_team_share','Share of team net worth',A,'percent','PlayerState aggregation','Player net worth / team net worth.'),
++    m('team_ahead_time','Time team ahead',A,'seconds','PlayerState aggregation','Integrated sampled duration with positive team net-worth differential.'),
++    m('team_behind_time','Time team behind',A,'seconds','PlayerState aggregation','Integrated sampled duration with negative team net-worth differential.'),
++    m('max_team_lead','Maximum team lead',A,'number','PlayerState aggregation','Largest observed positive team net-worth differential.'),
++    m('max_team_deficit','Maximum team deficit',A,'number','PlayerState aggregation','Largest observed negative team net-worth differential.'),
++    m('largest_lead_swing','Largest lead swing',A,'number','PlayerState aggregation','Observed range of team net-worth differential.'),
++  ]),
++  section('builds', 'Shop items & builds', [
++    m('current_items','Items owned at selected time',A,'items','runtime_item_ownership','Authoritative runtime standard-shop ownership.'),
++    m('final_build','Final build',A,'items','runtime_item_ownership','Final authoritative shop-item ownership.'),
++    m('item_acquisition_time','Item acquisition times',A,'time','runtime_item_ownership','Authoritative ownership additions.'),
++    m('item_acquisition_order','Item acquisition order',A,'sequence','runtime_item_ownership','Chronological authoritative item additions.'),
++    m('item_count','Item count',A,'integer','runtime_item_ownership','Owned standard-shop item count.'),
++    m('item_ownership_duration','Item ownership duration',A,'seconds','runtime_item_ownership','Observed interval from add until remove or replay end.'),
++    m('item_removals','Item removals',A,'events','runtime_item_ownership','Authoritative vector removals; never labeled sales.'),
++    m('checkpoint_builds','Checkpoint builds',A,'items','runtime_item_ownership','Owned items at standard time checkpoints.'),
++  ]),
++  section('permanent_buffs', 'Permanent world buffs', [
++    m('permanent_current','Current permanent buffs',A,'buffs','runtime_permanent_buff_ownership','Authoritative cumulative permanent buff state.'),
++    m('permanent_acquisitions','Permanent buff acquisitions',A,'events','runtime_permanent_buff_ownership','Authoritative positive accumulation events.'),
++    m('permanent_count','Permanent buff count',A,'integer','runtime_permanent_buff_ownership','Inferred unit count across six validated families.'),
++    m('permanent_by_family','Permanent buffs by family',A,'buffs','runtime_permanent_buff_ownership','Spirit, fire rate, ammo clip, max HP, cooldown reduction, weapon damage.'),
++    m('permanent_value','Permanent buff value by family',A,'number','runtime_permanent_buff_ownership','Authoritative accumulated family values.'),
++    m('permanent_team_diff','Team permanent-buff differential',A,'integer','runtime_permanent_buff_ownership','Team aggregate inferred units.'),
++  ]),
++  section('bridge_buffs', 'Bridge powerups', [
++    m('bridge_collections','Bridge buff collections',A,'events','runtime_bridge_buff_ownership','Authoritative/reconstructed Gun, Survival, Casting, Movement collections.'),
++    m('bridge_current','Active bridge buffs',A,'buffs','runtime_bridge_buff_ownership','Intervals active at selected time.'),
++    m('bridge_uptime','Bridge buff uptime',A,'seconds','runtime_bridge_buff_ownership','Observed/reconstructed interval duration.'),
++    m('bridge_uptime_share','Bridge buff uptime %',A,'percent','runtime_bridge_buff_ownership','Uptime / observed match duration.'),
++    m('bridge_overlaps','Overlapping bridge buffs',A,'count','runtime_bridge_buff_ownership','Simultaneously active reconstructed intervals.'),
++    m('bridge_termination','Bridge termination reasons',A,'events','runtime_bridge_buff_ownership','Natural expiration, death termination, or censoring.'),
++    m('bridge_team_uptime','Team bridge uptime',A,'seconds','runtime_bridge_buff_ownership','Team aggregate interval duration.'),
++  ]),
++  section('movement', 'Movement', [
++    m('xy_distance','XY distance traveled',B,'hu','behavioral_metrics_v02','Validated movement feature substrate.'),
++    m('xyz_distance','3D distance traveled',B,'hu','behavioral_metrics_v02','Validated movement feature substrate.'),
++    m('distance_per_min','Distance/min',B,'hu_per_min','behavioral_metrics_v02','XY distance / match minutes.'),
++    m('distance_per_alive_min','Distance/alive min',B,'hu_per_min','behavioral_metrics_v02','XY distance / alive minutes.'),
++    m('mean_xy_speed','Mean XY speed',B,'hu_per_sec','behavioral_metrics_v02','Mean valid XY movement speed.'),
++    m('mean_xyz_speed','Mean 3D speed',B,'hu_per_sec','behavioral_metrics_v02','Mean valid 3D movement speed.'),
++    m('moving_time','Moving time',B,'seconds','behavioral_metrics_v02','Calibrated valid moving duration.'),
++    m('moving_share','Moving %',B,'percent','behavioral_metrics_v02','Moving duration / valid movement duration.'),
++    m('low_motion_time','Low-motion time',B,'seconds','behavioral_metrics_v02','Calibrated low-motion duration.'),
++    m('low_motion_share','Low-motion share',B,'percent','behavioral_metrics_v02','Low-motion duration / valid movement duration.'),
++    m('position_trajectory','Position trajectory',B,'series','player_state','Observed player position samples; invalid jumps excluded only from behavioral movement summaries.'),
++  ]),
++  section('melee', 'Melee', [
++    m('melee_attacks','Melee attacks',B,'integer','behavioral_metrics_v02','Validated melee action count.'),
++    m('melee_hits','Confirmed melee hits',B,'integer','behavioral_metrics_v02','Confirmed melee-hit count.'),
++    m('melee_hit_rate','Melee hit rate',B,'percent','behavioral_metrics_v02','Confirmed hits / detected melee attacks.'),
++    m('light_melee','Light melees',B,'integer','behavioral_metrics_v02','Detected light-melee actions.'),
++    m('heavy_melee','Heavy melees',B,'integer','behavioral_metrics_v02','Detected heavy-melee actions.'),
++    m('air_heavy_melee','Air-heavy melees',B,'integer','behavioral_metrics_v02','Detected air-heavy-melee actions.'),
++    m('melee_type_share','Melee type share',B,'percent','behavioral_metrics_v02','Share by melee type.'),
++    m('melee_per_alive_min','Melees/alive min',B,'per_min','behavioral_metrics_v02','Melee attacks / alive minutes.'),
++  ]),
++  section('breakables', 'Breakables', [
++    m('breakable_slots','Persistent breakable slots',B,'integer','breakable_catalog_v1','Cataloged persistent resource slots.'),
++    m('crate_slots','Crate slots',B,'integer','breakable_catalog_v1','Cataloged crate slots.'),
++    m('statue_slots','Golden statue slots',B,'integer','breakable_catalog_v1','Cataloged golden-statue slots.'),
++    m('breakable_spawn_cohort','Spawn cohort',B,'category','breakable_catalog_v1','Normal/midboss resource cohort.'),
++    m('breakable_availability','Breakable availability intervals',B,'intervals','breakable_catalog_v1','Spawn/break/respawn availability model.'),
++    m('breakable_break_time','Break timestamps',B,'time','breakable_action_stream_v1','Attributed break-event timing.'),
++    m('breakable_breaks','Breakables broken',B,'integer','behavioral_metrics_v02','Known attributed breakables by player.'),
++    m('crate_breaks','Crates broken',B,'integer','behavioral_metrics_v02','Known attributed crate breaks.'),
++    m('statue_breaks','Statues broken',B,'integer','behavioral_metrics_v02','Known attributed statue breaks.'),
++    m('melee_breaks','Melee breaks',B,'integer','behavioral_metrics_v02','Known breaks attributed to melee.'),
++    m('bullet_breaks','Bullet breaks',B,'integer','behavioral_metrics_v02','Known breaks attributed to bullet ray.'),
++    m('breaks_per_alive_min','Breaks/alive min',B,'per_min','behavioral_metrics_v02','Known attributed breaks / alive minutes.'),
++  ]),
++  section('breakable_rewards', 'Breakable rewards', [
++    m('reward_rolls','Reward rolls',B,'integer','breakable_reward_acquisition_v1','Tracked breakable reward lifecycles.'),
++    m('reward_collected','High-confidence reward collections',B,'integer','breakable_reward_acquisition_v1','Collection classification with validated geometry/lifecycle.'),
++    m('reward_expired','Expired uncollected rewards',B,'integer','breakable_reward_acquisition_v1','Validated expiry classification.'),
++    m('soul_reward_spawns','Soul reward spawns',B,'integer','breakable_reward_acquisition_v1','Crate soul reward spawns.'),
++    m('modifier_reward_spawns','Permanent modifier spawns',B,'integer','breakable_reward_acquisition_v1','Golden-statue modifier reward spawns.'),
++    m('soul_value_generated','Soul value generated',B,'number','breakable_action_stream_v1','Soul reward value generated by known breaks.'),
++    m('soul_value_collected','Collected soul value',B,'number','breakable_reward_acquisition_v1','High-confidence crate souls acquired.'),
++    m('permanent_rewards_collected','Collected permanent buffs',B,'integer','breakable_reward_acquisition_v1','High-confidence statue modifier collections.'),
++    m('expired_soul_value','Expired soul value',B,'number','breakable_reward_acquisition_v1','Soul value in validated expired pickups.'),
++    m('breaker_same_collector','Breaker = collector',B,'integer','breakable_reward_acquisition_v1','Known-breaker rewards collected by same player.'),
++    m('breaker_other_collector','Breaker ≠ collector',B,'integer','breakable_reward_acquisition_v1','Known-breaker rewards collected by another player.'),
++  ]),
++  section('resources', 'Resource exposure & access', [
++    m('resource_exposure','Resource exposure episodes',B,'integer','behavioral_resource_features_v01','Provisional calibrated spatial exposure episodes.'),
++    m('resource_exposure_duration','Resource exposure duration',B,'seconds','behavioral_metrics_v02','Total episode duration.'),
++    m('breakable_exposure','Breakable exposure',B,'integer','behavioral_resource_features_v01','Broad breakable exposure episodes.'),
++    m('crate_exposure','Crate exposure',B,'integer','behavioral_metrics_v02','Broad crate exposure episodes.'),
++    m('statue_exposure','Statue exposure',B,'integer','behavioral_metrics_v02','Broad statue exposure episodes.'),
++    m('camp_exposure','Camp exposure',B,'integer','behavioral_resource_features_v01','Broad neutral-camp exposure episodes.'),
++    m('breakable_close_access','Breakable close access',B,'integer','behavioral_resource_features_v01','Calibrated close-access episodes.'),
++    m('breakable_core_access','Breakable core access',B,'integer','behavioral_resource_features_v01','Calibrated core-access episodes.'),
++    m('camp_close_access','Camp close access',B,'integer','behavioral_resource_features_v01','Calibrated camp close-access episodes.'),
++    m('camp_core_proximity','Camp core proximity',B,'integer','behavioral_resource_features_v01','Calibrated camp core-proximity episodes.'),
++    m('self_break_after_exposure','Self break following exposure',B,'integer','behavioral_resource_features_v01','Known self-break episode outcome.'),
++    m('left_available','Left available episodes',B,'integer','behavioral_resource_features_v01','Episode ended while resource remained available; not labeled missed farm.'),
++    m('other_player_break','Other-player break episodes',B,'integer','behavioral_resource_features_v01','Another player broke resource during/around episode.'),
++    m('death_during_exposure','Death during exposure',B,'integer','behavioral_resource_features_v01','Exposure episode terminated by player death.'),
++    m('camp_tier_exposure','Camp exposure by tier',B,'integer','behavioral_resource_features_v01','Small/medium/large camp exposure.'),
++    m('camp_clear_during_exposure','Camp clears during exposure',B,'integer','behavioral_resource_features_v01','Environmental clear during player exposure; does NOT prove the player cleared camp.', true),
++    m('camp_clear_during_exposure_rate','Clear-during-exposure rate',B,'percent','behavioral_resource_features_v01','Clear during core-proximity episodes; causal attribution prohibited.', true),
++  ]),
++  section('troopers', 'Troopers & ground souls', [
++    m('trooper_deaths','Trooper deaths',B,'integer','trooper_deaths_typed_v02','Typed Trooper death events.'),
++    m('economic_trooper_deaths','Economic Trooper deaths',B,'integer','trooper_ground_soul_one_to_one_v01','Eligible economic-death subset.'),
++    m('trooper_base_types','Trooper deaths by base type',B,'integer','trooper_deaths_typed_v02','Ranged/Medic/Melee classification.'),
++    m('trooper_variants','Trooper deaths by variant',B,'integer','trooper_deaths_typed_v02','Normal/Super/Rift/Unresolved classification.'),
++    m('trooper_team_lane','Trooper deaths by team/lane',B,'integer','trooper_deaths_typed_v02','Observed team/lane fields.'),
++    m('ground_soul_eligible','Ground-soul eligible deaths',B,'integer','trooper_ground_soul_one_to_one_v01','Economically eligible Trooper deaths.'),
++    m('opponent_45m','Opponent within 45m',B,'integer','trooper_ground_soul_range_validation','Validated opponent-range eligibility signal.'),
++    m('nearest_opponent_distance','Nearest opposing-player distance',B,'hu','trooper_ground_soul_one_to_one_v01','Nearest resolved opposing player at eligibility context.'),
++    m('ground_soul_matched','Matched ground souls',B,'integer','trooper_ground_soul_one_to_one_v01','One-to-one death→AssignedGold lifecycle matches.'),
++    m('ground_soul_unmatched','Unmatched eligible deaths',B,'integer','trooper_ground_soul_one_to_one_v01','Preserved unresolved cases; never labeled missed souls.'),
++    m('ground_soul_vacuum_target','Ground soul targeted to player',B,'integer','trooper_ground_soul_one_to_one_v01','Resolved m_hVacuumTarget; NOT labeled final collection.', true),
++  ]),
++  section('soul_orbs', 'Flying Trooper soul orbs', [
++    m('trooper_orbs','Validated flying Trooper orbs',B,'integer','citemxp_inspector_events_v01','Source-linked Trooper soul objects.'),
++    m('orb_attackable_window','Orb attackable window',B,'seconds','citemxp_inspector_events_v01','Observed attackable-start/end lifecycle.'),
++    m('orb_shot_no_shot','Shot vs no-shot orbs',B,'integer','citemxp_inspector_events_v01','Whether validated player damage telemetry was observed.'),
++    m('orb_shooter','Orb shooter identity',B,'events','citemxp_inspector_events_v01','Resolved shooter on damage telemetry.'),
++    m('orb_secure','Trooper orb secures',B,'integer','citemxp_inspector_events_v01','Clean single-team resolution semantics.'),
++    m('orb_deny','Trooper orb denies',B,'integer','citemxp_inspector_events_v01','Clean single-team resolution semantics.'),
++    m('orb_multi_hit','Multi-hit episodes',B,'integer','citemxp_inspector_events_v01','Orb episodes with multiple damage messages.'),
++    m('orb_multi_player','Multi-player episodes',B,'integer','citemxp_inspector_events_v01','Orb episodes involving multiple players.'),
++    m('orb_mixed_team','Mixed-team races',B,'integer','citemxp_inspector_events_v01','Mixed-team race flag; outcome remains cautiously represented.'),
++    m('orb_hits','Hits/damage messages per orb',B,'integer','citemxp_inspector_events_v01','Validated orb damage telemetry; not general shooting accuracy.'),
++  ]),
++  section('urn', 'Soul Urn payout orbs', [
++    m('urn_bursts','Urn payout bursts',B,'integer','citemxp_auto_award_urn_bursts_v02','Grouped Urn payout-object bursts.'),
++    m('urn_orbs','Urn payout objects',B,'integer','citemxp_inspector_events_v01','Source-classified Urn payout objects.'),
++    m('urn_shot_no_shot','Urn shot vs untouched',B,'integer','citemxp_inspector_events_v01','Validated player-damage observation.'),
++    m('urn_claims','Urn claims',B,'integer','citemxp_inspector_events_v01','Same payout-orb team shot resolution.'),
++    m('urn_denies','Urn denies',B,'integer','citemxp_inspector_events_v01','Opposing payout-orb team shot resolution.'),
++    m('urn_contestants','Urn contestants',B,'events','citemxp_inspector_events_v01','Resolved player/team hit context.'),
++  ]),
++  section('auto_awards', 'Automatic soul awards', [
++    m('auto_award_validated','Validated no-shot Trooper auto-awards',B,'integer','citemxp_auto_award_units_v02','Strict event rows after cohort-level mechanism gate.'),
++    m('auto_award_probable','Probable auto-awards',B,'integer','citemxp_auto_award_units_v02','Preserved probable category; never merged with validated.'),
++    m('auto_award_collision','Economy-collision cases',B,'integer','citemxp_auto_award_units_v02','Confounded timing/economy cases.'),
++    m('auto_award_unresolved','Unresolved no-shot cases',B,'integer','citemxp_auto_award_units_v02','No forced winner.'),
++    m('auto_award_team','Auto-award team',B,'events','citemxp_auto_award_units_v02','Resolved winner team where supported.'),
++  ]),
++  section('primary_fire', 'Primary fire cadence', [
++    m('primary_discharges','Primary discharge events',A,'integer','runtime_primary_attack_ready_schedule','Observed primary discharges.'),
++    m('primary_attack_rate','Primary attacks/min',A,'per_min','runtime_primary_attack_ready_schedule','Observed primary discharges / alive minutes when available.'),
++    m('inter_attack_interval','Inter-attack interval',A,'seconds','runtime_primary_attack_ready_schedule','Observed discharge spacing.'),
++    m('next_primary_ready','Next-primary-ready time',A,'time','runtime_primary_attack_ready_schedule','Observed next-primary-attack schedule carrier.'),
++    m('ready_delay','Ready delay',A,'seconds','runtime_primary_attack_ready_schedule','Observed nextPrimaryAttack - lastAttackTime.'),
++    m('reload_state','Reload state intervals/transitions',B,'events','effective_weapon_runtime_events_v01','Observed runtime reload flag/transitions; no ammo-efficiency inference.'),
++    m('active_fire_mode','Active fire mode',B,'category','effective_weapon_runtime_events_v01','Observed runtime fire mode.'),
++    m('burst_continuous_state','Burst/continuous-shot counters',B,'number','effective_weapon_runtime_events_v01','Observed raw weapon counters.'),
++  ]),
++];
++
++export const METRIC_BY_ID = new Map(METRIC_REGISTRY.flatMap(s => s.metrics).map(x => [x.id, x]));
++
++function section(id, label, metrics) { return { id, label, metrics }; }
++function m(id,label,status,unit,source,definition,warning=false) {
++  return { id,label,status,unit,source,definition,warning };
++}
+diff --git a/inspector-v04/lib/pipeline.mjs b/inspector-v04/lib/pipeline.mjs
+new file mode 100644
+index 0000000..7e30383
+--- /dev/null
++++ b/inspector-v04/lib/pipeline.mjs
+@@ -0,0 +1,64 @@
++import { existsSync, promises as fs } from 'node:fs';
++import { spawn } from 'node:child_process';
++import { basename, join, resolve } from 'node:path';
++
++export async function loadPipelineConfig(inspectorRoot) {
++  const path=join(inspectorRoot,'pipeline.json');
++  try { return JSON.parse(await fs.readFile(path,'utf8')); }
++  catch { return { version:'INSPECTOR_PIPELINE_V01', steps:[] }; }
++}
++
++export async function importReplay({repoRoot,filename,bytes}) {
++  const safe=sanitizeReplayName(filename);
++  if (!safe.toLowerCase().endsWith('.dem')) throw new Error('Replay file must end in .dem');
++  const replaysDir=join(repoRoot,'replays');
++  await fs.mkdir(replaysDir,{recursive:true});
++  const path=join(replaysDir,safe);
++  await fs.writeFile(path,bytes);
++  return { replayName:basename(safe,'.dem'), path };
++}
++
++export async function runPipeline({repoRoot,inspectorRoot,replayName,onEvent=()=>{}}) {
++  const config=await loadPipelineConfig(inspectorRoot);
++  const context={ repoRoot, replayName };
++  const results=[];
++  if (!Array.isArray(config.steps) || config.steps.length===0) {
++    return {
++      version:config.version??'INSPECTOR_PIPELINE_V01', replayName, configured:false,
++      status:'PROCESSING_MANIFEST_EMPTY',
++      message:'Replay was imported, but no current research-processing steps are configured in inspector-v04/pipeline.json. This is intentional: the inspector will not guess which historical research scripts are authoritative.',
++      results
++    };
++  }
++  for (const step of config.steps) {
++    const result=await runStep(step,context,onEvent); results.push(result);
++    if (!result.ok && step.required!==false && config.stopOnRequiredFailure!==false) break;
++  }
++  const requiredFailures=results.filter(r=>r.required&& !r.ok);
++  return { version:config.version, replayName, configured:true, status:requiredFailures.length?'FAILED_REQUIRED_STEP':'COMPLETE',results };
++}
++
++async function runStep(step,{repoRoot,replayName},onEvent) {
++  const command=step.command ?? 'node';
++  const args=(step.args??[]).map(v=>String(v).replaceAll('{replay}',replayName).replaceAll('{repoRoot}',repoRoot));
++  if (step.ifExists) {
++    const candidate=resolve(repoRoot,String(step.ifExists).replaceAll('{replay}',replayName));
++    if (!existsSync(candidate)) return {id:step.id,label:step.label,required:step.required!==false,ok:false,skipped:true,reason:`Missing ${candidate}`};
++  }
++  onEvent({type:'step-start',id:step.id,label:step.label});
++  return new Promise(resolvePromise=>{
++    const child=spawn(command,args,{cwd:repoRoot,shell:false,env:{...process.env,DEADLOCK_REPLAY_NAME:replayName}});
++    let stdout='',stderr='';
++    child.stdout?.on('data',d=>{stdout+=d; onEvent({type:'stdout',id:step.id,text:String(d)});});
++    child.stderr?.on('data',d=>{stderr+=d; onEvent({type:'stderr',id:step.id,text:String(d)});});
++    child.on('error',err=>resolvePromise({id:step.id,label:step.label,required:step.required!==false,ok:false,error:err.message,stdout,stderr}));
++    child.on('close',code=>resolvePromise({id:step.id,label:step.label,required:step.required!==false,ok:code===0,code,stdout:tail(stdout),stderr:tail(stderr)}));
++  });
++}
++
++function sanitizeReplayName(name) {
++  const base=basename(String(name||'replay.dem')).replace(/[^A-Za-z0-9._-]/g,'_');
++  if (!base || base==='.' || base==='..') throw new Error('Invalid replay filename');
++  return base;
++}
++function tail(s,n=12000){ return s.length>n?s.slice(-n):s; }
+diff --git a/inspector-v04/lib/replay-model.mjs b/inspector-v04/lib/replay-model.mjs
+new file mode 100644
+index 0000000..7fa5632
+--- /dev/null
++++ b/inspector-v04/lib/replay-model.mjs
+@@ -0,0 +1,335 @@
++import { existsSync, promises as fs } from 'node:fs';
++import { join } from 'node:path';
++import { readJson, readJsonl, sourceHealth, fileFingerprint } from './io.mjs';
++
++const TICKS_PER_SECOND=64;
++const CHECKPOINTS=[300,600,900,1200,1500,1800,2100,2400,2700,3000];
++
++export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,force=false}) {
++  const dir=join(outputRoot,replayName);
++  const sourceFiles=[
++    'player_state.jsonl','integrated_authoritative_player_state_substrate_v01.json','behavioral_metrics_v02.json',
++    'behavioral_resource_features_summary_v01.json','breakable_catalog_v1.json','breakable_action_stream_summary_v1.json',
++    'breakable_reward_acquisition_summary_v1.json','trooper_ground_soul_one_to_one_summary_v01.json',
++    'citemxp_inspector_events_v01.json','citemxp_auto_award_resolution_validation_v02.json','effective_weapon_runtime_events_v01.jsonl'
++  ].map(f=>join(dir,f));
++  const fingerprint=await fileFingerprint(sourceFiles);
++  const cachePath=cacheRoot?join(cacheRoot,`${safeName(replayName)}.json`):null;
++  if (!force && cachePath && existsSync(cachePath)) {
++    try {
++      const cached=JSON.parse(await fs.readFile(cachePath,'utf8'));
++      if (cached?.fingerprint===fingerprint && cached?.model) return cached.model;
++    } catch {}
++  }
++
++  const health=await sourceHealth(dir);
++  const integrated=await readJson(join(dir,'integrated_authoritative_player_state_substrate_v01.json'));
++  const offset=Number(integrated?.replay?.matchClockOffsetSeconds ?? 0);
++  const core=await aggregatePlayerState(join(dir,'player_state.jsonl'),offset);
++  const behavioral=await readJson(join(dir,'behavioral_metrics_v02.json'));
++  const resourceFeatures=await readJson(join(dir,'behavioral_resource_features_summary_v01.json'));
++  const breakCatalog=await readJson(join(dir,'breakable_catalog_v1.json'));
++  const breakSummary=await readJson(join(dir,'breakable_action_stream_summary_v1.json'));
++  const rewardSummary=await readJson(join(dir,'breakable_reward_acquisition_summary_v1.json'));
++  const groundSummary=await readJson(join(dir,'trooper_ground_soul_one_to_one_summary_v01.json'));
++  const citemxp=await readJson(join(dir,'citemxp_inspector_events_v01.json'));
++  const autoAwardSummary=await readJson(join(dir,'citemxp_auto_award_resolution_validation_v02.json'));
++
++  const playerByName=new Map(core.players.map(p=>[p.playerName,p]));
++  applyIntegrated(playerByName,integrated,offset,core.matchEndSeconds);
++  applyBehavioral(playerByName,behavioral,resourceFeatures);
++  applyRewards(playerByName,rewardSummary,breakSummary);
++  applyCitemxp(playerByName,citemxp);
++  applyGroundSouls(playerByName,groundSummary);
++  const weapon=await aggregateWeaponEvents(join(dir,'effective_weapon_runtime_events_v01.jsonl'),playerByName,offset);
++  const troopers=await aggregateTroopers(join(dir,'trooper_deaths_typed_v02.jsonl'));
++  const autoAwards=autoAwardSummary ? {
++    status:autoAwardSummary.status,
++    counts:autoAwardSummary.resolutionStatusCounts ?? {},
++    bySource:autoAwardSummary.resolutionStatusBySource ?? {},
++    validation:autoAwardSummary.pipelineValidation ?? null
++  } : null;
++
++  const players=core.players.map(p=>finalizePlayer(p,core)).sort((a,b)=>a.team-b.team || b.scoreboard.goldNetWorth-a.scoreboard.goldNetWorth);
++  const teams=finalizeTeams(players,core.teamSeries);
++  const model={
++    version:'DEADLOCK_INSPECTOR_MATCH_MODEL_V04',
++    replayName,
++    generatedAt:new Date().toISOString(),
++    match:{
++      ticksPerSecond:Number(integrated?.replay?.ticksPerSecond ?? TICKS_PER_SECOND),
++      matchClockOffsetSeconds:offset,
++      startDemoSeconds:core.startDemoSeconds,
++      endDemoSeconds:core.endDemoSeconds,
++      matchDurationSeconds:core.matchEndSeconds,
++      replayEndTick:integrated?.replay?.replayEndTick ?? core.lastTick,
++      postGameTick:integrated?.replay?.postGameTick ?? null,
++      roster:players.map(p=>pick(p.identity,['playerName','steamId','heroId','team','controllerEntityIndex','pawnEntityIndex'])),
++    },
++    sourceHealth:health,
++    players,
++    teams,
++    teamSeries:core.teamSeries,
++    breakables:breakCatalog ? {
++      persistentSlots:breakCatalog.summary?.persistentSlots ?? breakCatalog.slots?.length ?? null,
++      typeCounts:breakCatalog.summary?.typeCounts ?? null,
++      spawnCohorts:breakCatalog.summary?.spawnCohorts ?? null,
++      lifecycle:breakCatalog.summary?.lifecycle ?? null,
++      respawnSeconds:breakCatalog.timing?.respawnSeconds ?? null,
++      slots:(breakCatalog.slots??[]).map(s=>({
++        breakableId:s.breakableId,entityIndex:s.entityIndex,type:s.type,worldPosition:s.worldPosition,
++        spawn:s.spawn,lifecycle:s.lifecycle,breakCount:s.breakEvents?.length??0
++      }))
++    }:null,
++    breakableActionSummary:breakSummary?{counts:breakSummary.counts,economy:breakSummary.economy,crossPlayerCollection:breakSummary.crossPlayerCollection}:null,
++    breakableRewardSummary:rewardSummary?{
++      counts:rewardSummary.counts,byRewardType:rewardSummary.byRewardType,value:rewardSummary.value,
++      breakerCollector:rewardSummary.breakerCollector,geometry:rewardSummary.confirmedCollectionGeometry
++    }:null,
++    troopers,
++    groundSouls:groundSummary?{
++      status:groundSummary.status,
++      deathEligibility:groundSummary.deathEligibility,
++      oneToOneResults:groundSummary.oneToOneResults,
++      vacuumTargets:groundSummary.vacuumTargets,
++      validation:groundSummary.validation
++    }:null,
++    citemxp:citemxp?{summary:citemxp.summary,matchClockOffsetSeconds:citemxp.matchClockOffsetSeconds}:null,
++    autoAwards,
++    weapon,
++    cautions:[
++      'Item removals are displayed as REMOVED, not SOLD.',
++      'Camp CLEAR DURING EXPOSURE does not prove the player caused the clear.',
++      'Ground-soul vacuum targets are displayed as TARGETED TO PLAYER, not final collection.',
++      'Current ammo / effective magazine / effective DPS are intentionally excluded from A/B statistics.',
++      'Net-worth gain rate is not automatically labeled souls/min.'
++    ]
++  };
++
++  if (cachePath) {
++    await fs.mkdir(cacheRoot,{recursive:true});
++    await fs.writeFile(cachePath,JSON.stringify({fingerprint,model}));
++  }
++  return model;
++}
++
++async function aggregatePlayerState(path,offset) {
++  const byName=new Map(); let startDemo=Infinity,endDemo=-Infinity,lastTick=0;
++  for await (const row of readJsonl(path)) {
++    const demoTime=finite(row.demoSeconds ?? row.time) ?? (finite(row.demoTick ?? row.tick)!==null?(row.demoTick??row.tick)/TICKS_PER_SECOND:null);
++    if (demoTime===null) continue;
++    const tick=finite(row.demoTick ?? row.tick) ?? 0;
++    startDemo=Math.min(startDemo,demoTime); endDemo=Math.max(endDemo,demoTime); lastTick=Math.max(lastTick,tick);
++    if (row.controller && typeof row.controller==='object') {
++      const c=row.controller,pawn=row.pawn??{};
++      const pos=pawn.positionWorld;
++      const state={
++        controllerEntityIndex:c.entityIndex,playerName:c.playerName,steamId:c.steamId,team:c.team,heroId:c.heroId,heroEntityIndex:pawn.entityIndex,
++        laneColor:c.assignedLane??pawn.deducedLane,alive:c.alive,health:c.health,healthMax:c.maxHealth,healthRegen:c.healthRegen,maxAmmo:c.maxAmmo,
++        level:c.level,kills:c.kills,deaths:c.deaths,assists:c.assists,denies:c.denies,lastHits:c.lastHits,goldNetWorth:c.netWorth,apNetWorth:c.abilityPointNetWorth,
++        respawnTime:c.respawnTime,position:pos?[pos.x,pos.y,pos.z]:null
++      };
++      updatePlayer(byName,state,demoTime,offset,tick,finite(row.matchTimeSeconds));
++    } else {
++      for (const state of row.players??[]) updatePlayer(byName,state,demoTime,offset,tick,null);
++    }
++  }
++  const matchEndSeconds=Math.max(0,endDemo-offset);
++  const players=[];
++  for (const p of byName.values()) {
++    closePlayerIntervals(p,endDemo);
++    p.aliveMinutes=p.aliveSeconds/60;
++    p.deadMinutes=p.deadSeconds/60;
++    p.aliveShare=safeDiv(p.aliveSeconds,p.aliveSeconds+p.deadSeconds);
++    p.averageLifeSeconds=mean(p.survivalIntervals);
++    p.totalRespawnDowntimeSeconds=p.respawnIntervals.reduce((a,b)=>a+b.duration,0);
++    p.matchMinutes=matchEndSeconds/60;
++    p.netWorthGainPerMinute=safeDiv((p.finalState?.goldNetWorth??0)-(p.initialState?.goldNetWorth??0),p.matchMinutes);
++    p.levelRatePerMinute=safeDiv((p.finalState?.level??0)-(p.initialState?.level??0),p.matchMinutes);
++    p.checkpoints=checkpointStates(p.timeline,CHECKPOINTS);
++    players.push(p);
++  }
++  const teamSeries=buildTeamSeries(players,matchEndSeconds);
++  return {players,startDemoSeconds:Number.isFinite(startDemo)?startDemo:0,endDemoSeconds:Number.isFinite(endDemo)?endDemo:0,matchEndSeconds,lastTick,teamSeries};
++}
++
++function updatePlayer(map,s,demoTime,offset,tick,matchTimeOverride=null) {
++  const name=s.playerName ?? s.steamId ?? `controller-${s.controllerEntityIndex}`;
++  let p=map.get(name);
++  if (!p) {
++    p={
++      playerName:name, team:s.team??null, heroId:s.heroId??null,
++      identity:{playerName:name,steamId:s.steamId??null,heroId:s.heroId??null,team:s.team??null,controllerEntityIndex:s.controllerEntityIndex??null,pawnEntityIndex:s.heroEntityIndex??null,laneColor:s.laneColor??null},
++      initialState:null,finalState:null,prev:null,aliveSeconds:0,deadSeconds:0,low25Seconds:0,low50Seconds:0,
++      minHealth:Infinity,maxHealth:-Infinity,minHealthMax:Infinity,maxHealthMax:-Infinity,
++      deathsObserved:[],respawnsObserved:[],survivalIntervals:[],respawnIntervals:[],levelTimings:{},timeline:[],lastSampleMatch:-Infinity,
++      lifeStartDemo:null,deathStartDemo:null
++    }; map.set(name,p);
++  }
++  const matchTime=matchTimeOverride ?? (demoTime-offset); const state=normalizeState(s,tick,demoTime,matchTime);
++  if (!p.initialState) { p.initialState=state; if(state.alive) p.lifeStartDemo=demoTime; else p.deathStartDemo=demoTime; }
++  if (p.prev) {
++    const dt=Math.max(0,demoTime-p.prev.demoTime);
++    if (p.prev.alive) p.aliveSeconds+=dt; else p.deadSeconds+=dt;
++    const ratio=(p.prev.healthMax>0)?p.prev.health/p.prev.healthMax:null;
++    if (ratio!==null && ratio<0.25) p.low25Seconds+=dt;
++    if (ratio!==null && ratio<0.50) p.low50Seconds+=dt;
++    if (p.prev.alive && !state.alive) {
++      p.deathsObserved.push({tick,time:matchTime,demoTime,health:s.health??null});
++      if (p.lifeStartDemo!==null) p.survivalIntervals.push(Math.max(0,demoTime-p.lifeStartDemo));
++      p.lifeStartDemo=null; p.deathStartDemo=demoTime;
++    }
++    if (!p.prev.alive && state.alive) {
++      const duration=p.deathStartDemo===null?null:Math.max(0,demoTime-p.deathStartDemo);
++      p.respawnsObserved.push({tick,time:matchTime,demoTime,duration});
++      if (duration!==null) p.respawnIntervals.push({startDemo:p.deathStartDemo,endDemo:demoTime,duration});
++      p.deathStartDemo=null; p.lifeStartDemo=demoTime;
++    }
++  }
++  if (Number.isFinite(s.health)) {p.minHealth=Math.min(p.minHealth,s.health);p.maxHealth=Math.max(p.maxHealth,s.health);}
++  if (Number.isFinite(s.healthMax)){p.minHealthMax=Math.min(p.minHealthMax,s.healthMax);p.maxHealthMax=Math.max(p.maxHealthMax,s.healthMax);}
++  if (s.level!==undefined && p.levelTimings[String(s.level)]===undefined && matchTime>=0) p.levelTimings[String(s.level)]={tick,time:matchTime};
++  if (matchTime>=0 && (matchTime-p.lastSampleMatch>=1 || p.timeline.length===0)) {
++    p.timeline.push(compactState(state)); p.lastSampleMatch=matchTime;
++  }
++  p.prev=state; p.finalState=state;
++}
++
++function closePlayerIntervals(p,endDemo) {
++  if (!p.prev) return;
++  const dt=Math.max(0,endDemo-p.prev.demoTime);
++  if (p.prev.alive) p.aliveSeconds+=dt; else p.deadSeconds+=dt;
++  const ratio=p.prev.healthMax>0?p.prev.health/p.prev.healthMax:null;
++  if (ratio!==null && ratio<.25)p.low25Seconds+=dt;if(ratio!==null&&ratio<.5)p.low50Seconds+=dt;
++}
++
++function normalizeState(s,tick,demoTime,matchTime){return{
++  tick:finite(tick),demoTime,matchTime,alive:Boolean(s.alive),health:finite(s.health),healthMax:finite(s.healthMax),healthRegen:finite(s.healthRegen),
++  level:finite(s.level),kills:finite(s.kills)??0,deaths:finite(s.deaths)??0,assists:finite(s.assists)??0,denies:finite(s.denies)??0,lastHits:finite(s.lastHits)??0,
++  goldNetWorth:finite(s.goldNetWorth)??0,apNetWorth:finite(s.apNetWorth)??0,respawnTime:finite(s.respawnTime),position:Array.isArray(s.position)?s.position.map(v=>finite(v)??0):null
++};}
++function compactState(s){return pick(s,['tick','matchTime','alive','health','healthMax','healthRegen','level','kills','deaths','assists','denies','lastHits','goldNetWorth','apNetWorth','respawnTime','position']);}
++
++function applyIntegrated(playerByName,integrated,offset,matchEnd){
++  if (!integrated) return;
++  const bridgeByPlayer=new Map();
++  for (const i of integrated.bridgeIntervals??[]) { const key=i.playerName??i.playerKey; if(!bridgeByPlayer.has(key))bridgeByPlayer.set(key,[]); bridgeByPlayer.get(key).push({...i,startTime:i.startTick/TICKS_PER_SECOND-offset,endTime:i.stateEndTick/TICKS_PER_SECOND-offset,durationSeconds:(i.stateEndTick-i.startTick)/TICKS_PER_SECOND}); }
++  for (const ip of integrated.players??[]) {
++    const name=ip.identity?.playerName??ip.playerKey; const p=playerByName.get(name); if(!p)continue;
++    const itemEvents=[]; const ownership=new Map(); const ownershipStart=new Map(); const ownershipIntervals=[]; const permanentEvents=[];
++    for (const e of ip.events??[]) {
++      const time=e.tick/TICKS_PER_SECOND-offset;
++      for (const item of e.itemAdds??[]) { ownership.set(item.itemId,item); ownershipStart.set(item.itemId,{time,tick:e.tick,item}); itemEvents.push({eventType:'ITEM_ADDED',time,tick:e.tick,item}); }
++      for (const item of e.itemRemoves??[]) { const start=ownershipStart.get(item.itemId); itemEvents.push({eventType:'ITEM_REMOVED',time,tick:e.tick,item}); if(start)ownershipIntervals.push({item:start.item,startTime:start.time,endTime:time,durationSeconds:time-start.time,endReason:'REMOVED'}); ownership.delete(item.itemId); ownershipStart.delete(item.itemId); }
++      if (e.causes?.includes('PERMANENT_WORLD_BUFF_STATE') && e.permanentBuffState) permanentEvents.push({tick:e.tick,time,state:e.permanentBuffState});
++    }
++    for (const start of ownershipStart.values()) ownershipIntervals.push({item:start.item,startTime:start.time,endTime:matchEnd,durationSeconds:Math.max(0,matchEnd-start.time),endReason:'REPLAY_END'});
++    const finalOwnership=ip.finalState?.authoritativeOwnership??{};
++    p.items={events:itemEvents,finalItems:finalOwnership.standardShopItems??[...ownership.values()],ownershipIntervals};
++    p.permanentBuffs={events:permanentEvents,final:finalOwnership.permanentWorldBuffs??{},summary:summarizePermanent(finalOwnership.permanentWorldBuffs??{})};
++    p.bridgeBuffs={intervals:bridgeByPlayer.get(name)??[],finalActive:finalOwnership.activeBridgeBuffs??[]};
++  }
++}
++
++function summarizePermanent(state){const families={};let totalUnits=0;for(const [key,v] of Object.entries(state??{})){const units=finite(v?.inferredUnits)??0;families[key]={inferredUnits:units,totalValue:finite(v?.totalValue)??0,rows:v?.rows??[]};totalUnits+=units;}return{totalUnits,families};}
++
++function applyBehavioral(playerByName,behavioral,resourceFeatures){
++  for(const b of behavioral?.players??[]){const p=playerByName.get(b.playerName);if(!p)continue;p.behavioral={movement:b.movement??{},resourceExposure:b.resourceExposure??{},breakables:b.knownBreakableActions??{},melee:b.melee??{},soulOrbs:b.soulOrbBehavior??{}};}
++  for(const r of resourceFeatures?.players??[]){const p=playerByName.get(r.playerName);if(p)p.resourceFeatures=r;}
++}
++function applyRewards(playerByName,rewardSummary,breakSummary){
++  for(const c of rewardSummary?.collectors??[]){const p=playerByName.get(c.playerName);if(p)p.rewardCollector=c;}
++  for(const bp of breakSummary?.players??[]){const name=bp.playerName;const p=playerByName.get(name);if(p)p.breakableAction=bp;}
++}
++function applyCitemxp(playerByName,citemxp){
++  if(!citemxp)return; const agg=new Map();
++  for(const e of citemxp.events??[]){const names=new Set([e.winnerPlayerName,e.firstHitPlayerName].filter(Boolean));for(const name of names){const a=agg.get(name)??{events:0,shotEvents:0,secure:0,deny:0,claim:0,mixedTeam:0,bySource:{},byOutcome:{}};a.events++;if(e.shotObserved)a.shotEvents++;if(e.mixedTeamRace)a.mixedTeam++;const out=e.outcomeLabel??e.outcomeFamily??'UNRESOLVED';a.byOutcome[out]=(a.byOutcome[out]??0)+1;if(String(out).includes('SECURE'))a.secure++;if(String(out).includes('DENY'))a.deny++;if(String(out).includes('CLAIM'))a.claim++;const src=e.sourceType??'UNKNOWN';a.bySource[src]=(a.bySource[src]??0)+1;agg.set(name,a);}}
++  for(const [name,a] of agg){const p=playerByName.get(name);if(p)p.citemxp=a;}
++}
++function applyGroundSouls(playerByName,summary){
++  const counts=summary?.vacuumTargets?.playerCounts??{};
++  if(Array.isArray(counts)){for(const row of counts){const p=playerByName.get(row.playerName??row.name);if(p)p.groundSoulTargets=finite(row.count)??finite(row.groundSouls)??0;}}
++  else if(counts&&typeof counts==='object'){for(const [name,n] of Object.entries(counts)){const p=playerByName.get(name);if(p)p.groundSoulTargets=finite(n)??0;}}
++}
++
++async function aggregateWeaponEvents(path,playerByName,offset){
++  if(!existsSync(path))return null; const byPlayer={};let discharges=0,reloadTransitions=0,events=0;
++  for await(const e of readJsonl(path)){events++;const name=e.playerName??e.playerKey;if(!name)continue;const a=byPlayer[name]??={events:0,discharges:0,reloadTransitions:0,fireModeChanges:0,readyDelays:[],interAttackIntervals:[],lastDischargeTime:null,lastFireMode:null};a.events++;
++    const time=finite(e.time)??(finite(e.tick)!==null?e.tick/TICKS_PER_SECOND:null);const mt=time===null?null:time-offset;
++    const discharge=Boolean(e.discharge ?? e.transition?.actualDischargeSignal);
++    if(discharge){discharges++;a.discharges++;if(mt!==null&&a.lastDischargeTime!==null&&mt>=a.lastDischargeTime)a.interAttackIntervals.push(mt-a.lastDischargeTime);a.lastDischargeTime=mt;
++      const before=e.directRuntime?.before??{},after=e.directRuntime?.after??{};const last=finite(after.lastAttackTime??after.m_flLastAttackTime??e.observedWeaponState?.lastAttackTime);const next=finite(after.nextPrimaryAttack??after.m_flNextPrimaryAttack??e.observedWeaponState?.nextPrimaryAttack);const candidate=finite(e.transition?.readyDelayCandidateSeconds);if(candidate!==null&&candidate>=0)a.readyDelays.push(candidate);else if(last!==null&&next!==null&&next>=last)a.readyDelays.push(next-last);
++    }
++    if(e.transition?.reloadTransition || e.eventType==='RELOAD_STATE_CHANGE'||e.eventType==='RELOAD_START'||e.eventType==='RELOAD_END'){reloadTransitions++;a.reloadTransitions++;}
++    const fireMode=finite(e.observedWeaponState?.activeFireMode ?? e.directRuntime?.after?.activeFireMode);
++    if(fireMode!==null){if(a.lastFireMode!==null&&fireMode!==a.lastFireMode)a.fireModeChanges++;a.lastFireMode=fireMode;}
++  }
++  for(const [name,a] of Object.entries(byPlayer)){a.meanInterAttackSeconds=mean(a.interAttackIntervals);a.medianInterAttackSeconds=median(a.interAttackIntervals);a.meanReadyDelaySeconds=mean(a.readyDelays);a.medianReadyDelaySeconds=median(a.readyDelays);a.interAttackSampleCount=a.interAttackIntervals.length;a.readyDelaySampleCount=a.readyDelays.length;delete a.interAttackIntervals;delete a.readyDelays;delete a.lastDischargeTime;delete a.lastFireMode;const p=playerByName.get(name);if(p)p.weapon=a;}
++  return {events,discharges,reloadTransitions,byPlayer};
++}
++
++async function aggregateTroopers(path){
++  if(!existsSync(path))return null;const byBaseType={},byVariant={},byTeam={},byLane={};let deaths=0;
++  for await(const r of readJsonl(path)){
++    deaths++;
++    inc(byBaseType,r.trooper?.baseType??r.baseType??r.type??r.trooperType??'UNRESOLVED');
++    inc(byVariant,r.variant?.label??r.variant??'UNRESOLVED');
++    inc(byTeam,String(r.trooper?.team??r.team??'UNKNOWN'));
++    inc(byLane,String(r.trooper?.lane??r.lane??r.laneColor??'UNKNOWN'));
++  }
++  return{deaths,byBaseType,byVariant,byTeam,byLane};
++}
++
++function finalizePlayer(p,core){
++  const f=p.finalState??{};const minutes=Math.max(core.matchEndSeconds/60,1e-9);const deaths=f.deaths??p.deathsObserved.length;
++  p.scoreboard={kills:f.kills??0,deaths,assists:f.assists??0,lastHits:f.lastHits??0,denies:f.denies??0,goldNetWorth:f.goldNetWorth??0,apNetWorth:f.apNetWorth??0,
++    kd:safeDiv(f.kills??0,Math.max(deaths,1)),kda:safeDiv((f.kills??0)+(f.assists??0),Math.max(deaths,1)),killsPerMinute:(f.kills??0)/minutes,assistsPerMinute:(f.assists??0)/minutes,lastHitsPerMinute:(f.lastHits??0)/minutes,deniesPerMinute:(f.denies??0)/minutes};
++  p.core={level:f.level,alive:f.alive,health:f.health,healthMax:f.healthMax,healthPercent:f.healthMax>0?f.health/f.healthMax:null,healthRegen:f.healthRegen,
++    aliveSeconds:p.aliveSeconds,deadSeconds:p.deadSeconds,aliveShare:p.aliveShare,deathsObserved:p.deathsObserved.length,deathTimings:p.deathsObserved,respawns:p.respawnsObserved,
++    survivalIntervals:p.survivalIntervals,averageLifeSeconds:p.averageLifeSeconds,totalRespawnDowntimeSeconds:p.totalRespawnDowntimeSeconds,
++    minHealth:Number.isFinite(p.minHealth)?p.minHealth:null,maxHealth:Number.isFinite(p.maxHealth)?p.maxHealth:null,low25Seconds:p.low25Seconds,low50Seconds:p.low50Seconds,
++    levelTimings:p.levelTimings,levelRatePerMinute:p.levelRatePerMinute,netWorthGainPerMinute:p.netWorthGainPerMinute,checkpoints:p.checkpoints};
++  const mv=p.behavioral?.movement??{};p.movement={...mv,distancePerMinute:safeDiv(mv.travelDistanceXY,minutes),distancePerAliveMinute:safeDiv(mv.travelDistanceXY,p.aliveMinutes),movingShare:mv.validMovementSeconds?safeDiv(mv.movingSeconds,mv.validMovementSeconds):null};
++  p.rank={};
++  return p;
++}
++
++function finalizeTeams(players,series){
++  const grouped=new Map();for(const p of players){const t=String(p.team);if(!grouped.has(t))grouped.set(t,[]);grouped.get(t).push(p);}
++  const finalTeams={};
++  for(const [team,ps] of grouped){finalTeams[team]={team:Number(team),players:ps.map(p=>p.playerName),goldNetWorth:sum(ps,p=>p.scoreboard.goldNetWorth),apNetWorth:sum(ps,p=>p.scoreboard.apNetWorth),level:sum(ps,p=>p.core.level??0),kills:sum(ps,p=>p.scoreboard.kills),deaths:sum(ps,p=>p.scoreboard.deaths),assists:sum(ps,p=>p.scoreboard.assists),lastHits:sum(ps,p=>p.scoreboard.lastHits),denies:sum(ps,p=>p.scoreboard.denies),permanentBuffUnits:sum(ps,p=>p.permanentBuffs?.summary?.totalUnits??0),bridgeUptimeSeconds:sum(ps,p=>(p.bridgeBuffs?.intervals??[]).reduce((a,b)=>a+(b.durationSeconds??0),0))};}
++  const teamIds=Object.keys(finalTeams); if(teamIds.length===2){for(const team of teamIds){const other=teamIds.find(x=>x!==team);finalTeams[team].goldNetWorthDiff=finalTeams[team].goldNetWorth-finalTeams[other].goldNetWorth;}}
++  const advantage={};for(const team of teamIds)advantage[team]={aheadSeconds:0,behindSeconds:0,tiedSeconds:0,maxLead:0,maxDeficit:0,minDiff:Infinity,maxDiff:-Infinity};
++  for(let i=0;i<series.length-1;i++){const row=series[i],next=series[i+1],dt=Math.max(0,next.time-row.time);for(const team of teamIds){const other=teamIds.find(x=>x!==team);if(!other)continue;const diff=(row.teams?.[team]?.goldNetWorth??0)-(row.teams?.[other]?.goldNetWorth??0);const a=advantage[team];if(diff>0)a.aheadSeconds+=dt;else if(diff<0)a.behindSeconds+=dt;else a.tiedSeconds+=dt;a.maxLead=Math.max(a.maxLead,diff);a.maxDeficit=Math.min(a.maxDeficit,diff);a.minDiff=Math.min(a.minDiff,diff);a.maxDiff=Math.max(a.maxDiff,diff);}}
++  for(const team of teamIds){advantage[team].largestSwing=(Number.isFinite(advantage[team].maxDiff)&&Number.isFinite(advantage[team].minDiff))?advantage[team].maxDiff-advantage[team].minDiff:null;finalTeams[team].advantage=advantage[team];}
++  const matchRank=[...players].sort((a,b)=>b.scoreboard.goldNetWorth-a.scoreboard.goldNetWorth);matchRank.forEach((p,i)=>p.rank.matchNetWorth=i+1);
++  for(const ps of grouped.values()){[...ps].sort((a,b)=>b.scoreboard.goldNetWorth-a.scoreboard.goldNetWorth).forEach((p,i)=>p.rank.teamNetWorth=i+1);for(const p of ps)p.teamNetWorthShare=safeDiv(p.scoreboard.goldNetWorth,finalTeams[String(p.team)].goldNetWorth);}
++  return Object.values(finalTeams);
++}
++
++function buildTeamSeries(players,matchEndSeconds){
++  const out=[];const end=Math.max(0,Math.floor(matchEndSeconds));
++  const cursors=new Map(players.map(p=>[p.playerName,0]));
++  for(let sec=0;sec<=end;sec++){
++    const teams={};
++    for(const p of players){
++      const tl=p.timeline??[];if(!tl.length)continue;let i=cursors.get(p.playerName)??0;
++      while(i+1<tl.length&&tl[i+1].matchTime<=sec)i++;cursors.set(p.playerName,i);const st=tl[i];
++      if(st.matchTime>sec)continue;
++      const team=String(p.team??'unknown');teams[team]??={goldNetWorth:0,apNetWorth:0,level:0,alive:0,players:0};
++      const t=teams[team];t.goldNetWorth+=st.goldNetWorth??0;t.apNetWorth+=st.apNetWorth??0;t.level+=st.level??0;t.alive+=st.alive?1:0;t.players++;
++    }
++    out.push({time:sec,tick:Math.round((sec+30)*TICKS_PER_SECOND),teams});
++  }
++  return out;
++}
++
++function checkpointStates(timeline,points){const out={};for(const sec of points){let best=null;for(const s of timeline){if(s.matchTime<=sec)best=s;else break;}if(best)out[String(sec)]={time:best.matchTime,level:best.level,goldNetWorth:best.goldNetWorth,apNetWorth:best.apNetWorth,kills:best.kills,deaths:best.deaths,assists:best.assists,lastHits:best.lastHits,denies:best.denies,health:best.health,healthMax:best.healthMax};}return out;}
++function finite(v){const n=Number(v);return Number.isFinite(n)?n:null;}
++function safeDiv(a,b){return Number.isFinite(Number(a))&&Number.isFinite(Number(b))&&Number(b)!==0?Number(a)/Number(b):null;}
++function mean(a){const b=(a??[]).filter(Number.isFinite);return b.length?b.reduce((x,y)=>x+y,0)/b.length:null;}
++function median(a){const b=(a??[]).filter(Number.isFinite).sort((x,y)=>x-y);if(!b.length)return null;const m=Math.floor(b.length/2);return b.length%2?b[m]:(b[m-1]+b[m])/2;}
++function sum(a,f){return a.reduce((n,x)=>n+(Number(f(x))||0),0);}
++function inc(o,k){o[k]=(o[k]??0)+1;}
++function pick(o,keys){return Object.fromEntries(keys.map(k=>[k,o?.[k]]));}
++function safeName(s){return String(s).replace(/[^A-Za-z0-9._-]/g,'_');}
+diff --git a/inspector-v04/pipeline.json b/inspector-v04/pipeline.json
+new file mode 100644
+index 0000000..6adbff8
+--- /dev/null
++++ b/inspector-v04/pipeline.json
+@@ -0,0 +1,9 @@
++{
++  "version": "INSPECTOR_REPLAY_PROCESSING_MANIFEST_V01",
++  "stopOnRequiredFailure": true,
++  "notes": [
++    "This manifest is intentionally explicit. Historical numbered research scripts are not automatically run as a production ETL.",
++    "Add only current/replay-safe processing entrypoints as they are consolidated. The UI exposes every step result instead of silently fabricating missing metrics."
++  ],
++  "steps": []
++}
+diff --git a/inspector-v04/public/app.js b/inspector-v04/public/app.js
+new file mode 100644
+index 0000000..f9e65eb
+--- /dev/null
++++ b/inspector-v04/public/app.js
+@@ -0,0 +1,132 @@
++const $=s=>document.querySelector(s);
++const state={replays:[],replay:null,model:null,player:null,time:0,tab:'overview',registry:[],evidence:null,evidenceOffset:0,evidenceLimit:75};
++const tabs=[
++  ['overview','Overview'],['economy','Economy'],['builds','Builds'],['buffs','Buffs'],['movement','Movement'],['melee','Melee'],
++  ['resources','Resources'],['souls','Troopers & Souls'],['fire','Primary Fire'],['metrics','All A/B Metrics'],['evidence','Evidence'],['health','Source Health']
++];
++
++boot();
++async function boot(){
++  bind();
++  state.registry=(await api('/api/metrics')).sections;
++  renderTabs();
++  await refreshReplays();
++}
++function bind(){
++  $('#replaySelect').addEventListener('change',e=>loadReplay(e.target.value));
++  $('#playerSelect').addEventListener('change',e=>{state.player=e.target.value;render();});
++  $('#timeSlider').addEventListener('input',e=>{state.time=Number(e.target.value);updateTime();render(false);});
++  $('#jumpLive').addEventListener('click',()=>{state.time=state.model?.match?.matchDurationSeconds??0;$('#timeSlider').value=state.time;updateTime();render(false);});
++  $('#refreshBtn').addEventListener('click',()=>state.replay&&loadReplay(state.replay,true));
++  $('#importBtn').addEventListener('click',()=>$('#replayFile').click());
++  $('#replayFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(file)await importReplay(file);e.target.value='';});
++  $('#closeDrawer').addEventListener('click',closeDrawer);$('#scrim').addEventListener('click',closeDrawer);
++  $('#prevEvidence').addEventListener('click',()=>{state.evidenceOffset=Math.max(0,state.evidenceOffset-state.evidenceLimit);loadEvidence();});
++  $('#nextEvidence').addEventListener('click',()=>{state.evidenceOffset+=state.evidenceLimit;loadEvidence();});
++}
++function renderTabs(){
++  $('#tabs').innerHTML=tabs.map(([id,label])=>`<button class="tab ${id===state.tab?'active':''}" data-tab="${id}">${label}</button>`).join('');
++  $('#tabs').querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{state.tab=b.dataset.tab;renderTabs();render();});
++}
++async function refreshReplays(){
++  const data=await api('/api/replays');state.replays=data.replays??[];
++  $('#replaySelect').innerHTML=state.replays.map(r=>`<option value="${esc(r.name)}">${esc(r.name)} · ${r.ready}/${r.total}</option>`).join('');
++  if(state.replays.length)await loadReplay(state.replay&&state.replays.some(r=>r.name===state.replay)?state.replay:state.replays[0].name);
++  else $('#main').innerHTML='<div class="empty">No replay output directories found.</div>';
++}
++async function loadReplay(name,force=false){
++  if(!name)return;state.replay=name;$('#main').innerHTML='<div class="loading">Building match model… first load can scan large JSONL files.</div>';
++  try{state.model=await api(`/api/replay/${encodeURIComponent(name)}/model${force?'?force=1':''}`);state.time=state.model.match.matchDurationSeconds??0;
++    const ps=state.model.players??[];state.player=ps.some(p=>p.playerName===state.player)?state.player:ps[0]?.playerName??null;
++    $('#playerSelect').innerHTML=ps.map(p=>`<option value="${esc(p.playerName)}">T${p.team} · H${p.heroId} · ${esc(p.playerName)}</option>`).join('');$('#playerSelect').value=state.player??'';
++    $('#timeSlider').max=Math.max(1,state.model.match.matchDurationSeconds??1);$('#timeSlider').value=state.time;updateTime();render();
++  }catch(e){$('#main').innerHTML=`<div class="warning-box danger-box"><strong>Replay model failed</strong><br>${esc(e.message)}</div>`;}
++}
++function render(heavy=true){
++  if(!state.model)return;const p=currentPlayer();
++  const views={overview:()=>overview(p),economy:()=>economy(p),builds:()=>builds(p),buffs:()=>buffs(p),movement:()=>movement(p),melee:()=>melee(p),resources:()=>resources(p),souls:()=>souls(p),fire:()=>fire(p),metrics:()=>metricsCatalog(p),evidence:()=>evidenceHub(p),health:()=>health()};
++  $('#main').innerHTML=(views[state.tab]??views.overview)();
++  wireEvidence();
++}
++function currentPlayer(){return state.model.players.find(p=>p.playerName===state.player)??state.model.players[0];}
++function currentState(p){if(!p?.timeline?.length)return null;let best=p.timeline[0];for(const s of p.timeline){if(s.matchTime<=state.time)best=s;else break;}return best;}
++function updateTime(){const p=currentPlayer(),s=currentState(p);$('#timeClock').textContent=clock(state.time,true);$('#tickReadout').textContent=s?.tick!=null?`tick ${s.tick}`:'tick —';}
++
++function playerHero(p){const s=currentState(p),items=itemsAt(p,state.time),bridges=bridgesAt(p,state.time);return `<div class="hero-row">
++  <div class="hero-card"><div class="eyebrow">Selected player · Team ${p.team}</div><h1>${esc(p.playerName)}</h1><div class="meta"><span>Hero ${p.heroId}</span><span>Steam ${esc(p.identity.steamId??'—')}</span><span>${s?.alive?'ALIVE':'DEAD'}</span></div></div>
++  ${stat('Level',fmt(s?.level),'A',`Final ${fmt(p.core.level)}`)}${stat('Health',s?.healthMax?`${fmt(s.health)} / ${fmt(s.healthMax)}`:'—','A',pct(s?.healthMax?s.health/s.healthMax:null))}
++  ${stat('Net worth',num(s?.goldNetWorth),'A',`final ${num(p.scoreboard.goldNetWorth)}`)}${stat('Owned items',items.length,'A',`${bridges.length} bridge buff${bridges.length===1?'':'s'} active`)}</div>`;}
++function overview(p){const s=currentState(p),team=teamOf(p);return playerHero(p)+section('Scoreboard & survival','Observed controller counters plus authoritative life-state transitions',`<div class="grid">
++  ${metricCard('kills',p.scoreboard.kills,'scoreboard')}${metricCard('deaths_scoreboard',p.scoreboard.deaths,'scoreboard')}${metricCard('assists',p.scoreboard.assists,'scoreboard')}${metricCard('kda',fmt(p.scoreboard.kda,2),'scoreboard')}
++  ${metricCard('last_hits',p.scoreboard.lastHits,'scoreboard')}${metricCard('denies',p.scoreboard.denies,'scoreboard')}${metricCard('alive_time',duration(p.core.aliveSeconds),'playerState')}${metricCard('dead_time',duration(p.core.deadSeconds),'playerState')}
++  ${metricCard('alive_share',pct(p.core.aliveShare),'playerState')}${metricCard('average_life',duration(p.core.averageLifeSeconds),'playerState')}${metricCard('respawn_downtime',duration(p.core.totalRespawnDowntimeSeconds),'playerState')}${metricCard('low_health_25',duration(p.core.low25Seconds),'playerState')}
++</div>`)+section('Current state at scrubber',clock(state.time),`<div class="grid">${stat('Alive',s?.alive?'Yes':'No','A')}${stat('Health regen',fmt(s?.healthRegen,2),'A')}${stat('AP net worth',num(s?.apNetWorth),'A')}${stat('Match net-worth rank',`#${p.rank.matchNetWorth}`,'A',`#${p.rank.teamNetWorth} on team`)} </div>`)+section('Quick timelines','Scrub the global time control to inspect the same moment',`<div class="grid two"><div class="panel"><div class="eyebrow">Net worth</div>${lineChart(p.timeline,'matchTime','goldNetWorth',state.time)}</div><div class="panel"><div class="eyebrow">Health</div>${lineChart(p.timeline,'matchTime','health',state.time)}</div></div>`)+cautionStrip();}
++
++function economy(p){const team=teamOf(p);return playerHero(p)+section('Player economy','Net-worth telemetry; gain rate is deliberately not labeled Souls/min',`<div class="grid">
++ ${metricCard('gold_networth',num(p.scoreboard.goldNetWorth),'playerState')}${metricCard('ap_networth',num(p.scoreboard.apNetWorth),'playerState')}${metricCard('networth_rate',`${num(p.core.netWorthGainPerMinute)} / min`,'playerState')}${metricCard('player_team_share',pct(p.teamNetWorthShare),'playerState')}
++ ${metricCard('networth_rank',`#${p.rank.matchNetWorth} match`,'playerState',`#${p.rank.teamNetWorth} team`)}${metricCard('last_hits_rate',fmt(p.scoreboard.lastHitsPerMinute,2),'scoreboard')}${metricCard('denies_rate',fmt(p.scoreboard.deniesPerMinute,2),'scoreboard')}${metricCard('level_rate',fmt(p.core.levelRatePerMinute,2),'playerState')}
++ </div>`)+section('Team advantage','Time integrated from sampled team net-worth differential',`<div class="grid">${metricCard('team_networth',num(team?.goldNetWorth),'playerState')}${metricCard('team_networth_diff',signed(team?.goldNetWorthDiff),'playerState')}${metricCard('team_ahead_time',duration(team?.advantage?.aheadSeconds),'playerState')}${metricCard('team_behind_time',duration(team?.advantage?.behindSeconds),'playerState')}${metricCard('max_team_lead',num(team?.advantage?.maxLead),'playerState')}${metricCard('max_team_deficit',num(team?.advantage?.maxDeficit),'playerState')}${metricCard('largest_lead_swing',num(team?.advantage?.largestSwing),'playerState')}</div>`)+section('Net worth timeline','Player observed runtime',`<div class="panel chart">${lineChart(p.timeline,'matchTime','goldNetWorth',state.time,true)}</div>`)+checkpointTable(p);}
++
++function builds(p){const current=itemsAt(p,state.time),events=p.items?.events??[];return playerHero(p)+section('Build at selected time',`${clock(state.time)} · authoritative standard-shop ownership`,`<div class="panel"><div class="item-list">${current.length?current.map(i=>itemPill(i)).join(''):'<span class="muted">No owned standard-shop items at this time.</span>'}</div></div>`)+section('Final build','Replay-end ownership',`<div class="panel"><div class="item-list">${(p.items?.finalItems??[]).map(itemPill).join('')}</div></div>`)+section('Acquisition / removal timeline','Removal is intentionally NOT labeled sale',table(['Time','Event','Item','Tier','Price'],events.map(e=>[clock(e.time),e.eventType,e.item?.recordKey,e.item?.itemTier,num(e.item?.shopPrice)]),true,'items'))+section('Ownership durations','Observed add→remove/replay-end intervals',table(['Item','Start','End','Duration','End reason'],(p.items?.ownershipIntervals??[]).map(x=>[x.item?.recordKey,clock(x.startTime),clock(x.endTime),duration(x.durationSeconds),x.endReason])));}
++
++function buffs(p){const perm=p.permanentBuffs?.summary,bridges=p.bridgeBuffs?.intervals??[],active=bridgesAt(p,state.time),team=teamOf(p);const permNow=permanentAt(p,state.time);return playerHero(p)+section('Permanent world buffs','Authoritative cumulative runtime state across six validated families',`<div class="grid">${metricCard('permanent_count',perm?.totalUnits??0,'items')}${Object.entries(permNow??{}).map(([k,v])=>stat(pretty(k),`${v.inferredUnits??0} unit${v.inferredUnits===1?'':'s'}`,'A',`value ${fmt(v.totalValue,2)}`)).join('')}</div>`)+section('Bridge buffs at selected time',`${active.length} active`,`<div class="panel">${active.length?active.map(x=>`<span class="pill active">${esc(pretty(x.buffType??x.recordKey))} · until ${clock(x.endTime)}</span>`).join(''):'<span class="muted">No bridge buff active at this time.</span>'}</div>`)+section('Bridge interval history','Death termination and censoring remain explicit',table(['Buff','Start','End','Duration','Termination'],bridges.map(x=>[pretty(x.buffType??x.recordKey),clock(x.startTime),clock(x.endTime),duration(x.durationSeconds),x.terminationReason]),true,'items'))+section('Team buff totals','Aggregate ownership/uptime',`<div class="grid">${stat('Team permanent units',team?.permanentBuffUnits??0,'A')}${stat('Team bridge uptime',duration(team?.bridgeUptimeSeconds),'A')}</div>`);}
++
++function movement(p){const m=p.movement??{};return playerHero(p)+section('Movement summary','Behavioral movement substrate; invalid spatial jumps are not treated as legitimate travel',`<div class="grid">
++ ${metricCard('xy_distance',num(m.travelDistanceXY),'resources','HU')}${metricCard('xyz_distance',num(m.travelDistance3D),'resources','HU')}${metricCard('distance_per_min',num(m.distancePerMinute),'resources','HU/min')}${metricCard('distance_per_alive_min',num(m.distancePerAliveMinute),'resources','HU/alive min')}
++ ${metricCard('mean_xy_speed',num(m.meanSpeedXY),'resources','HU/s')}${metricCard('mean_xyz_speed',num(m.meanSpeed3D),'resources','HU/s')}${metricCard('moving_time',duration(m.movingSeconds),'resources')}${metricCard('moving_share',pct(m.movingShare),'resources')}${metricCard('low_motion_time',duration(m.lowMotionSeconds),'resources')}${metricCard('low_motion_share',pct(m.lowMotionShare),'resources')}
++ </div>`)+section('Observed position trajectory','Coordinates from player-state telemetry; this is a diagnostic coordinate plane, not yet a Deadlock map',`<div class="panel chart">${trajectoryChart(p.timeline,state.time)}</div>`);}
++
++function melee(p){const m=p.behavioral?.melee??{};const by=m.byType??{};return playerHero(p)+section('Melee actions','Confirmed hit rate applies only to detected melee events',`<div class="grid">${metricCard('melee_attacks',m.total??0,'melee')}${metricCard('melee_hits',m.confirmedHits??0,'melee')}${metricCard('melee_hit_rate',pct(m.hitRate),'melee')}${metricCard('melee_per_alive_min',fmt(m.attacksPerAliveMinute,2),'melee')}${metricCard('light_melee',by.LIGHT??0,'melee')}${metricCard('heavy_melee',by.HEAVY??0,'melee')}${metricCard('air_heavy_melee',by.HEAVY_AIR??0,'melee')}</div>`)+evidenceButton('Inspect melee events','melee');}
++
++function resources(p){const r=p.resourceFeatures??{},b=r.breakables??{},c=r.camps??{},ba=p.behavioral?.breakables??{},rc=p.rewardCollector??{};return playerHero(p)+section('Breakable actions','Known attributed breaks',`<div class="grid">${metricCard('breakable_breaks',ba.totalKnownBreaks??0,'breakables')}${metricCard('crate_breaks',ba.crates??0,'breakables')}${metricCard('statue_breaks',ba.statues??0,'breakables')}${metricCard('melee_breaks',ba.meleeBreaks??0,'breakables')}${metricCard('bullet_breaks',ba.bulletBreaks??0,'breakables')}${metricCard('breaks_per_alive_min',fmt(ba.knownBreaksPerAliveMinute,2),'breakables')}${metricCard('soul_value_generated',num(ba.crateSoulsProduced),'breakables')}${metricCard('modifier_reward_spawns',ba.statueModifiersProduced??0,'breakables')}</div>`)+section('Reward acquisition','Collection is independent from breaking',`<div class="grid">${metricCard('reward_collected',rc.totalRewardsCollected??0,'rewards')}${metricCard('soul_value_collected',num(rc.crateSoulsAcquired),'rewards')}${metricCard('permanent_rewards_collected',rc.statueBuffPickups??0,'rewards')}${metricCard('breaker_same_collector',rc.collectedOwnBreakReward??0,'rewards')}${metricCard('breaker_other_collector',rc.collectedOtherPlayersBreakReward??0,'rewards')}</div>`)+section('Exposure & accessibility','Spatially calibrated working metrics — NOT “missed farm”',`<div class="grid">${metricCard('resource_exposure',r.totalEpisodes??0,'resources')}${metricCard('breakable_exposure',b.broadEpisodes??0,'resources')}${metricCard('breakable_close_access',b.closeAccessEpisodes??0,'resources')}${metricCard('breakable_core_access',b.coreAccessEpisodes??0,'resources')}${metricCard('camp_exposure',c.broadEpisodes??0,'resources')}${metricCard('camp_close_access',c.closeAccessEpisodes??0,'resources')}${metricCard('camp_core_proximity',c.coreProximityEpisodes??0,'resources')}${metricCard('self_break_after_exposure',b.knownSelfBreaks??0,'resources')}${metricCard('left_available',r.outcomes?.LEFT_AVAILABLE??0,'resources')}${metricCard('other_player_break',r.outcomes?.OTHER_PLAYER_BREAK??0,'resources')}${metricCard('death_during_exposure',r.outcomes?.PLAYER_DEAD??0,'resources')}${metricCard('camp_clear_during_exposure',c.clearDuringEpisode??0,'resources')}${metricCard('camp_clear_during_exposure_rate',pct(c.clearShareOfCoreProximity),'resources')}</div><div class="warning-box"><strong>Semantic boundary:</strong> CLEAR DURING EXPOSURE is environmental coincidence within the calibrated interval. It does not prove this player cleared the camp.</div>`)+section('Map resource catalog','Persistent breakables known in this replay',`<div class="grid">${metricCard('breakable_slots',state.model.breakables?.persistentSlots??'—','breakables')}${stat('Type counts',objectInline(state.model.breakables?.typeCounts),'B')}${stat('Respawn cycle',`${state.model.breakables?.respawnSeconds??'—'} s`,'B')}</div>`)+`<div class="section"><div class="grid two">${evidenceButton('Inspect break events','breakables')}${evidenceButton('Inspect reward lifecycles','rewards')}</div></div>`;}
++
++function souls(p){const t=state.model.troopers??{},g=state.model.groundSouls??{},c=p.citemxp??{},global=state.model.citemxp?.summary??{},aa=state.model.autoAwards??{};return playerHero(p)+section('Typed Troopers','Replay-level typed lifecycle stream',`<div class="grid">${metricCard('trooper_deaths',t.deaths??'—','troopers')}${metricCard('economic_trooper_deaths',g.deathEligibility?.eligibleEconomicDeaths??'—','groundSouls')}${stat('By base type',objectInline(t.byBaseType),'B')}${stat('By variant',objectInline(t.byVariant),'B')}</div>`)+section('Ground soul one-to-one model','Unmatched eligible deaths remain unresolved, not “missed souls”',`<div class="grid">${metricCard('ground_soul_eligible',g.deathEligibility?.eligibleEconomicDeaths??'—','groundSouls')}${metricCard('ground_soul_matched',g.oneToOneResults?.matchedDeaths??'—','groundSouls')}${metricCard('ground_soul_unmatched',g.oneToOneResults?.unmatchedEligibleDeaths??'—','groundSouls')}${metricCard('ground_soul_vacuum_target',p.groundSoulTargets??0,'groundSouls')}</div><div class="warning-box"><strong>Semantic boundary:</strong> vacuum target = TARGETED TO PLAYER. It is not labeled final ground-soul collection.</div>`)+section('Flying soul-orb behavior','Player-linked validated CItemXP actions',`<div class="grid">${metricCard('trooper_orbs',global.bySource?.TROOPER_DEATH??global.bySource?.trooper??'—','orbs')}${metricCard('orb_shooter',c.shotEvents??0,'orbs')}${metricCard('orb_secure',c.secure??p.behavioral?.soulOrbs?.creditedOutcomes?.SECURE??0,'orbs')}${metricCard('orb_deny',c.deny??p.behavioral?.soulOrbs?.creditedOutcomes?.DENY??0,'orbs')}${metricCard('orb_mixed_team',c.mixedTeam??0,'orbs')}${stat('Orb engagements',p.behavioral?.soulOrbs?.totalOrbEngagements??0,'B')}${stat('Damage messages',p.behavioral?.soulOrbs?.totalDamageMessages??0,'B')}${stat('Resolution credit rate',pct(p.behavioral?.soulOrbs?.resolutionCreditRateAmongEngagements),'B')}</div>`)+section('Automatic no-shot awards','Categories stay separate',`<div class="grid">${metricCard('auto_award_validated',aa.counts?.AUTO_AWARD_VALIDATED??0,'autoAwards')}${metricCard('auto_award_probable',aa.counts?.AUTO_AWARD_PROBABLE??0,'autoAwards')}${metricCard('auto_award_collision',aa.counts?.ECONOMY_COLLISION??0,'autoAwards')}${metricCard('auto_award_unresolved',aa.counts?.UNRESOLVED??0,'autoAwards')}</div>`)+`<div class="section"><div class="grid three">${evidenceButton('Inspect soul-orb episodes','orbs')}${evidenceButton('Inspect ground-soul matches','groundSouls')}${evidenceButton('Inspect automatic awards','autoAwards')}</div></div>`;}
++
++function fire(p){const w=p.weapon??{};return playerHero(p)+section('Primary-fire cadence','Discharge/ready schedule is authoritative; reload/fire mode remain observed working telemetry',`<div class="grid">${metricCard('primary_discharges',w.discharges??0,'weapon')}${metricCard('primary_attack_rate',fmt(safeDiv(w.discharges,p.aliveMinutes),2),'weapon')}${metricCard('inter_attack_interval',`${fmt(w.medianInterAttackSeconds,4)} s median`,'weapon',`mean ${fmt(w.meanInterAttackSeconds,4)} s`)}${metricCard('ready_delay',`${fmt(w.medianReadyDelaySeconds,4)} s median`,'weapon',`mean ${fmt(w.meanReadyDelaySeconds,4)} s`)}${metricCard('reload_state',w.reloadTransitions??0,'weapon')}${metricCard('active_fire_mode',w.fireModeChanges??0,'weapon','mode-change events')}</div><div class="warning-box">Exact current ammo, effective magazine size, and effective DPS are intentionally absent. Those remain experimental/unresolved.</div>`)+evidenceButton('Inspect primary weapon runtime events','weapon');}
++
++function metricsCatalog(p){const healthByFile=new Map((state.model.sourceHealth??[]).map(x=>[x.file,x]));return `<div class="section-head"><div><h2>Complete A/B metric registry</h2><p>${state.registry.reduce((n,s)=>n+s.metrics.length,0)} explicit metric contracts. Status is scientific status, not UI confidence.</p></div></div><div class="metric-catalog">${state.registry.map(sec=>`<div class="panel"><h3>${esc(sec.label)}</h3>${sec.metrics.map(m=>`<div class="metric-row"><span class="badge ${m.status.toLowerCase()}">${m.status}</span><strong>${esc(m.label)}</strong><span class="src">${esc(m.source)}</span><span class="definition">${esc(m.definition)}${m.warning?' <span class="badge warn">semantic warning</span>':''}</span></div>`).join('')}</div>`).join('')}</div>`;}
++
++function evidenceHub(p){return `<div class="section-head"><div><h2>Evidence explorer</h2><p>Open the event rows underneath the statistics instead of trusting aggregate cards.</p></div></div><div class="grid three">${[
++ ['Player-state samples','playerState'],['Item / buff boundaries','items'],['Melee events','melee'],['Breakable actions','breakables'],['Breakable rewards','rewards'],['Resource episodes','resources'],['Typed Trooper deaths','troopers'],['Ground-soul matches','groundSouls'],['Flying / Urn soul objects','orbs'],['Automatic awards','autoAwards'],['Urn bursts','urnBursts'],['Primary weapon events','weapon']
++ ].map(([label,k])=>evidenceButton(label,k)).join('')}</div>`;}
++function health(){const ready=(state.model.sourceHealth??[]).filter(x=>x.present).length,total=state.model.sourceHealth?.length??0;return `<div class="section-head"><div><h2>Source health</h2><p>${ready}/${total} expected A/B source families present for ${esc(state.replay)}. Missing sources disable only affected domains.</p></div></div><div class="source-grid">${(state.model.sourceHealth??[]).map(s=>`<div class="source ${s.present?'ready':'missing'}"><strong><span class="status-dot"></span>${esc(s.id)}</strong><small>${esc(s.purpose)}</small><div class="muted mono" style="margin-top:7px">${esc(s.file)} · ${s.present?bytes(s.bytes):'MISSING'}</div></div>`).join('')}</div><div class="section">${cautionStrip()}</div>`;}
++
++function metricCard(id,value,evidence,sub=''){const m=metric(id);return `<div class="card ${evidence?'clickable':''}" ${evidence?`data-evidence="${evidence}" data-title="${escAttr(m?.label??id)}"`:''}><div class="label-row"><span class="label">${esc(m?.label??pretty(id))}</span><span class="badge ${(m?.status??'B').toLowerCase()}">${m?.status??'B'}</span></div><div class="metric-value">${value??'—'}</div><div class="metric-sub">${sub||esc(m?.definition??'')}</div></div>`;}
++function stat(label,value,status='B',sub=''){return `<div class="card"><div class="label-row"><span class="label">${esc(label)}</span><span class="badge ${status.toLowerCase()}">${status}</span></div><div class="metric-value">${value??'—'}</div>${sub?`<div class="metric-sub">${esc(String(sub))}</div>`:''}</div>`;}
++function section(title,sub,body){return `<section class="section"><div class="section-head"><div><h2>${esc(title)}</h2><p>${esc(sub??'')}</p></div></div>${body}</section>`;}
++function evidenceButton(label,kind){return `<div class="card clickable" data-evidence="${kind}" data-title="${escAttr(label)}"><div class="eyebrow">Evidence stream</div><div class="metric-value" style="font-size:16px">${esc(label)}</div><div class="metric-sub">Click to inspect source rows</div></div>`;}
++function wireEvidence(){document.querySelectorAll('[data-evidence]').forEach(el=>el.onclick=()=>openEvidence(el.dataset.evidence,el.dataset.title));}
++async function openEvidence(kind,title){state.evidence={kind,title};state.evidenceOffset=0;$('#drawerTitle').textContent=title||pretty(kind);$('#drawerSubtitle').textContent=`${state.replay} · ${state.player}`;$('#drawer').classList.add('open');$('#scrim').classList.add('open');$('#drawer').setAttribute('aria-hidden','false');await loadEvidence();}
++async function loadEvidence(){if(!state.evidence)return;$('#drawerBody').innerHTML='<div class="loading">Scanning evidence…</div>';const q=new URLSearchParams({player:state.player,offset:state.evidenceOffset,limit:state.evidenceLimit});const d=await api(`/api/replay/${encodeURIComponent(state.replay)}/evidence/${state.evidence.kind}?${q}`);$('#evidencePage').textContent=`${Math.min(d.matched||0,state.evidenceOffset+1)}–${Math.min(d.matched||0,state.evidenceOffset+(d.rows?.length??0))} of ${d.matched??0}`;$('#prevEvidence').disabled=state.evidenceOffset===0;$('#nextEvidence').disabled=state.evidenceOffset+(d.rows?.length??0)>=(d.matched??0);$('#drawerBody').innerHTML=d.missing?`<div class="warning-box danger-box">Source file missing: ${esc(d.file)}</div>`:(d.rows?.length?d.rows.map((r,i)=>jsonRow(r,state.evidenceOffset+i+1)).join(''):'<div class="empty">No rows matched this player/filter.</div>');}
++function closeDrawer(){$('#drawer').classList.remove('open');$('#scrim').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true');}
++function jsonRow(r,n){const summary=eventSummary(r);return `<details class="json-row"><summary><span class="muted mono">#${n}</span> ${esc(summary)}</summary><pre>${esc(JSON.stringify(r,null,2))}</pre></details>`;}
++function eventSummary(r){const time=r.matchTimeSeconds??r.timeSeconds??r.time??r.demoSeconds;const event=r.eventType??r.action?.actionType??r.classification?.status??r.outcomeLabel??r.baseType??r.type??'event';return `${time!=null?clock(Number(time))+' · ':''}${event}`;}
++
++async function importReplay(file){toast(`Importing ${file.name}…`);try{const r=await fetch('/api/import',{method:'POST',headers:{'X-Filename':encodeURIComponent(file.name),'Content-Type':'application/octet-stream'},body:file});const imp=await r.json();if(!r.ok)throw new Error(imp.error||'Import failed');const pr=await api(`/api/process/${encodeURIComponent(imp.replayName)}`,{method:'POST'});if(pr.configured){toast(`Processing ${pr.status}`);await refreshReplays();}else{showProcessNotice(imp,pr);}}catch(e){toast(e.message,true);}}
++function showProcessNotice(imp,pr){state.tab='health';renderTabs();$('#main').innerHTML=`<div class="warning-box"><strong>Replay imported successfully: ${esc(imp.replayName)}</strong><br><br>${esc(pr.message)}</div><div class="panel"><h3>Why this is explicit</h3><p>The historical numbered scripts are a research notebook, not a production ETL. The inspector refuses to run all 200+ scripts blindly. Add current replay-safe entrypoints to <span class="mono">inspector-v04/pipeline.json</span> as consolidation promotes them.</p><pre class="process-result">${esc(JSON.stringify(pr,null,2))}</pre></div>`;}
++
++function checkpointTable(p){const rows=Object.entries(p.core.checkpoints??{}).map(([sec,s])=>[clock(Number(sec)),s.level,num(s.goldNetWorth),s.kills,s.deaths,s.assists,s.lastHits,s.denies]);return section('Standard checkpoints','Player state at or immediately before checkpoint',table(['Time','Lvl','Net worth','K','D','A','LH','Denies'],rows));}
++function table(headers,rows,clickable=false,evidence=null){return `<div class="table-wrap"><table class="table"><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr ${clickable&&evidence?`class="click-row" data-evidence="${evidence}" data-title="${escAttr(headers[0])}"`:''}>${r.map(x=>`<td>${esc(String(x??'—'))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;}
++function lineChart(rows,xKey,yKey,markerTime,large=false){const data=(rows??[]).filter(r=>Number.isFinite(r[xKey])&&Number.isFinite(r[yKey]));if(data.length<2)return'<div class="empty">No series</div>';const W=900,H=large?270:240,pad=32;const xs=data.map(r=>r[xKey]),ys=data.map(r=>r[yKey]);const xmin=Math.min(...xs),xmax=Math.max(...xs),ymin=Math.min(...ys),ymax=Math.max(...ys);const sx=x=>pad+(x-xmin)/(xmax-xmin||1)*(W-2*pad),sy=y=>H-pad-(y-ymin)/(ymax-ymin||1)*(H-2*pad);const pts=data.map(r=>`${sx(r[xKey]).toFixed(1)},${sy(r[yKey]).toFixed(1)}`).join(' ');const mx=sx(Math.max(xmin,Math.min(xmax,markerTime)));return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><line class="chart-grid" x1="${pad}" y1="${pad}" x2="${pad}" y2="${H-pad}"/><line class="chart-grid" x1="${pad}" y1="${H-pad}" x2="${W-pad}" y2="${H-pad}"/><polyline class="chart-line" points="${pts}"/><line x1="${mx}" y1="${pad}" x2="${mx}" y2="${H-pad}" stroke="rgba(255,255,255,.35)" stroke-dasharray="4 4"/><text class="chart-axis" x="${pad}" y="14">${num(ymax)}</text><text class="chart-axis" x="${pad}" y="${H-8}">${clock(xmin)}</text><text class="chart-axis" x="${W-pad-48}" y="${H-8}">${clock(xmax)}</text></svg>`;}
++function trajectoryChart(rows,markerTime){const data=(rows??[]).filter(r=>Array.isArray(r.position)&&r.position.length>=2&&Number.isFinite(r.position[0])&&Number.isFinite(r.position[1]));if(data.length<2)return'<div class="empty">No position trajectory</div>';const W=900,H=260,pad=20;const xs=data.map(r=>r.position[0]),ys=data.map(r=>r.position[1]);const xmin=Math.min(...xs),xmax=Math.max(...xs),ymin=Math.min(...ys),ymax=Math.max(...ys);const sx=x=>pad+(x-xmin)/(xmax-xmin||1)*(W-2*pad),sy=y=>H-pad-(y-ymin)/(ymax-ymin||1)*(H-2*pad);const pts=data.map(r=>`${sx(r.position[0]).toFixed(1)},${sy(r.position[1]).toFixed(1)}`).join(' ');let m=data[0];for(const r of data){if(r.matchTime<=markerTime)m=r;else break;}return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline class="chart-line" opacity=".75" points="${pts}"/><circle class="chart-marker" cx="${sx(m.position[0])}" cy="${sy(m.position[1])}" r="6"/><text class="chart-axis" x="8" y="14">XY coordinate trajectory</text></svg>`;}
++function itemsAt(p,t){const map=new Map();for(const e of p.items?.events??[]){if(e.time>t)break;for(const i of e.eventType==='ITEM_ADDED'?[e.item]:[])map.set(i.itemId,i);if(e.eventType==='ITEM_REMOVED')map.delete(e.item?.itemId);}return [...map.values()];}
++function permanentAt(p,t){let s={};for(const e of p.permanentBuffs?.events??[]){if(e.time<=t)s=e.state;else break;}return Object.fromEntries(Object.entries(s??{}).map(([k,v])=>[k,{inferredUnits:v?.inferredUnits??0,totalValue:v?.totalValue??0}]));}
++function bridgesAt(p,t){return (p.bridgeBuffs?.intervals??[]).filter(x=>x.startTime<=t&&t<x.endTime);}
++function itemPill(i){return `<span class="item">${esc(pretty(i.recordKey??String(i.itemId)))}<small>T${i.itemTier??'?'} · ${num(i.shopPrice)} souls</small></span>`;}
++function teamOf(p){return state.model.teams.find(t=>Number(t.team)===Number(p.team));}
++function metric(id){for(const s of state.registry){const m=s.metrics.find(x=>x.id===id);if(m)return m;}return null;}
++function cautionStrip(){return `<div>${(state.model.cautions??[]).map(x=>`<div class="warning-box">${esc(x)}</div>`).join('')}</div>`;}
++function objectInline(o){if(!o)return'—';return Object.entries(o).map(([k,v])=>`${pretty(k)} ${v}`).join(' · ');}
++function clock(v,ms=false){if(!Number.isFinite(Number(v)))return'—';let x=Math.max(0,Number(v));const m=Math.floor(x/60),s=x-m*60;return ms?`${m}:${s.toFixed(3).padStart(6,'0')}`:`${m}:${Math.floor(s).toString().padStart(2,'0')}`;}
++function duration(v){if(!Number.isFinite(Number(v)))return'—';const x=Number(v);return x>=60?`${Math.floor(x/60)}m ${(x%60).toFixed(1)}s`:`${x.toFixed(1)}s`;}
++function num(v){if(!Number.isFinite(Number(v)))return'—';return Math.round(Number(v)).toLocaleString();}
++function signed(v){if(!Number.isFinite(Number(v)))return'—';return `${v>0?'+':''}${num(v)}`;}
++function fmt(v,d=1){return Number.isFinite(Number(v))?Number(v).toFixed(d):'—';}
++function pct(v){return Number.isFinite(Number(v))?`${(Number(v)*100).toFixed(1)}%`:'—';}
++function bytes(v){if(!Number.isFinite(v))return'—';const u=['B','KB','MB','GB'];let x=v,i=0;while(x>=1024&&i<u.length-1){x/=1024;i++;}return`${x.toFixed(i?1:0)} ${u[i]}`;}
++function pretty(s){return String(s??'').replace(/^upgrade_/,'').replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());}
++function safeDiv(a,b){return Number.isFinite(Number(a))&&Number.isFinite(Number(b))&&Number(b)!==0?Number(a)/Number(b):null;}
++function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
++function escAttr(s){return esc(s).replaceAll('`','&#096;');}
++async function api(path,opts){const r=await fetch(path,opts);const j=await r.json();if(!r.ok)throw new Error(j.error??`${r.status}`);return j;}
++let toastTimer;function toast(msg,bad=false){const t=$('#toast');t.textContent=msg;t.style.borderColor=bad?'rgba(251,113,133,.5)':'';t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3500);}
+diff --git a/inspector-v04/public/index.html b/inspector-v04/public/index.html
+new file mode 100644
+index 0000000..c204e6b
+--- /dev/null
++++ b/inspector-v04/public/index.html
+@@ -0,0 +1,41 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="utf-8" />
++  <meta name="viewport" content="width=device-width,initial-scale=1" />
++  <title>DeadlockBehavior Inspector V04</title>
++  <link rel="stylesheet" href="/styles.css" />
++</head>
++<body>
++  <div class="shell">
++    <header class="topbar">
++      <div class="brand"><span class="brand-mark">DB</span><div><strong>DeadlockBehavior</strong><small>Research Inspector V04</small></div></div>
++      <div class="top-controls">
++        <label>Replay<select id="replaySelect"></select></label>
++        <label>Player<select id="playerSelect"></select></label>
++        <button id="refreshBtn" class="ghost">Rebuild cache</button>
++        <button id="importBtn" class="primary">Import .dem</button>
++        <input id="replayFile" type="file" accept=".dem" hidden />
++      </div>
++    </header>
++
++    <section class="timeline-bar">
++      <div class="time-readout"><span id="timeClock">0:00.000</span><small id="tickReadout">tick —</small></div>
++      <input id="timeSlider" type="range" min="0" max="1" value="0" step="0.25" />
++      <button id="jumpLive" class="ghost compact">End</button>
++    </section>
++
++    <nav id="tabs" class="tabs"></nav>
++    <main id="main" class="main"><div class="loading">Select a replay…</div></main>
++  </div>
++
++  <aside id="drawer" class="drawer" aria-hidden="true">
++    <div class="drawer-head"><div><small>EVIDENCE</small><h2 id="drawerTitle">Evidence</h2><p id="drawerSubtitle"></p></div><button id="closeDrawer" class="icon-btn">×</button></div>
++    <div id="drawerBody" class="drawer-body"></div>
++    <div class="drawer-foot"><button id="prevEvidence" class="ghost">Previous</button><span id="evidencePage"></span><button id="nextEvidence" class="ghost">Next</button></div>
++  </aside>
++  <div id="scrim" class="scrim"></div>
++  <div id="toast" class="toast"></div>
++  <script type="module" src="/app.js"></script>
++</body>
++</html>
+diff --git a/inspector-v04/public/styles.css b/inspector-v04/public/styles.css
+new file mode 100644
+index 0000000..82ab3c7
+--- /dev/null
++++ b/inspector-v04/public/styles.css
+@@ -0,0 +1,4 @@
++:root{--bg:#090c11;--panel:#11161e;--panel2:#151c26;--line:#263141;--muted:#8694a8;--text:#edf3fa;--accent:#6ee7b7;--accent2:#7dd3fc;--warn:#fbbf24;--bad:#fb7185;--a:#6ee7b7;--b:#7dd3fc;--shadow:0 18px 60px rgba(0,0,0,.35)}
++*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 70% -200px,#172333 0,transparent 70%),var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}.shell{min-height:100vh}.topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(9,12,17,.88);backdrop-filter:blur(12px);position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:38px;height:38px;border:1px solid #385064;border-radius:10px;display:grid;place-items:center;font-weight:800;letter-spacing:.05em;background:#111c27}.brand strong{display:block;font-size:15px}.brand small{display:block;color:var(--muted);margin-top:1px}.top-controls{display:flex;gap:10px;align-items:center}.top-controls label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}select,button{font:inherit}select{display:block;margin-top:3px;background:#101720;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:7px 28px 7px 9px;min-width:135px}button{border:1px solid var(--line);border-radius:7px;padding:8px 12px;color:var(--text);background:#141c25;cursor:pointer}button:hover{border-color:#45576e}.primary{background:var(--accent);color:#07120e;border-color:transparent;font-weight:700}.ghost{background:transparent}.compact{padding:5px 9px}.timeline-bar{height:66px;display:grid;grid-template-columns:110px 1fr 54px;gap:14px;align-items:center;padding:0 24px;border-bottom:1px solid var(--line);background:#0d1219}.time-readout span{font:700 18px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.time-readout small{display:block;color:var(--muted);margin-top:6px}input[type=range]{width:100%;accent-color:var(--accent)}.tabs{display:flex;gap:2px;padding:0 24px;border-bottom:1px solid var(--line);overflow:auto;background:#0c1117;position:sticky;top:72px;z-index:15}.tab{white-space:nowrap;border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;color:var(--muted);padding:13px 12px}.tab.active{color:var(--text);border-bottom-color:var(--accent)}.main{padding:22px 24px 80px;max-width:1700px;margin:auto}.loading{padding:60px;text-align:center;color:var(--muted)}.hero-row{display:grid;grid-template-columns:minmax(300px,1.2fr) repeat(4,minmax(120px,.55fr));gap:12px;margin-bottom:18px}.hero-card,.card,.panel{border:1px solid var(--line);background:linear-gradient(180deg,rgba(21,28,38,.94),rgba(14,19,26,.94));border-radius:11px;box-shadow:0 2px 0 rgba(255,255,255,.01)}.hero-card{padding:18px}.eyebrow{color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase}.hero-card h1{margin:4px 0 8px;font-size:24px}.hero-card .meta{display:flex;gap:12px;color:var(--muted)}.stat-card{padding:15px}.stat-card .value{font-size:24px;font-weight:750;margin:3px 0}.stat-card .sub{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:14px;min-height:98px}.card.clickable{cursor:pointer}.card.clickable:hover{border-color:#42566e;transform:translateY(-1px)}.label-row{display:flex;justify-content:space-between;gap:8px}.label{color:var(--muted);font-size:12px}.metric-value{font-size:21px;font-weight:720;margin-top:5px;word-break:break-word}.metric-sub{font-size:11px;color:var(--muted);margin-top:5px}.badge{display:inline-flex;align-items:center;justify-content:center;min-width:21px;height:19px;padding:0 6px;border-radius:999px;font-size:10px;font-weight:800;border:1px solid}.badge.a{color:var(--a);border-color:rgba(110,231,183,.35);background:rgba(110,231,183,.08)}.badge.b{color:var(--b);border-color:rgba(125,211,252,.35);background:rgba(125,211,252,.08)}.badge.warn{color:var(--warn);border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.08)}.section{margin:22px 0}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:10px}.section-head h2{font-size:16px;margin:0}.section-head p{color:var(--muted);margin:3px 0 0;font-size:12px}.panel{padding:15px}.chart{height:280px;position:relative}.chart svg{width:100%;height:100%;overflow:visible}.chart-grid{stroke:#273241;stroke-width:1}.chart-line{fill:none;stroke:var(--accent2);stroke-width:2}.chart-line.alt{stroke:var(--accent)}.chart-axis{fill:var(--muted);font-size:10px}.chart-marker{stroke:#fff;stroke-width:1;fill:var(--bg)}.warning-box{border:1px solid rgba(251,191,36,.3);background:rgba(251,191,36,.06);border-radius:9px;padding:11px 13px;color:#f7d983;margin:10px 0}.danger-box{border-color:rgba(251,113,133,.35);background:rgba(251,113,133,.07);color:#ffabb9}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}.table{width:100%;border-collapse:collapse;min-width:720px}.table th,.table td{text-align:left;padding:9px 11px;border-bottom:1px solid #202a37;vertical-align:top}.table th{position:sticky;top:0;background:#121923;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}.table tr:last-child td{border-bottom:0}.table tr.click-row:hover{background:#151f2a;cursor:pointer}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.muted{color:var(--muted)}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 8px;margin:2px;font-size:11px}.pill.active{border-color:rgba(110,231,183,.4);color:var(--accent)}.item-list{display:flex;flex-wrap:wrap;gap:6px}.item{padding:7px 9px;background:#0f151d;border:1px solid var(--line);border-radius:7px;font-size:12px}.item small{display:block;color:var(--muted)}.source-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.source{padding:12px;border:1px solid var(--line);border-radius:9px;background:#0f151d}.source.missing{border-color:rgba(251,113,133,.3)}.source strong{display:block}.source small{color:var(--muted)}.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:7px;background:var(--bad)}.source.ready .status-dot{background:var(--accent)}.drawer{position:fixed;right:0;top:0;width:min(760px,92vw);height:100vh;background:#0d131a;border-left:1px solid var(--line);z-index:50;transform:translateX(102%);transition:.22s ease;display:grid;grid-template-rows:auto 1fr auto;box-shadow:var(--shadow)}.drawer.open{transform:translateX(0)}.drawer-head{padding:20px;display:flex;justify-content:space-between;border-bottom:1px solid var(--line)}.drawer-head small{color:var(--accent);font-weight:800;letter-spacing:.12em}.drawer-head h2{margin:3px 0}.drawer-head p{color:var(--muted);margin:0}.drawer-body{overflow:auto;padding:14px}.drawer-foot{padding:12px 18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.icon-btn{font-size:28px;border:0;background:transparent;color:var(--muted)}.scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:45;display:none}.scrim.open{display:block}.json-row{padding:10px;margin-bottom:8px;border:1px solid var(--line);border-radius:8px;background:#0a0f15}.json-row summary{cursor:pointer;font-weight:650}.json-row pre{white-space:pre-wrap;word-break:break-word;color:#b7c6d9;font-size:11px}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,30px);opacity:0;transition:.2s;background:#17212c;border:1px solid #35475a;padding:10px 14px;border-radius:8px;z-index:70;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.metric-catalog{display:grid;gap:20px}.metric-row{display:grid;grid-template-columns:32px 260px 130px 1fr;gap:12px;padding:8px 4px;border-bottom:1px solid #1d2632;align-items:start}.metric-row .src{color:var(--muted);font-size:11px}.empty{color:var(--muted);padding:26px;text-align:center;border:1px dashed var(--line);border-radius:9px}.process-result{white-space:pre-wrap;font-family:ui-monospace,monospace;font-size:11px;background:#080c11;border:1px solid var(--line);padding:12px;border-radius:8px;max-height:300px;overflow:auto}
++@media(max-width:1050px){.hero-row{grid-template-columns:repeat(2,1fr)}.hero-card{grid-column:1/-1}.grid,.grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}.source-grid{grid-template-columns:repeat(2,1fr)}.topbar{height:auto;min-height:72px;align-items:flex-start;padding-top:12px;padding-bottom:12px}.top-controls{flex-wrap:wrap;justify-content:flex-end}.tabs{top:96px}}
++@media(max-width:650px){.topbar{display:block}.top-controls{justify-content:flex-start;margin-top:10px}.timeline-bar{padding:0 12px}.main{padding:16px 12px 60px}.tabs{position:static;padding:0 10px}.grid,.grid.two,.grid.three,.hero-row,.source-grid{grid-template-columns:1fr}.metric-row{grid-template-columns:32px 1fr}.metric-row .src,.metric-row .definition{grid-column:2}.hero-card{grid-column:auto}}
+diff --git a/inspector-v04/run-inspector.ps1 b/inspector-v04/run-inspector.ps1
+new file mode 100644
+index 0000000..280ef3d
+--- /dev/null
++++ b/inspector-v04/run-inspector.ps1
+@@ -0,0 +1,25 @@
++param(
++  [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")),
++  [int]$Port = 4177,
++  [string]$NodePath = ""
++)
++
++if (-not $NodePath) {
++  if (Test-Path "G:\Node\node.exe") { $NodePath = "G:\Node\node.exe" }
++  else {
++    $cmd = Get-Command node -ErrorAction SilentlyContinue
++    if (-not $cmd) { throw "Node.js was not found. Pass -NodePath or install/add node to PATH." }
++    $NodePath = $cmd.Source
++  }
++}
++
++$RepoRoot = (Resolve-Path $RepoRoot).Path
++$env:DEADLOCK_REPO_ROOT = $RepoRoot
++$env:DEADLOCK_OUTPUT_ROOT = Join-Path $RepoRoot "output"
++$env:DEADLOCK_INSPECTOR_PORT = "$Port"
++
++Write-Host "Starting DeadlockBehavior Inspector V04..."
++Write-Host "Repo: $RepoRoot"
++Write-Host "Node: $NodePath"
++Write-Host "Open: http://127.0.0.1:$Port"
++& $NodePath (Join-Path $PSScriptRoot "server.mjs")
+diff --git a/inspector-v04/server.mjs b/inspector-v04/server.mjs
+new file mode 100644
+index 0000000..f47513b
+--- /dev/null
++++ b/inspector-v04/server.mjs
+@@ -0,0 +1,107 @@
++import { createServer } from 'node:http';
++import { createReadStream, existsSync, promises as fs } from 'node:fs';
++import { extname, join, resolve } from 'node:path';
++import { fileURLToPath } from 'node:url';
++import { buildReplayModel } from './lib/replay-model.mjs';
++import { METRIC_REGISTRY } from './lib/metric-registry.mjs';
++import { jsonlPage, listReplayDirs, readJson, rowMatchesPlayer, sourceHealth } from './lib/io.mjs';
++import { importReplay, runPipeline } from './lib/pipeline.mjs';
++
++const inspectorRoot=fileURLToPath(new URL('.',import.meta.url));
++const repoRoot=resolve(process.env.DEADLOCK_REPO_ROOT ?? join(inspectorRoot,'..'));
++const outputRoot=resolve(process.env.DEADLOCK_OUTPUT_ROOT ?? join(repoRoot,'output'));
++const cacheRoot=resolve(process.env.DEADLOCK_INSPECTOR_CACHE ?? join(inspectorRoot,'.cache'));
++const publicRoot=join(inspectorRoot,'public');
++const port=Number(process.env.DEADLOCK_INSPECTOR_PORT ?? 4177);
++const host=process.env.DEADLOCK_INSPECTOR_HOST ?? '127.0.0.1';
++const modelPromises=new Map();
++
++const server=createServer(async(req,res)=>{
++  try {
++    const url=new URL(req.url,`http://${req.headers.host||`${host}:${port}`}`);
++    if(url.pathname.startsWith('/api/')) return await api(req,res,url);
++    return await staticFile(res,url.pathname);
++  } catch(err) {
++    console.error(err); sendJson(res,500,{error:err.message,stack:process.env.NODE_ENV==='development'?err.stack:undefined});
++  }
++});
++server.listen(port,host,()=>{
++  console.log(`DeadlockBehavior Inspector V04`);
++  console.log(`  http://${host}:${port}`);
++  console.log(`  repo:   ${repoRoot}`);
++  console.log(`  output: ${outputRoot}`);
++});
++
++async function api(req,res,url){
++  if(req.method==='GET'&&url.pathname==='/api/config') return sendJson(res,200,{version:'V04',repoRoot,outputRoot,metricCount:METRIC_REGISTRY.reduce((n,s)=>n+s.metrics.length,0)});
++  if(req.method==='GET'&&url.pathname==='/api/metrics') return sendJson(res,200,{sections:METRIC_REGISTRY});
++  if(req.method==='GET'&&url.pathname==='/api/replays'){
++    const names=await listReplayDirs(outputRoot);const rows=[];for(const name of names){const health=await sourceHealth(join(outputRoot,name));rows.push({name,ready:health.filter(x=>x.present).length,total:health.length,coreReady:health.find(x=>x.id==='player_state')?.present===true});}
++    return sendJson(res,200,{replays:rows});
++  }
++  let m=url.pathname.match(/^\/api\/replay\/([^/]+)\/model$/);
++  if(req.method==='GET'&&m){const replay=decodeURIComponent(m[1]);const force=url.searchParams.get('force')==='1';return sendJson(res,200,await getModel(replay,force));}
++  m=url.pathname.match(/^\/api\/replay\/([^/]+)\/health$/);
++  if(req.method==='GET'&&m){const replay=decodeURIComponent(m[1]);return sendJson(res,200,{replay,sources:await sourceHealth(join(outputRoot,replay))});}
++  m=url.pathname.match(/^\/api\/replay\/([^/]+)\/evidence\/([^/]+)$/);
++  if(req.method==='GET'&&m){return sendJson(res,200,await getEvidence(decodeURIComponent(m[1]),decodeURIComponent(m[2]),url));}
++  if(req.method==='POST'&&url.pathname==='/api/import'){
++    const filename=req.headers['x-filename'];if(!filename)return sendJson(res,400,{error:'Missing X-Filename header.'});
++    const bytes=await readRequest(req,1024*1024*1024);const imported=await importReplay({repoRoot,filename:decodeURIComponent(String(filename)),bytes});
++    return sendJson(res,201,{...imported,next:`POST /api/process/${encodeURIComponent(imported.replayName)}`});
++  }
++  m=url.pathname.match(/^\/api\/process\/([^/]+)$/);
++  if(req.method==='POST'&&m){const replayName=decodeURIComponent(m[1]);const result=await runPipeline({repoRoot,inspectorRoot,replayName});modelPromises.delete(replayName);return sendJson(res,200,result);}
++  sendJson(res,404,{error:'Not found'});
++}
++
++async function getModel(replay,force=false){
++  if(!/^[A-Za-z0-9._-]+$/.test(replay))throw new Error('Invalid replay name');
++  if(force)modelPromises.delete(replay);
++  if(!modelPromises.has(replay))modelPromises.set(replay,buildReplayModel({outputRoot,replayName:replay,cacheRoot,force}).catch(e=>{modelPromises.delete(replay);throw e;}));
++  return modelPromises.get(replay);
++}
++
++const evidenceFiles={
++  breakables:['jsonl','breakable_action_stream_v1.jsonl'],
++  rewards:['jsonl','breakable_reward_acquisition_v1.jsonl'],
++  resources:['jsonl','behavioral_resource_episodes_v01.jsonl'],
++  troopers:['jsonl','trooper_deaths_typed_v02.jsonl'],
++  groundSouls:['jsonl','trooper_ground_soul_one_to_one_v01.jsonl'],
++  autoAwards:['jsonl','citemxp_auto_award_units_v02.jsonl'],
++  urnBursts:['jsonl','citemxp_auto_award_urn_bursts_v02.jsonl'],
++  weapon:['jsonl','effective_weapon_runtime_events_v01.jsonl'],
++  melee:['jsonl','verified_melee_events.jsonl'],
++  playerState:['jsonl','player_state.jsonl'],
++  orbs:['json','citemxp_inspector_events_v01.json','events'],
++  items:['json','integrated_authoritative_player_state_substrate_v01.json','players'],
++};
++async function getEvidence(replay,kind,url){
++  const def=evidenceFiles[kind];if(!def)return{error:`Unknown evidence kind: ${kind}`,available:Object.keys(evidenceFiles)};
++  const path=join(outputRoot,replay,def[1]);if(!existsSync(path))return{kind,rows:[],matched:0,missing:true,file:def[1]};
++  const player=url.searchParams.get('player');const offset=Math.max(0,Number(url.searchParams.get('offset')??0));const limit=Math.min(500,Math.max(1,Number(url.searchParams.get('limit')??100)));
++  if(def[0]==='jsonl'){
++    const filterPlayer=kind==='troopers'?null:player;
++    const page=await jsonlPage(path,{player:filterPlayer,offset,limit});
++    if(kind==='playerState'&&player)page.rows=page.rows.map(r=>{
++      if(!Array.isArray(r.players)) return r;
++      return {...r,players:r.players.filter(p=>String(p.playerName)===String(player))};
++    });
++    return{kind,file:def[1],...page};
++  }
++  const data=await readJson(path,{});let rows=data?.[def[2]]??[];
++  if(kind==='items'){
++    const flat=[];for(const p of rows){const name=p.identity?.playerName??p.playerKey;if(player&&String(name)!==String(player))continue;for(const e of p.events??[]){const causes=e.causes??[];const material=(e.itemAdds?.length??0)||(e.itemRemoves?.length??0)||causes.some(c=>String(c).includes('PERMANENT_WORLD_BUFF')||String(c).includes('BRIDGE_')||String(c)==='NATURAL_EXPIRATION');if(material)flat.push({playerName:name,...e});}}rows=flat;
++  }else if(player)rows=rows.filter(r=>rowMatchesPlayer(r,player));
++  const matched=rows.length;return{kind,file:def[1],matched,offset,limit,rows:rows.slice(offset,offset+limit)};
++}
++
++async function staticFile(res,pathname){
++  let rel=decodeURIComponent(pathname==='/'?'/index.html':pathname).replace(/^\/+/, '');if(rel.includes('..'))return sendText(res,403,'Forbidden');
++  const path=join(publicRoot,rel);if(!existsSync(path))return sendText(res,404,'Not found');
++  const type=({'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml'})[extname(path)]??'application/octet-stream';
++  const st=await fs.stat(path);res.writeHead(200,{'content-type':type,'content-length':st.size,'cache-control':'no-cache'});createReadStream(path).pipe(res);
++}
++function sendJson(res,status,obj){const body=JSON.stringify(obj);res.writeHead(status,{'content-type':'application/json; charset=utf-8','content-length':Buffer.byteLength(body),'cache-control':'no-store'});res.end(body);}
++function sendText(res,status,body){res.writeHead(status,{'content-type':'text/plain; charset=utf-8'});res.end(body);}
++async function readRequest(req,max){const chunks=[];let n=0;for await(const c of req){n+=c.length;if(n>max)throw new Error('Upload too large');chunks.push(c);}return Buffer.concat(chunks);}
+diff --git a/inspector-v04/test-inspector.ps1 b/inspector-v04/test-inspector.ps1
+new file mode 100644
+index 0000000..11a719e
+--- /dev/null
++++ b/inspector-v04/test-inspector.ps1
+@@ -0,0 +1,14 @@
++param(
++  [string]$NodePath = ""
++)
++if (-not $NodePath) {
++  if (Test-Path "G:\Node\node.exe") { $NodePath = "G:\Node\node.exe" }
++  else {
++    $cmd = Get-Command node -ErrorAction SilentlyContinue
++    if (-not $cmd) { throw "Node.js was not found. Pass -NodePath or install/add node to PATH." }
++    $NodePath = $cmd.Source
++  }
++}
++Push-Location $PSScriptRoot
++try { & $NodePath --test .\tests\*.test.mjs }
++finally { Pop-Location }
+diff --git a/inspector-v04/tests/api-smoke.test.mjs b/inspector-v04/tests/api-smoke.test.mjs
+new file mode 100644
+index 0000000..24aab5e
+--- /dev/null
++++ b/inspector-v04/tests/api-smoke.test.mjs
+@@ -0,0 +1,59 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
++import { tmpdir } from 'node:os';
++import { join, resolve } from 'node:path';
++import { createServer } from 'node:net';
++import { spawn } from 'node:child_process';
++import { fileURLToPath } from 'node:url';
++
++const inspectorRoot=resolve(fileURLToPath(new URL('..',import.meta.url)));
++const serverPath=join(inspectorRoot,'server.mjs');
++
++test('HTTP API exposes replay model and player-scoped evidence',async t=>{
++  const root=await mkdtemp(join(tmpdir(),'db-inspector-api-'));
++  const out=join(root,'output','test');
++  await mkdir(out,{recursive:true});
++  const playerRows=[
++    {demoTick:1920,demoSeconds:30,matchTimeSeconds:0,controller:{entityIndex:10,playerName:'Alpha',steamId:'steam-a',team:2,heroId:1,alive:true,health:500,maxHealth:500,level:1,netWorth:600,abilityPointNetWorth:0,kills:0,deaths:0,assists:0,lastHits:0,denies:0,respawnTime:0},pawn:{entityIndex:100,positionWorld:{x:0,y:0,z:0}}},
++    {demoTick:1984,demoSeconds:31,matchTimeSeconds:1,controller:{entityIndex:10,playerName:'Alpha',steamId:'steam-a',team:2,heroId:1,alive:true,health:500,maxHealth:500,level:1,netWorth:625,abilityPointNetWorth:0,kills:0,deaths:0,assists:0,lastHits:1,denies:0,respawnTime:0},pawn:{entityIndex:100,positionWorld:{x:10,y:0,z:0}}},
++    {demoTick:1920,demoSeconds:30,matchTimeSeconds:0,controller:{entityIndex:20,playerName:'Bravo',steamId:'steam-b',team:3,heroId:2,alive:true,health:500,maxHealth:500,level:1,netWorth:600,abilityPointNetWorth:0,kills:0,deaths:0,assists:0,lastHits:0,denies:0,respawnTime:0},pawn:{entityIndex:200,positionWorld:{x:0,y:100,z:0}}}
++  ];
++  await writeFile(join(out,'player_state.jsonl'),playerRows.map(x=>JSON.stringify(x)).join('\n')+'\n');
++  await writeFile(join(out,'integrated_authoritative_player_state_substrate_v01.json'),JSON.stringify({replay:{ticksPerSecond:64,matchClockOffsetSeconds:30,replayEndTick:1984},bridgeIntervals:[],players:[
++    {playerKey:'Alpha',identity:{playerName:'Alpha',steamId:'steam-a',controllerEntityIndex:10,heroId:1,team:2},events:[],finalState:{authoritativeOwnership:{standardShopItems:[],permanentWorldBuffs:{},activeBridgeBuffs:[]},observedRuntime:{}}},
++    {playerKey:'Bravo',identity:{playerName:'Bravo',steamId:'steam-b',controllerEntityIndex:20,heroId:2,team:3},events:[],finalState:{authoritativeOwnership:{standardShopItems:[],permanentWorldBuffs:{},activeBridgeBuffs:[]},observedRuntime:{}}}
++  ]}));
++
++  const port=await freePort();
++  const child=spawn(process.execPath,[serverPath],{env:{...process.env,DEADLOCK_REPO_ROOT:root,DEADLOCK_OUTPUT_ROOT:join(root,'output'),DEADLOCK_INSPECTOR_PORT:String(port)},stdio:'ignore'});
++  t.after(()=>child.kill('SIGKILL'));
++  await waitFor(`http://127.0.0.1:${port}/api/config`);
++
++  const replayList=await getJson(`http://127.0.0.1:${port}/api/replays`);
++  assert.equal(replayList.replays[0].name,'test');
++  assert.equal(replayList.replays[0].coreReady,true);
++
++  const model=await getJson(`http://127.0.0.1:${port}/api/replay/test/model`);
++  assert.equal(model.players.length,2);
++  assert.equal(model.players.find(p=>p.playerName==='Alpha').scoreboard.lastHits,1);
++
++  const evidence=await getJson(`http://127.0.0.1:${port}/api/replay/test/evidence/playerState?player=Alpha&limit=10`);
++  assert.equal(evidence.matched,2);
++  assert.equal(evidence.rows.every(r=>r.controller.playerName==='Alpha'),true);
++});
++
++async function freePort(){
++  return new Promise((resolve,reject)=>{
++    const s=createServer();s.on('error',reject);s.listen(0,'127.0.0.1',()=>{const p=s.address().port;s.close(()=>resolve(p));});
++  });
++}
++async function waitFor(url){
++  let last;
++  for(let i=0;i<50;i++){
++    try{const r=await fetch(url);if(r.ok)return;}catch(e){last=e;}
++    await new Promise(r=>setTimeout(r,50));
++  }
++  throw last??new Error(`server did not start: ${url}`);
++}
++async function getJson(url){const r=await fetch(url);assert.equal(r.ok,true,`${r.status} ${url}`);return r.json();}
+diff --git a/inspector-v04/tests/inspector-v04.test.mjs b/inspector-v04/tests/inspector-v04.test.mjs
+new file mode 100644
+index 0000000..462194d
+--- /dev/null
++++ b/inspector-v04/tests/inspector-v04.test.mjs
+@@ -0,0 +1,49 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
++import { tmpdir } from 'node:os';
++import { join } from 'node:path';
++import { METRIC_REGISTRY } from '../lib/metric-registry.mjs';
++import { buildReplayModel } from '../lib/replay-model.mjs';
++import { rowMatchesPlayer } from '../lib/io.mjs';
++
++test('metric registry contains only A/B statuses and unique IDs',()=>{
++  const metrics=METRIC_REGISTRY.flatMap(s=>s.metrics);
++  assert.ok(metrics.length>=150);
++  assert.deepEqual([...new Set(metrics.map(m=>m.status))].sort(),['A','B']);
++  assert.equal(new Set(metrics.map(m=>m.id)).size,metrics.length);
++  assert.ok(metrics.some(m=>m.id==='ground_soul_vacuum_target'&&m.warning));
++  assert.ok(metrics.some(m=>m.id==='camp_clear_during_exposure'&&m.warning));
++  assert.ok(!metrics.some(m=>/current_ammo|effective_dps|magazine_size/.test(m.id)));
++});
++
++test('replay model joins player state, authoritative ownership, scoreboard and team advantage',async()=>{
++  const root=await mkdtemp(join(tmpdir(),'db-inspector-'));
++  const out=join(root,'output','fixture');await mkdir(out,{recursive:true});
++  const rows=[];
++  function row(t,name,team,hero,alive,nw,k=0,d=0,a=0,lh=0,den=0){return JSON.stringify({demoTick:Math.round((t+30)*64),demoSeconds:t+30,matchTimeSeconds:t,controller:{entityIndex:team*10+hero,playerName:name,steamId:`steam-${name}`,team,heroId:hero,alive,health:alive?500:0,maxHealth:500,level:t>=60?2:1,netWorth:nw,abilityPointNetWorth:0,kills:k,deaths:d,assists:a,lastHits:lh,denies:den,respawnTime:alive?0:10,assignedLane:1},pawn:{entityIndex:100+hero,positionWorld:{x:t,y:team*100,z:0}}});}
++  rows.push(row(0,'Alpha',2,1,true,600),row(0,'Bravo',3,2,true,600));
++  rows.push(row(60,'Alpha',2,1,true,2000,1,0,1,10,2),row(60,'Bravo',3,2,false,1500,0,1,0,8,1));
++  rows.push(row(90,'Alpha',2,1,true,3000,1,0,1,15,3),row(90,'Bravo',3,2,true,2200,0,1,0,12,1));
++  await writeFile(join(out,'player_state.jsonl'),rows.join('\n')+'\n');
++  await writeFile(join(out,'integrated_authoritative_player_state_substrate_v01.json'),JSON.stringify({replay:{ticksPerSecond:64,matchClockOffsetSeconds:30,replayEndTick:7680},bridgeIntervals:[],players:[
++    {playerKey:'Alpha',identity:{playerName:'Alpha',steamId:'steam-Alpha',heroId:1,team:2},events:[{tick:64*40,itemAdds:[{itemId:1,recordKey:'upgrade_test',itemTier:1,shopPrice:800}],itemRemoves:[]}],finalState:{authoritativeOwnership:{standardShopItems:[{itemId:1,recordKey:'upgrade_test',itemTier:1,shopPrice:800}],permanentWorldBuffs:{},activeBridgeBuffs:[]},observedRuntime:{healthRegen:2}}},
++    {playerKey:'Bravo',identity:{playerName:'Bravo',steamId:'steam-Bravo',heroId:2,team:3},events:[],finalState:{authoritativeOwnership:{standardShopItems:[],permanentWorldBuffs:{},activeBridgeBuffs:[]},observedRuntime:{healthRegen:2}}}
++  ]}));
++  const model=await buildReplayModel({outputRoot:join(root,'output'),replayName:'fixture'});
++  assert.equal(model.players.length,2);assert.equal(model.teams.length,2);
++  const alpha=model.players.find(p=>p.playerName==='Alpha'),bravo=model.players.find(p=>p.playerName==='Bravo');
++  assert.equal(alpha.scoreboard.kills,1);assert.equal(alpha.scoreboard.lastHits,15);assert.equal(alpha.items.finalItems.length,1);
++  assert.equal(bravo.scoreboard.deaths,1);assert.equal(bravo.deathsObserved.length,1);assert.equal(bravo.respawnsObserved.length,1);
++  assert.ok(model.teams.find(t=>t.team===2).goldNetWorthDiff>0);
++  assert.equal(model.teams.find(t=>t.team===2).players[0],'Alpha');
++});
++
++
++test('player evidence matcher supports current and nested evidence schemas',()=>{
++  assert.equal(rowMatchesPlayer({controller:{playerName:'Alpha'}},'Alpha'),true);
++  assert.equal(rowMatchesPlayer({action:{player:{playerName:'Alpha'}}},'Alpha'),true);
++  assert.equal(rowMatchesPlayer({groundSoul:{vacuumTargetPlayer:{playerName:'Alpha'}}},'Alpha'),true);
++  assert.equal(rowMatchesPlayer({evidence:{fields:{m_iGoldNetWorth:{positivePlayers:['Alpha','Bravo']}}}},'Alpha'),true);
++  assert.equal(rowMatchesPlayer({controller:{playerName:'Alpha'}},'Bravo'),false);
++});
