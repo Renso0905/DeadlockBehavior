@@ -1,0 +1,358 @@
+{
+  "version": "WEAPON_CLIP_FRACTIONAL_CONSUMPTION_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T22:24:30.174Z",
+  "status": "WEAPON_CLIP_FRACTIONAL_CONSUMPTION_DIAGNOSTIC_V01_INTEGRITY_FAILURE",
+  "replay": "test",
+  "frozenHypothesis": {
+    "wholeCounterTransform": "raw >= 0 ? 2*raw : -2*raw - 1",
+    "Script178ThresholdRetuned": false,
+    "tickSettledSamplingRetained": true,
+    "candidateContinuousStates": [
+      "wholeClip + ammoFraction",
+      "wholeClip - ammoFraction"
+    ],
+    "constantSentinelOffsetSolvedHere": false,
+    "thresholds": {
+      "minShotTransitions": 5000,
+      "minFractionComparableRate": 0.95,
+      "minZeroWholeFractionChangeRate": 0.8,
+      "minCompositePositiveConsumptionRate": 0.95,
+      "minZeroWholeResolvedPositiveRate": 0.9,
+      "maxCompositeNegativeRate": 0.01
+    }
+  },
+  "pooled": {
+    "observations": 37571,
+    "whole": {
+      "zero": 7221,
+      "zeroRate": 0.1921961087008597,
+      "positive": 30337,
+      "positiveRate": 0.8074578797476777,
+      "negative": 13,
+      "negativeRate": 0.0003460115514625642,
+      "exactOnePerShot": 30335,
+      "exactOnePerShotRate": 0.8074046472012989
+    },
+    "fraction": {
+      "comparable": 37571,
+      "comparableRate": 1,
+      "changed": 30340,
+      "changedRate": 0.807537728567246,
+      "zeroWholeComparable": 7221,
+      "zeroWholeFractionChanged": 11,
+      "zeroWholeFractionChangedRate": 0.0015233347181830771,
+      "range": {
+        "count": 75142,
+        "min": 0,
+        "max": 1,
+        "median": 0.6842105388641357
+      }
+    },
+    "plusCandidate": {
+      "comparable": 37571,
+      "comparableRate": 1,
+      "positive": 30348,
+      "positiveRate": 0.8077506587527614,
+      "zero": 7210,
+      "zeroRate": 0.191903329695776,
+      "negative": 13,
+      "negativeRate": 0.0003460115514625642,
+      "exactOnePerShot": 20,
+      "exactOnePerShotRate": 0.0005323254637885603,
+      "mode": 0,
+      "median": 1.0294117778539658,
+      "min": -26.764705881476402,
+      "max": 1.125
+    },
+    "minusCandidate": {
+      "comparable": 37571,
+      "comparableRate": 1,
+      "positive": 30337,
+      "positiveRate": 0.8074578797476777,
+      "zero": 7210,
+      "zeroRate": 0.191903329695776,
+      "negative": 24,
+      "negativeRate": 0.0006387905565462724,
+      "exactOnePerShot": 20,
+      "exactOnePerShotRate": 0.0005323254637885603,
+      "mode": 0,
+      "median": 0.9629629850387573,
+      "min": -25.235294118523598,
+      "max": 1.0588235259056091
+    },
+    "zeroWholeResolution": {
+      "plus": {
+        "comparable": 7221,
+        "positive": 11,
+        "positiveRate": 0.0015233347181830771,
+        "zero": 7210,
+        "zeroRate": 0.9984766652818169,
+        "negative": 0,
+        "negativeRate": 0,
+        "median": 0
+      },
+      "minus": {
+        "comparable": 7221,
+        "positive": 0,
+        "positiveRate": 0,
+        "zero": 7210,
+        "zeroRate": 0.9984766652818169,
+        "negative": 11,
+        "negativeRate": 0.0015233347181830771,
+        "median": 0
+      }
+    }
+  },
+  "byHeroAndRegime": [
+    {
+      "heroId": 58,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 9786,
+      "wholeZeroRate": 0.6677907214387901,
+      "wholeExactOneRate": 0.3319027181688126,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0.000612088752869166,
+      "plusPositiveRate": 0.3323114653586757,
+      "minusPositiveRate": 0.3319027181688126,
+      "plusZeroResolutionRate": 0.000612088752869166,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 1,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 6781,
+      "wholeZeroRate": 0.017254092316767437,
+      "wholeExactOneRate": 0.9827459076832326,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0.02564102564102564,
+      "plusPositiveRate": 0.9831883203067394,
+      "minusPositiveRate": 0.9827459076832326,
+      "plusZeroResolutionRate": 0.02564102564102564,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 25,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 4403,
+      "wholeZeroRate": 0.009538950715421303,
+      "wholeExactOneRate": 0.9893254599136952,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0,
+      "plusPositiveRate": 0.9895525777878719,
+      "minusPositiveRate": 0.9895525777878719,
+      "plusZeroResolutionRate": 0,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 2,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_POSITIVE",
+      "observations": 3253,
+      "wholeZeroRate": 0.04303719643406086,
+      "wholeExactOneRate": 0.9569628035659391,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0,
+      "plusPositiveRate": 0.9569628035659391,
+      "minusPositiveRate": 0.9569628035659391,
+      "plusZeroResolutionRate": 0,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 18,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 2171,
+      "wholeZeroRate": 0.03362505757715339,
+      "wholeExactOneRate": 0.9649930907415938,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0,
+      "plusPositiveRate": 0.9649930907415938,
+      "minusPositiveRate": 0.9649930907415938,
+      "plusZeroResolutionRate": 0,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 79,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 1873,
+      "wholeZeroRate": 0.0037373198077949813,
+      "wholeExactOneRate": 0.996262680192205,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0,
+      "plusPositiveRate": 0.996262680192205,
+      "minusPositiveRate": 0.996262680192205,
+      "plusZeroResolutionRate": 0,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 4,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 1732,
+      "wholeZeroRate": 0.003464203233256351,
+      "wholeExactOneRate": 0.9948036951501155,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0.16666666666666666,
+      "plusPositiveRate": 0.9953810623556582,
+      "minusPositiveRate": 0.9948036951501155,
+      "plusZeroResolutionRate": 0.16666666666666666,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 52,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 1565,
+      "wholeZeroRate": 0.0012779552715654952,
+      "wholeExactOneRate": 0.9987220447284345,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0,
+      "plusPositiveRate": 0.9987220447284345,
+      "minusPositiveRate": 0.9987220447284345,
+      "plusZeroResolutionRate": 0,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 2,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 1540,
+      "wholeZeroRate": 0.04350649350649351,
+      "wholeExactOneRate": 0.9564935064935065,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0,
+      "plusPositiveRate": 0.9564935064935065,
+      "minusPositiveRate": 0.9564935064935065,
+      "plusZeroResolutionRate": 0,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 77,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 1256,
+      "wholeZeroRate": 0.02308917197452229,
+      "wholeExactOneRate": 0.9769108280254777,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0,
+      "plusPositiveRate": 0.9769108280254777,
+      "minusPositiveRate": 0.9769108280254777,
+      "plusZeroResolutionRate": 0,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 31,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_POSITIVE",
+      "observations": 1214,
+      "wholeZeroRate": 0.07084019769357495,
+      "wholeExactOneRate": 0.929159802306425,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0.023255813953488372,
+      "plusPositiveRate": 0.9308072487644151,
+      "minusPositiveRate": 0.929159802306425,
+      "plusZeroResolutionRate": 0.023255813953488372,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 69,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 871,
+      "wholeZeroRate": 0.04936854190585534,
+      "wholeExactOneRate": 0.9494833524684271,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0,
+      "plusPositiveRate": 0.9506314580941446,
+      "minusPositiveRate": 0.9506314580941446,
+      "plusZeroResolutionRate": 0,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 31,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 597,
+      "wholeZeroRate": 0.07035175879396985,
+      "wholeExactOneRate": 0.9296482412060302,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0.023809523809523808,
+      "plusPositiveRate": 0.931323283082077,
+      "minusPositiveRate": 0.9296482412060302,
+      "plusZeroResolutionRate": 0.023809523809523808,
+      "minusZeroResolutionRate": 0
+    },
+    {
+      "heroId": 50,
+      "activeFireMode": 1,
+      "burstRegime": "BURST_ZERO",
+      "observations": 529,
+      "wholeZeroRate": 0.06049149338374291,
+      "wholeExactOneRate": 0.9395085066162571,
+      "fractionComparableRate": 1,
+      "zeroWholeFractionChangedRate": 0,
+      "plusPositiveRate": 0.9395085066162571,
+      "minusPositiveRate": 0.9395085066162571,
+      "plusZeroResolutionRate": 0,
+      "minusZeroResolutionRate": 0
+    }
+  ],
+  "classification": "AMMO_FRACTION_DOES_NOT_RESOLVE_ZERO_INTEGER_CLIP_SHOTS",
+  "integrityValidation": {
+    "pass": false,
+    "checks": {
+      "script178StatusExpected": {
+        "actual": "WEAPON_CLIP_TICK_SETTLEMENT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "expected": "WEAPON_CLIP_TICK_SETTLEMENT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script178ClassificationExpected": {
+        "actual": "TICK_SETTLEMENT_DOES_NOT_FULLY_RESOLVE_CLIP_REPRESENTATION",
+        "expected": "TICK_SETTLEMENT_DOES_NOT_FULLY_RESOLVE_CLIP_REPRESENTATION",
+        "pass": true
+      },
+      "script178BaselineFrozen": {
+        "actual": {
+          "aligned": 30335,
+          "comparable": 37571
+        },
+        "expected": {
+          "aligned": 30335,
+          "comparable": 37571
+        },
+        "pass": true
+      },
+      "zeroWholeBaselineRecovered": {
+        "actual": 7221,
+        "expected": 7236,
+        "pass": false
+      },
+      "eventParseClean": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "eventCountFrozen": {
+        "actual": 61099,
+        "expected": 61099,
+        "pass": true
+      },
+      "replicationCohortStillUnused": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "NOT_ESTABLISHED",
+    "replicationStatus": "single_replay_only",
+    "authorityPromotion": false
+  },
+  "nextStep": "CLASSIFY_ZERO_WHOLE_DROP_SHOTS_BY_HERO_FIRE_MODE_BURST_AND_AMMO_FRACTION_BEHAVIOR_ON_TEST_ONLY"
+}

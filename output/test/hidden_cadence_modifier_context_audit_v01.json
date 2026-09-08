@@ -1,0 +1,1361 @@
+{
+  "version": "HIDDEN_CADENCE_MODIFIER_CONTEXT_AUDIT_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T20:29:54.719Z",
+  "status": "HIDDEN_CADENCE_MODIFIER_CONTEXT_AUDIT_V01_READY_FOR_INTERPRETATION",
+  "replay": "test",
+  "inputs": {
+    "script139": "G:\\DeadlockBehavior\\output\\cross_replay\\standard_shop_item_effect_substrate_v03.json",
+    "integrated": "G:\\DeadlockBehavior\\output\\test\\integrated_authoritative_player_state_substrate_v01.json",
+    "script161": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_state_substrate_v01.json",
+    "events": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_runtime_events_v01.jsonl",
+    "script165": "G:\\DeadlockBehavior\\output\\cross_replay\\primary_weapon_static_cadence_substrate_v02.json",
+    "script166": "G:\\DeadlockBehavior\\output\\test\\static_runtime_cadence_alignment_diagnostic_v01.json",
+    "output": "G:\\DeadlockBehavior\\output\\test\\hidden_cadence_modifier_context_audit_v01.json"
+  },
+  "design": {
+    "purpose": "Audit whether Script166 clean Fire Rate baseline omitted cadence-affecting item modifier families such as cycle-time, intra-burst, burst-count, and spin-up overrides.",
+    "replayParsing": "NONE",
+    "oldFilterBoundary": "Script166 filtered FIRE_RATE-family evidence only through Script161 effect contexts. Script169 re-joins authoritative full item ownership to full Script139 item records.",
+    "directEvidencePolicy": "Direct provided cadence properties are a stronger resource confound and are excluded in the direct-free sensitivity analysis.",
+    "nonDirectEvidencePolicy": "Non-direct cadence tokens remain unresolved conditional/passive/active/proc/internal evidence. Their ownership is used only for conservative sensitivity analysis, not assumed activation.",
+    "thresholdRetuning": "NONE",
+    "authorityPromotion": "NONE"
+  },
+  "cadenceModifierFamiliesAudited": [
+    "FIRE_RATE",
+    "FIRE_RATE_SLOW",
+    "CYCLE_TIME",
+    "CYCLE_TIME_PERCENTAGE",
+    "INTRA_BURST_SHOT_CYCLE_TIME_OVERRIDE",
+    "BONUS_BURST_SHOT_PERCENT",
+    "BONUS_BURST_SHOT_CONSTANT",
+    "SPIN_UP_RATE_OVERRIDE",
+    "SPIN_UP_DECAY_OVERRIDE",
+    "SPIN_UP_MAX_CYCLE_TIME_OVERRIDE",
+    "SPIN_UP_MAX_BURST_FIRE_COOLDOWN_OVERRIDE"
+  ],
+  "catalogGap": {
+    "cadenceItems": 27,
+    "oldOperationClassifierItems": 24,
+    "hiddenFromOldOperationClassifierItems": 3,
+    "directCadenceItems": 24,
+    "nonDirectCadenceItems": 2,
+    "rows": [
+      {
+        "recordKey": "upgrade_capacitor",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 5,
+            "value": "5"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_dps_aura",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 26,
+            "value": "26"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_fervor",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": true,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 15,
+            "value": "15"
+          },
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 40,
+            "value": "40"
+          }
+        ],
+        "nonDirectCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_ricochet",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 18,
+            "value": "18"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_metal_skin",
+        "hasDirectCadenceEvidence": false,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": false,
+        "hiddenFromOldOperationClassifier": true,
+        "directCadenceStats": [],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_rapid_rounds",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 9,
+            "value": "9"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_bullet_armor_reduction_aura",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE_SLOW",
+            "numericValue": 15,
+            "value": "15"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE_SLOW"
+        ]
+      },
+      {
+        "recordKey": "upgrade_regenerating_bullet_shield",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 7,
+            "value": "7"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_tech_overflow",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": true,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 30,
+            "value": "30"
+          }
+        ],
+        "nonDirectCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_focus_lens",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 10,
+            "value": "10"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_withering_whip",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE_SLOW",
+            "numericValue": 32,
+            "value": "32"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE_SLOW"
+        ]
+      },
+      {
+        "recordKey": "upgrade_ability_power_shard",
+        "hasDirectCadenceEvidence": false,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": false,
+        "hiddenFromOldOperationClassifier": true,
+        "directCadenceStats": [],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_cloaking_device_active",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 25,
+            "value": "25"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_blood_tribute",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 35,
+            "value": "35"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_kinetic_sash",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 25,
+            "value": "25"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_glass_cannon",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 7,
+            "value": "7"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_burst_fire",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 10,
+            "value": "10"
+          },
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 32,
+            "value": "32"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_magic_storm",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 20,
+            "value": "20"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_suppressor",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE_SLOW",
+            "numericValue": 28,
+            "value": "28"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE_SLOW"
+        ]
+      },
+      {
+        "recordKey": "upgrade_quick_silver",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 10,
+            "value": "10"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_ethereal_bullets",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 22,
+            "value": "22"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_blitz_bullets",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 20,
+            "value": "20"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_split_shot",
+        "hasDirectCadenceEvidence": false,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": false,
+        "hiddenFromOldOperationClassifier": true,
+        "directCadenceStats": [],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_active_reload",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 25,
+            "value": "25"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_healbuff",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 35,
+            "value": "35"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      },
+      {
+        "recordKey": "upgrade_juggernaut",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE_SLOW",
+            "numericValue": 40,
+            "value": "40"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE_SLOW"
+        ]
+      },
+      {
+        "recordKey": "upgrade_enchanted_holsters",
+        "hasDirectCadenceEvidence": true,
+        "hasNonDirectCadenceEvidence": false,
+        "hasAnyCadenceEvidence": true,
+        "oldOperationClassifier": true,
+        "hiddenFromOldOperationClassifier": false,
+        "directCadenceStats": [
+          {
+            "providedPropertyType": "MODIFIER_VALUE_FIRE_RATE",
+            "numericValue": 11,
+            "value": "11"
+          }
+        ],
+        "nonDirectCadenceTokens": [],
+        "recordCadenceTokens": [
+          "MODIFIER_VALUE_FIRE_RATE"
+        ]
+      }
+    ]
+  },
+  "counts": {
+    "runtimeDischargesWithReadyDelay": 37654,
+    "script166StrictBaselineRows": 6289,
+    "timelineJoinMissing": 0,
+    "burstBoundaryRows": 844,
+    "burstPositiveRows": 1771,
+    "nonBurstRows": 3674
+  },
+  "strictBaselineCadenceEvidence": {
+    "total": 6289,
+    "withDirectCadenceEvidence": 0,
+    "withAnyCadenceEvidence": 0,
+    "withHiddenCadenceEvidence": 0,
+    "withUnresolvedOwnedItems": 0,
+    "directCadenceEvidenceRate": 0,
+    "anyCadenceEvidenceRate": 0,
+    "hiddenCadenceEvidenceRate": 0
+  },
+  "subgroupCadenceEvidence": {
+    "burstBoundary": {
+      "total": 844,
+      "withDirectCadenceEvidence": 0,
+      "withAnyCadenceEvidence": 0,
+      "withHiddenCadenceEvidence": 0,
+      "withUnresolvedOwnedItems": 0,
+      "directCadenceEvidenceRate": 0,
+      "anyCadenceEvidenceRate": 0,
+      "hiddenCadenceEvidenceRate": 0
+    },
+    "burstPositive": {
+      "total": 1771,
+      "withDirectCadenceEvidence": 0,
+      "withAnyCadenceEvidence": 0,
+      "withHiddenCadenceEvidence": 0,
+      "withUnresolvedOwnedItems": 0,
+      "directCadenceEvidenceRate": 0,
+      "anyCadenceEvidenceRate": 0,
+      "hiddenCadenceEvidenceRate": 0
+    },
+    "nonBurst": {
+      "total": 3674,
+      "withDirectCadenceEvidence": 0,
+      "withAnyCadenceEvidence": 0,
+      "withHiddenCadenceEvidence": 0,
+      "withUnresolvedOwnedItems": 0,
+      "directCadenceEvidenceRate": 0,
+      "anyCadenceEvidenceRate": 0,
+      "hiddenCadenceEvidenceRate": 0
+    }
+  },
+  "sensitivityAlignment": {
+    "originalStrictBaseline": {
+      "comparable": 6289,
+      "aligned": 5079,
+      "alignmentRate": 0.807600572428049,
+      "absoluteErrorSeconds": {
+        "n": 6289,
+        "min": 0.000004882812499995559,
+        "median": 0.012441406250000009,
+        "max": 2.255506103515625,
+        "mean": 0.04771093917412364
+      },
+      "ratioToStatic": {
+        "n": 6289,
+        "min": 0.5840100740131579,
+        "median": 0.9588944284539473,
+        "max": 24.867789455191797,
+        "mean": 1.304186603043894
+      }
+    },
+    "directCadenceEvidenceExcluded": {
+      "comparable": 6289,
+      "aligned": 5079,
+      "alignmentRate": 0.807600572428049,
+      "absoluteErrorSeconds": {
+        "n": 6289,
+        "min": 0.000004882812499995559,
+        "median": 0.012441406250000009,
+        "max": 2.255506103515625,
+        "mean": 0.04771093917412364
+      },
+      "ratioToStatic": {
+        "n": 6289,
+        "min": 0.5840100740131579,
+        "median": 0.9588944284539473,
+        "max": 24.867789455191797,
+        "mean": 1.304186603043894
+      }
+    },
+    "anyCadenceEvidenceExcludedConservative": {
+      "comparable": 6289,
+      "aligned": 5079,
+      "alignmentRate": 0.807600572428049,
+      "absoluteErrorSeconds": {
+        "n": 6289,
+        "min": 0.000004882812499995559,
+        "median": 0.012441406250000009,
+        "max": 2.255506103515625,
+        "mean": 0.04771093917412364
+      },
+      "ratioToStatic": {
+        "n": 6289,
+        "min": 0.5840100740131579,
+        "median": 0.9588944284539473,
+        "max": 24.867789455191797,
+        "mean": 1.304186603043894
+      }
+    },
+    "burstBoundaryOriginal": {
+      "comparable": 844,
+      "aligned": 0,
+      "alignmentRate": 0,
+      "absoluteErrorSeconds": {
+        "n": 844,
+        "min": 0.23637158203125,
+        "median": 0.24699169921875,
+        "max": 2.255506103515625,
+        "mean": 0.2535036450788284
+      },
+      "ratioToStatic": {
+        "n": 844,
+        "min": 3.5012865823412698,
+        "median": 3.6136687748015874,
+        "max": 24.867789455191797,
+        "mean": 3.6825782548025066
+      }
+    },
+    "burstBoundaryDirectExcluded": {
+      "comparable": 844,
+      "aligned": 0,
+      "alignmentRate": 0,
+      "absoluteErrorSeconds": {
+        "n": 844,
+        "min": 0.23637158203125,
+        "median": 0.24699169921875,
+        "max": 2.255506103515625,
+        "mean": 0.2535036450788284
+      },
+      "ratioToStatic": {
+        "n": 844,
+        "min": 3.5012865823412698,
+        "median": 3.6136687748015874,
+        "max": 24.867789455191797,
+        "mean": 3.6825782548025066
+      }
+    },
+    "burstBoundaryAnyEvidenceExcluded": {
+      "comparable": 844,
+      "aligned": 0,
+      "alignmentRate": 0,
+      "absoluteErrorSeconds": {
+        "n": 844,
+        "min": 0.23637158203125,
+        "median": 0.24699169921875,
+        "max": 2.255506103515625,
+        "mean": 0.2535036450788284
+      },
+      "ratioToStatic": {
+        "n": 844,
+        "min": 3.5012865823412698,
+        "median": 3.6136687748015874,
+        "max": 24.867789455191797,
+        "mean": 3.6825782548025066
+      }
+    },
+    "burstPositiveOriginal": {
+      "comparable": 1771,
+      "aligned": 1771,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 1771,
+        "min": 0.0005039062500000052,
+        "median": 0.009750732421875005,
+        "max": 0.015640625000000005,
+        "mean": 0.00900288805538873
+      },
+      "ratioToStatic": {
+        "n": 1771,
+        "min": 0.8138020833333333,
+        "median": 0.8839198521205357,
+        "max": 0.9940011160714285,
+        "mean": 0.8928227612453644
+      }
+    },
+    "burstPositiveAnyEvidenceExcluded": {
+      "comparable": 1771,
+      "aligned": 1771,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 1771,
+        "min": 0.0005039062500000052,
+        "median": 0.009750732421875005,
+        "max": 0.015640625000000005,
+        "mean": 0.00900288805538873
+      },
+      "ratioToStatic": {
+        "n": 1771,
+        "min": 0.8138020833333333,
+        "median": 0.8839198521205357,
+        "max": 0.9940011160714285,
+        "mean": 0.8928227612453644
+      }
+    },
+    "nonBurstOriginal": {
+      "comparable": 3674,
+      "aligned": 3308,
+      "alignmentRate": 0.9003810560696788,
+      "absoluteErrorSeconds": {
+        "n": 3674,
+        "min": 0.000004882812499995559,
+        "median": 0.012138671875000007,
+        "max": 0.18201171875,
+        "mean": 0.019094421685748018
+      },
+      "ratioToStatic": {
+        "n": 3674,
+        "min": 0.5840100740131579,
+        "median": 0.9645734514508929,
+        "max": 1.4977088341346154,
+        "mean": 0.9561089791301909
+      }
+    },
+    "nonBurstAnyEvidenceExcluded": {
+      "comparable": 3674,
+      "aligned": 3308,
+      "alignmentRate": 0.9003810560696788,
+      "absoluteErrorSeconds": {
+        "n": 3674,
+        "min": 0.000004882812499995559,
+        "median": 0.012138671875000007,
+        "max": 0.18201171875,
+        "mean": 0.019094421685748018
+      },
+      "ratioToStatic": {
+        "n": 3674,
+        "min": 0.5840100740131579,
+        "median": 0.9645734514508929,
+        "max": 1.4977088341346154,
+        "mean": 0.9561089791301909
+      }
+    }
+  },
+  "byHero": [
+    {
+      "heroId": 2,
+      "displayName": "Seven",
+      "regime": "BURST",
+      "rows": 1769,
+      "cadenceEvidence": {
+        "total": 1769,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "boundaryCadenceEvidence": {
+        "total": 564,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "originalAlignment": {
+        "comparable": 1769,
+        "aligned": 1205,
+        "alignmentRate": 0.681175805539853,
+        "absoluteErrorSeconds": {
+          "n": 1769,
+          "min": 0.0005039062500000052,
+          "median": 0.012924560546875005,
+          "max": 0.32572705078124997,
+          "mean": 0.08674959873438842
+        },
+        "ratioToStatic": {
+          "n": 1769,
+          "min": 0.8138020833333333,
+          "median": 0.9496779668898809,
+          "max": 4.446847098214286,
+          "mean": 1.7836276477590234
+        }
+      },
+      "anyCadenceEvidenceExcludedAlignment": {
+        "comparable": 1769,
+        "aligned": 1205,
+        "alignmentRate": 0.681175805539853,
+        "absoluteErrorSeconds": {
+          "n": 1769,
+          "min": 0.0005039062500000052,
+          "median": 0.012924560546875005,
+          "max": 0.32572705078124997,
+          "mean": 0.08674959873438842
+        },
+        "ratioToStatic": {
+          "n": 1769,
+          "min": 0.8138020833333333,
+          "median": 0.9496779668898809,
+          "max": 4.446847098214286,
+          "mean": 1.7836276477590234
+        }
+      },
+      "cadenceItemsObserved": [],
+      "hiddenCadenceItemsObserved": []
+    },
+    {
+      "heroId": 79,
+      "displayName": "Rem",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "rows": 1406,
+      "cadenceEvidence": {
+        "total": 1406,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "boundaryCadenceEvidence": {
+        "total": 0,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": null,
+        "anyCadenceEvidenceRate": null,
+        "hiddenCadenceEvidenceRate": null
+      },
+      "originalAlignment": {
+        "comparable": 1406,
+        "aligned": 1384,
+        "alignmentRate": 0.984352773826458,
+        "absoluteErrorSeconds": {
+          "n": 1406,
+          "min": 0.0006005859375000089,
+          "median": 0.010488281250000009,
+          "max": 0.129404296875,
+          "mean": 0.010475563711326335
+        },
+        "ratioToStatic": {
+          "n": 1406,
+          "min": 0.9398827185997596,
+          "median": 0.9685809795673077,
+          "max": 1.4977088341346154,
+          "mean": 0.9708430002940754
+        }
+      },
+      "anyCadenceEvidenceExcludedAlignment": {
+        "comparable": 1406,
+        "aligned": 1384,
+        "alignmentRate": 0.984352773826458,
+        "absoluteErrorSeconds": {
+          "n": 1406,
+          "min": 0.0006005859375000089,
+          "median": 0.010488281250000009,
+          "max": 0.129404296875,
+          "mean": 0.010475563711326335
+        },
+        "ratioToStatic": {
+          "n": 1406,
+          "min": 0.9398827185997596,
+          "median": 0.9685809795673077,
+          "max": 1.4977088341346154,
+          "mean": 0.9708430002940754
+        }
+      },
+      "cadenceItemsObserved": [],
+      "hiddenCadenceItemsObserved": []
+    },
+    {
+      "heroId": 77,
+      "displayName": "Apollo",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "rows": 1257,
+      "cadenceEvidence": {
+        "total": 1257,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "boundaryCadenceEvidence": {
+        "total": 0,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": null,
+        "anyCadenceEvidenceRate": null,
+        "hiddenCadenceEvidenceRate": null
+      },
+      "originalAlignment": {
+        "comparable": 1257,
+        "aligned": 927,
+        "alignmentRate": 0.7374701670644391,
+        "absoluteErrorSeconds": {
+          "n": 1257,
+          "min": 0.000004882812499995559,
+          "median": 0.015620117187500004,
+          "max": 0.18201171875,
+          "mean": 0.03312964512985106
+        },
+        "ratioToStatic": {
+          "n": 1257,
+          "min": 0.5840100740131579,
+          "median": 0.9588944284539473,
+          "max": 1.478978207236842,
+          "mean": 0.9343788291683064
+        }
+      },
+      "anyCadenceEvidenceExcludedAlignment": {
+        "comparable": 1257,
+        "aligned": 927,
+        "alignmentRate": 0.7374701670644391,
+        "absoluteErrorSeconds": {
+          "n": 1257,
+          "min": 0.000004882812499995559,
+          "median": 0.015620117187500004,
+          "max": 0.18201171875,
+          "mean": 0.03312964512985106
+        },
+        "ratioToStatic": {
+          "n": 1257,
+          "min": 0.5840100740131579,
+          "median": 0.9588944284539473,
+          "max": 1.478978207236842,
+          "mean": 0.9343788291683064
+        }
+      },
+      "cadenceItemsObserved": [],
+      "hiddenCadenceItemsObserved": []
+    },
+    {
+      "heroId": 31,
+      "displayName": "Lash",
+      "regime": "BURST",
+      "rows": 846,
+      "cadenceEvidence": {
+        "total": 846,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "boundaryCadenceEvidence": {
+        "total": 280,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "originalAlignment": {
+        "comparable": 846,
+        "aligned": 566,
+        "alignmentRate": 0.6690307328605201,
+        "absoluteErrorSeconds": {
+          "n": 846,
+          "min": 0.0005039062500000052,
+          "median": 0.013992675781250005,
+          "max": 2.255506103515625,
+          "mean": 0.09035597048640039
+        },
+        "ratioToStatic": {
+          "n": 846,
+          "min": 0.8138020833333333,
+          "median": 0.9477706182570684,
+          "max": 24.867789455191797,
+          "mean": 1.8132953289989642
+        }
+      },
+      "anyCadenceEvidenceExcludedAlignment": {
+        "comparable": 846,
+        "aligned": 566,
+        "alignmentRate": 0.6690307328605201,
+        "absoluteErrorSeconds": {
+          "n": 846,
+          "min": 0.0005039062500000052,
+          "median": 0.013992675781250005,
+          "max": 2.255506103515625,
+          "mean": 0.09035597048640039
+        },
+        "ratioToStatic": {
+          "n": 846,
+          "min": 0.8138020833333333,
+          "median": 0.9477706182570684,
+          "max": 24.867789455191797,
+          "mean": 1.8132953289989642
+        }
+      },
+      "cadenceItemsObserved": [],
+      "hiddenCadenceItemsObserved": []
+    },
+    {
+      "heroId": 18,
+      "displayName": "Mo & Krill",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "rows": 325,
+      "cadenceEvidence": {
+        "total": 325,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "boundaryCadenceEvidence": {
+        "total": 0,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": null,
+        "anyCadenceEvidenceRate": null,
+        "hiddenCadenceEvidenceRate": null
+      },
+      "originalAlignment": {
+        "comparable": 325,
+        "aligned": 325,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 325,
+          "min": 0.0006760253906250013,
+          "median": 0.012616027832031251,
+          "max": 0.015629638671875,
+          "mean": 0.010986623910757252
+        },
+        "ratioToStatic": {
+          "n": 325,
+          "min": 0.9173034990906085,
+          "median": 0.9332485299892527,
+          "max": 0.9964231460813492,
+          "mean": 0.941869714757895
+        }
+      },
+      "anyCadenceEvidenceExcludedAlignment": {
+        "comparable": 325,
+        "aligned": 325,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 325,
+          "min": 0.0006760253906250013,
+          "median": 0.012616027832031251,
+          "max": 0.015629638671875,
+          "mean": 0.010986623910757252
+        },
+        "ratioToStatic": {
+          "n": 325,
+          "min": 0.9173034990906085,
+          "median": 0.9332485299892527,
+          "max": 0.9964231460813492,
+          "mean": 0.941869714757895
+        }
+      },
+      "cadenceItemsObserved": [],
+      "hiddenCadenceItemsObserved": []
+    },
+    {
+      "heroId": 69,
+      "displayName": "The Doorman",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "rows": 283,
+      "cadenceEvidence": {
+        "total": 283,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "boundaryCadenceEvidence": {
+        "total": 0,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": null,
+        "anyCadenceEvidenceRate": null,
+        "hiddenCadenceEvidenceRate": null
+      },
+      "originalAlignment": {
+        "comparable": 283,
+        "aligned": 277,
+        "alignmentRate": 0.9787985865724381,
+        "absoluteErrorSeconds": {
+          "n": 283,
+          "min": 0.0006054687500000044,
+          "median": 0.015620117187500004,
+          "max": 0.179814453125,
+          "mean": 0.01611858030932525
+        },
+        "ratioToStatic": {
+          "n": 283,
+          "min": 0.9751940530443949,
+          "median": 0.9752061631944444,
+          "max": 1.2854197668650793,
+          "mean": 0.9862275979169735
+        }
+      },
+      "anyCadenceEvidenceExcludedAlignment": {
+        "comparable": 283,
+        "aligned": 277,
+        "alignmentRate": 0.9787985865724381,
+        "absoluteErrorSeconds": {
+          "n": 283,
+          "min": 0.0006054687500000044,
+          "median": 0.015620117187500004,
+          "max": 0.179814453125,
+          "mean": 0.01611858030932525
+        },
+        "ratioToStatic": {
+          "n": 283,
+          "min": 0.9751940530443949,
+          "median": 0.9752061631944444,
+          "max": 1.2854197668650793,
+          "mean": 0.9862275979169735
+        }
+      },
+      "cadenceItemsObserved": [],
+      "hiddenCadenceItemsObserved": []
+    },
+    {
+      "heroId": 4,
+      "displayName": "Lady Geist",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "rows": 280,
+      "cadenceEvidence": {
+        "total": 280,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "boundaryCadenceEvidence": {
+        "total": 0,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": null,
+        "anyCadenceEvidenceRate": null,
+        "hiddenCadenceEvidenceRate": null
+      },
+      "originalAlignment": {
+        "comparable": 280,
+        "aligned": 272,
+        "alignmentRate": 0.9714285714285714,
+        "absoluteErrorSeconds": {
+          "n": 280,
+          "min": 0.0006066894531249756,
+          "median": 0.012203369140624976,
+          "max": 0.16351684570312502,
+          "mean": 0.01622176252092634
+        },
+        "ratioToStatic": {
+          "n": 280,
+          "min": 0.9668743799603176,
+          "median": 0.9748832258597884,
+          "max": 1.346067398313492,
+          "mean": 0.9841005493994497
+        }
+      },
+      "anyCadenceEvidenceExcludedAlignment": {
+        "comparable": 280,
+        "aligned": 272,
+        "alignmentRate": 0.9714285714285714,
+        "absoluteErrorSeconds": {
+          "n": 280,
+          "min": 0.0006066894531249756,
+          "median": 0.012203369140624976,
+          "max": 0.16351684570312502,
+          "mean": 0.01622176252092634
+        },
+        "ratioToStatic": {
+          "n": 280,
+          "min": 0.9668743799603176,
+          "median": 0.9748832258597884,
+          "max": 1.346067398313492,
+          "mean": 0.9841005493994497
+        }
+      },
+      "cadenceItemsObserved": [],
+      "hiddenCadenceItemsObserved": []
+    },
+    {
+      "heroId": 1,
+      "displayName": "Infernus",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "rows": 123,
+      "cadenceEvidence": {
+        "total": 123,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": 0,
+        "anyCadenceEvidenceRate": 0,
+        "hiddenCadenceEvidenceRate": 0
+      },
+      "boundaryCadenceEvidence": {
+        "total": 0,
+        "withDirectCadenceEvidence": 0,
+        "withAnyCadenceEvidence": 0,
+        "withHiddenCadenceEvidence": 0,
+        "withUnresolvedOwnedItems": 0,
+        "directCadenceEvidenceRate": null,
+        "anyCadenceEvidenceRate": null,
+        "hiddenCadenceEvidenceRate": null
+      },
+      "originalAlignment": {
+        "comparable": 123,
+        "aligned": 123,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 123,
+          "min": 0.0005612182617187461,
+          "median": 0.008739929199218746,
+          "max": 0.015629272460937496,
+          "mean": 0.008991823273945617
+        },
+        "ratioToStatic": {
+          "n": 123,
+          "min": 0.8511497860863095,
+          "median": 0.9167625790550595,
+          "max": 0.9946550641741072,
+          "mean": 0.9143635878671843
+        }
+      },
+      "anyCadenceEvidenceExcludedAlignment": {
+        "comparable": 123,
+        "aligned": 123,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 123,
+          "min": 0.0005612182617187461,
+          "median": 0.008739929199218746,
+          "max": 0.015629272460937496,
+          "mean": 0.008991823273945617
+        },
+        "ratioToStatic": {
+          "n": 123,
+          "min": 0.8511497860863095,
+          "median": 0.9167625790550595,
+          "max": 0.9946550641741072,
+          "mean": 0.9143635878671843
+        }
+      },
+      "cadenceItemsObserved": [],
+      "hiddenCadenceItemsObserved": []
+    }
+  ],
+  "integrityValidation": {
+    "script166StrictBaselineReproduced": {
+      "actual": 6289,
+      "expected": 6289,
+      "pass": true
+    },
+    "integratedPlayersAvailable": {
+      "actual": 12,
+      "expected": ">=heroesInStrictBaseline",
+      "pass": true
+    },
+    "allStrictRowsJoinPlayerState": {
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    "script139CatalogLoaded": {
+      "actual": 156,
+      "expected": 156,
+      "pass": true
+    },
+    "cadenceTokenAuditFound": {
+      "actual": 27,
+      "expected": ">0",
+      "pass": true
+    }
+  },
+  "diagnosticClassification": "SCRIPT166_STRICT_ROWS_HAVE_NO_OWNED_HIDDEN_CADENCE_ITEM_EVIDENCE",
+  "interpretation": {
+    "supported": "Whether Script166 baseline rows carry cadence-relevant item effect evidence that the earlier FIRE_RATE-only classifier could not see.",
+    "notSupported": "Ownership of non-direct cadence tokens does not prove runtime activation, stacking order, or exact cycle-time composition."
+  },
+  "nextStage": "DIAGNOSE_ACTUAL_NEXT_DISCHARGE_SPACING_VERSUS_STATIC_BURST_CANDIDATES_AND_ADDITIONAL_RUNTIME_TIMING_FIELDS"
+}

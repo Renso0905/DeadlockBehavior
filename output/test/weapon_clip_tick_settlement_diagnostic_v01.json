@@ -1,0 +1,125 @@
+{
+  "version": "WEAPON_CLIP_TICK_SETTLEMENT_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T22:21:32.631Z",
+  "status": "WEAPON_CLIP_TICK_SETTLEMENT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "replay": "test",
+  "frozenHypothesis": {
+    "representationTransform": "raw >= 0 ? 2*raw : -2*raw - 1",
+    "Script177ThresholdRetuned": false,
+    "changedSamplingUnitOnly": "final weapon state per context per replay tick",
+    "rationale": "Intermediate Script161 mutations may serialize m_iClip and m_nShotNumber on different rows within the same replay tick.",
+    "thresholds": {
+      "minSettledShotTransitions": 5000,
+      "minTransformedPositiveIntegerPerShotRate": 0.95,
+      "minAdvantageOverRawRate": 0.25
+    }
+  },
+  "mutationPhase": {
+    "ticks": 61074,
+    "multiMutationTicks": 25,
+    "bothFieldsChangedTicks": 31064,
+    "splitFieldMutationTicks": 0,
+    "mixedFieldPhaseTicks": 1,
+    "splitAmongBothRate": 0,
+    "anyNonAtomicAmongBothRate": 0.00003219160442956477
+  },
+  "tickSettledShotTransitions": {
+    "observations": 37571,
+    "transformed": {
+      "positiveIntegerPerShot": 30335,
+      "positiveIntegerPerShotRate": 0.8074046472012989,
+      "mode": 1,
+      "median": 1,
+      "negativeRate": 0.0003460115514625642,
+      "zeroRate": 0.1921961087008597
+    },
+    "raw": {
+      "positiveIntegerPerShot": 15436,
+      "positiveIntegerPerShotRate": 0.4108487929520109,
+      "mode": 0,
+      "median": 0,
+      "negativeRate": 0.3968486332543717,
+      "zeroRate": 0.1921961087008597
+    },
+    "absoluteValue": {
+      "positiveIntegerPerShot": 14908,
+      "positiveIntegerPerShotRate": 0.39679540070799285,
+      "mode": 0,
+      "median": 0,
+      "negativeRate": 0.0003460115514625642,
+      "zeroRate": 0.6028319714673551
+    }
+  },
+  "mutationVsTickSettled": {
+    "mutationLevel": {
+      "comparable": 37571,
+      "aligned": 30335,
+      "rate": 0.8074046472012989
+    },
+    "tickSettled": {
+      "comparable": 37571,
+      "aligned": 30335,
+      "rate": 0.8074046472012989
+    },
+    "rateDelta": 0
+  },
+  "classification": "TICK_SETTLEMENT_DOES_NOT_FULLY_RESOLVE_CLIP_REPRESENTATION",
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script177StatusExpected": {
+        "actual": "WEAPON_CLIP_INTEGER_REPRESENTATION_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "expected": "WEAPON_CLIP_INTEGER_REPRESENTATION_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script177ClassificationExpected": {
+        "actual": "CLIP_INTEGER_REPRESENTATION_REMAINS_UNRESOLVED",
+        "expected": "CLIP_INTEGER_REPRESENTATION_REMAINS_UNRESOLVED",
+        "pass": true
+      },
+      "script177MutationBaselineFrozen": {
+        "actual": {
+          "aligned": 30335,
+          "comparable": 37571
+        },
+        "expected": {
+          "aligned": 30335,
+          "comparable": 37571
+        },
+        "pass": true
+      },
+      "eventParseClean": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "eventCountFrozen": {
+        "actual": 61099,
+        "expected": 61099,
+        "pass": true
+      },
+      "contextCountSubstantial": {
+        "actual": 175,
+        "expected": ">100",
+        "pass": true
+      },
+      "settledShotTransitionsSubstantial": {
+        "actual": 37571,
+        "expected": ">5000",
+        "pass": true
+      },
+      "replicationCohortStillUnused": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "NOT_ESTABLISHED",
+    "replicationStatus": "single_replay_only",
+    "authorityPromotion": false
+  },
+  "nextStep": "CLASSIFY_REMAINING_SETTLED_TRANSITION_FAILURES_BY_RELOAD_EFFECT_CONTEXT_AND_SHOT_NUMBER_BEHAVIOR_ON_TEST_ONLY"
+}

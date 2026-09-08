@@ -1,0 +1,284 @@
+{
+  "version": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_AUTHORITY_V01",
+  "canonical": true,
+  "createdAt": "2026-09-07T21:53:02.761Z",
+  "status": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_AUTHORITY_V01_READY",
+  "claimId": "runtime_primary_attack_ready_schedule",
+  "authorityBoundary": {
+    "construct": "Observed primary-attack next-discharge readiness schedule carried by m_flNextPrimaryAttack - m_flLastAttackTime.",
+    "scope": "Sustained consecutive primary-weapon discharge pairs on the same player, weapon entity, effect context, and active fire mode under the frozen Script172 fixed-regime strict-baseline semantics.",
+    "excluded": [
+      "full effective_weapon_state composition",
+      "magazine capacity semantics",
+      "spin-up dynamic cadence authority",
+      "projectile travel authority",
+      "damage composition",
+      "conditional/non-direct item activation semantics",
+      "static cycle/intra-burst formulas as runtime authority"
+    ],
+    "observedCarrier": "m_flNextPrimaryAttack - m_flLastAttackTime at an observed discharge event",
+    "observedMeaning": "Runtime schedule for the next sustained primary-weapon discharge within the validated pair scope.",
+    "staticCadenceRole": "Build-bound explanatory diagnostic only. Static V02 does not define the promoted runtime carrier."
+  },
+  "evidence": {
+    "discoveryReplay": "test",
+    "independentReplicationReplays": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "independentReplayCount": 5,
+    "sourceScripts": [
+      "161-build-effective-weapon-state-substrate-v01",
+      "170-diagnose-actual-discharge-spacing-vs-static-cadence-v01",
+      "171-freeze-observed-primary-attack-ready-schedule-v01",
+      "172-validate-observed-primary-attack-ready-schedule-cross-replay-v01",
+      "173-promote-observed-primary-attack-ready-schedule-authority-v01"
+    ],
+    "replicationArtifact": "output/cross_replay/observed_primary_attack_ready_schedule_cross_replay_validation_v01.json",
+    "observedRuntimeCarrier": {
+      "aggregate": {
+        "aligned": 27459,
+        "comparable": 27465,
+        "alignmentRate": 0.9997815401419989
+      },
+      "burstBoundary": {
+        "aligned": 1463,
+        "comparable": 1463,
+        "alignmentRate": 1
+      },
+      "burstPositive": {
+        "aligned": 5043,
+        "comparable": 5043,
+        "alignmentRate": 1
+      },
+      "nonBurst": {
+        "aligned": 20953,
+        "comparable": 20959,
+        "alignmentRate": 0.9997137267999427
+      },
+      "lastAttackDeltaVsReplaySpacing": {
+        "aligned": 1463,
+        "comparable": 1463,
+        "alignmentRate": 1
+      },
+      "nextLastAttackVsCurrentNextPrimary": {
+        "aligned": 1463,
+        "comparable": 1463,
+        "alignmentRate": 1
+      }
+    },
+    "staticExplanatoryModelV02DiagnosticOnly": {
+      "aggregate": {
+        "aligned": 23269,
+        "comparable": 27465,
+        "alignmentRate": 0.8472237393045694
+      },
+      "burstBoundary": {
+        "aligned": 1454,
+        "comparable": 1463,
+        "alignmentRate": 0.9938482570061518
+      },
+      "burstPositive": {
+        "aligned": 5043,
+        "comparable": 5043,
+        "alignmentRate": 1
+      },
+      "nonBurst": {
+        "aligned": 16772,
+        "comparable": 20959,
+        "alignmentRate": 0.8002290185600458
+      },
+      "note": "Pooled static explanatory fit is not a semantic gate for the observed runtime schedule authority."
+    },
+    "perReplayPrimary": [
+      {
+        "replay": "rep01",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 5027,
+        "observedAlignmentRate": 1
+      },
+      {
+        "replay": "rep02",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 4786,
+        "observedAlignmentRate": 0.9987463435018805
+      },
+      {
+        "replay": "rep03",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 4543,
+        "observedAlignmentRate": 1
+      },
+      {
+        "replay": "rep04",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 10604,
+        "observedAlignmentRate": 1
+      },
+      {
+        "replay": "rep05",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 2505,
+        "observedAlignmentRate": 1
+      }
+    ]
+  },
+  "validation": {
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated",
+    "promotionChecks": {
+      "script172StatusStrong": {
+        "actual": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "expected": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "pass": true
+      },
+      "script172IntegrityPass": {
+        "actual": "pass",
+        "expected": "pass",
+        "pass": true
+      },
+      "script172SemanticPass": {
+        "actual": "pass",
+        "expected": "pass",
+        "pass": true
+      },
+      "script172CrossReplayReplicated": {
+        "actual": "cross_replay_replicated",
+        "expected": "cross_replay_replicated",
+        "pass": true
+      },
+      "exactIndependentCohort": {
+        "actual": [
+          "rep01",
+          "rep02",
+          "rep03",
+          "rep04",
+          "rep05"
+        ],
+        "expected": [
+          "rep01",
+          "rep02",
+          "rep03",
+          "rep04",
+          "rep05"
+        ],
+        "pass": true
+      },
+      "discoveryReplayExcluded": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "fiveReplayPrimaryPass": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "strongReplicationClassification": {
+        "actual": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "expected": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "pass": true
+      },
+      "pooledObservedCountsFrozen": {
+        "actual": {
+          "aligned": 27459,
+          "comparable": 27465
+        },
+        "expected": {
+          "aligned": 27459,
+          "comparable": 27465
+        },
+        "pass": true
+      },
+      "burstBoundaryCountsFrozen": {
+        "actual": {
+          "aligned": 1463,
+          "comparable": 1463
+        },
+        "expected": {
+          "aligned": 1463,
+          "comparable": 1463
+        },
+        "pass": true
+      },
+      "burstPositiveCountsFrozen": {
+        "actual": {
+          "aligned": 5043,
+          "comparable": 5043
+        },
+        "expected": {
+          "aligned": 5043,
+          "comparable": 5043
+        },
+        "pass": true
+      },
+      "nonBurstCountsFrozen": {
+        "actual": {
+          "aligned": 20953,
+          "comparable": 20959
+        },
+        "expected": {
+          "aligned": 20953,
+          "comparable": 20959
+        },
+        "pass": true
+      },
+      "boundaryReplaySpacingCrossCheckFrozen": {
+        "actual": {
+          "aligned": 1463,
+          "comparable": 1463
+        },
+        "expected": {
+          "aligned": 1463,
+          "comparable": 1463
+        },
+        "pass": true
+      },
+      "boundaryNextPrimaryCrossCheckFrozen": {
+        "actual": {
+          "aligned": 1463,
+          "comparable": 1463
+        },
+        "expected": {
+          "aligned": 1463,
+          "comparable": 1463
+        },
+        "pass": true
+      },
+      "pooledObservedRateMeetsFrozenGate": {
+        "actual": 0.9997815401419989,
+        "expected": ">=0.95",
+        "pass": true
+      },
+      "playerStateAuthorityCurrentReplicated": {
+        "actual": "current/pass/cross_replay_replicated",
+        "expected": "current/pass/cross_replay_replicated",
+        "pass": true
+      },
+      "effectiveWeaponStillMissingBeforePromotion": {
+        "actual": "missing",
+        "expected": "missing",
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "primaryConclusion": "The observed nextPrimaryAttack-lastAttackTime schedule strongly predicts the next sustained primary-weapon discharge across the frozen five-replay independent cohort.",
+    "staticModelConclusion": "Static cycle/intra-burst fields remain useful explanatory inputs but are not promoted as the runtime cadence authority because pooled static fit is materially weaker and hero/replay-specific outliers remain.",
+    "effectiveWeaponBoundary": "This authority resolves one dedicated readiness/cadence subclaim only. effective_weapon_state remains missing."
+  }
+}

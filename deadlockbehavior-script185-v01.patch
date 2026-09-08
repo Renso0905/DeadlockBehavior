@@ -1,0 +1,1908 @@
+diff --git a/src/player-state/slide-carrier-residual-diagnostic.mjs b/src/player-state/slide-carrier-residual-diagnostic.mjs
+new file mode 100644
+index 0000000..986ee15
+--- /dev/null
++++ b/src/player-state/slide-carrier-residual-diagnostic.mjs
+@@ -0,0 +1,918 @@
++// Script185 helpers.
++//
++// Diagnostic-only decomposition of the carrier-ABSENT residual attack
++// transitions that caused Script184's composite replication rule to fail.
++//
++// Important scientific boundary:
++// - Script184 remains a valid contradiction of the composite exclusive model.
++// - The carrier is NOT retuned.
++// - The cross-replay cohort is NOT treated as fresh discovery evidence.
++// - No authority promotion occurs here.
++//
++// We only ask where carrier-absent ZERO and NEGATIVE whole-clip transitions
++// concentrate and what weapon-state features co-occur with them.
++
++export function zigzagReencode(raw) {
++  if (!Number.isFinite(raw)) return null;
++  return raw >= 0 ? 2 * raw : -2 * raw - 1;
++}
++
++export function normalizeDetailedWeaponEvent(
++  row,
++  sourceIndex = 0,
++) {
++  const observed =
++    row?.observedWeaponState ?? {};
++
++  const rawClip =
++    finite(firstDefined(
++      observed.clip,
++      deepFindExactKey(row, 'clip'),
++      deepFindExactKey(row, 'm_iClip'),
++    ));
++
++  return {
++    sourceIndex,
++
++    tick:
++      finite(firstDefined(
++        row?.tick,
++        row?.demoTick,
++        deepFindExactKey(row, 'tick'),
++      )),
++
++    heroId:
++      finite(firstDefined(
++        row?.heroId,
++        deepFindExactKey(row, 'heroId'),
++      )),
++
++    playerKey:
++      stringOrNull(firstDefined(
++        row?.playerKey,
++        row?.playerName,
++        deepFindExactKey(row, 'playerKey'),
++        deepFindExactKey(row, 'playerName'),
++      )),
++
++    weaponEntityIndex:
++      finite(firstDefined(
++        row?.weaponEntityIndex,
++        deepFindExactKey(row, 'weaponEntityIndex'),
++      )),
++
++    effectContextId:
++      stringOrNull(firstDefined(
++        row?.effectContextId,
++        deepFindExactKey(row, 'effectContextId'),
++      )) ?? 'NO_EFFECT_CONTEXT_ID',
++
++    activeFireMode:
++      finite(firstDefined(
++        observed.activeFireMode,
++        deepFindExactKey(row, 'activeFireMode'),
++        deepFindExactKey(row, 'm_eActiveFireMode'),
++      )) ?? 0,
++
++    rawClip,
++    wholeClip:
++      zigzagReencode(rawClip),
++
++    bonusClip:
++      finite(firstDefined(
++        observed.bonusClip,
++        deepFindExactKey(row, 'bonusClip'),
++        deepFindExactKey(row, 'm_iBonusClip'),
++      )),
++
++    ammoFraction:
++      finite(firstDefined(
++        observed.ammoFraction,
++        deepFindExactKey(row, 'ammoFraction'),
++        deepFindExactKey(row, 'm_flAmmoFrac'),
++      )),
++
++    inReload:
++      booleanOrNull(firstDefined(
++        observed.inReload,
++        deepFindExactKey(row, 'inReload'),
++        deepFindExactKey(row, 'm_bInReload'),
++      )),
++
++    activeFireModeObserved:
++      finite(firstDefined(
++        observed.activeFireMode,
++        deepFindExactKey(row, 'activeFireMode'),
++        deepFindExactKey(row, 'm_eActiveFireMode'),
++      )),
++
++    shotNumber:
++      finite(firstDefined(
++        observed.shotNumber,
++        deepFindExactKey(row, 'shotNumber'),
++        deepFindExactKey(row, 'm_nShotNumber'),
++      )),
++
++    lastAttackTime:
++      finite(firstDefined(
++        observed.lastAttackTime,
++        deepFindExactKey(row, 'lastAttackTime'),
++        deepFindExactKey(row, 'm_flLastAttackTime'),
++      )),
++
++    burstShotsRemaining:
++      finite(firstDefined(
++        observed.burstShotsRemaining,
++        deepFindExactKey(row, 'burstShotsRemaining'),
++        deepFindExactKey(row, 'm_nBurstShotsRemaining'),
++      )),
++
++    continuousShots:
++      finite(firstDefined(
++        observed.continuousShots,
++        deepFindExactKey(row, 'continuousShots'),
++        deepFindExactKey(row, 'm_nNumContinuousShots'),
++      )),
++
++    firedRecently:
++      booleanOrNull(firstDefined(
++        observed.firedRecently,
++        deepFindExactKey(row, 'firedRecently'),
++        deepFindExactKey(row, 'm_bFiredRecently'),
++      )),
++  };
++}
++
++export function groupDetailedWeaponEvents(events) {
++  const map = new Map();
++
++  for (const row of events) {
++    const key = contextKey(row);
++
++    if (!map.has(key)) {
++      map.set(key, []);
++    }
++
++    map.get(key).push(row);
++  }
++
++  for (const rows of map.values()) {
++    rows.sort((a, b) =>
++      a.tick - b.tick
++      || a.sourceIndex - b.sourceIndex
++    );
++  }
++
++  return map;
++}
++
++export function coalesceFinalStatePerTick(events) {
++  const byTick = new Map();
++
++  for (const row of events) {
++    if (Number.isFinite(row.tick)) {
++      byTick.set(row.tick, row);
++    }
++  }
++
++  return [...byTick.values()]
++    .sort((a, b) =>
++      a.tick - b.tick
++      || a.sourceIndex - b.sourceIndex
++    );
++}
++
++export function deriveDetailedAttackTransitions(
++  grouped,
++) {
++  const rows = [];
++
++  for (const contextRows of grouped.values()) {
++    const settled =
++      coalesceFinalStatePerTick(
++        contextRows,
++      );
++
++    for (
++      let index = 1;
++      index < settled.length;
++      index++
++    ) {
++      const previous =
++        settled[index - 1];
++
++      const current =
++        settled[index];
++
++      if (
++        previous.inReload === true
++        || current.inReload === true
++        || !Number.isFinite(previous.shotNumber)
++        || !Number.isFinite(current.shotNumber)
++        || !Number.isFinite(previous.wholeClip)
++        || !Number.isFinite(current.wholeClip)
++      ) {
++        continue;
++      }
++
++      const shotAdvance =
++        current.shotNumber
++        - previous.shotNumber;
++
++      if (shotAdvance <= 0) {
++        continue;
++      }
++
++      const wholeDrop =
++        previous.wholeClip
++        - current.wholeClip;
++
++      const bonusClipDelta =
++        finiteDelta(
++          previous.bonusClip,
++          current.bonusClip,
++        );
++
++      const ammoFractionDelta =
++        finiteDelta(
++          previous.ammoFraction,
++          current.ammoFraction,
++        );
++
++      const lastAttackAdvance =
++        finiteDelta(
++          previous.lastAttackTime,
++          current.lastAttackTime,
++        );
++
++      rows.push({
++        tick:
++          current.tick,
++
++        previousTick:
++          previous.tick,
++
++        heroId:
++          current.heroId,
++
++        playerKey:
++          current.playerKey,
++
++        weaponEntityIndex:
++          current.weaponEntityIndex,
++
++        effectContextId:
++          current.effectContextId,
++
++        activeFireMode:
++          current.activeFireMode,
++
++        shotAdvance,
++        wholeDrop,
++
++        label:
++          wholeDrop > 0
++            ? 'POSITIVE'
++            : wholeDrop < 0
++              ? 'NEGATIVE'
++              : 'ZERO',
++
++        previousWholeClip:
++          previous.wholeClip,
++
++        currentWholeClip:
++          current.wholeClip,
++
++        bonusClipDelta,
++
++        ammoFractionDelta,
++
++        lastAttackAdvance,
++
++        lastAttackConfirmed:
++          Number.isFinite(lastAttackAdvance)
++          && lastAttackAdvance > 1e-9,
++
++        previousBurstShotsRemaining:
++          previous.burstShotsRemaining,
++
++        currentBurstShotsRemaining:
++          current.burstShotsRemaining,
++
++        previousContinuousShots:
++          previous.continuousShots,
++
++        currentContinuousShots:
++          current.continuousShots,
++
++        firedRecently:
++          current.firedRecently,
++
++        featureFlags: {
++          multiShotAdvance:
++            shotAdvance > 1,
++
++          bonusClipChanged:
++            Number.isFinite(bonusClipDelta)
++            && bonusClipDelta !== 0,
++
++          bonusClipIncreased:
++            Number.isFinite(bonusClipDelta)
++            && bonusClipDelta > 0,
++
++          ammoFractionChanged:
++            Number.isFinite(ammoFractionDelta)
++            && Math.abs(ammoFractionDelta) > 1e-9,
++
++          burstRemainingPositive:
++            Number.isFinite(current.burstShotsRemaining)
++            && current.burstShotsRemaining > 0,
++
++          continuousShotsPositive:
++            Number.isFinite(current.continuousShots)
++            && current.continuousShots > 0,
++        },
++      });
++    }
++  }
++
++  return rows;
++}
++
++export function summarizeCarrierAbsentResiduals(rows) {
++  const absent =
++    rows.filter(
++      row =>
++        row.covered === true
++        && row.carrierPresent === false,
++    );
++
++  const positive =
++    absent.filter(
++      row => row.label === 'POSITIVE',
++    );
++
++  const zero =
++    absent.filter(
++      row => row.label === 'ZERO',
++    );
++
++  const negative =
++    absent.filter(
++      row => row.label === 'NEGATIVE',
++    );
++
++  return {
++    total:
++      absent.length,
++
++    partition: {
++      POSITIVE:
++        positive.length,
++      ZERO:
++        zero.length,
++      NEGATIVE:
++        negative.length,
++    },
++
++    residual: {
++      total:
++        zero.length + negative.length,
++
++      zero:
++        zero.length,
++
++      negative:
++        negative.length,
++
++      zeroRate:
++        absent.length > 0
++          ? zero.length / absent.length
++          : null,
++
++      negativeRate:
++        absent.length > 0
++          ? negative.length / absent.length
++          : null,
++    },
++
++    byHero:
++      groupSummary(
++        absent,
++        row => String(row.heroId),
++      ),
++
++    byEffectContext:
++      groupSummary(
++        absent,
++        row => row.effectContextId,
++      ),
++
++    byHeroEffectContext:
++      groupSummary(
++        absent,
++        row =>
++          `${row.heroId}|${row.effectContextId}`,
++      ),
++
++    byFireMode:
++      groupSummary(
++        absent,
++        row =>
++          `${row.heroId}|mode=${row.activeFireMode}`,
++      ),
++
++    features:
++      featureSummary(absent),
++
++    zeroRuns:
++      zeroRunSummary(absent),
++
++    negativeWholeDrop:
++      distribution(
++        negative.map(
++          row => row.wholeDrop,
++        ),
++      ),
++
++    residualExamples:
++      [...zero, ...negative]
++        .slice(0, 200),
++  };
++}
++
++export function classifyResidualConcentration(summary) {
++  const residualTotal =
++    summary?.residual?.total ?? 0;
++
++  if (residualTotal === 0) {
++    return 'NO_CARRIER_ABSENT_RESIDUALS';
++  }
++
++  const topHero =
++    summary.byHero?.[0];
++
++  const topContext =
++    summary.byEffectContext?.[0];
++
++  const topHeroShare =
++    topHero
++      ? topHero.residual / residualTotal
++      : 0;
++
++  const topContextShare =
++    topContext
++      ? topContext.residual / residualTotal
++      : 0;
++
++  if (
++    topHeroShare >= 0.50
++    || topContextShare >= 0.50
++  ) {
++    return 'CARRIER_ABSENT_RESIDUALS_STRONGLY_CONCENTRATED';
++  }
++
++  if (
++    topHeroShare >= 0.25
++    || topContextShare >= 0.25
++  ) {
++    return 'CARRIER_ABSENT_RESIDUALS_MODERATELY_CONCENTRATED';
++  }
++
++  return 'CARRIER_ABSENT_RESIDUALS_DIFFUSE_ACROSS_HEROES_AND_CONTEXTS';
++}
++
++function groupSummary(rows, keyFn) {
++  const groups = new Map();
++
++  for (const row of rows) {
++    const key =
++      keyFn(row);
++
++    if (!groups.has(key)) {
++      groups.set(
++        key,
++        [],
++      );
++    }
++
++    groups.get(key).push(row);
++  }
++
++  const totalResidual =
++    rows.filter(
++      row =>
++        row.label === 'ZERO'
++        || row.label === 'NEGATIVE',
++    ).length;
++
++  return [...groups.entries()]
++    .map(([key, groupRows]) => {
++      const zero =
++        groupRows.filter(
++          row => row.label === 'ZERO',
++        ).length;
++
++      const negative =
++        groupRows.filter(
++          row => row.label === 'NEGATIVE',
++        ).length;
++
++      const positive =
++        groupRows.filter(
++          row => row.label === 'POSITIVE',
++        ).length;
++
++      const residual =
++        zero + negative;
++
++      return {
++        key,
++        total:
++          groupRows.length,
++        positive,
++        zero,
++        negative,
++        residual,
++
++        zeroRate:
++          groupRows.length > 0
++            ? zero / groupRows.length
++            : null,
++
++        negativeRate:
++          groupRows.length > 0
++            ? negative / groupRows.length
++            : null,
++
++        residualShare:
++          totalResidual > 0
++            ? residual / totalResidual
++            : null,
++      };
++    })
++    .sort((a, b) =>
++      b.residual - a.residual
++      || b.total - a.total
++    );
++}
++
++function featureSummary(rows) {
++  const features = [
++    'multiShotAdvance',
++    'bonusClipChanged',
++    'bonusClipIncreased',
++    'ammoFractionChanged',
++    'burstRemainingPositive',
++    'continuousShotsPositive',
++  ];
++
++  const output = {};
++
++  for (const feature of features) {
++    output[feature] = compareFeature(
++      rows,
++      feature,
++    );
++  }
++
++  return output;
++}
++
++function compareFeature(rows, feature) {
++  const residual =
++    rows.filter(
++      row =>
++        row.label === 'ZERO'
++        || row.label === 'NEGATIVE',
++    );
++
++  const positive =
++    rows.filter(
++      row =>
++        row.label === 'POSITIVE',
++    );
++
++  const residualPresent =
++    residual.filter(
++      row =>
++        row.featureFlags?.[feature]
++        === true,
++    ).length;
++
++  const positivePresent =
++    positive.filter(
++      row =>
++        row.featureFlags?.[feature]
++        === true,
++    ).length;
++
++  const residualRate =
++    residual.length > 0
++      ? residualPresent / residual.length
++      : null;
++
++  const positiveRate =
++    positive.length > 0
++      ? positivePresent / positive.length
++      : null;
++
++  return {
++    residualN:
++      residual.length,
++    positiveN:
++      positive.length,
++
++    residualPresent,
++    positivePresent,
++
++    residualRate,
++    positiveRate,
++
++    riskDifference:
++      residualRate !== null
++      && positiveRate !== null
++        ? residualRate - positiveRate
++        : null,
++  };
++}
++
++function zeroRunSummary(rows) {
++  const ordered =
++    [...rows]
++      .sort((a, b) =>
++        contextKey(a).localeCompare(contextKey(b))
++        || a.tick - b.tick
++      );
++
++  const runs = [];
++  let activeContext = null;
++  let currentRun = 0;
++
++  for (const row of ordered) {
++    const key =
++      contextKey(row);
++
++    if (key !== activeContext) {
++      if (currentRun > 0) {
++        runs.push(currentRun);
++      }
++
++      activeContext = key;
++      currentRun = 0;
++    }
++
++    if (row.label === 'ZERO') {
++      currentRun++;
++    } else {
++      if (currentRun > 0) {
++        runs.push(currentRun);
++      }
++
++      currentRun = 0;
++    }
++  }
++
++  if (currentRun > 0) {
++    runs.push(currentRun);
++  }
++
++  return distribution(runs);
++}
++
++function distribution(values) {
++  if (!values.length) {
++    return {
++      count: 0,
++      min: null,
++      max: null,
++      mode: null,
++      median: null,
++      p90: null,
++    };
++  }
++
++  const sorted =
++    [...values]
++      .sort((a, b) => a - b);
++
++  const counts =
++    new Map();
++
++  for (const value of sorted) {
++    counts.set(
++      value,
++      (counts.get(value) ?? 0) + 1,
++    );
++  }
++
++  const mode =
++    [...counts.entries()]
++      .sort((a, b) =>
++        b[1] - a[1]
++        || a[0] - b[0]
++      )[0][0];
++
++  return {
++    count:
++      sorted.length,
++    min:
++      sorted[0],
++    max:
++      sorted.at(-1),
++    mode,
++    median:
++      quantile(sorted, 0.5),
++    p90:
++      quantile(sorted, 0.9),
++  };
++}
++
++function quantile(sorted, q) {
++  if (!sorted.length) {
++    return null;
++  }
++
++  const pos =
++    (sorted.length - 1) * q;
++
++  const base =
++    Math.floor(pos);
++
++  const rest =
++    pos - base;
++
++  if (
++    sorted[base + 1]
++    !== undefined
++  ) {
++    return sorted[base]
++      + rest
++      * (
++        sorted[base + 1]
++        - sorted[base]
++      );
++  }
++
++  return sorted[base];
++}
++
++function contextKey(row) {
++  return [
++    row.replayName ?? '',
++    row.playerKey ?? 'UNKNOWN_PLAYER',
++    row.weaponEntityIndex ?? 'UNKNOWN_WEAPON',
++    row.effectContextId ?? 'NO_EFFECT_CONTEXT_ID',
++    row.activeFireMode ?? 0,
++  ].join('|');
++}
++
++function finiteDelta(a, b) {
++  return (
++    Number.isFinite(a)
++    && Number.isFinite(b)
++  )
++    ? b - a
++    : null;
++}
++
++export function deepFindExactKey(
++  root,
++  key,
++  maxDepth = 8,
++) {
++  if (
++    !root
++    || typeof root !== 'object'
++  ) {
++    return undefined;
++  }
++
++  const queue = [
++    {
++      value: root,
++      depth: 0,
++    },
++  ];
++
++  const seen =
++    new Set();
++
++  while (queue.length) {
++    const {
++      value,
++      depth,
++    } = queue.shift();
++
++    if (
++      !value
++      || typeof value !== 'object'
++      || seen.has(value)
++      || depth > maxDepth
++    ) {
++      continue;
++    }
++
++    seen.add(value);
++
++    if (
++      !Array.isArray(value)
++      && Object.prototype
++        .hasOwnProperty.call(
++          value,
++          key,
++        )
++    ) {
++      return value[key];
++    }
++
++    for (
++      const child
++      of (
++        Array.isArray(value)
++          ? value
++          : Object.values(value)
++      )
++    ) {
++      if (
++        child
++        && typeof child === 'object'
++      ) {
++        queue.push({
++          value: child,
++          depth: depth + 1,
++        });
++      }
++    }
++  }
++
++  return undefined;
++}
++
++function firstDefined(...values) {
++  return values.find(
++    value =>
++      value !== undefined
++      && value !== null,
++  );
++}
++
++function finite(value) {
++  if (
++    value === null
++    || value === undefined
++    || value === ''
++  ) {
++    return null;
++  }
++
++  const number =
++    Number(value);
++
++  return Number.isFinite(number)
++    ? number
++    : null;
++}
++
++function booleanOrNull(value) {
++  if (
++    value === true
++    || value === false
++  ) {
++    return value;
++  }
++
++  if (
++    value === 1
++    || value === '1'
++    || value === 'true'
++  ) {
++    return true;
++  }
++
++  if (
++    value === 0
++    || value === '0'
++    || value === 'false'
++  ) {
++    return false;
++  }
++
++  return null;
++}
++
++function stringOrNull(value) {
++  if (
++    value === null
++    || value === undefined
++  ) {
++    return null;
++  }
++
++  const text =
++    String(value);
++
++  return text.length
++    ? text
++    : null;
++}
+diff --git a/scripts/185-diagnose-slide-carrier-absent-residuals-v01.mjs b/scripts/185-diagnose-slide-carrier-absent-residuals-v01.mjs
+new file mode 100644
+index 0000000..f7fea44
+--- /dev/null
++++ b/scripts/185-diagnose-slide-carrier-absent-residuals-v01.mjs
+@@ -0,0 +1,770 @@
++import {
++  createReadStream,
++  existsSync,
++  mkdirSync,
++  readFileSync,
++  writeFileSync,
++} from 'node:fs';
++
++import {
++  dirname,
++  resolve,
++} from 'node:path';
++
++import {
++  EntityOperation,
++  InterceptorStage,
++  Logger,
++  Parser,
++  ParserConfiguration,
++} from 'deadem';
++
++import {
++  flattenPrimitiveChanges,
++} from '../src/player-state/slide-carrier-discovery.mjs';
++
++import {
++  createAttackTickGuard,
++  resolvePawnForHero,
++} from '../src/player-state/slide-carrier-controller-join.mjs';
++
++import {
++  evaluateCarrierState,
++  PRIMARY_SLIDE_AMMO_CARRIER,
++} from '../src/player-state/slide-infinite-ammo-validation.mjs';
++
++import {
++  classifyResidualConcentration,
++  deriveDetailedAttackTransitions,
++  groupDetailedWeaponEvents,
++  normalizeDetailedWeaponEvent,
++  summarizeCarrierAbsentResiduals,
++} from '../src/player-state/slide-carrier-residual-diagnostic.mjs';
++
++const VERSION =
++  'SLIDE_CARRIER_ABSENT_RESIDUAL_DIAGNOSTIC_V01';
++
++const PATHS = {
++  manifest:
++    resolve(
++      'output',
++      'cross_replay',
++      'replication_manifest_v01.json',
++    ),
++
++  script184:
++    resolve(
++      'output',
++      'cross_replay',
++      'slide_infinite_ammo_cross_replay_validation_v01.json',
++    ),
++
++  output:
++    resolve(
++      'output',
++      'cross_replay',
++      'slide_carrier_absent_residual_diagnostic_v01.json',
++    ),
++};
++
++for (const [name, path] of Object.entries(PATHS)) {
++  if (name === 'output') continue;
++
++  if (!existsSync(path)) {
++    throw new Error(
++      `Missing ${name}:\n${path}`,
++    );
++  }
++}
++
++const manifest =
++  JSON.parse(
++    readFileSync(
++      PATHS.manifest,
++      'utf8',
++    ),
++  );
++
++const script184 =
++  JSON.parse(
++    readFileSync(
++      PATHS.script184,
++      'utf8',
++    ),
++  );
++
++const EXPECTED_184_STATUS =
++  'SLIDE_INFINITE_AMMO_CROSS_REPLAY_VALIDATION_V01_REQUIRES_DIAGNOSIS';
++
++const EXPECTED_184_CLASSIFICATION =
++  'SLIDE_INFINITE_AMMO_RUNTIME_CARRIER_CONTRADICTED_IN_INDEPENDENT_REPLAY';
++
++const cohort =
++  Array.isArray(
++    manifest?.selectedReplicationCohort,
++  )
++    ? manifest.selectedReplicationCohort
++      .map(row => String(row.replayName))
++    : [];
++
++if (cohort.length !== 5) {
++  throw new Error(
++    `Expected five frozen replication replays, found ${cohort.length}.`,
++  );
++}
++
++console.log('');
++console.log(
++  '========================================================',
++);
++console.log(
++  'SLIDE-CARRIER ABSENT RESIDUAL DIAGNOSTIC V0.1',
++);
++console.log(
++  '========================================================',
++);
++console.log('');
++console.log(
++  `Frozen carrier unchanged: ${PRIMARY_SLIDE_AMMO_CARRIER.field} bit=${PRIMARY_SLIDE_AMMO_CARRIER.bit}`,
++);
++console.log(
++  'Purpose: diagnose Script184 composite contradiction',
++);
++console.log(
++  'Authority promotion: NO',
++);
++console.log(
++  'Replication cohort treated as fresh: NO',
++);
++console.log('');
++
++const allRows = [];
++const replayDiagnostics = [];
++
++for (
++  let index = 0;
++  index < cohort.length;
++  index++
++) {
++  const replayName =
++    cohort[index];
++
++  const replayPath =
++    resolve(
++      'replays',
++      `${replayName}.dem`,
++    );
++
++  const weaponPath =
++    resolve(
++      'output',
++      replayName,
++      'effective_weapon_runtime_events_v01.jsonl',
++    );
++
++  if (
++    !existsSync(replayPath)
++    || !existsSync(weaponPath)
++  ) {
++    replayDiagnostics.push({
++      replayName,
++      integrityPass: false,
++      reason:
++        'MISSING_REQUIRED_INPUT',
++    });
++    continue;
++  }
++
++  const weaponEvents = [];
++  let parseFailures = 0;
++
++  for await (
++    const line
++    of readLines(weaponPath)
++  ) {
++    if (!line.trim()) continue;
++
++    try {
++      weaponEvents.push(
++        normalizeDetailedWeaponEvent(
++          JSON.parse(line),
++          weaponEvents.length,
++        ),
++      );
++    } catch {
++      parseFailures++;
++    }
++  }
++
++  const transitions =
++    deriveDetailedAttackTransitions(
++      groupDetailedWeaponEvents(
++        weaponEvents,
++      ),
++    );
++
++  const byTick =
++    new Map();
++
++  for (const row of transitions) {
++    if (!byTick.has(row.tick)) {
++      byTick.set(
++        row.tick,
++        [],
++      );
++    }
++
++    byTick.get(row.tick)
++      .push(row);
++  }
++
++  const pawnStateByEntity =
++    new Map();
++
++  const tickGuard =
++    createAttackTickGuard();
++
++  const replayRows = [];
++
++  let joined = 0;
++  let joinFailures = 0;
++
++  const config =
++    new ParserConfiguration({
++      entityClasses: [
++        'CCitadelPlayerController',
++        'CCitadelPlayerPawn',
++      ],
++    });
++
++  const parser =
++    new Parser(
++      config,
++      Logger.CONSOLE_INFO,
++    );
++
++  parser.registerPostInterceptor(
++    InterceptorStage.ENTITY_PACKET,
++    (
++      demoPacket,
++      messagePacket,
++      events,
++    ) => {
++      for (const event of events) {
++        if (
++          event.operation !== EntityOperation.CREATE
++          && event.operation !== EntityOperation.UPDATE
++        ) {
++          continue;
++        }
++
++        const entity =
++          event.entity;
++
++        if (
++          entity?.class?.name
++          !== 'CCitadelPlayerPawn'
++        ) {
++          continue;
++        }
++
++        if (
++          !pawnStateByEntity.has(
++            entity.index,
++          )
++        ) {
++          pawnStateByEntity.set(
++            entity.index,
++            {},
++          );
++        }
++
++        Object.assign(
++          pawnStateByEntity.get(
++            entity.index,
++          ),
++          flattenPrimitiveChanges(
++            event.getChanges(),
++          ),
++        );
++      }
++    },
++  );
++
++  parser.registerPostInterceptor(
++    InterceptorStage.DEMO_PACKET,
++    demoPacket => {
++      const tick =
++        demoPacket.tick;
++
++      if (!byTick.has(tick)) {
++        return;
++      }
++
++      if (!tickGuard.shouldProcess(tick)) {
++        return;
++      }
++
++      const demo =
++        parser.getDemo();
++
++      const controllers =
++        demo.getEntitiesByClassName(
++          'CCitadelPlayerController',
++        );
++
++      for (const transition of byTick.get(tick)) {
++        const resolution =
++          resolvePawnForHero({
++            demo,
++            controllers,
++            heroId:
++              transition.heroId,
++          });
++
++        if (!resolution.pawn) {
++          joinFailures++;
++          continue;
++        }
++
++        const state =
++          pawnStateByEntity.get(
++            resolution.pawn.index,
++          );
++
++        if (!state) {
++          joinFailures++;
++          continue;
++        }
++
++        joined++;
++
++        const carrier =
++          evaluateCarrierState(
++            state,
++            PRIMARY_SLIDE_AMMO_CARRIER,
++          );
++
++        replayRows.push({
++          replayName,
++          ...transition,
++          covered:
++            carrier.covered,
++          carrierPresent:
++            carrier.present,
++          carrierValue:
++            carrier.value,
++        });
++      }
++    },
++  );
++
++  try {
++    await parser.parse(
++      createReadStream(
++        replayPath,
++      ),
++    );
++  } finally {
++    await parser.dispose();
++  }
++
++  const integrityPass =
++    parseFailures === 0
++    && joined + joinFailures
++      === transitions.length
++    && joined === transitions.length;
++
++  const summary =
++    summarizeCarrierAbsentResiduals(
++      replayRows,
++    );
++
++  replayDiagnostics.push({
++    replayName,
++    integrityPass,
++    parseFailures,
++    transitions:
++      transitions.length,
++    joined,
++    joinFailures,
++    summary,
++  });
++
++  allRows.push(...replayRows);
++
++  console.log(
++    `${replayName}: transitions=${transitions.length} joined=${joined}/${transitions.length} absent=${summary.total} zero=${summary.partition.ZERO} negative=${summary.partition.NEGATIVE}`,
++  );
++}
++
++const pooled =
++  summarizeCarrierAbsentResiduals(
++    allRows,
++  );
++
++const classification =
++  classifyResidualConcentration(
++    pooled,
++  );
++
++const checks = {
++  script184StatusExpected:
++    check(
++      script184?.status,
++      EXPECTED_184_STATUS,
++      script184?.status
++        === EXPECTED_184_STATUS,
++    ),
++
++  script184ClassificationExpected:
++    check(
++      script184
++        ?.replication
++        ?.classification,
++      EXPECTED_184_CLASSIFICATION,
++      script184
++        ?.replication
++        ?.classification
++        === EXPECTED_184_CLASSIFICATION,
++    ),
++
++  carrierUnchanged:
++    check(
++      script184?.frozenCarrier,
++      PRIMARY_SLIDE_AMMO_CARRIER,
++      script184
++        ?.frozenCarrier
++        ?.field
++        === PRIMARY_SLIDE_AMMO_CARRIER.field
++      && script184
++        ?.frozenCarrier
++        ?.bit
++        === PRIMARY_SLIDE_AMMO_CARRIER.bit
++      && script184
++        ?.frozenCarrier
++        ?.mask
++        === PRIMARY_SLIDE_AMMO_CARRIER.mask,
++    ),
++
++  allFiveReplaysDiagnosed:
++    check(
++      replayDiagnostics.length,
++      5,
++      replayDiagnostics.length === 5,
++    ),
++
++  allReplayIntegrityPass:
++    check(
++      replayDiagnostics.filter(
++        row => row.integrityPass,
++      ).length,
++      5,
++      replayDiagnostics.every(
++        row => row.integrityPass,
++      ),
++    ),
++
++  replicationCohortNotReclassifiedAsFresh:
++    check(
++      false,
++      false,
++      true,
++    ),
++};
++
++const integrityPass =
++  Object.values(checks)
++    .every(row => row.pass);
++
++const result = {
++  version:
++    VERSION,
++
++  canonical:
++    false,
++
++  createdAt:
++    new Date().toISOString(),
++
++  status:
++    integrityPass
++      ? 'SLIDE_CARRIER_ABSENT_RESIDUAL_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION'
++      : 'SLIDE_CARRIER_ABSENT_RESIDUAL_DIAGNOSTIC_V01_INTEGRITY_FAILURE',
++
++  scientificBoundary: {
++    script184CompositeResult:
++      'contradicted',
++
++    carrierRetuned:
++      false,
++
++    thresholdsRetuned:
++      false,
++
++    authorityPromotion:
++      false,
++
++    replicationCohortFreshForNewHypotheses:
++      false,
++
++    purpose:
++      'diagnose carrier-absent residual ZERO and NEGATIVE whole-clip attack transitions only',
++  },
++
++  frozenCarrier:
++    PRIMARY_SLIDE_AMMO_CARRIER,
++
++  replays:
++    replayDiagnostics,
++
++  pooled,
++
++  classification,
++
++  integrityValidation: {
++    pass:
++      integrityPass,
++    checks,
++  },
++
++  semanticValidation: {
++    status:
++      'DIAGNOSTIC_ONLY',
++    authorityPromotion:
++      false,
++    replicationStatus:
++      'replication_cohort_consumed_for_diagnosis',
++  },
++
++  nextStep:
++    'INTERPRET_HERO_CONTEXT_AND_WEAPON_STATE_CONCENTRATION;_IF_A_NEW_MECHANISM_HYPOTHESIS_IS_FORMED_FREEZE_IT_ON_TEST_OR_A_NEW_DISCOVERY_REPLAY_BEFORE_ANY_NEW_INDEPENDENT_REPLICATION',
++};
++
++mkdirSync(
++  dirname(PATHS.output),
++  {
++    recursive: true,
++  },
++);
++
++writeFileSync(
++  PATHS.output,
++  `${JSON.stringify(
++    result,
++    null,
++    2,
++  )}\n`,
++  'utf8',
++);
++
++print(result);
++
++async function* readLines(path) {
++  const {
++    createInterface,
++  } = await import(
++    'node:readline'
++  );
++
++  const reader =
++    createInterface({
++      input:
++        createReadStream(
++          path,
++          {
++            encoding:
++              'utf8',
++          },
++        ),
++      crlfDelay:
++        Infinity,
++    });
++
++  for await (const line of reader) {
++    yield line;
++  }
++}
++
++function check(
++  actual,
++  expected,
++  pass,
++) {
++  return {
++    actual,
++    expected,
++    pass:
++      Boolean(pass),
++  };
++}
++
++function percent(value) {
++  return Number.isFinite(value)
++    ? `${(value * 100).toFixed(2)}%`
++    : 'n/a';
++}
++
++function print(result) {
++  console.log('');
++  console.log(
++    '========================================================',
++  );
++  console.log(
++    'POOLED CARRIER-ABSENT RESIDUALS',
++  );
++  console.log(
++    '========================================================',
++  );
++  console.log('');
++
++  console.log(
++    `carrier-absent transitions:          ${result.pooled.total}`,
++  );
++  console.log(
++    `positive:                            ${result.pooled.partition.POSITIVE}`,
++  );
++  console.log(
++    `zero residual:                       ${result.pooled.partition.ZERO} (${percent(result.pooled.residual.zeroRate)})`,
++  );
++  console.log(
++    `negative residual:                   ${result.pooled.partition.NEGATIVE} (${percent(result.pooled.residual.negativeRate)})`,
++  );
++  console.log('');
++
++  console.log(
++    'TOP HERO RESIDUAL CONCENTRATION',
++  );
++  console.log(
++    '-------------------------------',
++  );
++
++  for (
++    const row
++    of result.pooled.byHero.slice(0, 20)
++  ) {
++    console.log(
++      `hero=${row.key.padEnd(4)} total=${String(row.total).padEnd(7)} zero=${String(row.zero).padEnd(5)} negative=${String(row.negative).padEnd(4)} zeroRate=${percent(row.zeroRate).padEnd(8)} residualShare=${percent(row.residualShare)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'TOP EFFECT-CONTEXT RESIDUAL CONCENTRATION',
++  );
++  console.log(
++    '-----------------------------------------',
++  );
++
++  for (
++    const row
++    of result.pooled.byEffectContext.slice(0, 20)
++  ) {
++    console.log(
++      `${String(row.key).slice(0, 64).padEnd(64)} total=${String(row.total).padEnd(7)} zero=${String(row.zero).padEnd(5)} negative=${String(row.negative).padEnd(4)} residualShare=${percent(row.residualShare)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'TOP HERO × EFFECT-CONTEXT RESIDUALS',
++  );
++  console.log(
++    '-----------------------------------',
++  );
++
++  for (
++    const row
++    of result.pooled.byHeroEffectContext.slice(0, 25)
++  ) {
++    console.log(
++      `${String(row.key).slice(0, 72).padEnd(72)} total=${String(row.total).padEnd(7)} zero=${String(row.zero).padEnd(5)} negative=${String(row.negative).padEnd(4)} residualShare=${percent(row.residualShare)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'WEAPON-STATE FEATURE ENRICHMENT',
++  );
++  console.log(
++    '-------------------------------',
++  );
++
++  for (
++    const [name, row]
++    of Object.entries(
++      result.pooled.features,
++    )
++  ) {
++    console.log(
++      `${name.padEnd(28)} residual=${percent(row.residualRate).padEnd(8)} positive=${percent(row.positiveRate).padEnd(8)} RD=${percent(row.riskDifference)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'ZERO-RUN STRUCTURE',
++  );
++  console.log(
++    '------------------',
++  );
++  console.log(
++    JSON.stringify(
++      result.pooled.zeroRuns,
++    ),
++  );
++
++  console.log('');
++  console.log(
++    'NEGATIVE WHOLE-DROP MAGNITUDE',
++  );
++  console.log(
++    '-----------------------------',
++  );
++  console.log(
++    JSON.stringify(
++      result.pooled.negativeWholeDrop,
++    ),
++  );
++
++  console.log('');
++  console.log(
++    'INTEGRITY VALIDATION',
++  );
++  console.log(
++    '--------------------',
++  );
++
++  for (
++    const [name, row]
++    of Object.entries(
++      result.integrityValidation.checks,
++    )
++  ) {
++    console.log(
++      `${name.padEnd(46)} ${String(row.pass).padEnd(5)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'CLASSIFICATION',
++  );
++  console.log(
++    '--------------',
++  );
++  console.log(
++    result.classification,
++  );
++  console.log('');
++  console.log(
++    `status: ${result.status}`,
++  );
++  console.log(
++    `NEXT STAGE: ${result.nextStep}`,
++  );
++  console.log('');
++  console.log(
++    `JSON:\n${PATHS.output}`,
++  );
++}
+diff --git a/tests/slide-carrier-residual-diagnostic.test.mjs b/tests/slide-carrier-residual-diagnostic.test.mjs
+new file mode 100644
+index 0000000..a20a2a2
+--- /dev/null
++++ b/tests/slide-carrier-residual-diagnostic.test.mjs
+@@ -0,0 +1,202 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++
++import {
++  classifyResidualConcentration,
++  deriveDetailedAttackTransitions,
++  groupDetailedWeaponEvents,
++  normalizeDetailedWeaponEvent,
++  summarizeCarrierAbsentResiduals,
++} from '../src/player-state/slide-carrier-residual-diagnostic.mjs';
++
++test('detailed transition preserves zero and negative whole-clip outcomes', () => {
++  const events = [
++    normalizeDetailedWeaponEvent({
++      tick: 1,
++      heroId: 1,
++      playerKey: 'p',
++      weaponEntityIndex: 10,
++      effectContextId: 'ctx',
++      observedWeaponState: {
++        clip: 5,
++        inReload: false,
++        shotNumber: 1,
++        lastAttackTime: 1,
++      },
++    }),
++    normalizeDetailedWeaponEvent({
++      tick: 2,
++      heroId: 1,
++      playerKey: 'p',
++      weaponEntityIndex: 10,
++      effectContextId: 'ctx',
++      observedWeaponState: {
++        clip: 5,
++        inReload: false,
++        shotNumber: 2,
++        lastAttackTime: 2,
++      },
++    }),
++    normalizeDetailedWeaponEvent({
++      tick: 3,
++      heroId: 1,
++      playerKey: 'p',
++      weaponEntityIndex: 10,
++      effectContextId: 'ctx',
++      observedWeaponState: {
++        clip: 6,
++        inReload: false,
++        shotNumber: 3,
++        lastAttackTime: 3,
++      },
++    }),
++  ];
++
++  const rows =
++    deriveDetailedAttackTransitions(
++      groupDetailedWeaponEvents(events),
++    );
++
++  assert.equal(rows.length, 2);
++  assert.equal(rows[0].label, 'ZERO');
++  assert.equal(rows[1].label, 'NEGATIVE');
++});
++
++test('residual summary excludes carrier-present attacks', () => {
++  const rows = [
++    {
++      replayName: 'rep01',
++      heroId: 1,
++      label: 'ZERO',
++      covered: true,
++      carrierPresent: true,
++      effectContextId: 'a',
++      activeFireMode: 1,
++      featureFlags: {},
++    },
++    {
++      replayName: 'rep01',
++      heroId: 1,
++      label: 'ZERO',
++      covered: true,
++      carrierPresent: false,
++      effectContextId: 'a',
++      activeFireMode: 1,
++      featureFlags: {},
++    },
++    {
++      replayName: 'rep01',
++      heroId: 2,
++      label: 'POSITIVE',
++      covered: true,
++      carrierPresent: false,
++      effectContextId: 'b',
++      activeFireMode: 1,
++      featureFlags: {},
++    },
++  ];
++
++  const summary =
++    summarizeCarrierAbsentResiduals(rows);
++
++  assert.equal(summary.total, 2);
++  assert.equal(summary.partition.ZERO, 1);
++  assert.equal(summary.partition.POSITIVE, 1);
++});
++
++test('feature enrichment compares residual against positive carrier-absent controls', () => {
++  const rows = [];
++
++  for (let i = 0; i < 20; i++) {
++    rows.push({
++      replayName: 'rep',
++      heroId: 1,
++      label: 'ZERO',
++      covered: true,
++      carrierPresent: false,
++      effectContextId: 'x',
++      activeFireMode: 1,
++      featureFlags: {
++        bonusClipChanged: true,
++      },
++    });
++  }
++
++  for (let i = 0; i < 100; i++) {
++    rows.push({
++      replayName: 'rep',
++      heroId: 1,
++      label: 'POSITIVE',
++      covered: true,
++      carrierPresent: false,
++      effectContextId: 'x',
++      activeFireMode: 1,
++      featureFlags: {
++        bonusClipChanged: false,
++      },
++    });
++  }
++
++  const summary =
++    summarizeCarrierAbsentResiduals(rows);
++
++  assert.equal(
++    summary.features
++      .bonusClipChanged
++      .residualRate,
++    1,
++  );
++
++  assert.equal(
++    summary.features
++      .bonusClipChanged
++      .positiveRate,
++    0,
++  );
++});
++
++test('strong single-hero concentration is explicit', () => {
++  const summary = {
++    residual: {
++      total: 100,
++    },
++    byHero: [
++      {
++        residual: 70,
++      },
++    ],
++    byEffectContext: [
++      {
++        residual: 20,
++      },
++    ],
++  };
++
++  assert.equal(
++    classifyResidualConcentration(summary),
++    'CARRIER_ABSENT_RESIDUALS_STRONGLY_CONCENTRATED',
++  );
++});
++
++test('diffuse residuals remain diagnostic-only', () => {
++  const summary = {
++    residual: {
++      total: 100,
++    },
++    byHero: [
++      {
++        residual: 10,
++      },
++    ],
++    byEffectContext: [
++      {
++        residual: 10,
++      },
++    ],
++  };
++
++  assert.equal(
++    classifyResidualConcentration(summary),
++    'CARRIER_ABSENT_RESIDUALS_DIFFUSE_ACROSS_HEROES_AND_CONTEXTS',
++  );
++});

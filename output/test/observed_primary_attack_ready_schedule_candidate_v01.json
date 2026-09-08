@@ -1,0 +1,634 @@
+{
+  "version": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_AUTHORITY_CANDIDATE_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T20:42:04.015Z",
+  "status": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_READY_FOR_CROSS_REPLAY_VALIDATION",
+  "replay": "test",
+  "inputs": {
+    "script170": "G:\\DeadlockBehavior\\output\\test\\actual_discharge_spacing_vs_static_cadence_diagnostic_v01.json",
+    "output": "G:\\DeadlockBehavior\\output\\test\\observed_primary_attack_ready_schedule_candidate_v01.json"
+  },
+  "design": {
+    "purpose": "Freeze the single-replay semantic distinction established by Script170: nextPrimaryAttack-lastAttackTime is the observed runtime primary-attack readiness carrier; static cycle fields are explanatory resource inputs rather than the runtime authority.",
+    "observedCarrier": "m_flNextPrimaryAttack - m_flLastAttackTime at observed discharge events",
+    "observedValidationChain": [
+      "current ready delay predicts next actual discharge spacing under sustained fire",
+      "next lastAttackTime agrees with replay-tick discharge spacing",
+      "next lastAttackTime agrees with current nextPrimaryAttack at burst boundaries"
+    ],
+    "staticModelV02": {
+      "burstPositive": "m_flIntraBurstCycleTime",
+      "burstBoundary": "m_flCycleTime + m_flIntraBurstCycleTime (empirical explanatory candidate supported by actual spacing; not promoted as universal formula)",
+      "nonBurst": "m_flCycleTime",
+      "spinUp": "excluded from fixed-cycle model"
+    },
+    "frozenThresholds": {
+      "aggregateStaticAlignmentRate": 0.95,
+      "perRegimeStaticAlignmentRate": 0.9,
+      "observedReadyAlignmentRate": 0.95,
+      "timingCrossCheckRate": 0.9,
+      "minimumRegimePairs": 100
+    },
+    "authorityPromotion": "NONE — requires independent replay replication first",
+    "effectiveWeaponStatePromotion": "NONE"
+  },
+  "observedRuntimeCarrier": {
+    "aggregate": {
+      "aligned": 4568,
+      "comparable": 4568,
+      "alignmentRate": 1
+    },
+    "burstBoundary": {
+      "kind": "CURRENT_READY_DELAY",
+      "comparable": 603,
+      "aligned": 603,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 603,
+        "min": 0.000732421875,
+        "median": 0.003204345703125,
+        "max": 0.02725982666015625,
+        "mean": 0.0038437598182589658
+      },
+      "ratioToCandidate": {
+        "n": 603,
+        "min": 1.002135231316726,
+        "median": 1.0094094452907967,
+        "max": 1.08207943764214,
+        "mean": 1.0110974800442392
+      }
+    },
+    "burstPositive": {
+      "kind": "CURRENT_READY_DELAY",
+      "comparable": 1725,
+      "aligned": 1725,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 1725,
+        "min": 0.000518798828125,
+        "median": 0.00970458984375,
+        "max": 0.015625,
+        "mean": 0.00837563335031703
+      },
+      "ratioToCandidate": {
+        "n": 1725,
+        "min": 1.006685017695635,
+        "median": 1.130242825607064,
+        "max": 1.2,
+        "mean": 1.1109839846059042
+      }
+    },
+    "nonBurst": {
+      "kind": "CURRENT_READY_DELAY",
+      "comparable": 2240,
+      "aligned": 2240,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 2240,
+        "min": 0.00048828125,
+        "median": 0.008148193359375,
+        "max": 0.030517578125,
+        "mean": 0.008327218464442662
+      },
+      "ratioToCandidate": {
+        "n": 2240,
+        "min": 1.0009775171065494,
+        "median": 1.0266572304788866,
+        "max": 1.2237302603499787,
+        "mean": 1.0324529528647937
+      }
+    },
+    "lastAttackDeltaVsReplaySpacing": {
+      "comparable": 603,
+      "aligned": 603,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 603,
+        "min": 0,
+        "median": 0,
+        "max": 0,
+        "mean": 0
+      }
+    },
+    "nextLastAttackVsCurrentNextPrimary": {
+      "comparable": 603,
+      "aligned": 603,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 603,
+        "min": 0.000732421875,
+        "median": 0.003204345703125,
+        "max": 0.02725982666015625,
+        "mean": 0.0038437598182589658
+      }
+    }
+  },
+  "staticExplanatoryModelV02": {
+    "aggregate": {
+      "aligned": 4426,
+      "comparable": 4568,
+      "alignmentRate": 0.9689141856392294
+    },
+    "burstBoundary": {
+      "expectedKind": "CYCLE_PLUS_INTRA",
+      "summary": {
+        "kind": "CYCLE_PLUS_INTRA",
+        "comparable": 603,
+        "aligned": 564,
+        "alignmentRate": 0.9353233830845771,
+        "absoluteErrorSeconds": {
+          "n": 603,
+          "min": 0.00275000000000003,
+          "median": 0.00275000000000003,
+          "max": 0.07537499999999997,
+          "mean": 0.007537313432835858
+        },
+        "ratioToCandidate": {
+          "n": 603,
+          "min": 0.992063492063492,
+          "median": 0.992063492063492,
+          "max": 1.2175324675324675,
+          "mean": 1.0071695395078488
+        }
+      }
+    },
+    "burstPositive": {
+      "expectedKind": "INTRA_BURST_CYCLE_TIME",
+      "summary": {
+        "kind": "INTRA_BURST_CYCLE_TIME",
+        "comparable": 1725,
+        "aligned": 1725,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 1725,
+          "min": 0.005875000000000005,
+          "median": 0.005875000000000005,
+          "max": 0.009749999999999995,
+          "mean": 0.007175652173913089
+        },
+        "ratioToCandidate": {
+          "n": 1725,
+          "min": 0.9300595238095237,
+          "median": 0.9300595238095237,
+          "max": 1.1160714285714286,
+          "mean": 0.99249482401653
+        }
+      }
+    },
+    "nonBurst": {
+      "expectedKind": "NON_BURST_CYCLE",
+      "summary": {
+        "kind": "NON_BURST_CYCLE",
+        "comparable": 2240,
+        "aligned": 2137,
+        "alignmentRate": 0.9540178571428571,
+        "absoluteErrorSeconds": {
+          "n": 2240,
+          "min": 0.0015000000000000013,
+          "median": 0.005624999999999991,
+          "max": 0.1825,
+          "mean": 0.010159654017857078
+        },
+        "ratioToCandidate": {
+          "n": 2240,
+          "min": 0.6167763157894737,
+          "median": 0.9920634920634921,
+          "max": 1.502403846153846,
+          "mean": 0.9904948197578646
+        }
+      }
+    }
+  },
+  "byHero": [
+    {
+      "heroId": 2,
+      "displayName": "Seven",
+      "regime": "BURST",
+      "sustainedPairs": 1604,
+      "observedReady": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 1604,
+        "aligned": 1604,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 1604,
+          "min": 0.000518798828125,
+          "median": 0.0069580078125,
+          "max": 0.02725982666015625,
+          "mean": 0.007339900865816416
+        },
+        "ratioToCandidate": {
+          "n": 1604,
+          "min": 1.002135231316726,
+          "median": 1.0829103214890017,
+          "max": 1.2,
+          "mean": 1.0847676146977476
+        }
+      },
+      "staticV02": {
+        "aligned": 1565,
+        "comparable": 1604,
+        "alignmentRate": 0.9756857855361596
+      }
+    },
+    {
+      "heroId": 79,
+      "displayName": "Rem",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "sustainedPairs": 1048,
+      "observedReady": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 1048,
+        "aligned": 1048,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 1048,
+          "min": 0.0006103515625,
+          "median": 0.0056304931640625,
+          "max": 0.028076171875,
+          "mean": 0.007082436830942868
+        },
+        "ratioToCandidate": {
+          "n": 1048,
+          "min": 1.0016302575806977,
+          "median": 1.0230408991570403,
+          "max": 1.1108968177434908,
+          "mean": 1.0280015482578329
+        }
+      },
+      "staticV02": {
+        "aligned": 1034,
+        "comparable": 1048,
+        "alignmentRate": 0.9866412213740458
+      }
+    },
+    {
+      "heroId": 31,
+      "displayName": "Lash",
+      "regime": "BURST",
+      "sustainedPairs": 724,
+      "observedReady": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 724,
+        "aligned": 724,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 724,
+          "min": 0.000518798828125,
+          "median": 0.0059814453125,
+          "max": 0.01556396484375,
+          "mean": 0.0068957924184219616
+        },
+        "ratioToCandidate": {
+          "n": 724,
+          "min": 1.0031169293792859,
+          "median": 1.0829103214890017,
+          "max": 1.199063231850117,
+          "mean": 1.085872789967765
+        }
+      },
+      "staticV02": {
+        "aligned": 724,
+        "comparable": 724,
+        "alignmentRate": 1
+      }
+    },
+    {
+      "heroId": 77,
+      "displayName": "Apollo",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "sustainedPairs": 553,
+      "observedReady": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 553,
+        "aligned": 553,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 553,
+          "min": 0.00048828125,
+          "median": 0.0106201171875,
+          "max": 0.030517578125,
+          "mean": 0.009364936925187896
+        },
+        "ratioToCandidate": {
+          "n": 553,
+          "min": 1.0011587485515643,
+          "median": 1.0291457286432162,
+          "max": 1.083827265029636,
+          "mean": 1.0262486598989724
+        }
+      },
+      "staticV02": {
+        "aligned": 467,
+        "comparable": 553,
+        "alignmentRate": 0.8444846292947559
+      }
+    },
+    {
+      "heroId": 18,
+      "displayName": "Mo & Krill",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "sustainedPairs": 265,
+      "observedReady": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 265,
+        "aligned": 265,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 265,
+          "min": 0.00067138671875,
+          "median": 0.011138916015625,
+          "max": 0.014801025390625,
+          "mean": 0.009965659087558962
+        },
+        "ratioToCandidate": {
+          "n": 265,
+          "min": 1.00359359686377,
+          "median": 1.0631597162138777,
+          "max": 1.0814997359619785,
+          "mean": 1.056451795624209
+        }
+      },
+      "staticV02": {
+        "aligned": 265,
+        "comparable": 265,
+        "alignmentRate": 1
+      }
+    },
+    {
+      "heroId": 4,
+      "displayName": "Lady Geist",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "sustainedPairs": 151,
+      "observedReady": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 151,
+        "aligned": 151,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 151,
+          "min": 0.0006103515625,
+          "median": 0.011871337890625,
+          "max": 0.027496337890625,
+          "mean": 0.009686602661941225
+        },
+        "ratioToCandidate": {
+          "n": 151,
+          "min": 1.001303780964798,
+          "median": 1.025983568231915,
+          "max": 1.0601830205063123,
+          "mean": 1.0210837447588699
+        }
+      },
+      "staticV02": {
+        "aligned": 150,
+        "comparable": 151,
+        "alignmentRate": 0.9933774834437086
+      }
+    },
+    {
+      "heroId": 69,
+      "displayName": "The Doorman",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "sustainedPairs": 116,
+      "observedReady": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 116,
+        "aligned": 116,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 116,
+          "min": 0.0006103515625,
+          "median": 0.0106201171875,
+          "max": 0.0262451171875,
+          "mean": 0.00933923392460264
+        },
+        "ratioToCandidate": {
+          "n": 116,
+          "min": 1.0009775171065494,
+          "median": 1.0172859129743692,
+          "max": 1.0427180607987283,
+          "mean": 1.015089920275747
+        }
+      },
+      "staticV02": {
+        "aligned": 114,
+        "comparable": 116,
+        "alignmentRate": 0.9827586206896551
+      }
+    },
+    {
+      "heroId": 1,
+      "displayName": "Infernus",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "sustainedPairs": 107,
+      "observedReady": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 107,
+        "aligned": 107,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 107,
+          "min": 0.0005645751953125,
+          "median": 0.0081634521484375,
+          "max": 0.01999664306640625,
+          "mean": 0.008082594826956776
+        },
+        "ratioToCandidate": {
+          "n": 107,
+          "min": 1.0060586212542983,
+          "median": 1.0806573194632896,
+          "max": 1.2237302603499787,
+          "mean": 1.0835484193254574
+        }
+      },
+      "staticV02": {
+        "aligned": 107,
+        "comparable": 107,
+        "alignmentRate": 1
+      }
+    }
+  ],
+  "staticModelHeroOutliers": [
+    {
+      "heroId": 77,
+      "displayName": "Apollo",
+      "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+      "sustainedPairs": 553,
+      "observedReady": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 553,
+        "aligned": 553,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 553,
+          "min": 0.00048828125,
+          "median": 0.0106201171875,
+          "max": 0.030517578125,
+          "mean": 0.009364936925187896
+        },
+        "ratioToCandidate": {
+          "n": 553,
+          "min": 1.0011587485515643,
+          "median": 1.0291457286432162,
+          "max": 1.083827265029636,
+          "mean": 1.0262486598989724
+        }
+      },
+      "staticV02": {
+        "aligned": 467,
+        "comparable": 553,
+        "alignmentRate": 0.8444846292947559
+      }
+    }
+  ],
+  "diagnosticClassification": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_READY_FOR_CROSS_REPLAY_VALIDATION",
+  "validation": {
+    "integrityPass": true,
+    "semanticValidation": "SINGLE_REPLAY_STRONG_SEMANTIC_CANDIDATE",
+    "replicationStatus": "SINGLE_REPLAY_DISCOVERY",
+    "checks": {
+      "script170ExpectedClassification": {
+        "actual": "ACTUAL_BURST_SPACING_SUPPORTS_CYCLE_PLUS_INTRA_RUNTIME_BOUNDARY_SCHEDULE",
+        "expected": "ACTUAL_BURST_SPACING_SUPPORTS_CYCLE_PLUS_INTRA_RUNTIME_BOUNDARY_SCHEDULE",
+        "pass": true
+      },
+      "playerStateAuthorityCurrent": {
+        "actual": "current",
+        "expected": "current",
+        "pass": true
+      },
+      "playerStateReplicated": {
+        "actual": "cross_replay_replicated",
+        "expected": "cross_replay_replicated",
+        "pass": true
+      },
+      "effectiveWeaponStillMissing": {
+        "actual": "missing",
+        "expected": "missing",
+        "pass": true
+      },
+      "sustainedPairsExpected": {
+        "actual": 4568,
+        "expected": 4568,
+        "pass": true
+      },
+      "boundaryPairsExpected": {
+        "actual": 603,
+        "expected": 603,
+        "pass": true
+      },
+      "positiveBurstPairsExpected": {
+        "actual": 1725,
+        "expected": 1725,
+        "pass": true
+      },
+      "nonBurstPairsExpected": {
+        "actual": 2240,
+        "expected": 2240,
+        "pass": true
+      },
+      "observedReadyAllSustainedStrong": {
+        "actual": {
+          "aligned": 4568,
+          "comparable": 4568,
+          "rate": 1
+        },
+        "expected": ">=95%",
+        "pass": true
+      },
+      "observedBoundaryReadyStrong": {
+        "actual": {
+          "aligned": 603,
+          "comparable": 603,
+          "rate": 1
+        },
+        "expected": ">=95%",
+        "pass": true
+      },
+      "observedPositiveReadyStrong": {
+        "actual": {
+          "aligned": 1725,
+          "comparable": 1725,
+          "rate": 1
+        },
+        "expected": ">=95%",
+        "pass": true
+      },
+      "observedNonBurstReadyStrong": {
+        "actual": {
+          "aligned": 2240,
+          "comparable": 2240,
+          "rate": 1
+        },
+        "expected": ">=95%",
+        "pass": true
+      },
+      "lastAttackMatchesReplaySpacing": {
+        "actual": {
+          "aligned": 603,
+          "comparable": 603,
+          "rate": 1
+        },
+        "expected": ">=90%",
+        "pass": true
+      },
+      "nextPrimarySchedulesNextLastAttack": {
+        "actual": {
+          "aligned": 603,
+          "comparable": 603,
+          "rate": 1
+        },
+        "expected": ">=90%",
+        "pass": true
+      },
+      "staticV02AggregateMeetsFrozenGate": {
+        "actual": {
+          "aligned": 4426,
+          "comparable": 4568,
+          "rate": 0.9689141856392294
+        },
+        "expected": ">=95%",
+        "pass": true
+      },
+      "staticV02BoundaryMeetsFrozenRegimeGate": {
+        "actual": {
+          "aligned": 564,
+          "comparable": 603,
+          "rate": 0.9353233830845771
+        },
+        "expected": ">=90%",
+        "pass": true
+      },
+      "staticV02PositiveMeetsFrozenRegimeGate": {
+        "actual": {
+          "aligned": 1725,
+          "comparable": 1725,
+          "rate": 1
+        },
+        "expected": ">=90%",
+        "pass": true
+      },
+      "staticV02NonBurstMeetsFrozenRegimeGate": {
+        "actual": {
+          "aligned": 2137,
+          "comparable": 2240,
+          "rate": 0.9540178571428571
+        },
+        "expected": ">=90%",
+        "pass": true
+      },
+      "crossReplayPromotionNotClaimed": {
+        "actual": "SINGLE_REPLAY",
+        "expected": "SINGLE_REPLAY",
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "observedAuthorityBoundary": "The runtime schedule carrier is directly observed and behaviorally validated against the next actual discharge. This does not yet make it cross-replay authority.",
+    "staticBoundary": "Static cycle fields explain the sustained cadence structure well in aggregate under the V02 mapping, but remain resource-level explanatory inputs. Apollo remains an explicit hero-level static-model outlier rather than being silently fit away.",
+    "fireRateBoundary": "No Fire Rate stacking/composition formula is established by this artifact. The next stage is cross-replay replication of the observed runtime carrier before returning to effect-composition tests."
+  },
+  "nextStage": "CROSS_REPLAY_REPLICATE_OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_ACROSS_REP01_TO_REP05_THEN_CONSIDER_CADENCE_CARRIER_PROMOTION"
+}

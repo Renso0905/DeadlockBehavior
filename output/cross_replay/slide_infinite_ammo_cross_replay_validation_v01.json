@@ -1,0 +1,1162 @@
+{
+  "version": "SLIDE_INFINITE_AMMO_CROSS_REPLAY_VALIDATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T23:26:22.541Z",
+  "frozenCarrier": {
+    "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+    "bit": 5,
+    "mask": 32
+  },
+  "frozenFrom": {
+    "discovery": "Script182 V02",
+    "semanticValidation": "Script183 V01"
+  },
+  "validationBoundary": {
+    "discoveryReplayExcluded": true,
+    "cohort": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "semanticScope": "runtime carrier for primary-attack infinite-ammo consequence consistent with sliding",
+    "explicitlyNotPromoted": [
+      "canonical locomotion slide state",
+      "magazine capacity",
+      "full effective weapon state"
+    ],
+    "carrierRetuned": false,
+    "semanticRuleRetuned": false
+  },
+  "thresholds": {
+    "expectedReplayCount": 5,
+    "minAttackTransitionsPerReplay": 3000,
+    "minCarrierPresentPerReplay": 100,
+    "minCarrierAbsentPerReplay": 1000,
+    "minFieldCoverageRatePerReplay": 0.95,
+    "minZeroRateGivenCarrierPerReplay": 0.98,
+    "maxZeroRateWithoutCarrierPerReplay": 0.01,
+    "minResidualPositiveRatePerReplay": 0.99,
+    "maxResidualNegativeRatePerReplay": 0.001,
+    "minPooledCarrierPresent": 500,
+    "minPooledZeroRateGivenCarrier": 0.98,
+    "maxPooledZeroRateWithoutCarrier": 0.01,
+    "minPooledResidualPositiveRate": 0.99,
+    "maxPooledResidualNegativeRate": 0.001,
+    "minDistinctSupportingHeroesAcrossCohort": 10,
+    "minHeroCarrierPresentAcrossCohort": 8,
+    "minHeroZeroRateGivenCarrierAcrossCohort": 0.9
+  },
+  "replays": [
+    {
+      "replayName": "rep01",
+      "integrityPass": true,
+      "inputs": {
+        "replayPath": "G:\\DeadlockBehavior\\replays\\rep01.dem",
+        "weaponPath": "G:\\DeadlockBehavior\\output\\rep01\\effective_weapon_runtime_events_v01.jsonl"
+      },
+      "weaponEventRows": 48472,
+      "attackSamples": 25999,
+      "join": {
+        "joined": 25999,
+        "joinFailures": 0,
+        "joinRate": 1,
+        "processedAttackTicks": 23795,
+        "duplicateTargetPacketHits": 4,
+        "pawnEntityMutations": 1785915,
+        "parseFailures": 0
+      },
+      "summary": {
+        "totalRows": 25999,
+        "coveredRows": 25999,
+        "coverageRate": 1,
+        "present": {
+          "POSITIVE": 14,
+          "ZERO": 712,
+          "NEGATIVE": 0,
+          "total": 726,
+          "zeroRate": 0.9807162534435262,
+          "positiveRate": 0.01928374655647383,
+          "negativeRate": 0
+        },
+        "absent": {
+          "POSITIVE": 25154,
+          "ZERO": 52,
+          "NEGATIVE": 67,
+          "total": 25273,
+          "zeroRate": 0.0020630008728080617,
+          "positiveRate": 0.9952914177185138,
+          "negativeRate": 0.0026510505282317095
+        },
+        "sufficientlyPowered": true,
+        "semanticPass": false,
+        "contradiction": true
+      }
+    },
+    {
+      "replayName": "rep02",
+      "integrityPass": true,
+      "inputs": {
+        "replayPath": "G:\\DeadlockBehavior\\replays\\rep02.dem",
+        "weaponPath": "G:\\DeadlockBehavior\\output\\rep02\\effective_weapon_runtime_events_v01.jsonl"
+      },
+      "weaponEventRows": 49239,
+      "attackSamples": 29812,
+      "join": {
+        "joined": 29812,
+        "joinFailures": 0,
+        "joinRate": 1,
+        "processedAttackTicks": 27141,
+        "duplicateTargetPacketHits": 10,
+        "pawnEntityMutations": 1822656,
+        "parseFailures": 0
+      },
+      "summary": {
+        "totalRows": 29812,
+        "coveredRows": 29812,
+        "coverageRate": 1,
+        "present": {
+          "POSITIVE": 8,
+          "ZERO": 2078,
+          "NEGATIVE": 5,
+          "total": 2091,
+          "zeroRate": 0.9961649089165868,
+          "positiveRate": 0.003825920612147298,
+          "negativeRate": 0.0023912003825920613
+        },
+        "absent": {
+          "POSITIVE": 27492,
+          "ZERO": 197,
+          "NEGATIVE": 32,
+          "total": 27721,
+          "zeroRate": 0.007114738704900863,
+          "positiveRate": 0.9917391147505501,
+          "negativeRate": 0.0011543595108401573
+        },
+        "sufficientlyPowered": true,
+        "semanticPass": false,
+        "contradiction": true
+      }
+    },
+    {
+      "replayName": "rep03",
+      "integrityPass": true,
+      "inputs": {
+        "replayPath": "G:\\DeadlockBehavior\\replays\\rep03.dem",
+        "weaponPath": "G:\\DeadlockBehavior\\output\\rep03\\effective_weapon_runtime_events_v01.jsonl"
+      },
+      "weaponEventRows": 61810,
+      "attackSamples": 37092,
+      "join": {
+        "joined": 37092,
+        "joinFailures": 0,
+        "joinRate": 1,
+        "processedAttackTicks": 34094,
+        "duplicateTargetPacketHits": 6,
+        "pawnEntityMutations": 2539143,
+        "parseFailures": 0
+      },
+      "summary": {
+        "totalRows": 37092,
+        "coveredRows": 37092,
+        "coverageRate": 1,
+        "present": {
+          "POSITIVE": 24,
+          "ZERO": 4775,
+          "NEGATIVE": 2,
+          "total": 4801,
+          "zeroRate": 0.9949989581162743,
+          "positiveRate": 0.0049989585503020205,
+          "negativeRate": 0.00041657987919183504
+        },
+        "absent": {
+          "POSITIVE": 31854,
+          "ZERO": 420,
+          "NEGATIVE": 17,
+          "total": 32291,
+          "zeroRate": 0.013013571295779885,
+          "positiveRate": 0.9864668173794556,
+          "negativeRate": 0.000526462481806076
+        },
+        "sufficientlyPowered": true,
+        "semanticPass": false,
+        "contradiction": true
+      }
+    },
+    {
+      "replayName": "rep04",
+      "integrityPass": true,
+      "inputs": {
+        "replayPath": "G:\\DeadlockBehavior\\replays\\rep04.dem",
+        "weaponPath": "G:\\DeadlockBehavior\\output\\rep04\\effective_weapon_runtime_events_v01.jsonl"
+      },
+      "weaponEventRows": 50555,
+      "attackSamples": 30598,
+      "join": {
+        "joined": 30598,
+        "joinFailures": 0,
+        "joinRate": 1,
+        "processedAttackTicks": 27611,
+        "duplicateTargetPacketHits": 6,
+        "pawnEntityMutations": 1777293,
+        "parseFailures": 0
+      },
+      "summary": {
+        "totalRows": 30598,
+        "coveredRows": 30598,
+        "coverageRate": 1,
+        "present": {
+          "POSITIVE": 3,
+          "ZERO": 809,
+          "NEGATIVE": 0,
+          "total": 812,
+          "zeroRate": 0.9963054187192119,
+          "positiveRate": 0.003694581280788177,
+          "negativeRate": 0
+        },
+        "absent": {
+          "POSITIVE": 29024,
+          "ZERO": 738,
+          "NEGATIVE": 24,
+          "total": 29786,
+          "zeroRate": 0.024796720650493917,
+          "positiveRate": 0.9744175115826227,
+          "negativeRate": 0.0008057476666890486
+        },
+        "sufficientlyPowered": true,
+        "semanticPass": false,
+        "contradiction": true
+      }
+    },
+    {
+      "replayName": "rep05",
+      "integrityPass": true,
+      "inputs": {
+        "replayPath": "G:\\DeadlockBehavior\\replays\\rep05.dem",
+        "weaponPath": "G:\\DeadlockBehavior\\output\\rep05\\effective_weapon_runtime_events_v01.jsonl"
+      },
+      "weaponEventRows": 46456,
+      "attackSamples": 17858,
+      "join": {
+        "joined": 17858,
+        "joinFailures": 0,
+        "joinRate": 1,
+        "processedAttackTicks": 16834,
+        "duplicateTargetPacketHits": 7,
+        "pawnEntityMutations": 1895328,
+        "parseFailures": 0
+      },
+      "summary": {
+        "totalRows": 17858,
+        "coveredRows": 17858,
+        "coverageRate": 1,
+        "present": {
+          "POSITIVE": 5,
+          "ZERO": 308,
+          "NEGATIVE": 3,
+          "total": 316,
+          "zeroRate": 0.9840255591054313,
+          "positiveRate": 0.015822784810126583,
+          "negativeRate": 0.00949367088607595
+        },
+        "absent": {
+          "POSITIVE": 17085,
+          "ZERO": 425,
+          "NEGATIVE": 32,
+          "total": 17542,
+          "zeroRate": 0.024271844660194174,
+          "positiveRate": 0.9739482385132824,
+          "negativeRate": 0.0018241933644966366
+        },
+        "sufficientlyPowered": true,
+        "semanticPass": false,
+        "contradiction": true
+      }
+    }
+  ],
+  "pooled": {
+    "totalRows": 141359,
+    "coveredRows": 141359,
+    "coverageRate": 1,
+    "present": {
+      "POSITIVE": 54,
+      "ZERO": 8682,
+      "NEGATIVE": 10,
+      "total": 8746,
+      "zeroRate": 0.9938186813186813,
+      "positiveRate": 0.006174251086210839,
+      "negativeRate": 0.001143379830779785
+    },
+    "absent": {
+      "POSITIVE": 130609,
+      "ZERO": 1832,
+      "NEGATIVE": 172,
+      "total": 132613,
+      "zeroRate": 0.013832574504873869,
+      "positiveRate": 0.9848883593614502,
+      "negativeRate": 0.0012970070807537724
+    },
+    "sufficientlyPowered": true,
+    "semanticPass": false,
+    "heroSupport": {
+      "heroes": [
+        {
+          "heroId": 58,
+          "total": 8194,
+          "present": {
+            "POSITIVE": 13,
+            "ZERO": 3545,
+            "NEGATIVE": 1,
+            "total": 3559,
+            "zeroRate": 0.9963462619449128,
+            "positiveRate": 0.003652711435796572,
+            "negativeRate": 0.0002809778027535825
+          },
+          "absent": {
+            "POSITIVE": 4503,
+            "ZERO": 132,
+            "NEGATIVE": 0,
+            "total": 4635,
+            "zeroRate": 0.0284789644012945,
+            "positiveRate": 0.9715210355987055,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 7,
+          "total": 8094,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 1052,
+            "NEGATIVE": 1,
+            "total": 1053,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0.000949667616334283
+          },
+          "absent": {
+            "POSITIVE": 7030,
+            "ZERO": 11,
+            "NEGATIVE": 0,
+            "total": 7041,
+            "zeroRate": 0.0015622780854992189,
+            "positiveRate": 0.9984377219145008,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 76,
+          "total": 7535,
+          "present": {
+            "POSITIVE": 1,
+            "ZERO": 853,
+            "NEGATIVE": 0,
+            "total": 854,
+            "zeroRate": 0.9988290398126464,
+            "positiveRate": 0.00117096018735363,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 6652,
+            "ZERO": 29,
+            "NEGATIVE": 0,
+            "total": 6681,
+            "zeroRate": 0.004340667564735818,
+            "positiveRate": 0.9956593324352642,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 2,
+          "total": 10012,
+          "present": {
+            "POSITIVE": 10,
+            "ZERO": 803,
+            "NEGATIVE": 0,
+            "total": 813,
+            "zeroRate": 0.9876998769987699,
+            "positiveRate": 0.012300123001230012,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 9158,
+            "ZERO": 41,
+            "NEGATIVE": 0,
+            "total": 9199,
+            "zeroRate": 0.004457006196325688,
+            "positiveRate": 0.9955429938036743,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 1,
+          "total": 16426,
+          "present": {
+            "POSITIVE": 4,
+            "ZERO": 473,
+            "NEGATIVE": 0,
+            "total": 477,
+            "zeroRate": 0.9916142557651991,
+            "positiveRate": 0.008385744234800839,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 15924,
+            "ZERO": 25,
+            "NEGATIVE": 0,
+            "total": 15949,
+            "zeroRate": 0.001567496394758292,
+            "positiveRate": 0.9984325036052417,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 13,
+          "total": 17766,
+          "present": {
+            "POSITIVE": 1,
+            "ZERO": 427,
+            "NEGATIVE": 0,
+            "total": 428,
+            "zeroRate": 0.9976635514018691,
+            "positiveRate": 0.002336448598130841,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 16391,
+            "ZERO": 946,
+            "NEGATIVE": 1,
+            "total": 17338,
+            "zeroRate": 0.054565380400299936,
+            "positiveRate": 0.9453800899757757,
+            "negativeRate": 0.00005767677932864229
+          },
+          "support": true
+        },
+        {
+          "heroId": 35,
+          "total": 5294,
+          "present": {
+            "POSITIVE": 12,
+            "ZERO": 308,
+            "NEGATIVE": 7,
+            "total": 327,
+            "zeroRate": 0.9625,
+            "positiveRate": 0.03669724770642202,
+            "negativeRate": 0.021406727828746176
+          },
+          "absent": {
+            "POSITIVE": 4802,
+            "ZERO": 91,
+            "NEGATIVE": 74,
+            "total": 4967,
+            "zeroRate": 0.01859799713876967,
+            "positiveRate": 0.9667807529695993,
+            "negativeRate": 0.014898328971209986
+          },
+          "support": true
+        },
+        {
+          "heroId": 25,
+          "total": 8867,
+          "present": {
+            "POSITIVE": 5,
+            "ZERO": 309,
+            "NEGATIVE": 0,
+            "total": 314,
+            "zeroRate": 0.9840764331210191,
+            "positiveRate": 0.01592356687898089,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 8466,
+            "ZERO": 74,
+            "NEGATIVE": 13,
+            "total": 8553,
+            "zeroRate": 0.008665105386416861,
+            "positiveRate": 0.9898281304805332,
+            "negativeRate": 0.001519934525897346
+          },
+          "support": true
+        },
+        {
+          "heroId": 66,
+          "total": 5044,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 192,
+            "NEGATIVE": 0,
+            "total": 192,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 4845,
+            "ZERO": 7,
+            "NEGATIVE": 0,
+            "total": 4852,
+            "zeroRate": 0.0014427040395713108,
+            "positiveRate": 0.9985572959604286,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 31,
+          "total": 9021,
+          "present": {
+            "POSITIVE": 1,
+            "ZERO": 162,
+            "NEGATIVE": 0,
+            "total": 163,
+            "zeroRate": 0.9938650306748467,
+            "positiveRate": 0.006134969325153374,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 8848,
+            "ZERO": 8,
+            "NEGATIVE": 2,
+            "total": 8858,
+            "zeroRate": 0.0009033423667570009,
+            "positiveRate": 0.9988710769925491,
+            "negativeRate": 0.00022578460149017836
+          },
+          "support": true
+        },
+        {
+          "heroId": 65,
+          "total": 5141,
+          "present": {
+            "POSITIVE": 1,
+            "ZERO": 103,
+            "NEGATIVE": 0,
+            "total": 104,
+            "zeroRate": 0.9903846153846154,
+            "positiveRate": 0.009615384615384616,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 4816,
+            "ZERO": 219,
+            "NEGATIVE": 2,
+            "total": 5037,
+            "zeroRate": 0.04349553128103277,
+            "positiveRate": 0.9561246773873338,
+            "negativeRate": 0.0003970617431010522
+          },
+          "support": true
+        },
+        {
+          "heroId": 63,
+          "total": 3323,
+          "present": {
+            "POSITIVE": 1,
+            "ZERO": 81,
+            "NEGATIVE": 0,
+            "total": 82,
+            "zeroRate": 0.9878048780487805,
+            "positiveRate": 0.012195121951219513,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 3028,
+            "ZERO": 213,
+            "NEGATIVE": 0,
+            "total": 3241,
+            "zeroRate": 0.06572045664918236,
+            "positiveRate": 0.9342795433508176,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 69,
+          "total": 602,
+          "present": {
+            "POSITIVE": 3,
+            "ZERO": 76,
+            "NEGATIVE": 0,
+            "total": 79,
+            "zeroRate": 0.9620253164556962,
+            "positiveRate": 0.0379746835443038,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 522,
+            "ZERO": 1,
+            "NEGATIVE": 0,
+            "total": 523,
+            "zeroRate": 0.0019120458891013384,
+            "positiveRate": 0.9980879541108987,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 16,
+          "total": 1277,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 56,
+            "NEGATIVE": 0,
+            "total": 56,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 1221,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 1221,
+            "zeroRate": 0,
+            "positiveRate": 1,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 11,
+          "total": 3151,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 45,
+            "NEGATIVE": 0,
+            "total": 45,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 3105,
+            "ZERO": 1,
+            "NEGATIVE": 0,
+            "total": 3106,
+            "zeroRate": 0.0003219575016097875,
+            "positiveRate": 0.9996780424983902,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 67,
+          "total": 2895,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 42,
+            "NEGATIVE": 0,
+            "total": 42,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 2852,
+            "ZERO": 1,
+            "NEGATIVE": 0,
+            "total": 2853,
+            "zeroRate": 0.0003505082369435682,
+            "positiveRate": 0.9996494917630564,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 4,
+          "total": 1965,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 23,
+            "NEGATIVE": 0,
+            "total": 23,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 1942,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 1942,
+            "zeroRate": 0,
+            "positiveRate": 1,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 60,
+          "total": 1905,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 21,
+            "NEGATIVE": 0,
+            "total": 21,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 1881,
+            "ZERO": 3,
+            "NEGATIVE": 0,
+            "total": 1884,
+            "zeroRate": 0.0015923566878980893,
+            "positiveRate": 0.9984076433121019,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 81,
+          "total": 1521,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 21,
+            "NEGATIVE": 0,
+            "total": 21,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 1500,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 1500,
+            "zeroRate": 0,
+            "positiveRate": 1,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 80,
+          "total": 405,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 17,
+            "NEGATIVE": 0,
+            "total": 17,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 388,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 388,
+            "zeroRate": 0,
+            "positiveRate": 1,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 64,
+          "total": 831,
+          "present": {
+            "POSITIVE": 1,
+            "ZERO": 14,
+            "NEGATIVE": 0,
+            "total": 15,
+            "zeroRate": 0.9333333333333333,
+            "positiveRate": 0.06666666666666667,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 815,
+            "ZERO": 1,
+            "NEGATIVE": 0,
+            "total": 816,
+            "zeroRate": 0.0012254901960784314,
+            "positiveRate": 0.9987745098039216,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 27,
+          "total": 2108,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 13,
+            "NEGATIVE": 1,
+            "total": 14,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0.07142857142857142
+          },
+          "absent": {
+            "POSITIVE": 2018,
+            "ZERO": 10,
+            "NEGATIVE": 66,
+            "total": 2094,
+            "zeroRate": 0.004930966469428008,
+            "positiveRate": 0.9637058261700095,
+            "negativeRate": 0.03151862464183381
+          },
+          "support": true
+        },
+        {
+          "heroId": 14,
+          "total": 1001,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 11,
+            "NEGATIVE": 0,
+            "total": 11,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 990,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 990,
+            "zeroRate": 0,
+            "positiveRate": 1,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 19,
+          "total": 1557,
+          "present": {
+            "POSITIVE": 1,
+            "ZERO": 9,
+            "NEGATIVE": 0,
+            "total": 10,
+            "zeroRate": 0.9,
+            "positiveRate": 0.1,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 1539,
+            "ZERO": 0,
+            "NEGATIVE": 8,
+            "total": 1547,
+            "zeroRate": 0,
+            "positiveRate": 0.9948287007110537,
+            "negativeRate": 0.005171299288946348
+          },
+          "support": true
+        },
+        {
+          "heroId": 15,
+          "total": 4369,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 10,
+            "NEGATIVE": 0,
+            "total": 10,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 4351,
+            "ZERO": 8,
+            "NEGATIVE": 0,
+            "total": 4359,
+            "zeroRate": 0.0018352833218628125,
+            "positiveRate": 0.9981647166781372,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 79,
+          "total": 1290,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 8,
+            "NEGATIVE": 0,
+            "total": 8,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 1282,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 1282,
+            "zeroRate": 0,
+            "positiveRate": 1,
+            "negativeRate": 0
+          },
+          "support": true
+        },
+        {
+          "heroId": 8,
+          "total": 4508,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 5,
+            "NEGATIVE": 0,
+            "total": 5,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 4492,
+            "ZERO": 11,
+            "NEGATIVE": 0,
+            "total": 4503,
+            "zeroRate": 0.0024428159005107706,
+            "positiveRate": 0.9975571840994892,
+            "negativeRate": 0
+          },
+          "support": false
+        },
+        {
+          "heroId": 10,
+          "total": 2782,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 3,
+            "NEGATIVE": 0,
+            "total": 3,
+            "zeroRate": 1,
+            "positiveRate": 0,
+            "negativeRate": 0
+          },
+          "absent": {
+            "POSITIVE": 2779,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 2779,
+            "zeroRate": 0,
+            "positiveRate": 1,
+            "negativeRate": 0
+          },
+          "support": false
+        },
+        {
+          "heroId": 3,
+          "total": 1909,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 0,
+            "zeroRate": null,
+            "positiveRate": null,
+            "negativeRate": null
+          },
+          "absent": {
+            "POSITIVE": 1906,
+            "ZERO": 0,
+            "NEGATIVE": 3,
+            "total": 1909,
+            "zeroRate": 0,
+            "positiveRate": 0.9984284965950759,
+            "negativeRate": 0.001571503404924044
+          },
+          "support": false
+        },
+        {
+          "heroId": 18,
+          "total": 1629,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 0,
+            "zeroRate": null,
+            "positiveRate": null,
+            "negativeRate": null
+          },
+          "absent": {
+            "POSITIVE": 1626,
+            "ZERO": 0,
+            "NEGATIVE": 3,
+            "total": 1629,
+            "zeroRate": 0,
+            "positiveRate": 0.998158379373849,
+            "negativeRate": 0.001841620626151013
+          },
+          "support": false
+        },
+        {
+          "heroId": 6,
+          "total": 414,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 0,
+            "zeroRate": null,
+            "positiveRate": null,
+            "negativeRate": null
+          },
+          "absent": {
+            "POSITIVE": 414,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 414,
+            "zeroRate": 0,
+            "positiveRate": 1,
+            "negativeRate": 0
+          },
+          "support": false
+        },
+        {
+          "heroId": 50,
+          "total": 523,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 0,
+            "zeroRate": null,
+            "positiveRate": null,
+            "negativeRate": null
+          },
+          "absent": {
+            "POSITIVE": 523,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 523,
+            "zeroRate": 0,
+            "positiveRate": 1,
+            "negativeRate": 0
+          },
+          "support": false
+        }
+      ],
+      "supportingHeroes": [
+        58,
+        7,
+        76,
+        2,
+        1,
+        13,
+        35,
+        25,
+        66,
+        31,
+        65,
+        63,
+        69,
+        16,
+        11,
+        67,
+        4,
+        60,
+        81,
+        80,
+        64,
+        27,
+        14,
+        19,
+        15,
+        79
+      ],
+      "supportingHeroCount": 26
+    }
+  },
+  "replication": {
+    "replayCount": 5,
+    "replayNames": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "usableReplays": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "poweredReplays": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "strongReplays": [],
+    "contradictoryReplays": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "allFiveUsable": true,
+    "allFivePowered": true,
+    "noContradictions": false,
+    "allFiveStrong": false,
+    "pooledPass": false,
+    "crossReplayReplicated": false,
+    "classification": "SLIDE_INFINITE_AMMO_RUNTIME_CARRIER_CONTRADICTED_IN_INDEPENDENT_REPLAY"
+  },
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script183Ready": {
+        "actual": "SLIDE_INFINITE_AMMO_RUNTIME_CARRIER_VALIDATION_V01_READY_FOR_CROSS_REPLAY_VALIDATION",
+        "expected": "SLIDE_INFINITE_AMMO_RUNTIME_CARRIER_VALIDATION_V01_READY_FOR_CROSS_REPLAY_VALIDATION",
+        "pass": true
+      },
+      "script183ClassificationFrozen": {
+        "actual": "SLIDE_INFINITE_AMMO_RUNTIME_CARRIER_STRONGLY_SUPPORTED_SINGLE_REPLAY",
+        "expected": "SLIDE_INFINITE_AMMO_RUNTIME_CARRIER_STRONGLY_SUPPORTED_SINGLE_REPLAY",
+        "pass": true
+      },
+      "carrierFrozen": {
+        "actual": {
+          "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+          "bit": 5,
+          "mask": 32
+        },
+        "expected": {
+          "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+          "bit": 5,
+          "mask": 32
+        },
+        "pass": true
+      },
+      "cohortExactlyFive": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "discoveryReplayExcluded": {
+        "actual": false,
+        "expected": false,
+        "pass": true
+      },
+      "allReplayIntegrityPass": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "pass": false,
+    "status": "NOT_ESTABLISHED"
+  },
+  "replicationStatus": "contradicted",
+  "authorityPromotion": false,
+  "status": "SLIDE_INFINITE_AMMO_CROSS_REPLAY_VALIDATION_V01_REQUIRES_DIAGNOSIS",
+  "nextStep": "DIAGNOSE_CONTRADICTORY_REPLAY_WITHOUT_RETUNING_CARRIER"
+}

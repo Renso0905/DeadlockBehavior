@@ -1,0 +1,2844 @@
+{
+  "version": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_CROSS_REPLAY_VALIDATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T20:53:36.686Z",
+  "status": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+  "cohort": {
+    "discoveryReplay": "test",
+    "discoveryReplayExcluded": true,
+    "independentReplays": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "independentReplayCount": 5
+  },
+  "provenance": [
+    {
+      "replay": "rep01",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep01.dem",
+      "script161SummaryPath": "G:\\DeadlockBehavior\\output\\rep01\\effective_weapon_state_substrate_v01.json",
+      "script161EventsPath": "G:\\DeadlockBehavior\\output\\rep01\\effective_weapon_runtime_events_v01.jsonl",
+      "script161Execution": "GENERATED_THIS_RUN"
+    },
+    {
+      "replay": "rep02",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep02.dem",
+      "script161SummaryPath": "G:\\DeadlockBehavior\\output\\rep02\\effective_weapon_state_substrate_v01.json",
+      "script161EventsPath": "G:\\DeadlockBehavior\\output\\rep02\\effective_weapon_runtime_events_v01.jsonl",
+      "script161Execution": "GENERATED_THIS_RUN"
+    },
+    {
+      "replay": "rep03",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep03.dem",
+      "script161SummaryPath": "G:\\DeadlockBehavior\\output\\rep03\\effective_weapon_state_substrate_v01.json",
+      "script161EventsPath": "G:\\DeadlockBehavior\\output\\rep03\\effective_weapon_runtime_events_v01.jsonl",
+      "script161Execution": "GENERATED_THIS_RUN"
+    },
+    {
+      "replay": "rep04",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep04.dem",
+      "script161SummaryPath": "G:\\DeadlockBehavior\\output\\rep04\\effective_weapon_state_substrate_v01.json",
+      "script161EventsPath": "G:\\DeadlockBehavior\\output\\rep04\\effective_weapon_runtime_events_v01.jsonl",
+      "script161Execution": "GENERATED_THIS_RUN"
+    },
+    {
+      "replay": "rep05",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep05.dem",
+      "script161SummaryPath": "G:\\DeadlockBehavior\\output\\rep05\\effective_weapon_state_substrate_v01.json",
+      "script161EventsPath": "G:\\DeadlockBehavior\\output\\rep05\\effective_weapon_runtime_events_v01.jsonl",
+      "script161Execution": "GENERATED_THIS_RUN"
+    }
+  ],
+  "design": {
+    "frozenFrom": "Script171 V01 single-replay candidate",
+    "observedCarrier": "m_flNextPrimaryAttack - m_flLastAttackTime at observed discharge events",
+    "pairSemantics": "next actual discharge on same player, weapon entity, effect context, and active fire mode",
+    "sustainedCriterion": "same Script167-compatible criterion used by Script170: next discharge <= readyDelay*64 + 2 ticks",
+    "primaryScope": "fixed-regime primary weapons under the frozen Script170 strict baseline; spin-up remains outside the validated fixed-regime scope",
+    "strictBaseline": [
+      "observed discharge with finite ready-delay candidate",
+      "Script161 effect context resolves",
+      "no explicit Fire Rate item/permanent/Gun bridge input",
+      "no Script165 hero-special EFireRate scaling",
+      "dominant observed active fire mode for that hero in the replay"
+    ],
+    "primaryReplicationTarget": "observed runtime carrier predicting actual next discharge",
+    "staticModelV02Role": "secondary explanatory diagnostic only; static weakness cannot veto observed-carrier replication",
+    "frozenThresholds": {
+      "requiredIndependentReplays": 5,
+      "minimumReplaySustainedPairs": 100,
+      "observedReadyAlignmentRate": 0.95,
+      "timingCrossCheckRate": 0.9,
+      "minimumPooledRegimePairs": 100
+    },
+    "registryMutation": "NONE",
+    "effectiveWeaponStatePromotion": "NONE"
+  },
+  "discoveryReference": {
+    "status": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_READY_FOR_CROSS_REPLAY_VALIDATION",
+    "observedRuntimeCarrier": {
+      "aggregate": {
+        "aligned": 4568,
+        "comparable": 4568,
+        "alignmentRate": 1
+      },
+      "burstBoundary": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 603,
+        "aligned": 603,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 603,
+          "min": 0.000732421875,
+          "median": 0.003204345703125,
+          "max": 0.02725982666015625,
+          "mean": 0.0038437598182589658
+        },
+        "ratioToCandidate": {
+          "n": 603,
+          "min": 1.002135231316726,
+          "median": 1.0094094452907967,
+          "max": 1.08207943764214,
+          "mean": 1.0110974800442392
+        }
+      },
+      "burstPositive": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 1725,
+        "aligned": 1725,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 1725,
+          "min": 0.000518798828125,
+          "median": 0.00970458984375,
+          "max": 0.015625,
+          "mean": 0.00837563335031703
+        },
+        "ratioToCandidate": {
+          "n": 1725,
+          "min": 1.006685017695635,
+          "median": 1.130242825607064,
+          "max": 1.2,
+          "mean": 1.1109839846059042
+        }
+      },
+      "nonBurst": {
+        "kind": "CURRENT_READY_DELAY",
+        "comparable": 2240,
+        "aligned": 2240,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 2240,
+          "min": 0.00048828125,
+          "median": 0.008148193359375,
+          "max": 0.030517578125,
+          "mean": 0.008327218464442662
+        },
+        "ratioToCandidate": {
+          "n": 2240,
+          "min": 1.0009775171065494,
+          "median": 1.0266572304788866,
+          "max": 1.2237302603499787,
+          "mean": 1.0324529528647937
+        }
+      },
+      "lastAttackDeltaVsReplaySpacing": {
+        "comparable": 603,
+        "aligned": 603,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 603,
+          "min": 0,
+          "median": 0,
+          "max": 0,
+          "mean": 0
+        }
+      },
+      "nextLastAttackVsCurrentNextPrimary": {
+        "comparable": 603,
+        "aligned": 603,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 603,
+          "min": 0.000732421875,
+          "median": 0.003204345703125,
+          "max": 0.02725982666015625,
+          "mean": 0.0038437598182589658
+        }
+      }
+    },
+    "staticExplanatoryModelV02": {
+      "aggregate": {
+        "aligned": 4426,
+        "comparable": 4568,
+        "alignmentRate": 0.9689141856392294
+      },
+      "burstBoundary": {
+        "expectedKind": "CYCLE_PLUS_INTRA",
+        "summary": {
+          "kind": "CYCLE_PLUS_INTRA",
+          "comparable": 603,
+          "aligned": 564,
+          "alignmentRate": 0.9353233830845771,
+          "absoluteErrorSeconds": {
+            "n": 603,
+            "min": 0.00275000000000003,
+            "median": 0.00275000000000003,
+            "max": 0.07537499999999997,
+            "mean": 0.007537313432835858
+          },
+          "ratioToCandidate": {
+            "n": 603,
+            "min": 0.992063492063492,
+            "median": 0.992063492063492,
+            "max": 1.2175324675324675,
+            "mean": 1.0071695395078488
+          }
+        }
+      },
+      "burstPositive": {
+        "expectedKind": "INTRA_BURST_CYCLE_TIME",
+        "summary": {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 1725,
+          "aligned": 1725,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 1725,
+            "min": 0.005875000000000005,
+            "median": 0.005875000000000005,
+            "max": 0.009749999999999995,
+            "mean": 0.007175652173913089
+          },
+          "ratioToCandidate": {
+            "n": 1725,
+            "min": 0.9300595238095237,
+            "median": 0.9300595238095237,
+            "max": 1.1160714285714286,
+            "mean": 0.99249482401653
+          }
+        }
+      },
+      "nonBurst": {
+        "expectedKind": "NON_BURST_CYCLE",
+        "summary": {
+          "kind": "NON_BURST_CYCLE",
+          "comparable": 2240,
+          "aligned": 2137,
+          "alignmentRate": 0.9540178571428571,
+          "absoluteErrorSeconds": {
+            "n": 2240,
+            "min": 0.0015000000000000013,
+            "median": 0.005624999999999991,
+            "max": 0.1825,
+            "mean": 0.010159654017857078
+          },
+          "ratioToCandidate": {
+            "n": 2240,
+            "min": 0.6167763157894737,
+            "median": 0.9920634920634921,
+            "max": 1.502403846153846,
+            "mean": 0.9904948197578646
+          }
+        }
+      }
+    }
+  },
+  "replays": [
+    {
+      "replay": "rep01",
+      "integrityPass": true,
+      "integrityChecks": {
+        "script161Ready": true,
+        "dischargeRowsObserved": true,
+        "strictRowsObserved": true,
+        "comparablePairsObserved": true,
+        "sustainedPairsObserved": true,
+        "everyStrictHeroHasStaticWeapon": true
+      },
+      "counts": {
+        "dischargeRowsWithReadyDelay": 26073,
+        "cleanExplicitFireRateRows": 6989,
+        "strictRows": 6434,
+        "comparablePairs": 6381,
+        "sustainedPairs": 5027,
+        "burstBoundarySustainedPairs": 556,
+        "burstPositiveSustainedPairs": 2019,
+        "nonBurstSustainedPairs": 2452
+      },
+      "observed": {
+        "aggregate": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 5027,
+          "aligned": 5027,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 5027,
+            "min": 0,
+            "median": 0.00811767578125,
+            "max": 0.028106689453125,
+            "mean": 0.007945496115410377
+          },
+          "ratioToCandidate": {
+            "n": 5027,
+            "min": 1,
+            "median": 1.0528789659224442,
+            "max": 1.2427184466019416,
+            "mean": 1.0745461816568653
+          }
+        },
+        "burstBoundary": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 556,
+          "aligned": 556,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 556,
+            "min": 0.00006103515625,
+            "median": 0.004638671875,
+            "max": 0.023529052734375,
+            "mean": 0.005142733347501686
+          },
+          "ratioToCandidate": {
+            "n": 556,
+            "min": 1.0001698658060132,
+            "median": 1.013678905687545,
+            "max": 1.0700590640617902,
+            "mean": 1.0148108933408166
+          }
+        },
+        "burstPositive": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 2019,
+          "aligned": 2019,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 2019,
+            "min": 0.00006103515625,
+            "median": 0.009246826171875,
+            "max": 0.015625,
+            "mean": 0.008545076805745806
+          },
+          "ratioToCandidate": {
+            "n": 2019,
+            "min": 1.0009775171065494,
+            "median": 1.130242825607064,
+            "max": 1.2427184466019416,
+            "mean": 1.1216677911127961
+          }
+        },
+        "nonBurst": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 2452,
+          "aligned": 2452,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 2452,
+            "min": 0,
+            "median": 0.00809478759765625,
+            "max": 0.028106689453125,
+            "mean": 0.00808733244704578
+          },
+          "ratioToCandidate": {
+            "n": 2452,
+            "min": 1,
+            "median": 1.035738368172623,
+            "max": 1.16590761223162,
+            "mean": 1.0492909984644312
+          }
+        },
+        "lastAttackDeltaVsReplaySpacing": {
+          "comparable": 556,
+          "aligned": 556,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 556,
+            "min": 0,
+            "median": 0,
+            "max": 0,
+            "mean": 0
+          }
+        },
+        "nextLastAttackVsCurrentNextPrimary": {
+          "comparable": 556,
+          "aligned": 556,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 556,
+            "min": 0.00006103515625,
+            "median": 0.004638671875,
+            "max": 0.023529052734375,
+            "mean": 0.005142733347501686
+          }
+        }
+      },
+      "staticModelV02": {
+        "aggregate": {
+          "aligned": 4988,
+          "comparable": 5027,
+          "alignmentRate": 0.9922418937736225
+        },
+        "burstBoundary": {
+          "kind": "CYCLE_PLUS_INTRA",
+          "comparable": 556,
+          "aligned": 556,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 556,
+            "min": 0.00275000000000003,
+            "median": 0.00275000000000003,
+            "max": 0.01287499999999997,
+            "mean": 0.004027203237410108
+          },
+          "ratioToCandidate": {
+            "n": 556,
+            "min": 0.9778911564625851,
+            "median": 0.992063492063492,
+            "max": 1.0371572871572872,
+            "mean": 0.9949994549814698
+          }
+        },
+        "burstPositive": {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 2019,
+          "aligned": 2019,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 2019,
+            "min": 0.004625000000000004,
+            "median": 0.005875000000000005,
+            "max": 0.010999999999999996,
+            "mean": 0.007152674591381738
+          },
+          "ratioToCandidate": {
+            "n": 2019,
+            "min": 0.8503401360544218,
+            "median": 0.9300595238095237,
+            "max": 1.1160714285714286,
+            "mean": 0.992892668459125
+          }
+        },
+        "nonBurst": {
+          "kind": "NON_BURST_CYCLE",
+          "comparable": 2452,
+          "aligned": 2413,
+          "alignmentRate": 0.984094616639478,
+          "absoluteErrorSeconds": {
+            "n": 2452,
+            "min": 0.0018750000000000155,
+            "median": 0.004375000000000004,
+            "max": 0.198125,
+            "mean": 0.007400744290375149
+          },
+          "ratioToCandidate": {
+            "n": 2452,
+            "min": 0.8928571428571429,
+            "median": 1.0146103896103895,
+            "max": 1.3528138528138527,
+            "mean": 1.0007207878661213
+          }
+        }
+      },
+      "byHero": [
+        {
+          "heroId": 2,
+          "displayName": "Seven",
+          "regime": "BURST",
+          "sustainedPairs": 1497,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 1497,
+            "aligned": 1497,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 1497,
+              "min": 0.000244140625,
+              "median": 0.00701904296875,
+              "max": 0.023529052734375,
+              "mean": 0.00727241837190005
+            },
+            "ratioToCandidate": {
+              "n": 1497,
+              "min": 1.0031169293792859,
+              "median": 1.0829103214890017,
+              "max": 1.2,
+              "mean": 1.0840889395471673
+            }
+          },
+          "staticV02": {
+            "aligned": 1497,
+            "comparable": 1497,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 10,
+          "displayName": "Paradox",
+          "regime": "BURST",
+          "sustainedPairs": 1078,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 1078,
+            "aligned": 1078,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 1078,
+              "min": 0.00006103515625,
+              "median": 0.0090789794921875,
+              "max": 0.01548004150390625,
+              "mean": 0.008557569118068037
+            },
+            "ratioToCandidate": {
+              "n": 1078,
+              "min": 1.0001698658060132,
+              "median": 1.1179039301310043,
+              "max": 1.2427184466019416,
+              "mean": 1.1187393176735732
+            }
+          },
+          "staticV02": {
+            "aligned": 1078,
+            "comparable": 1078,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 3,
+          "displayName": "Vindicta",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 951,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 951,
+            "aligned": 951,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 951,
+              "min": 0.0001220703125,
+              "median": 0.00677490234375,
+              "max": 0.01544189453125,
+              "mean": 0.007341755928175933
+            },
+            "ratioToCandidate": {
+              "n": 951,
+              "min": 1.0005583472920156,
+              "median": 1.0297666934835077,
+              "max": 1.0705324783942012,
+              "mean": 1.032792045481448
+            }
+          },
+          "staticV02": {
+            "aligned": 939,
+            "comparable": 951,
+            "alignmentRate": 0.9873817034700315
+          }
+        },
+        {
+          "heroId": 13,
+          "displayName": "Haze",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 829,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 829,
+            "aligned": 829,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 829,
+              "min": 0.0001068115234375,
+              "median": 0.008026123046875,
+              "max": 0.01556396484375,
+              "mean": 0.007770257634621909
+            },
+            "ratioToCandidate": {
+              "n": 829,
+              "min": 1.0011406224539678,
+              "median": 1.0778947368421052,
+              "max": 1.16590761223162,
+              "mean": 1.0793862321645216
+            }
+          },
+          "staticV02": {
+            "aligned": 814,
+            "comparable": 829,
+            "alignmentRate": 0.9819059107358263
+          }
+        },
+        {
+          "heroId": 69,
+          "displayName": "The Doorman",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 239,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 239,
+            "aligned": 239,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 239,
+              "min": 0,
+              "median": 0.0106201171875,
+              "max": 0.026885986328125,
+              "mean": 0.008253696074545633
+            },
+            "ratioToCandidate": {
+              "n": 239,
+              "min": 1,
+              "median": 1.0172859129743692,
+              "max": 1.0427192939921448,
+              "mean": 1.0132679489070102
+            }
+          },
+          "staticV02": {
+            "aligned": 231,
+            "comparable": 239,
+            "alignmentRate": 0.9665271966527197
+          }
+        },
+        {
+          "heroId": 1,
+          "displayName": "Infernus",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 169,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 169,
+            "aligned": 169,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 169,
+              "min": 0.0005645751953125,
+              "median": 0.00809478759765625,
+              "max": 0.01554107666015625,
+              "mean": 0.007891773472170857
+            },
+            "ratioToCandidate": {
+              "n": 169,
+              "min": 1.0060586212542983,
+              "median": 1.079924670433145,
+              "max": 1.1656232214001139,
+              "mean": 1.081231785858548
+            }
+          },
+          "staticV02": {
+            "aligned": 169,
+            "comparable": 169,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 64,
+          "displayName": "Drifter",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 84,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 84,
+            "aligned": 84,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 84,
+              "min": 0.00860595703125,
+              "median": 0.012115478515625,
+              "max": 0.0277557373046875,
+              "mean": 0.013228371029808408
+            },
+            "ratioToCandidate": {
+              "n": 84,
+              "min": 1.0200654617902376,
+              "median": 1.0284812396872085,
+              "max": 1.0652509237005416,
+              "mean": 1.0310052053660819
+            }
+          },
+          "staticV02": {
+            "aligned": 84,
+            "comparable": 84,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 14,
+          "displayName": "Holliday",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 81,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 81,
+            "aligned": 81,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 81,
+              "min": 0.0006103515625,
+              "median": 0.011871337890625,
+              "max": 0.028106689453125,
+              "mean": 0.012976375626929012
+            },
+            "ratioToCandidate": {
+              "n": 81,
+              "min": 1.001303780964798,
+              "median": 1.025983568231915,
+              "max": 1.0602538410153641,
+              "mean": 1.0283149394315612
+            }
+          },
+          "staticV02": {
+            "aligned": 81,
+            "comparable": 81,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 4,
+          "displayName": "Lady Geist",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 79,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 79,
+            "aligned": 79,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 79,
+              "min": 0.0006103515625,
+              "median": 0.011871337890625,
+              "max": 0.02752685546875,
+              "mean": 0.009991609597507911
+            },
+            "ratioToCandidate": {
+              "n": 79,
+              "min": 1.001303780964798,
+              "median": 1.025983568231915,
+              "max": 1.0602538410153641,
+              "mean": 1.0215276484299094
+            }
+          },
+          "staticV02": {
+            "aligned": 75,
+            "comparable": 79,
+            "alignmentRate": 0.9493670886075949
+          }
+        },
+        {
+          "heroId": 27,
+          "displayName": "Yamato",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 20,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 20,
+            "aligned": 20,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 20,
+              "min": 0.001861572265625,
+              "median": 0.00188446044921875,
+              "max": 0.01751708984375,
+              "mean": 0.007431793212890625
+            },
+            "ratioToCandidate": {
+              "n": 20,
+              "min": 1.0046034261565164,
+              "median": 1.0046602897861456,
+              "max": 1.0433207547169812,
+              "mean": 1.0183631674005735
+            }
+          },
+          "staticV02": {
+            "aligned": 20,
+            "comparable": 20,
+            "alignmentRate": 1
+          }
+        }
+      ]
+    },
+    {
+      "replay": "rep02",
+      "integrityPass": true,
+      "integrityChecks": {
+        "script161Ready": true,
+        "dischargeRowsObserved": true,
+        "strictRowsObserved": true,
+        "comparablePairsObserved": true,
+        "sustainedPairsObserved": true,
+        "everyStrictHeroHasStaticWeapon": true
+      },
+      "counts": {
+        "dischargeRowsWithReadyDelay": 29889,
+        "cleanExplicitFireRateRows": 6996,
+        "strictRows": 6456,
+        "comparablePairs": 5648,
+        "sustainedPairs": 4786,
+        "burstBoundarySustainedPairs": 29,
+        "burstPositiveSustainedPairs": 120,
+        "nonBurstSustainedPairs": 4637
+      },
+      "observed": {
+        "aggregate": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 4786,
+          "aligned": 4780,
+          "alignmentRate": 0.9987463435018805,
+          "absoluteErrorSeconds": {
+            "n": 4786,
+            "min": 0,
+            "median": 0.008758544921875,
+            "max": 0.03009033203125,
+            "mean": 0.008277886689979563
+          },
+          "ratioToCandidate": {
+            "n": 4786,
+            "min": 1,
+            "median": 1.085512367491166,
+            "max": 1.3795227097767513,
+            "mean": 1.0904459832864941
+          }
+        },
+        "burstBoundary": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 29,
+          "aligned": 29,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 29,
+            "min": 0.001129150390625,
+            "median": 0.00225830078125,
+            "max": 0.00677490234375,
+            "mean": 0.00225830078125
+          },
+          "ratioToCandidate": {
+            "n": 29,
+            "min": 1.0032956266144117,
+            "median": 1.0066130473637176,
+            "max": 1.0201050534323493,
+            "mean": 1.006630618691402
+          }
+        },
+        "burstPositive": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 120,
+          "aligned": 120,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 120,
+            "min": 0.0009002685546875,
+            "median": 0.00963592529296875,
+            "max": 0.0153961181640625,
+            "mean": 0.007766850789388021
+          },
+          "ratioToCandidate": {
+            "n": 120,
+            "min": 1.0116577751432523,
+            "median": 1.1312833732277665,
+            "max": 1.1964946445959104,
+            "mean": 1.10479719279622
+          }
+        },
+        "nonBurst": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 4637,
+          "aligned": 4631,
+          "alignmentRate": 0.9987060599525556,
+          "absoluteErrorSeconds": {
+            "n": 4637,
+            "min": 0,
+            "median": 0.008758544921875,
+            "max": 0.03009033203125,
+            "mean": 0.008328758438831007
+          },
+          "ratioToCandidate": {
+            "n": 4637,
+            "min": 1,
+            "median": 1.085512367491166,
+            "max": 1.3795227097767513,
+            "mean": 1.090598776133616
+          }
+        },
+        "lastAttackDeltaVsReplaySpacing": {
+          "comparable": 29,
+          "aligned": 29,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 29,
+            "min": 0,
+            "median": 0,
+            "max": 0,
+            "mean": 0
+          }
+        },
+        "nextLastAttackVsCurrentNextPrimary": {
+          "comparable": 29,
+          "aligned": 29,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 29,
+            "min": 0.001129150390625,
+            "median": 0.00225830078125,
+            "max": 0.00677490234375,
+            "mean": 0.00225830078125
+          }
+        }
+      },
+      "staticModelV02": {
+        "aggregate": {
+          "aligned": 4697,
+          "comparable": 4786,
+          "alignmentRate": 0.9814040952778939
+        },
+        "burstBoundary": {
+          "kind": "CYCLE_PLUS_INTRA",
+          "comparable": 29,
+          "aligned": 29,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 29,
+            "min": 0.00275000000000003,
+            "median": 0.00275000000000003,
+            "max": 0.00275000000000003,
+            "mean": 0.00275000000000003
+          },
+          "ratioToCandidate": {
+            "n": 29,
+            "min": 0.992063492063492,
+            "median": 0.992063492063492,
+            "max": 0.992063492063492,
+            "mean": 0.9920634920634913
+          }
+        },
+        "burstPositive": {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 120,
+          "aligned": 120,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 120,
+            "min": 0.005875000000000005,
+            "median": 0.005875000000000005,
+            "max": 0.009749999999999995,
+            "mean": 0.006779166666666684
+          },
+          "ratioToCandidate": {
+            "n": 120,
+            "min": 0.9300595238095237,
+            "median": 0.9300595238095237,
+            "max": 1.1160714285714286,
+            "mean": 0.9734623015873017
+          }
+        },
+        "nonBurst": {
+          "kind": "NON_BURST_CYCLE",
+          "comparable": 4637,
+          "aligned": 4548,
+          "alignmentRate": 0.980806555962907,
+          "absoluteErrorSeconds": {
+            "n": 4637,
+            "min": 0,
+            "median": 0.005875000000000005,
+            "max": 0.646875,
+            "mean": 0.011806232477895211
+          },
+          "ratioToCandidate": {
+            "n": 4637,
+            "min": 0.23897058823529413,
+            "median": 0.9920634920634921,
+            "max": 1.3786764705882353,
+            "mean": 0.9893230574165206
+          }
+        }
+      },
+      "byHero": [
+        {
+          "heroId": 15,
+          "displayName": "Bebop",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 1403,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 1403,
+            "aligned": 1403,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 1403,
+              "min": 0,
+              "median": 0.0078125,
+              "max": 0.0155029296875,
+              "mean": 0.008063535901026818
+            },
+            "ratioToCandidate": {
+              "n": 1403,
+              "min": 1,
+              "median": 1.1111111111111112,
+              "max": 1.1981279251170047,
+              "mean": 1.1057153910638602
+            }
+          },
+          "staticV02": {
+            "aligned": 1403,
+            "comparable": 1403,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 76,
+          "displayName": "Graves",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 1338,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 1338,
+            "aligned": 1338,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 1338,
+              "min": 0.00018310546875,
+              "median": 0.00738525390625,
+              "max": 0.015594482421875,
+              "mean": 0.008536682356989794
+            },
+            "ratioToCandidate": {
+              "n": 1338,
+              "min": 1.0019569471624266,
+              "median": 1.085512367491166,
+              "max": 1.1662870159453302,
+              "mean": 1.090364572325656
+            }
+          },
+          "staticV02": {
+            "aligned": 1299,
+            "comparable": 1338,
+            "alignmentRate": 0.9708520179372198
+          }
+        },
+        {
+          "heroId": 7,
+          "displayName": "Wraith",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 1178,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 1178,
+            "aligned": 1177,
+            "alignmentRate": 0.9991511035653651,
+            "absoluteErrorSeconds": {
+              "n": 1178,
+              "min": 0.0002899169921875,
+              "median": 0.010284423828125,
+              "max": 0.03009033203125,
+              "mean": 0.0095331810528637
+            },
+            "ratioToCandidate": {
+              "n": 1178,
+              "min": 1.0037247598510095,
+              "median": 1.123422966797682,
+              "max": 1.3795227097767513,
+              "mean": 1.1157541386005112
+            }
+          },
+          "staticV02": {
+            "aligned": 1178,
+            "comparable": 1178,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 67,
+          "displayName": "Paige",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 279,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 279,
+            "aligned": 279,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 279,
+              "min": 0,
+              "median": 0,
+              "max": 0.009368896484375,
+              "mean": 0.0004365435637880824
+            },
+            "ratioToCandidate": {
+              "n": 279,
+              "min": 1,
+              "median": 1,
+              "max": 1.0190956024133855,
+              "mean": 1.0008897592522354
+            }
+          },
+          "staticV02": {
+            "aligned": 279,
+            "comparable": 279,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 63,
+          "displayName": "Mina",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 194,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 194,
+            "aligned": 194,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 194,
+              "min": 0.001312255859375,
+              "median": 0.011627197265625,
+              "max": 0.02325439453125,
+              "mean": 0.010770345471568942
+            },
+            "ratioToCandidate": {
+              "n": 194,
+              "min": 1.00527672107007,
+              "median": 1.0487773652541288,
+              "max": 1.0959456056408965,
+              "mean": 1.0450595652998387
+            }
+          },
+          "staticV02": {
+            "aligned": 194,
+            "comparable": 194,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 19,
+          "displayName": "Shiv",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 156,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 156,
+            "aligned": 156,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 156,
+              "min": 0.0006103515625,
+              "median": 0.01123046875,
+              "max": 0.029296875,
+              "mean": 0.009770515637520032
+            },
+            "ratioToCandidate": {
+              "n": 156,
+              "min": 1.0011173184357542,
+              "median": 1.0209662716499543,
+              "max": 1.0533807829181494,
+              "mean": 1.0181736803252184
+            }
+          },
+          "staticV02": {
+            "aligned": 156,
+            "comparable": 156,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 31,
+          "displayName": "Lash",
+          "regime": "BURST",
+          "sustainedPairs": 149,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 149,
+            "aligned": 149,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 149,
+              "min": 0.0009002685546875,
+              "median": 0.006134033203125,
+              "max": 0.0153961181640625,
+              "mean": 0.006694716895186661
+            },
+            "ratioToCandidate": {
+              "n": 149,
+              "min": 1.0032956266144117,
+              "median": 1.0852055955913522,
+              "max": 1.1964946445959104,
+              "mean": 1.0856909468295093
+            }
+          },
+          "staticV02": {
+            "aligned": 149,
+            "comparable": 149,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 80,
+          "displayName": "Silver",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 89,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 89,
+            "aligned": 84,
+            "alignmentRate": 0.9438202247191011,
+            "absoluteErrorSeconds": {
+              "n": 89,
+              "min": 0,
+              "median": 0.009368896484375,
+              "max": 0.028076171875,
+              "mean": 0.010333714860208919
+            },
+            "ratioToCandidate": {
+              "n": 89,
+              "min": 1,
+              "median": 1.0299550126184118,
+              "max": 1.136094674556213,
+              "mean": 1.0303007370294572
+            }
+          },
+          "staticV02": {
+            "aligned": 39,
+            "comparable": 89,
+            "alignmentRate": 0.43820224719101125
+          }
+        }
+      ]
+    },
+    {
+      "replay": "rep03",
+      "integrityPass": true,
+      "integrityChecks": {
+        "script161Ready": true,
+        "dischargeRowsObserved": true,
+        "strictRowsObserved": true,
+        "comparablePairsObserved": true,
+        "sustainedPairsObserved": true,
+        "everyStrictHeroHasStaticWeapon": true
+      },
+      "counts": {
+        "dischargeRowsWithReadyDelay": 37194,
+        "cleanExplicitFireRateRows": 6152,
+        "strictRows": 6152,
+        "comparablePairs": 5409,
+        "sustainedPairs": 4543,
+        "burstBoundarySustainedPairs": 233,
+        "burstPositiveSustainedPairs": 755,
+        "nonBurstSustainedPairs": 3555
+      },
+      "observed": {
+        "aggregate": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 4543,
+          "aligned": 4543,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 4543,
+            "min": 0,
+            "median": 0.007568359375,
+            "max": 0.03125,
+            "mean": 0.007449563001447539
+          },
+          "ratioToCandidate": {
+            "n": 4543,
+            "min": 1,
+            "median": 1.0491803278688525,
+            "max": 1.1981279251170047,
+            "mean": 1.059268300819507
+          }
+        },
+        "burstBoundary": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 233,
+          "aligned": 233,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 233,
+            "min": 0.000152587890625,
+            "median": 0.00225830078125,
+            "max": 0.0198974609375,
+            "mean": 0.0033262522947123123
+          },
+          "ratioToCandidate": {
+            "n": 233,
+            "min": 1.000444089173106,
+            "median": 1.0066130473637176,
+            "max": 1.0586120100683207,
+            "mean": 1.0097529408500219
+          }
+        },
+        "burstPositive": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 755,
+          "aligned": 755,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 755,
+            "min": 0.000518798828125,
+            "median": 0.009521484375,
+            "max": 0.0155029296875,
+            "mean": 0.008084450020695364
+          },
+          "ratioToCandidate": {
+            "n": 755,
+            "min": 1.006685017695635,
+            "median": 1.1281674623576938,
+            "max": 1.1981279251170047,
+            "mean": 1.10772035969644
+          }
+        },
+        "nonBurst": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 3555,
+          "aligned": 3555,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 3555,
+            "min": 0,
+            "median": 0.008056640625,
+            "max": 0.03125,
+            "mean": 0.007584975573919326
+          },
+          "ratioToCandidate": {
+            "n": 3555,
+            "min": 1,
+            "median": 1.0448979591836736,
+            "max": 1.1586519033379132,
+            "mean": 1.052223511627002
+          }
+        },
+        "lastAttackDeltaVsReplaySpacing": {
+          "comparable": 233,
+          "aligned": 233,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 233,
+            "min": 0,
+            "median": 0,
+            "max": 0,
+            "mean": 0
+          }
+        },
+        "nextLastAttackVsCurrentNextPrimary": {
+          "comparable": 233,
+          "aligned": 233,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 233,
+            "min": 0.000152587890625,
+            "median": 0.00225830078125,
+            "max": 0.0198974609375,
+            "mean": 0.0033262522947123123
+          }
+        }
+      },
+      "staticModelV02": {
+        "aggregate": {
+          "aligned": 4515,
+          "comparable": 4543,
+          "alignmentRate": 0.9938366718027735
+        },
+        "burstBoundary": {
+          "kind": "CYCLE_PLUS_INTRA",
+          "comparable": 233,
+          "aligned": 232,
+          "alignmentRate": 0.9957081545064378,
+          "absoluteErrorSeconds": {
+            "n": 233,
+            "min": 0.00275000000000003,
+            "median": 0.00275000000000003,
+            "max": 0.700375,
+            "mean": 0.006048283261802603
+          },
+          "ratioToCandidate": {
+            "n": 233,
+            "min": 0.992063492063492,
+            "median": 0.992063492063492,
+            "max": 3.021284271284271,
+            "mean": 1.0021273433290618
+          }
+        },
+        "burstPositive": {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 755,
+          "aligned": 755,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 755,
+            "min": 0.005875000000000005,
+            "median": 0.005875000000000005,
+            "max": 0.009749999999999995,
+            "mean": 0.007029801324503401
+          },
+          "ratioToCandidate": {
+            "n": 755,
+            "min": 0.9300595238095237,
+            "median": 0.9300595238095237,
+            "max": 1.1160714285714286,
+            "mean": 0.985493535162411
+          }
+        },
+        "nonBurst": {
+          "kind": "NON_BURST_CYCLE",
+          "comparable": 3555,
+          "aligned": 3528,
+          "alignmentRate": 0.9924050632911392,
+          "absoluteErrorSeconds": {
+            "n": 3555,
+            "min": 0,
+            "median": 0.0037499999999999756,
+            "max": 0.13687500000000002,
+            "mean": 0.005276406469760847
+          },
+          "ratioToCandidate": {
+            "n": 3555,
+            "min": 0.84375,
+            "median": 0.9920634920634921,
+            "max": 1.3640873015873016,
+            "mean": 0.9943706970868935
+          }
+        }
+      },
+      "byHero": [
+        {
+          "heroId": 65,
+          "displayName": "Venator",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 1217,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 1217,
+            "aligned": 1217,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 1217,
+              "min": 0,
+              "median": 0.010589599609375,
+              "max": 0.0152587890625,
+              "mean": 0.009590945091028143
+            },
+            "ratioToCandidate": {
+              "n": 1217,
+              "min": 1,
+              "median": 1.0925580154707921,
+              "max": 1.1327433628318584,
+              "mean": 1.0840407073887526
+            }
+          },
+          "staticV02": {
+            "aligned": 1214,
+            "comparable": 1217,
+            "alignmentRate": 0.9975349219391948
+          }
+        },
+        {
+          "heroId": 2,
+          "displayName": "Seven",
+          "regime": "BURST",
+          "sustainedPairs": 611,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 611,
+            "aligned": 611,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 611,
+              "min": 0.000518798828125,
+              "median": 0.006134033203125,
+              "max": 0.0198974609375,
+              "mean": 0.006949704134327691
+            },
+            "ratioToCandidate": {
+              "n": 611,
+              "min": 1.0015115141815596,
+              "median": 1.078803202697008,
+              "max": 1.1981279251170047,
+              "mean": 1.0842370677865656
+            }
+          },
+          "staticV02": {
+            "aligned": 611,
+            "comparable": 611,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 16,
+          "displayName": "Calico",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 600,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 600,
+            "aligned": 600,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 600,
+              "min": 0.00042724609375,
+              "median": 0.00872802734375,
+              "max": 0.015045166015625,
+              "mean": 0.007230148315429687
+            },
+            "ratioToCandidate": {
+              "n": 600,
+              "min": 1.0021077988557663,
+              "median": 1.0419536631183468,
+              "max": 1.0738576779026217,
+              "mean": 1.035665477057295
+            }
+          },
+          "staticV02": {
+            "aligned": 594,
+            "comparable": 600,
+            "alignmentRate": 0.99
+          }
+        },
+        {
+          "heroId": 79,
+          "displayName": "Rem",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 456,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 456,
+            "aligned": 456,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 456,
+              "min": 0.001220703125,
+              "median": 0.0068359375,
+              "max": 0.0150604248046875,
+              "mean": 0.007439906137031421
+            },
+            "ratioToCandidate": {
+              "n": 456,
+              "min": 1.0048598130841122,
+              "median": 1.0264150943396226,
+              "max": 1.060105961878083,
+              "mean": 1.029369844290212
+            }
+          },
+          "staticV02": {
+            "aligned": 450,
+            "comparable": 456,
+            "alignmentRate": 0.9868421052631579
+          }
+        },
+        {
+          "heroId": 1,
+          "displayName": "Infernus",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 426,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 426,
+            "aligned": 426,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 426,
+              "min": 0.00042724609375,
+              "median": 0.008026123046875,
+              "max": 0.01497650146484375,
+              "mean": 0.00769938437591696
+            },
+            "ratioToCandidate": {
+              "n": 426,
+              "min": 1.0045781556572924,
+              "median": 1.0791930141523638,
+              "max": 1.1586519033379132,
+              "mean": 1.0793196819488675
+            }
+          },
+          "staticV02": {
+            "aligned": 426,
+            "comparable": 426,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 11,
+          "displayName": "Dynamo",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 424,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 424,
+            "aligned": 424,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 424,
+              "min": 0,
+              "median": 0.0062255859375,
+              "max": 0.0156402587890625,
+              "mean": 0.007320080163343897
+            },
+            "ratioToCandidate": {
+              "n": 424,
+              "min": 1,
+              "median": 1.024,
+              "max": 1.0625648538118782,
+              "mean": 1.0288568443526351
+            }
+          },
+          "staticV02": {
+            "aligned": 424,
+            "comparable": 424,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 31,
+          "displayName": "Lash",
+          "regime": "BURST",
+          "sustainedPairs": 377,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 377,
+            "aligned": 377,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 377,
+              "min": 0.000152587890625,
+              "median": 0.006134033203125,
+              "max": 0.016754150390625,
+              "mean": 0.006982778048325597
+            },
+            "ratioToCandidate": {
+              "n": 377,
+              "min": 1.000444089173106,
+              "median": 1.0829103214890017,
+              "max": 1.1964946445959104,
+              "mean": 1.0852319850696932
+            }
+          },
+          "staticV02": {
+            "aligned": 376,
+            "comparable": 377,
+            "alignmentRate": 0.9973474801061007
+          }
+        },
+        {
+          "heroId": 67,
+          "displayName": "Paige",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 320,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 320,
+            "aligned": 320,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 320,
+              "min": 0,
+              "median": 0,
+              "max": 0.03125,
+              "mean": 0.0005254745483398438
+            },
+            "ratioToCandidate": {
+              "n": 320,
+              "min": 1,
+              "median": 1,
+              "max": 1.064516129032258,
+              "mean": 1.0011450958811898
+            }
+          },
+          "staticV02": {
+            "aligned": 309,
+            "comparable": 320,
+            "alignmentRate": 0.965625
+          }
+        },
+        {
+          "heroId": 4,
+          "displayName": "Lady Geist",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 112,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 112,
+            "aligned": 112,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 112,
+              "min": 0.0006103515625,
+              "median": 0.00872802734375,
+              "max": 0.027496337890625,
+              "mean": 0.009017126900809152
+            },
+            "ratioToCandidate": {
+              "n": 112,
+              "min": 1.001303780964798,
+              "median": 1.0189730662067136,
+              "max": 1.0601830205063123,
+              "mean": 1.019582058155798
+            }
+          },
+          "staticV02": {
+            "aligned": 111,
+            "comparable": 112,
+            "alignmentRate": 0.9910714285714286
+          }
+        }
+      ]
+    },
+    {
+      "replay": "rep04",
+      "integrityPass": true,
+      "integrityChecks": {
+        "script161Ready": true,
+        "dischargeRowsObserved": true,
+        "strictRowsObserved": true,
+        "comparablePairsObserved": true,
+        "sustainedPairsObserved": true,
+        "everyStrictHeroHasStaticWeapon": true
+      },
+      "counts": {
+        "dischargeRowsWithReadyDelay": 30650,
+        "cleanExplicitFireRateRows": 11942,
+        "strictRows": 11942,
+        "comparablePairs": 11920,
+        "sustainedPairs": 10604,
+        "burstBoundarySustainedPairs": 531,
+        "burstPositiveSustainedPairs": 1763,
+        "nonBurstSustainedPairs": 8310
+      },
+      "observed": {
+        "aggregate": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 10604,
+          "aligned": 10604,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 10604,
+            "min": 0,
+            "median": 0.007476806640625,
+            "max": 0.02625274658203125,
+            "mean": 0.007535640539559991
+          },
+          "ratioToCandidate": {
+            "n": 10604,
+            "min": 1,
+            "median": 1.0756302521008403,
+            "max": 1.199531433033971,
+            "mean": 1.079238443225905
+          }
+        },
+        "burstBoundary": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 531,
+          "aligned": 531,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 531,
+            "min": 0.000457763671875,
+            "median": 0.00225830078125,
+            "max": 0.019287109375,
+            "mean": 0.0030824478063206213
+          },
+          "ratioToCandidate": {
+            "n": 531,
+            "min": 1.0010862480990659,
+            "median": 1.0066130473637176,
+            "max": 1.0567121320890165,
+            "mean": 1.009038686129541
+          }
+        },
+        "burstPositive": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 1763,
+          "aligned": 1763,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 1763,
+            "min": 0.000244140625,
+            "median": 0.009735107421875,
+            "max": 0.01556396484375,
+            "mean": 0.008051689957192994
+          },
+          "ratioToCandidate": {
+            "n": 1763,
+            "min": 1.0031347962382444,
+            "median": 1.130242825607064,
+            "max": 1.199063231850117,
+            "mean": 1.107525467186621
+          }
+        },
+        "nonBurst": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 8310,
+          "aligned": 8310,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 8310,
+            "min": 0,
+            "median": 0.0078125,
+            "max": 0.02625274658203125,
+            "mean": 0.007710712767967105
+          },
+          "ratioToCandidate": {
+            "n": 8310,
+            "min": 1,
+            "median": 1.0756302521008403,
+            "max": 1.199531433033971,
+            "mean": 1.0777229255093095
+          }
+        },
+        "lastAttackDeltaVsReplaySpacing": {
+          "comparable": 531,
+          "aligned": 531,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 531,
+            "min": 0,
+            "median": 0,
+            "max": 0,
+            "mean": 0
+          }
+        },
+        "nextLastAttackVsCurrentNextPrimary": {
+          "comparable": 531,
+          "aligned": 531,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 531,
+            "min": 0.000457763671875,
+            "median": 0.00225830078125,
+            "max": 0.019287109375,
+            "mean": 0.0030824478063206213
+          }
+        }
+      },
+      "staticModelV02": {
+        "aggregate": {
+          "aligned": 6573,
+          "comparable": 10604,
+          "alignmentRate": 0.6198604300264051
+        },
+        "burstBoundary": {
+          "kind": "CYCLE_PLUS_INTRA",
+          "comparable": 531,
+          "aligned": 523,
+          "alignmentRate": 0.9849340866290018,
+          "absoluteErrorSeconds": {
+            "n": 531,
+            "min": 0.00275000000000003,
+            "median": 0.00275000000000003,
+            "max": 0.07537499999999997,
+            "mean": 0.0040729755178908
+          },
+          "ratioToCandidate": {
+            "n": 531,
+            "min": 0.992063492063492,
+            "median": 0.992063492063492,
+            "max": 1.2175324675324675,
+            "mean": 0.9964794569314352
+          }
+        },
+        "burstPositive": {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 1763,
+          "aligned": 1763,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 1763,
+            "min": 0.005875000000000005,
+            "median": 0.005875000000000005,
+            "max": 0.009749999999999995,
+            "mean": 0.006989364719228594
+          },
+          "ratioToCandidate": {
+            "n": 1763,
+            "min": 0.9300595238095237,
+            "median": 0.9300595238095237,
+            "max": 1.1160714285714286,
+            "mean": 0.9835524538799988
+          }
+        },
+        "nonBurst": {
+          "kind": "NON_BURST_CYCLE",
+          "comparable": 8310,
+          "aligned": 4287,
+          "alignmentRate": 0.515884476534296,
+          "absoluteErrorSeconds": {
+            "n": 8310,
+            "min": 0,
+            "median": 0.013749999999999984,
+            "max": 0.131875,
+            "mean": 0.0560055054151592
+          },
+          "ratioToCandidate": {
+            "n": 8310,
+            "min": 0.37202380952380953,
+            "median": 0.8928571428571429,
+            "max": 1.3392857142857144,
+            "mean": 0.7464268380504772
+          }
+        }
+      },
+      "byHero": [
+        {
+          "heroId": 8,
+          "displayName": "McGinnis",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 4260,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 4260,
+            "aligned": 4260,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 4260,
+              "min": 0,
+              "median": 0.0079345703125,
+              "max": 0.02008056640625,
+              "mean": 0.00768390351058172
+            },
+            "ratioToCandidate": {
+              "n": 4260,
+              "min": 1,
+              "median": 1.0810810810810811,
+              "max": 1.199531433033971,
+              "mean": 1.083324052026602
+            }
+          },
+          "staticV02": {
+            "aligned": 273,
+            "comparable": 4260,
+            "alignmentRate": 0.06408450704225352
+          }
+        },
+        {
+          "heroId": 2,
+          "displayName": "Seven",
+          "regime": "BURST",
+          "sustainedPairs": 1764,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 1764,
+            "aligned": 1764,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 1764,
+              "min": 0.000244140625,
+              "median": 0.006134033203125,
+              "max": 0.019287109375,
+              "mean": 0.006894706328169288
+            },
+            "ratioToCandidate": {
+              "n": 1764,
+              "min": 1.0010862480990659,
+              "median": 1.0702341137123745,
+              "max": 1.199063231850117,
+              "mean": 1.0847680687316357
+            }
+          },
+          "staticV02": {
+            "aligned": 1756,
+            "comparable": 1764,
+            "alignmentRate": 0.9954648526077098
+          }
+        },
+        {
+          "heroId": 1,
+          "displayName": "Infernus",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 1584,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 1584,
+            "aligned": 1584,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 1584,
+              "min": 0,
+              "median": 0.008026123046875,
+              "max": 0.015380859375,
+              "mean": 0.007751525050461895
+            },
+            "ratioToCandidate": {
+              "n": 1584,
+              "min": 1,
+              "median": 1.0791930141523638,
+              "max": 1.1636363636363636,
+              "mean": 1.0796181401532225
+            }
+          },
+          "staticV02": {
+            "aligned": 1582,
+            "comparable": 1584,
+            "alignmentRate": 0.9987373737373737
+          }
+        },
+        {
+          "heroId": 76,
+          "displayName": "Graves",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 1130,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 1130,
+            "aligned": 1130,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 1130,
+              "min": 0.000244140625,
+              "median": 0.00738525390625,
+              "max": 0.01531982421875,
+              "mean": 0.008412062383331028
+            },
+            "ratioToCandidate": {
+              "n": 1130,
+              "min": 1.0026109660574412,
+              "median": 1.085512367491166,
+              "max": 1.1628812459441922,
+              "mean": 1.0894534101227449
+            }
+          },
+          "staticV02": {
+            "aligned": 1130,
+            "comparable": 1130,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 13,
+          "displayName": "Haze",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 530,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 530,
+            "aligned": 530,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 530,
+              "min": 0.0000152587890625,
+              "median": 0.0075836181640625,
+              "max": 0.01554107666015625,
+              "mean": 0.007648971845518868
+            },
+            "ratioToCandidate": {
+              "n": 530,
+              "min": 1.0001627869119323,
+              "median": 1.074501573976915,
+              "max": 1.1656232214001139,
+              "mean": 1.0787130829559992
+            }
+          },
+          "staticV02": {
+            "aligned": 530,
+            "comparable": 530,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 31,
+          "displayName": "Lash",
+          "regime": "BURST",
+          "sustainedPairs": 530,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 530,
+            "aligned": 530,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 530,
+              "min": 0.000518798828125,
+              "median": 0.006134033203125,
+              "max": 0.016754150390625,
+              "mean": 0.006923862673201651
+            },
+            "ratioToCandidate": {
+              "n": 530,
+              "min": 1.0031169293792859,
+              "median": 1.0829103214890017,
+              "max": 1.1964946445959104,
+              "mean": 1.0845963542305554
+            }
+          },
+          "staticV02": {
+            "aligned": 530,
+            "comparable": 530,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 27,
+          "displayName": "Yamato",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 333,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 333,
+            "aligned": 333,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 333,
+              "min": 0.001129150390625,
+              "median": 0.00518798828125,
+              "max": 0.0212554931640625,
+              "mean": 0.00577808643604542
+            },
+            "ratioToCandidate": {
+              "n": 333,
+              "min": 1.0027871939736346,
+              "median": 1.0124505639373078,
+              "max": 1.0510649217346677,
+              "mean": 1.0140118209340896
+            }
+          },
+          "staticV02": {
+            "aligned": 333,
+            "comparable": 333,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 18,
+          "displayName": "Mo & Krill",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 258,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 258,
+            "aligned": 258,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 258,
+              "min": 0.0005950927734375,
+              "median": 0.0126190185546875,
+              "max": 0.014801025390625,
+              "mean": 0.010795090549675992
+            },
+            "ratioToCandidate": {
+              "n": 258,
+              "min": 1.003183933382317,
+              "median": 1.0721577523776284,
+              "max": 1.0814997359619785,
+              "mean": 1.0615116002192044
+            }
+          },
+          "staticV02": {
+            "aligned": 256,
+            "comparable": 258,
+            "alignmentRate": 0.9922480620155039
+          }
+        },
+        {
+          "heroId": 67,
+          "displayName": "Paige",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 157,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 157,
+            "aligned": 157,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 157,
+              "min": 0,
+              "median": 0,
+              "max": 0.0133056640625,
+              "mean": 0.0014380193819665606
+            },
+            "ratioToCandidate": {
+              "n": 157,
+              "min": 1,
+              "median": 1,
+              "max": 1.03136690647482,
+              "mean": 1.0034414121512705
+            }
+          },
+          "staticV02": {
+            "aligned": 125,
+            "comparable": 157,
+            "alignmentRate": 0.7961783439490446
+          }
+        },
+        {
+          "heroId": 6,
+          "displayName": "Abrams",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 58,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 58,
+            "aligned": 58,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 58,
+              "min": 0.0006103515625,
+              "median": 0.0106201171875,
+              "max": 0.02625274658203125,
+              "mean": 0.009820477715853987
+            },
+            "ratioToCandidate": {
+              "n": 58,
+              "min": 1.0009775171065494,
+              "median": 1.0172859129743692,
+              "max": 1.0427310094750828,
+              "mean": 1.0159551207892321
+            }
+          },
+          "staticV02": {
+            "aligned": 58,
+            "comparable": 58,
+            "alignmentRate": 1
+          }
+        }
+      ]
+    },
+    {
+      "replay": "rep05",
+      "integrityPass": true,
+      "integrityChecks": {
+        "script161Ready": true,
+        "dischargeRowsObserved": true,
+        "strictRowsObserved": true,
+        "comparablePairsObserved": true,
+        "sustainedPairsObserved": true,
+        "everyStrictHeroHasStaticWeapon": true
+      },
+      "counts": {
+        "dischargeRowsWithReadyDelay": 17918,
+        "cleanExplicitFireRateRows": 3819,
+        "strictRows": 3286,
+        "comparablePairs": 3255,
+        "sustainedPairs": 2505,
+        "burstBoundarySustainedPairs": 114,
+        "burstPositiveSustainedPairs": 386,
+        "nonBurstSustainedPairs": 2005
+      },
+      "observed": {
+        "aggregate": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 2505,
+          "aligned": 2505,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 2505,
+            "min": 0.0000152587890625,
+            "median": 0.00811767578125,
+            "max": 0.02752685546875,
+            "mean": 0.007990473520731973
+          },
+          "ratioToCandidate": {
+            "n": 2505,
+            "min": 1.0000610388817677,
+            "median": 1.0400558623754206,
+            "max": 1.1964946445959104,
+            "mean": 1.0525533740352073
+          }
+        },
+        "burstBoundary": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 114,
+          "aligned": 114,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 114,
+            "min": 0.001068115234375,
+            "median": 0.00225830078125,
+            "max": 0.018829345703125,
+            "mean": 0.003582870751096491
+          },
+          "ratioToCandidate": {
+            "n": 114,
+            "min": 1.0031169293792859,
+            "median": 1.0066130473637176,
+            "max": 1.0552916928040148,
+            "mean": 1.010513975832357
+          }
+        },
+        "burstPositive": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 386,
+          "aligned": 386,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 386,
+            "min": 0.000518798828125,
+            "median": 0.009735107421875,
+            "max": 0.0153961181640625,
+            "mean": 0.007948129288273154
+          },
+          "ratioToCandidate": {
+            "n": 386,
+            "min": 1.006685017695635,
+            "median": 1.130242825607064,
+            "max": 1.1964946445959104,
+            "mean": 1.1064863050274218
+          }
+        },
+        "nonBurst": {
+          "kind": "CURRENT_READY_DELAY",
+          "comparable": 2005,
+          "aligned": 2005,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 2005,
+            "min": 0.0000152587890625,
+            "median": 0.00872802734375,
+            "max": 0.02752685546875,
+            "mean": 0.008249232418222023
+          },
+          "ratioToCandidate": {
+            "n": 2005,
+            "min": 1.0000610388817677,
+            "median": 1.0364372469635628,
+            "max": 1.163258682246024,
+            "mean": 1.0445605461210674
+          }
+        },
+        "lastAttackDeltaVsReplaySpacing": {
+          "comparable": 114,
+          "aligned": 114,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 114,
+            "min": 0,
+            "median": 0,
+            "max": 0,
+            "mean": 0
+          }
+        },
+        "nextLastAttackVsCurrentNextPrimary": {
+          "comparable": 114,
+          "aligned": 114,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 114,
+            "min": 0.001068115234375,
+            "median": 0.00225830078125,
+            "max": 0.018829345703125,
+            "mean": 0.003582870751096491
+          }
+        }
+      },
+      "staticModelV02": {
+        "aggregate": {
+          "aligned": 2496,
+          "comparable": 2505,
+          "alignmentRate": 0.9964071856287425
+        },
+        "burstBoundary": {
+          "kind": "CYCLE_PLUS_INTRA",
+          "comparable": 114,
+          "aligned": 114,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 114,
+            "min": 0.00275000000000003,
+            "median": 0.00275000000000003,
+            "max": 0.01287499999999997,
+            "mean": 0.0034605263157895
+          },
+          "ratioToCandidate": {
+            "n": 114,
+            "min": 0.992063492063492,
+            "median": 0.992063492063492,
+            "max": 1.0371572871572872,
+            "mean": 0.9952279689121802
+          }
+        },
+        "burstPositive": {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 386,
+          "aligned": 386,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 386,
+            "min": 0.005875000000000005,
+            "median": 0.005875000000000005,
+            "max": 0.009749999999999995,
+            "mean": 0.006919041450777199
+          },
+          "ratioToCandidate": {
+            "n": 386,
+            "min": 0.9300595238095237,
+            "median": 0.9300595238095237,
+            "max": 1.1160714285714286,
+            "mean": 0.9801767209474479
+          }
+        },
+        "nonBurst": {
+          "kind": "NON_BURST_CYCLE",
+          "comparable": 2005,
+          "aligned": 1996,
+          "alignmentRate": 0.9955112219451372,
+          "absoluteErrorSeconds": {
+            "n": 2005,
+            "min": 0.0018750000000000155,
+            "median": 0.004375000000000004,
+            "max": 0.08124999999999999,
+            "mean": 0.005672319201994957
+          },
+          "ratioToCandidate": {
+            "n": 2005,
+            "min": 0.8928571428571429,
+            "median": 1.0044642857142858,
+            "max": 1.3095238095238095,
+            "mean": 0.9954028854545739
+          }
+        }
+      },
+      "byHero": [
+        {
+          "heroId": 11,
+          "displayName": "Dynamo",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 713,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 713,
+            "aligned": 713,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 713,
+              "min": 0.0000152587890625,
+              "median": 0.006256103515625,
+              "max": 0.0218505859375,
+              "mean": 0.00766292962586562
+            },
+            "ratioToCandidate": {
+              "n": 713,
+              "min": 1.0000610388817677,
+              "median": 1.0241204847629133,
+              "max": 1.084235294117647,
+              "mean": 1.0300790462253921
+            }
+          },
+          "staticV02": {
+            "aligned": 704,
+            "comparable": 713,
+            "alignmentRate": 0.9873772791023843
+          }
+        },
+        {
+          "heroId": 13,
+          "displayName": "Haze",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 604,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 604,
+            "aligned": 604,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 604,
+              "min": 0.0003662109375,
+              "median": 0.008026123046875,
+              "max": 0.015350341796875,
+              "mean": 0.007723536712444381
+            },
+            "ratioToCandidate": {
+              "n": 604,
+              "min": 1.003921568627451,
+              "median": 1.0791930141523638,
+              "max": 1.163258682246024,
+              "mean": 1.0795498095347629
+            }
+          },
+          "staticV02": {
+            "aligned": 604,
+            "comparable": 604,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 31,
+          "displayName": "Lash",
+          "regime": "BURST",
+          "sustainedPairs": 500,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 500,
+            "aligned": 500,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 500,
+              "min": 0.000518798828125,
+              "median": 0.006134033203125,
+              "max": 0.018829345703125,
+              "mean": 0.006952850341796875
+            },
+            "ratioToCandidate": {
+              "n": 500,
+              "min": 1.0031169293792859,
+              "median": 1.0684474123539232,
+              "max": 1.1964946445959104,
+              "mean": 1.084604613970945
+            }
+          },
+          "staticV02": {
+            "aligned": 500,
+            "comparable": 500,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 63,
+          "displayName": "Mina",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 324,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 324,
+            "aligned": 324,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 324,
+              "min": 0.0006103515625,
+              "median": 0.0096282958984375,
+              "max": 0.0152587890625,
+              "mean": 0.009651042796947338
+            },
+            "ratioToCandidate": {
+              "n": 324,
+              "min": 1.002447381302007,
+              "median": 1.0400558623754206,
+              "max": 1.060945880058508,
+              "mean": 1.0402281800230369
+            }
+          },
+          "staticV02": {
+            "aligned": 324,
+            "comparable": 324,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 19,
+          "displayName": "Shiv",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 151,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 151,
+            "aligned": 151,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 151,
+              "min": 0.000701904296875,
+              "median": 0.01123046875,
+              "max": 0.026885986328125,
+              "mean": 0.009316248609530215
+            },
+            "ratioToCandidate": {
+              "n": 151,
+              "min": 1.0012851315862994,
+              "median": 1.0209662716499543,
+              "max": 1.0501965699960116,
+              "mean": 1.0172957589852674
+            }
+          },
+          "staticV02": {
+            "aligned": 151,
+            "comparable": 151,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 4,
+          "displayName": "Lady Geist",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 127,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 127,
+            "aligned": 127,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 127,
+              "min": 0.0006103515625,
+              "median": 0.011871337890625,
+              "max": 0.02752685546875,
+              "mean": 0.011269636980191929
+            },
+            "ratioToCandidate": {
+              "n": 127,
+              "min": 1.001303780964798,
+              "median": 1.025983568231915,
+              "max": 1.0602538410153641,
+              "mean": 1.0245905776371775
+            }
+          },
+          "staticV02": {
+            "aligned": 127,
+            "comparable": 127,
+            "alignmentRate": 1
+          }
+        },
+        {
+          "heroId": 27,
+          "displayName": "Yamato",
+          "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+          "sustainedPairs": 86,
+          "observedReady": {
+            "kind": "CURRENT_READY_DELAY",
+            "comparable": 86,
+            "aligned": 86,
+            "alignmentRate": 1,
+            "absoluteErrorSeconds": {
+              "n": 86,
+              "min": 0.0006103515625,
+              "median": 0.003753662109375,
+              "max": 0.014373779296875,
+              "mean": 0.005187101142351018
+            },
+            "ratioToCandidate": {
+              "n": 86,
+              "min": 1.0015046644598256,
+              "median": 1.0089774469016861,
+              "max": 1.0352729723657605,
+              "mean": 1.0125681018707098
+            }
+          },
+          "staticV02": {
+            "aligned": 86,
+            "comparable": 86,
+            "alignmentRate": 1
+          }
+        }
+      ]
+    }
+  ],
+  "crossReplayReplication": {
+    "thresholds": {
+      "requiredIndependentReplays": 5,
+      "minimumReplaySustainedPairs": 100,
+      "observedReadyAlignmentRate": 0.95,
+      "timingCrossCheckRate": 0.9,
+      "minimumPooledRegimePairs": 100
+    },
+    "replayCount": 5,
+    "replayCountPass": true,
+    "perReplay": [
+      {
+        "replay": "rep01",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 5027,
+        "observedAlignmentRate": 1
+      },
+      {
+        "replay": "rep02",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 4786,
+        "observedAlignmentRate": 0.9987463435018805
+      },
+      {
+        "replay": "rep03",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 4543,
+        "observedAlignmentRate": 1
+      },
+      {
+        "replay": "rep04",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 10604,
+        "observedAlignmentRate": 1
+      },
+      {
+        "replay": "rep05",
+        "enoughPairs": true,
+        "observedStrong": true,
+        "pass": true,
+        "sustainedPairs": 2505,
+        "observedAlignmentRate": 1
+      }
+    ],
+    "pooled": {
+      "observed": {
+        "aggregate": {
+          "aligned": 27459,
+          "comparable": 27465,
+          "alignmentRate": 0.9997815401419989
+        },
+        "burstBoundary": {
+          "aligned": 1463,
+          "comparable": 1463,
+          "alignmentRate": 1
+        },
+        "burstPositive": {
+          "aligned": 5043,
+          "comparable": 5043,
+          "alignmentRate": 1
+        },
+        "nonBurst": {
+          "aligned": 20953,
+          "comparable": 20959,
+          "alignmentRate": 0.9997137267999427
+        },
+        "lastAttackDeltaVsReplaySpacing": {
+          "aligned": 1463,
+          "comparable": 1463,
+          "alignmentRate": 1
+        },
+        "nextLastAttackVsCurrentNextPrimary": {
+          "aligned": 1463,
+          "comparable": 1463,
+          "alignmentRate": 1
+        }
+      },
+      "staticModelV02": {
+        "aggregate": {
+          "aligned": 23269,
+          "comparable": 27465,
+          "alignmentRate": 0.8472237393045694
+        },
+        "burstBoundary": {
+          "aligned": 1454,
+          "comparable": 1463,
+          "alignmentRate": 0.9938482570061518
+        },
+        "burstPositive": {
+          "aligned": 5043,
+          "comparable": 5043,
+          "alignmentRate": 1
+        },
+        "nonBurst": {
+          "aligned": 16772,
+          "comparable": 20959,
+          "alignmentRate": 0.8002290185600458
+        }
+      }
+    },
+    "sampledRegimeChecks": [
+      {
+        "name": "burstBoundary",
+        "sampled": true,
+        "pass": true,
+        "summary": {
+          "aligned": 1463,
+          "comparable": 1463,
+          "alignmentRate": 1
+        }
+      },
+      {
+        "name": "burstPositive",
+        "sampled": true,
+        "pass": true,
+        "summary": {
+          "aligned": 5043,
+          "comparable": 5043,
+          "alignmentRate": 1
+        }
+      },
+      {
+        "name": "nonBurst",
+        "sampled": true,
+        "pass": true,
+        "summary": {
+          "aligned": 20953,
+          "comparable": 20959,
+          "alignmentRate": 0.9997137267999427
+        }
+      }
+    ],
+    "boundaryTiming": {
+      "sampled": true,
+      "pass": true,
+      "lastAttackDeltaVsReplaySpacing": {
+        "aligned": 1463,
+        "comparable": 1463,
+        "alignmentRate": 1
+      },
+      "nextLastAttackVsCurrentNextPrimary": {
+        "aligned": 1463,
+        "comparable": 1463,
+        "alignmentRate": 1
+      }
+    },
+    "gates": {
+      "allReplayPrimaryPass": true,
+      "pooledObservedPass": true,
+      "sampledRegimesPass": true,
+      "boundaryTimingPass": true
+    },
+    "strongReplication": true,
+    "classification": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS"
+  },
+  "crossReplayStaticHeroOutliers": [
+    {
+      "heroId": 8,
+      "displayName": "McGinnis",
+      "replaysObserved": [
+        "rep04"
+      ],
+      "observedReady": {
+        "aligned": 4260,
+        "comparable": 4260,
+        "alignmentRate": 1
+      },
+      "staticV02": {
+        "aligned": 273,
+        "comparable": 4260,
+        "alignmentRate": 0.06408450704225352
+      }
+    }
+  ],
+  "validation": {
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated",
+    "integrityChecks": {
+      "script165V02Ready": {
+        "actual": "PRIMARY_WEAPON_STATIC_CADENCE_SUBSTRATE_V02_READY_FOR_INTERPRETATION",
+        "expected": "PRIMARY_WEAPON_STATIC_CADENCE_SUBSTRATE_V02_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script171DiscoveryCandidateReady": {
+        "actual": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_READY_FOR_CROSS_REPLAY_VALIDATION",
+        "expected": "OBSERVED_PRIMARY_ATTACK_READY_SCHEDULE_V01_READY_FOR_CROSS_REPLAY_VALIDATION",
+        "pass": true
+      },
+      "playerStateAuthorityCurrentReplicated": {
+        "actual": "current/cross_replay_replicated",
+        "expected": "current/cross_replay_replicated",
+        "pass": true
+      },
+      "effectiveWeaponClaimStillMissing": {
+        "actual": "missing",
+        "expected": "missing",
+        "pass": true
+      },
+      "frozenIndependentReplayNamesExact": {
+        "actual": [
+          "rep01",
+          "rep02",
+          "rep03",
+          "rep04",
+          "rep05"
+        ],
+        "expected": [
+          "rep01",
+          "rep02",
+          "rep03",
+          "rep04",
+          "rep05"
+        ],
+        "pass": true
+      },
+      "allReplaySubstratesIntegrityPass": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "noDiscoveryReplayInReplicationCohort": {
+        "actual": false,
+        "expected": false,
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "observedAuthorityBoundary": "The observed nextPrimaryAttack-lastAttackTime carrier replicated across the frozen five-replay cohort under the pre-frozen sustained-pair semantics. This supports a dedicated cadence/readiness subclaim, not the entire effective_weapon_state claim.",
+    "staticBoundary": "Static cycle/intra-burst values remain build-bound explanatory inputs. Their cross-replay fit is reported but is not the primary replication gate.",
+    "spinUpBoundary": "Spin-up weapons remain outside the fixed-regime carrier replication scope and require a separate dynamic-state validation.",
+    "registryBoundary": "This script does not mutate contracts/claim_registry_v03.json and does not promote effective_weapon_state."
+  },
+  "nextStage": "PROMOTE_A_DEDICATED_PRIMARY_ATTACK_READY_SCHEDULE_SUBCLAIM_WITH_REGISTRY_REGRESSION_TEST;_KEEP_EFFECTIVE_WEAPON_STATE_MISSING"
+}

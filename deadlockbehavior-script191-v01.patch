@@ -1,0 +1,1186 @@
+diff --git a/src/player-state/slide-companion-residual-diagnostic.mjs b/src/player-state/slide-companion-residual-diagnostic.mjs
+new file mode 100644
+index 0000000..e2515f0
+--- /dev/null
++++ b/src/player-state/slide-companion-residual-diagnostic.mjs
+@@ -0,0 +1,379 @@
++// Script191 helpers.
++//
++// Diagnostic-only application of the two Script183 companion bits to the
++// strict-chronology residuals from Script190.
++//
++// Primary carrier remains:
++//   .0002 bit5
++//
++// Frozen companions from Script183:
++//   .0002 bit1
++//   .0007 bit1
++//
++// This does NOT retune the carrier or promote a union rule.
++
++export const PRIMARY = Object.freeze({
++  field: 'm_pModifierProp.m_bvEnabledPredictedStateMask.0002',
++  bit: 5,
++  mask: 32,
++});
++
++export const COMPANIONS = Object.freeze([
++  Object.freeze({
++    id: 'mask0002_bit1',
++    field: 'm_pModifierProp.m_bvEnabledPredictedStateMask.0002',
++    bit: 1,
++    mask: 2,
++  }),
++  Object.freeze({
++    id: 'mask0007_bit1',
++    field: 'm_pModifierProp.m_bvEnabledPredictedStateMask.0007',
++    bit: 1,
++    mask: 2,
++  }),
++]);
++
++export function hasBit(value, bit) {
++  if (!Number.isFinite(value)) return null;
++  const mask = 1 << bit;
++  return (Number(value) & mask) !== 0;
++}
++
++export function evaluateBitState(state, carrier) {
++  const value =
++    state?.[carrier.field];
++
++  if (!Number.isFinite(value)) {
++    return {
++      covered: false,
++      present: false,
++      value: null,
++    };
++  }
++
++  return {
++    covered: true,
++    present:
++      hasBit(
++        Number(value),
++        carrier.bit,
++      ) === true,
++    value: Number(value),
++  };
++}
++
++export function summarizeCompanionResiduals(rows) {
++  const primaryAbsent =
++    rows.filter(
++      row =>
++        row.primaryCovered === true
++        && row.primaryPresent === false,
++    );
++
++  const positive =
++    primaryAbsent.filter(
++      row => row.combinedLabel === 'POSITIVE',
++    );
++
++  const zero =
++    primaryAbsent.filter(
++      row => row.combinedLabel === 'ZERO',
++    );
++
++  const negative =
++    primaryAbsent.filter(
++      row => row.combinedLabel === 'NEGATIVE',
++    );
++
++  const companions = {};
++
++  for (const companion of COMPANIONS) {
++    companions[companion.id] =
++      summarizeOne(
++        primaryAbsent,
++        positive,
++        zero,
++        negative,
++        companion.id,
++      );
++  }
++
++  const unionRows =
++    primaryAbsent.filter(
++      row =>
++        COMPANIONS.some(
++          c =>
++            row.companions?.[c.id]
++              ?.covered === true
++            && row.companions?.[c.id]
++              ?.present === true,
++        ),
++    );
++
++  const unionZero =
++    zero.filter(
++      row =>
++        COMPANIONS.some(
++          c =>
++            row.companions?.[c.id]
++              ?.covered === true
++            && row.companions?.[c.id]
++              ?.present === true,
++        ),
++    );
++
++  const unionNegative =
++    negative.filter(
++      row =>
++        COMPANIONS.some(
++          c =>
++            row.companions?.[c.id]
++              ?.covered === true
++            && row.companions?.[c.id]
++              ?.present === true,
++        ),
++    );
++
++  const unionPositive =
++    positive.filter(
++      row =>
++        COMPANIONS.some(
++          c =>
++            row.companions?.[c.id]
++              ?.covered === true
++            && row.companions?.[c.id]
++              ?.present === true,
++        ),
++    );
++
++  return {
++    primaryAbsent:
++      primaryAbsent.length,
++
++    baseline: {
++      positive:
++        positive.length,
++      zero:
++        zero.length,
++      negative:
++        negative.length,
++    },
++
++    companions,
++
++    union: {
++      present:
++        unionRows.length,
++
++      zeroCaptured:
++        unionZero.length,
++
++      zeroCaptureRate:
++        zero.length > 0
++          ? unionZero.length / zero.length
++          : null,
++
++      negativeCaptured:
++        unionNegative.length,
++
++      negativeCaptureRate:
++        negative.length > 0
++          ? unionNegative.length / negative.length
++          : null,
++
++      positivePresent:
++        unionPositive.length,
++
++      positivePresentRate:
++        positive.length > 0
++          ? unionPositive.length / positive.length
++          : null,
++
++      pZeroGivenUnionPresent:
++        unionRows.length > 0
++          ? unionZero.length / unionRows.length
++          : null,
++    },
++
++    byHero:
++      summarizeByHero(
++        primaryAbsent,
++      ),
++
++    topCompanionOnlyPatterns:
++      topPatterns(
++        primaryAbsent.filter(
++          row =>
++            COMPANIONS.some(
++              c =>
++                row.companions?.[c.id]
++                  ?.present === true,
++            ),
++        ),
++      ),
++  };
++}
++
++function summarizeOne(
++  all,
++  positive,
++  zero,
++  negative,
++  companionId,
++) {
++  const covered =
++    all.filter(
++      row =>
++        row.companions?.[companionId]
++          ?.covered === true,
++    );
++
++  const present =
++    covered.filter(
++      row =>
++        row.companions?.[companionId]
++          ?.present === true,
++    );
++
++  const zeroPresent =
++    zero.filter(
++      row =>
++        row.companions?.[companionId]
++          ?.present === true,
++    );
++
++  const negativePresent =
++    negative.filter(
++      row =>
++        row.companions?.[companionId]
++          ?.present === true,
++    );
++
++  const positivePresent =
++    positive.filter(
++      row =>
++        row.companions?.[companionId]
++          ?.present === true,
++    );
++
++  return {
++    covered:
++      covered.length,
++
++    present:
++      present.length,
++
++    zeroCaptured:
++      zeroPresent.length,
++
++    zeroCaptureRate:
++      zero.length > 0
++        ? zeroPresent.length / zero.length
++        : null,
++
++    negativeCaptured:
++      negativePresent.length,
++
++    negativeCaptureRate:
++      negative.length > 0
++        ? negativePresent.length / negative.length
++        : null,
++
++    positivePresent:
++      positivePresent.length,
++
++    positivePresentRate:
++      positive.length > 0
++        ? positivePresent.length / positive.length
++        : null,
++
++    pZeroGivenPresent:
++      present.length > 0
++        ? zeroPresent.length / present.length
++        : null,
++  };
++}
++
++function summarizeByHero(rows) {
++  const groups = new Map();
++
++  for (const row of rows) {
++    const key = String(row.heroId);
++    if (!groups.has(key)) groups.set(key, []);
++    groups.get(key).push(row);
++  }
++
++  return [...groups.entries()]
++    .map(([heroId, heroRows]) => {
++      const zero =
++        heroRows.filter(
++          row => row.combinedLabel === 'ZERO',
++        );
++
++      const companionZero =
++        zero.filter(
++          row =>
++            COMPANIONS.some(
++              c =>
++                row.companions?.[c.id]
++                  ?.present === true,
++            ),
++        );
++
++      return {
++        heroId,
++        total:
++          heroRows.length,
++        zero:
++          zero.length,
++        companionZero:
++          companionZero.length,
++        zeroCaptureRate:
++          zero.length > 0
++            ? companionZero.length / zero.length
++            : null,
++      };
++    })
++    .filter(row => row.zero > 0)
++    .sort(
++      (a, b) =>
++        b.zero - a.zero,
++    );
++}
++
++function topPatterns(rows) {
++  const counts = new Map();
++
++  for (const row of rows) {
++    const ids =
++      COMPANIONS
++        .filter(
++          c =>
++            row.companions?.[c.id]
++              ?.present === true,
++        )
++        .map(c => c.id)
++        .join('+');
++
++    const key = [
++      `replay=${row.replayName}`,
++      `hero=${row.heroId}`,
++      `label=${row.combinedLabel}`,
++      `companions=${ids || 'none'}`,
++      `tickGap=${row.tickGap}`,
++    ].join('|');
++
++    counts.set(
++      key,
++      (counts.get(key) ?? 0) + 1,
++    );
++  }
++
++  return [...counts.entries()]
++    .map(([pattern, count]) => ({
++      pattern,
++      count,
++    }))
++    .sort((a, b) => b.count - a.count)
++    .slice(0, 100);
++}
+diff --git a/scripts/191-diagnose-slide-companion-residuals-v01.mjs b/scripts/191-diagnose-slide-companion-residuals-v01.mjs
+new file mode 100644
+index 0000000..e6caac8
+--- /dev/null
++++ b/scripts/191-diagnose-slide-companion-residuals-v01.mjs
+@@ -0,0 +1,687 @@
++import {
++  createReadStream,
++  existsSync,
++  mkdirSync,
++  readFileSync,
++  writeFileSync,
++} from 'node:fs';
++
++import {
++  dirname,
++  resolve,
++} from 'node:path';
++
++import {
++  EntityOperation,
++  InterceptorStage,
++  Logger,
++  Parser,
++  ParserConfiguration,
++} from 'deadem';
++
++import {
++  flattenPrimitiveChanges,
++} from '../src/player-state/slide-carrier-discovery.mjs';
++
++import {
++  createAttackTickGuard,
++  resolvePawnForHero,
++} from '../src/player-state/slide-carrier-controller-join.mjs';
++
++import {
++  deepFindExactKey,
++  normalizeDetailedWeaponEvent,
++} from '../src/player-state/slide-carrier-residual-diagnostic.mjs';
++
++import {
++  deriveStrictAttackTransitions,
++  groupStrictWeaponChronology,
++} from '../src/player-state/strict-ammo-chronology-diagnostic.mjs';
++
++import {
++  COMPANIONS,
++  PRIMARY,
++  evaluateBitState,
++  summarizeCompanionResiduals,
++} from '../src/player-state/slide-companion-residual-diagnostic.mjs';
++
++const VERSION =
++  'SLIDE_COMPANION_STRICT_RESIDUAL_DIAGNOSTIC_V01';
++
++const PATHS = {
++  manifest:
++    resolve(
++      'output',
++      'cross_replay',
++      'replication_manifest_v01.json',
++    ),
++
++  script190:
++    resolve(
++      'output',
++      'cross_replay',
++      'strict_ammo_chronology_diagnostic_v01.json',
++    ),
++
++  output:
++    resolve(
++      'output',
++      'cross_replay',
++      'slide_companion_strict_residual_diagnostic_v01.json',
++    ),
++};
++
++for (const [name, path] of Object.entries(PATHS)) {
++  if (name === 'output') continue;
++  if (!existsSync(path)) {
++    throw new Error(`Missing ${name}:\n${path}`);
++  }
++}
++
++const manifest =
++  JSON.parse(
++    readFileSync(
++      PATHS.manifest,
++      'utf8',
++    ),
++  );
++
++const script190 =
++  JSON.parse(
++    readFileSync(
++      PATHS.script190,
++      'utf8',
++    ),
++  );
++
++const EXPECTED_190_STATUS =
++  'STRICT_AMMO_CHRONOLOGY_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION';
++
++const cohort =
++  Array.isArray(
++    manifest?.selectedReplicationCohort,
++  )
++    ? manifest.selectedReplicationCohort
++      .map(row => String(row.replayName))
++    : [];
++
++if (cohort.length !== 5) {
++  throw new Error(
++    `Expected five consumed cohort replays, found ${cohort.length}.`,
++  );
++}
++
++console.log('');
++console.log('========================================================');
++console.log('SLIDE COMPANION STRICT-RESIDUAL DIAGNOSTIC V0.1');
++console.log('========================================================');
++console.log('');
++console.log(`Primary unchanged: ${PRIMARY.field} bit=${PRIMARY.bit}`);
++console.log(
++  `Companions: ${COMPANIONS.map(c => `${c.field} bit=${c.bit}`).join(' ; ')}`,
++);
++console.log('Carrier union promotion: NO');
++console.log('Consumed cohort treated as fresh validation: NO');
++console.log('');
++
++const allRows = [];
++const replayIntegrity = [];
++
++for (const replayName of cohort) {
++  const replayPath =
++    resolve('replays', `${replayName}.dem`);
++
++  const weaponPath =
++    resolve(
++      'output',
++      replayName,
++      'effective_weapon_runtime_events_v01.jsonl',
++    );
++
++  if (
++    !existsSync(replayPath)
++    || !existsSync(weaponPath)
++  ) {
++    replayIntegrity.push({
++      replayName,
++      pass: false,
++      reason: 'MISSING_REQUIRED_INPUT',
++    });
++    continue;
++  }
++
++  const weaponEvents = [];
++  let parseFailures = 0;
++
++  for await (const line of readLines(weaponPath)) {
++    if (!line.trim()) continue;
++
++    try {
++      const raw = JSON.parse(line);
++      const base =
++        normalizeDetailedWeaponEvent(
++          raw,
++          weaponEvents.length,
++        );
++
++      weaponEvents.push({
++        ...base,
++        reloadAvailableTime:
++          finite(firstDefined(
++            raw?.observedWeaponState
++              ?.reloadAvailableTime,
++            deepFindExactKey(
++              raw,
++              'm_flReloadAvailableTime',
++            ),
++          )),
++        lastReloadStartTime:
++          finite(firstDefined(
++            raw?.observedWeaponState
++              ?.lastReloadStartTime,
++            deepFindExactKey(
++              raw,
++              'm_flLastReloadStartTime',
++            ),
++          )),
++        reloadQueuedStartTime:
++          finite(firstDefined(
++            raw?.observedWeaponState
++              ?.reloadQueuedStartTime,
++            deepFindExactKey(
++              raw,
++              'm_reloadQueuedStartTime',
++            ),
++          )),
++      });
++    } catch {
++      parseFailures++;
++    }
++  }
++
++  const transitions =
++    deriveStrictAttackTransitions(
++      groupStrictWeaponChronology(
++        weaponEvents,
++      ),
++    );
++
++  const byTick = new Map();
++
++  for (const row of transitions) {
++    if (!byTick.has(row.tick)) {
++      byTick.set(row.tick, []);
++    }
++    byTick.get(row.tick).push(row);
++  }
++
++  const pawnStateByEntity = new Map();
++  const tickGuard = createAttackTickGuard();
++
++  let joined = 0;
++  let joinFailures = 0;
++  const replayRows = [];
++
++  const parser =
++    new Parser(
++      new ParserConfiguration({
++        entityClasses: [
++          'CCitadelPlayerController',
++          'CCitadelPlayerPawn',
++        ],
++      }),
++      Logger.CONSOLE_INFO,
++    );
++
++  parser.registerPostInterceptor(
++    InterceptorStage.ENTITY_PACKET,
++    (
++      demoPacket,
++      messagePacket,
++      events,
++    ) => {
++      for (const event of events) {
++        if (
++          event.operation !== EntityOperation.CREATE
++          && event.operation !== EntityOperation.UPDATE
++        ) {
++          continue;
++        }
++
++        const entity = event.entity;
++
++        if (
++          entity?.class?.name
++          !== 'CCitadelPlayerPawn'
++        ) {
++          continue;
++        }
++
++        if (
++          !pawnStateByEntity.has(
++            entity.index,
++          )
++        ) {
++          pawnStateByEntity.set(
++            entity.index,
++            {},
++          );
++        }
++
++        Object.assign(
++          pawnStateByEntity.get(
++            entity.index,
++          ),
++          flattenPrimitiveChanges(
++            event.getChanges(),
++          ),
++        );
++      }
++    },
++  );
++
++  parser.registerPostInterceptor(
++    InterceptorStage.DEMO_PACKET,
++    demoPacket => {
++      const tick = demoPacket.tick;
++
++      if (!byTick.has(tick)) return;
++      if (!tickGuard.shouldProcess(tick)) return;
++
++      const demo = parser.getDemo();
++
++      const controllers =
++        demo.getEntitiesByClassName(
++          'CCitadelPlayerController',
++        );
++
++      for (const transition of byTick.get(tick)) {
++        const resolution =
++          resolvePawnForHero({
++            demo,
++            controllers,
++            heroId:
++              transition.heroId,
++          });
++
++        if (!resolution.pawn) {
++          joinFailures++;
++          continue;
++        }
++
++        const state =
++          pawnStateByEntity.get(
++            resolution.pawn.index,
++          );
++
++        if (!state) {
++          joinFailures++;
++          continue;
++        }
++
++        joined++;
++
++        const primary =
++          evaluateBitState(
++            state,
++            PRIMARY,
++          );
++
++        const companions = {};
++
++        for (const companion of COMPANIONS) {
++          companions[companion.id] =
++            evaluateBitState(
++              state,
++              companion,
++            );
++        }
++
++        replayRows.push({
++          replayName,
++          ...transition,
++          primaryCovered:
++            primary.covered,
++          primaryPresent:
++            primary.present,
++          companions,
++        });
++      }
++    },
++  );
++
++  try {
++    await parser.parse(
++      createReadStream(replayPath),
++    );
++  } finally {
++    await parser.dispose();
++  }
++
++  const pass =
++    parseFailures === 0
++    && joinFailures === 0
++    && joined === transitions.length;
++
++  replayIntegrity.push({
++    replayName,
++    pass,
++    transitions:
++      transitions.length,
++    joined,
++    joinFailures,
++    parseFailures,
++  });
++
++  allRows.push(...replayRows);
++
++  console.log(
++    `${replayName}: strictTransitions=${transitions.length} joined=${joined}/${transitions.length}`,
++  );
++}
++
++const diagnostic =
++  summarizeCompanionResiduals(
++    allRows,
++  );
++
++const checks = {
++  script190Ready:
++    check(
++      script190?.status,
++      EXPECTED_190_STATUS,
++      script190?.status
++        === EXPECTED_190_STATUS,
++    ),
++
++  strictResidualFrozen:
++    check(
++      script190?.strict?.residual,
++      252,
++      script190?.strict?.residual === 252,
++    ),
++
++  allFiveIntegrityPass:
++    check(
++      replayIntegrity.filter(
++        row => row.pass,
++      ).length,
++      5,
++      replayIntegrity.length === 5
++      && replayIntegrity.every(
++        row => row.pass,
++      ),
++    ),
++
++  primaryNotRetuned:
++    check(
++      PRIMARY,
++      {
++        field:
++          'm_pModifierProp.m_bvEnabledPredictedStateMask.0002',
++        bit: 5,
++        mask: 32,
++      },
++      PRIMARY.bit === 5
++      && PRIMARY.mask === 32,
++    ),
++
++  consumedCohortStillNotIndependent:
++    check(false, false, true),
++};
++
++const integrityPass =
++  Object.values(checks)
++    .every(row => row.pass);
++
++let classification;
++
++if (
++  diagnostic.union.zeroCaptureRate !== null
++  && diagnostic.union.zeroCaptureRate >= 0.50
++  && diagnostic.union.positivePresentRate !== null
++  && diagnostic.union.positivePresentRate <= 0.01
++) {
++  classification =
++    'COMPANION_BITS_EXPLAIN_SUBSTANTIAL_PRIMARY_CARRIER_FALSE_NEGATIVES';
++} else if (
++  diagnostic.union.zeroCaptureRate !== null
++  && diagnostic.union.zeroCaptureRate >= 0.10
++) {
++  classification =
++    'COMPANION_BITS_EXPLAIN_MINOR_PRIMARY_CARRIER_FALSE_NEGATIVES';
++} else {
++  classification =
++    'STRICT_ZERO_RESIDUALS_ARE_NOT_EXPLAINED_BY_KNOWN_COMPANION_BITS';
++}
++
++const result = {
++  version:
++    VERSION,
++  canonical:
++    false,
++  createdAt:
++    new Date().toISOString(),
++
++  status:
++    integrityPass
++      ? 'SLIDE_COMPANION_STRICT_RESIDUAL_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION'
++      : 'SLIDE_COMPANION_STRICT_RESIDUAL_DIAGNOSTIC_V01_INTEGRITY_FAILURE',
++
++  scientificBoundary: {
++    primaryCarrier:
++      PRIMARY,
++    companions:
++      COMPANIONS,
++    carrierRetuned:
++      false,
++    unionPromoted:
++      false,
++    independentValidation:
++      false,
++    authorityPromotion:
++      false,
++  },
++
++  replayIntegrity,
++  diagnostic,
++  classification,
++
++  integrityValidation: {
++    pass:
++      integrityPass,
++    checks,
++  },
++
++  semanticValidation: {
++    status:
++      'DIAGNOSTIC_ONLY',
++    authorityPromotion:
++      false,
++    replicationStatus:
++      'not_independent',
++  },
++
++  nextStep:
++    classification
++      === 'STRICT_ZERO_RESIDUALS_ARE_NOT_EXPLAINED_BY_KNOWN_COMPANION_BITS'
++      ? 'DIAGNOSE_REMAINING_STRICT_ZERO_ATTACKS_BY_OTHER_RUNTIME_MODIFIER_BITS_AND_KNOWN_GAMEPLAY_MECHANICS_ON_TEST_OR_NEW_DISCOVERY_DATA'
++      : 'CHARACTERIZE_COMPANION_ONLY_STATES_ON_TEST_BEFORE_ANY_CARRIER_UNION_HYPOTHESIS',
++};
++
++mkdirSync(
++  dirname(PATHS.output),
++  { recursive: true },
++);
++
++writeFileSync(
++  PATHS.output,
++  `${JSON.stringify(
++    result,
++    null,
++    2,
++  )}\n`,
++  'utf8',
++);
++
++print(result);
++
++async function* readLines(path) {
++  const {
++    createInterface,
++  } = await import(
++    'node:readline'
++  );
++
++  const reader =
++    createInterface({
++      input:
++        createReadStream(
++          path,
++          { encoding: 'utf8' },
++        ),
++      crlfDelay: Infinity,
++    });
++
++  for await (const line of reader) {
++    yield line;
++  }
++}
++
++function firstDefined(...values) {
++  return values.find(
++    value =>
++      value !== undefined
++      && value !== null,
++  );
++}
++
++function finite(value) {
++  if (
++    value === null
++    || value === undefined
++    || value === ''
++  ) {
++    return null;
++  }
++
++  const number = Number(value);
++  return Number.isFinite(number)
++    ? number
++    : null;
++}
++
++function check(actual, expected, pass) {
++  return {
++    actual,
++    expected,
++    pass: Boolean(pass),
++  };
++}
++
++function percent(value) {
++  return Number.isFinite(value)
++    ? `${(value * 100).toFixed(2)}%`
++    : 'n/a';
++}
++
++function print(result) {
++  const d = result.diagnostic;
++
++  console.log('');
++  console.log('========================================================');
++  console.log('COMPANION-BIT RESIDUAL SUMMARY');
++  console.log('========================================================');
++  console.log('');
++
++  console.log(
++    `primary-absent strict attacks:       ${d.primaryAbsent}`,
++  );
++  console.log(
++    `baseline positive/zero/negative:     ${d.baseline.positive}/${d.baseline.zero}/${d.baseline.negative}`,
++  );
++  console.log('');
++
++  for (
++    const [id, row]
++    of Object.entries(d.companions)
++  ) {
++    console.log(`${id}`);
++    console.log(
++      `  zero captured:                     ${row.zeroCaptured} (${percent(row.zeroCaptureRate)})`,
++    );
++    console.log(
++      `  negative captured:                 ${row.negativeCaptured} (${percent(row.negativeCaptureRate)})`,
++    );
++    console.log(
++      `  positive controls present:         ${row.positivePresent} (${percent(row.positivePresentRate)})`,
++    );
++    console.log(
++      `  P(zero | companion present):       ${percent(row.pZeroGivenPresent)}`,
++    );
++  }
++
++  console.log('');
++  console.log('UNION OF KNOWN COMPANIONS');
++  console.log('-------------------------');
++  console.log(
++    `zero captured:                       ${d.union.zeroCaptured} (${percent(d.union.zeroCaptureRate)})`,
++  );
++  console.log(
++    `negative captured:                   ${d.union.negativeCaptured} (${percent(d.union.negativeCaptureRate)})`,
++  );
++  console.log(
++    `positive controls present:           ${d.union.positivePresent} (${percent(d.union.positivePresentRate)})`,
++  );
++  console.log(
++    `P(zero | union present):             ${percent(d.union.pZeroGivenUnionPresent)}`,
++  );
++
++  console.log('');
++  console.log('BY HERO');
++  console.log('-------');
++
++  for (const row of d.byHero.slice(0, 25)) {
++    console.log(
++      `hero=${row.heroId.padEnd(4)} zero=${String(row.zero).padEnd(4)} companionZero=${String(row.companionZero).padEnd(4)} capture=${percent(row.zeroCaptureRate)}`,
++    );
++  }
++
++  console.log('');
++  console.log('TOP COMPANION-ONLY PATTERNS');
++  console.log('---------------------------');
++
++  for (
++    const row
++    of d.topCompanionOnlyPatterns.slice(0, 30)
++  ) {
++    console.log(
++      `${row.pattern} count=${row.count}`,
++    );
++  }
++
++  console.log('');
++  console.log('INTEGRITY VALIDATION');
++  console.log('--------------------');
++
++  for (
++    const [name, row]
++    of Object.entries(
++      result.integrityValidation.checks,
++    )
++  ) {
++    console.log(
++      `${name.padEnd(42)} ${String(row.pass).padEnd(5)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`,
++    );
++  }
++
++  console.log('');
++  console.log('CLASSIFICATION');
++  console.log('--------------');
++  console.log(result.classification);
++  console.log('');
++  console.log(`status: ${result.status}`);
++  console.log(`NEXT STAGE: ${result.nextStep}`);
++  console.log('');
++  console.log(`JSON:\n${PATHS.output}`);
++}
+diff --git a/tests/slide-companion-residual-diagnostic.test.mjs b/tests/slide-companion-residual-diagnostic.test.mjs
+new file mode 100644
+index 0000000..f5c2087
+--- /dev/null
++++ b/tests/slide-companion-residual-diagnostic.test.mjs
+@@ -0,0 +1,102 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++
++import {
++  COMPANIONS,
++  PRIMARY,
++  evaluateBitState,
++  hasBit,
++  summarizeCompanionResiduals,
++} from '../src/player-state/slide-companion-residual-diagnostic.mjs';
++
++test('frozen primary and companions are exact Script183 bits', () => {
++  assert.equal(PRIMARY.bit, 5);
++  assert.equal(PRIMARY.mask, 32);
++  assert.equal(COMPANIONS[0].bit, 1);
++  assert.equal(COMPANIONS[1].bit, 1);
++});
++
++test('bit helper detects companion bit in integer mask', () => {
++  assert.equal(hasBit(2, 1), true);
++  assert.equal(hasBit(34, 1), true);
++  assert.equal(hasBit(32, 1), false);
++});
++
++test('missing carrier field remains uncovered rather than absent', () => {
++  const result =
++    evaluateBitState(
++      {},
++      COMPANIONS[0],
++    );
++
++  assert.equal(result.covered, false);
++  assert.equal(result.present, false);
++});
++
++test('companion can capture a primary-absent zero residual', () => {
++  const result =
++    summarizeCompanionResiduals([
++      {
++        heroId: 1,
++        combinedLabel: 'ZERO',
++        primaryCovered: true,
++        primaryPresent: false,
++        companions: {
++          mask0002_bit1: {
++            covered: true,
++            present: true,
++          },
++          mask0007_bit1: {
++            covered: true,
++            present: false,
++          },
++        },
++      },
++    ]);
++
++  assert.equal(
++    result.union.zeroCaptured,
++    1,
++  );
++
++  assert.equal(
++    result.union.zeroCaptureRate,
++    1,
++  );
++});
++
++test('positive companion-only controls remain visible as false-positive pressure', () => {
++  const rows = [];
++
++  for (let i = 0; i < 100; i++) {
++    rows.push({
++      heroId: 1,
++      combinedLabel: 'POSITIVE',
++      primaryCovered: true,
++      primaryPresent: false,
++      companions: {
++        mask0002_bit1: {
++          covered: true,
++          present: i < 10,
++        },
++        mask0007_bit1: {
++          covered: true,
++          present: false,
++        },
++      },
++    });
++  }
++
++  const result =
++    summarizeCompanionResiduals(rows);
++
++  assert.equal(
++    result.union.positivePresent,
++    10,
++  );
++
++  assert.equal(
++    result.union.positivePresentRate,
++    0.1,
++  );
++});

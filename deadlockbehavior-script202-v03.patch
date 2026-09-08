@@ -1,0 +1,1228 @@
+diff --git a/src/player-state/standard-shop-ammo-mechanism-census-v03.mjs b/src/player-state/standard-shop-ammo-mechanism-census-v03.mjs
+new file mode 100644
+index 0000000..15c5432
+--- /dev/null
++++ b/src/player-state/standard-shop-ammo-mechanism-census-v03.mjs
+@@ -0,0 +1,566 @@
++// Script202 V03 helpers.
++//
++// Successor to V01/V02 adapter failures.
++//
++// V03 uses Script139 V03's exact `items` array as the standard-shop universe.
++// Script139 V03 is itself derived from the validated Script138 V02 156-item
++// standard catalog and reports 156 analyzed / 0 missing catalog records.
++//
++// This avoids re-deriving Script138's internal catalog schema.
++//
++// Scientific purpose:
++//   exhaustive resource-level census of current-ammo / clip / reload evidence
++//   across all 156 validated standard-shop items, independent of replay
++//   purchase exposure.
++//
++// This is resource evidence only; it does not establish runtime causality.
++
++export const EXPECTED_EFFECT_STATUS =
++  'STANDARD_SHOP_ITEM_EFFECT_SUBSTRATE_V03_READY';
++
++const AMMO_WORD =
++  /(ammo|clip|magazine|reload)/i;
++
++const CAPACITY_WORD =
++  /(?:ammoclipsize|bonusclipsize|clipsize|magazinesize|maxammo)/i;
++
++const RELOAD_SPEED_WORD =
++  /(?:reloadspeed|reloadmultiplier|reloadspeedmultip)/i;
++
++const EXPLICIT_CURRENT_AMMO_WORD =
++  /(?:ammoreloadpercent|activereloadpercent|procammo|bonusclipperkill|ammorestore|ammorefill|ammorefund|ammoreplenish|reloadammo|restoreammo|refillammo|refundammo|replenishammo)/i;
++
++const DYNAMIC_NAME_WORD =
++  /(?:activereload|recharg|quicksilver|ethereal|restore|refill|refund|replenish|proc|perkill|watcher)/i;
++
++export function getScript139Universe(effects) {
++  const items =
++    Array.isArray(effects?.items)
++      ? effects.items
++      : [];
++
++  const recordKeys =
++    items
++      .map(item => item?.recordKey)
++      .filter(
++        value =>
++          typeof value === 'string',
++      );
++
++  const uniqueRecordKeys =
++    [...new Set(recordKeys)];
++
++  const duplicateRecordKeys =
++    recordKeys
++      .filter(
++        (key, index) =>
++          recordKeys.indexOf(key) !== index,
++      )
++      .filter(
++        (key, index, array) =>
++          array.indexOf(key) === index,
++      )
++      .sort();
++
++  return {
++    status:
++      effects?.status ?? null,
++
++    items,
++
++    itemCount:
++      items.length,
++
++    recordKeyCount:
++      recordKeys.length,
++
++    uniqueRecordKeyCount:
++      uniqueRecordKeys.length,
++
++    duplicateRecordKeys,
++
++    missingRecordKeyCount:
++      items.length
++      - recordKeys.length,
++  };
++}
++
++export function classifyAmmoItemV03(item) {
++  const direct =
++    collectMeaningfulDirectAmmoEvidence(item);
++
++  const separatedNonDirect =
++    collectSeparatedNonDirectAmmoEvidence(item);
++
++  const nested =
++    collectNamedArrayEvidence(
++      item?.nestedModifierClasses,
++      'nestedModifierClasses',
++      'B_NESTED_MODIFIER_NAME',
++    );
++
++  const diagnostic =
++    dedupe([
++      ...collectNamedArrayEvidence(
++        item?.weaponStateRelevant
++          ?.genericRecordFieldNamesDiagnosticOnly,
++        'weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly',
++        'C_DIAGNOSTIC_FIELD_NAME',
++      ),
++      ...collectNamedArrayEvidence(
++        item?.weaponStateRelevant
++          ?.operation
++          ?.genericRecordFieldNamesDiagnosticOnly,
++        'weaponStateRelevant.operation.genericRecordFieldNamesDiagnosticOnly',
++        'C_DIAGNOSTIC_FIELD_NAME',
++      ),
++    ]);
++
++  const metadata =
++    collectMetadataEvidence(item);
++
++  const corroboratingRecordTokens =
++    collectNamedArrayEvidence(
++      item?.recordModifierTokens,
++      'recordModifierTokens',
++      'E_CORROBORATING_RECORD_TOKEN',
++    );
++
++  const primary =
++    dedupe([
++      ...direct,
++      ...separatedNonDirect,
++      ...nested,
++      ...diagnostic,
++      ...metadata,
++    ]);
++
++  const all =
++    dedupe([
++      ...primary,
++      ...corroboratingRecordTokens,
++    ]);
++
++  const directCapacity =
++    direct.filter(
++      row =>
++        CAPACITY_WORD.test(
++          normalized(row.value),
++        ),
++    );
++
++  const directReloadSpeed =
++    direct.filter(
++      row =>
++        RELOAD_SPEED_WORD.test(
++          normalized(row.value),
++        ),
++    );
++
++  const explicitCurrentAmmo =
++    primary.filter(
++      row =>
++        EXPLICIT_CURRENT_AMMO_WORD.test(
++          normalized(row.value),
++        ),
++    );
++
++  const dynamicMetadata =
++    metadata.filter(
++      row =>
++        DYNAMIC_NAME_WORD.test(
++          normalized(row.value),
++        ),
++    );
++
++  const diagnosticUnexplainedByStatic =
++    diagnostic.filter(row => {
++      const value =
++        normalized(row.value);
++
++      if (
++        CAPACITY_WORD.test(value)
++        && directCapacity.length > 0
++      ) {
++        return false;
++      }
++
++      if (
++        RELOAD_SPEED_WORD.test(value)
++        && directReloadSpeed.length > 0
++      ) {
++        return false;
++      }
++
++      return true;
++    });
++
++  let classification =
++    'NO_AMMO_MECHANISM_EVIDENCE';
++
++  if (explicitCurrentAmmo.length > 0) {
++    classification =
++      'CURRENT_AMMO_FIELD_CANDIDATE';
++  } else if (
++    separatedNonDirect.length > 0
++    || nested.length > 0
++  ) {
++    classification =
++      'NON_DIRECT_OR_DYNAMIC_AMMO_CANDIDATE';
++  } else if (
++    diagnosticUnexplainedByStatic.length > 0
++    || dynamicMetadata.length > 0
++  ) {
++    classification =
++      'AMMO_RESOURCE_EVIDENCE_UNRESOLVED';
++  } else if (
++    directCapacity.length > 0
++    && directReloadSpeed.length > 0
++  ) {
++    classification =
++      'STATIC_CAPACITY_AND_RELOAD_RATE_EFFECT';
++  } else if (
++    directCapacity.length > 0
++  ) {
++    classification =
++      'STATIC_CLIP_OR_MAGAZINE_CAPACITY_EFFECT';
++  } else if (
++    directReloadSpeed.length > 0
++  ) {
++    classification =
++      'STATIC_RELOAD_RATE_EFFECT';
++  } else if (
++    diagnostic.length > 0
++    || metadata.length > 0
++  ) {
++    classification =
++      'AMMO_RESOURCE_EVIDENCE_UNRESOLVED';
++  }
++
++  const currentAmmoCandidate =
++    [
++      'CURRENT_AMMO_FIELD_CANDIDATE',
++      'NON_DIRECT_OR_DYNAMIC_AMMO_CANDIDATE',
++      'AMMO_RESOURCE_EVIDENCE_UNRESOLVED',
++    ].includes(classification);
++
++  const staticOnly =
++    [
++      'STATIC_CAPACITY_AND_RELOAD_RATE_EFFECT',
++      'STATIC_CLIP_OR_MAGAZINE_CAPACITY_EFFECT',
++      'STATIC_RELOAD_RATE_EFFECT',
++    ].includes(classification);
++
++  return {
++    recordKey:
++      item?.recordKey ?? null,
++
++    classification,
++
++    currentAmmoCandidate,
++    staticOnly,
++
++    evidence: {
++      direct,
++      separatedNonDirect,
++      nested,
++      diagnostic,
++      diagnosticUnexplainedByStatic,
++      metadata,
++      dynamicMetadata,
++      corroboratingRecordTokens,
++      explicitCurrentAmmo,
++      all,
++    },
++  };
++}
++
++export function buildCensusV03(effects) {
++  const universe =
++    getScript139Universe(
++      effects,
++    );
++
++  const items =
++    universe.items
++      .map(
++        item =>
++          classifyAmmoItemV03(item),
++      )
++      .sort(
++        (a, b) =>
++          classOrder(a.classification)
++          - classOrder(b.classification)
++          || String(a.recordKey)
++            .localeCompare(
++              String(b.recordKey),
++            ),
++      );
++
++  const currentAmmoCandidates =
++    items.filter(
++      row =>
++        row.currentAmmoCandidate,
++    );
++
++  const staticOnly =
++    items.filter(
++      row =>
++        row.staticOnly,
++    );
++
++  const noAmmoEvidence =
++    items.filter(
++      row =>
++        row.classification
++        === 'NO_AMMO_MECHANISM_EVIDENCE',
++    );
++
++  return {
++    universe,
++
++    byClassification:
++      countBy(
++        items,
++        row =>
++          row.classification,
++      ),
++
++    currentAmmoCandidateCount:
++      currentAmmoCandidates.length,
++
++    staticOnlyCount:
++      staticOnly.length,
++
++    noAmmoEvidenceCount:
++      noAmmoEvidence.length,
++
++    currentAmmoCandidates,
++    staticOnly,
++    noAmmoEvidence:
++      noAmmoEvidence.map(
++        row =>
++          row.recordKey,
++      ),
++
++    items,
++
++    classification:
++      (
++        universe.status
++          === EXPECTED_EFFECT_STATUS
++        && universe.itemCount === 156
++        && universe.recordKeyCount === 156
++        && universe.uniqueRecordKeyCount === 156
++        && universe.missingRecordKeyCount === 0
++        && universe.duplicateRecordKeys.length === 0
++      )
++        ? 'COMPLETE_SCRIPT139_156_ITEM_STANDARD_SHOP_AMMO_CENSUS_V03'
++        : 'SCRIPT139_STANDARD_SHOP_AMMO_CENSUS_V03_INCOMPLETE',
++  };
++}
++
++function collectMeaningfulDirectAmmoEvidence(item) {
++  const evidence = [];
++
++  for (
++    const row
++    of Array.isArray(
++      item?.meaningfulDirectProvidedStats,
++    )
++      ? item.meaningfulDirectProvidedStats
++      : []
++  ) {
++    const strings =
++      [
++        row?.propertyKey,
++        row?.providedPropertyType,
++        ...(Array.isArray(
++          row?.modifierValueTokens,
++        )
++          ? row.modifierValueTokens
++          : []),
++      ]
++        .filter(
++          value =>
++            typeof value === 'string',
++        );
++
++    for (const value of strings) {
++      if (!AMMO_WORD.test(value)) continue;
++
++      evidence.push({
++        tier:
++          'A_MEANINGFUL_DIRECT',
++        source:
++          'meaningfulDirectProvidedStats',
++        value,
++      });
++    }
++  }
++
++  return dedupe(evidence);
++}
++
++function collectSeparatedNonDirectAmmoEvidence(item) {
++  const value =
++    item?.interpretation
++      ?.nonDirectModifierTokens;
++
++  const strings =
++    Array.isArray(value)
++      ? value
++      : typeof value === 'string'
++        ? [value]
++        : [];
++
++  return strings
++    .filter(
++      string =>
++        typeof string === 'string'
++        && AMMO_WORD.test(string),
++    )
++    .map(
++      string => ({
++        tier:
++          'B_SEPARATED_NON_DIRECT_TOKEN',
++        source:
++          'interpretation.nonDirectModifierTokens',
++        value:
++          string,
++      }),
++    );
++}
++
++function collectNamedArrayEvidence(
++  value,
++  source,
++  tier,
++) {
++  const strings =
++    Array.isArray(value)
++      ? value
++      : typeof value === 'string'
++        ? [value]
++        : [];
++
++  return strings
++    .filter(
++      string =>
++        typeof string === 'string'
++        && AMMO_WORD.test(string),
++    )
++    .map(
++      string => ({
++        tier,
++        source,
++        value:
++          string,
++      }),
++    );
++}
++
++function collectMetadataEvidence(item) {
++  const candidates = [
++    [
++      'recordKey',
++      item?.recordKey,
++    ],
++    [
++      'selectedTopLevelMetadata.m_strCSSClass',
++      item?.selectedTopLevelMetadata
++        ?.m_strCSSClass,
++    ],
++    [
++      'selectedTopLevelMetadata.m_strShopIconLarge',
++      item?.selectedTopLevelMetadata
++        ?.m_strShopIconLarge,
++    ],
++  ];
++
++  return candidates
++    .filter(
++      ([, value]) =>
++        typeof value === 'string'
++        && AMMO_WORD.test(value),
++    )
++    .map(
++      ([source, value]) => ({
++        tier:
++          'D_NAME_OR_METADATA_ONLY',
++        source,
++        value,
++      }),
++    );
++}
++
++function dedupe(rows) {
++  const seen = new Set();
++  const result = [];
++
++  for (const row of rows) {
++    const key =
++      `${row.tier}|${row.source}|${row.value}`;
++
++    if (seen.has(key)) continue;
++    seen.add(key);
++    result.push(row);
++  }
++
++  return result;
++}
++
++function normalized(value) {
++  return String(value)
++    .replace(
++      /[^a-z0-9]+/gi,
++      '',
++    )
++    .toLowerCase();
++}
++
++function countBy(
++  rows,
++  keyFn,
++) {
++  const counts =
++    new Map();
++
++  for (const row of rows) {
++    const key =
++      keyFn(row);
++
++    counts.set(
++      key,
++      (counts.get(key) ?? 0) + 1,
++    );
++  }
++
++  return [...counts.entries()]
++    .map(
++      ([key, count]) => ({
++        key,
++        count,
++      }),
++    )
++    .sort(
++      (a, b) =>
++        classOrder(a.key)
++        - classOrder(b.key)
++        || a.key.localeCompare(b.key),
++    );
++}
++
++function classOrder(value) {
++  const order = {
++    CURRENT_AMMO_FIELD_CANDIDATE: 0,
++    NON_DIRECT_OR_DYNAMIC_AMMO_CANDIDATE: 1,
++    AMMO_RESOURCE_EVIDENCE_UNRESOLVED: 2,
++    STATIC_CAPACITY_AND_RELOAD_RATE_EFFECT: 3,
++    STATIC_CLIP_OR_MAGAZINE_CAPACITY_EFFECT: 4,
++    STATIC_RELOAD_RATE_EFFECT: 5,
++    NO_AMMO_MECHANISM_EVIDENCE: 6,
++  };
++
++  return order[value] ?? 99;
++}
+diff --git a/scripts/202-build-standard-shop-ammo-mechanism-census-v03.mjs b/scripts/202-build-standard-shop-ammo-mechanism-census-v03.mjs
+new file mode 100644
+index 0000000..f00614d
+--- /dev/null
++++ b/scripts/202-build-standard-shop-ammo-mechanism-census-v03.mjs
+@@ -0,0 +1,443 @@
++import {
++  existsSync,
++  mkdirSync,
++  readFileSync,
++  writeFileSync,
++} from 'node:fs';
++
++import {
++  dirname,
++  resolve,
++} from 'node:path';
++
++import {
++  EXPECTED_EFFECT_STATUS,
++  buildCensusV03,
++} from '../src/player-state/standard-shop-ammo-mechanism-census-v03.mjs';
++
++const VERSION =
++  'STANDARD_SHOP_AMMO_MECHANISM_CENSUS_V03';
++
++const PATHS = {
++  v01:
++    resolve(
++      'output',
++      'cross_replay',
++      'standard_shop_ammo_mechanism_census_v01.json',
++    ),
++
++  v02:
++    resolve(
++      'output',
++      'cross_replay',
++      'standard_shop_ammo_mechanism_census_v02.json',
++    ),
++
++  effects:
++    resolve(
++      'output',
++      'cross_replay',
++      'standard_shop_item_effect_substrate_v03.json',
++    ),
++
++  output:
++    resolve(
++      'output',
++      'cross_replay',
++      'standard_shop_ammo_mechanism_census_v03.json',
++    ),
++};
++
++for (
++  const [name, path]
++  of Object.entries(PATHS)
++) {
++  if (name === 'output') continue;
++
++  if (!existsSync(path)) {
++    throw new Error(
++      `Missing ${name}:\n${path}`,
++    );
++  }
++}
++
++const v01 =
++  JSON.parse(
++    readFileSync(
++      PATHS.v01,
++      'utf8',
++    ),
++  );
++
++const v02 =
++  JSON.parse(
++    readFileSync(
++      PATHS.v02,
++      'utf8',
++    ),
++  );
++
++const effects =
++  JSON.parse(
++    readFileSync(
++      PATHS.effects,
++      'utf8',
++    ),
++  );
++
++console.log('');
++console.log(
++  '========================================================',
++);
++console.log(
++  'STANDARD SHOP AMMO MECHANISM CENSUS V0.3',
++);
++console.log(
++  '========================================================',
++);
++console.log('');
++console.log(
++  'V01/V02 adapter failures preserved: YES',
++);
++console.log(
++  'Universe source: Script139 V03 exact items array',
++);
++console.log(
++  'Expected Script139 status:',
++  EXPECTED_EFFECT_STATUS,
++);
++console.log(
++  'Expected item universe: 156 unique recordKeys',
++);
++console.log(
++  'Replay purchase exposure required: NO',
++);
++console.log(
++  'Runtime causal attribution: NO',
++);
++console.log(
++  'Authority promotion: NO',
++);
++console.log('');
++
++const census =
++  buildCensusV03(
++    effects,
++  );
++
++const quickSilver =
++  census.items.find(
++    row =>
++      row.recordKey
++      === 'upgrade_quick_silver',
++  );
++
++const ethereal =
++  census.items.find(
++    row =>
++      row.recordKey
++      === 'upgrade_ethereal_bullets',
++  );
++
++const checks = {
++  v01FailurePreserved:
++    check(
++      v01?.status,
++      'STANDARD_SHOP_AMMO_MECHANISM_CENSUS_V01_INTEGRITY_FAILURE',
++      v01?.status
++        === 'STANDARD_SHOP_AMMO_MECHANISM_CENSUS_V01_INTEGRITY_FAILURE',
++    ),
++
++  v02FailurePreserved:
++    check(
++      v02?.status,
++      'STANDARD_SHOP_AMMO_MECHANISM_CENSUS_V02_INTEGRITY_FAILURE',
++      v02?.status
++        === 'STANDARD_SHOP_AMMO_MECHANISM_CENSUS_V02_INTEGRITY_FAILURE',
++    ),
++
++  script139StatusExpected:
++    check(
++      census.universe.status,
++      EXPECTED_EFFECT_STATUS,
++      census.universe.status
++        === EXPECTED_EFFECT_STATUS,
++    ),
++
++  itemArrayExactly156:
++    check(
++      census.universe.itemCount,
++      156,
++      census.universe.itemCount === 156,
++    ),
++
++  allItemsHaveRecordKeys:
++    check(
++      census.universe.recordKeyCount,
++      156,
++      census.universe.recordKeyCount === 156,
++    ),
++
++  recordKeysUnique:
++    check(
++      census.universe.uniqueRecordKeyCount,
++      156,
++      census.universe.uniqueRecordKeyCount === 156
++      && census.universe.duplicateRecordKeys.length === 0,
++    ),
++
++  quickSilverRetained:
++    check(
++      quickSilver
++        ?.classification
++        ?? null,
++      'current-ammo candidate',
++      quickSilver
++        ?.currentAmmoCandidate === true,
++    ),
++
++  etherealRetained:
++    check(
++      ethereal
++        ?.classification
++        ?? null,
++      'current-ammo candidate',
++      ethereal
++        ?.currentAmmoCandidate === true,
++    ),
++
++  candidateUniverseNonEmpty:
++    check(
++      census.currentAmmoCandidateCount,
++      '>0',
++      census.currentAmmoCandidateCount > 0,
++    ),
++};
++
++const integrityPass =
++  Object.values(checks)
++    .every(
++      row => row.pass,
++    );
++
++const result = {
++  version:
++    VERSION,
++
++  canonical:
++    false,
++
++  createdAt:
++    new Date().toISOString(),
++
++  status:
++    integrityPass
++      ? 'STANDARD_SHOP_AMMO_MECHANISM_CENSUS_V03_READY_FOR_INTERPRETATION'
++      : 'STANDARD_SHOP_AMMO_MECHANISM_CENSUS_V03_INTEGRITY_FAILURE',
++
++  scientificBoundary: {
++    successorReason:
++      'Use Script139 V03 exact 156-item items array instead of re-deriving Script138 internal catalog schema',
++
++    universeAuthority:
++      'Script139 V03, itself derived from Script138 V02 validated standard catalog',
++
++    universe:
++      'all 156 validated standard-shop item effect records',
++
++    purchaseExposureRequired:
++      false,
++
++    candidateMethod:
++      'high-recall resource evidence using ammo/clip/magazine/reload fields plus explicitly separated non-direct semantics',
++
++    genericFieldNames:
++      'diagnostic candidate evidence only',
++
++    currentAmmoCausality:
++      false,
++
++    authorityPromotion:
++      false,
++
++    replicationStatus:
++      'resource_build_bound',
++  },
++
++  census,
++
++  integrityValidation: {
++    pass:
++      integrityPass,
++    checks,
++  },
++
++  semanticValidation: {
++    status:
++      'RESOURCE_CENSUS_ONLY',
++
++    authorityPromotion:
++      false,
++
++    replicationStatus:
++      'resource_build_bound',
++  },
++
++  nextStep:
++    integrityPass
++      ? 'INTERPRET_COMPLETE_156_ITEM_CANDIDATE_UNIVERSE;_COMPARE_SCRIPT201_PAIR_AGAINST_ALL_OTHER_RESOURCE_CANDIDATES'
++      : 'STOP_AND_DIAGNOSE_SCRIPT139_UNIVERSE_OR_CLASSIFIER',
++};
++
++mkdirSync(
++  dirname(
++    PATHS.output,
++  ),
++  {
++    recursive:
++      true,
++  },
++);
++
++writeFileSync(
++  PATHS.output,
++  `${JSON.stringify(
++    result,
++    null,
++    2,
++  )}\n`,
++  'utf8',
++);
++
++print(result);
++
++function check(
++  actual,
++  expected,
++  pass,
++) {
++  return {
++    actual,
++    expected,
++    pass:
++      Boolean(pass),
++  };
++}
++
++function print(result) {
++  const c =
++    result.census;
++
++  console.log('UNIVERSE');
++  console.log('--------');
++  console.log(
++    `Script139 status:                    ${c.universe.status}`,
++  );
++  console.log(
++    `items:                               ${c.universe.itemCount}`,
++  );
++  console.log(
++    `recordKeys:                          ${c.universe.recordKeyCount}`,
++  );
++  console.log(
++    `unique recordKeys:                   ${c.universe.uniqueRecordKeyCount}`,
++  );
++  console.log(
++    `duplicate recordKeys:                ${c.universe.duplicateRecordKeys.length}`,
++  );
++  console.log('');
++
++  console.log('CENSUS SUMMARY');
++  console.log('--------------');
++  console.log(
++    `current-ammo candidates:             ${c.currentAmmoCandidateCount}`,
++  );
++  console.log(
++    `static capacity/reload only:          ${c.staticOnlyCount}`,
++  );
++  console.log(
++    `no ammo evidence:                    ${c.noAmmoEvidenceCount}`,
++  );
++  console.log('');
++
++  console.log('BY CLASSIFICATION');
++  console.log('-----------------');
++
++  for (
++    const row
++    of c.byClassification
++  ) {
++    console.log(
++      `${row.key.padEnd(52)} ${row.count}`,
++    );
++  }
++
++  console.log('');
++  console.log('CURRENT-AMMO CANDIDATE UNIVERSE');
++  console.log('-------------------------------');
++
++  for (
++    const item
++    of c.currentAmmoCandidates
++  ) {
++    console.log(
++      `${item.recordKey.padEnd(40)} ${item.classification}`,
++    );
++
++    for (
++      const evidence
++      of item.evidence.all
++    ) {
++      console.log(
++        `  [${evidence.tier}] ${evidence.source}: ${evidence.value}`,
++      );
++    }
++  }
++
++  console.log('');
++  console.log('STATIC CAPACITY / RELOAD EFFECTS');
++  console.log('--------------------------------');
++
++  for (
++    const item
++    of c.staticOnly
++  ) {
++    console.log(
++      `${item.recordKey.padEnd(40)} ${item.classification}`,
++    );
++
++    for (
++      const evidence
++      of item.evidence.all
++    ) {
++      console.log(
++        `  [${evidence.tier}] ${evidence.source}: ${evidence.value}`,
++      );
++    }
++  }
++
++  console.log('');
++  console.log('INTEGRITY VALIDATION');
++  console.log('--------------------');
++
++  for (
++    const [name, row]
++    of Object.entries(
++      result.integrityValidation.checks,
++    )
++  ) {
++    console.log(
++      `${name.padEnd(38)} ${String(row.pass).padEnd(5)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`,
++    );
++  }
++
++  console.log('');
++  console.log('CLASSIFICATION');
++  console.log('--------------');
++  console.log(c.classification);
++  console.log('');
++  console.log(`status: ${result.status}`);
++  console.log(`NEXT STAGE: ${result.nextStep}`);
++  console.log('');
++  console.log(`JSON:\n${PATHS.output}`);
++}
+diff --git a/tests/standard-shop-ammo-mechanism-census-v03.test.mjs b/tests/standard-shop-ammo-mechanism-census-v03.test.mjs
+new file mode 100644
+index 0000000..b60e9be
+--- /dev/null
++++ b/tests/standard-shop-ammo-mechanism-census-v03.test.mjs
+@@ -0,0 +1,201 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++
++import {
++  EXPECTED_EFFECT_STATUS,
++  buildCensusV03,
++  classifyAmmoItemV03,
++  getScript139Universe,
++} from '../src/player-state/standard-shop-ammo-mechanism-census-v03.mjs';
++
++test('Script139 universe uses exact items array and unique recordKeys', () => {
++  const universe =
++    getScript139Universe({
++      status:
++        EXPECTED_EFFECT_STATUS,
++
++      items: [
++        {
++          recordKey:
++            'upgrade_a',
++        },
++        {
++          recordKey:
++            'upgrade_b',
++        },
++      ],
++    });
++
++  assert.equal(
++    universe.itemCount,
++    2,
++  );
++
++  assert.equal(
++    universe.recordKeyCount,
++    2,
++  );
++
++  assert.equal(
++    universe.uniqueRecordKeyCount,
++    2,
++  );
++});
++
++test('duplicate Script139 recordKey is explicit integrity evidence', () => {
++  const universe =
++    getScript139Universe({
++      items: [
++        {
++          recordKey:
++            'upgrade_a',
++        },
++        {
++          recordKey:
++            'upgrade_a',
++        },
++      ],
++    });
++
++  assert.deepEqual(
++    universe.duplicateRecordKeys,
++    ['upgrade_a'],
++  );
++});
++
++test('static clip stat remains static when record token repeats it', () => {
++  const result =
++    classifyAmmoItemV03({
++      recordKey:
++        'upgrade_magazine',
++
++      meaningfulDirectProvidedStats: [
++        {
++          propertyKey:
++            'BonusClipSizePercent',
++
++          providedPropertyType:
++            'MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT',
++
++          modifierValueTokens: [
++            'MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT',
++          ],
++        },
++      ],
++
++      recordModifierTokens: [
++        'MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT',
++      ],
++    });
++
++  assert.equal(
++    result.classification,
++    'STATIC_CLIP_OR_MAGAZINE_CAPACITY_EFFECT',
++  );
++
++  assert.equal(
++    result.currentAmmoCandidate,
++    false,
++  );
++});
++
++test('AmmoReloadPercent remains diagnostic current-ammo candidate', () => {
++  const result =
++    classifyAmmoItemV03({
++      recordKey:
++        'upgrade_quick_silver',
++
++      weaponStateRelevant: {
++        genericRecordFieldNamesDiagnosticOnly: [
++          'AmmoReloadPercent',
++        ],
++      },
++    });
++
++  assert.equal(
++    result.classification,
++    'CURRENT_AMMO_FIELD_CANDIDATE',
++  );
++
++  assert.equal(
++    result.currentAmmoCandidate,
++    true,
++  );
++});
++
++test('direct reload-speed stat remains static reload-rate effect', () => {
++  const result =
++    classifyAmmoItemV03({
++      recordKey:
++        'upgrade_reload_speed',
++
++      meaningfulDirectProvidedStats: [
++        {
++          propertyKey:
++            'ReloadSpeedMultipler',
++
++          providedPropertyType:
++            'MODIFIER_VALUE_RELOAD_SPEED',
++
++          modifierValueTokens: [
++            'MODIFIER_VALUE_RELOAD_SPEED',
++          ],
++        },
++      ],
++    });
++
++  assert.equal(
++    result.classification,
++    'STATIC_RELOAD_RATE_EFFECT',
++  );
++});
++
++test('complete synthetic Script139 universe is replay independent', () => {
++  const result =
++    buildCensusV03({
++      status:
++        EXPECTED_EFFECT_STATUS,
++
++      items: [
++        {
++          recordKey:
++            'upgrade_quick_silver',
++
++          directProvidedStats: [],
++
++          meaningfulDirectProvidedStats: [],
++
++          weaponStateRelevant: {
++            genericRecordFieldNamesDiagnosticOnly: [
++              'AmmoReloadPercent',
++            ],
++          },
++        },
++        {
++          recordKey:
++            'upgrade_plain',
++
++          directProvidedStats: [],
++
++          meaningfulDirectProvidedStats: [],
++
++          weaponStateRelevant: {},
++        },
++      ],
++    });
++
++  assert.equal(
++    result.universe.itemCount,
++    2,
++  );
++
++  assert.equal(
++    result.currentAmmoCandidateCount,
++    1,
++  );
++
++  assert.equal(
++    result.noAmmoEvidenceCount,
++    1,
++  );
++});

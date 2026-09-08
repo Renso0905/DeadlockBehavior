@@ -1,0 +1,356 @@
+{
+  "version": "SLIDE_CARRIER_EXIT_PHASE_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-08T01:29:45.616Z",
+  "replay": "test",
+  "status": "SLIDE_CARRIER_EXIT_PHASE_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "scientificBoundary": {
+    "discoveryReplay": "test",
+    "primaryCarrier": {
+      "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+      "bit": 5,
+      "mask": 32
+    },
+    "exactQuestion": "present-to-absent carrier transition occurs on exact attack tick",
+    "carrierRetuned": false,
+    "authorityPromotion": false
+  },
+  "telemetry": {
+    "weaponEvents": 61099,
+    "strictTransitions": 37644,
+    "joined": 37644,
+    "joinFailures": 0,
+    "pawnMutations": 2455392
+  },
+  "diagnostic": {
+    "zeroSamples": 68,
+    "positiveControls": 30521,
+    "exactExit": {
+      "zero": 56,
+      "positive": 0,
+      "total": 56,
+      "pZeroGivenExactExit": 1,
+      "zeroRecall": 0.8235294117647058,
+      "positiveControlRate": 0
+    },
+    "recentExitWithin1": {
+      "zero": 56,
+      "positive": 61,
+      "pZeroGivenRecentExit": 0.47863247863247865
+    },
+    "byHero": [
+      {
+        "heroId": "58",
+        "zero": 40,
+        "zeroExactExit": 36,
+        "zeroExactExitRate": 0.9,
+        "positive": 3369,
+        "positiveExactExit": 0,
+        "positiveExactExitRate": 0
+      },
+      {
+        "heroId": "1",
+        "zero": 8,
+        "zeroExactExit": 5,
+        "zeroExactExitRate": 0.625,
+        "positive": 6672,
+        "positiveExactExit": 0,
+        "positiveExactExitRate": 0
+      },
+      {
+        "heroId": "2",
+        "zero": 5,
+        "zeroExactExit": 5,
+        "zeroExactExitRate": 1,
+        "positive": 4586,
+        "positiveExactExit": 0,
+        "positiveExactExitRate": 0
+      },
+      {
+        "heroId": "31",
+        "zero": 5,
+        "zeroExactExit": 2,
+        "zeroExactExitRate": 0.4,
+        "positive": 1686,
+        "positiveExactExit": 0,
+        "positiveExactExitRate": 0
+      },
+      {
+        "heroId": "77",
+        "zero": 2,
+        "zeroExactExit": 2,
+        "zeroExactExitRate": 1,
+        "positive": 1228,
+        "positiveExactExit": 0,
+        "positiveExactExitRate": 0
+      },
+      {
+        "heroId": "18",
+        "zero": 2,
+        "zeroExactExit": 2,
+        "zeroExactExitRate": 1,
+        "positive": 2108,
+        "positiveExactExit": 0,
+        "positiveExactExitRate": 0
+      },
+      {
+        "heroId": "69",
+        "zero": 2,
+        "zeroExactExit": 2,
+        "zeroExactExitRate": 1,
+        "positive": 833,
+        "positiveExactExit": 0,
+        "positiveExactExitRate": 0
+      },
+      {
+        "heroId": "25",
+        "zero": 2,
+        "zeroExactExit": 1,
+        "zeroExactExitRate": 0.5,
+        "positive": 4368,
+        "positiveExactExit": 0,
+        "positiveExactExitRate": 0
+      },
+      {
+        "heroId": "4",
+        "zero": 2,
+        "zeroExactExit": 1,
+        "zeroExactExitRate": 0.5,
+        "positive": 1736,
+        "positiveExactExit": 0,
+        "positiveExactExitRate": 0
+      }
+    ],
+    "exitAgeZero": {
+      "count": 68,
+      "min": 0,
+      "max": 3774,
+      "mode": 0,
+      "median": 0,
+      "p90": 323.60000000000036
+    },
+    "exitAgePositive": {
+      "count": 30521,
+      "min": 1,
+      "max": 18126,
+      "mode": 25,
+      "median": 493,
+      "p90": 3436
+    },
+    "remainingZeros": [
+      {
+        "tick": 5806,
+        "heroId": 31,
+        "playerKey": "renso",
+        "tickGap": 5,
+        "ticksSinceExit": 212,
+        "lastTransition": {
+          "tick": 5594,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 10680,
+        "heroId": 31,
+        "playerKey": "renso",
+        "tickGap": 6,
+        "ticksSinceExit": 1758,
+        "lastTransition": {
+          "tick": 8922,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 10703,
+        "heroId": 1,
+        "playerKey": "flem",
+        "tickGap": 6,
+        "ticksSinceExit": 260,
+        "lastTransition": {
+          "tick": 10443,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 12156,
+        "heroId": 58,
+        "playerKey": "blooop354",
+        "tickGap": 5,
+        "ticksSinceExit": 52,
+        "lastTransition": {
+          "tick": 12104,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 15596,
+        "heroId": 58,
+        "playerKey": "blooop354",
+        "tickGap": 4,
+        "ticksSinceExit": 381,
+        "lastTransition": {
+          "tick": 15215,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 15842,
+        "heroId": 58,
+        "playerKey": "blooop354",
+        "tickGap": 4,
+        "ticksSinceExit": 627,
+        "lastTransition": {
+          "tick": 15215,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 20147,
+        "heroId": 31,
+        "playerKey": "renso",
+        "tickGap": 5,
+        "ticksSinceExit": 299,
+        "lastTransition": {
+          "tick": 19848,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 26842,
+        "heroId": 58,
+        "playerKey": "blooop354",
+        "tickGap": 5,
+        "ticksSinceExit": 33,
+        "lastTransition": {
+          "tick": 26809,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 46177,
+        "heroId": 1,
+        "playerKey": "flem",
+        "tickGap": 5,
+        "ticksSinceExit": 3774,
+        "lastTransition": {
+          "tick": 42403,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 49105,
+        "heroId": 1,
+        "playerKey": "flem",
+        "tickGap": 4,
+        "ticksSinceExit": 1694,
+        "lastTransition": {
+          "tick": 47411,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 174961,
+        "heroId": 25,
+        "playerKey": "Nebula",
+        "tickGap": 8,
+        "ticksSinceExit": 935,
+        "lastTransition": {
+          "tick": 174026,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 182821,
+        "heroId": 4,
+        "playerKey": "Snazzy314",
+        "tickGap": 15,
+        "ticksSinceExit": 461,
+        "lastTransition": {
+          "tick": 182360,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      }
+    ],
+    "classification": "EXACT_CARRIER_EXIT_TICK_STRONGLY_EXPLAINS_STRICT_ZERO_PHASE"
+  },
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script194ClassificationExpected": {
+        "actual": "SLIDE_CARRIER_BOUNDARY_PHASE_EXPLAINS_SUBSTANTIAL_STRICT_ZEROS",
+        "expected": "SLIDE_CARRIER_BOUNDARY_PHASE_EXPLAINS_SUBSTANTIAL_STRICT_ZEROS",
+        "pass": true
+      },
+      "strictZeroCountExpected": {
+        "actual": 68,
+        "expected": 68,
+        "pass": true
+      },
+      "weaponParseClean": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "attackJoinComplete": {
+        "actual": {
+          "joined": 37644,
+          "joinFailures": 0,
+          "total": 37644
+        },
+        "expected": {
+          "joined": 37644,
+          "joinFailures": 0,
+          "total": 37644
+        },
+        "pass": true
+      },
+      "testReplayOnly": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "DIAGNOSTIC_ONLY",
+    "authorityPromotion": false,
+    "replicationStatus": "discovery_calibration_only"
+  },
+  "nextStep": "FREEZE_PRE_TRANSITION_CARRIER_STATE_AS_ATTACK_TICK_PHASE_HYPOTHESIS;_CHARACTERIZE_THE_FEW POSITIVE EXIT-TICK CONTROLS_AND_REMAINING_ZEROS_ON_TEST_BEFORE_NEW_VALIDATION"
+}

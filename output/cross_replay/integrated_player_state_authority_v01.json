@@ -1,0 +1,197 @@
+{
+  "version": "INTEGRATED_PLAYER_STATE_AUTHORITY_V01",
+  "canonical": true,
+  "createdAt": "2026-09-07T17:05:57.779Z",
+  "status": "INTEGRATED_PLAYER_STATE_AUTHORITY_V01_READY",
+  "claim": {
+    "claimId": "player_state_t_v1",
+    "authorityStatus": "current",
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated"
+  },
+  "foundations": {
+    "script159Artifact": "G:\\DeadlockBehavior\\output\\cross_replay\\integrated_authoritative_player_state_cross_replay_validation_v01.json",
+    "script159Status": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+    "upstreamClaims": {
+      "playerIdentity": {
+        "claimId": "player_controller_pawn_identity",
+        "authorityStatus": "current",
+        "semanticValidation": "pass",
+        "replicationStatus": "multi_replay_supported"
+      },
+      "standardShopCatalog": {
+        "claimId": "standard_shop_catalog_v02",
+        "authorityStatus": "current",
+        "semanticValidation": "resource_contract",
+        "replicationStatus": "resource_build_bound"
+      },
+      "itemEffects": {
+        "claimId": "shop_item_effect_contract",
+        "authorityStatus": "current",
+        "semanticValidation": "resource_contract",
+        "replicationStatus": "resource_build_bound"
+      },
+      "itemOwnership": {
+        "claimId": "runtime_item_ownership",
+        "authorityStatus": "current",
+        "semanticValidation": "pass",
+        "replicationStatus": "cross_replay_replicated"
+      },
+      "permanentOwnership": {
+        "claimId": "runtime_permanent_buff_ownership",
+        "authorityStatus": "current",
+        "semanticValidation": "pass",
+        "replicationStatus": "cross_replay_replicated"
+      },
+      "bridgeOwnership": {
+        "claimId": "runtime_bridge_buff_ownership",
+        "authorityStatus": "current",
+        "semanticValidation": "pass",
+        "replicationStatus": "cross_replay_replicated"
+      }
+    }
+  },
+  "frozenEvidence": {
+    "independentReplicationReplays": 5,
+    "integrityPassReplays": 5,
+    "semanticPassReplays": 5,
+    "coverageCompleteReplays": 5,
+    "totalContradictions": 0,
+    "players": 60,
+    "timelineEvents": 604530,
+    "itemTransitions": 1518,
+    "bridgeIntervals": 76,
+    "permanentFamiliesAcrossCohort": [
+      "ammo_permanent_pickup",
+      "cd_permanent_pickup",
+      "firerate_permanent_pickup",
+      "hp_permanent_pickup",
+      "spirit_permanent_pickup",
+      "wp_permanent_pickup"
+    ]
+  },
+  "authoritySemantics": {
+    "runtimeModel": "Event-sourced per-player PlayerState(t): the latest authoritative state event at or before query time, with standard-shop ownership, cumulative permanent world-buff state, and reconstructed active bridge intervals composed as independent runtime layers.",
+    "resourceInputs": "Hero progression, standard-shop item-effect definitions, and world-buff resource definitions are attached as provenance/resource inputs. Their presence in PlayerState(t) does not by itself establish every numeric composition, stacking order, conditional activation rule, or formula.",
+    "noFutureLeakage": "Time-indexed queries consume only events at or before t; Script159 validates deterministic final-state replay and active bridge projection across all saved event boundaries.",
+    "effectiveWeaponBoundary": "This authority does not establish effective_weapon_state. Weapon cadence, ammo/reload, projectile, and damage/power composition remain a separate downstream claim requiring dedicated semantic validation."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "playerStateAuthorityCurrent": {
+        "actual": "current",
+        "expected": "current",
+        "pass": true
+      },
+      "playerStateIntegrityPass": {
+        "actual": "pass",
+        "expected": "pass",
+        "pass": true
+      },
+      "playerStateSemanticPass": {
+        "actual": "pass",
+        "expected": "pass",
+        "pass": true
+      },
+      "playerStateReplicationFrozen": {
+        "actual": "cross_replay_replicated",
+        "expected": "cross_replay_replicated",
+        "pass": true
+      },
+      "effectiveWeaponStillMissing": {
+        "actual": "missing",
+        "expected": "missing",
+        "pass": true
+      },
+      "script159StronglyValidated": {
+        "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+        "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+        "pass": true
+      },
+      "script159IntegrityPass": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script159SemanticPass": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "script159ReplicationCrossReplay": {
+        "actual": "cross_replay_replicated",
+        "expected": "cross_replay_replicated",
+        "pass": true
+      },
+      "independentCohortFive": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "integrityFiveOfFive": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "semanticFiveOfFive": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "coverageFiveOfFive": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "zeroContradictions": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "playersSixty": {
+        "actual": 60,
+        "expected": 60,
+        "pass": true
+      },
+      "timelineEventsExpected": {
+        "actual": 604530,
+        "expected": 604530,
+        "pass": true
+      },
+      "itemTransitionsExpected": {
+        "actual": 1518,
+        "expected": 1518,
+        "pass": true
+      },
+      "bridgeIntervalsExpected": {
+        "actual": 76,
+        "expected": 76,
+        "pass": true
+      },
+      "permanentFamiliesSix": {
+        "actual": 6,
+        "expected": 6,
+        "pass": true
+      },
+      "upstreamItemOwnershipReplicated": {
+        "actual": "cross_replay_replicated",
+        "expected": "cross_replay_replicated",
+        "pass": true
+      },
+      "upstreamPermanentOwnershipReplicated": {
+        "actual": "cross_replay_replicated",
+        "expected": "cross_replay_replicated",
+        "pass": true
+      },
+      "upstreamBridgeOwnershipReplicated": {
+        "actual": "cross_replay_replicated",
+        "expected": "cross_replay_replicated",
+        "pass": true
+      }
+    }
+  },
+  "nextStage": "BUILD_AND_VALIDATE_EFFECTIVE_WEAPON_STATE_ON_TOP_OF_CURRENT_PLAYER_STATE_T_V1_AUTHORITY",
+  "output": "G:\\DeadlockBehavior\\output\\cross_replay\\integrated_player_state_authority_v01.json"
+}

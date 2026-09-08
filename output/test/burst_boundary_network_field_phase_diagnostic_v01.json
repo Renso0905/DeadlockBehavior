@@ -1,0 +1,708 @@
+{
+  "version": "BURST_BOUNDARY_NETWORK_FIELD_PHASE_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T20:21:43.692Z",
+  "status": "BURST_BOUNDARY_NETWORK_FIELD_PHASE_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "replay": "test",
+  "inputs": {
+    "script131": "G:\\DeadlockBehavior\\output\\cross_replay\\hero_stat_progression_schema_discovery_v01.json",
+    "script161": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_state_substrate_v01.json",
+    "events": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_runtime_events_v01.jsonl",
+    "script165": "G:\\DeadlockBehavior\\output\\cross_replay\\primary_weapon_static_cadence_substrate_v02.json",
+    "script166": "G:\\DeadlockBehavior\\output\\test\\static_runtime_cadence_alignment_diagnostic_v01.json",
+    "script167": "G:\\DeadlockBehavior\\output\\test\\burst_boundary_ready_delay_semantics_diagnostic_v01.json",
+    "output": "G:\\DeadlockBehavior\\output\\test\\burst_boundary_network_field_phase_diagnostic_v01.json"
+  },
+  "design": {
+    "purpose": "Test whether Script167 zero-remaining burst-boundary ready-delay inflation is caused by independently networked lastAttackTime / nextPrimaryAttack fields settling on different mutation boundaries.",
+    "replayParsing": "NONE",
+    "fieldPhaseHypothesis": "Script167 medians imply ready/cycle=1.3009 and ready/intra=4.0654; algebraically subtracting one intra interval predicts approximately 0.981 cycle. This is treated as a falsifiable hypothesis, not a correction.",
+    "shortHorizonSettlementWindowTicks": 4,
+    "shortHorizonSettlementWindowSeconds": 0.0625,
+    "settlementRule": "Within same player/weapon, effect context, active fire mode, and unchanged shotNumber, inspect up to four replay ticks after the discharge event for timing-field mutations.",
+    "tolerance": {
+      "absoluteToleranceSeconds": 0.015625,
+      "relativeTolerance": 0.05
+    },
+    "fireRateProgressionGuard": "Script131 purchase bonuses are scanned explicitly for FIRE_RATE rows; any such rows fail integrity rather than being silently ignored.",
+    "authorityPromotion": "NONE"
+  },
+  "counts": {
+    "allWeaponEvents": 61099,
+    "cleanBurstDischarges": 2615,
+    "strictBurstDischarges": 2615,
+    "boundaryRowsZeroRemaining": 844,
+    "positiveRows": 1771,
+    "script131PurchaseFireRateRows": 0
+  },
+  "purchaseFireRateRows": [],
+  "boundary": {
+    "currentCandidateSummary": [
+      {
+        "kind": "FULL_CYCLE_TIME",
+        "comparable": 844,
+        "aligned": 0,
+        "alignmentRate": 0,
+        "absoluteErrorSeconds": {
+          "n": 844,
+          "min": 0.06837158203124999,
+          "median": 0.07899169921874999,
+          "max": 2.087506103515625,
+          "mean": 0.08550364507882964
+        },
+        "ratioToCandidate": {
+          "n": 844,
+          "min": 1.260463169642857,
+          "median": 1.3009207589285714,
+          "max": 8.952404203869047,
+          "mean": 1.3257281717288658
+        }
+      },
+      {
+        "kind": "INTRA_BURST_CYCLE_TIME",
+        "comparable": 844,
+        "aligned": 0,
+        "alignmentRate": 0,
+        "absoluteErrorSeconds": {
+          "n": 844,
+          "min": 0.24687158203124998,
+          "median": 0.25749169921875,
+          "max": 2.266006103515625,
+          "mean": 0.2640036450788282
+        },
+        "ratioToCandidate": {
+          "n": 844,
+          "min": 3.9389474051339284,
+          "median": 4.065377371651786,
+          "max": 27.976263137090772,
+          "mean": 4.142900536652707
+        }
+      },
+      {
+        "kind": "POST_BURST_REMAINDER",
+        "comparable": 844,
+        "aligned": 0,
+        "alignmentRate": 0,
+        "absoluteErrorSeconds": {
+          "n": 844,
+          "min": 0.23637158203125,
+          "median": 0.24699169921875,
+          "max": 2.255506103515625,
+          "mean": 0.2535036450788284
+        },
+        "ratioToCandidate": {
+          "n": 844,
+          "min": 3.5012865823412698,
+          "median": 3.6136687748015874,
+          "max": 24.867789455191797,
+          "mean": 3.6825782548025066
+        }
+      }
+    ],
+    "oneIntraCorrection": {
+      "comparable": 844,
+      "alignedToFullCycle": 783,
+      "alignmentRate": 0.9277251184834123,
+      "correctedRatioToFullCycle": {
+        "n": 844,
+        "min": 0.940463169642857,
+        "median": 0.9809207589285713,
+        "max": 8.632404203869047,
+        "mean": 1.0057281717288855
+      },
+      "correctedAbsoluteErrorSeconds": {
+        "n": 844,
+        "min": 0.0010104980468750302,
+        "median": 0.00506933593750003,
+        "max": 2.0035061035156247,
+        "mean": 0.012670408095228673
+      }
+    },
+    "signalProvenance": {
+      "total": 844,
+      "counts": {
+        "SHOT_NUMBER_AND_LAST_ATTACK": 844
+      },
+      "changedLastAttackField": 844,
+      "changedNextPrimaryField": 844,
+      "changedBothTimingFields": 844,
+      "shotNumberAdvanced": 844,
+      "lastAttackTimeAdvanced": 844
+    },
+    "shortHorizonSettlement": {
+      "comparable": 844,
+      "withSubsequentSameShotEvent": 16,
+      "withTimingMutationEvent": 11,
+      "lastAttackAdvancedWithinWindow": 0,
+      "nextPrimaryChangedWithinWindow": 9,
+      "tickOffset": {
+        "n": 16,
+        "min": 0,
+        "median": 3,
+        "max": 4,
+        "mean": 2.5
+      }
+    },
+    "settledCandidateSummary": [
+      {
+        "kind": "FULL_CYCLE_TIME",
+        "comparable": 844,
+        "aligned": 0,
+        "alignmentRate": 0,
+        "absoluteErrorSeconds": {
+          "n": 844,
+          "min": 0.06837158203124999,
+          "median": 0.07899169921874999,
+          "max": 2.134381103515625,
+          "mean": 0.09865324101741728
+        },
+        "ratioToCandidate": {
+          "n": 844,
+          "min": 1.260463169642857,
+          "median": 1.3009207589285714,
+          "max": 9.130975632440476,
+          "mean": 1.3758218705425334
+        }
+      },
+      {
+        "kind": "INTRA_BURST_CYCLE_TIME",
+        "comparable": 844,
+        "aligned": 0,
+        "alignmentRate": 0,
+        "absoluteErrorSeconds": {
+          "n": 844,
+          "min": 0.24687158203124998,
+          "median": 0.25749169921875,
+          "max": 2.312881103515625,
+          "mean": 0.2771532410174158
+        },
+        "ratioToCandidate": {
+          "n": 844,
+          "min": 3.9389474051339284,
+          "median": 4.065377371651786,
+          "max": 28.534298851376487,
+          "mean": 4.299443345445417
+        }
+      },
+      {
+        "kind": "POST_BURST_REMAINDER",
+        "comparable": 844,
+        "aligned": 0,
+        "alignmentRate": 0,
+        "absoluteErrorSeconds": {
+          "n": 844,
+          "min": 0.23637158203125,
+          "median": 0.24699169921875,
+          "max": 2.302381103515625,
+          "mean": 0.266653241017416
+        },
+        "ratioToCandidate": {
+          "n": 844,
+          "min": 3.5012865823412698,
+          "median": 3.6136687748015874,
+          "max": 25.363821201223544,
+          "mean": 3.821727418173803
+        }
+      }
+    ]
+  },
+  "positiveRemainingControl": {
+    "currentCandidateSummary": [
+      {
+        "kind": "INTRA_BURST_CYCLE_TIME",
+        "comparable": 1771,
+        "aligned": 1771,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 1771,
+          "min": 0.0005039062500000052,
+          "median": 0.009750732421875005,
+          "max": 0.015640625000000005,
+          "mean": 0.00900288805538873
+        },
+        "ratioToCandidate": {
+          "n": 1771,
+          "min": 0.8138020833333333,
+          "median": 0.8839198521205357,
+          "max": 0.9940011160714285,
+          "mean": 0.8928227612453644
+        }
+      },
+      {
+        "kind": "POST_BURST_REMAINDER",
+        "comparable": 1771,
+        "aligned": 961,
+        "alignmentRate": 0.5426312817617166,
+        "absoluteErrorSeconds": {
+          "n": 1771,
+          "min": 0.01100390625,
+          "median": 0.020250732421875,
+          "max": 0.026140625,
+          "mean": 0.019502888055388735
+        },
+        "ratioToCandidate": {
+          "n": 1771,
+          "min": 0.7233796296296297,
+          "median": 0.785706535218254,
+          "max": 0.8835565476190476,
+          "mean": 0.7936202322181058
+        }
+      },
+      {
+        "kind": "FULL_CYCLE_TIME",
+        "comparable": 1771,
+        "aligned": 0,
+        "alignmentRate": 0,
+        "absoluteErrorSeconds": {
+          "n": 1771,
+          "min": 0.17900390625,
+          "median": 0.188250732421875,
+          "max": 0.194140625,
+          "mean": 0.18750288805538287
+        },
+        "ratioToCandidate": {
+          "n": 1771,
+          "min": 0.26041666666666663,
+          "median": 0.2828543526785714,
+          "max": 0.31808035714285715,
+          "mean": 0.28570328359851677
+        }
+      }
+    ],
+    "oneIntraCorrection": {
+      "comparable": 0,
+      "alignedToFullCycle": 0,
+      "alignmentRate": null,
+      "correctedRatioToFullCycle": {
+        "n": 0,
+        "min": null,
+        "median": null,
+        "max": null,
+        "mean": null
+      },
+      "correctedAbsoluteErrorSeconds": {
+        "n": 0,
+        "min": null,
+        "median": null,
+        "max": null,
+        "mean": null
+      }
+    },
+    "signalProvenance": {
+      "total": 1771,
+      "counts": {
+        "SHOT_NUMBER_AND_LAST_ATTACK": 1771
+      },
+      "changedLastAttackField": 1771,
+      "changedNextPrimaryField": 1771,
+      "changedBothTimingFields": 1771,
+      "shotNumberAdvanced": 1771,
+      "lastAttackTimeAdvanced": 1771
+    },
+    "shortHorizonSettlement": {
+      "comparable": 1771,
+      "withSubsequentSameShotEvent": 23,
+      "withTimingMutationEvent": 11,
+      "lastAttackAdvancedWithinWindow": 0,
+      "nextPrimaryChangedWithinWindow": 8,
+      "tickOffset": {
+        "n": 23,
+        "min": 1,
+        "median": 3,
+        "max": 4,
+        "mean": 2.4782608695652173
+      }
+    }
+  },
+  "byHero": [
+    {
+      "heroId": 2,
+      "displayName": "Seven",
+      "boundaryRows": 564,
+      "currentCandidateSummary": [
+        {
+          "kind": "FULL_CYCLE_TIME",
+          "comparable": 564,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 564,
+            "min": 0.06837158203124999,
+            "median": 0.07893066406249999,
+            "max": 0.15772705078125,
+            "mean": 0.08535166530744365
+          },
+          "ratioToCandidate": {
+            "n": 564,
+            "min": 1.260463169642857,
+            "median": 1.300688244047619,
+            "max": 1.6008649553571428,
+            "mean": 1.3251492011712092
+          }
+        },
+        {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 564,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 564,
+            "min": 0.24687158203124998,
+            "median": 0.2574306640625,
+            "max": 0.33622705078125,
+            "mean": 0.26385166530744164
+          },
+          "ratioToCandidate": {
+            "n": 564,
+            "min": 3.9389474051339284,
+            "median": 4.064650762648809,
+            "max": 5.002702985491071,
+            "mean": 4.141091253660047
+          }
+        },
+        {
+          "kind": "POST_BURST_REMAINDER",
+          "comparable": 564,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 564,
+            "min": 0.23637158203125,
+            "median": 0.2469306640625,
+            "max": 0.32572705078124997,
+            "mean": 0.2533516653074456
+          },
+          "ratioToCandidate": {
+            "n": 564,
+            "min": 3.5012865823412698,
+            "median": 3.613022900132275,
+            "max": 4.446847098214286,
+            "mean": 3.6809700032533854
+          }
+        }
+      ],
+      "oneIntraCorrection": {
+        "comparable": 564,
+        "alignedToFullCycle": 504,
+        "alignmentRate": 0.8936170212765957,
+        "correctedRatioToFullCycle": {
+          "n": 564,
+          "min": 0.940463169642857,
+          "median": 0.9806882440476189,
+          "max": 1.2808649553571427,
+          "mean": 1.005149201171213
+        },
+        "correctedAbsoluteErrorSeconds": {
+          "n": 564,
+          "min": 0.0010104980468750302,
+          "median": 0.00613745117187503,
+          "max": 0.07372705078124997,
+          "mean": 0.012754520280986816
+        }
+      },
+      "signalProvenance": {
+        "total": 564,
+        "counts": {
+          "SHOT_NUMBER_AND_LAST_ATTACK": 564
+        },
+        "changedLastAttackField": 564,
+        "changedNextPrimaryField": 564,
+        "changedBothTimingFields": 564,
+        "shotNumberAdvanced": 564,
+        "lastAttackTimeAdvanced": 564
+      },
+      "settlement": {
+        "comparable": 564,
+        "withSubsequentSameShotEvent": 10,
+        "withTimingMutationEvent": 7,
+        "lastAttackAdvancedWithinWindow": 0,
+        "nextPrimaryChangedWithinWindow": 5,
+        "tickOffset": {
+          "n": 10,
+          "min": 0,
+          "median": 3,
+          "max": 4,
+          "mean": 2.6
+        }
+      },
+      "settledCandidateSummary": [
+        {
+          "kind": "FULL_CYCLE_TIME",
+          "comparable": 564,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 564,
+            "min": 0.06837158203124999,
+            "median": 0.07893066406249999,
+            "max": 2.1343505859375,
+            "mean": 0.09566265674347535
+          },
+          "ratioToCandidate": {
+            "n": 564,
+            "min": 1.260463169642857,
+            "median": 1.300688244047619,
+            "max": 9.130859375,
+            "mean": 1.3644291685465684
+          }
+        },
+        {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 564,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 564,
+            "min": 0.24687158203124998,
+            "median": 0.2574306640625,
+            "max": 2.3128505859375,
+            "mean": 0.27416265674347334
+          },
+          "ratioToCandidate": {
+            "n": 564,
+            "min": 3.9389474051339284,
+            "median": 4.064650762648809,
+            "max": 28.533935546875,
+            "mean": 4.263841151708044
+          }
+        },
+        {
+          "kind": "POST_BURST_REMAINDER",
+          "comparable": 564,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 564,
+            "min": 0.23637158203125,
+            "median": 0.2469306640625,
+            "max": 2.3023505859375,
+            "mean": 0.2636626567434772
+          },
+          "ratioToCandidate": {
+            "n": 564,
+            "min": 3.5012865823412698,
+            "median": 3.613022900132275,
+            "max": 25.36349826388889,
+            "mean": 3.7900810237404943
+          }
+        }
+      ]
+    },
+    {
+      "heroId": 31,
+      "displayName": "Lash",
+      "boundaryRows": 280,
+      "currentCandidateSummary": [
+        {
+          "kind": "FULL_CYCLE_TIME",
+          "comparable": 280,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 280,
+            "min": 0.06974487304687499,
+            "median": 0.07911376953124999,
+            "max": 2.087506103515625,
+            "mean": 0.08580977576119599
+          },
+          "ratioToCandidate": {
+            "n": 280,
+            "min": 1.2656947544642856,
+            "median": 1.301385788690476,
+            "max": 8.952404203869047,
+            "mean": 1.3268943838521827
+          }
+        },
+        {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 280,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 280,
+            "min": 0.24824487304687498,
+            "median": 0.25761376953125,
+            "max": 2.266006103515625,
+            "mean": 0.26430977576119397
+          },
+          "ratioToCandidate": {
+            "n": 280,
+            "min": 3.955296107700893,
+            "median": 4.066830589657738,
+            "max": 27.976263137090772,
+            "mean": 4.146544949538043
+          }
+        },
+        {
+          "kind": "POST_BURST_REMAINDER",
+          "comparable": 280,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 280,
+            "min": 0.237744873046875,
+            "median": 0.24711376953125,
+            "max": 2.255506103515625,
+            "mean": 0.25380977576119745
+          },
+          "ratioToCandidate": {
+            "n": 280,
+            "min": 3.5158187624007935,
+            "median": 3.6149605241402116,
+            "max": 24.867789455191797,
+            "mean": 3.685817732922684
+          }
+        }
+      ],
+      "oneIntraCorrection": {
+        "comparable": 280,
+        "alignedToFullCycle": 279,
+        "alignmentRate": 0.9964285714285714,
+        "correctedRatioToFullCycle": {
+          "n": 280,
+          "min": 0.9456947544642856,
+          "median": 0.9813857886904761,
+          "max": 8.632404203869047,
+          "mean": 1.006894383852172
+        },
+        "correctedAbsoluteErrorSeconds": {
+          "n": 280,
+          "min": 0.00311621093750003,
+          "median": 0.00488623046875003,
+          "max": 2.0035061035156247,
+          "mean": 0.012500982121058902
+        }
+      },
+      "signalProvenance": {
+        "total": 280,
+        "counts": {
+          "SHOT_NUMBER_AND_LAST_ATTACK": 280
+        },
+        "changedLastAttackField": 280,
+        "changedNextPrimaryField": 280,
+        "changedBothTimingFields": 280,
+        "shotNumberAdvanced": 280,
+        "lastAttackTimeAdvanced": 280
+      },
+      "settlement": {
+        "comparable": 280,
+        "withSubsequentSameShotEvent": 6,
+        "withTimingMutationEvent": 4,
+        "lastAttackAdvancedWithinWindow": 0,
+        "nextPrimaryChangedWithinWindow": 4,
+        "tickOffset": {
+          "n": 6,
+          "min": 1,
+          "median": 2.5,
+          "max": 4,
+          "mean": 2.3333333333333335
+        }
+      },
+      "settledCandidateSummary": [
+        {
+          "kind": "FULL_CYCLE_TIME",
+          "comparable": 280,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 280,
+            "min": 0.06974487304687499,
+            "median": 0.07911376953124999,
+            "max": 2.134381103515625,
+            "mean": 0.10467713219778918
+          },
+          "ratioToCandidate": {
+            "n": 280,
+            "min": 1.2656947544642856,
+            "median": 1.301385788690476,
+            "max": 9.130975632440476,
+            "mean": 1.3987700274201569
+          }
+        },
+        {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 280,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 280,
+            "min": 0.24824487304687498,
+            "median": 0.25761376953125,
+            "max": 2.312881103515625,
+            "mean": 0.2831771321977872
+          },
+          "ratioToCandidate": {
+            "n": 280,
+            "min": 3.955296107700893,
+            "median": 4.066830589657738,
+            "max": 28.534298851376487,
+            "mean": 4.371156335687959
+          }
+        },
+        {
+          "kind": "POST_BURST_REMAINDER",
+          "comparable": 280,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 280,
+            "min": 0.237744873046875,
+            "median": 0.24711376953125,
+            "max": 2.302381103515625,
+            "mean": 0.2726771321977906
+          },
+          "ratioToCandidate": {
+            "n": 280,
+            "min": 3.5158187624007935,
+            "median": 3.6149605241402116,
+            "max": 25.363821201223544,
+            "mean": 3.8854722983892795
+          }
+        }
+      ]
+    }
+  ],
+  "diagnosticClassification": "BURST_BOUNDARY_NOT_EXPLAINED_BY_ONE_INTRA_OFFSET_OR_SHORT_HORIZON_FIELD_PHASE",
+  "validation": {
+    "integrityPass": true,
+    "semanticValidation": "DIAGNOSTIC_ONLY_NOT_AUTHORITY_PROMOTION",
+    "replicationStatus": "SINGLE_REPLAY_DISCOVERY",
+    "checks": {
+      "script167BurstCohortReproduced": {
+        "actual": 2615,
+        "expected": 2615,
+        "pass": true
+      },
+      "script167BoundaryCohortReproduced": {
+        "actual": 844,
+        "expected": 844,
+        "pass": true
+      },
+      "script167PositiveCohortReproduced": {
+        "actual": 1771,
+        "expected": 1771,
+        "pass": true
+      },
+      "noScript131PurchaseFireRateRows": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "script167CurrentFullCycleResultReproduced": {
+        "actual": {
+          "aligned": 0,
+          "comparable": 844
+        },
+        "expected": {
+          "aligned": 0,
+          "comparable": 844
+        },
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "guardrail": "A one-intra algebraic correction is not accepted as semantics by itself. Promotion requires observed short-horizon field settlement or another independently observed runtime carrier."
+  },
+  "nextStage": "DIAGNOSE_HERO_WEAPON_RESOURCE_OR_ADDITIONAL_RUNTIME_TIMING_FIELDS; DO_NOT RETUNE SCRIPT166_THRESHOLDS"
+}

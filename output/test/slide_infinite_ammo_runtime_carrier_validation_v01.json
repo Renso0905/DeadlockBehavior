@@ -1,0 +1,522 @@
+{
+  "version": "SLIDE_INFINITE_AMMO_RUNTIME_CARRIER_VALIDATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T23:05:00.611Z",
+  "replay": "test",
+  "status": "SLIDE_INFINITE_AMMO_RUNTIME_CARRIER_VALIDATION_V01_READY_FOR_CROSS_REPLAY_VALIDATION",
+  "frozenCarrier": {
+    "primary": {
+      "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+      "bit": 5,
+      "mask": 32
+    },
+    "companions": [
+      {
+        "name": "mask0002_bit1",
+        "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+        "bit": 1,
+        "mask": 2
+      },
+      {
+        "name": "mask0007_bit1",
+        "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0007",
+        "bit": 1,
+        "mask": 2
+      }
+    ],
+    "interpretation": "Narrow candidate carrier for the runtime state in which primary attacks do not consume whole clip ammunition, consistent with universal slide infinite-ammo behavior.",
+    "explicitlyNotClaimed": [
+      "canonical locomotion sliding state for all movement analyses",
+      "magazine capacity authority",
+      "full effective weapon state"
+    ]
+  },
+  "thresholds": {
+    "minFieldCoverageRate": 0.95,
+    "minNonVyperCarrierPresent": 100,
+    "minNonVyperZeroRateGivenCarrier": 0.98,
+    "maxNonVyperZeroRateWithoutCarrier": 0.01,
+    "minNonVyperZeroRecall": 0.9,
+    "minSupportingNonVyperHeroes": 6,
+    "minVyperCarrierPresent": 100,
+    "minVyperZeroRateGivenCarrier": 0.95,
+    "minResidualTransitions": 5000,
+    "minResidualPositiveWholeDropRate": 0.99,
+    "maxResidualNegativeWholeDropRate": 0.001,
+    "minCompanionJaccardDiagnostic": 0.95
+  },
+  "replayJoin": {
+    "pawnEntityMutations": 2455392,
+    "joined": 37571,
+    "joinFailures": 0,
+    "joinRate": 1,
+    "processedAttackTicks": 34343,
+    "duplicateTargetPacketHits": 7,
+    "joinFailureReasons": []
+  },
+  "evaluation": {
+    "coverage": {
+      "total": 37571,
+      "covered": 37571,
+      "coverageRate": 1
+    },
+    "pooled": {
+      "total": 37571,
+      "present": {
+        "POSITIVE": 11,
+        "ZERO": 7026,
+        "NEGATIVE": 3,
+        "total": 7040,
+        "zeroRate": 0.998436833878073
+      },
+      "absent": {
+        "POSITIVE": 30326,
+        "ZERO": 195,
+        "NEGATIVE": 10,
+        "total": 30531,
+        "zeroRate": 0.0063890436093181745
+      },
+      "zeroRecall": 0.9729954299958454,
+      "carrierPrevalence": 0.18737856325357324
+    },
+    "nonVyper": {
+      "total": 27785,
+      "present": {
+        "POSITIVE": 4,
+        "ZERO": 658,
+        "NEGATIVE": 0,
+        "total": 662,
+        "zeroRate": 0.9939577039274925
+      },
+      "absent": {
+        "POSITIVE": 27085,
+        "ZERO": 28,
+        "NEGATIVE": 10,
+        "total": 27123,
+        "zeroRate": 0.0010327149337955963
+      },
+      "zeroRecall": 0.9591836734693877,
+      "carrierPrevalence": 0.023825805290624436
+    },
+    "vyper": {
+      "total": 9786,
+      "present": {
+        "POSITIVE": 7,
+        "ZERO": 6368,
+        "NEGATIVE": 3,
+        "total": 6378,
+        "zeroRate": 0.9989019607843137
+      },
+      "absent": {
+        "POSITIVE": 3241,
+        "ZERO": 167,
+        "NEGATIVE": 0,
+        "total": 3408,
+        "zeroRate": 0.049002347417840375
+      },
+      "zeroRecall": 0.9744452945677123,
+      "carrierPrevalence": 0.6517473942366646
+    },
+    "byHero": {
+      "heroes": [
+        {
+          "heroId": 58,
+          "total": 9786,
+          "present": {
+            "POSITIVE": 7,
+            "ZERO": 6368,
+            "NEGATIVE": 3,
+            "total": 6378,
+            "zeroRate": 0.9989019607843137
+          },
+          "absent": {
+            "POSITIVE": 3241,
+            "ZERO": 167,
+            "NEGATIVE": 0,
+            "total": 3408,
+            "zeroRate": 0.049002347417840375
+          },
+          "zeroRecall": 0.9744452945677123,
+          "carrierPrevalence": 0.6517473942366646,
+          "support": false
+        },
+        {
+          "heroId": 2,
+          "total": 4793,
+          "present": {
+            "POSITIVE": 2,
+            "ZERO": 202,
+            "NEGATIVE": 0,
+            "total": 204,
+            "zeroRate": 0.9901960784313726
+          },
+          "absent": {
+            "POSITIVE": 4584,
+            "ZERO": 5,
+            "NEGATIVE": 0,
+            "total": 4589,
+            "zeroRate": 0.0010895619960775767
+          },
+          "zeroRecall": 0.9758454106280193,
+          "carrierPrevalence": 0.04256206968495723,
+          "support": true
+        },
+        {
+          "heroId": 31,
+          "total": 1811,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 123,
+            "NEGATIVE": 0,
+            "total": 123,
+            "zeroRate": 1
+          },
+          "absent": {
+            "POSITIVE": 1683,
+            "ZERO": 5,
+            "NEGATIVE": 0,
+            "total": 1688,
+            "zeroRate": 0.002962085308056872
+          },
+          "zeroRecall": 0.9609375,
+          "carrierPrevalence": 0.06791827719491994,
+          "support": true
+        },
+        {
+          "heroId": 1,
+          "total": 6781,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 109,
+            "NEGATIVE": 0,
+            "total": 109,
+            "zeroRate": 1
+          },
+          "absent": {
+            "POSITIVE": 6664,
+            "ZERO": 8,
+            "NEGATIVE": 0,
+            "total": 6672,
+            "zeroRate": 0.001199040767386091
+          },
+          "zeroRecall": 0.9316239316239316,
+          "carrierPrevalence": 0.016074325320749153,
+          "support": true
+        },
+        {
+          "heroId": 18,
+          "total": 2171,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 71,
+            "NEGATIVE": 0,
+            "total": 71,
+            "zeroRate": 1
+          },
+          "absent": {
+            "POSITIVE": 2095,
+            "ZERO": 2,
+            "NEGATIVE": 3,
+            "total": 2100,
+            "zeroRate": 0.0009537434430138292
+          },
+          "zeroRecall": 0.9726027397260274,
+          "carrierPrevalence": 0.0327038231229848,
+          "support": true
+        },
+        {
+          "heroId": 69,
+          "total": 871,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 41,
+            "NEGATIVE": 0,
+            "total": 41,
+            "zeroRate": 1
+          },
+          "absent": {
+            "POSITIVE": 828,
+            "ZERO": 2,
+            "NEGATIVE": 0,
+            "total": 830,
+            "zeroRate": 0.0024096385542168677
+          },
+          "zeroRecall": 0.9534883720930233,
+          "carrierPrevalence": 0.04707233065442021,
+          "support": true
+        },
+        {
+          "heroId": 25,
+          "total": 4403,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 40,
+            "NEGATIVE": 0,
+            "total": 40,
+            "zeroRate": 1
+          },
+          "absent": {
+            "POSITIVE": 4357,
+            "ZERO": 2,
+            "NEGATIVE": 4,
+            "total": 4363,
+            "zeroRate": 0.0004588208304657031
+          },
+          "zeroRecall": 0.9523809523809523,
+          "carrierPrevalence": 0.009084714967067909,
+          "support": true
+        },
+        {
+          "heroId": 50,
+          "total": 529,
+          "present": {
+            "POSITIVE": 2,
+            "ZERO": 32,
+            "NEGATIVE": 0,
+            "total": 34,
+            "zeroRate": 0.9411764705882353
+          },
+          "absent": {
+            "POSITIVE": 495,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 495,
+            "zeroRate": 0
+          },
+          "zeroRecall": 1,
+          "carrierPrevalence": 0.06427221172022685,
+          "support": true
+        },
+        {
+          "heroId": 77,
+          "total": 1256,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 27,
+            "NEGATIVE": 0,
+            "total": 27,
+            "zeroRate": 1
+          },
+          "absent": {
+            "POSITIVE": 1227,
+            "ZERO": 2,
+            "NEGATIVE": 0,
+            "total": 1229,
+            "zeroRate": 0.0016273393002441008
+          },
+          "zeroRecall": 0.9310344827586207,
+          "carrierPrevalence": 0.021496815286624203,
+          "support": true
+        },
+        {
+          "heroId": 79,
+          "total": 1873,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 7,
+            "NEGATIVE": 0,
+            "total": 7,
+            "zeroRate": 1
+          },
+          "absent": {
+            "POSITIVE": 1866,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 1866,
+            "zeroRate": 0
+          },
+          "zeroRecall": 1,
+          "carrierPrevalence": 0.0037373198077949813,
+          "support": false
+        },
+        {
+          "heroId": 4,
+          "total": 1732,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 4,
+            "NEGATIVE": 0,
+            "total": 4,
+            "zeroRate": 1
+          },
+          "absent": {
+            "POSITIVE": 1723,
+            "ZERO": 2,
+            "NEGATIVE": 3,
+            "total": 1728,
+            "zeroRate": 0.0011594202898550724
+          },
+          "zeroRecall": 0.6666666666666666,
+          "carrierPrevalence": 0.0023094688221709007,
+          "support": false
+        },
+        {
+          "heroId": 52,
+          "total": 1565,
+          "present": {
+            "POSITIVE": 0,
+            "ZERO": 2,
+            "NEGATIVE": 0,
+            "total": 2,
+            "zeroRate": 1
+          },
+          "absent": {
+            "POSITIVE": 1563,
+            "ZERO": 0,
+            "NEGATIVE": 0,
+            "total": 1563,
+            "zeroRate": 0
+          },
+          "zeroRecall": 1,
+          "carrierPrevalence": 0.0012779552715654952,
+          "support": false
+        }
+      ],
+      "supportingNonVyperHeroes": [
+        2,
+        31,
+        1,
+        18,
+        69,
+        25,
+        50,
+        77
+      ],
+      "supportingNonVyperHeroCount": 8,
+      "vyperExposure": 0.6517473942366646,
+      "maxNonVyperExposure": 0.06791827719491994
+    },
+    "residual": {
+      "POSITIVE": 30326,
+      "ZERO": 195,
+      "NEGATIVE": 10,
+      "total": 30531,
+      "zeroRate": 0.006386950967868723,
+      "positiveRate": 0.9932855130850611,
+      "negativeRate": 0.00032753594707019093
+    },
+    "companions": [
+      {
+        "name": "mask0002_bit1",
+        "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+        "bit": 1,
+        "comparable": 37571,
+        "primaryPresent": 7040,
+        "companionPresent": 7038,
+        "intersection": 7038,
+        "union": 7040,
+        "jaccard": 0.9997159090909091,
+        "disagreement": 2,
+        "disagreementRate": 0.00005323254637885603
+      },
+      {
+        "name": "mask0007_bit1",
+        "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0007",
+        "bit": 1,
+        "comparable": 37571,
+        "primaryPresent": 7040,
+        "companionPresent": 7039,
+        "intersection": 7038,
+        "union": 7041,
+        "jaccard": 0.9995739241585002,
+        "disagreement": 3,
+        "disagreementRate": 0.00007984881956828405
+      }
+    ],
+    "semanticPass": true,
+    "classification": "SLIDE_INFINITE_AMMO_RUNTIME_CARRIER_STRONGLY_SUPPORTED_SINGLE_REPLAY"
+  },
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script182StatusExpected": {
+        "actual": "RUNTIME_SLIDE_CARRIER_DISCOVERY_V02_READY_FOR_SEMANTIC_VALIDATION",
+        "expected": "RUNTIME_SLIDE_CARRIER_DISCOVERY_V02_READY_FOR_SEMANTIC_VALIDATION",
+        "pass": true
+      },
+      "script182ClassificationExpected": {
+        "actual": "UNIVERSAL_SLIDE_RUNTIME_CARRIER_CANDIDATE_DISCOVERED",
+        "expected": "UNIVERSAL_SLIDE_RUNTIME_CARRIER_CANDIDATE_DISCOVERED",
+        "pass": true
+      },
+      "discoveredPrimaryFrozen": {
+        "actual": {
+          "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+          "kind": "BIT_SET",
+          "bit": 5,
+          "value": 32
+        },
+        "expected": {
+          "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+          "kind": "BIT_SET",
+          "bit": 5,
+          "value": 32
+        },
+        "pass": true
+      },
+      "helperPrimaryMatchesFrozen": {
+        "actual": {
+          "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+          "bit": 5,
+          "mask": 32
+        },
+        "expected": {
+          "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+          "bit": 5,
+          "mask": 32
+        },
+        "pass": true
+      },
+      "weaponParseClean": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "attackPartitionFrozen": {
+        "actual": {
+          "POSITIVE": 30337,
+          "ZERO": 7221,
+          "NEGATIVE": 13,
+          "total": 37571
+        },
+        "expected": {
+          "POSITIVE": 30337,
+          "ZERO": 7221,
+          "NEGATIVE": 13,
+          "total": 37571
+        },
+        "pass": true
+      },
+      "attackJoinComplete": {
+        "actual": {
+          "joined": 37571,
+          "failures": 0,
+          "total": 37571
+        },
+        "expected": {
+          "joined": 37571,
+          "failures": 0,
+          "total": 37571
+        },
+        "pass": true
+      },
+      "attackTickProcessingOnePass": {
+        "actual": 37571,
+        "expected": 37571,
+        "pass": true
+      },
+      "replicationCohortStillUnused": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "pass": true,
+    "status": "STRONG_SINGLE_REPLAY_NARROW_CONSEQUENCE_SEMANTICS",
+    "replicationStatus": "single_replay_only",
+    "authorityPromotion": false
+  },
+  "nextStep": "FREEZE_RULE_UNCHANGED_AND_VALIDATE_ON_REP01_REP05;_REPLICATION_SCOPE_IS_SLIDE_INFINITE_AMMO_CONSEQUENCE_CARRIER_NOT_GENERAL_LOCOMOTION_SLIDE_STATE"
+}

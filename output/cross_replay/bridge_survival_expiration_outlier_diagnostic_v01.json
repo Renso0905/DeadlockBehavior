@@ -1,0 +1,108 @@
+{
+  "version": "BRIDGE_SURVIVAL_EXPIRATION_OUTLIER_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T15:55:32.454Z",
+  "status": "BRIDGE_SURVIVAL_EXPIRATION_OUTLIER_V01_DIAGNOSED",
+  "foundations": {
+    "script152Artifact": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_runtime_duration_validation_v01.json",
+    "script152Status": "BRIDGE_SURVIVAL_RUNTIME_DURATION_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS"
+  },
+  "frozenPolicy": {
+    "noRetuning": true,
+    "primarySemanticHalfWindowTicks": 16,
+    "diagnosticHalfWindowTicks": 320,
+    "diagnosticOnly": true
+  },
+  "counts": {
+    "naturalAnchors": 12,
+    "failedNaturalAnchors": 1,
+    "classifications": {
+      "NO_NEGATIVE_CONSEQUENCE_WITHIN_5S": 1
+    }
+  },
+  "diagnostics": [
+    {
+      "replayName": "rep01",
+      "playerName": "Kabuto",
+      "controllerIndex": 6,
+      "pickupTick": 141428,
+      "expectedExpirationTick": 151668,
+      "matchClock": "36:19.813",
+      "healthMax": {
+        "acquisition": {
+          "controllerIndex": 6,
+          "field": "m_iHealthMax",
+          "tick": 141430,
+          "before": 4538,
+          "after": 5225,
+          "delta": 687,
+          "dtTicks": 2,
+          "dtSeconds": 0.03125
+        },
+        "expiration": null,
+        "death": null,
+        "symmetric": false,
+        "symmetryError": null,
+        "acquisitionInResourceRange": true,
+        "resourceRange": [
+          200,
+          750
+        ],
+        "placeboTransitions": [
+          {
+            "offsetSeconds": 120,
+            "transition": null
+          },
+          {
+            "offsetSeconds": 200,
+            "transition": null
+          }
+        ],
+        "placeboNegative": false
+      },
+      "healthRegen": {
+        "acquisition": {
+          "controllerIndex": 6,
+          "field": "m_flHealthRegen",
+          "tick": 141430,
+          "before": 11,
+          "after": 46.880001068115234,
+          "delta": 35.880001068115234,
+          "dtTicks": 2,
+          "dtSeconds": 0.03125
+        },
+        "expiration": null,
+        "death": null,
+        "symmetric": false,
+        "symmetryError": null,
+        "acquisitionInResourceRange": true,
+        "resourceRange": [
+          4,
+          40
+        ],
+        "placeboTransitions": [
+          {
+            "offsetSeconds": 120,
+            "transition": null
+          },
+          {
+            "offsetSeconds": 200,
+            "transition": null
+          }
+        ],
+        "placeboNegative": false
+      },
+      "processOk": true,
+      "classification": "NO_NEGATIVE_CONSEQUENCE_WITHIN_5S",
+      "confoundSummary": [],
+      "nearestNegativeHealthMax": null,
+      "nearestNegativeHealthRegen": null,
+      "primaryWindowTransitions": [],
+      "relevantTransitions": []
+    }
+  ],
+  "interpretation": {
+    "supported": "This script explains Script152 natural-expiration misses without changing Script152 frozen validation thresholds.",
+    "notSupported": "Diagnostic evidence does not retroactively convert a Script152 miss into a pass or alter the frozen 11/12 semantic result."
+  }
+}

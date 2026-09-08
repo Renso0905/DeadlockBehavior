@@ -1,0 +1,542 @@
+{
+  "version": "STATIC_RUNTIME_CADENCE_ALIGNMENT_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T19:59:58.348Z",
+  "status": "STATIC_RUNTIME_CADENCE_ALIGNMENT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "replay": "test",
+  "inputs": {
+    "script161": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_state_substrate_v01.json",
+    "script165V02": "G:\\DeadlockBehavior\\output\\cross_replay\\primary_weapon_static_cadence_substrate_v02.json",
+    "runtimeEvents": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_runtime_events_v01.jsonl"
+  },
+  "design": {
+    "purpose": "Test whether directly observed ready-delay telemetry naturally partitions according to the build-bound primary-weapon static cadence regime before returning to Fire Rate effect composition.",
+    "replayParsing": "NONE",
+    "baselineFilter": "Exclude every context with direct, unresolved, non-direct, permanent, or Gun-bridge Fire Rate evidence; also exclude heroes with Script131 special EFireRate scaling from strict baseline alignment.",
+    "activeFireModeControl": "Use each hero weapon's dominant active-fire-mode among clean baseline discharges; alternate modes are diagnostic exclusions rather than silently mixed.",
+    "nonBurstExpectation": "readyDelayCandidateSeconds compared to m_flCycleTime.",
+    "burstExpectation": "If m_nBurstShotsRemaining > 0 compare to m_flIntraBurstCycleTime; if zero compare to m_flCycleTime - (burstCount-1)*m_flIntraBurstCycleTime. This follows the resource definition that m_flCycleTime is burst-start to next-burst-start.",
+    "spinUpExpectation": "No fixed-cycle semantic test. Static spin-up weapons are retained descriptively for a later dynamic spin-state model.",
+    "tolerance": {
+      "absoluteSeconds": 0.015625,
+      "relativeOfStaticInterval": 0.05,
+      "rationale": "Frozen before viewing Script166 output; one replay tick plus 5% of the static interval."
+    },
+    "authorityPromotion": "NONE"
+  },
+  "counts": {
+    "runtimeDischargesWithReadyDelay": 37654,
+    "cleanExplicitFireRateBaselineRows": 6601,
+    "cleanRowsAfterSpecialScalingExclusion": 6289,
+    "strictDominantModeRows": 6289,
+    "exactComparableRows": 6289,
+    "nonBurstRows": 3674,
+    "burstRows": 2615,
+    "spinUpRows": 0,
+    "heroesInStrictBaseline": 8
+  },
+  "exclusions": {
+    "allDischargeRowsWithReadyDelay": 37654,
+    "staticWeaponUnresolved": 11891,
+    "explicitOrUnresolvedFireRateContextPresent": 19162,
+    "specialHeroFireRateScalingExcluded": 312,
+    "nonDominantFireModeExcluded": 0,
+    "spinUpRowsDescriptiveOnly": 0
+  },
+  "alignment": {
+    "overall": {
+      "comparable": 6289,
+      "aligned": 5079,
+      "alignmentRate": 0.807600572428049,
+      "absoluteErrorSeconds": {
+        "n": 6289,
+        "min": 0.000004882812499995559,
+        "median": 0.012441406250000009,
+        "max": 2.255506103515625,
+        "mean": 0.04771093917412364
+      },
+      "ratioToStatic": {
+        "n": 6289,
+        "min": 0.5840100740131579,
+        "median": 0.9588944284539473,
+        "max": 24.867789455191797,
+        "mean": 1.304186603043894
+      }
+    },
+    "nonBurst": {
+      "comparable": 3674,
+      "aligned": 3308,
+      "alignmentRate": 0.9003810560696788,
+      "absoluteErrorSeconds": {
+        "n": 3674,
+        "min": 0.000004882812499995559,
+        "median": 0.012138671875000007,
+        "max": 0.18201171875,
+        "mean": 0.019094421685748018
+      },
+      "ratioToStatic": {
+        "n": 3674,
+        "min": 0.5840100740131579,
+        "median": 0.9645734514508929,
+        "max": 1.4977088341346154,
+        "mean": 0.9561089791301909
+      }
+    },
+    "burst": {
+      "comparable": 2615,
+      "aligned": 1771,
+      "alignmentRate": 0.6772466539196941,
+      "absoluteErrorSeconds": {
+        "n": 2615,
+        "min": 0.0005039062500000052,
+        "median": 0.012924560546875005,
+        "max": 2.255506103515625,
+        "mean": 0.08791632550387148
+      },
+      "ratioToStatic": {
+        "n": 2615,
+        "min": 0.8138020833333333,
+        "median": 0.9493146623883928,
+        "max": 24.867789455191797,
+        "mean": 1.7932256815368448
+      }
+    },
+    "burstByExpectedKind": [
+      {
+        "key": "INTRA_BURST",
+        "comparable": 1771,
+        "aligned": 1771,
+        "alignmentRate": 1,
+        "absoluteErrorSeconds": {
+          "n": 1771,
+          "min": 0.0005039062500000052,
+          "median": 0.009750732421875005,
+          "max": 0.015640625000000005,
+          "mean": 0.00900288805538873
+        },
+        "ratioToStatic": {
+          "n": 1771,
+          "min": 0.8138020833333333,
+          "median": 0.8839198521205357,
+          "max": 0.9940011160714285,
+          "mean": 0.8928227612453644
+        }
+      },
+      {
+        "key": "POST_BURST_REMAINDER",
+        "comparable": 844,
+        "aligned": 0,
+        "alignmentRate": 0,
+        "absoluteErrorSeconds": {
+          "n": 844,
+          "min": 0.23637158203125,
+          "median": 0.24699169921875,
+          "max": 2.255506103515625,
+          "mean": 0.2535036450788284
+        },
+        "ratioToStatic": {
+          "n": 844,
+          "min": 3.5012865823412698,
+          "median": 3.6136687748015874,
+          "max": 24.867789455191797,
+          "mean": 3.6825782548025066
+        }
+      }
+    ]
+  },
+  "dominantFireModeByHero": [
+    {
+      "heroId": 1,
+      "activeFireMode": 1,
+      "samples": 123,
+      "total": 123,
+      "rate": 1
+    },
+    {
+      "heroId": 2,
+      "activeFireMode": 1,
+      "samples": 1769,
+      "total": 1769,
+      "rate": 1
+    },
+    {
+      "heroId": 79,
+      "activeFireMode": 1,
+      "samples": 1406,
+      "total": 1406,
+      "rate": 1
+    },
+    {
+      "heroId": 77,
+      "activeFireMode": 1,
+      "samples": 1257,
+      "total": 1257,
+      "rate": 1
+    },
+    {
+      "heroId": 31,
+      "activeFireMode": 1,
+      "samples": 846,
+      "total": 846,
+      "rate": 1
+    },
+    {
+      "heroId": 69,
+      "activeFireMode": 1,
+      "samples": 283,
+      "total": 283,
+      "rate": 1
+    },
+    {
+      "heroId": 4,
+      "activeFireMode": 1,
+      "samples": 280,
+      "total": 280,
+      "rate": 1
+    },
+    {
+      "heroId": 18,
+      "activeFireMode": 1,
+      "samples": 325,
+      "total": 325,
+      "rate": 1
+    }
+  ],
+  "byHero": [
+    {
+      "heroId": 2,
+      "displayName": "Seven",
+      "primaryWeaponRecordKey": "citadel_weapon_gigawatt_set",
+      "staticCadenceRegime": {
+        "regime": "BURST",
+        "cycleTimeSeconds": 0.2625,
+        "intraBurstCycleTimeSeconds": 0.084,
+        "burstShotCount": 3,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 1769,
+        "total": 1769,
+        "rate": 1
+      },
+      "rows": 1769,
+      "comparable": 1769,
+      "aligned": 1205,
+      "alignmentRate": 0.681175805539853,
+      "absoluteErrorSeconds": {
+        "n": 1769,
+        "min": 0.0005039062500000052,
+        "median": 0.012924560546875005,
+        "max": 0.32572705078124997,
+        "mean": 0.08674959873438842
+      },
+      "ratioToStatic": {
+        "n": 1769,
+        "min": 0.8138020833333333,
+        "median": 0.9496779668898809,
+        "max": 4.446847098214286,
+        "mean": 1.7836276477590234
+      }
+    },
+    {
+      "heroId": 79,
+      "displayName": "Rem",
+      "primaryWeaponRecordKey": "ability_familiar_primary_weapon_bubblegun",
+      "staticCadenceRegime": {
+        "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+        "cycleTimeSeconds": 0.26,
+        "intraBurstCycleTimeSeconds": 0,
+        "burstShotCount": 1,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 1406,
+        "total": 1406,
+        "rate": 1
+      },
+      "rows": 1406,
+      "comparable": 1406,
+      "aligned": 1384,
+      "alignmentRate": 0.984352773826458,
+      "absoluteErrorSeconds": {
+        "n": 1406,
+        "min": 0.0006005859375000089,
+        "median": 0.010488281250000009,
+        "max": 0.129404296875,
+        "mean": 0.010475563711326335
+      },
+      "ratioToStatic": {
+        "n": 1406,
+        "min": 0.9398827185997596,
+        "median": 0.9685809795673077,
+        "max": 1.4977088341346154,
+        "mean": 0.9708430002940754
+      }
+    },
+    {
+      "heroId": 77,
+      "displayName": "Apollo",
+      "primaryWeaponRecordKey": "citadel_weapon_fencer_set",
+      "staticCadenceRegime": {
+        "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+        "cycleTimeSeconds": 0.38,
+        "intraBurstCycleTimeSeconds": 0,
+        "burstShotCount": 1,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 1257,
+        "total": 1257,
+        "rate": 1
+      },
+      "rows": 1257,
+      "comparable": 1257,
+      "aligned": 927,
+      "alignmentRate": 0.7374701670644391,
+      "absoluteErrorSeconds": {
+        "n": 1257,
+        "min": 0.000004882812499995559,
+        "median": 0.015620117187500004,
+        "max": 0.18201171875,
+        "mean": 0.03312964512985106
+      },
+      "ratioToStatic": {
+        "n": 1257,
+        "min": 0.5840100740131579,
+        "median": 0.9588944284539473,
+        "max": 1.478978207236842,
+        "mean": 0.9343788291683064
+      }
+    },
+    {
+      "heroId": 31,
+      "displayName": "Lash",
+      "primaryWeaponRecordKey": "citadel_weapon_lash_set",
+      "staticCadenceRegime": {
+        "regime": "BURST",
+        "cycleTimeSeconds": 0.2625,
+        "intraBurstCycleTimeSeconds": 0.084,
+        "burstShotCount": 3,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 846,
+        "total": 846,
+        "rate": 1
+      },
+      "rows": 846,
+      "comparable": 846,
+      "aligned": 566,
+      "alignmentRate": 0.6690307328605201,
+      "absoluteErrorSeconds": {
+        "n": 846,
+        "min": 0.0005039062500000052,
+        "median": 0.013992675781250005,
+        "max": 2.255506103515625,
+        "mean": 0.09035597048640039
+      },
+      "ratioToStatic": {
+        "n": 846,
+        "min": 0.8138020833333333,
+        "median": 0.9477706182570684,
+        "max": 24.867789455191797,
+        "mean": 1.8132953289989642
+      }
+    },
+    {
+      "heroId": 18,
+      "displayName": "Mo & Krill",
+      "primaryWeaponRecordKey": "citadel_weapon_digger_set",
+      "staticCadenceRegime": {
+        "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+        "cycleTimeSeconds": 0.189,
+        "intraBurstCycleTimeSeconds": 0,
+        "burstShotCount": 1,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 325,
+        "total": 325,
+        "rate": 1
+      },
+      "rows": 325,
+      "comparable": 325,
+      "aligned": 325,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 325,
+        "min": 0.0006760253906250013,
+        "median": 0.012616027832031251,
+        "max": 0.015629638671875,
+        "mean": 0.010986623910757252
+      },
+      "ratioToStatic": {
+        "n": 325,
+        "min": 0.9173034990906085,
+        "median": 0.9332485299892527,
+        "max": 0.9964231460813492,
+        "mean": 0.941869714757895
+      }
+    },
+    {
+      "heroId": 69,
+      "displayName": "The Doorman",
+      "primaryWeaponRecordKey": "citadel_weapon_doorman_set",
+      "staticCadenceRegime": {
+        "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+        "cycleTimeSeconds": 0.63,
+        "intraBurstCycleTimeSeconds": 0.05,
+        "burstShotCount": 1,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 283,
+        "total": 283,
+        "rate": 1
+      },
+      "rows": 283,
+      "comparable": 283,
+      "aligned": 277,
+      "alignmentRate": 0.9787985865724381,
+      "absoluteErrorSeconds": {
+        "n": 283,
+        "min": 0.0006054687500000044,
+        "median": 0.015620117187500004,
+        "max": 0.179814453125,
+        "mean": 0.01611858030932525
+      },
+      "ratioToStatic": {
+        "n": 283,
+        "min": 0.9751940530443949,
+        "median": 0.9752061631944444,
+        "max": 1.2854197668650793,
+        "mean": 0.9862275979169735
+      }
+    },
+    {
+      "heroId": 4,
+      "displayName": "Lady Geist",
+      "primaryWeaponRecordKey": "citadel_weapon_ghost_set",
+      "staticCadenceRegime": {
+        "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+        "cycleTimeSeconds": 0.4725,
+        "intraBurstCycleTimeSeconds": 0,
+        "burstShotCount": 1,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 280,
+        "total": 280,
+        "rate": 1
+      },
+      "rows": 280,
+      "comparable": 280,
+      "aligned": 272,
+      "alignmentRate": 0.9714285714285714,
+      "absoluteErrorSeconds": {
+        "n": 280,
+        "min": 0.0006066894531249756,
+        "median": 0.012203369140624976,
+        "max": 0.16351684570312502,
+        "mean": 0.01622176252092634
+      },
+      "ratioToStatic": {
+        "n": 280,
+        "min": 0.9668743799603176,
+        "median": 0.9748832258597884,
+        "max": 1.346067398313492,
+        "mean": 0.9841005493994497
+      }
+    },
+    {
+      "heroId": 1,
+      "displayName": "Infernus",
+      "primaryWeaponRecordKey": "citadel_weapon_inferno_set",
+      "staticCadenceRegime": {
+        "regime": "SINGLE_OR_AUTOMATIC_NON_BURST",
+        "cycleTimeSeconds": 0.105,
+        "intraBurstCycleTimeSeconds": 0,
+        "burstShotCount": 1,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 123,
+        "total": 123,
+        "rate": 1
+      },
+      "rows": 123,
+      "comparable": 123,
+      "aligned": 123,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 123,
+        "min": 0.0005612182617187461,
+        "median": 0.008739929199218746,
+        "max": 0.015629272460937496,
+        "mean": 0.008991823273945617
+      },
+      "ratioToStatic": {
+        "n": 123,
+        "min": 0.8511497860863095,
+        "median": 0.9167625790550595,
+        "max": 0.9946550641741072,
+        "mean": 0.9143635878671843
+      }
+    }
+  ],
+  "diagnosticClassification": "STATIC_CADENCE_REGIMES_PARTIALLY_ALIGN_RUNTIME_READY_DELAY",
+  "interpretation": {
+    "staticResourceSemantics": "CCitadelWeaponInfo m_flCycleTime is a static build resource. It is not itself claimed to be runtime effective cadence.",
+    "readyDelaySemantics": "Script162 established nextPrimaryAttack-lastAttackTime as an extremely strong lower-bound candidate on the next observed discharge. Script166 tests its static-regime organization, not final Fire Rate stacking semantics.",
+    "fireRateGuardrail": "A strong result here would justify a regime-specific return to Fire Rate interventions. It would not validate a universal Fire Rate formula."
+  },
+  "nextStage": "DIAGNOSE_BY_HERO_AND_REGIME_OUTLIERS_BEFORE_ANY_FIRE_RATE_RETEST"
+}

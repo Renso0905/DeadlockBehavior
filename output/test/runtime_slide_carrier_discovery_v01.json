@@ -1,0 +1,133 @@
+{
+  "version": "RUNTIME_SLIDE_CARRIER_DISCOVERY_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T22:51:45.737Z",
+  "status": "RUNTIME_SLIDE_CARRIER_DISCOVERY_V01_INTEGRITY_FAILURE",
+  "replay": "test",
+  "scientificBoundary": {
+    "consequenceProxy": "zero ZigZag-transformed whole-clip decrement on a real attack transition",
+    "controls": "positive transformed whole-clip decrement attack transitions",
+    "specialHero": {
+      "heroId": 58,
+      "role": "positive-control exposure only; cannot define universal candidate"
+    },
+    "discovery": [
+      "exact low-cardinality CCitadelPlayerPawn scalar states",
+      "set bits of non-negative integer pawn fields",
+      "descriptive numeric movement-field differences"
+    ],
+    "semanticRequirement": "serious candidate must retain strong zero-consumption association outside hero58 and within multiple non-Vyper heroes",
+    "authorityPromotion": false,
+    "replicationStatus": "single_replay_discovery_only"
+  },
+  "thresholds": {
+    "minFieldCoverageRate": 0.9,
+    "minPooledPresent": 100,
+    "minNonVyperPresent": 25,
+    "minNonVyperPresentZeroRate": 0.7,
+    "maxNonVyperAbsentZeroRate": 0.08,
+    "minNonVyperRiskDifference": 0.6,
+    "minSupportingNonVyperHeroes": 2,
+    "minPerHeroPresent": 8,
+    "minPerHeroPresentZeroRate": 0.7,
+    "maxExactDistinctValuesPerField": 64
+  },
+  "attackEvidence": {
+    "eventRows": 61099,
+    "attackSamples": 37571,
+    "partition": {
+      "POSITIVE": 30337,
+      "ZERO": 7221,
+      "NEGATIVE": 13,
+      "total": 37571
+    },
+    "hero58": {
+      "POSITIVE": 3248,
+      "ZERO": 6535,
+      "NEGATIVE": 3,
+      "total": 9786
+    },
+    "excludingHero58": {
+      "POSITIVE": 27089,
+      "ZERO": 686,
+      "NEGATIVE": 10,
+      "total": 27785
+    }
+  },
+  "replayJoin": {
+    "pawnEntityMutations": 2455392,
+    "attackSamplesJoined": 0,
+    "attackSamplesWithoutPawn": 37581,
+    "attackSamplesWithAmbiguousPawn": 0,
+    "joinRate": 0,
+    "heroJoinCounts": []
+  },
+  "candidateDiscovery": {
+    "classification": "UNIVERSAL_SLIDE_RUNTIME_CARRIER_REQUIRES_DIAGNOSIS",
+    "seriousCandidates": [],
+    "topRanked": [],
+    "topMovementNamed": [],
+    "numericMovement": []
+  },
+  "integrityValidation": {
+    "pass": false,
+    "checks": {
+      "script181StatusExpected": {
+        "actual": "HERO58_CLIP_BATCHING_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "expected": "HERO58_CLIP_BATCHING_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script181ClassificationExpected": {
+        "actual": "GENERIC_ZIGZAG_CLIP_COUNTER_STRONG_OUTSIDE_HERO58_HERO58_BATCH_MECHANISM_REQUIRES_DIAGNOSIS",
+        "expected": "GENERIC_ZIGZAG_CLIP_COUNTER_STRONG_OUTSIDE_HERO58_HERO58_BATCH_MECHANISM_REQUIRES_DIAGNOSIS",
+        "pass": true
+      },
+      "weaponEventParseClean": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "attackPartitionFrozen": {
+        "actual": {
+          "POSITIVE": 30337,
+          "ZERO": 7221,
+          "NEGATIVE": 13,
+          "total": 37571
+        },
+        "expected": {
+          "POSITIVE": 30337,
+          "ZERO": 7221,
+          "NEGATIVE": 13,
+          "total": 37571
+        },
+        "pass": true
+      },
+      "attackPawnJoinStrong": {
+        "actual": 0,
+        "expected": ">=0.95",
+        "pass": false
+      },
+      "pawnMutationCoverageSubstantial": {
+        "actual": 2455392,
+        "expected": ">10000",
+        "pass": true
+      },
+      "nonVyperZeroControlsPresent": {
+        "actual": 686,
+        "expected": ">500",
+        "pass": true
+      },
+      "replicationCohortStillUnused": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "NOT_ESTABLISHED",
+    "authorityPromotion": false,
+    "replicationStatus": "single_replay_only"
+  },
+  "nextStep": "INSPECT_TOP_MOVEMENT_NAMED_AND_NUMERIC_CANDIDATES_AND_IF_NEEDED_DISCOVER_INPUT_OR_MOVEMENT_SUBCLASS_FIELDS_ON_TEST"
+}

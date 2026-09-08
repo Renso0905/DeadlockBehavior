@@ -1,0 +1,559 @@
+{
+  "version": "BRIDGE_SURVIVAL_OVERLAP_OUTLIER_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T16:14:10.811Z",
+  "status": "BRIDGE_SURVIVAL_OVERLAP_OUTLIER_V01_DIAGNOSED",
+  "foundations": {
+    "script152": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_runtime_duration_validation_v01.json",
+    "script153": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_expiration_outlier_diagnostic_v01.json"
+  },
+  "methodologicalBoundary": {
+    "script152ThresholdsUnchanged": true,
+    "thisScriptRetunesNothing": true,
+    "purpose": "Diagnose only pre-existing natural-expiration misses by testing later bridge collections and long-horizon HP/Regen reversal timing."
+  },
+  "counts": {
+    "failedNaturalAnchors": 1,
+    "classifications": {
+      "NO_MATCHING_HP_REMOVAL_WITHIN_FOLLOWUP": 1
+    }
+  },
+  "diagnostics": [
+    {
+      "replayName": "rep01",
+      "playerName": "Kabuto",
+      "controllerIndex": 6,
+      "pickupTick": 141428,
+      "expectedExpirationTick": 151668,
+      "matchClock": "36:19.813",
+      "survivalHealthMaxAcquisition": {
+        "controllerIndex": 6,
+        "field": "m_iHealthMax",
+        "tick": 141430,
+        "before": 4538,
+        "after": 5225,
+        "delta": 687,
+        "dtTicks": 2,
+        "dtSeconds": 0.03125
+      },
+      "survivalHealthRegenAcquisition": {
+        "controllerIndex": 6,
+        "field": "m_flHealthRegen",
+        "tick": 141430,
+        "before": 11,
+        "after": 46.880001068115234,
+        "delta": 35.880001068115234,
+        "dtTicks": 2,
+        "dtSeconds": 0.03125
+      },
+      "samePlayerBridgeCollectionsWithinFollowup": [],
+      "bridgeCollectionsBeforeExpectedExpiry": [],
+      "hpNegativeNearPreExpiryBridgeCollections": [],
+      "firstAnyHealthMaxNegative": null,
+      "firstMatchingHealthMaxNegative": null,
+      "firstMatchingHealthRegenNegative": null,
+      "nextDeath": null,
+      "classification": "NO_MATCHING_HP_REMOVAL_WITHIN_FOLLOWUP",
+      "healthMaxTransitionsWithinFollowup": [
+        {
+          "tick": 141430,
+          "before": 4538,
+          "after": 5225,
+          "delta": 687,
+          "dtFromSurvivalTicks": 2,
+          "dtFromSurvivalSeconds": 0.03125
+        },
+        {
+          "tick": 142537,
+          "before": 5225,
+          "after": 5315,
+          "delta": 90,
+          "dtFromSurvivalTicks": 1109,
+          "dtFromSurvivalSeconds": 17.328125
+        },
+        {
+          "tick": 147192,
+          "before": 5315,
+          "after": 5405,
+          "delta": 90,
+          "dtFromSurvivalTicks": 5764,
+          "dtFromSurvivalSeconds": 90.0625
+        }
+      ],
+      "healthRegenTransitionsWithinFollowup": [
+        {
+          "tick": 141430,
+          "before": 11,
+          "after": 46.880001068115234,
+          "delta": 35.880001068115234,
+          "dtFromSurvivalTicks": 2,
+          "dtFromSurvivalSeconds": 0.03125
+        },
+        {
+          "tick": 142246,
+          "before": 46.880001068115234,
+          "after": 119.97805786132812,
+          "delta": 73.09805679321289,
+          "dtFromSurvivalTicks": 818,
+          "dtFromSurvivalSeconds": 12.78125
+        },
+        {
+          "tick": 142378,
+          "before": 119.97805786132812,
+          "after": 113.47805786132812,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 950,
+          "dtFromSurvivalSeconds": 14.84375
+        },
+        {
+          "tick": 142426,
+          "before": 113.47805786132812,
+          "after": 73.76073455810547,
+          "delta": -39.717323303222656,
+          "dtFromSurvivalTicks": 998,
+          "dtFromSurvivalSeconds": 15.59375
+        },
+        {
+          "tick": 142504,
+          "before": 73.76073455810547,
+          "after": 26.246999740600586,
+          "delta": -47.51373481750488,
+          "dtFromSurvivalTicks": 1076,
+          "dtFromSurvivalSeconds": 16.8125
+        },
+        {
+          "tick": 142654,
+          "before": 26.246999740600586,
+          "after": 40.380001068115234,
+          "delta": 14.133001327514648,
+          "dtFromSurvivalTicks": 1226,
+          "dtFromSurvivalSeconds": 19.15625
+        },
+        {
+          "tick": 142732,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 1304,
+          "dtFromSurvivalSeconds": 20.375
+        },
+        {
+          "tick": 143014,
+          "before": 46.880001068115234,
+          "after": 100.02191162109375,
+          "delta": 53.141910552978516,
+          "dtFromSurvivalTicks": 1586,
+          "dtFromSurvivalSeconds": 24.78125
+        },
+        {
+          "tick": 143266,
+          "before": 100.02191162109375,
+          "after": 46.880001068115234,
+          "delta": -53.141910552978516,
+          "dtFromSurvivalTicks": 1838,
+          "dtFromSurvivalSeconds": 28.71875
+        },
+        {
+          "tick": 144016,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 2588,
+          "dtFromSurvivalSeconds": 40.4375
+        },
+        {
+          "tick": 144040,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 2612,
+          "dtFromSurvivalSeconds": 40.8125
+        },
+        {
+          "tick": 144124,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 2696,
+          "dtFromSurvivalSeconds": 42.125
+        },
+        {
+          "tick": 144214,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 2786,
+          "dtFromSurvivalSeconds": 43.53125
+        },
+        {
+          "tick": 144286,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 2858,
+          "dtFromSurvivalSeconds": 44.65625
+        },
+        {
+          "tick": 144310,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 2882,
+          "dtFromSurvivalSeconds": 45.03125
+        },
+        {
+          "tick": 144352,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 2924,
+          "dtFromSurvivalSeconds": 45.6875
+        },
+        {
+          "tick": 144376,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 2948,
+          "dtFromSurvivalSeconds": 46.0625
+        },
+        {
+          "tick": 144418,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 2990,
+          "dtFromSurvivalSeconds": 46.71875
+        },
+        {
+          "tick": 144442,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 3014,
+          "dtFromSurvivalSeconds": 47.09375
+        },
+        {
+          "tick": 144634,
+          "before": 46.880001068115234,
+          "after": 165.04653930664062,
+          "delta": 118.16653823852539,
+          "dtFromSurvivalTicks": 3206,
+          "dtFromSurvivalSeconds": 50.09375
+        },
+        {
+          "tick": 144886,
+          "before": 165.04653930664062,
+          "after": 46.880001068115234,
+          "delta": -118.16653823852539,
+          "dtFromSurvivalTicks": 3458,
+          "dtFromSurvivalSeconds": 54.03125
+        },
+        {
+          "tick": 144898,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 3470,
+          "dtFromSurvivalSeconds": 54.21875
+        },
+        {
+          "tick": 144928,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 3500,
+          "dtFromSurvivalSeconds": 54.6875
+        },
+        {
+          "tick": 144934,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 3506,
+          "dtFromSurvivalSeconds": 54.78125
+        },
+        {
+          "tick": 145030,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 3602,
+          "dtFromSurvivalSeconds": 56.28125
+        },
+        {
+          "tick": 145054,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 3626,
+          "dtFromSurvivalSeconds": 56.65625
+        },
+        {
+          "tick": 145162,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 3734,
+          "dtFromSurvivalSeconds": 58.34375
+        },
+        {
+          "tick": 145192,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 3764,
+          "dtFromSurvivalSeconds": 58.8125
+        },
+        {
+          "tick": 145270,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 3842,
+          "dtFromSurvivalSeconds": 60.03125
+        },
+        {
+          "tick": 146104,
+          "before": 46.880001068115234,
+          "after": 40.380001068115234,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 4676,
+          "dtFromSurvivalSeconds": 73.0625
+        },
+        {
+          "tick": 146140,
+          "before": 40.380001068115234,
+          "after": 55.823631286621094,
+          "delta": 15.44363021850586,
+          "dtFromSurvivalTicks": 4712,
+          "dtFromSurvivalSeconds": 73.625
+        },
+        {
+          "tick": 146236,
+          "before": 55.823631286621094,
+          "after": 37.40182876586914,
+          "delta": -18.421802520751953,
+          "dtFromSurvivalTicks": 4808,
+          "dtFromSurvivalSeconds": 75.125
+        },
+        {
+          "tick": 146362,
+          "before": 37.40182876586914,
+          "after": 41.756832122802734,
+          "delta": 4.355003356933594,
+          "dtFromSurvivalTicks": 4934,
+          "dtFromSurvivalSeconds": 77.09375
+        },
+        {
+          "tick": 146398,
+          "before": 41.756832122802734,
+          "after": 31.40959930419922,
+          "delta": -10.347232818603516,
+          "dtFromSurvivalTicks": 4970,
+          "dtFromSurvivalSeconds": 77.65625
+        },
+        {
+          "tick": 146494,
+          "before": 31.40959930419922,
+          "after": 27.05459976196289,
+          "delta": -4.354999542236328,
+          "dtFromSurvivalTicks": 5066,
+          "dtFromSurvivalSeconds": 79.15625
+        },
+        {
+          "tick": 146650,
+          "before": 27.05459976196289,
+          "after": 40.380001068115234,
+          "delta": 13.325401306152344,
+          "dtFromSurvivalTicks": 5222,
+          "dtFromSurvivalSeconds": 81.59375
+        },
+        {
+          "tick": 146860,
+          "before": 40.380001068115234,
+          "after": 66.58981323242188,
+          "delta": 26.20981216430664,
+          "dtFromSurvivalTicks": 5432,
+          "dtFromSurvivalSeconds": 84.875
+        },
+        {
+          "tick": 146950,
+          "before": 66.58981323242188,
+          "after": 73.08981323242188,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 5522,
+          "dtFromSurvivalSeconds": 86.28125
+        },
+        {
+          "tick": 147214,
+          "before": 73.08981323242188,
+          "after": 66.58981323242188,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 5786,
+          "dtFromSurvivalSeconds": 90.40625
+        },
+        {
+          "tick": 147238,
+          "before": 66.58981323242188,
+          "after": 73.08981323242188,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 5810,
+          "dtFromSurvivalSeconds": 90.78125
+        },
+        {
+          "tick": 147322,
+          "before": 73.08981323242188,
+          "after": 21.92694091796875,
+          "delta": -51.162872314453125,
+          "dtFromSurvivalTicks": 5894,
+          "dtFromSurvivalSeconds": 92.09375
+        },
+        {
+          "tick": 147328,
+          "before": 21.92694091796875,
+          "after": 19.976940155029297,
+          "delta": -1.9500007629394531,
+          "dtFromSurvivalTicks": 5900,
+          "dtFromSurvivalSeconds": 92.1875
+        },
+        {
+          "tick": 147352,
+          "before": 19.976940155029297,
+          "after": 19.860931396484375,
+          "delta": -0.11600875854492188,
+          "dtFromSurvivalTicks": 5924,
+          "dtFromSurvivalSeconds": 92.5625
+        },
+        {
+          "tick": 147514,
+          "before": 19.860931396484375,
+          "after": 21.810932159423828,
+          "delta": 1.9500007629394531,
+          "dtFromSurvivalTicks": 6086,
+          "dtFromSurvivalSeconds": 95.09375
+        },
+        {
+          "tick": 147622,
+          "before": 21.810932159423828,
+          "after": 14.063998222351074,
+          "delta": -7.746933937072754,
+          "dtFromSurvivalTicks": 6194,
+          "dtFromSurvivalSeconds": 96.78125
+        },
+        {
+          "tick": 147634,
+          "before": 14.063998222351074,
+          "after": 12.113998413085938,
+          "delta": -1.9499998092651367,
+          "dtFromSurvivalTicks": 6206,
+          "dtFromSurvivalSeconds": 96.96875
+        },
+        {
+          "tick": 147658,
+          "before": 12.113998413085938,
+          "after": 14.063998222351074,
+          "delta": 1.9499998092651367,
+          "dtFromSurvivalTicks": 6230,
+          "dtFromSurvivalSeconds": 97.34375
+        },
+        {
+          "tick": 147706,
+          "before": 14.063998222351074,
+          "after": 46.880001068115234,
+          "delta": 32.81600284576416,
+          "dtFromSurvivalTicks": 6278,
+          "dtFromSurvivalSeconds": 98.09375
+        },
+        {
+          "tick": 147712,
+          "before": 46.880001068115234,
+          "after": 80.24314880371094,
+          "delta": 33.3631477355957,
+          "dtFromSurvivalTicks": 6284,
+          "dtFromSurvivalSeconds": 98.1875
+        },
+        {
+          "tick": 147970,
+          "before": 80.24314880371094,
+          "after": 46.880001068115234,
+          "delta": -33.3631477355957,
+          "dtFromSurvivalTicks": 6542,
+          "dtFromSurvivalSeconds": 102.21875
+        },
+        {
+          "tick": 148360,
+          "before": 46.880001068115234,
+          "after": 75.32427215576172,
+          "delta": 28.444271087646484,
+          "dtFromSurvivalTicks": 6932,
+          "dtFromSurvivalSeconds": 108.3125
+        },
+        {
+          "tick": 148468,
+          "before": 75.32427215576172,
+          "after": 68.82427215576172,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 7040,
+          "dtFromSurvivalSeconds": 110
+        },
+        {
+          "tick": 148618,
+          "before": 68.82427215576172,
+          "after": 40.380001068115234,
+          "delta": -28.444271087646484,
+          "dtFromSurvivalTicks": 7190,
+          "dtFromSurvivalSeconds": 112.34375
+        },
+        {
+          "tick": 148822,
+          "before": 40.380001068115234,
+          "after": 46.880001068115234,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 7394,
+          "dtFromSurvivalSeconds": 115.53125
+        },
+        {
+          "tick": 149182,
+          "before": 46.880001068115234,
+          "after": 75.55707550048828,
+          "delta": 28.677074432373047,
+          "dtFromSurvivalTicks": 7754,
+          "dtFromSurvivalSeconds": 121.15625
+        },
+        {
+          "tick": 149188,
+          "before": 75.55707550048828,
+          "after": 75.47075653076172,
+          "delta": -0.0863189697265625,
+          "dtFromSurvivalTicks": 7760,
+          "dtFromSurvivalSeconds": 121.25
+        },
+        {
+          "tick": 149224,
+          "before": 75.47075653076172,
+          "after": 68.97075653076172,
+          "delta": -6.5,
+          "dtFromSurvivalTicks": 7796,
+          "dtFromSurvivalSeconds": 121.8125
+        },
+        {
+          "tick": 149404,
+          "before": 68.97075653076172,
+          "after": 75.47075653076172,
+          "delta": 6.5,
+          "dtFromSurvivalTicks": 7976,
+          "dtFromSurvivalSeconds": 124.625
+        },
+        {
+          "tick": 149692,
+          "before": 75.47075653076172,
+          "after": 46.880001068115234,
+          "delta": -28.590755462646484,
+          "dtFromSurvivalTicks": 8264,
+          "dtFromSurvivalSeconds": 129.125
+        }
+      ]
+    }
+  ]
+}

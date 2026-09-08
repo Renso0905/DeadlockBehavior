@@ -1,0 +1,1298 @@
+diff --git a/src/player-state/dual-item-ammo-restoration-hypothesis.mjs b/src/player-state/dual-item-ammo-restoration-hypothesis.mjs
+new file mode 100644
+index 0000000..9ce3e34
+--- /dev/null
++++ b/src/player-state/dual-item-ammo-restoration-hypothesis.mjs
+@@ -0,0 +1,491 @@
++// Script201 helpers.
++//
++// Discovery/calibration only.
++//
++// Freezes the two-item candidate discovered after Script200 V02:
++//
++//   upgrade_quick_silver
++//   upgrade_ethereal_bullets
++//
++// The central question is whether these two item states partition the eight
++// Script198 V03 coherent ammo-restoration events and how restoration frequency
++// compares across same-hero attack exposure states.
++//
++// This does NOT establish causality or validate either item mechanic.
++
++export const QUICK_SILVER_ID = 84321454;
++export const ETHEREAL_BULLETS_ID = 3919289022;
++
++export const QUICK_SILVER_KEY = 'upgrade_quick_silver';
++export const ETHEREAL_BULLETS_KEY = 'upgrade_ethereal_bullets';
++
++const MECHANISM_RE =
++  /(ammo|reload|clip|magazine|cooldown|trigger|proc|watcher|modifier|ability|imbue|duration|frequency)/i;
++
++export function extractItemIds(node) {
++  const ids = new Set();
++  const seen = new WeakSet();
++
++  function visit(value) {
++    if (value === null || typeof value !== 'object') return;
++    if (seen.has(value)) return;
++    seen.add(value);
++
++    if (!Array.isArray(value)) {
++      for (const [key, child] of Object.entries(value)) {
++        if (
++          key === 'itemId'
++          && Number.isFinite(Number(child))
++        ) {
++          ids.add(Number(child));
++        }
++        visit(child);
++      }
++      return;
++    }
++
++    for (const child of value) visit(child);
++  }
++
++  visit(node);
++  return [...ids].sort((a, b) => a - b);
++}
++
++export function buildContextItemIndex(substrate) {
++  const result = new Map();
++  const seen = new WeakSet();
++
++  function visit(value) {
++    if (value === null || typeof value !== 'object') return;
++    if (seen.has(value)) return;
++    seen.add(value);
++
++    if (!Array.isArray(value)) {
++      const effectContextId =
++        typeof value.effectContextId === 'string'
++          ? value.effectContextId
++          : typeof value.id === 'string'
++            && /^weapon-context-\d+$/.test(value.id)
++              ? value.id
++              : null;
++
++      if (effectContextId) {
++        result.set(effectContextId, {
++          effectContextId,
++          heroId:
++            Number.isFinite(Number(value.heroId))
++              ? Number(value.heroId)
++              : null,
++          itemIds: extractItemIds(value),
++        });
++      }
++
++      for (const child of Object.values(value)) visit(child);
++      return;
++    }
++
++    for (const child of value) visit(child);
++  }
++
++  visit(substrate);
++  return result;
++}
++
++export function buildRestorationEventsFromScript199(script199) {
++  const rows = [];
++
++  for (const context of script199?.diagnostic?.contexts ?? []) {
++    const ticks = context?.ticks ?? [];
++    const heroes = context?.heroes ?? [];
++    const net = context?.netGains ?? [];
++    const gross = context?.grossRestorationCandidates ?? [];
++
++    for (let i = 0; i < ticks.length; i++) {
++      rows.push({
++        heroId:
++          heroes.length === 1
++            ? Number(heroes[0])
++            : null,
++        tick: Number(ticks[i]),
++        effectContextId: context.effectContextId,
++        logicalGain: Number(net[i]),
++        grossRestorationIfOneShotConsumed: Number(gross[i]),
++      });
++    }
++  }
++
++  return rows.sort((a, b) => a.tick - b.tick);
++}
++
++export function classifyPairState(itemIds) {
++  const quick =
++    itemIds.includes(QUICK_SILVER_ID);
++
++  const ethereal =
++    itemIds.includes(ETHEREAL_BULLETS_ID);
++
++  if (quick && ethereal) return 'BOTH';
++  if (quick) return 'QUICK_SILVER_ONLY';
++  if (ethereal) return 'ETHEREAL_BULLETS_ONLY';
++  return 'NEITHER';
++}
++
++export function buildRestorationPairMatrix({
++  restorationEvents,
++  contextIndex,
++  residualRows = [],
++}) {
++  const residualByKey =
++    new Map(
++      residualRows.map(
++        row => [
++          `${Number(row.heroId)}|${Number(row.tick)}`,
++          row,
++        ],
++      ),
++    );
++
++  const rows =
++    restorationEvents.map(event => {
++      const context =
++        contextIndex.get(event.effectContextId);
++
++      const pairState =
++        classifyPairState(
++          context?.itemIds ?? [],
++        );
++
++      const residual =
++        residualByKey.get(
++          `${Number(event.heroId)}|${Number(event.tick)}`,
++        ) ?? null;
++
++      return {
++        ...event,
++        pairState,
++        quickSilverPresent:
++          pairState === 'QUICK_SILVER_ONLY'
++          || pairState === 'BOTH',
++        etherealBulletsPresent:
++          pairState === 'ETHEREAL_BULLETS_ONLY'
++          || pairState === 'BOTH',
++        contextResolved:
++          Boolean(context),
++        previousCapacity:
++          residual?.previousCapacity
++          ?? residual?.capacity
++          ?? null,
++        currentCapacity:
++          residual?.currentCapacity
++          ?? residual?.capacity
++          ?? null,
++      };
++    });
++
++  return {
++    rows,
++    quickSilver:
++      rows.filter(row => row.quickSilverPresent).length,
++    etherealBullets:
++      rows.filter(row => row.etherealBulletsPresent).length,
++    both:
++      rows.filter(row => row.pairState === 'BOTH').length,
++    neither:
++      rows.filter(row => row.pairState === 'NEITHER').length,
++    xor:
++      rows.filter(
++        row =>
++          row.pairState === 'QUICK_SILVER_ONLY'
++          || row.pairState === 'ETHEREAL_BULLETS_ONLY',
++      ).length,
++  };
++}
++
++export function summarizePairAttackExposure({
++  runtimeRows,
++  contextIndex,
++  restorationMatrixRows,
++}) {
++  const restorationKeys =
++    new Set(
++      restorationMatrixRows.map(
++        row =>
++          `${Number(row.heroId)}|${Number(row.tick)}`,
++      ),
++    );
++
++  const byHeroState = new Map();
++
++  for (const row of runtimeRows) {
++    const changedFields =
++      Array.isArray(row?.changedFields)
++        ? row.changedFields
++        : [];
++
++    if (!changedFields.includes('m_nShotNumber')) continue;
++
++    const heroId = Number(row?.heroId);
++    const tick =
++      Number(
++        row?.tick
++        ?? row?.demoTick
++        ?? row?.gameTick,
++      );
++
++    const effectContextId =
++      row?.effectContextId;
++
++    if (
++      !Number.isFinite(heroId)
++      || !Number.isFinite(tick)
++      || typeof effectContextId !== 'string'
++    ) {
++      continue;
++    }
++
++    const context =
++      contextIndex.get(effectContextId);
++
++    if (!context) continue;
++
++    const pairState =
++      classifyPairState(context.itemIds);
++
++    const key =
++      `${heroId}|${pairState}`;
++
++    if (!byHeroState.has(key)) {
++      byHeroState.set(key, {
++        heroId,
++        pairState,
++        attacks: 0,
++        restorations: 0,
++      });
++    }
++
++    const summary =
++      byHeroState.get(key);
++
++    summary.attacks++;
++
++    if (
++      restorationKeys.has(
++        `${heroId}|${tick}`,
++      )
++    ) {
++      summary.restorations++;
++    }
++  }
++
++  const rows =
++    [...byHeroState.values()]
++      .map(row => ({
++        ...row,
++        restorationRate:
++          row.attacks > 0
++            ? row.restorations / row.attacks
++            : null,
++      }))
++      .sort(
++        (a, b) =>
++          a.heroId - b.heroId
++          || pairOrder(a.pairState) - pairOrder(b.pairState),
++      );
++
++  return rows;
++}
++
++export function collectMechanismEvidenceForRecordKey(
++  effects,
++  recordKey,
++) {
++  const matches = [];
++  const seen = new WeakSet();
++
++  function visit(value, path = '$') {
++    if (value === null || typeof value !== 'object') return;
++    if (seen.has(value)) return;
++    seen.add(value);
++
++    if (
++      !Array.isArray(value)
++      && value.recordKey === recordKey
++    ) {
++      matches.push({
++        path,
++        object: value,
++      });
++    }
++
++    if (Array.isArray(value)) {
++      value.forEach(
++        (child, i) =>
++          visit(child, `${path}[${i}]`),
++      );
++    } else {
++      for (const [key, child] of Object.entries(value)) {
++        visit(child, `${path}.${key}`);
++      }
++    }
++  }
++
++  visit(effects);
++
++  const evidence = [];
++
++  for (const match of matches) {
++    const scalars = [];
++
++    collectScalars(
++      match.object,
++      match.path,
++      scalars,
++    );
++
++    evidence.push({
++      path: match.path,
++      recordKey,
++      relevantScalars:
++        scalars.filter(
++          row =>
++            MECHANISM_RE.test(row.path)
++            || MECHANISM_RE.test(String(row.value)),
++        ),
++    });
++  }
++
++  return evidence;
++}
++
++export function summarizeDualItemHypothesis({
++  matrix,
++  exposureRows,
++  quickEvidence,
++  etherealEvidence,
++}) {
++  const quickRestorations =
++    matrix.rows.filter(
++      row =>
++        row.pairState === 'QUICK_SILVER_ONLY',
++    );
++
++  const etherealRestorations =
++    matrix.rows.filter(
++      row =>
++        row.pairState === 'ETHEREAL_BULLETS_ONLY',
++    );
++
++  const quickHeroes =
++    [...new Set(
++      quickRestorations.map(row => row.heroId),
++    )];
++
++  const etherealHeroes =
++    [...new Set(
++      etherealRestorations.map(row => row.heroId),
++    )];
++
++  const exactPartition =
++    matrix.rows.length === 8
++    && matrix.xor === 8
++    && matrix.both === 0
++    && matrix.neither === 0;
++
++  return {
++    eventCount:
++      matrix.rows.length,
++
++    pairCoverage: {
++      quickSilverOnly:
++        quickRestorations.length,
++      etherealBulletsOnly:
++        etherealRestorations.length,
++      both:
++        matrix.both,
++      neither:
++        matrix.neither,
++      xor:
++        matrix.xor,
++      exactPartition,
++    },
++
++    heroSupport: {
++      quickSilver:
++        quickHeroes,
++      etherealBullets:
++        etherealHeroes,
++    },
++
++    exposureRows,
++
++    staticMechanismEvidence: {
++      quickSilver:
++        quickEvidence,
++      etherealBullets:
++        etherealEvidence,
++    },
++
++    classification:
++      exactPartition
++      && quickHeroes.length >= 2
++      && etherealHeroes.length >= 2
++        ? 'QUICK_SILVER_AND_ETHEREAL_BULLETS_EXACTLY_PARTITION_ALL_EIGHT_TEST_RESTORATIONS'
++        : 'DUAL_ITEM_RESTORATION_PARTITION_NOT_ESTABLISHED',
++  };
++}
++
++function collectScalars(
++  value,
++  path,
++  rows,
++) {
++  if (
++    value === null
++    || typeof value === 'string'
++    || typeof value === 'number'
++    || typeof value === 'boolean'
++  ) {
++    rows.push({
++      path,
++      value,
++    });
++    return;
++  }
++
++  if (typeof value !== 'object') return;
++
++  if (Array.isArray(value)) {
++    value.forEach(
++      (child, i) =>
++        collectScalars(
++          child,
++          `${path}[${i}]`,
++          rows,
++        ),
++    );
++    return;
++  }
++
++  for (const [key, child] of Object.entries(value)) {
++    collectScalars(
++      child,
++      `${path}.${key}`,
++      rows,
++    );
++  }
++}
++
++function pairOrder(state) {
++  switch (state) {
++    case 'NEITHER':
++      return 0;
++    case 'QUICK_SILVER_ONLY':
++      return 1;
++    case 'ETHEREAL_BULLETS_ONLY':
++      return 2;
++    case 'BOTH':
++      return 3;
++    default:
++      return 4;
++  }
++}
+diff --git a/scripts/201-freeze-dual-item-ammo-restoration-hypothesis-v01.mjs b/scripts/201-freeze-dual-item-ammo-restoration-hypothesis-v01.mjs
+new file mode 100644
+index 0000000..a12935f
+--- /dev/null
++++ b/scripts/201-freeze-dual-item-ammo-restoration-hypothesis-v01.mjs
+@@ -0,0 +1,609 @@
++import {
++  createReadStream,
++  existsSync,
++  mkdirSync,
++  readFileSync,
++  writeFileSync,
++} from 'node:fs';
++
++import {
++  createInterface,
++} from 'node:readline';
++
++import {
++  dirname,
++  resolve,
++} from 'node:path';
++
++import {
++  ETHEREAL_BULLETS_ID,
++  ETHEREAL_BULLETS_KEY,
++  QUICK_SILVER_ID,
++  QUICK_SILVER_KEY,
++  buildContextItemIndex,
++  buildRestorationEventsFromScript199,
++  buildRestorationPairMatrix,
++  collectMechanismEvidenceForRecordKey,
++  summarizeDualItemHypothesis,
++  summarizePairAttackExposure,
++} from '../src/player-state/dual-item-ammo-restoration-hypothesis.mjs';
++
++const VERSION =
++  'DUAL_ITEM_AMMO_RESTORATION_HYPOTHESIS_V01';
++
++const PATHS = {
++  script198v03:
++    resolve(
++      'output',
++      'test',
++      'ammo_fraction_coherence_diagnostic_v03.json',
++    ),
++
++  script199v02:
++    resolve(
++      'output',
++      'test',
++      'ammo_restoration_context_discovery_v02.json',
++    ),
++
++  script200v02:
++    resolve(
++      'output',
++      'test',
++      'ammo_restoration_item_enrichment_diagnostic_v02.json',
++    ),
++
++  substrate:
++    resolve(
++      'output',
++      'test',
++      'effective_weapon_state_substrate_v01.json',
++    ),
++
++  runtimeEvents:
++    resolve(
++      'output',
++      'test',
++      'effective_weapon_runtime_events_v01.jsonl',
++    ),
++
++  effects:
++    resolve(
++      'output',
++      'cross_replay',
++      'standard_shop_item_effect_substrate_v03.json',
++    ),
++
++  output:
++    resolve(
++      'output',
++      'test',
++      'dual_item_ammo_restoration_hypothesis_v01.json',
++    ),
++};
++
++for (const [name, path] of Object.entries(PATHS)) {
++  if (name === 'output') continue;
++
++  if (!existsSync(path)) {
++    throw new Error(
++      `Missing ${name}:\n${path}`,
++    );
++  }
++}
++
++const script198v03 =
++  JSON.parse(
++    readFileSync(
++      PATHS.script198v03,
++      'utf8',
++    ),
++  );
++
++const script199v02 =
++  JSON.parse(
++    readFileSync(
++      PATHS.script199v02,
++      'utf8',
++    ),
++  );
++
++const script200v02 =
++  JSON.parse(
++    readFileSync(
++      PATHS.script200v02,
++      'utf8',
++    ),
++  );
++
++const substrate =
++  JSON.parse(
++    readFileSync(
++      PATHS.substrate,
++      'utf8',
++    ),
++  );
++
++const effects =
++  JSON.parse(
++    readFileSync(
++      PATHS.effects,
++      'utf8',
++    ),
++  );
++
++console.log('');
++console.log(
++  '========================================================',
++);
++console.log(
++  'DUAL-ITEM AMMO RESTORATION HYPOTHESIS V0.1',
++);
++console.log(
++  '========================================================',
++);
++console.log('');
++console.log(
++  `Quick Silver:      ${QUICK_SILVER_KEY} (${QUICK_SILVER_ID})`,
++);
++console.log(
++  `Ethereal Bullets:  ${ETHEREAL_BULLETS_KEY} (${ETHEREAL_BULLETS_ID})`,
++);
++console.log(
++  'Replay: test',
++);
++console.log(
++  'Hypothesis formed after Script200 V02: YES',
++);
++console.log(
++  'Replication status: discovery/calibration only',
++);
++console.log(
++  'Authority promotion: NO',
++);
++console.log('');
++
++const runtimeRows = [];
++let jsonlParseFailures = 0;
++
++const reader =
++  createInterface({
++    input:
++      createReadStream(
++        PATHS.runtimeEvents,
++        { encoding: 'utf8' },
++      ),
++    crlfDelay: Infinity,
++  });
++
++for await (const line of reader) {
++  if (!line.trim()) continue;
++
++  try {
++    runtimeRows.push(
++      JSON.parse(line),
++    );
++  } catch {
++    jsonlParseFailures++;
++  }
++}
++
++const contextIndex =
++  buildContextItemIndex(
++    substrate,
++  );
++
++const restorationEvents =
++  buildRestorationEventsFromScript199(
++    script199v02,
++  );
++
++const matrix =
++  buildRestorationPairMatrix({
++    restorationEvents,
++    contextIndex,
++    residualRows:
++      script198v03
++        ?.diagnostic
++        ?.negative
++        ?.rows
++      ?? [],
++  });
++
++const exposureRows =
++  summarizePairAttackExposure({
++    runtimeRows,
++    contextIndex,
++    restorationMatrixRows:
++      matrix.rows,
++  });
++
++const quickEvidence =
++  collectMechanismEvidenceForRecordKey(
++    effects,
++    QUICK_SILVER_KEY,
++  );
++
++const etherealEvidence =
++  collectMechanismEvidenceForRecordKey(
++    effects,
++    ETHEREAL_BULLETS_KEY,
++  );
++
++const diagnostic =
++  summarizeDualItemHypothesis({
++    matrix,
++    exposureRows,
++    quickEvidence,
++    etherealEvidence,
++  });
++
++const checks = {
++  script198V03Ready:
++    check(
++      script198v03?.status,
++      'AMMO_FRACTION_COHERENCE_DIAGNOSTIC_V03_READY_FOR_INTERPRETATION',
++      script198v03?.status
++        === 'AMMO_FRACTION_COHERENCE_DIAGNOSTIC_V03_READY_FOR_INTERPRETATION',
++    ),
++
++  script199V02Ready:
++    check(
++      script199v02?.status,
++      'AMMO_RESTORATION_CONTEXT_DISCOVERY_V02_READY_FOR_INTERPRETATION',
++      script199v02?.status
++        === 'AMMO_RESTORATION_CONTEXT_DISCOVERY_V02_READY_FOR_INTERPRETATION',
++    ),
++
++  script200V02Ready:
++    check(
++      script200v02?.status,
++      'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V02_READY_FOR_INTERPRETATION',
++      script200v02?.status
++        === 'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V02_READY_FOR_INTERPRETATION',
++    ),
++
++  eightRestorationEventsFrozen:
++    check(
++      matrix.rows.length,
++      8,
++      matrix.rows.length === 8,
++    ),
++
++  allContextsResolved:
++    check(
++      matrix.rows.filter(
++        row => row.contextResolved,
++      ).length,
++      8,
++      matrix.rows.every(
++        row => row.contextResolved,
++      ),
++    ),
++
++  exactXorPartition:
++    check(
++      {
++        xor: matrix.xor,
++        both: matrix.both,
++        neither: matrix.neither,
++      },
++      {
++        xor: 8,
++        both: 0,
++        neither: 0,
++      },
++      matrix.xor === 8
++      && matrix.both === 0
++      && matrix.neither === 0,
++    ),
++
++  quickSilverCount:
++    check(
++      matrix.quickSilver,
++      4,
++      matrix.quickSilver === 4,
++    ),
++
++  etherealBulletsCount:
++    check(
++      matrix.etherealBullets,
++      4,
++      matrix.etherealBullets === 4,
++    ),
++
++  quickSilverStaticEffectResolved:
++    check(
++      quickEvidence.length,
++      '>0',
++      quickEvidence.length > 0,
++    ),
++
++  etherealStaticEffectResolved:
++    check(
++      etherealEvidence.length,
++      '>0',
++      etherealEvidence.length > 0,
++    ),
++
++  runtimeParseClean:
++    check(
++      jsonlParseFailures,
++      0,
++      jsonlParseFailures === 0,
++    ),
++
++  testReplayOnly:
++    check(
++      script198v03?.replay,
++      'test',
++      script198v03?.replay === 'test',
++    ),
++};
++
++const integrityPass =
++  Object.values(checks)
++    .every(row => row.pass);
++
++const result = {
++  version: VERSION,
++  canonical: false,
++  createdAt: new Date().toISOString(),
++  replay: 'test',
++
++  status:
++    integrityPass
++      ? 'DUAL_ITEM_AMMO_RESTORATION_HYPOTHESIS_V01_READY_FOR_INTERPRETATION'
++      : 'DUAL_ITEM_AMMO_RESTORATION_HYPOTHESIS_V01_INTEGRITY_FAILURE',
++
++  scientificBoundary: {
++    hypothesisFormedAfter:
++      'Script200 V02',
++
++    candidateItems: [
++      {
++        itemId:
++          QUICK_SILVER_ID,
++        recordKey:
++          QUICK_SILVER_KEY,
++      },
++      {
++        itemId:
++          ETHEREAL_BULLETS_ID,
++        recordKey:
++          ETHEREAL_BULLETS_KEY,
++      },
++    ],
++
++    purpose:
++      'freeze and characterize exact dual-item partition on test',
++
++    causalAttribution:
++      false,
++
++    authorityPromotion:
++      false,
++
++    replicationStatus:
++      'discovery_calibration_only',
++  },
++
++  telemetry: {
++    runtimeRows:
++      runtimeRows.length,
++    jsonlParseFailures,
++    contextCount:
++      contextIndex.size,
++  },
++
++  restorationMatrix:
++    matrix,
++
++  diagnostic,
++
++  integrityValidation: {
++    pass:
++      integrityPass,
++    checks,
++  },
++
++  semanticValidation: {
++    status:
++      diagnostic.classification
++        === 'QUICK_SILVER_AND_ETHEREAL_BULLETS_EXACTLY_PARTITION_ALL_EIGHT_TEST_RESTORATIONS'
++        ? 'STRONG_TEST_ONLY_HYPOTHESIS_SUPPORT'
++        : 'NOT_ESTABLISHED',
++
++    authorityPromotion:
++      false,
++
++    replicationStatus:
++      'discovery_calibration_only',
++  },
++
++  nextStep:
++    integrityPass
++    && diagnostic.classification
++      === 'QUICK_SILVER_AND_ETHEREAL_BULLETS_EXACTLY_PARTITION_ALL_EIGHT_TEST_RESTORATIONS'
++      ? 'CHARACTERIZE_EACH_ITEM_TRIGGER_AND_AMMO_RELOAD_PERCENT_VALUE_ON_TEST;_THEN_FREEZE_EVENT_LEVEL_MAGNITUDE_PREDICTIONS_BEFORE_NEW_INDEPENDENT_REPLAYS'
++      : 'DIAGNOSE_DUAL_ITEM_PARTITION_FAILURE_ON_TEST',
++};
++
++mkdirSync(
++  dirname(PATHS.output),
++  { recursive: true },
++);
++
++writeFileSync(
++  PATHS.output,
++  `${JSON.stringify(
++    result,
++    null,
++    2,
++  )}\n`,
++  'utf8',
++);
++
++print(result);
++
++function check(
++  actual,
++  expected,
++  pass,
++) {
++  return {
++    actual,
++    expected,
++    pass: Boolean(pass),
++  };
++}
++
++function pct(value) {
++  return Number.isFinite(value)
++    ? `${(value * 100).toFixed(3)}%`
++    : 'n/a';
++}
++
++function print(result) {
++  const d =
++    result.diagnostic;
++
++  console.log(
++    'RESTORATION EVENT MATRIX',
++  );
++  console.log(
++    '------------------------',
++  );
++
++  for (
++    const row
++    of result.restorationMatrix.rows
++  ) {
++    console.log(
++      `hero=${String(row.heroId).padEnd(4)} tick=${String(row.tick).padEnd(7)} context=${String(row.effectContextId).padEnd(20)} pair=${row.pairState.padEnd(22)} net=${String(row.logicalGain).padEnd(4)} grossIfShot=${String(row.grossRestorationIfOneShotConsumed).padEnd(4)} prevCap=${String(row.previousCapacity).padEnd(4)} currCap=${String(row.currentCapacity).padEnd(4)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'PAIR COVERAGE',
++  );
++  console.log(
++    '-------------',
++  );
++  console.log(
++    JSON.stringify(
++      d.pairCoverage,
++    ),
++  );
++
++  console.log('');
++  console.log(
++    'SAME-HERO ATTACK EXPOSURE BY PAIR STATE',
++  );
++  console.log(
++    '---------------------------------------',
++  );
++
++  for (
++    const row
++    of d.exposureRows
++  ) {
++    console.log(
++      `hero=${String(row.heroId).padEnd(4)} state=${row.pairState.padEnd(22)} attacks=${String(row.attacks).padEnd(6)} restorations=${String(row.restorations).padEnd(3)} rate=${pct(row.restorationRate)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'QUICK SILVER STATIC MECHANISM EVIDENCE',
++  );
++  console.log(
++    '--------------------------------------',
++  );
++
++  for (
++    const block
++    of d.staticMechanismEvidence.quickSilver
++  ) {
++    console.log(
++      `record=${block.recordKey} path=${block.path}`,
++    );
++
++    for (
++      const row
++      of block.relevantScalars
++    ) {
++      console.log(
++        `  ${row.path} = ${JSON.stringify(row.value)}`,
++      );
++    }
++  }
++
++  console.log('');
++  console.log(
++    'ETHEREAL BULLETS STATIC MECHANISM EVIDENCE',
++  );
++  console.log(
++    '------------------------------------------',
++  );
++
++  for (
++    const block
++    of d.staticMechanismEvidence.etherealBullets
++  ) {
++    console.log(
++      `record=${block.recordKey} path=${block.path}`,
++    );
++
++    for (
++      const row
++      of block.relevantScalars
++    ) {
++      console.log(
++        `  ${row.path} = ${JSON.stringify(row.value)}`,
++      );
++    }
++  }
++
++  console.log('');
++  console.log(
++    'INTEGRITY VALIDATION',
++  );
++  console.log(
++    '--------------------',
++  );
++
++  for (
++    const [name, row]
++    of Object.entries(
++      result.integrityValidation.checks,
++    )
++  ) {
++    console.log(
++      `${name.padEnd(42)} ${String(row.pass).padEnd(5)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'CLASSIFICATION',
++  );
++  console.log(
++    '--------------',
++  );
++  console.log(
++    d.classification,
++  );
++  console.log('');
++  console.log(
++    `status: ${result.status}`,
++  );
++  console.log(
++    `NEXT STAGE: ${result.nextStep}`,
++  );
++  console.log('');
++  console.log(
++    `JSON:\n${PATHS.output}`,
++  );
++}
+diff --git a/tests/dual-item-ammo-restoration-hypothesis.test.mjs b/tests/dual-item-ammo-restoration-hypothesis.test.mjs
+new file mode 100644
+index 0000000..c7d37f2
+--- /dev/null
++++ b/tests/dual-item-ammo-restoration-hypothesis.test.mjs
+@@ -0,0 +1,180 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++
++import {
++  ETHEREAL_BULLETS_ID,
++  QUICK_SILVER_ID,
++  buildRestorationPairMatrix,
++  classifyPairState,
++  summarizeDualItemHypothesis,
++} from '../src/player-state/dual-item-ammo-restoration-hypothesis.mjs';
++
++test('pair-state classifier distinguishes neither, each singleton, and both', () => {
++  assert.equal(
++    classifyPairState([]),
++    'NEITHER',
++  );
++
++  assert.equal(
++    classifyPairState([
++      QUICK_SILVER_ID,
++    ]),
++    'QUICK_SILVER_ONLY',
++  );
++
++  assert.equal(
++    classifyPairState([
++      ETHEREAL_BULLETS_ID,
++    ]),
++    'ETHEREAL_BULLETS_ONLY',
++  );
++
++  assert.equal(
++    classifyPairState([
++      QUICK_SILVER_ID,
++      ETHEREAL_BULLETS_ID,
++    ]),
++    'BOTH',
++  );
++});
++
++test('eight-event exact XOR partition is measured explicitly', () => {
++  const contextIndex =
++    new Map();
++
++  const restorationEvents = [];
++
++  for (let i = 0; i < 4; i++) {
++    const id =
++      `weapon-context-q${i}`;
++
++    contextIndex.set(
++      id,
++      {
++        itemIds: [
++          QUICK_SILVER_ID,
++        ],
++      },
++    );
++
++    restorationEvents.push({
++      heroId: i < 2 ? 4 : 25,
++      tick: 100 + i,
++      effectContextId: id,
++    });
++  }
++
++  for (let i = 0; i < 4; i++) {
++    const id =
++      `weapon-context-e${i}`;
++
++    contextIndex.set(
++      id,
++      {
++        itemIds: [
++          ETHEREAL_BULLETS_ID,
++        ],
++      },
++    );
++
++    restorationEvents.push({
++      heroId: i < 2 ? 4 : 25,
++      tick: 200 + i,
++      effectContextId: id,
++    });
++  }
++
++  const matrix =
++    buildRestorationPairMatrix({
++      restorationEvents,
++      contextIndex,
++    });
++
++  assert.equal(
++    matrix.quickSilver,
++    4,
++  );
++
++  assert.equal(
++    matrix.etherealBullets,
++    4,
++  );
++
++  assert.equal(
++    matrix.xor,
++    8,
++  );
++
++  assert.equal(
++    matrix.both,
++    0,
++  );
++
++  assert.equal(
++    matrix.neither,
++    0,
++  );
++});
++
++test('strong classification requires exact partition and multi-hero support for both items', () => {
++  const matrix = {
++    rows: [
++      {
++        heroId: 4,
++        pairState:
++          'QUICK_SILVER_ONLY',
++      },
++      {
++        heroId: 18,
++        pairState:
++          'QUICK_SILVER_ONLY',
++      },
++      {
++        heroId: 4,
++        pairState:
++          'ETHEREAL_BULLETS_ONLY',
++      },
++      {
++        heroId: 25,
++        pairState:
++          'ETHEREAL_BULLETS_ONLY',
++      },
++      {
++        heroId: 25,
++        pairState:
++          'QUICK_SILVER_ONLY',
++      },
++      {
++        heroId: 25,
++        pairState:
++          'ETHEREAL_BULLETS_ONLY',
++      },
++      {
++        heroId: 4,
++        pairState:
++          'QUICK_SILVER_ONLY',
++      },
++      {
++        heroId: 25,
++        pairState:
++          'ETHEREAL_BULLETS_ONLY',
++      },
++    ],
++    xor: 8,
++    both: 0,
++    neither: 0,
++  };
++
++  const result =
++    summarizeDualItemHypothesis({
++      matrix,
++      exposureRows: [],
++      quickEvidence: [{}],
++      etherealEvidence: [{}],
++    });
++
++  assert.equal(
++    result.classification,
++    'QUICK_SILVER_AND_ETHEREAL_BULLETS_EXACTLY_PARTITION_ALL_EIGHT_TEST_RESTORATIONS',
++  );
++});

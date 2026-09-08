@@ -1,0 +1,2070 @@
+diff --git a/src/player-state/phase-corrected-ammo-residual-audit.mjs b/src/player-state/phase-corrected-ammo-residual-audit.mjs
+new file mode 100644
+index 0000000..fe7f4b2
+--- /dev/null
++++ b/src/player-state/phase-corrected-ammo-residual-audit.mjs
+@@ -0,0 +1,673 @@
++// Script197 helpers.
++//
++// Exact descriptive audit of the tiny residual set that remains on test.dem
++// after:
++//   - strict weapon chronology
++//   - ZigZag(m_iClip) + ZigZag(m_iBonusClip)
++//   - frozen primary slide carrier
++//   - exact same-tick present->absent phase correction
++//
++// No new semantic rule is formed here.
++
++export function zigzagReencode(raw) {
++  if (!Number.isFinite(raw)) return null;
++  return raw >= 0 ? 2 * raw : -2 * raw - 1;
++}
++
++export function combinedLogicalAmmo(row) {
++  const main = zigzagReencode(row.rawClip);
++  const bonus = zigzagReencode(row.bonusClip);
++
++  if (
++    !Number.isFinite(main)
++    || !Number.isFinite(bonus)
++  ) {
++    return null;
++  }
++
++  return main + bonus;
++}
++
++export function coalesceFinalPerTick(rows) {
++  const byTick = new Map();
++
++  for (const row of rows) {
++    if (Number.isFinite(row.tick)) {
++      byTick.set(row.tick, row);
++    }
++  }
++
++  return [...byTick.values()]
++    .sort(
++      (a, b) =>
++        a.tick - b.tick
++        || a.sourceIndex - b.sourceIndex,
++    );
++}
++
++export function buildChronologicalAttackTransitions(groups) {
++  const transitions = [];
++
++  for (
++    const [weaponKey, rows]
++    of groups.entries()
++  ) {
++    const settled =
++      coalesceFinalPerTick(rows);
++
++    for (
++      let currentIndex = 1;
++      currentIndex < settled.length;
++      currentIndex++
++    ) {
++      const previous =
++        settled[currentIndex - 1];
++
++      const current =
++        settled[currentIndex];
++
++      if (
++        previous.inReload === true
++        || current.inReload === true
++        || !Number.isFinite(previous.shotNumber)
++        || !Number.isFinite(current.shotNumber)
++      ) {
++        continue;
++      }
++
++      const previousAmmo =
++        combinedLogicalAmmo(previous);
++
++      const currentAmmo =
++        combinedLogicalAmmo(current);
++
++      if (
++        !Number.isFinite(previousAmmo)
++        || !Number.isFinite(currentAmmo)
++      ) {
++        continue;
++      }
++
++      const shotAdvance =
++        current.shotNumber
++        - previous.shotNumber;
++
++      if (shotAdvance <= 0) {
++        continue;
++      }
++
++      const combinedDrop =
++        previousAmmo - currentAmmo;
++
++      transitions.push({
++        weaponKey,
++        settled,
++        currentIndex,
++
++        tick:
++          current.tick,
++
++        previousTick:
++          previous.tick,
++
++        tickGap:
++          current.tick - previous.tick,
++
++        heroId:
++          current.heroId,
++
++        playerKey:
++          current.playerKey,
++
++        weaponEntityIndex:
++          current.weaponEntityIndex,
++
++        effectContextId:
++          current.effectContextId,
++
++        activeFireMode:
++          current.activeFireMode,
++
++        shotAdvance,
++
++        previousAmmo,
++        currentAmmo,
++        combinedDrop,
++
++        combinedLabel:
++          combinedDrop > 0
++            ? 'POSITIVE'
++            : combinedDrop < 0
++              ? 'NEGATIVE'
++              : 'ZERO',
++
++        previous:
++          compactWeaponState(previous),
++
++        current:
++          compactWeaponState(current),
++      });
++    }
++  }
++
++  return transitions;
++}
++
++export function phaseCorrectedCarrierPresent(row) {
++  return (
++    row.primaryPresent === true
++    || row.exactExitAtAttack === true
++  );
++}
++
++export function auditPhaseCorrectedResiduals(
++  rows,
++  {
++    neighborhoodRadius = 4,
++    reloadWindowTicks = 64,
++  } = {},
++) {
++  const correctedAbsent =
++    rows.filter(
++      row =>
++        row.primaryCovered === true
++        && phaseCorrectedCarrierPresent(row) === false,
++    );
++
++  const residuals =
++    correctedAbsent.filter(
++      row =>
++        row.combinedLabel === 'ZERO'
++        || row.combinedLabel === 'NEGATIVE',
++    );
++
++  const audited =
++    residuals.map(row => {
++      const neighborhood =
++        buildNeighborhood(
++          row.settled,
++          row.currentIndex,
++          neighborhoodRadius,
++        );
++
++      const currentTick =
++        row.tick;
++
++      const nearbyReload =
++        neighborhood.some(
++          state =>
++            state.inReload === true
++            && Math.abs(
++              state.tick - currentTick,
++            ) <= reloadWindowTicks,
++        );
++
++      const nearbyReloadStartChange =
++        neighborhood.some(
++          (state, index) => {
++            if (index === 0) return false;
++
++            const prior =
++              neighborhood[index - 1];
++
++            return (
++              Number.isFinite(
++                prior.lastReloadStartTime,
++              )
++              && Number.isFinite(
++                state.lastReloadStartTime,
++              )
++              && prior.lastReloadStartTime
++                !== state.lastReloadStartTime
++            );
++          },
++        );
++
++      const nearbyEffectContextChange =
++        neighborhood.some(
++          (state, index) => {
++            if (index === 0) return false;
++            const prior = neighborhood[index - 1];
++            return (
++              prior.effectContextId
++              !== state.effectContextId
++            );
++          },
++        );
++
++      const nearbyFireModeChange =
++        neighborhood.some(
++          (state, index) => {
++            if (index === 0) return false;
++            const prior = neighborhood[index - 1];
++            return (
++              prior.activeFireMode
++              !== state.activeFireMode
++            );
++          },
++        );
++
++      const ammoFractionChangedAtAttack =
++        changedFinite(
++          row.previous?.ammoFraction,
++          row.current?.ammoFraction,
++        );
++
++      return {
++        replayName:
++          row.replayName ?? 'test',
++
++        tick:
++          row.tick,
++
++        previousTick:
++          row.previousTick,
++
++        tickGap:
++          row.tickGap,
++
++        heroId:
++          row.heroId,
++
++        playerKey:
++          row.playerKey,
++
++        weaponEntityIndex:
++          row.weaponEntityIndex,
++
++        effectContextId:
++          row.effectContextId,
++
++        activeFireMode:
++          row.activeFireMode,
++
++        shotAdvance:
++          row.shotAdvance,
++
++        combinedDrop:
++          row.combinedDrop,
++
++        residualClass:
++          row.combinedLabel === 'ZERO'
++            ? 'ZERO_CONSUMPTION'
++            : 'ATTACK_COUPLED_AMMO_GAIN',
++
++        ammoGainMagnitude:
++          row.combinedLabel === 'NEGATIVE'
++            ? -row.combinedDrop
++            : 0,
++
++        primaryPresent:
++          row.primaryPresent,
++
++        exactExitAtAttack:
++          row.exactExitAtAttack,
++
++        ticksSinceExit:
++          row.ticksSinceExit ?? null,
++
++        lastCarrierTransition:
++          row.lastCarrierTransition ?? null,
++
++        ammoFractionChangedAtAttack,
++
++        nearbyReload,
++
++        nearbyReloadStartChange,
++
++        nearbyEffectContextChange,
++
++        nearbyFireModeChange,
++
++        previous:
++          row.previous,
++
++        current:
++          row.current,
++
++        neighborhood,
++      };
++    });
++
++  const zeroRows =
++    audited.filter(
++      row =>
++        row.residualClass
++        === 'ZERO_CONSUMPTION',
++    );
++
++  const negativeRows =
++    audited.filter(
++      row =>
++        row.residualClass
++        === 'ATTACK_COUPLED_AMMO_GAIN',
++    );
++
++  return {
++    correctedAbsent:
++      correctedAbsent.length,
++
++    residual:
++      audited.length,
++
++    zero:
++      zeroRows.length,
++
++    negative:
++      negativeRows.length,
++
++    zeroByHero:
++      groupCount(
++        zeroRows,
++        row => String(row.heroId),
++      ),
++
++    negativeByHero:
++      groupCount(
++        negativeRows,
++        row => String(row.heroId),
++      ),
++
++    zeroByContext:
++      groupCount(
++        zeroRows,
++        row =>
++          `${row.heroId}|${row.effectContextId}`,
++      ),
++
++    negativeByContext:
++      groupCount(
++        negativeRows,
++        row =>
++          `${row.heroId}|${row.effectContextId}`,
++      ),
++
++    negativeGainDistribution:
++      distribution(
++        negativeRows.map(
++          row => row.ammoGainMagnitude,
++        ),
++      ),
++
++    featureSummary: {
++      zero: summarizeFlags(zeroRows),
++      negative: summarizeFlags(negativeRows),
++    },
++
++    exactRows:
++      audited,
++
++    classification:
++      'PHASE_CORRECTED_AMMO_RESIDUALS_EXACTLY_AUDITED',
++  };
++}
++
++export function compactWeaponState(row) {
++  return {
++    tick:
++      row.tick,
++
++    sourceIndex:
++      row.sourceIndex,
++
++    heroId:
++      row.heroId,
++
++    playerKey:
++      row.playerKey,
++
++    weaponEntityIndex:
++      row.weaponEntityIndex,
++
++    effectContextId:
++      row.effectContextId,
++
++    activeFireMode:
++      row.activeFireMode,
++
++    shotNumber:
++      row.shotNumber,
++
++    continuousShots:
++      row.continuousShots ?? null,
++
++    burstRemaining:
++      row.burstRemaining ?? null,
++
++    rawClip:
++      row.rawClip,
++
++    bonusClip:
++      row.bonusClip,
++
++    logicalMain:
++      zigzagReencode(
++        row.rawClip,
++      ),
++
++    logicalBonus:
++      zigzagReencode(
++        row.bonusClip,
++      ),
++
++    combinedAmmo:
++      combinedLogicalAmmo(row),
++
++    ammoFraction:
++      row.ammoFraction ?? null,
++
++    inReload:
++      row.inReload,
++
++    reloadAvailableTime:
++      row.reloadAvailableTime ?? null,
++
++    lastReloadStartTime:
++      row.lastReloadStartTime ?? null,
++
++    reloadQueuedStartTime:
++      row.reloadQueuedStartTime ?? null,
++
++    lastAttackTime:
++      row.lastAttackTime ?? null,
++
++    nextPrimaryAttack:
++      row.nextPrimaryAttack ?? null,
++
++    firedRecently:
++      row.firedRecently ?? null,
++  };
++}
++
++function buildNeighborhood(
++  settled,
++  currentIndex,
++  radius,
++) {
++  const start =
++    Math.max(
++      0,
++      currentIndex - radius,
++    );
++
++  const end =
++    Math.min(
++      settled.length,
++      currentIndex + radius + 1,
++    );
++
++  return settled
++    .slice(start, end)
++    .map(
++      compactWeaponState,
++    );
++}
++
++function summarizeFlags(rows) {
++  const total = rows.length;
++
++  const count =
++    predicate =>
++      rows.filter(predicate).length;
++
++  const metric =
++    predicate => {
++      const trueCount =
++        count(predicate);
++
++      return {
++        count:
++          trueCount,
++
++        rate:
++          total > 0
++            ? trueCount / total
++            : null,
++      };
++    };
++
++  return {
++    total,
++
++    ammoFractionChangedAtAttack:
++      metric(
++        row =>
++          row.ammoFractionChangedAtAttack
++          === true,
++      ),
++
++    nearbyReload:
++      metric(
++        row =>
++          row.nearbyReload === true,
++      ),
++
++    nearbyReloadStartChange:
++      metric(
++        row =>
++          row.nearbyReloadStartChange
++          === true,
++      ),
++
++    nearbyEffectContextChange:
++      metric(
++        row =>
++          row.nearbyEffectContextChange
++          === true,
++      ),
++
++    nearbyFireModeChange:
++      metric(
++        row =>
++          row.nearbyFireModeChange
++          === true,
++      ),
++  };
++}
++
++function groupCount(rows, keyFn) {
++  const counts =
++    new Map();
++
++  for (const row of rows) {
++    const key = keyFn(row);
++
++    counts.set(
++      key,
++      (counts.get(key) ?? 0) + 1,
++    );
++  }
++
++  return [...counts.entries()]
++    .map(([key, count]) => ({
++      key,
++      count,
++    }))
++    .sort(
++      (a, b) =>
++        b.count - a.count
++        || a.key.localeCompare(b.key),
++    );
++}
++
++function changedFinite(a, b) {
++  return (
++    Number.isFinite(a)
++    && Number.isFinite(b)
++    && Math.abs(a - b) > 1e-9
++  );
++}
++
++function distribution(values) {
++  const clean =
++    values
++      .filter(Number.isFinite)
++      .sort((a, b) => a - b);
++
++  if (!clean.length) {
++    return {
++      count: 0,
++      min: null,
++      max: null,
++      mode: null,
++      median: null,
++      p90: null,
++    };
++  }
++
++  const counts = new Map();
++
++  for (const value of clean) {
++    counts.set(
++      value,
++      (counts.get(value) ?? 0) + 1,
++    );
++  }
++
++  const mode =
++    [...counts.entries()]
++      .sort(
++        (a, b) =>
++          b[1] - a[1]
++          || a[0] - b[0],
++      )[0][0];
++
++  return {
++    count:
++      clean.length,
++    min:
++      clean[0],
++    max:
++      clean.at(-1),
++    mode,
++    median:
++      quantile(clean, 0.5),
++    p90:
++      quantile(clean, 0.9),
++  };
++}
++
++function quantile(sorted, q) {
++  const pos =
++    (sorted.length - 1) * q;
++
++  const base =
++    Math.floor(pos);
++
++  const rest =
++    pos - base;
++
++  if (
++    sorted[base + 1]
++    !== undefined
++  ) {
++    return sorted[base]
++      + rest
++      * (
++        sorted[base + 1]
++        - sorted[base]
++      );
++  }
++
++  return sorted[base];
++}
+diff --git a/scripts/197-audit-phase-corrected-ammo-residuals-v01.mjs b/scripts/197-audit-phase-corrected-ammo-residuals-v01.mjs
+new file mode 100644
+index 0000000..e7b3fe4
+--- /dev/null
++++ b/scripts/197-audit-phase-corrected-ammo-residuals-v01.mjs
+@@ -0,0 +1,1106 @@
++import {
++  createReadStream,
++  existsSync,
++  mkdirSync,
++  readFileSync,
++  writeFileSync,
++} from 'node:fs';
++
++import {
++  dirname,
++  resolve,
++} from 'node:path';
++
++import {
++  EntityOperation,
++  InterceptorStage,
++  Logger,
++  Parser,
++  ParserConfiguration,
++} from 'deadem';
++
++import {
++  flattenPrimitiveChanges,
++} from '../src/player-state/slide-carrier-discovery.mjs';
++
++import {
++  createAttackTickGuard,
++  resolvePawnForHero,
++} from '../src/player-state/slide-carrier-controller-join.mjs';
++
++import {
++  PRIMARY,
++  evaluateBitState,
++} from '../src/player-state/slide-companion-residual-diagnostic.mjs';
++
++import {
++  deepFindExactKey,
++  normalizeDetailedWeaponEvent,
++} from '../src/player-state/slide-carrier-residual-diagnostic.mjs';
++
++import {
++  strictWeaponKey,
++} from '../src/player-state/strict-ammo-chronology-diagnostic.mjs';
++
++import {
++  auditPhaseCorrectedResiduals,
++  buildChronologicalAttackTransitions,
++} from '../src/player-state/phase-corrected-ammo-residual-audit.mjs';
++
++const VERSION =
++  'PHASE_CORRECTED_AMMO_RESIDUAL_AUDIT_V01';
++
++const PATHS = {
++  replay:
++    resolve(
++      'replays',
++      'test.dem',
++    ),
++
++  weapon:
++    resolve(
++      'output',
++      'test',
++      'effective_weapon_runtime_events_v01.jsonl',
++    ),
++
++  script196:
++    resolve(
++      'output',
++      'test',
++      'phase_corrected_slide_carrier_candidate_v01.json',
++    ),
++
++  output:
++    resolve(
++      'output',
++      'test',
++      'phase_corrected_ammo_residual_audit_v01.json',
++    ),
++};
++
++for (
++  const [name, path]
++  of Object.entries(PATHS)
++) {
++  if (name === 'output') continue;
++
++  if (!existsSync(path)) {
++    throw new Error(
++      `Missing ${name}:\n${path}`,
++    );
++  }
++}
++
++const script196 =
++  JSON.parse(
++    readFileSync(
++      PATHS.script196,
++      'utf8',
++    ),
++  );
++
++const EXPECTED_196_CLASSIFICATION =
++  'PRE_TRANSITION_CARRIER_ATTACK_TICK_PHASE_RULE_STRONGLY_SUPPORTED_ON_TEST';
++
++console.log('');
++console.log(
++  '========================================================',
++);
++console.log(
++  'PHASE-CORRECTED AMMO RESIDUAL AUDIT V0.1',
++);
++console.log(
++  '========================================================',
++);
++console.log('');
++console.log(
++  'Replay: test',
++);
++console.log(
++  'Purpose: exact descriptive audit of remaining 12 zero + 8 negative attacks',
++);
++console.log(
++  'New semantic rule formation: NO',
++);
++console.log(
++  'Authority promotion: NO',
++);
++console.log('');
++
++const weaponEvents = [];
++let parseFailures = 0;
++
++for await (
++  const line
++  of readLines(
++    PATHS.weapon,
++  )
++) {
++  if (!line.trim()) continue;
++
++  try {
++    const raw =
++      JSON.parse(line);
++
++    const base =
++      normalizeDetailedWeaponEvent(
++        raw,
++        weaponEvents.length,
++      );
++
++    weaponEvents.push({
++      ...base,
++
++      rawClip:
++        finite(
++          firstDefined(
++            base.rawClip,
++            raw?.observedWeaponState?.clip,
++            deepFindExactKey(
++              raw,
++              'm_iClip',
++            ),
++          ),
++        ),
++
++      bonusClip:
++        finite(
++          firstDefined(
++            base.bonusClip,
++            raw?.observedWeaponState?.bonusClip,
++            deepFindExactKey(
++              raw,
++              'm_iBonusClip',
++            ),
++          ),
++        ),
++
++      ammoFraction:
++        finite(
++          firstDefined(
++            base.ammoFraction,
++            raw?.observedWeaponState?.ammoFraction,
++            deepFindExactKey(
++              raw,
++              'm_flAmmoFrac',
++            ),
++          ),
++        ),
++
++      inReload:
++        booleanOrNull(
++          firstDefined(
++            base.inReload,
++            raw?.observedWeaponState?.inReload,
++            deepFindExactKey(
++              raw,
++              'm_bInReload',
++            ),
++          ),
++        ),
++
++      shotNumber:
++        finite(
++          firstDefined(
++            base.shotNumber,
++            raw?.observedWeaponState?.shotNumber,
++            deepFindExactKey(
++              raw,
++              'm_nShotNumber',
++            ),
++          ),
++        ),
++
++      continuousShots:
++        finite(
++          firstDefined(
++            base.continuousShots,
++            raw?.observedWeaponState
++              ?.numContinuousShots,
++            deepFindExactKey(
++              raw,
++              'm_nNumContinuousShots',
++            ),
++          ),
++        ),
++
++      burstRemaining:
++        finite(
++          firstDefined(
++            base.burstRemaining,
++            raw?.observedWeaponState
++              ?.burstShotsRemaining,
++            deepFindExactKey(
++              raw,
++              'm_nBurstShotsRemaining',
++            ),
++          ),
++        ),
++
++      activeFireMode:
++        finite(
++          firstDefined(
++            base.activeFireMode,
++            raw?.observedWeaponState
++              ?.activeFireMode,
++            deepFindExactKey(
++              raw,
++              'm_eActiveFireMode',
++            ),
++          ),
++        ),
++
++      lastAttackTime:
++        finite(
++          firstDefined(
++            base.lastAttackTime,
++            raw?.observedWeaponState
++              ?.lastAttackTime,
++            deepFindExactKey(
++              raw,
++              'm_flLastAttackTime',
++            ),
++          ),
++        ),
++
++      nextPrimaryAttack:
++        finite(
++          firstDefined(
++            base.nextPrimaryAttack,
++            raw?.observedWeaponState
++              ?.nextPrimaryAttack,
++            deepFindExactKey(
++              raw,
++              'm_flNextPrimaryAttack',
++            ),
++          ),
++        ),
++
++      reloadAvailableTime:
++        finite(
++          firstDefined(
++            base.reloadAvailableTime,
++            raw?.observedWeaponState
++              ?.reloadAvailableTime,
++            deepFindExactKey(
++              raw,
++              'm_flReloadAvailableTime',
++            ),
++          ),
++        ),
++
++      lastReloadStartTime:
++        finite(
++          firstDefined(
++            base.lastReloadStartTime,
++            raw?.observedWeaponState
++              ?.lastReloadStartTime,
++            deepFindExactKey(
++              raw,
++              'm_flLastReloadStartTime',
++            ),
++          ),
++        ),
++
++      reloadQueuedStartTime:
++        finite(
++          firstDefined(
++            base.reloadQueuedStartTime,
++            raw?.observedWeaponState
++              ?.reloadQueuedStartTime,
++            deepFindExactKey(
++              raw,
++              'm_reloadQueuedStartTime',
++            ),
++          ),
++        ),
++
++      firedRecently:
++        booleanOrNull(
++          firstDefined(
++            base.firedRecently,
++            raw?.observedWeaponState
++              ?.firedRecently,
++            deepFindExactKey(
++              raw,
++              'm_bFiredRecently',
++            ),
++          ),
++        ),
++    });
++  } catch {
++    parseFailures++;
++  }
++}
++
++const groups =
++  new Map();
++
++for (const row of weaponEvents) {
++  const key =
++    strictWeaponKey(row);
++
++  if (!groups.has(key)) {
++    groups.set(
++      key,
++      [],
++    );
++  }
++
++  groups.get(key).push(row);
++}
++
++for (const rows of groups.values()) {
++  rows.sort(
++    (a, b) =>
++      a.tick - b.tick
++      || a.sourceIndex - b.sourceIndex,
++  );
++}
++
++const transitions =
++  buildChronologicalAttackTransitions(
++    groups,
++  );
++
++const byTick =
++  new Map();
++
++for (const row of transitions) {
++  if (!byTick.has(row.tick)) {
++    byTick.set(
++      row.tick,
++      [],
++    );
++  }
++
++  byTick.get(row.tick)
++    .push(row);
++}
++
++const pawnStateByEntity =
++  new Map();
++
++const lastCarrierTransitionByPawn =
++  new Map();
++
++const tickGuard =
++  createAttackTickGuard();
++
++const joinedRows = [];
++
++let joined = 0;
++let joinFailures = 0;
++let pawnMutations = 0;
++
++const parser =
++  new Parser(
++    new ParserConfiguration({
++      entityClasses: [
++        'CCitadelPlayerController',
++        'CCitadelPlayerPawn',
++      ],
++    }),
++    Logger.CONSOLE_INFO,
++  );
++
++parser.registerPostInterceptor(
++  InterceptorStage.ENTITY_PACKET,
++  (
++    demoPacket,
++    messagePacket,
++    events,
++  ) => {
++    for (const event of events) {
++      if (
++        event.operation
++          !== EntityOperation.CREATE
++        && event.operation
++          !== EntityOperation.UPDATE
++      ) {
++        continue;
++      }
++
++      const entity =
++        event.entity;
++
++      if (
++        entity?.class?.name
++        !== 'CCitadelPlayerPawn'
++      ) {
++        continue;
++      }
++
++      pawnMutations++;
++
++      if (
++        !pawnStateByEntity.has(
++          entity.index,
++        )
++      ) {
++        pawnStateByEntity.set(
++          entity.index,
++          {},
++        );
++      }
++
++      const state =
++        pawnStateByEntity.get(
++          entity.index,
++        );
++
++      const before =
++        evaluateBitState(
++          state,
++          PRIMARY,
++        );
++
++      Object.assign(
++        state,
++        flattenPrimitiveChanges(
++          event.getChanges(),
++        ),
++      );
++
++      const after =
++        evaluateBitState(
++          state,
++          PRIMARY,
++        );
++
++      if (
++        before.covered === true
++        && after.covered === true
++        && before.present
++          !== after.present
++      ) {
++        lastCarrierTransitionByPawn.set(
++          entity.index,
++          {
++            tick:
++              demoPacket.tick,
++
++            fromPresent:
++              before.present,
++
++            toPresent:
++              after.present,
++
++            beforeValue:
++              before.value,
++
++            afterValue:
++              after.value,
++          },
++        );
++      }
++    }
++  },
++);
++
++parser.registerPostInterceptor(
++  InterceptorStage.DEMO_PACKET,
++  demoPacket => {
++    const tick =
++      demoPacket.tick;
++
++    if (!byTick.has(tick)) {
++      return;
++    }
++
++    if (
++      !tickGuard.shouldProcess(tick)
++    ) {
++      return;
++    }
++
++    const demo =
++      parser.getDemo();
++
++    const controllers =
++      demo.getEntitiesByClassName(
++        'CCitadelPlayerController',
++      );
++
++    for (
++      const transition
++      of byTick.get(tick)
++    ) {
++      const resolution =
++        resolvePawnForHero({
++          demo,
++          controllers,
++
++          heroId:
++            transition.heroId,
++        });
++
++      if (!resolution.pawn) {
++        joinFailures++;
++        continue;
++      }
++
++      const state =
++        pawnStateByEntity.get(
++          resolution.pawn.index,
++        );
++
++      if (!state) {
++        joinFailures++;
++        continue;
++      }
++
++      joined++;
++
++      const primary =
++        evaluateBitState(
++          state,
++          PRIMARY,
++        );
++
++      const lastTransition =
++        lastCarrierTransitionByPawn.get(
++          resolution.pawn.index,
++        ) ?? null;
++
++      const exactExitAtAttack =
++        lastTransition !== null
++        && lastTransition.tick === tick
++        && lastTransition.fromPresent === true
++        && lastTransition.toPresent === false;
++
++      const ticksSinceExit =
++        lastTransition !== null
++        && lastTransition.fromPresent === true
++        && lastTransition.toPresent === false
++          ? tick - lastTransition.tick
++          : null;
++
++      joinedRows.push({
++        replayName:
++          'test',
++
++        ...transition,
++
++        pawnEntityIndex:
++          resolution.pawn.index,
++
++        primaryCovered:
++          primary.covered,
++
++        primaryPresent:
++          primary.present,
++
++        exactExitAtAttack,
++
++        ticksSinceExit,
++
++        lastCarrierTransition:
++          lastTransition,
++      });
++    }
++  },
++);
++
++try {
++  await parser.parse(
++    createReadStream(
++      PATHS.replay,
++    ),
++  );
++} finally {
++  await parser.dispose();
++}
++
++const audit =
++  auditPhaseCorrectedResiduals(
++    joinedRows,
++    {
++      neighborhoodRadius: 4,
++      reloadWindowTicks: 64,
++    },
++  );
++
++const checks = {
++  script196ClassificationExpected:
++    check(
++      script196
++        ?.diagnostic
++        ?.classification,
++
++      EXPECTED_196_CLASSIFICATION,
++
++      script196
++        ?.diagnostic
++        ?.classification
++        === EXPECTED_196_CLASSIFICATION,
++    ),
++
++  remainingZeroFrozen:
++    check(
++      audit.zero,
++      12,
++      audit.zero === 12,
++    ),
++
++  remainingNegativeFrozen:
++    check(
++      audit.negative,
++      8,
++      audit.negative === 8,
++    ),
++
++  weaponParseClean:
++    check(
++      parseFailures,
++      0,
++      parseFailures === 0,
++    ),
++
++  attackJoinComplete:
++    check(
++      {
++        joined,
++        joinFailures,
++        total:
++          transitions.length,
++      },
++
++      {
++        joined:
++          transitions.length,
++        joinFailures: 0,
++        total:
++          transitions.length,
++      },
++
++      joinFailures === 0
++      && joined
++        === transitions.length,
++    ),
++
++  testReplayOnly:
++    check(
++      'test',
++      'test',
++      true,
++    ),
++};
++
++const integrityPass =
++  Object.values(checks)
++    .every(
++      row => row.pass,
++    );
++
++const result = {
++  version:
++    VERSION,
++
++  canonical:
++    false,
++
++  createdAt:
++    new Date().toISOString(),
++
++  replay:
++    'test',
++
++  status:
++    integrityPass
++      ? 'PHASE_CORRECTED_AMMO_RESIDUAL_AUDIT_V01_READY_FOR_INTERPRETATION'
++      : 'PHASE_CORRECTED_AMMO_RESIDUAL_AUDIT_V01_INTEGRITY_FAILURE',
++
++  scientificBoundary: {
++    purpose:
++      'exact descriptive audit only',
++
++    strictChronology:
++      true,
++
++    combinedAmmoCounter:
++      'ZigZag(m_iClip)+ZigZag(m_iBonusClip)',
++
++    phaseCorrectedCarrier:
++      'current bit5 present OR exact present-to-absent transition on attack tick',
++
++    newMechanicHypothesis:
++      false,
++
++    authorityPromotion:
++      false,
++
++    replicationStatus:
++      'discovery_calibration_only',
++  },
++
++  telemetry: {
++    weaponEvents:
++      weaponEvents.length,
++
++    transitions:
++      transitions.length,
++
++    joined,
++    joinFailures,
++    pawnMutations,
++  },
++
++  audit,
++
++  integrityValidation: {
++    pass:
++      integrityPass,
++
++    checks,
++  },
++
++  semanticValidation: {
++    status:
++      'DESCRIPTIVE_DIAGNOSTIC_ONLY',
++
++    authorityPromotion:
++      false,
++
++    replicationStatus:
++      'discovery_calibration_only',
++  },
++
++  nextStep:
++    'INTERPRET_THE_20_EXACT_RESIDUAL_NEIGHBORHOODS;_ONLY_THEN_FORM_A_SPECIFIC_MECHANISM_HYPOTHESIS_IF_SUPPORTED',
++};
++
++mkdirSync(
++  dirname(
++    PATHS.output,
++  ),
++
++  {
++    recursive:
++      true,
++  },
++);
++
++writeFileSync(
++  PATHS.output,
++
++  `${JSON.stringify(
++    result,
++    null,
++    2,
++  )}\n`,
++
++  'utf8',
++);
++
++print(result);
++
++async function* readLines(path) {
++  const {
++    createInterface,
++  } = await import(
++    'node:readline'
++  );
++
++  const reader =
++    createInterface({
++      input:
++        createReadStream(
++          path,
++          {
++            encoding:
++              'utf8',
++          },
++        ),
++
++      crlfDelay:
++        Infinity,
++    });
++
++  for await (const line of reader) {
++    yield line;
++  }
++}
++
++function firstDefined(...values) {
++  return values.find(
++    value =>
++      value !== undefined
++      && value !== null,
++  );
++}
++
++function finite(value) {
++  if (
++    value === null
++    || value === undefined
++    || value === ''
++  ) {
++    return null;
++  }
++
++  const number =
++    Number(value);
++
++  return Number.isFinite(number)
++    ? number
++    : null;
++}
++
++function booleanOrNull(value) {
++  if (
++    value === true
++    || value === false
++  ) {
++    return value;
++  }
++
++  if (
++    value === 1
++    || value === '1'
++    || value === 'true'
++  ) {
++    return true;
++  }
++
++  if (
++    value === 0
++    || value === '0'
++    || value === 'false'
++  ) {
++    return false;
++  }
++
++  return null;
++}
++
++function check(
++  actual,
++  expected,
++  pass,
++) {
++  return {
++    actual,
++    expected,
++    pass:
++      Boolean(pass),
++  };
++}
++
++function percent(value) {
++  return Number.isFinite(value)
++    ? `${(
++      value * 100
++    ).toFixed(2)}%`
++    : 'n/a';
++}
++
++function print(result) {
++  const a =
++    result.audit;
++
++  console.log('');
++  console.log(
++    '========================================================',
++  );
++  console.log(
++    'EXACT RESIDUAL AUDIT SUMMARY',
++  );
++  console.log(
++    '========================================================',
++  );
++  console.log('');
++
++  console.log(
++    `phase-corrected carrier-absent:      ${a.correctedAbsent}`,
++  );
++  console.log(
++    `residual total:                      ${a.residual}`,
++  );
++  console.log(
++    `zero:                                ${a.zero}`,
++  );
++  console.log(
++    `negative:                            ${a.negative}`,
++  );
++  console.log('');
++
++  console.log(
++    'ZERO BY HERO',
++  );
++  console.log(
++    '------------',
++  );
++
++  for (
++    const row
++    of a.zeroByHero
++  ) {
++    console.log(
++      `hero=${row.key.padEnd(4)} count=${row.count}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'NEGATIVE BY HERO',
++  );
++  console.log(
++    '----------------',
++  );
++
++  for (
++    const row
++    of a.negativeByHero
++  ) {
++    console.log(
++      `hero=${row.key.padEnd(4)} count=${row.count}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'NEGATIVE GAIN MAGNITUDE',
++  );
++  console.log(
++    '-----------------------',
++  );
++
++  console.log(
++    JSON.stringify(
++      a.negativeGainDistribution,
++    ),
++  );
++
++  console.log('');
++  console.log(
++    'ZERO FEATURE SUMMARY',
++  );
++  console.log(
++    '--------------------',
++  );
++
++  printFlags(
++    a.featureSummary.zero,
++  );
++
++  console.log('');
++  console.log(
++    'NEGATIVE FEATURE SUMMARY',
++  );
++  console.log(
++    '------------------------',
++  );
++
++  printFlags(
++    a.featureSummary.negative,
++  );
++
++  console.log('');
++  console.log(
++    'EXACT RESIDUAL ROWS',
++  );
++  console.log(
++    '-------------------',
++  );
++
++  for (
++    let index = 0;
++    index < a.exactRows.length;
++    index++
++  ) {
++    const row =
++      a.exactRows[index];
++
++    console.log('');
++    console.log(
++      `[${index + 1}/${a.exactRows.length}] class=${row.residualClass} hero=${row.heroId} tick=${row.tick} context=${row.effectContextId} fireMode=${row.activeFireMode} drop=${row.combinedDrop} tickGap=${row.tickGap}`,
++    );
++
++    console.log(
++      `  fractionChanged=${row.ammoFractionChangedAtAttack} nearbyReload=${row.nearbyReload} reloadStartChange=${row.nearbyReloadStartChange} contextChange=${row.nearbyEffectContextChange} fireModeChange=${row.nearbyFireModeChange} ticksSinceExit=${row.ticksSinceExit}`,
++    );
++
++    console.log(
++      `  prev=${JSON.stringify(row.previous)}`,
++    );
++
++    console.log(
++      `  curr=${JSON.stringify(row.current)}`,
++    );
++
++    console.log(
++      '  neighborhood:',
++    );
++
++    for (
++      const state
++      of row.neighborhood
++    ) {
++      console.log(
++        `    ${JSON.stringify(state)}`,
++      );
++    }
++  }
++
++  console.log('');
++  console.log(
++    'INTEGRITY VALIDATION',
++  );
++  console.log(
++    '--------------------',
++  );
++
++  for (
++    const [name, row]
++    of Object.entries(
++      result
++        .integrityValidation
++        .checks,
++    )
++  ) {
++    console.log(
++      `${name.padEnd(42)} ${String(row.pass).padEnd(5)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'CLASSIFICATION',
++  );
++  console.log(
++    '--------------',
++  );
++
++  console.log(
++    a.classification,
++  );
++
++  console.log('');
++  console.log(
++    `status: ${result.status}`,
++  );
++
++  console.log(
++    `NEXT STAGE: ${result.nextStep}`,
++  );
++
++  console.log('');
++  console.log(
++    `JSON:\n${PATHS.output}`,
++  );
++}
++
++function printFlags(summary) {
++  for (
++    const [name, row]
++    of Object.entries(summary)
++  ) {
++    if (name === 'total') continue;
++
++    console.log(
++      `${name.padEnd(30)} ${String(row.count).padEnd(4)} ${percent(row.rate)}`,
++    );
++  }
++}
+diff --git a/tests/phase-corrected-ammo-residual-audit.test.mjs b/tests/phase-corrected-ammo-residual-audit.test.mjs
+new file mode 100644
+index 0000000..aaba381
+--- /dev/null
++++ b/tests/phase-corrected-ammo-residual-audit.test.mjs
+@@ -0,0 +1,273 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++
++import {
++  auditPhaseCorrectedResiduals,
++  buildChronologicalAttackTransitions,
++  combinedLogicalAmmo,
++  phaseCorrectedCarrierPresent,
++} from '../src/player-state/phase-corrected-ammo-residual-audit.mjs';
++
++test('combined logical ammo uses both ZigZag counters', () => {
++  assert.equal(
++    combinedLogicalAmmo({
++      rawClip: -5,
++      bonusClip: 4,
++    }),
++    17,
++  );
++});
++
++test('exact exit is treated as phase-corrected carrier present', () => {
++  assert.equal(
++    phaseCorrectedCarrierPresent({
++      primaryPresent: false,
++      exactExitAtAttack: true,
++    }),
++    true,
++  );
++});
++
++test('chronological attack transition keeps exact neighboring states', () => {
++  const groups =
++    new Map([
++      [
++        'p|1',
++        [
++          {
++            tick: 1,
++            sourceIndex: 0,
++            heroId: 1,
++            playerKey: 'p',
++            weaponEntityIndex: 1,
++            effectContextId: 'ctx',
++            activeFireMode: 1,
++            inReload: false,
++            shotNumber: 1,
++            rawClip: -5,
++            bonusClip: 0,
++          },
++          {
++            tick: 2,
++            sourceIndex: 1,
++            heroId: 1,
++            playerKey: 'p',
++            weaponEntityIndex: 1,
++            effectContextId: 'ctx',
++            activeFireMode: 1,
++            inReload: false,
++            shotNumber: 2,
++            rawClip: 4,
++            bonusClip: 0,
++          },
++        ],
++      ],
++    ]);
++
++  const rows =
++    buildChronologicalAttackTransitions(
++      groups,
++    );
++
++  assert.equal(
++    rows.length,
++    1,
++  );
++
++  assert.equal(
++    rows[0].combinedDrop,
++    1,
++  );
++
++  assert.equal(
++    rows[0].previous.tick,
++    1,
++  );
++
++  assert.equal(
++    rows[0].current.tick,
++    2,
++  );
++});
++
++test('audit excludes exact-exit zero from residual set', () => {
++  const settled = [
++    {
++      tick: 1,
++      sourceIndex: 0,
++      heroId: 58,
++      playerKey: 'p',
++      weaponEntityIndex: 1,
++      effectContextId: 'ctx',
++      activeFireMode: 1,
++      inReload: false,
++      shotNumber: 1,
++      rawClip: -5,
++      bonusClip: 0,
++    },
++    {
++      tick: 2,
++      sourceIndex: 1,
++      heroId: 58,
++      playerKey: 'p',
++      weaponEntityIndex: 1,
++      effectContextId: 'ctx',
++      activeFireMode: 1,
++      inReload: false,
++      shotNumber: 2,
++      rawClip: -5,
++      bonusClip: 0,
++    },
++  ];
++
++  const result =
++    auditPhaseCorrectedResiduals([
++      {
++        replayName: 'test',
++        tick: 2,
++        previousTick: 1,
++        tickGap: 1,
++        heroId: 58,
++        playerKey: 'p',
++        weaponEntityIndex: 1,
++        effectContextId: 'ctx',
++        activeFireMode: 1,
++        shotAdvance: 1,
++        combinedDrop: 0,
++        combinedLabel: 'ZERO',
++        primaryCovered: true,
++        primaryPresent: false,
++        exactExitAtAttack: true,
++        settled,
++        currentIndex: 1,
++        previous: {
++          ammoFraction: 0,
++        },
++        current: {
++          ammoFraction: 0,
++        },
++      },
++    ]);
++
++  assert.equal(
++    result.residual,
++    0,
++  );
++});
++
++test('audit preserves zero and negative residual classes separately', () => {
++  const settled = [
++    {
++      tick: 1,
++      sourceIndex: 0,
++      heroId: 1,
++      playerKey: 'p',
++      weaponEntityIndex: 1,
++      effectContextId: 'ctx',
++      activeFireMode: 1,
++      inReload: false,
++      shotNumber: 1,
++      rawClip: -5,
++      bonusClip: 0,
++    },
++    {
++      tick: 2,
++      sourceIndex: 1,
++      heroId: 1,
++      playerKey: 'p',
++      weaponEntityIndex: 1,
++      effectContextId: 'ctx',
++      activeFireMode: 1,
++      inReload: false,
++      shotNumber: 2,
++      rawClip: -5,
++      bonusClip: 0,
++    },
++    {
++      tick: 3,
++      sourceIndex: 2,
++      heroId: 25,
++      playerKey: 'q',
++      weaponEntityIndex: 2,
++      effectContextId: 'ctx2',
++      activeFireMode: 1,
++      inReload: false,
++      shotNumber: 2,
++      rawClip: -10,
++      bonusClip: 0,
++    },
++  ];
++
++  const rows = [
++    {
++      replayName: 'test',
++      tick: 2,
++      previousTick: 1,
++      tickGap: 1,
++      heroId: 1,
++      playerKey: 'p',
++      weaponEntityIndex: 1,
++      effectContextId: 'ctx',
++      activeFireMode: 1,
++      shotAdvance: 1,
++      combinedDrop: 0,
++      combinedLabel: 'ZERO',
++      primaryCovered: true,
++      primaryPresent: false,
++      exactExitAtAttack: false,
++      settled,
++      currentIndex: 1,
++      previous: {
++        ammoFraction: 0,
++      },
++      current: {
++        ammoFraction: 0,
++      },
++    },
++    {
++      replayName: 'test',
++      tick: 3,
++      previousTick: 2,
++      tickGap: 1,
++      heroId: 25,
++      playerKey: 'q',
++      weaponEntityIndex: 2,
++      effectContextId: 'ctx2',
++      activeFireMode: 1,
++      shotAdvance: 1,
++      combinedDrop: -5,
++      combinedLabel: 'NEGATIVE',
++      primaryCovered: true,
++      primaryPresent: false,
++      exactExitAtAttack: false,
++      settled,
++      currentIndex: 2,
++      previous: {
++        ammoFraction: 0,
++      },
++      current: {
++        ammoFraction: 0,
++      },
++    },
++  ];
++
++  const result =
++    auditPhaseCorrectedResiduals(
++      rows,
++    );
++
++  assert.equal(
++    result.zero,
++    1,
++  );
++
++  assert.equal(
++    result.negative,
++    1,
++  );
++
++  assert.equal(
++    result.negativeGainDistribution.count,
++    1,
++  );
++});

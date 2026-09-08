@@ -1,0 +1,320 @@
+{
+  "version": "AMMO_FRACTION_COHERENCE_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-08T01:52:44.237Z",
+  "replay": "test",
+  "status": "AMMO_FRACTION_COHERENCE_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "scientificBoundary": {
+    "input": "Script197 exact residual audit",
+    "zeroQuestion": "does fraction move exactly one normalized ammo unit while whole counter remains flat, then roll back",
+    "negativeQuestion": "do fraction and whole counter move coherently upward together",
+    "itemOrAbilityAttribution": false,
+    "authorityPromotion": false,
+    "replicationStatus": "discovery_calibration_only"
+  },
+  "diagnostic": {
+    "zero": {
+      "total": 12,
+      "oneUnitFractionPrediction": 11,
+      "oneUnitFractionPredictionRate": 0.9166666666666666,
+      "immediateRollback": 10,
+      "immediateRollbackRate": 0.8333333333333334,
+      "rows": [
+        {
+          "heroId": 31,
+          "tick": 5806,
+          "previousCapacity": null,
+          "previousStep": null,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": false,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ZERO_RESIDUAL_OTHER"
+        },
+        {
+          "heroId": 31,
+          "tick": 10680,
+          "previousCapacity": 29,
+          "previousStep": 0.9999996721744537,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        },
+        {
+          "heroId": 1,
+          "tick": 10703,
+          "previousCapacity": 27,
+          "previousStep": 1.0000002086162567,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        },
+        {
+          "heroId": 58,
+          "tick": 12156,
+          "previousCapacity": 24,
+          "previousStep": 0.9999997615814209,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        },
+        {
+          "heroId": 58,
+          "tick": 15596,
+          "previousCapacity": 24,
+          "previousStep": 1.0000004768371582,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        },
+        {
+          "heroId": 58,
+          "tick": 15842,
+          "previousCapacity": 24,
+          "previousStep": 0.9999997615814209,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        },
+        {
+          "heroId": 31,
+          "tick": 20147,
+          "previousCapacity": 29,
+          "previousStep": 1.000000536441803,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        },
+        {
+          "heroId": 58,
+          "tick": 26842,
+          "previousCapacity": 24,
+          "previousStep": 1.0000004768371582,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        },
+        {
+          "heroId": 1,
+          "tick": 46177,
+          "previousCapacity": 54,
+          "previousStep": 0.9999994039535522,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        },
+        {
+          "heroId": 1,
+          "tick": 49105,
+          "previousCapacity": 54,
+          "previousStep": 1.0000000074505806,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        },
+        {
+          "heroId": 25,
+          "tick": 174961,
+          "previousCapacity": 43,
+          "previousStep": 0,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": false,
+          "rollbackTickDelay": null,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITHOUT_OBSERVED_ROLLBACK"
+        },
+        {
+          "heroId": 4,
+          "tick": 182821,
+          "previousCapacity": 26,
+          "previousStep": 0.9999999403953552,
+          "wholeStayedFlat": true,
+          "oneUnitPredictedStep": true,
+          "immediateRollback": true,
+          "rollbackTickDelay": 1,
+          "signature": "ONE_UNIT_FRACTION_PREDICTION_WITH_IMMEDIATE_ROLLBACK"
+        }
+      ]
+    },
+    "negative": {
+      "total": 8,
+      "coherentWholeAndFractionGain": 7,
+      "coherentWholeAndFractionGainRate": 0.875,
+      "grossRestorationCandidates": [
+        {
+          "key": "20",
+          "count": 2
+        },
+        {
+          "key": "3",
+          "count": 2
+        },
+        {
+          "key": "10",
+          "count": 1
+        },
+        {
+          "key": "2",
+          "count": 1
+        },
+        {
+          "key": "6",
+          "count": 1
+        }
+      ],
+      "rows": [
+        {
+          "heroId": 25,
+          "tick": 85449,
+          "previousCapacity": null,
+          "currentCapacity": null,
+          "stableCapacity": false,
+          "logicalGain": 12,
+          "fractionGainUnits": null,
+          "coherentNetGain": false,
+          "grossRestorationIfOneShotConsumed": null,
+          "signature": "NEGATIVE_RESIDUAL_OTHER"
+        },
+        {
+          "heroId": 18,
+          "tick": 92317,
+          "previousCapacity": 23,
+          "currentCapacity": 23,
+          "stableCapacity": true,
+          "logicalGain": 1,
+          "fractionGainUnits": 0.9999997615814209,
+          "coherentNetGain": true,
+          "grossRestorationIfOneShotConsumed": 2,
+          "signature": "WHOLE_AND_FRACTION_COHERENT_AMMO_GAIN"
+        },
+        {
+          "heroId": 4,
+          "tick": 108069,
+          "previousCapacity": 21,
+          "currentCapacity": 21,
+          "stableCapacity": true,
+          "logicalGain": 2,
+          "fractionGainUnits": 1.9999998807907104,
+          "coherentNetGain": true,
+          "grossRestorationIfOneShotConsumed": 3,
+          "signature": "WHOLE_AND_FRACTION_COHERENT_AMMO_GAIN"
+        },
+        {
+          "heroId": 25,
+          "tick": 115530,
+          "previousCapacity": 42,
+          "currentCapacity": 42,
+          "stableCapacity": true,
+          "logicalGain": 19,
+          "fractionGainUnits": 19.00000011920929,
+          "coherentNetGain": true,
+          "grossRestorationIfOneShotConsumed": 20,
+          "signature": "WHOLE_AND_FRACTION_COHERENT_AMMO_GAIN"
+        },
+        {
+          "heroId": 4,
+          "tick": 126800,
+          "previousCapacity": 21,
+          "currentCapacity": 21,
+          "stableCapacity": true,
+          "logicalGain": 2,
+          "fractionGainUnits": 1.9999998807907104,
+          "coherentNetGain": true,
+          "grossRestorationIfOneShotConsumed": 3,
+          "signature": "WHOLE_AND_FRACTION_COHERENT_AMMO_GAIN"
+        },
+        {
+          "heroId": 25,
+          "tick": 146060,
+          "previousCapacity": 42,
+          "currentCapacity": 42,
+          "stableCapacity": true,
+          "logicalGain": 19,
+          "fractionGainUnits": 19.000000040978193,
+          "coherentNetGain": true,
+          "grossRestorationIfOneShotConsumed": 20,
+          "signature": "WHOLE_AND_FRACTION_COHERENT_AMMO_GAIN"
+        },
+        {
+          "heroId": 4,
+          "tick": 161696,
+          "previousCapacity": 26,
+          "currentCapacity": 26,
+          "stableCapacity": true,
+          "logicalGain": 5,
+          "fractionGainUnits": 5.000000089406967,
+          "coherentNetGain": true,
+          "grossRestorationIfOneShotConsumed": 6,
+          "signature": "WHOLE_AND_FRACTION_COHERENT_AMMO_GAIN"
+        },
+        {
+          "heroId": 25,
+          "tick": 200952,
+          "previousCapacity": 43,
+          "currentCapacity": 43,
+          "stableCapacity": true,
+          "logicalGain": 9,
+          "fractionGainUnits": 8.999999165534973,
+          "coherentNetGain": true,
+          "grossRestorationIfOneShotConsumed": 10,
+          "signature": "WHOLE_AND_FRACTION_COHERENT_AMMO_GAIN"
+        }
+      ]
+    },
+    "classification": "RESIDUALS_SPLIT_INTO_FRACTION_PREDICTION_ROLLBACK_AND_COHERENT_AMMO_RESTORATION"
+  },
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script197Ready": {
+        "actual": "PHASE_CORRECTED_AMMO_RESIDUAL_AUDIT_V01_READY_FOR_INTERPRETATION",
+        "expected": "PHASE_CORRECTED_AMMO_RESIDUAL_AUDIT_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "exactResidualCountFrozen": {
+        "actual": 20,
+        "expected": 20,
+        "pass": true
+      },
+      "zeroCountFrozen": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      },
+      "negativeCountFrozen": {
+        "actual": 8,
+        "expected": 8,
+        "pass": true
+      },
+      "testReplayOnly": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "DESCRIPTIVE_DIAGNOSTIC_ONLY",
+    "authorityPromotion": false,
+    "replicationStatus": "discovery_calibration_only"
+  },
+  "nextStep": "FREEZE_THE_TWO_RESIDUAL_CLASSES;_ATTRIBUTE_COHERENT_RESTORATION_EVENTS_TO_ITEM_OR_ABILITY_CONTEXT;_KEEP_FRACTION_ROLLBACK_AS_SEPARATE_PREDICTION_PHASE_PHENOMENON"
+}

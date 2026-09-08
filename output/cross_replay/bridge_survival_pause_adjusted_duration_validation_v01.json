@@ -1,0 +1,1725 @@
+{
+  "version": "BRIDGE_SURVIVAL_PAUSE_ADJUSTED_DURATION_VALIDATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T16:04:07.528Z",
+  "status": "BRIDGE_SURVIVAL_PAUSE_ADJUSTED_DURATION_V01_REQUIRES_DIAGNOSIS",
+  "foundations": {
+    "script152Artifact": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_runtime_duration_validation_v01.json",
+    "script152Status": "BRIDGE_SURVIVAL_RUNTIME_DURATION_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+    "script153Artifact": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_expiration_outlier_diagnostic_v01.json"
+  },
+  "methodologicalCorrection": {
+    "oldModel": "Resource duration 160s was converted to 10,240 raw replay ticks.",
+    "correctedModel": "Resource duration is evaluated in active game time by adding native pause intervals to the raw replay-tick target.",
+    "nativeFields": [
+      "m_pGameRules.m_bGamePaused",
+      "m_pGameRules.m_nTotalPausedTicks",
+      "m_pGameRules.m_nPauseStartTick",
+      "m_pGameRules.m_bServerPaused"
+    ],
+    "semanticWindowRetuned": false,
+    "expirationHalfWindowTicks": 16
+  },
+  "aggregate": {
+    "naturalAnchors": 12,
+    "pauseShiftedAnchors": 0,
+    "oldHealthMaxPass": 11,
+    "correctedHealthMaxPass": 11,
+    "correctedHealthMaxPassRate": 0.9166666666666666,
+    "correctedHealthMaxSymmetry": 11,
+    "correctedHealthMaxSymmetryRate": 0.9166666666666666,
+    "correctedHealthRegenPass": 11,
+    "correctedHealthRegenPassRate": 0.9166666666666666,
+    "oldNaturalMisses": 1,
+    "oldNaturalMissesResolved": 0,
+    "oldPassesPreserved": 11,
+    "medianCorrectedExpirationTimingErrorSeconds": 0.046875,
+    "pauseShiftSeconds": []
+  },
+  "replays": [
+    {
+      "replayName": "rep01",
+      "processOk": true,
+      "pauseIntervals": [
+        {
+          "startTick": 40337,
+          "endTick": 42453,
+          "durationTicks": 2116,
+          "durationSeconds": 33.0625
+        },
+        {
+          "startTick": 42552,
+          "endTick": 43419,
+          "durationTicks": 867,
+          "durationSeconds": 13.546875
+        }
+      ],
+      "nativePauseTelemetry": {
+        "samplesWithPauseFields": 151808,
+        "changes": [
+          {
+            "tick": 1,
+            "gamePaused": false,
+            "serverPaused": false,
+            "totalPausedTicks": 0,
+            "pauseStartTick": 0,
+            "anyFieldObserved": true
+          },
+          {
+            "tick": 40337,
+            "gamePaused": true,
+            "serverPaused": false,
+            "totalPausedTicks": 0,
+            "pauseStartTick": 41474,
+            "anyFieldObserved": true
+          },
+          {
+            "tick": 42453,
+            "gamePaused": false,
+            "serverPaused": false,
+            "totalPausedTicks": 2116,
+            "pauseStartTick": 0,
+            "anyFieldObserved": true
+          },
+          {
+            "tick": 42552,
+            "gamePaused": true,
+            "serverPaused": false,
+            "totalPausedTicks": 2116,
+            "pauseStartTick": 43689,
+            "anyFieldObserved": true
+          },
+          {
+            "tick": 43419,
+            "gamePaused": false,
+            "serverPaused": false,
+            "totalPausedTicks": 2983,
+            "pauseStartTick": 0,
+            "anyFieldObserved": true
+          }
+        ]
+      },
+      "counts": {
+        "anchors": 3,
+        "pauseShiftedAnchors": 0,
+        "healthMaxCorrectedPass": 2,
+        "healthRegenCorrectedPass": 2,
+        "oldHealthMaxMisses": 1,
+        "oldHealthMaxMissesResolved": 0,
+        "oldHealthMaxPasses": 2,
+        "oldHealthMaxPassesPreserved": 2
+      },
+      "anchors": [
+        {
+          "replayName": "rep01",
+          "playerName": "Nebula",
+          "controllerIndex": 13,
+          "pickupTick": 63512,
+          "oldExpectedExpirationTick": 73752,
+          "matchClock": "16:02.375",
+          "healthMaxAcquisition": {
+            "controllerIndex": 13,
+            "field": "m_iHealthMax",
+            "tick": 63515,
+            "before": 1845,
+            "after": 2218,
+            "delta": 373,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 13,
+            "field": "m_iHealthMax",
+            "tick": 73757,
+            "before": 2352,
+            "after": 1979,
+            "delta": -373,
+            "dtTicks": 5,
+            "dtSeconds": 0.078125
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 13,
+            "field": "m_flHealthRegen",
+            "tick": 63515,
+            "before": 2,
+            "after": 17.310001373291016,
+            "delta": 15.310001373291016,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 13,
+            "field": "m_flHealthRegen",
+            "tick": 73757,
+            "before": 17.310001373291016,
+            "after": 2,
+            "delta": -15.310001373291016,
+            "dtTicks": 5,
+            "dtSeconds": 0.078125
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 73752,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 13,
+              "field": "m_iHealthMax",
+              "tick": 63515,
+              "before": 1845,
+              "after": 2218,
+              "delta": 373,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldExpiration": {
+              "controllerIndex": 13,
+              "field": "m_iHealthMax",
+              "tick": 73757,
+              "before": 2352,
+              "after": 1979,
+              "delta": -373,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 13,
+              "field": "m_iHealthMax",
+              "tick": 73757,
+              "before": 2352,
+              "after": 1979,
+              "delta": -373,
+              "dtTicks": 5
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 13,
+              "field": "m_flHealthRegen",
+              "tick": 63515,
+              "before": 2,
+              "after": 17.310001373291016,
+              "delta": 15.310001373291016,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldExpiration": {
+              "controllerIndex": 13,
+              "field": "m_flHealthRegen",
+              "tick": 73757,
+              "before": 17.310001373291016,
+              "after": 2,
+              "delta": -15.310001373291016,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 13,
+              "field": "m_flHealthRegen",
+              "tick": 73757,
+              "before": 17.310001373291016,
+              "after": 2,
+              "delta": -15.310001373291016,
+              "dtTicks": 5
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        },
+        {
+          "replayName": "rep01",
+          "playerName": "Zaeleth",
+          "controllerIndex": 2,
+          "pickupTick": 103145,
+          "oldExpectedExpirationTick": 113385,
+          "matchClock": "26:21.641",
+          "healthMaxAcquisition": {
+            "controllerIndex": 2,
+            "field": "m_iHealthMax",
+            "tick": 103146,
+            "before": 2914,
+            "after": 3444,
+            "delta": 530,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 2,
+            "field": "m_iHealthMax",
+            "tick": 113388,
+            "before": 3663,
+            "after": 3133,
+            "delta": -530,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 2,
+            "field": "m_flHealthRegen",
+            "tick": 103146,
+            "before": 5.5,
+            "after": 31.100000381469727,
+            "delta": 25.600000381469727,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 2,
+            "field": "m_flHealthRegen",
+            "tick": 113388,
+            "before": 31.100000381469727,
+            "after": 5.5,
+            "delta": -25.600000381469727,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 113385,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 103146,
+              "before": 2914,
+              "after": 3444,
+              "delta": 530,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldExpiration": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 113388,
+              "before": 3663,
+              "after": 3133,
+              "delta": -530,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 113388,
+              "before": 3663,
+              "after": 3133,
+              "delta": -530,
+              "dtTicks": 3
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 103146,
+              "before": 5.5,
+              "after": 31.100000381469727,
+              "delta": 25.600000381469727,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldExpiration": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 113388,
+              "before": 31.100000381469727,
+              "after": 5.5,
+              "delta": -25.600000381469727,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 113388,
+              "before": 31.100000381469727,
+              "after": 5.5,
+              "delta": -25.600000381469727,
+              "dtTicks": 3
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        },
+        {
+          "replayName": "rep01",
+          "playerName": "Kabuto",
+          "controllerIndex": 6,
+          "pickupTick": 141428,
+          "oldExpectedExpirationTick": 151668,
+          "matchClock": "36:19.813",
+          "healthMaxAcquisition": {
+            "controllerIndex": 6,
+            "field": "m_iHealthMax",
+            "tick": 141430,
+            "before": 4538,
+            "after": 5225,
+            "delta": 687,
+            "dtTicks": 2,
+            "dtSeconds": 0.03125
+          },
+          "healthMaxOldExpiration": null,
+          "healthMaxOldSymmetric": false,
+          "healthRegenAcquisition": {
+            "controllerIndex": 6,
+            "field": "m_flHealthRegen",
+            "tick": 141430,
+            "before": 11,
+            "after": 46.880001068115234,
+            "delta": 35.880001068115234,
+            "dtTicks": 2,
+            "dtSeconds": 0.03125
+          },
+          "healthRegenOldExpiration": null,
+          "healthRegenOldSymmetric": false,
+          "correctedExpectedExpirationTick": 151668,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 6,
+              "field": "m_iHealthMax",
+              "tick": 141430,
+              "before": 4538,
+              "after": 5225,
+              "delta": 687,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "oldExpiration": null,
+            "oldSymmetric": false,
+            "oldPass": false,
+            "correctedExpiration": null,
+            "correctedSymmetric": false,
+            "correctedPass": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 6,
+              "field": "m_flHealthRegen",
+              "tick": 141430,
+              "before": 11,
+              "after": 46.880001068115234,
+              "delta": 35.880001068115234,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "oldExpiration": null,
+            "oldSymmetric": false,
+            "oldPass": false,
+            "correctedExpiration": null,
+            "correctedSymmetric": false,
+            "correctedPass": false
+          }
+        }
+      ]
+    },
+    {
+      "replayName": "rep02",
+      "processOk": true,
+      "pauseIntervals": [],
+      "nativePauseTelemetry": {
+        "samplesWithPauseFields": 151891,
+        "changes": [
+          {
+            "tick": 1,
+            "gamePaused": false,
+            "serverPaused": false,
+            "totalPausedTicks": 0,
+            "pauseStartTick": 0,
+            "anyFieldObserved": true
+          }
+        ]
+      },
+      "counts": {
+        "anchors": 3,
+        "pauseShiftedAnchors": 0,
+        "healthMaxCorrectedPass": 3,
+        "healthRegenCorrectedPass": 3,
+        "oldHealthMaxMisses": 0,
+        "oldHealthMaxMissesResolved": 0,
+        "oldHealthMaxPasses": 3,
+        "oldHealthMaxPassesPreserved": 3
+      },
+      "anchors": [
+        {
+          "replayName": "rep02",
+          "playerName": "Rupa",
+          "controllerIndex": 3,
+          "pickupTick": 21732,
+          "oldExpectedExpirationTick": 31972,
+          "matchClock": "5:09.563",
+          "healthMaxAcquisition": {
+            "controllerIndex": 3,
+            "field": "m_iHealthMax",
+            "tick": 21735,
+            "before": 940,
+            "after": 1155,
+            "delta": 215,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 3,
+            "field": "m_iHealthMax",
+            "tick": 31977,
+            "before": 1397,
+            "after": 1181,
+            "delta": -216,
+            "dtTicks": 5,
+            "dtSeconds": 0.078125
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 3,
+            "field": "m_flHealthRegen",
+            "tick": 21735,
+            "before": 2,
+            "after": 7.019999980926514,
+            "delta": 5.019999980926514,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 3,
+            "field": "m_flHealthRegen",
+            "tick": 31977,
+            "before": 6.019999980926514,
+            "after": 1,
+            "delta": -5.019999980926514,
+            "dtTicks": 5,
+            "dtSeconds": 0.078125
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 31972,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 3,
+              "field": "m_iHealthMax",
+              "tick": 21735,
+              "before": 940,
+              "after": 1155,
+              "delta": 215,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldExpiration": {
+              "controllerIndex": 3,
+              "field": "m_iHealthMax",
+              "tick": 31977,
+              "before": 1397,
+              "after": 1181,
+              "delta": -216,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 3,
+              "field": "m_iHealthMax",
+              "tick": 31977,
+              "before": 1397,
+              "after": 1181,
+              "delta": -216,
+              "dtTicks": 5
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 3,
+              "field": "m_flHealthRegen",
+              "tick": 21735,
+              "before": 2,
+              "after": 7.019999980926514,
+              "delta": 5.019999980926514,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldExpiration": {
+              "controllerIndex": 3,
+              "field": "m_flHealthRegen",
+              "tick": 31977,
+              "before": 6.019999980926514,
+              "after": 1,
+              "delta": -5.019999980926514,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 3,
+              "field": "m_flHealthRegen",
+              "tick": 31977,
+              "before": 6.019999980926514,
+              "after": 1,
+              "delta": -5.019999980926514,
+              "dtTicks": 5
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        },
+        {
+          "replayName": "rep02",
+          "playerName": "renso",
+          "controllerIndex": 7,
+          "pickupTick": 80331,
+          "oldExpectedExpirationTick": 90571,
+          "matchClock": "20:25.172",
+          "healthMaxAcquisition": {
+            "controllerIndex": 7,
+            "field": "m_iHealthMax",
+            "tick": 80332,
+            "before": 2448,
+            "after": 2899,
+            "delta": 451,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 7,
+            "field": "m_iHealthMax",
+            "tick": 90574,
+            "before": 3007,
+            "after": 2556,
+            "delta": -451,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 7,
+            "field": "m_flHealthRegen",
+            "tick": 80332,
+            "before": 4,
+            "after": 24.450000762939453,
+            "delta": 20.450000762939453,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 7,
+            "field": "m_flHealthRegen",
+            "tick": 90574,
+            "before": 24.450000762939453,
+            "after": 4,
+            "delta": -20.450000762939453,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 90571,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 80332,
+              "before": 2448,
+              "after": 2899,
+              "delta": 451,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldExpiration": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 90574,
+              "before": 3007,
+              "after": 2556,
+              "delta": -451,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 90574,
+              "before": 3007,
+              "after": 2556,
+              "delta": -451,
+              "dtTicks": 3
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 80332,
+              "before": 4,
+              "after": 24.450000762939453,
+              "delta": 20.450000762939453,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldExpiration": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 90574,
+              "before": 24.450000762939453,
+              "after": 4,
+              "delta": -20.450000762939453,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 90574,
+              "before": 24.450000762939453,
+              "after": 4,
+              "delta": -20.450000762939453,
+              "dtTicks": 3
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        },
+        {
+          "replayName": "rep02",
+          "playerName": "Wild Willy",
+          "controllerIndex": 12,
+          "pickupTick": 136935,
+          "oldExpectedExpirationTick": 147175,
+          "matchClock": "35:09.609",
+          "healthMaxAcquisition": {
+            "controllerIndex": 12,
+            "field": "m_iHealthMax",
+            "tick": 136936,
+            "before": 2856,
+            "after": 3543,
+            "delta": 687,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 12,
+            "field": "m_iHealthMax",
+            "tick": 147178,
+            "before": 3588,
+            "after": 2901,
+            "delta": -687,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 12,
+            "field": "m_flHealthRegen",
+            "tick": 136936,
+            "before": 20,
+            "after": 55.880001068115234,
+            "delta": 35.880001068115234,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 12,
+            "field": "m_flHealthRegen",
+            "tick": 147178,
+            "before": 55.880001068115234,
+            "after": 20,
+            "delta": -35.880001068115234,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 147175,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 12,
+              "field": "m_iHealthMax",
+              "tick": 136936,
+              "before": 2856,
+              "after": 3543,
+              "delta": 687,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldExpiration": {
+              "controllerIndex": 12,
+              "field": "m_iHealthMax",
+              "tick": 147178,
+              "before": 3588,
+              "after": 2901,
+              "delta": -687,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 12,
+              "field": "m_iHealthMax",
+              "tick": 147178,
+              "before": 3588,
+              "after": 2901,
+              "delta": -687,
+              "dtTicks": 3
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 12,
+              "field": "m_flHealthRegen",
+              "tick": 136936,
+              "before": 20,
+              "after": 55.880001068115234,
+              "delta": 35.880001068115234,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldExpiration": {
+              "controllerIndex": 12,
+              "field": "m_flHealthRegen",
+              "tick": 147178,
+              "before": 55.880001068115234,
+              "after": 20,
+              "delta": -35.880001068115234,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 12,
+              "field": "m_flHealthRegen",
+              "tick": 147178,
+              "before": 55.880001068115234,
+              "after": 20,
+              "delta": -35.880001068115234,
+              "dtTicks": 3
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        }
+      ]
+    },
+    {
+      "replayName": "rep03",
+      "processOk": true,
+      "pauseIntervals": [
+        {
+          "startTick": 132542,
+          "endTick": 135995,
+          "durationTicks": 3453,
+          "durationSeconds": 53.953125
+        }
+      ],
+      "nativePauseTelemetry": {
+        "samplesWithPauseFields": 215049,
+        "changes": [
+          {
+            "tick": 1,
+            "gamePaused": false,
+            "serverPaused": false,
+            "totalPausedTicks": 0,
+            "pauseStartTick": 0,
+            "anyFieldObserved": true
+          },
+          {
+            "tick": 132542,
+            "gamePaused": true,
+            "serverPaused": false,
+            "totalPausedTicks": 0,
+            "pauseStartTick": 134901,
+            "anyFieldObserved": true
+          },
+          {
+            "tick": 135995,
+            "gamePaused": false,
+            "serverPaused": false,
+            "totalPausedTicks": 3453,
+            "pauseStartTick": 0,
+            "anyFieldObserved": true
+          }
+        ]
+      },
+      "counts": {
+        "anchors": 3,
+        "pauseShiftedAnchors": 0,
+        "healthMaxCorrectedPass": 3,
+        "healthRegenCorrectedPass": 3,
+        "oldHealthMaxMisses": 0,
+        "oldHealthMaxMissesResolved": 0,
+        "oldHealthMaxPasses": 3,
+        "oldHealthMaxPassesPreserved": 3
+      },
+      "anchors": [
+        {
+          "replayName": "rep03",
+          "playerName": "renso",
+          "controllerIndex": 7,
+          "pickupTick": 43732,
+          "oldExpectedExpirationTick": 53972,
+          "matchClock": "10:53.313",
+          "healthMaxAcquisition": {
+            "controllerIndex": 7,
+            "field": "m_iHealthMax",
+            "tick": 43737,
+            "before": 1518,
+            "after": 1828,
+            "delta": 310,
+            "dtTicks": 5,
+            "dtSeconds": 0.078125
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 7,
+            "field": "m_iHealthMax",
+            "tick": 53973,
+            "before": 2434,
+            "after": 2124,
+            "delta": -310,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 7,
+            "field": "m_flHealthRegen",
+            "tick": 43737,
+            "before": 4,
+            "after": 15.199999809265137,
+            "delta": 11.199999809265137,
+            "dtTicks": 5,
+            "dtSeconds": 0.078125
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 7,
+            "field": "m_flHealthRegen",
+            "tick": 53973,
+            "before": 15.199999809265137,
+            "after": 4,
+            "delta": -11.199999809265137,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 53972,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 43737,
+              "before": 1518,
+              "after": 1828,
+              "delta": 310,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "oldExpiration": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 53973,
+              "before": 2434,
+              "after": 2124,
+              "delta": -310,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 53973,
+              "before": 2434,
+              "after": 2124,
+              "delta": -310,
+              "dtTicks": 1
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 43737,
+              "before": 4,
+              "after": 15.199999809265137,
+              "delta": 11.199999809265137,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "oldExpiration": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 53973,
+              "before": 15.199999809265137,
+              "after": 4,
+              "delta": -11.199999809265137,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 53973,
+              "before": 15.199999809265137,
+              "after": 4,
+              "delta": -11.199999809265137,
+              "dtTicks": 1
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        },
+        {
+          "replayName": "rep03",
+          "playerName": "4rM4D1110",
+          "controllerIndex": 11,
+          "pickupTick": 60905,
+          "oldExpectedExpirationTick": 71145,
+          "matchClock": "15:21.641",
+          "healthMaxAcquisition": {
+            "controllerIndex": 11,
+            "field": "m_iHealthMax",
+            "tick": 60907,
+            "before": 1587,
+            "after": 1959,
+            "delta": 372,
+            "dtTicks": 2,
+            "dtSeconds": 0.03125
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 11,
+            "field": "m_iHealthMax",
+            "tick": 71149,
+            "before": 2038,
+            "after": 1665,
+            "delta": -373,
+            "dtTicks": 4,
+            "dtSeconds": 0.0625
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 11,
+            "field": "m_flHealthRegen",
+            "tick": 60907,
+            "before": 19.40250015258789,
+            "after": 34.712501525878906,
+            "delta": 15.310001373291016,
+            "dtTicks": 2,
+            "dtSeconds": 0.03125
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 11,
+            "field": "m_flHealthRegen",
+            "tick": 71149,
+            "before": 20.310001373291016,
+            "after": 5,
+            "delta": -15.310001373291016,
+            "dtTicks": 4,
+            "dtSeconds": 0.0625
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 71145,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 11,
+              "field": "m_iHealthMax",
+              "tick": 60907,
+              "before": 1587,
+              "after": 1959,
+              "delta": 372,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "oldExpiration": {
+              "controllerIndex": 11,
+              "field": "m_iHealthMax",
+              "tick": 71149,
+              "before": 2038,
+              "after": 1665,
+              "delta": -373,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 11,
+              "field": "m_iHealthMax",
+              "tick": 71149,
+              "before": 2038,
+              "after": 1665,
+              "delta": -373,
+              "dtTicks": 4
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 11,
+              "field": "m_flHealthRegen",
+              "tick": 60907,
+              "before": 19.40250015258789,
+              "after": 34.712501525878906,
+              "delta": 15.310001373291016,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "oldExpiration": {
+              "controllerIndex": 11,
+              "field": "m_flHealthRegen",
+              "tick": 71149,
+              "before": 20.310001373291016,
+              "after": 5,
+              "delta": -15.310001373291016,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 11,
+              "field": "m_flHealthRegen",
+              "tick": 71149,
+              "before": 20.310001373291016,
+              "after": 5,
+              "delta": -15.310001373291016,
+              "dtTicks": 4
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        },
+        {
+          "replayName": "rep03",
+          "playerName": "MiggyTCD",
+          "controllerIndex": 4,
+          "pickupTick": 117699,
+          "oldExpectedExpirationTick": 127939,
+          "matchClock": "30:09.047",
+          "healthMaxAcquisition": {
+            "controllerIndex": 4,
+            "field": "m_iHealthMax",
+            "tick": 117700,
+            "before": 3950,
+            "after": 4558,
+            "delta": 608,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 4,
+            "field": "m_iHealthMax",
+            "tick": 127942,
+            "before": 4594,
+            "after": 3985,
+            "delta": -609,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 4,
+            "field": "m_flHealthRegen",
+            "tick": 117700,
+            "before": 11.5,
+            "after": 42.23999786376953,
+            "delta": 30.73999786376953,
+            "dtTicks": 1,
+            "dtSeconds": 0.015625
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 4,
+            "field": "m_flHealthRegen",
+            "tick": 127942,
+            "before": 42.23999786376953,
+            "after": 11.5,
+            "delta": -30.73999786376953,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 127939,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 117700,
+              "before": 3950,
+              "after": 4558,
+              "delta": 608,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldExpiration": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 127942,
+              "before": 4594,
+              "after": 3985,
+              "delta": -609,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 127942,
+              "before": 4594,
+              "after": 3985,
+              "delta": -609,
+              "dtTicks": 3
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 117700,
+              "before": 11.5,
+              "after": 42.23999786376953,
+              "delta": 30.73999786376953,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "oldExpiration": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 127942,
+              "before": 42.23999786376953,
+              "after": 11.5,
+              "delta": -30.73999786376953,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 127942,
+              "before": 42.23999786376953,
+              "after": 11.5,
+              "delta": -30.73999786376953,
+              "dtTicks": 3
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        }
+      ]
+    },
+    {
+      "replayName": "rep05",
+      "processOk": true,
+      "pauseIntervals": [],
+      "nativePauseTelemetry": {
+        "samplesWithPauseFields": 157947,
+        "changes": [
+          {
+            "tick": 1,
+            "gamePaused": false,
+            "serverPaused": false,
+            "totalPausedTicks": 0,
+            "pauseStartTick": 0,
+            "anyFieldObserved": true
+          }
+        ]
+      },
+      "counts": {
+        "anchors": 3,
+        "pauseShiftedAnchors": 0,
+        "healthMaxCorrectedPass": 3,
+        "healthRegenCorrectedPass": 3,
+        "oldHealthMaxMisses": 0,
+        "oldHealthMaxMissesResolved": 0,
+        "oldHealthMaxPasses": 3,
+        "oldHealthMaxPassesPreserved": 3
+      },
+      "anchors": [
+        {
+          "replayName": "rep05",
+          "playerName": "ACE_Lazzy",
+          "controllerIndex": 6,
+          "pickupTick": 41719,
+          "oldExpectedExpirationTick": 51959,
+          "matchClock": "10:21.859",
+          "healthMaxAcquisition": {
+            "controllerIndex": 6,
+            "field": "m_iHealthMax",
+            "tick": 41722,
+            "before": 1312,
+            "after": 1606,
+            "delta": 294,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 6,
+            "field": "m_iHealthMax",
+            "tick": 51964,
+            "before": 1903,
+            "after": 1609,
+            "delta": -294,
+            "dtTicks": 5,
+            "dtSeconds": 0.078125
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 6,
+            "field": "m_flHealthRegen",
+            "tick": 41722,
+            "before": 3.5,
+            "after": 13.670000076293945,
+            "delta": 10.170000076293945,
+            "dtTicks": 3,
+            "dtSeconds": 0.046875
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 6,
+            "field": "m_flHealthRegen",
+            "tick": 51964,
+            "before": 13.670000076293945,
+            "after": 3.5,
+            "delta": -10.170000076293945,
+            "dtTicks": 5,
+            "dtSeconds": 0.078125
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 51959,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 6,
+              "field": "m_iHealthMax",
+              "tick": 41722,
+              "before": 1312,
+              "after": 1606,
+              "delta": 294,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldExpiration": {
+              "controllerIndex": 6,
+              "field": "m_iHealthMax",
+              "tick": 51964,
+              "before": 1903,
+              "after": 1609,
+              "delta": -294,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 6,
+              "field": "m_iHealthMax",
+              "tick": 51964,
+              "before": 1903,
+              "after": 1609,
+              "delta": -294,
+              "dtTicks": 5
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 6,
+              "field": "m_flHealthRegen",
+              "tick": 41722,
+              "before": 3.5,
+              "after": 13.670000076293945,
+              "delta": 10.170000076293945,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "oldExpiration": {
+              "controllerIndex": 6,
+              "field": "m_flHealthRegen",
+              "tick": 51964,
+              "before": 13.670000076293945,
+              "after": 3.5,
+              "delta": -10.170000076293945,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 6,
+              "field": "m_flHealthRegen",
+              "tick": 51964,
+              "before": 13.670000076293945,
+              "after": 3.5,
+              "delta": -10.170000076293945,
+              "dtTicks": 5
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        },
+        {
+          "replayName": "rep05",
+          "playerName": "JustJorsh",
+          "controllerIndex": 8,
+          "pickupTick": 60443,
+          "oldExpectedExpirationTick": 70683,
+          "matchClock": "15:14.422",
+          "healthMaxAcquisition": {
+            "controllerIndex": 8,
+            "field": "m_iHealthMax",
+            "tick": 60447,
+            "before": 2459,
+            "after": 2832,
+            "delta": 373,
+            "dtTicks": 4,
+            "dtSeconds": 0.0625
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 8,
+            "field": "m_iHealthMax",
+            "tick": 70683,
+            "before": 2974,
+            "after": 2601,
+            "delta": -373,
+            "dtTicks": 0,
+            "dtSeconds": 0
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 8,
+            "field": "m_flHealthRegen",
+            "tick": 60447,
+            "before": 3,
+            "after": 18.310001373291016,
+            "delta": 15.310001373291016,
+            "dtTicks": 4,
+            "dtSeconds": 0.0625
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 8,
+            "field": "m_flHealthRegen",
+            "tick": 70683,
+            "before": 23.634002685546875,
+            "after": 8.324000358581543,
+            "delta": -15.310002326965332,
+            "dtTicks": 0,
+            "dtSeconds": 0
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 70683,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 8,
+              "field": "m_iHealthMax",
+              "tick": 60447,
+              "before": 2459,
+              "after": 2832,
+              "delta": 373,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "oldExpiration": {
+              "controllerIndex": 8,
+              "field": "m_iHealthMax",
+              "tick": 70683,
+              "before": 2974,
+              "after": 2601,
+              "delta": -373,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 8,
+              "field": "m_iHealthMax",
+              "tick": 70683,
+              "before": 2974,
+              "after": 2601,
+              "delta": -373,
+              "dtTicks": 0
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 8,
+              "field": "m_flHealthRegen",
+              "tick": 60447,
+              "before": 3,
+              "after": 18.310001373291016,
+              "delta": 15.310001373291016,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "oldExpiration": {
+              "controllerIndex": 8,
+              "field": "m_flHealthRegen",
+              "tick": 70683,
+              "before": 23.634002685546875,
+              "after": 8.324000358581543,
+              "delta": -15.310002326965332,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 8,
+              "field": "m_flHealthRegen",
+              "tick": 70683,
+              "before": 23.634002685546875,
+              "after": 8.324000358581543,
+              "delta": -15.310002326965332,
+              "dtTicks": 0
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        },
+        {
+          "replayName": "rep05",
+          "playerName": "Ghostt",
+          "controllerIndex": 4,
+          "pickupTick": 137368,
+          "oldExpectedExpirationTick": 147608,
+          "matchClock": "35:16.375",
+          "healthMaxAcquisition": {
+            "controllerIndex": 4,
+            "field": "m_iHealthMax",
+            "tick": 137374,
+            "before": 3105,
+            "after": 3793,
+            "delta": 688,
+            "dtTicks": 6,
+            "dtSeconds": 0.09375
+          },
+          "healthMaxOldExpiration": {
+            "controllerIndex": 4,
+            "field": "m_iHealthMax",
+            "tick": 147610,
+            "before": 4294,
+            "after": 3607,
+            "delta": -687,
+            "dtTicks": 2,
+            "dtSeconds": 0.03125
+          },
+          "healthMaxOldSymmetric": true,
+          "healthRegenAcquisition": {
+            "controllerIndex": 4,
+            "field": "m_flHealthRegen",
+            "tick": 137374,
+            "before": 4,
+            "after": 39.880001068115234,
+            "delta": 35.880001068115234,
+            "dtTicks": 6,
+            "dtSeconds": 0.09375
+          },
+          "healthRegenOldExpiration": {
+            "controllerIndex": 4,
+            "field": "m_flHealthRegen",
+            "tick": 147610,
+            "before": 37.880001068115234,
+            "after": 2,
+            "delta": -35.880001068115234,
+            "dtTicks": 2,
+            "dtSeconds": 0.03125
+          },
+          "healthRegenOldSymmetric": true,
+          "correctedExpectedExpirationTick": 147608,
+          "pauseShiftTicks": 0,
+          "pauseShiftSeconds": 0,
+          "pauseIntervalsOverlappingLifetime": [],
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 137374,
+              "before": 3105,
+              "after": 3793,
+              "delta": 688,
+              "dtTicks": 6,
+              "dtSeconds": 0.09375
+            },
+            "oldExpiration": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 147610,
+              "before": 4294,
+              "after": 3607,
+              "delta": -687,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 147610,
+              "before": 4294,
+              "after": 3607,
+              "delta": -687,
+              "dtTicks": 2
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 137374,
+              "before": 4,
+              "after": 39.880001068115234,
+              "delta": 35.880001068115234,
+              "dtTicks": 6,
+              "dtSeconds": 0.09375
+            },
+            "oldExpiration": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 147610,
+              "before": 37.880001068115234,
+              "after": 2,
+              "delta": -35.880001068115234,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "oldSymmetric": true,
+            "oldPass": true,
+            "correctedExpiration": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 147610,
+              "before": 37.880001068115234,
+              "after": 2,
+              "delta": -35.880001068115234,
+              "dtTicks": 2
+            },
+            "correctedSymmetric": true,
+            "correctedPass": true
+          }
+        }
+      ]
+    }
+  ],
+  "semanticValidation": {
+    "pass": false,
+    "checks": {
+      "script152StronglyValidated": {
+        "actual": "BRIDGE_SURVIVAL_RUNTIME_DURATION_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+        "expected": "BRIDGE_SURVIVAL_RUNTIME_DURATION_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+        "pass": true
+      },
+      "naturalAnchorsPreserved": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      },
+      "allReplayProcessesCompleted": {
+        "actual": 4,
+        "expected": 4,
+        "pass": true
+      },
+      "nativePauseTelemetryObserved": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "correctedHealthMaxExpirationStrong": {
+        "actual": 0.9166666666666666,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "correctedHealthMaxSymmetryStrong": {
+        "actual": 0.9166666666666666,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "correctedHealthRegenSupportStrong": {
+        "actual": 0.9166666666666666,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "correctedTimingTight": {
+        "actual": 0.046875,
+        "expected": "<=0.125s",
+        "pass": true
+      },
+      "oldPassesNotDegraded": {
+        "actual": 11,
+        "expected": 11,
+        "pass": true
+      },
+      "priorNaturalMissesResolved": {
+        "actual": 0,
+        "expected": 1,
+        "pass": false
+      }
+    }
+  },
+  "interpretation": {
+    "supported": "Pause-aware duration correction was evaluated, but one or more pre-specified semantic gates remain unresolved.",
+    "historicalPreservation": "Script152 remains valid evidence for the raw-tick model it tested. This script does not rewrite or retune Script152; it tests a corrected clock interpretation motivated by the independently networked pause state.",
+    "notYetSupported": "This script does not by itself validate all non-Survival bridge stat consequences or exact match-time interpolation values."
+  }
+}

@@ -1,0 +1,513 @@
+{
+  "version": "PHASE_CORRECTED_SLIDE_CARRIER_CANDIDATE_V01",
+  "canonical": false,
+  "createdAt": "2026-09-08T01:41:51.204Z",
+  "replay": "test",
+  "status": "PHASE_CORRECTED_SLIDE_CARRIER_CANDIDATE_V01_READY_FOR_INTERPRETATION",
+  "scientificBoundary": {
+    "discoveryReplay": "test",
+    "frozenPrimaryCarrier": {
+      "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+      "bit": 5,
+      "mask": 32
+    },
+    "attackTickPhaseRule": "current carrier present OR exact present-to-absent carrier transition on attack tick",
+    "graceWindowTicks": 0,
+    "strictChronology": true,
+    "combinedAmmoCounter": "ZigZag(m_iClip)+ZigZag(m_iBonusClip)",
+    "carrierAuthorityPromotion": false,
+    "effectiveWeaponStatePromotion": false
+  },
+  "telemetry": {
+    "weaponEvents": 61099,
+    "strictTransitions": 37644,
+    "joined": 37644,
+    "joinFailures": 0,
+    "pawnMutations": 2455392
+  },
+  "diagnostic": {
+    "evaluable": 37644,
+    "rawAbsent": 30597,
+    "correctedAbsent": 30541,
+    "exactExit": {
+      "total": 56,
+      "zero": 56,
+      "positive": 0,
+      "negative": 0,
+      "pZeroGivenExactExit": 1,
+      "zeroRecallAmongRawAbsentZeros": 0.8235294117647058
+    },
+    "rawPartition": {
+      "total": 30597,
+      "positive": 30521,
+      "zero": 68,
+      "negative": 8,
+      "residual": 76,
+      "positiveRate": 0.9975160963493153,
+      "zeroRate": 0.00222244010850737,
+      "negativeRate": 0.00026146354217733767
+    },
+    "correctedPartition": {
+      "total": 30541,
+      "positive": 30521,
+      "zero": 12,
+      "negative": 8,
+      "residual": 20,
+      "positiveRate": 0.9993451425951999,
+      "zeroRate": 0.0003929144428800629,
+      "negativeRate": 0.0002619429619200419
+    },
+    "residualReduction": 0.736842105263158,
+    "zeroReduction": 0.8235294117647058,
+    "remainingZeros": [
+      {
+        "tick": 5806,
+        "heroId": 31,
+        "playerKey": "renso",
+        "weaponEntityIndex": 2623,
+        "tickGap": 5,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 212,
+        "lastCarrierTransition": {
+          "tick": 5594,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 10680,
+        "heroId": 31,
+        "playerKey": "renso",
+        "weaponEntityIndex": 2623,
+        "tickGap": 6,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 1758,
+        "lastCarrierTransition": {
+          "tick": 8922,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 10703,
+        "heroId": 1,
+        "playerKey": "flem",
+        "weaponEntityIndex": 496,
+        "tickGap": 6,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 260,
+        "lastCarrierTransition": {
+          "tick": 10443,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 12156,
+        "heroId": 58,
+        "playerKey": "blooop354",
+        "weaponEntityIndex": 2588,
+        "tickGap": 5,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 52,
+        "lastCarrierTransition": {
+          "tick": 12104,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 15596,
+        "heroId": 58,
+        "playerKey": "blooop354",
+        "weaponEntityIndex": 2588,
+        "tickGap": 4,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 381,
+        "lastCarrierTransition": {
+          "tick": 15215,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 15842,
+        "heroId": 58,
+        "playerKey": "blooop354",
+        "weaponEntityIndex": 2588,
+        "tickGap": 4,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 627,
+        "lastCarrierTransition": {
+          "tick": 15215,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 20147,
+        "heroId": 31,
+        "playerKey": "renso",
+        "weaponEntityIndex": 2623,
+        "tickGap": 5,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 299,
+        "lastCarrierTransition": {
+          "tick": 19848,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 26842,
+        "heroId": 58,
+        "playerKey": "blooop354",
+        "weaponEntityIndex": 2588,
+        "tickGap": 5,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 33,
+        "lastCarrierTransition": {
+          "tick": 26809,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 46177,
+        "heroId": 1,
+        "playerKey": "flem",
+        "weaponEntityIndex": 496,
+        "tickGap": 5,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 3774,
+        "lastCarrierTransition": {
+          "tick": 42403,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 49105,
+        "heroId": 1,
+        "playerKey": "flem",
+        "weaponEntityIndex": 496,
+        "tickGap": 4,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 1694,
+        "lastCarrierTransition": {
+          "tick": 47411,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 174961,
+        "heroId": 25,
+        "playerKey": "Nebula",
+        "weaponEntityIndex": 2638,
+        "tickGap": 8,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 935,
+        "lastCarrierTransition": {
+          "tick": 174026,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 182821,
+        "heroId": 4,
+        "playerKey": "Snazzy314",
+        "weaponEntityIndex": 2687,
+        "tickGap": 15,
+        "shotAdvance": 1,
+        "combinedDrop": 0,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 461,
+        "lastCarrierTransition": {
+          "tick": 182360,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      }
+    ],
+    "remainingNegatives": [
+      {
+        "tick": 85449,
+        "heroId": 25,
+        "playerKey": "Nebula",
+        "weaponEntityIndex": 2638,
+        "tickGap": 11,
+        "shotAdvance": 1,
+        "combinedDrop": -12,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 633,
+        "lastCarrierTransition": {
+          "tick": 84816,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 92317,
+        "heroId": 18,
+        "playerKey": "viggoth 300",
+        "weaponEntityIndex": 2704,
+        "tickGap": 11,
+        "shotAdvance": 1,
+        "combinedDrop": -1,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 12,
+        "lastCarrierTransition": {
+          "tick": 92305,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 108069,
+        "heroId": 4,
+        "playerKey": "Snazzy314",
+        "weaponEntityIndex": 2687,
+        "tickGap": 22,
+        "shotAdvance": 1,
+        "combinedDrop": -2,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 805,
+        "lastCarrierTransition": {
+          "tick": 107264,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 2097190,
+          "afterValue": 2149580804
+        }
+      },
+      {
+        "tick": 115530,
+        "heroId": 25,
+        "playerKey": "Nebula",
+        "weaponEntityIndex": 2638,
+        "tickGap": 8,
+        "shotAdvance": 1,
+        "combinedDrop": -19,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 5204,
+        "lastCarrierTransition": {
+          "tick": 110326,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 126800,
+        "heroId": 4,
+        "playerKey": "Snazzy314",
+        "weaponEntityIndex": 2687,
+        "tickGap": 17,
+        "shotAdvance": 1,
+        "combinedDrop": -2,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 43,
+        "lastCarrierTransition": {
+          "tick": 126757,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 146060,
+        "heroId": 25,
+        "playerKey": "Nebula",
+        "weaponEntityIndex": 2638,
+        "tickGap": 8,
+        "shotAdvance": 1,
+        "combinedDrop": -19,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 1089,
+        "lastCarrierTransition": {
+          "tick": 144971,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 34,
+          "afterValue": 0
+        }
+      },
+      {
+        "tick": 161696,
+        "heroId": 4,
+        "playerKey": "Snazzy314",
+        "weaponEntityIndex": 2687,
+        "tickGap": 17,
+        "shotAdvance": 1,
+        "combinedDrop": -5,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 2114,
+        "lastCarrierTransition": {
+          "tick": 159582,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      },
+      {
+        "tick": 200952,
+        "heroId": 25,
+        "playerKey": "Nebula",
+        "weaponEntityIndex": 2638,
+        "tickGap": 7,
+        "shotAdvance": 1,
+        "combinedDrop": -9,
+        "ammoFractionChangedAtAttack": null,
+        "ticksSinceExit": 914,
+        "lastCarrierTransition": {
+          "tick": 200038,
+          "fromPresent": true,
+          "toPresent": false,
+          "beforeValue": 38,
+          "afterValue": 2147483652
+        }
+      }
+    ],
+    "remainingZerosByHero": [
+      {
+        "heroId": "58",
+        "count": 4
+      },
+      {
+        "heroId": "31",
+        "count": 3
+      },
+      {
+        "heroId": "1",
+        "count": 3
+      },
+      {
+        "heroId": "25",
+        "count": 1
+      },
+      {
+        "heroId": "4",
+        "count": 1
+      }
+    ],
+    "remainingNegativesByHero": [
+      {
+        "heroId": "25",
+        "count": 4
+      },
+      {
+        "heroId": "4",
+        "count": 3
+      },
+      {
+        "heroId": "18",
+        "count": 1
+      }
+    ],
+    "classification": "PRE_TRANSITION_CARRIER_ATTACK_TICK_PHASE_RULE_STRONGLY_SUPPORTED_ON_TEST"
+  },
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script195ClassificationExpected": {
+        "actual": "EXACT_CARRIER_EXIT_TICK_STRONGLY_EXPLAINS_STRICT_ZERO_PHASE",
+        "expected": "EXACT_CARRIER_EXIT_TICK_STRONGLY_EXPLAINS_STRICT_ZERO_PHASE",
+        "pass": true
+      },
+      "exactExitZeroFrozen": {
+        "actual": 56,
+        "expected": 56,
+        "pass": true
+      },
+      "exactExitPositiveFrozen": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "weaponParseClean": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "attackJoinComplete": {
+        "actual": {
+          "joined": 37644,
+          "joinFailures": 0,
+          "total": 37644
+        },
+        "expected": {
+          "joined": 37644,
+          "joinFailures": 0,
+          "total": 37644
+        },
+        "pass": true
+      },
+      "testReplayOnly": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "STRONG_SINGLE_REPLAY_DIAGNOSTIC_SUPPORT",
+    "authorityPromotion": false,
+    "replicationStatus": "discovery_calibration_only"
+  },
+  "nextStep": "FREEZE_PHASE_CORRECTED_CARRIER_AS_CANDIDATE_ATTACK_TICK_RULE;_DIAGNOSE_REMAINING_TEST_ZEROS_AND_NEGATIVES_SEPARATELY;_NEW_INDEPENDENT_REPLAYS_REQUIRED_BEFORE_PROMOTION"
+}

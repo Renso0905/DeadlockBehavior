@@ -1,0 +1,3121 @@
+{
+  "version": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T15:04:41.898Z",
+  "replay": "rep01",
+  "replayPath": "G:\\DeadlockBehavior\\replays\\rep01.dem",
+  "status": "BRIDGE_PVS_ROBUST_LIFECYCLE_V01_READY_FOR_INTERPRETATION",
+  "methodologicalCorrection": {
+    "script148CreateActiveWasNotSemanticSpawn": true,
+    "reason": "Repeated CREATE operations on the same two spawner indexes demonstrate PVS/network re-entry. CREATE is retained only as state observation."
+  },
+  "counts": {
+    "entityMutations": 2107973,
+    "spawnerMutations": 112,
+    "pickupMutations": 385,
+    "playerSamples": 9485,
+    "spawnerIndexes": 2,
+    "spawnerNextDropUpdateTransitions": 16,
+    "spawnerActiveUpdateTransitions": 28,
+    "pickupActiveFalseToTrueUpdates": 12,
+    "pickupActiveTrueToFalseUpdates": 14
+  },
+  "spawners": [
+    {
+      "entityIndex": 406,
+      "position": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "createObservations": 41,
+      "updateObservations": 15,
+      "leaveObservations": 0,
+      "deleteObservations": 0,
+      "strongActiveUpdateTransitions": 14,
+      "strongNextDropUpdateTransitions": 8,
+      "activeUpdates": [
+        {
+          "tick": 21122,
+          "matchTimeSeconds": 300.03125,
+          "matchClock": "5:00.031",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 21704,
+          "matchTimeSeconds": 309.125,
+          "matchClock": "5:09.125",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 40322,
+          "matchTimeSeconds": 600.03125,
+          "matchClock": "10:00.031",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 44157,
+          "matchTimeSeconds": 659.953125,
+          "matchClock": "10:59.953",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 62505,
+          "matchTimeSeconds": 946.640625,
+          "matchClock": "15:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 63513,
+          "matchTimeSeconds": 962.390625,
+          "matchClock": "16:02.391",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 81705,
+          "matchTimeSeconds": 1246.640625,
+          "matchClock": "20:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 82713,
+          "matchTimeSeconds": 1262.390625,
+          "matchClock": "21:02.391",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 100905,
+          "matchTimeSeconds": 1546.640625,
+          "matchClock": "25:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 101505,
+          "matchTimeSeconds": 1556.015625,
+          "matchClock": "25:56.016",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 120105,
+          "matchTimeSeconds": 1846.640625,
+          "matchClock": "30:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 120837,
+          "matchTimeSeconds": 1858.078125,
+          "matchClock": "30:58.078",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 139305,
+          "matchTimeSeconds": 2146.640625,
+          "matchClock": "35:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 139743,
+          "matchTimeSeconds": 2153.484375,
+          "matchClock": "35:53.484",
+          "entityIndex": 406,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        }
+      ],
+      "nextDropUpdates": [
+        {
+          "tick": 19182,
+          "matchTimeSeconds": 269.71875,
+          "matchClock": "4:29.719",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 317.484375,
+          "after": 347.796875,
+          "deltaGameTime": 30.3125,
+          "priorScheduledMatchTimeSeconds": 287.484375,
+          "nextScheduledMatchTimeSeconds": 317.796875
+        },
+        {
+          "tick": 21122,
+          "matchTimeSeconds": 300.03125,
+          "matchClock": "5:00.031",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 347.796875,
+          "after": 647.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 317.796875,
+          "nextScheduledMatchTimeSeconds": 617.796875
+        },
+        {
+          "tick": 40322,
+          "matchTimeSeconds": 600.03125,
+          "matchClock": "10:00.031",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 647.796875,
+          "after": 947.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 617.796875,
+          "nextScheduledMatchTimeSeconds": 917.796875
+        },
+        {
+          "tick": 62505,
+          "matchTimeSeconds": 946.640625,
+          "matchClock": "15:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 947.796875,
+          "after": 1247.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 917.796875,
+          "nextScheduledMatchTimeSeconds": 1217.796875
+        },
+        {
+          "tick": 81705,
+          "matchTimeSeconds": 1246.640625,
+          "matchClock": "20:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 1247.796875,
+          "after": 1547.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1217.796875,
+          "nextScheduledMatchTimeSeconds": 1517.796875
+        },
+        {
+          "tick": 100905,
+          "matchTimeSeconds": 1546.640625,
+          "matchClock": "25:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 1547.796875,
+          "after": 1847.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1517.796875,
+          "nextScheduledMatchTimeSeconds": 1817.796875
+        },
+        {
+          "tick": 120105,
+          "matchTimeSeconds": 1846.640625,
+          "matchClock": "30:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 1847.796875,
+          "after": 2147.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1817.796875,
+          "nextScheduledMatchTimeSeconds": 2117.796875
+        },
+        {
+          "tick": 139305,
+          "matchTimeSeconds": 2146.640625,
+          "matchClock": "35:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 2147.796875,
+          "after": 2447.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 2117.796875,
+          "nextScheduledMatchTimeSeconds": 2417.796875
+        }
+      ],
+      "nextDropObservedValues": [
+        {
+          "tick": 1,
+          "operation": "CREATE",
+          "value": 317.484375
+        },
+        {
+          "tick": 19182,
+          "operation": "UPDATE",
+          "value": 347.796875
+        },
+        {
+          "tick": 21122,
+          "operation": "UPDATE",
+          "value": 647.796875
+        },
+        {
+          "tick": 40322,
+          "operation": "UPDATE",
+          "value": 947.796875
+        },
+        {
+          "tick": 62505,
+          "operation": "UPDATE",
+          "value": 1247.796875
+        },
+        {
+          "tick": 81705,
+          "operation": "UPDATE",
+          "value": 1547.796875
+        },
+        {
+          "tick": 100905,
+          "operation": "UPDATE",
+          "value": 1847.796875
+        },
+        {
+          "tick": 120105,
+          "operation": "UPDATE",
+          "value": 2147.796875
+        },
+        {
+          "tick": 139305,
+          "operation": "UPDATE",
+          "value": 2447.796875
+        }
+      ]
+    },
+    {
+      "entityIndex": 407,
+      "position": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "createObservations": 41,
+      "updateObservations": 15,
+      "leaveObservations": 0,
+      "deleteObservations": 0,
+      "strongActiveUpdateTransitions": 14,
+      "strongNextDropUpdateTransitions": 8,
+      "activeUpdates": [
+        {
+          "tick": 21122,
+          "matchTimeSeconds": 300.03125,
+          "matchClock": "5:00.031",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 21230,
+          "matchTimeSeconds": 301.71875,
+          "matchClock": "5:01.719",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 40322,
+          "matchTimeSeconds": 600.03125,
+          "matchClock": "10:00.031",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 45495,
+          "matchTimeSeconds": 680.859375,
+          "matchClock": "11:20.859",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 62505,
+          "matchTimeSeconds": 946.640625,
+          "matchClock": "15:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 62799,
+          "matchTimeSeconds": 951.234375,
+          "matchClock": "15:51.234",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 81705,
+          "matchTimeSeconds": 1246.640625,
+          "matchClock": "20:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 82023,
+          "matchTimeSeconds": 1251.609375,
+          "matchClock": "20:51.609",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 100905,
+          "matchTimeSeconds": 1546.640625,
+          "matchClock": "25:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 103149,
+          "matchTimeSeconds": 1581.703125,
+          "matchClock": "26:21.703",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 120105,
+          "matchTimeSeconds": 1846.640625,
+          "matchClock": "30:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 120777,
+          "matchTimeSeconds": 1857.140625,
+          "matchClock": "30:57.141",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        },
+        {
+          "tick": 139305,
+          "matchTimeSeconds": 2146.640625,
+          "matchClock": "35:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": false,
+          "after": true
+        },
+        {
+          "tick": 141429,
+          "matchTimeSeconds": 2179.828125,
+          "matchClock": "36:19.828",
+          "entityIndex": 407,
+          "fieldName": "m_bPowerupActive",
+          "before": true,
+          "after": false
+        }
+      ],
+      "nextDropUpdates": [
+        {
+          "tick": 19182,
+          "matchTimeSeconds": 269.71875,
+          "matchClock": "4:29.719",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 317.484375,
+          "after": 347.796875,
+          "deltaGameTime": 30.3125,
+          "priorScheduledMatchTimeSeconds": 287.484375,
+          "nextScheduledMatchTimeSeconds": 317.796875
+        },
+        {
+          "tick": 21122,
+          "matchTimeSeconds": 300.03125,
+          "matchClock": "5:00.031",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 347.796875,
+          "after": 647.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 317.796875,
+          "nextScheduledMatchTimeSeconds": 617.796875
+        },
+        {
+          "tick": 40322,
+          "matchTimeSeconds": 600.03125,
+          "matchClock": "10:00.031",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 647.796875,
+          "after": 947.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 617.796875,
+          "nextScheduledMatchTimeSeconds": 917.796875
+        },
+        {
+          "tick": 62505,
+          "matchTimeSeconds": 946.640625,
+          "matchClock": "15:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 947.796875,
+          "after": 1247.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 917.796875,
+          "nextScheduledMatchTimeSeconds": 1217.796875
+        },
+        {
+          "tick": 81705,
+          "matchTimeSeconds": 1246.640625,
+          "matchClock": "20:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 1247.796875,
+          "after": 1547.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1217.796875,
+          "nextScheduledMatchTimeSeconds": 1517.796875
+        },
+        {
+          "tick": 100905,
+          "matchTimeSeconds": 1546.640625,
+          "matchClock": "25:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 1547.796875,
+          "after": 1847.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1517.796875,
+          "nextScheduledMatchTimeSeconds": 1817.796875
+        },
+        {
+          "tick": 120105,
+          "matchTimeSeconds": 1846.640625,
+          "matchClock": "30:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 1847.796875,
+          "after": 2147.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1817.796875,
+          "nextScheduledMatchTimeSeconds": 2117.796875
+        },
+        {
+          "tick": 139305,
+          "matchTimeSeconds": 2146.640625,
+          "matchClock": "35:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 2147.796875,
+          "after": 2447.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 2117.796875,
+          "nextScheduledMatchTimeSeconds": 2417.796875
+        }
+      ],
+      "nextDropObservedValues": [
+        {
+          "tick": 1,
+          "operation": "CREATE",
+          "value": 317.484375
+        },
+        {
+          "tick": 19182,
+          "operation": "UPDATE",
+          "value": 347.796875
+        },
+        {
+          "tick": 21122,
+          "operation": "UPDATE",
+          "value": 647.796875
+        },
+        {
+          "tick": 40322,
+          "operation": "UPDATE",
+          "value": 947.796875
+        },
+        {
+          "tick": 62505,
+          "operation": "UPDATE",
+          "value": 1247.796875
+        },
+        {
+          "tick": 81705,
+          "operation": "UPDATE",
+          "value": 1547.796875
+        },
+        {
+          "tick": 100905,
+          "operation": "UPDATE",
+          "value": 1847.796875
+        },
+        {
+          "tick": 120105,
+          "operation": "UPDATE",
+          "value": 2147.796875
+        },
+        {
+          "tick": 139305,
+          "operation": "UPDATE",
+          "value": 2447.796875
+        }
+      ]
+    }
+  ],
+  "nextDropCadence": [
+    {
+      "spawnerIndex": 406,
+      "transitionCount": 8,
+      "deltaFrequency": [
+        {
+          "value": 300,
+          "count": 7
+        },
+        {
+          "value": 30.313,
+          "count": 1
+        }
+      ],
+      "medianDeltaGameTime": 300,
+      "updates": [
+        {
+          "tick": 19182,
+          "matchTimeSeconds": 269.71875,
+          "matchClock": "4:29.719",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 317.484375,
+          "after": 347.796875,
+          "deltaGameTime": 30.3125,
+          "priorScheduledMatchTimeSeconds": 287.484375,
+          "nextScheduledMatchTimeSeconds": 317.796875
+        },
+        {
+          "tick": 21122,
+          "matchTimeSeconds": 300.03125,
+          "matchClock": "5:00.031",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 347.796875,
+          "after": 647.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 317.796875,
+          "nextScheduledMatchTimeSeconds": 617.796875
+        },
+        {
+          "tick": 40322,
+          "matchTimeSeconds": 600.03125,
+          "matchClock": "10:00.031",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 647.796875,
+          "after": 947.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 617.796875,
+          "nextScheduledMatchTimeSeconds": 917.796875
+        },
+        {
+          "tick": 62505,
+          "matchTimeSeconds": 946.640625,
+          "matchClock": "15:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 947.796875,
+          "after": 1247.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 917.796875,
+          "nextScheduledMatchTimeSeconds": 1217.796875
+        },
+        {
+          "tick": 81705,
+          "matchTimeSeconds": 1246.640625,
+          "matchClock": "20:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 1247.796875,
+          "after": 1547.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1217.796875,
+          "nextScheduledMatchTimeSeconds": 1517.796875
+        },
+        {
+          "tick": 100905,
+          "matchTimeSeconds": 1546.640625,
+          "matchClock": "25:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 1547.796875,
+          "after": 1847.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1517.796875,
+          "nextScheduledMatchTimeSeconds": 1817.796875
+        },
+        {
+          "tick": 120105,
+          "matchTimeSeconds": 1846.640625,
+          "matchClock": "30:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 1847.796875,
+          "after": 2147.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1817.796875,
+          "nextScheduledMatchTimeSeconds": 2117.796875
+        },
+        {
+          "tick": 139305,
+          "matchTimeSeconds": 2146.640625,
+          "matchClock": "35:46.641",
+          "entityIndex": 406,
+          "fieldName": "m_tNextDropTime",
+          "before": 2147.796875,
+          "after": 2447.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 2117.796875,
+          "nextScheduledMatchTimeSeconds": 2417.796875
+        }
+      ]
+    },
+    {
+      "spawnerIndex": 407,
+      "transitionCount": 8,
+      "deltaFrequency": [
+        {
+          "value": 300,
+          "count": 7
+        },
+        {
+          "value": 30.313,
+          "count": 1
+        }
+      ],
+      "medianDeltaGameTime": 300,
+      "updates": [
+        {
+          "tick": 19182,
+          "matchTimeSeconds": 269.71875,
+          "matchClock": "4:29.719",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 317.484375,
+          "after": 347.796875,
+          "deltaGameTime": 30.3125,
+          "priorScheduledMatchTimeSeconds": 287.484375,
+          "nextScheduledMatchTimeSeconds": 317.796875
+        },
+        {
+          "tick": 21122,
+          "matchTimeSeconds": 300.03125,
+          "matchClock": "5:00.031",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 347.796875,
+          "after": 647.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 317.796875,
+          "nextScheduledMatchTimeSeconds": 617.796875
+        },
+        {
+          "tick": 40322,
+          "matchTimeSeconds": 600.03125,
+          "matchClock": "10:00.031",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 647.796875,
+          "after": 947.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 617.796875,
+          "nextScheduledMatchTimeSeconds": 917.796875
+        },
+        {
+          "tick": 62505,
+          "matchTimeSeconds": 946.640625,
+          "matchClock": "15:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 947.796875,
+          "after": 1247.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 917.796875,
+          "nextScheduledMatchTimeSeconds": 1217.796875
+        },
+        {
+          "tick": 81705,
+          "matchTimeSeconds": 1246.640625,
+          "matchClock": "20:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 1247.796875,
+          "after": 1547.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1217.796875,
+          "nextScheduledMatchTimeSeconds": 1517.796875
+        },
+        {
+          "tick": 100905,
+          "matchTimeSeconds": 1546.640625,
+          "matchClock": "25:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 1547.796875,
+          "after": 1847.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1517.796875,
+          "nextScheduledMatchTimeSeconds": 1817.796875
+        },
+        {
+          "tick": 120105,
+          "matchTimeSeconds": 1846.640625,
+          "matchClock": "30:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 1847.796875,
+          "after": 2147.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 1817.796875,
+          "nextScheduledMatchTimeSeconds": 2117.796875
+        },
+        {
+          "tick": 139305,
+          "matchTimeSeconds": 2146.640625,
+          "matchClock": "35:46.641",
+          "entityIndex": 407,
+          "fieldName": "m_tNextDropTime",
+          "before": 2147.796875,
+          "after": 2447.796875,
+          "deltaGameTime": 300,
+          "priorScheduledMatchTimeSeconds": 2117.796875,
+          "nextScheduledMatchTimeSeconds": 2417.796875
+        }
+      ]
+    }
+  ],
+  "spawnAnchors": [
+    {
+      "tick": 19182,
+      "matchTimeSeconds": 269.71875,
+      "matchClock": "4:29.719",
+      "spawnerIndex": 406,
+      "spawnerPosition": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 317.484375,
+      "afterNextDrop": 347.796875,
+      "deltaGameTime": 30.3125,
+      "candidates": [],
+      "selectedCandidate": null,
+      "candidateCount": 0,
+      "ambiguous": false
+    },
+    {
+      "tick": 19182,
+      "matchTimeSeconds": 269.71875,
+      "matchClock": "4:29.719",
+      "spawnerIndex": 407,
+      "spawnerPosition": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 317.484375,
+      "afterNextDrop": 347.796875,
+      "deltaGameTime": 30.3125,
+      "candidates": [],
+      "selectedCandidate": null,
+      "candidateCount": 0,
+      "ambiguous": false
+    },
+    {
+      "tick": 21122,
+      "matchTimeSeconds": 300.03125,
+      "matchClock": "5:00.031",
+      "spawnerIndex": 406,
+      "spawnerPosition": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 347.796875,
+      "afterNextDrop": 647.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_OBSERVATION_NEAR_NATIVE_ANCHOR",
+          "tick": 21122,
+          "dtTicks": 0,
+          "recordKey": "movement_powerup_pickup",
+          "entityIndex": 3064,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_OBSERVATION_NEAR_NATIVE_ANCHOR",
+        "tick": 21122,
+        "dtTicks": 0,
+        "recordKey": "movement_powerup_pickup",
+        "entityIndex": 3064,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": -3936,
+          "y": 136,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 21122,
+      "matchTimeSeconds": 300.03125,
+      "matchClock": "5:00.031",
+      "spawnerIndex": 407,
+      "spawnerPosition": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 347.796875,
+      "afterNextDrop": 647.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_OBSERVATION_NEAR_NATIVE_ANCHOR",
+          "tick": 21122,
+          "dtTicks": 0,
+          "recordKey": "gun_powerup_pickup",
+          "entityIndex": 3065,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_OBSERVATION_NEAR_NATIVE_ANCHOR",
+        "tick": 21122,
+        "dtTicks": 0,
+        "recordKey": "gun_powerup_pickup",
+        "entityIndex": 3065,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": 3936,
+          "y": -128,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 40322,
+      "matchTimeSeconds": 600.03125,
+      "matchClock": "10:00.031",
+      "spawnerIndex": 406,
+      "spawnerPosition": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 647.796875,
+      "afterNextDrop": 947.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 40322,
+          "dtTicks": 0,
+          "recordKey": "survival_powerup_pickup",
+          "entityIndex": 3064,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 40322,
+        "dtTicks": 0,
+        "recordKey": "survival_powerup_pickup",
+        "entityIndex": 3064,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": -3936,
+          "y": 136,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 40322,
+      "matchTimeSeconds": 600.03125,
+      "matchClock": "10:00.031",
+      "spawnerIndex": 407,
+      "spawnerPosition": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 647.796875,
+      "afterNextDrop": 947.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 40322,
+          "dtTicks": 0,
+          "recordKey": "casting_powerup_pickup",
+          "entityIndex": 3065,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 40322,
+        "dtTicks": 0,
+        "recordKey": "casting_powerup_pickup",
+        "entityIndex": 3065,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": 3936,
+          "y": -128,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 62505,
+      "matchTimeSeconds": 946.640625,
+      "matchClock": "15:46.641",
+      "spawnerIndex": 406,
+      "spawnerPosition": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 947.796875,
+      "afterNextDrop": 1247.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 62505,
+          "dtTicks": 0,
+          "recordKey": "survival_powerup_pickup",
+          "entityIndex": 3064,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 62505,
+        "dtTicks": 0,
+        "recordKey": "survival_powerup_pickup",
+        "entityIndex": 3064,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": -3936,
+          "y": 136,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 62505,
+      "matchTimeSeconds": 946.640625,
+      "matchClock": "15:46.641",
+      "spawnerIndex": 407,
+      "spawnerPosition": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 947.796875,
+      "afterNextDrop": 1247.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 62505,
+          "dtTicks": 0,
+          "recordKey": "casting_powerup_pickup",
+          "entityIndex": 3065,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 62505,
+        "dtTicks": 0,
+        "recordKey": "casting_powerup_pickup",
+        "entityIndex": 3065,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": 3936,
+          "y": -128,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 81705,
+      "matchTimeSeconds": 1246.640625,
+      "matchClock": "20:46.641",
+      "spawnerIndex": 406,
+      "spawnerPosition": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 1247.796875,
+      "afterNextDrop": 1547.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 81705,
+          "dtTicks": 0,
+          "recordKey": "gun_powerup_pickup",
+          "entityIndex": 3064,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 81705,
+        "dtTicks": 0,
+        "recordKey": "gun_powerup_pickup",
+        "entityIndex": 3064,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": -3936,
+          "y": 136,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 81705,
+      "matchTimeSeconds": 1246.640625,
+      "matchClock": "20:46.641",
+      "spawnerIndex": 407,
+      "spawnerPosition": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 1247.796875,
+      "afterNextDrop": 1547.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 81705,
+          "dtTicks": 0,
+          "recordKey": "movement_powerup_pickup",
+          "entityIndex": 3065,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 81705,
+        "dtTicks": 0,
+        "recordKey": "movement_powerup_pickup",
+        "entityIndex": 3065,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": 3936,
+          "y": -128,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 100905,
+      "matchTimeSeconds": 1546.640625,
+      "matchClock": "25:46.641",
+      "spawnerIndex": 406,
+      "spawnerPosition": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 1547.796875,
+      "afterNextDrop": 1847.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 100905,
+          "dtTicks": 0,
+          "recordKey": "movement_powerup_pickup",
+          "entityIndex": 3064,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 100905,
+        "dtTicks": 0,
+        "recordKey": "movement_powerup_pickup",
+        "entityIndex": 3064,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": -3936,
+          "y": 136,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 100905,
+      "matchTimeSeconds": 1546.640625,
+      "matchClock": "25:46.641",
+      "spawnerIndex": 407,
+      "spawnerPosition": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 1547.796875,
+      "afterNextDrop": 1847.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 100905,
+          "dtTicks": 0,
+          "recordKey": "survival_powerup_pickup",
+          "entityIndex": 3065,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 100905,
+        "dtTicks": 0,
+        "recordKey": "survival_powerup_pickup",
+        "entityIndex": 3065,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": 3936,
+          "y": -128,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 120105,
+      "matchTimeSeconds": 1846.640625,
+      "matchClock": "30:46.641",
+      "spawnerIndex": 406,
+      "spawnerPosition": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 1847.796875,
+      "afterNextDrop": 2147.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 120105,
+          "dtTicks": 0,
+          "recordKey": "gun_powerup_pickup",
+          "entityIndex": 3064,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 120105,
+        "dtTicks": 0,
+        "recordKey": "gun_powerup_pickup",
+        "entityIndex": 3064,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": -3936,
+          "y": 136,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 120105,
+      "matchTimeSeconds": 1846.640625,
+      "matchClock": "30:46.641",
+      "spawnerIndex": 407,
+      "spawnerPosition": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 1847.796875,
+      "afterNextDrop": 2147.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 120105,
+          "dtTicks": 0,
+          "recordKey": "casting_powerup_pickup",
+          "entityIndex": 3065,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 120105,
+        "dtTicks": 0,
+        "recordKey": "casting_powerup_pickup",
+        "entityIndex": 3065,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": 3936,
+          "y": -128,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 139305,
+      "matchTimeSeconds": 2146.640625,
+      "matchClock": "35:46.641",
+      "spawnerIndex": 406,
+      "spawnerPosition": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 2147.796875,
+      "afterNextDrop": 2447.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 139305,
+          "dtTicks": 0,
+          "recordKey": "casting_powerup_pickup",
+          "entityIndex": 3064,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 139305,
+        "dtTicks": 0,
+        "recordKey": "casting_powerup_pickup",
+        "entityIndex": 3064,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": -3936,
+          "y": 136,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    },
+    {
+      "tick": 139305,
+      "matchTimeSeconds": 2146.640625,
+      "matchClock": "35:46.641",
+      "spawnerIndex": 407,
+      "spawnerPosition": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "anchorKind": "NEXT_DROP_UPDATE",
+      "beforeNextDrop": 2147.796875,
+      "afterNextDrop": 2447.796875,
+      "deltaGameTime": 300,
+      "candidates": [
+        {
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "tick": 139305,
+          "dtTicks": 0,
+          "recordKey": "survival_powerup_pickup",
+          "entityIndex": 3065,
+          "distanceToSpawnerHU": 0,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "selectedCandidate": {
+        "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+        "tick": 139305,
+        "dtTicks": 0,
+        "recordKey": "survival_powerup_pickup",
+        "entityIndex": 3065,
+        "distanceToSpawnerHU": 0,
+        "position": {
+          "x": 3936,
+          "y": -128,
+          "z": 912
+        }
+      },
+      "candidateCount": 1,
+      "ambiguous": false
+    }
+  ],
+  "perSpawnerSequence": [
+    {
+      "spawnerIndex": 406,
+      "position": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "resolvedAnchors": 7,
+      "distinctTypes": [
+        "casting_powerup_pickup",
+        "gun_powerup_pickup",
+        "movement_powerup_pickup",
+        "survival_powerup_pickup"
+      ],
+      "distinctTypeCount": 4,
+      "adjacentComparisons": 6,
+      "sameTypeRepeats": 1,
+      "typeChanges": 5,
+      "strictNoImmediateRepeat": false,
+      "exactlyTwoTypesObserved": false,
+      "transitionCounts": {
+        "movement_powerup_pickup -> survival_powerup_pickup": 1,
+        "survival_powerup_pickup -> survival_powerup_pickup": 1,
+        "survival_powerup_pickup -> gun_powerup_pickup": 1,
+        "gun_powerup_pickup -> movement_powerup_pickup": 1,
+        "movement_powerup_pickup -> gun_powerup_pickup": 1,
+        "gun_powerup_pickup -> casting_powerup_pickup": 1
+      },
+      "sequence": [
+        {
+          "tick": 21122,
+          "matchTimeSeconds": 300.03125,
+          "matchClock": "5:00.031",
+          "recordKey": "movement_powerup_pickup",
+          "source": "ACTIVE_OBSERVATION_NEAR_NATIVE_ANCHOR",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 40322,
+          "matchTimeSeconds": 600.03125,
+          "matchClock": "10:00.031",
+          "recordKey": "survival_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 62505,
+          "matchTimeSeconds": 946.640625,
+          "matchClock": "15:46.641",
+          "recordKey": "survival_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 81705,
+          "matchTimeSeconds": 1246.640625,
+          "matchClock": "20:46.641",
+          "recordKey": "gun_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 100905,
+          "matchTimeSeconds": 1546.640625,
+          "matchClock": "25:46.641",
+          "recordKey": "movement_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 120105,
+          "matchTimeSeconds": 1846.640625,
+          "matchClock": "30:46.641",
+          "recordKey": "gun_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 139305,
+          "matchTimeSeconds": 2146.640625,
+          "matchClock": "35:46.641",
+          "recordKey": "casting_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        }
+      ]
+    },
+    {
+      "spawnerIndex": 407,
+      "position": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "resolvedAnchors": 7,
+      "distinctTypes": [
+        "casting_powerup_pickup",
+        "gun_powerup_pickup",
+        "movement_powerup_pickup",
+        "survival_powerup_pickup"
+      ],
+      "distinctTypeCount": 4,
+      "adjacentComparisons": 6,
+      "sameTypeRepeats": 1,
+      "typeChanges": 5,
+      "strictNoImmediateRepeat": false,
+      "exactlyTwoTypesObserved": false,
+      "transitionCounts": {
+        "gun_powerup_pickup -> casting_powerup_pickup": 1,
+        "casting_powerup_pickup -> casting_powerup_pickup": 1,
+        "casting_powerup_pickup -> movement_powerup_pickup": 1,
+        "movement_powerup_pickup -> survival_powerup_pickup": 1,
+        "survival_powerup_pickup -> casting_powerup_pickup": 1,
+        "casting_powerup_pickup -> survival_powerup_pickup": 1
+      },
+      "sequence": [
+        {
+          "tick": 21122,
+          "matchTimeSeconds": 300.03125,
+          "matchClock": "5:00.031",
+          "recordKey": "gun_powerup_pickup",
+          "source": "ACTIVE_OBSERVATION_NEAR_NATIVE_ANCHOR",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 40322,
+          "matchTimeSeconds": 600.03125,
+          "matchClock": "10:00.031",
+          "recordKey": "casting_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 62505,
+          "matchTimeSeconds": 946.640625,
+          "matchClock": "15:46.641",
+          "recordKey": "casting_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 81705,
+          "matchTimeSeconds": 1246.640625,
+          "matchClock": "20:46.641",
+          "recordKey": "movement_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 100905,
+          "matchTimeSeconds": 1546.640625,
+          "matchClock": "25:46.641",
+          "recordKey": "survival_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 120105,
+          "matchTimeSeconds": 1846.640625,
+          "matchClock": "30:46.641",
+          "recordKey": "casting_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        },
+        {
+          "tick": 139305,
+          "matchTimeSeconds": 2146.640625,
+          "matchClock": "35:46.641",
+          "recordKey": "survival_powerup_pickup",
+          "source": "ACTIVE_FALSE_TO_TRUE_UPDATE",
+          "dtTicks": 0,
+          "ambiguous": false
+        }
+      ]
+    }
+  ],
+  "activeDownEvents": [
+    {
+      "tick": 21225,
+      "matchTimeSeconds": 301.640625,
+      "matchClock": "5:01.641",
+      "entityIndex": 3065,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 201785745,
+      "recordKey": "gun_powerup_pickup",
+      "position": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 407,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 21232,
+      "truePlayerSnapshotGapTicks": 7,
+      "trueNearest": {
+        "controllerIndex": 11,
+        "pawnIndex": 87,
+        "playerName": "BlamBlam50",
+        "steamId": "76561198885630319",
+        "heroId": 10,
+        "alive": true,
+        "position": {
+          "x": 3876.3125,
+          "y": -156.09375,
+          "z": 954.9375
+        },
+        "distanceHU": 78.7114054731746
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 9,
+        "pawnIndex": 88,
+        "playerName": "ArsonBoy5996",
+        "steamId": "76561198017909943",
+        "heroId": 69,
+        "alive": true,
+        "position": {
+          "x": 7301.59375,
+          "y": -1617.75,
+          "z": 256.03125
+        },
+        "distanceHU": 3738.5654138339783
+      },
+      "trueNearestDistanceHU": 78.7114054731746,
+      "trueSecondNearestDistanceHU": 3738.5654138339783,
+      "trueNearestDominanceHU": 3659.8540083608036,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 23152,
+      "placeboNearest": {
+        "controllerIndex": 12,
+        "pawnIndex": 77,
+        "playerName": "Archivist Eris",
+        "steamId": "76561198055181753",
+        "heroId": 3,
+        "alive": true,
+        "position": {
+          "x": 6449.09375,
+          "y": -1835.375,
+          "z": 256
+        },
+        "distanceHU": 3108.2319068747206
+      },
+      "placeboNearestDistanceHU": 3108.2319068747206
+    },
+    {
+      "tick": 21700,
+      "matchTimeSeconds": 309.0625,
+      "matchClock": "5:09.063",
+      "entityIndex": 3064,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 754654000,
+      "recordKey": "movement_powerup_pickup",
+      "position": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 406,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 21696,
+      "truePlayerSnapshotGapTicks": -4,
+      "trueNearest": {
+        "controllerIndex": 4,
+        "pawnIndex": 85,
+        "playerName": "Mushie",
+        "steamId": "76561198891919908",
+        "heroId": 4,
+        "alive": true,
+        "position": {
+          "x": -3973.78125,
+          "y": 107.28125,
+          "z": 911.25
+        },
+        "distanceHU": 47.46316417101793
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": -6359.875,
+          "y": 165.15625,
+          "z": 0.0625
+        },
+        "distanceHU": 2589.913146506136
+      },
+      "trueNearestDistanceHU": 47.46316417101793,
+      "trueSecondNearestDistanceHU": 2589.913146506136,
+      "trueNearestDominanceHU": 2542.449982335118,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 23616,
+      "placeboNearest": {
+        "controllerIndex": 8,
+        "pawnIndex": 78,
+        "playerName": "Goldinfer",
+        "steamId": "76561198101422226",
+        "heroId": 27,
+        "alive": true,
+        "position": {
+          "x": -6552.21875,
+          "y": 1838.875,
+          "z": 256.0625
+        },
+        "distanceHU": 3189.7708095383305
+      },
+      "placeboNearestDistanceHU": 3189.7708095383305
+    },
+    {
+      "tick": 44156,
+      "matchTimeSeconds": 659.9375,
+      "matchClock": "10:59.938",
+      "entityIndex": 3064,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 828222066,
+      "recordKey": "survival_powerup_pickup",
+      "position": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 406,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 44160,
+      "truePlayerSnapshotGapTicks": 4,
+      "trueNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": -3984.53125,
+          "y": 73.46875,
+          "z": 921.21875
+        },
+        "distanceHU": 79.68955266964109
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 5,
+        "pawnIndex": 80,
+        "playerName": "The White Samoan",
+        "steamId": "76561199011253074",
+        "heroId": 13,
+        "alive": true,
+        "position": {
+          "x": -492.25,
+          "y": -384.15625,
+          "z": 473.90625
+        },
+        "distanceHU": 3510.2567884277532
+      },
+      "trueNearestDistanceHU": 79.68955266964109,
+      "trueSecondNearestDistanceHU": 3510.2567884277532,
+      "trueNearestDominanceHU": 3430.567235758112,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 46080,
+      "placeboNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": -5293.15625,
+          "y": -620.5,
+          "z": 449.40625
+        },
+        "distanceHU": 1621.1595586040028
+      },
+      "placeboNearestDistanceHU": 1621.1595586040028
+    },
+    {
+      "tick": 45491,
+      "matchTimeSeconds": 680.796875,
+      "matchClock": "11:20.797",
+      "entityIndex": 3065,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 15572055,
+      "recordKey": "casting_powerup_pickup",
+      "position": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 407,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 45488,
+      "truePlayerSnapshotGapTicks": -3,
+      "trueNearest": {
+        "controllerIndex": 6,
+        "pawnIndex": 92,
+        "playerName": "Kabuto",
+        "steamId": "76561198796221441",
+        "heroId": 25,
+        "alive": true,
+        "position": {
+          "x": 3982.78125,
+          "y": -45.46875,
+          "z": 912.125
+        },
+        "distanceHU": 94.8678459918059
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": 454.21875,
+          "y": -65.375,
+          "z": 216.21875
+        },
+        "distanceHU": 3551.173624497699
+      },
+      "trueNearestDistanceHU": 94.8678459918059,
+      "trueSecondNearestDistanceHU": 3551.173624497699,
+      "trueNearestDominanceHU": 3456.305778505893,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 47408,
+      "placeboNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": 613.71875,
+          "y": -9.3125,
+          "z": -640
+        },
+        "distanceHU": 3668.8340691230246
+      },
+      "placeboNearestDistanceHU": 3668.8340691230246
+    },
+    {
+      "tick": 62798,
+      "matchTimeSeconds": 951.21875,
+      "matchClock": "15:51.219",
+      "entityIndex": 3065,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 15572055,
+      "recordKey": "casting_powerup_pickup",
+      "position": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 407,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 62800,
+      "truePlayerSnapshotGapTicks": 2,
+      "trueNearest": {
+        "controllerIndex": 9,
+        "pawnIndex": 88,
+        "playerName": "ArsonBoy5996",
+        "steamId": "76561198017909943",
+        "heroId": 69,
+        "alive": true,
+        "position": {
+          "x": 3942,
+          "y": -43.15625,
+          "z": 912.03125
+        },
+        "distanceHU": 85.05564584802704
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 6,
+        "pawnIndex": 92,
+        "playerName": "Kabuto",
+        "steamId": "76561198796221441",
+        "heroId": 25,
+        "alive": true,
+        "position": {
+          "x": 7267.96875,
+          "y": -1513.8125,
+          "z": 256.0625
+        },
+        "distanceHU": 3667.7985277328225
+      },
+      "trueNearestDistanceHU": 85.05564584802704,
+      "trueSecondNearestDistanceHU": 3667.7985277328225,
+      "trueNearestDominanceHU": 3582.7428818847957,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 64720,
+      "placeboNearest": {
+        "controllerIndex": 6,
+        "pawnIndex": 92,
+        "playerName": "Kabuto",
+        "steamId": "76561198796221441",
+        "heroId": 25,
+        "alive": true,
+        "position": {
+          "x": 5104.5,
+          "y": 575.5,
+          "z": 256.03125
+        },
+        "distanceHU": 1513.472662778077
+      },
+      "placeboNearestDistanceHU": 1513.472662778077
+    },
+    {
+      "tick": 63512,
+      "matchTimeSeconds": 962.375,
+      "matchClock": "16:02.375",
+      "entityIndex": 3064,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 828222066,
+      "recordKey": "survival_powerup_pickup",
+      "position": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 406,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 63520,
+      "truePlayerSnapshotGapTicks": 8,
+      "trueNearest": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": -3994,
+          "y": 66.8125,
+          "z": 911.9375
+        },
+        "distanceHU": 90.28241280836485
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": -4504.1875,
+          "y": -1782.59375,
+          "z": 1097.1875
+        },
+        "distanceHU": 2009.510742158788
+      },
+      "trueNearestDistanceHU": 90.28241280836485,
+      "trueSecondNearestDistanceHU": 2009.510742158788,
+      "trueNearestDominanceHU": 1919.228329350423,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 65440,
+      "placeboNearest": {
+        "controllerIndex": 7,
+        "pawnIndex": 79,
+        "playerName": "Parker",
+        "steamId": "76561198082593367",
+        "heroId": 1,
+        "alive": true,
+        "position": {
+          "x": -5861.46875,
+          "y": -1285.90625,
+          "z": 256.03125
+        },
+        "distanceHU": 2481.8425195793925
+      },
+      "placeboNearestDistanceHU": 2481.8425195793925
+    },
+    {
+      "tick": 82021,
+      "matchTimeSeconds": 1251.578125,
+      "matchClock": "20:51.578",
+      "entityIndex": 3065,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 754654000,
+      "recordKey": "movement_powerup_pickup",
+      "position": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 407,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 82016,
+      "truePlayerSnapshotGapTicks": -5,
+      "trueNearest": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": 4029.59375,
+          "y": -110.09375,
+          "z": 912.46875
+        },
+        "distanceHU": 95.29241079271476
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 6,
+        "pawnIndex": 92,
+        "playerName": "Kabuto",
+        "steamId": "76561198796221441",
+        "heroId": 25,
+        "alive": true,
+        "position": {
+          "x": 4578.96875,
+          "y": 1071.53125,
+          "z": 248.03125
+        },
+        "distanceHU": 1514.3112408549596
+      },
+      "trueNearestDistanceHU": 95.29241079271476,
+      "trueSecondNearestDistanceHU": 1514.3112408549596,
+      "trueNearestDominanceHU": 1419.018830062245,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 83936,
+      "placeboNearest": {
+        "controllerIndex": 2,
+        "pawnIndex": 82,
+        "playerName": "Zaeleth",
+        "steamId": "76561198079477113",
+        "heroId": 64,
+        "alive": true,
+        "position": {
+          "x": 2721.6875,
+          "y": -393.375,
+          "z": 995.53125
+        },
+        "distanceHU": 1245.7753441161906
+      },
+      "placeboNearestDistanceHU": 1245.7753441161906
+    },
+    {
+      "tick": 82710,
+      "matchTimeSeconds": 1262.34375,
+      "matchClock": "21:02.344",
+      "entityIndex": 3064,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 201785745,
+      "recordKey": "gun_powerup_pickup",
+      "position": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 406,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 82704,
+      "truePlayerSnapshotGapTicks": -6,
+      "trueNearest": {
+        "controllerIndex": 5,
+        "pawnIndex": 80,
+        "playerName": "The White Samoan",
+        "steamId": "76561199011253074",
+        "heroId": 13,
+        "alive": true,
+        "position": {
+          "x": -3845.375,
+          "y": 151.75,
+          "z": 985.125
+        },
+        "distanceHU": 117.50837736093541
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 11,
+        "pawnIndex": 87,
+        "playerName": "BlamBlam50",
+        "steamId": "76561198885630319",
+        "heroId": 10,
+        "alive": true,
+        "position": {
+          "x": -2361.875,
+          "y": 314.375,
+          "z": 384.03125
+        },
+        "distanceHU": 1669.8617179954042
+      },
+      "trueNearestDistanceHU": 117.50837736093541,
+      "trueSecondNearestDistanceHU": 1669.8617179954042,
+      "trueNearestDominanceHU": 1552.3533406344689,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 84624,
+      "placeboNearest": {
+        "controllerIndex": 5,
+        "pawnIndex": 80,
+        "playerName": "The White Samoan",
+        "steamId": "76561199011253074",
+        "heroId": 13,
+        "alive": true,
+        "position": {
+          "x": -5590.6875,
+          "y": 13.34375,
+          "z": 431.84375
+        },
+        "distanceHU": 1727.3057930587668
+      },
+      "placeboNearestDistanceHU": 1727.3057930587668
+    },
+    {
+      "tick": 101504,
+      "matchTimeSeconds": 1556,
+      "matchClock": "25:56.000",
+      "entityIndex": 3064,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 754654000,
+      "recordKey": "movement_powerup_pickup",
+      "position": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 406,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 101504,
+      "truePlayerSnapshotGapTicks": 0,
+      "trueNearest": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": -3922.5625,
+          "y": 48.3125,
+          "z": 912.03125
+        },
+        "distanceHU": 88.71113255427697
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 8,
+        "pawnIndex": 78,
+        "playerName": "Goldinfer",
+        "steamId": "76561198101422226",
+        "heroId": 27,
+        "alive": true,
+        "position": {
+          "x": -1411.4375,
+          "y": -1058.46875,
+          "z": 299.53125
+        },
+        "distanceHU": 2859.2462959422323
+      },
+      "trueNearestDistanceHU": 88.71113255427697,
+      "trueSecondNearestDistanceHU": 2859.2462959422323,
+      "trueNearestDominanceHU": 2770.5351633879554,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 103424,
+      "placeboNearest": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": -124.3125,
+          "y": -1518.125,
+          "z": 376.0625
+        },
+        "distanceHU": 4189.548915717241
+      },
+      "placeboNearestDistanceHU": 4189.548915717241
+    },
+    {
+      "tick": 103145,
+      "matchTimeSeconds": 1581.640625,
+      "matchClock": "26:21.641",
+      "entityIndex": 3065,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 828222066,
+      "recordKey": "survival_powerup_pickup",
+      "position": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 407,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 103152,
+      "truePlayerSnapshotGapTicks": 7,
+      "trueNearest": {
+        "controllerIndex": 2,
+        "pawnIndex": 82,
+        "playerName": "Zaeleth",
+        "steamId": "76561198079477113",
+        "heroId": 64,
+        "alive": true,
+        "position": {
+          "x": 3906.1875,
+          "y": -201.28125,
+          "z": 912.03125
+        },
+        "distanceHU": 79.1133853047321
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": 3402.3125,
+          "y": 370.25,
+          "z": 256.03125
+        },
+        "distanceHU": 981.5143458619506
+      },
+      "trueNearestDistanceHU": 79.1133853047321,
+      "trueSecondNearestDistanceHU": 981.5143458619506,
+      "trueNearestDominanceHU": 902.4009605572185,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 105072,
+      "placeboNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": 5908.59375,
+          "y": 1325.0625,
+          "z": 256.03125
+        },
+        "distanceHU": 2536.2988255372975
+      },
+      "placeboNearestDistanceHU": 2536.2988255372975
+    },
+    {
+      "tick": 120772,
+      "matchTimeSeconds": 1857.0625,
+      "matchClock": "30:57.063",
+      "entityIndex": 3065,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 15572055,
+      "recordKey": "casting_powerup_pickup",
+      "position": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 407,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 120768,
+      "truePlayerSnapshotGapTicks": -4,
+      "trueNearest": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": 3790.0625,
+          "y": -78.59375,
+          "z": 870.96875
+        },
+        "distanceHU": 159.44370455391143
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 10,
+        "pawnIndex": 96,
+        "playerName": "Quackinator17",
+        "steamId": "76561199221184484",
+        "heroId": 2,
+        "alive": true,
+        "position": {
+          "x": 3943.28125,
+          "y": 1840.21875,
+          "z": 536.03125
+        },
+        "distanceHU": 2003.8189951763827
+      },
+      "trueNearestDistanceHU": 159.44370455391143,
+      "trueSecondNearestDistanceHU": 2003.8189951763827,
+      "trueNearestDominanceHU": 1844.3752906224713,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 122688,
+      "placeboNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": 4345.75,
+          "y": -1397,
+          "z": 598.90625
+        },
+        "distanceHU": 1369.775075984763
+      },
+      "placeboNearestDistanceHU": 1369.775075984763
+    },
+    {
+      "tick": 120835,
+      "matchTimeSeconds": 1858.046875,
+      "matchClock": "30:58.047",
+      "entityIndex": 3064,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 201785745,
+      "recordKey": "gun_powerup_pickup",
+      "position": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 406,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 120832,
+      "truePlayerSnapshotGapTicks": -3,
+      "trueNearest": {
+        "controllerIndex": 7,
+        "pawnIndex": 79,
+        "playerName": "Parker",
+        "steamId": "76561198082593367",
+        "heroId": 1,
+        "alive": true,
+        "position": {
+          "x": -3943.1875,
+          "y": -40.40625,
+          "z": 912.03125
+        },
+        "distanceHU": 176.55261587378138
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 9,
+        "pawnIndex": 88,
+        "playerName": "ArsonBoy5996",
+        "steamId": "76561198017909943",
+        "heroId": 69,
+        "alive": true,
+        "position": {
+          "x": -5993.84375,
+          "y": -1109.75,
+          "z": 563.15625
+        },
+        "distanceHU": 2430.7007063454203
+      },
+      "trueNearestDistanceHU": 176.55261587378138,
+      "trueSecondNearestDistanceHU": 2430.7007063454203,
+      "trueNearestDominanceHU": 2254.148090471639,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 122752,
+      "placeboNearest": {
+        "controllerIndex": 6,
+        "pawnIndex": 92,
+        "playerName": "Kabuto",
+        "steamId": "76561198796221441",
+        "heroId": 25,
+        "alive": true,
+        "position": {
+          "x": -6871.59375,
+          "y": -1027.09375,
+          "z": 256.03125
+        },
+        "distanceHU": 3225.0260056788206
+      },
+      "placeboNearestDistanceHU": 3225.0260056788206
+    },
+    {
+      "tick": 139741,
+      "matchTimeSeconds": 2153.453125,
+      "matchClock": "35:53.453",
+      "entityIndex": 3064,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 15572055,
+      "recordKey": "casting_powerup_pickup",
+      "position": {
+        "x": -3936,
+        "y": 136,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 406,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 139744,
+      "truePlayerSnapshotGapTicks": 3,
+      "trueNearest": {
+        "controllerIndex": 9,
+        "pawnIndex": 88,
+        "playerName": "ArsonBoy5996",
+        "steamId": "76561198017909943",
+        "heroId": 69,
+        "alive": true,
+        "position": {
+          "x": -3891.8125,
+          "y": 59.125,
+          "z": 912.03125
+        },
+        "distanceHU": 88.66962139206696
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 11,
+        "pawnIndex": 87,
+        "playerName": "BlamBlam50",
+        "steamId": "76561198885630319",
+        "heroId": 10,
+        "alive": true,
+        "position": {
+          "x": -3441,
+          "y": -2230.25,
+          "z": 345.03125
+        },
+        "distanceHU": 2483.066174304777
+      },
+      "trueNearestDistanceHU": 88.66962139206696,
+      "trueSecondNearestDistanceHU": 2483.066174304777,
+      "trueNearestDominanceHU": 2394.3965529127104,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 141664,
+      "placeboNearest": {
+        "controllerIndex": 10,
+        "pawnIndex": 96,
+        "playerName": "Quackinator17",
+        "steamId": "76561199221184484",
+        "heroId": 2,
+        "alive": true,
+        "position": {
+          "x": -202.53125,
+          "y": 1960.34375,
+          "z": 882.40625
+        },
+        "distanceHU": 4155.465655667206
+      },
+      "placeboNearestDistanceHU": 4155.465655667206
+    },
+    {
+      "tick": 141428,
+      "matchTimeSeconds": 2179.8125,
+      "matchClock": "36:19.813",
+      "entityIndex": 3065,
+      "fieldName": "m_bActive",
+      "before": true,
+      "after": false,
+      "recordId": 828222066,
+      "recordKey": "survival_powerup_pickup",
+      "position": {
+        "x": 3936,
+        "y": -128,
+        "z": 912
+      },
+      "interactive": true,
+      "kind": "ACTIVE_TRUE_TO_FALSE_UPDATE",
+      "spawnerIndex": 407,
+      "distanceToSpawnerHU": 0,
+      "spatiallyAssigned": true,
+      "truePlayerSnapshotTick": 141424,
+      "truePlayerSnapshotGapTicks": -4,
+      "trueNearest": {
+        "controllerIndex": 6,
+        "pawnIndex": 92,
+        "playerName": "Kabuto",
+        "steamId": "76561198796221441",
+        "heroId": 25,
+        "alive": true,
+        "position": {
+          "x": 3892.375,
+          "y": -139.03125,
+          "z": 937.375
+        },
+        "distanceHU": 51.6596527917339
+      },
+      "trueSecondNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": 2582.8125,
+          "y": 225.4375,
+          "z": 471.15625
+        },
+        "distanceHU": 1466.416614907429
+      },
+      "trueNearestDistanceHU": 51.6596527917339,
+      "trueSecondNearestDistanceHU": 1466.416614907429,
+      "trueNearestDominanceHU": 1414.7569621156952,
+      "placeboShiftSeconds": 30,
+      "placeboPlayerSnapshotTick": 143344,
+      "placeboNearest": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": -2501.375,
+          "y": -2691.0625,
+          "z": 384.03125
+        },
+        "distanceHU": 6948.945047308103
+      },
+      "placeboNearestDistanceHU": 6948.945047308103
+    }
+  ],
+  "collectorSummary": {
+    "events": 14,
+    "trueDistanceRows": 14,
+    "placeboDistanceRows": 14,
+    "medianTrueNearestDistanceHU": 88.69037697317196,
+    "medianPlaceboNearestDistanceHU": 2822.2653662060093,
+    "thresholds": [
+      {
+        "thresholdHU": 100,
+        "trueCount": 11,
+        "trueRate": 0.7857142857142857,
+        "placeboCount": 0,
+        "placeboRate": 0
+      },
+      {
+        "thresholdHU": 150,
+        "trueCount": 12,
+        "trueRate": 0.8571428571428571,
+        "placeboCount": 0,
+        "placeboRate": 0
+      },
+      {
+        "thresholdHU": 200,
+        "trueCount": 14,
+        "trueRate": 1,
+        "placeboCount": 0,
+        "placeboRate": 0
+      },
+      {
+        "thresholdHU": 300,
+        "trueCount": 14,
+        "trueRate": 1,
+        "placeboCount": 0,
+        "placeboRate": 0
+      },
+      {
+        "thresholdHU": 500,
+        "trueCount": 14,
+        "trueRate": 1,
+        "placeboCount": 0,
+        "placeboRate": 0
+      },
+      {
+        "thresholdHU": 800,
+        "trueCount": 14,
+        "trueRate": 1,
+        "placeboCount": 0,
+        "placeboRate": 0
+      }
+    ],
+    "nearestPlayerCounts": {
+      "BlamBlam50": 1,
+      "Mushie": 1,
+      "renso": 1,
+      "Kabuto": 2,
+      "ArsonBoy5996": 2,
+      "Nebula": 4,
+      "The White Samoan": 1,
+      "Zaeleth": 1,
+      "Parker": 1
+    }
+  },
+  "disappearanceTiming": [
+    {
+      "tick": 21225,
+      "matchClock": "5:01.641",
+      "spawnerIndex": 407,
+      "recordKey": "gun_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 11,
+        "pawnIndex": 87,
+        "playerName": "BlamBlam50",
+        "steamId": "76561198885630319",
+        "heroId": 10,
+        "alive": true,
+        "position": {
+          "x": 3876.3125,
+          "y": -156.09375,
+          "z": 954.9375
+        },
+        "distanceHU": 78.7114054731746
+      },
+      "nearestPlayerDistanceHU": 78.7114054731746,
+      "nearestSpawnerAnchorTick": 21122,
+      "secondsFromNearestSpawnerAnchor": 1.609375
+    },
+    {
+      "tick": 21700,
+      "matchClock": "5:09.063",
+      "spawnerIndex": 406,
+      "recordKey": "movement_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 4,
+        "pawnIndex": 85,
+        "playerName": "Mushie",
+        "steamId": "76561198891919908",
+        "heroId": 4,
+        "alive": true,
+        "position": {
+          "x": -3973.78125,
+          "y": 107.28125,
+          "z": 911.25
+        },
+        "distanceHU": 47.46316417101793
+      },
+      "nearestPlayerDistanceHU": 47.46316417101793,
+      "nearestSpawnerAnchorTick": 21122,
+      "secondsFromNearestSpawnerAnchor": 9.03125
+    },
+    {
+      "tick": 44156,
+      "matchClock": "10:59.938",
+      "spawnerIndex": 406,
+      "recordKey": "survival_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 3,
+        "pawnIndex": 84,
+        "playerName": "renso",
+        "steamId": "76561198107069146",
+        "heroId": 35,
+        "alive": true,
+        "position": {
+          "x": -3984.53125,
+          "y": 73.46875,
+          "z": 921.21875
+        },
+        "distanceHU": 79.68955266964109
+      },
+      "nearestPlayerDistanceHU": 79.68955266964109,
+      "nearestSpawnerAnchorTick": 40322,
+      "secondsFromNearestSpawnerAnchor": 59.90625
+    },
+    {
+      "tick": 45491,
+      "matchClock": "11:20.797",
+      "spawnerIndex": 407,
+      "recordKey": "casting_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 6,
+        "pawnIndex": 92,
+        "playerName": "Kabuto",
+        "steamId": "76561198796221441",
+        "heroId": 25,
+        "alive": true,
+        "position": {
+          "x": 3982.78125,
+          "y": -45.46875,
+          "z": 912.125
+        },
+        "distanceHU": 94.8678459918059
+      },
+      "nearestPlayerDistanceHU": 94.8678459918059,
+      "nearestSpawnerAnchorTick": 40322,
+      "secondsFromNearestSpawnerAnchor": 80.765625
+    },
+    {
+      "tick": 62798,
+      "matchClock": "15:51.219",
+      "spawnerIndex": 407,
+      "recordKey": "casting_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 9,
+        "pawnIndex": 88,
+        "playerName": "ArsonBoy5996",
+        "steamId": "76561198017909943",
+        "heroId": 69,
+        "alive": true,
+        "position": {
+          "x": 3942,
+          "y": -43.15625,
+          "z": 912.03125
+        },
+        "distanceHU": 85.05564584802704
+      },
+      "nearestPlayerDistanceHU": 85.05564584802704,
+      "nearestSpawnerAnchorTick": 62505,
+      "secondsFromNearestSpawnerAnchor": 4.578125
+    },
+    {
+      "tick": 63512,
+      "matchClock": "16:02.375",
+      "spawnerIndex": 406,
+      "recordKey": "survival_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": -3994,
+          "y": 66.8125,
+          "z": 911.9375
+        },
+        "distanceHU": 90.28241280836485
+      },
+      "nearestPlayerDistanceHU": 90.28241280836485,
+      "nearestSpawnerAnchorTick": 62505,
+      "secondsFromNearestSpawnerAnchor": 15.734375
+    },
+    {
+      "tick": 82021,
+      "matchClock": "20:51.578",
+      "spawnerIndex": 407,
+      "recordKey": "movement_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": 4029.59375,
+          "y": -110.09375,
+          "z": 912.46875
+        },
+        "distanceHU": 95.29241079271476
+      },
+      "nearestPlayerDistanceHU": 95.29241079271476,
+      "nearestSpawnerAnchorTick": 81705,
+      "secondsFromNearestSpawnerAnchor": 4.9375
+    },
+    {
+      "tick": 82710,
+      "matchClock": "21:02.344",
+      "spawnerIndex": 406,
+      "recordKey": "gun_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 5,
+        "pawnIndex": 80,
+        "playerName": "The White Samoan",
+        "steamId": "76561199011253074",
+        "heroId": 13,
+        "alive": true,
+        "position": {
+          "x": -3845.375,
+          "y": 151.75,
+          "z": 985.125
+        },
+        "distanceHU": 117.50837736093541
+      },
+      "nearestPlayerDistanceHU": 117.50837736093541,
+      "nearestSpawnerAnchorTick": 81705,
+      "secondsFromNearestSpawnerAnchor": 15.703125
+    },
+    {
+      "tick": 101504,
+      "matchClock": "25:56.000",
+      "spawnerIndex": 406,
+      "recordKey": "movement_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": -3922.5625,
+          "y": 48.3125,
+          "z": 912.03125
+        },
+        "distanceHU": 88.71113255427697
+      },
+      "nearestPlayerDistanceHU": 88.71113255427697,
+      "nearestSpawnerAnchorTick": 100905,
+      "secondsFromNearestSpawnerAnchor": 9.359375
+    },
+    {
+      "tick": 103145,
+      "matchClock": "26:21.641",
+      "spawnerIndex": 407,
+      "recordKey": "survival_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 2,
+        "pawnIndex": 82,
+        "playerName": "Zaeleth",
+        "steamId": "76561198079477113",
+        "heroId": 64,
+        "alive": true,
+        "position": {
+          "x": 3906.1875,
+          "y": -201.28125,
+          "z": 912.03125
+        },
+        "distanceHU": 79.1133853047321
+      },
+      "nearestPlayerDistanceHU": 79.1133853047321,
+      "nearestSpawnerAnchorTick": 100905,
+      "secondsFromNearestSpawnerAnchor": 35
+    },
+    {
+      "tick": 120772,
+      "matchClock": "30:57.063",
+      "spawnerIndex": 407,
+      "recordKey": "casting_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 13,
+        "pawnIndex": 90,
+        "playerName": "Nebula",
+        "steamId": "76561198200463289",
+        "heroId": 14,
+        "alive": true,
+        "position": {
+          "x": 3790.0625,
+          "y": -78.59375,
+          "z": 870.96875
+        },
+        "distanceHU": 159.44370455391143
+      },
+      "nearestPlayerDistanceHU": 159.44370455391143,
+      "nearestSpawnerAnchorTick": 120105,
+      "secondsFromNearestSpawnerAnchor": 10.421875
+    },
+    {
+      "tick": 120835,
+      "matchClock": "30:58.047",
+      "spawnerIndex": 406,
+      "recordKey": "gun_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 7,
+        "pawnIndex": 79,
+        "playerName": "Parker",
+        "steamId": "76561198082593367",
+        "heroId": 1,
+        "alive": true,
+        "position": {
+          "x": -3943.1875,
+          "y": -40.40625,
+          "z": 912.03125
+        },
+        "distanceHU": 176.55261587378138
+      },
+      "nearestPlayerDistanceHU": 176.55261587378138,
+      "nearestSpawnerAnchorTick": 120105,
+      "secondsFromNearestSpawnerAnchor": 11.40625
+    },
+    {
+      "tick": 139741,
+      "matchClock": "35:53.453",
+      "spawnerIndex": 406,
+      "recordKey": "casting_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 9,
+        "pawnIndex": 88,
+        "playerName": "ArsonBoy5996",
+        "steamId": "76561198017909943",
+        "heroId": 69,
+        "alive": true,
+        "position": {
+          "x": -3891.8125,
+          "y": 59.125,
+          "z": 912.03125
+        },
+        "distanceHU": 88.66962139206696
+      },
+      "nearestPlayerDistanceHU": 88.66962139206696,
+      "nearestSpawnerAnchorTick": 139305,
+      "secondsFromNearestSpawnerAnchor": 6.8125
+    },
+    {
+      "tick": 141428,
+      "matchClock": "36:19.813",
+      "spawnerIndex": 407,
+      "recordKey": "survival_powerup_pickup",
+      "nearestPlayer": {
+        "controllerIndex": 6,
+        "pawnIndex": 92,
+        "playerName": "Kabuto",
+        "steamId": "76561198796221441",
+        "heroId": 25,
+        "alive": true,
+        "position": {
+          "x": 3892.375,
+          "y": -139.03125,
+          "z": 937.375
+        },
+        "distanceHU": 51.6596527917339
+      },
+      "nearestPlayerDistanceHU": 51.6596527917339,
+      "nearestSpawnerAnchorTick": 139305,
+      "secondsFromNearestSpawnerAnchor": 33.171875
+    }
+  ],
+  "integrityValidation": {
+    "registryBridgeResourceContractCurrent": {
+      "actual": "current",
+      "expected": "current",
+      "pass": true
+    },
+    "runtimeBridgeClaimStillMissing": {
+      "actual": "missing",
+      "expected": "missing",
+      "pass": true
+    },
+    "script136ContractReady": {
+      "actual": "WORLD_STAT_BUFF_RESOURCE_CONTRACT_V02_READY",
+      "expected": "WORLD_STAT_BUFF_RESOURCE_CONTRACT_V02_READY",
+      "pass": true
+    },
+    "script147CarrierReady": {
+      "actual": "BRIDGE_POWERUP_RUNTIME_CARRIER_V01_SECONDARY_TOKEN_CANDIDATES_FOUND",
+      "expected": "carrier discovery completed",
+      "pass": true
+    },
+    "script148Ready": {
+      "actual": "BRIDGE_SPAWNER_LIFECYCLE_V01_READY_FOR_INTERPRETATION",
+      "expected": "BRIDGE_SPAWNER_LIFECYCLE_V01_READY_FOR_INTERPRETATION",
+      "pass": true
+    },
+    "allFourBridgePowerupsExpected": {
+      "actual": 4,
+      "expected": 4,
+      "pass": true
+    },
+    "exactlyTwoSpawnerIndexes": {
+      "actual": 2,
+      "expected": 2,
+      "pass": true
+    },
+    "spawnerUpdatesObserved": {
+      "actual": 44,
+      "expected": ">0",
+      "pass": true
+    },
+    "pickupActiveTransitionsObserved": {
+      "actual": 26,
+      "expected": ">0",
+      "pass": true
+    },
+    "playerSamplesObserved": {
+      "actual": 9485,
+      "expected": ">0",
+      "pass": true
+    }
+  }
+}

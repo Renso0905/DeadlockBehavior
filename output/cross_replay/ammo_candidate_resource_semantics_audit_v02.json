@@ -1,0 +1,2645 @@
+{
+  "version": "AMMO_CANDIDATE_RESOURCE_SEMANTICS_AUDIT_V02",
+  "canonical": false,
+  "createdAt": "2026-09-08T03:19:58.747Z",
+  "status": "AMMO_CANDIDATE_RESOURCE_SEMANTICS_AUDIT_V02_READY_FOR_INTERPRETATION",
+  "scientificBoundary": {
+    "successorReason": "V01 conflated semantic/name declarations with actual supplied resource values",
+    "candidateUniverse": "Script202 V03 complete 18-item candidate universe",
+    "strictValueDefinition": [
+      "finite numericValue",
+      "nonempty value on an ammo/reload direct-stat record",
+      "raw scalar whose key itself is ammo/reload semantic"
+    ],
+    "explicitlyNotValueBearing": [
+      "recordKey",
+      "icons/CSS metadata",
+      "propertyKey declaration",
+      "providedPropertyType declaration",
+      "modifierValueTokens",
+      "generic field-name arrays",
+      "nested modifier class names"
+    ],
+    "runtimeCoverageAnnotation": "Script203 V01",
+    "runtimeCausality": false,
+    "authorityPromotion": false,
+    "replicationStatus": "resource_build_bound"
+  },
+  "audit": {
+    "candidateCount": 18,
+    "missingItemCount": 0,
+    "missingRecordKeys": [],
+    "byDepth": [
+      {
+        "key": "CURRENT_AMMO_FIELD_WITH_TRIGGER_HINT_NO_VALUE",
+        "count": 5
+      },
+      {
+        "key": "STATIC_AMMO_VALUE_ONLY",
+        "count": 3
+      },
+      {
+        "key": "AMMO_STAT_DECLARATION_WITHOUT_VALUE",
+        "count": 5
+      },
+      {
+        "key": "AMMO_FIELD_NAME_ONLY",
+        "count": 4
+      },
+      {
+        "key": "WEAK_NAME_OR_SCHEMA_HINT_ONLY",
+        "count": 1
+      }
+    ],
+    "explicitCurrentAmmoValueCount": 0,
+    "currentAmmoFieldNoValueCount": 5,
+    "rows": [
+      {
+        "recordKey": "upgrade_ethereal_bullets",
+        "runtimeItemId": 3919289022,
+        "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+        "itemFound": true,
+        "evidenceDepth": "CURRENT_AMMO_FIELD_WITH_TRIGGER_HINT_NO_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 1,
+        "staticCapacityValueCount": 4,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 4,
+        "directAmmoValueCount": 4,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 5,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "AmmoReloadPercent",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": false
+          }
+        ],
+        "staticCapacityValues": [
+          {
+            "source": "directProvidedStats",
+            "index": 3,
+            "path": "$.directProvidedStats[3]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "meaningfulDirectProvidedStats",
+            "index": 2,
+            "path": "$.meaningfulDirectProvidedStats[2]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.directProvidedStats",
+            "index": 1,
+            "path": "$.weaponStateRelevant.directProvidedStats[1]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.operation.directProvidedStats",
+            "index": 1,
+            "path": "$.weaponStateRelevant.operation.directProvidedStats[1]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "staticReloadValues": [],
+        "directAmmoStats": [
+          {
+            "source": "directProvidedStats",
+            "index": 3,
+            "path": "$.directProvidedStats[3]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "meaningfulDirectProvidedStats",
+            "index": 2,
+            "path": "$.meaningfulDirectProvidedStats[2]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.directProvidedStats",
+            "index": 1,
+            "path": "$.weaponStateRelevant.directProvidedStats[1]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.operation.directProvidedStats",
+            "index": 1,
+            "path": "$.weaponStateRelevant.operation.directProvidedStats[1]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "AmmoReloadPercent",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": false
+          },
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 2,
+            "value": "BonusClipSizePercent",
+            "semanticClass": "STATIC_CAPACITY",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "m_BulletDamageBuffModifier",
+          "modifier_ethereal_bullets_buff",
+          "modifier_ethereal_bullets_bullet_buff",
+          "modifier_ethereal_bullets_watcher"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_ethereal_bullets",
+          "runtimeItemId": 3919289022,
+          "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+          "evidence": {
+            "direct": [
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "AmmoReloadPercent"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "AmmoReloadPercent"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ],
+            "explicitCurrentAmmo": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "AmmoReloadPercent"
+              }
+            ],
+            "all": [
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "AmmoReloadPercent"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ]
+          },
+          "disposition": "OBSERVED_WITH_RESTORATION",
+          "attackExposure": 9074,
+          "exposedHeroIds": [
+            4,
+            25,
+            58
+          ],
+          "exposedContextCount": 21,
+          "restorationEventCount": 4,
+          "restorationEvents": [
+            {
+              "heroId": 25,
+              "tick": 115530,
+              "effectContextId": "weapon-context-89",
+              "logicalGain": 19,
+              "grossRestorationIfOneShotConsumed": 20
+            },
+            {
+              "heroId": 25,
+              "tick": 146060,
+              "effectContextId": "weapon-context-91",
+              "logicalGain": 19,
+              "grossRestorationIfOneShotConsumed": 20
+            },
+            {
+              "heroId": 4,
+              "tick": 161696,
+              "effectContextId": "weapon-context-143",
+              "logicalGain": 5,
+              "grossRestorationIfOneShotConsumed": 6
+            },
+            {
+              "heroId": 25,
+              "tick": 200952,
+              "effectContextId": "weapon-context-98",
+              "logicalGain": 9,
+              "grossRestorationIfOneShotConsumed": 10
+            }
+          ]
+        }
+      },
+      {
+        "recordKey": "upgrade_express_shot",
+        "runtimeItemId": 690458959,
+        "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+        "itemFound": true,
+        "evidenceDepth": "CURRENT_AMMO_FIELD_WITH_TRIGGER_HINT_NO_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 1,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 0,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 3,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 2,
+            "value": "ProcAmmoConsumed",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": true
+          }
+        ],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 2,
+            "value": "ProcAmmoConsumed",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": true
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "ProcAmmoConsumed",
+          "ProcBulletVelocity"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_express_shot",
+          "runtimeItemId": 690458959,
+          "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ProcAmmoConsumed"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ProcAmmoConsumed"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [],
+            "explicitCurrentAmmo": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ProcAmmoConsumed"
+              }
+            ],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ProcAmmoConsumed"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_glass_cannon",
+        "runtimeItemId": 365620721,
+        "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+        "itemFound": true,
+        "evidenceDepth": "CURRENT_AMMO_FIELD_WITH_TRIGGER_HINT_NO_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 1,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 0,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 3,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "BonusClipPerKill",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": true
+          }
+        ],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "BonusClipPerKill",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": true
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "BonusClipPerKill",
+          "FireRatePerKill"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_glass_cannon",
+          "runtimeItemId": 365620721,
+          "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipPerKill"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipPerKill"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [],
+            "explicitCurrentAmmo": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipPerKill"
+              }
+            ],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipPerKill"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_quick_silver",
+        "runtimeItemId": 84321454,
+        "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+        "itemFound": true,
+        "evidenceDepth": "CURRENT_AMMO_FIELD_WITH_TRIGGER_HINT_NO_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 1,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 0,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 3,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "AmmoReloadPercent",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": false
+          }
+        ],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "AmmoReloadPercent",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "modifier_quick_silver_buff",
+          "modifier_quick_silver_watcher"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_quick_silver",
+          "runtimeItemId": 84321454,
+          "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "AmmoReloadPercent"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "AmmoReloadPercent"
+              }
+            ],
+            "metadata": [
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strShopIconLarge",
+                "value": "panorama:\"file://{images}/items/spirit/quicksilver_reload.psd\""
+              }
+            ],
+            "dynamicMetadata": [
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strShopIconLarge",
+                "value": "panorama:\"file://{images}/items/spirit/quicksilver_reload.psd\""
+              }
+            ],
+            "corroboratingRecordTokens": [],
+            "explicitCurrentAmmo": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "AmmoReloadPercent"
+              }
+            ],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "AmmoReloadPercent"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strShopIconLarge",
+                "value": "panorama:\"file://{images}/items/spirit/quicksilver_reload.psd\""
+              }
+            ]
+          },
+          "disposition": "OBSERVED_WITH_RESTORATION",
+          "attackExposure": 4700,
+          "exposedHeroIds": [
+            4,
+            18,
+            25,
+            31,
+            52
+          ],
+          "exposedContextCount": 39,
+          "restorationEventCount": 4,
+          "restorationEvents": [
+            {
+              "heroId": 25,
+              "tick": 85449,
+              "effectContextId": "weapon-context-85",
+              "logicalGain": 12,
+              "grossRestorationIfOneShotConsumed": 13
+            },
+            {
+              "heroId": 18,
+              "tick": 92317,
+              "effectContextId": "weapon-context-154",
+              "logicalGain": 1,
+              "grossRestorationIfOneShotConsumed": 2
+            },
+            {
+              "heroId": 4,
+              "tick": 108069,
+              "effectContextId": "weapon-context-135",
+              "logicalGain": 2,
+              "grossRestorationIfOneShotConsumed": 3
+            },
+            {
+              "heroId": 4,
+              "tick": 126800,
+              "effectContextId": "weapon-context-137",
+              "logicalGain": 2,
+              "grossRestorationIfOneShotConsumed": 3
+            }
+          ]
+        }
+      },
+      {
+        "recordKey": "upgrade_surging_power",
+        "runtimeItemId": 1055679805,
+        "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+        "itemFound": true,
+        "evidenceDepth": "CURRENT_AMMO_FIELD_WITH_TRIGGER_HINT_NO_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 1,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 0,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 4,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 2,
+            "value": "ActiveReloadPercent",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": true
+          }
+        ],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 2,
+            "value": "ActiveReloadPercent",
+            "semanticClass": "CURRENT_AMMO",
+            "triggerHint": true
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "ActiveBonusFireRate",
+          "ActiveReloadPercent",
+          "CITADEL_ABILITY_BEHAVIOR_CASTABLE_WHILE_BUSY"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_surging_power",
+          "runtimeItemId": 1055679805,
+          "resourceClassification": "CURRENT_AMMO_FIELD_CANDIDATE",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ActiveReloadPercent"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ActiveReloadPercent"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [],
+            "explicitCurrentAmmo": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ActiveReloadPercent"
+              }
+            ],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ActiveReloadPercent"
+              }
+            ]
+          },
+          "disposition": "OBSERVED_NEGATIVE_EXPOSURE_ONLY",
+          "attackExposure": 2904,
+          "exposedHeroIds": [
+            58
+          ],
+          "exposedContextCount": 3,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_active_reload",
+        "runtimeItemId": 381961617,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "STATIC_AMMO_VALUE_ONLY",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 4,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 4,
+        "directAmmoValueCount": 4,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 4,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [
+          {
+            "source": "directProvidedStats",
+            "index": 4,
+            "path": "$.directProvidedStats[4]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "meaningfulDirectProvidedStats",
+            "index": 2,
+            "path": "$.meaningfulDirectProvidedStats[2]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.directProvidedStats",
+            "index": 1,
+            "path": "$.weaponStateRelevant.directProvidedStats[1]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.operation.directProvidedStats",
+            "index": 1,
+            "path": "$.weaponStateRelevant.operation.directProvidedStats[1]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "staticReloadValues": [],
+        "directAmmoStats": [
+          {
+            "source": "directProvidedStats",
+            "index": 4,
+            "path": "$.directProvidedStats[4]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "meaningfulDirectProvidedStats",
+            "index": 2,
+            "path": "$.meaningfulDirectProvidedStats[2]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.directProvidedStats",
+            "index": 1,
+            "path": "$.weaponStateRelevant.directProvidedStats[1]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.operation.directProvidedStats",
+            "index": 1,
+            "path": "$.weaponStateRelevant.operation.directProvidedStats[1]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "BonusClipSizePercent",
+            "semanticClass": "STATIC_CAPACITY",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "activeReload",
+          "panorama:\"file://{images}/items/weapon/active_reload.psd\"",
+          "upgrade_active_reload"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_active_reload",
+          "runtimeItemId": 381961617,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [],
+            "metadata": [
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "recordKey",
+                "value": "upgrade_active_reload"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strCSSClass",
+                "value": "activeReload"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strShopIconLarge",
+                "value": "panorama:\"file://{images}/items/weapon/active_reload.psd\""
+              }
+            ],
+            "dynamicMetadata": [
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "recordKey",
+                "value": "upgrade_active_reload"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strCSSClass",
+                "value": "activeReload"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strShopIconLarge",
+                "value": "panorama:\"file://{images}/items/weapon/active_reload.psd\""
+              }
+            ],
+            "corroboratingRecordTokens": [
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "recordKey",
+                "value": "upgrade_active_reload"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strCSSClass",
+                "value": "activeReload"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strShopIconLarge",
+                "value": "panorama:\"file://{images}/items/weapon/active_reload.psd\""
+              },
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_arcane_surge",
+        "runtimeItemId": 1150006784,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "STATIC_AMMO_VALUE_ONLY",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 1,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 1,
+        "directAmmoValueCount": 1,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 4,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [
+          {
+            "source": "directProvidedStats",
+            "index": 7,
+            "path": "$.directProvidedStats[7]",
+            "propertyKey": "BonusClipSize",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE"
+            ],
+            "usageFlags": "ConditionallyApplied",
+            "displayUnits": null,
+            "value": "0",
+            "numericValue": 0,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "staticReloadValues": [],
+        "directAmmoStats": [
+          {
+            "source": "directProvidedStats",
+            "index": 7,
+            "path": "$.directProvidedStats[7]",
+            "propertyKey": "BonusClipSize",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE"
+            ],
+            "usageFlags": "ConditionallyApplied",
+            "displayUnits": null,
+            "value": "0",
+            "numericValue": 0,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "BonusClipSize",
+            "semanticClass": "STATIC_CAPACITY",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "TechRangeMultiplierBuff",
+          "modifier_arcane_surge_ability_watcher",
+          "modifier_kinetic_sash_triggered"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_arcane_surge",
+          "runtimeItemId": 1150006784,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSize"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSize"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE"
+              }
+            ],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSize"
+              },
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_intensifying_clip",
+        "runtimeItemId": 2407033488,
+        "resourceClassification": "NON_DIRECT_OR_DYNAMIC_AMMO_CANDIDATE",
+        "itemFound": true,
+        "evidenceDepth": "STATIC_AMMO_VALUE_ONLY",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 4,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 4,
+        "directAmmoValueCount": 4,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 1,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [
+          {
+            "source": "directProvidedStats",
+            "index": 2,
+            "path": "$.directProvidedStats[2]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "meaningfulDirectProvidedStats",
+            "index": 0,
+            "path": "$.meaningfulDirectProvidedStats[0]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.directProvidedStats",
+            "index": 0,
+            "path": "$.weaponStateRelevant.directProvidedStats[0]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.operation.directProvidedStats",
+            "index": 0,
+            "path": "$.weaponStateRelevant.operation.directProvidedStats[0]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "staticReloadValues": [],
+        "directAmmoStats": [
+          {
+            "source": "directProvidedStats",
+            "index": 2,
+            "path": "$.directProvidedStats[2]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "meaningfulDirectProvidedStats",
+            "index": 0,
+            "path": "$.meaningfulDirectProvidedStats[0]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.directProvidedStats",
+            "index": 0,
+            "path": "$.weaponStateRelevant.directProvidedStats[0]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          },
+          {
+            "source": "weaponStateRelevant.operation.directProvidedStats",
+            "index": 0,
+            "path": "$.weaponStateRelevant.operation.directProvidedStats[0]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": "20",
+            "numericValue": 20,
+            "suppliedValuePresent": true,
+            "valueSource": "numericValue",
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "BonusClipSizePercent",
+            "semanticClass": "STATIC_CAPACITY",
+            "triggerHint": false
+          },
+          {
+            "source": "nestedModifierClasses",
+            "index": 0,
+            "value": "modifier_intensifying_clip",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_intensifying_clip",
+          "runtimeItemId": 2407033488,
+          "resourceClassification": "NON_DIRECT_OR_DYNAMIC_AMMO_CANDIDATE",
+          "evidence": {
+            "direct": [
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ],
+            "separatedNonDirect": [],
+            "nested": [
+              {
+                "tier": "B_NESTED_MODIFIER_NAME",
+                "source": "nestedModifierClasses",
+                "value": "modifier_intensifying_clip"
+              }
+            ],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [],
+            "metadata": [
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "recordKey",
+                "value": "upgrade_intensifying_clip"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strCSSClass",
+                "value": "intensifyingClip"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strShopIconLarge",
+                "value": "panorama:\"file://{images}/items/weapon/intensifying_magazine.psd\""
+              }
+            ],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "A_MEANINGFUL_DIRECT",
+                "source": "meaningfulDirectProvidedStats",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              },
+              {
+                "tier": "B_NESTED_MODIFIER_NAME",
+                "source": "nestedModifierClasses",
+                "value": "modifier_intensifying_clip"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "recordKey",
+                "value": "upgrade_intensifying_clip"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strCSSClass",
+                "value": "intensifyingClip"
+              },
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strShopIconLarge",
+                "value": "panorama:\"file://{images}/items/weapon/intensifying_magazine.psd\""
+              },
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_berserker",
+        "runtimeItemId": 1414319208,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "AMMO_STAT_DECLARATION_WITHOUT_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 1,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 1,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [
+          {
+            "source": "directProvidedStats",
+            "index": 2,
+            "path": "$.directProvidedStats[2]",
+            "propertyKey": "BonusClipSize",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": null,
+            "numericValue": null,
+            "suppliedValuePresent": false,
+            "valueSource": null,
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "BonusClipSize",
+            "semanticClass": "STATIC_CAPACITY",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_berserker",
+          "runtimeItemId": 1414319208,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSize"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSize"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE"
+              }
+            ],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSize"
+              },
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_blitz_bullets",
+        "runtimeItemId": 4104549924,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "AMMO_STAT_DECLARATION_WITHOUT_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 1,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 1,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [
+          {
+            "source": "directProvidedStats",
+            "index": 3,
+            "path": "$.directProvidedStats[3]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": null,
+            "numericValue": null,
+            "suppliedValuePresent": false,
+            "valueSource": null,
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "BonusClipSizePercent",
+            "semanticClass": "STATIC_CAPACITY",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_blitz_bullets",
+          "runtimeItemId": 4104549924,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ]
+          },
+          "disposition": "OBSERVED_WITH_RESTORATION",
+          "attackExposure": 17235,
+          "exposedHeroIds": [
+            1,
+            4,
+            25,
+            58
+          ],
+          "exposedContextCount": 52,
+          "restorationEventCount": 7,
+          "restorationEvents": [
+            {
+              "heroId": 25,
+              "tick": 85449,
+              "effectContextId": "weapon-context-85",
+              "logicalGain": 12,
+              "grossRestorationIfOneShotConsumed": 13
+            },
+            {
+              "heroId": 4,
+              "tick": 108069,
+              "effectContextId": "weapon-context-135",
+              "logicalGain": 2,
+              "grossRestorationIfOneShotConsumed": 3
+            },
+            {
+              "heroId": 25,
+              "tick": 115530,
+              "effectContextId": "weapon-context-89",
+              "logicalGain": 19,
+              "grossRestorationIfOneShotConsumed": 20
+            },
+            {
+              "heroId": 4,
+              "tick": 126800,
+              "effectContextId": "weapon-context-137",
+              "logicalGain": 2,
+              "grossRestorationIfOneShotConsumed": 3
+            },
+            {
+              "heroId": 25,
+              "tick": 146060,
+              "effectContextId": "weapon-context-91",
+              "logicalGain": 19,
+              "grossRestorationIfOneShotConsumed": 20
+            },
+            {
+              "heroId": 4,
+              "tick": 161696,
+              "effectContextId": "weapon-context-143",
+              "logicalGain": 5,
+              "grossRestorationIfOneShotConsumed": 6
+            },
+            {
+              "heroId": 25,
+              "tick": 200952,
+              "effectContextId": "weapon-context-98",
+              "logicalGain": 9,
+              "grossRestorationIfOneShotConsumed": 10
+            }
+          ]
+        }
+      },
+      {
+        "recordKey": "upgrade_endurance",
+        "runtimeItemId": 2829638276,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "AMMO_STAT_DECLARATION_WITHOUT_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 1,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 1,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [
+          {
+            "source": "directProvidedStats",
+            "index": 4,
+            "path": "$.directProvidedStats[4]",
+            "propertyKey": "BonusClipSizePercent",
+            "providedPropertyType": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": null,
+            "numericValue": null,
+            "suppliedValuePresent": false,
+            "valueSource": null,
+            "semanticClass": "STATIC_CAPACITY"
+          }
+        ],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "BonusClipSizePercent",
+            "semanticClass": "STATIC_CAPACITY",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_endurance",
+          "runtimeItemId": 2829638276,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSizePercent"
+              },
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_long_range",
+        "runtimeItemId": 3331811235,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "AMMO_STAT_DECLARATION_WITHOUT_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 1,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 1,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [
+          {
+            "source": "directProvidedStats",
+            "index": 5,
+            "path": "$.directProvidedStats[5]",
+            "propertyKey": "ReloadSpeedMultipler",
+            "providedPropertyType": "MODIFIER_VALUE_RELOAD_SPEED",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_RELOAD_SPEED"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": null,
+            "numericValue": null,
+            "suppliedValuePresent": false,
+            "valueSource": null,
+            "semanticClass": "STATIC_RELOAD_RATE"
+          }
+        ],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 4,
+            "value": "ReloadSpeedMultipler",
+            "semanticClass": "STATIC_RELOAD_RATE",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_long_range",
+          "runtimeItemId": 3331811235,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ReloadSpeedMultipler"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ReloadSpeedMultipler"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_RELOAD_SPEED"
+              }
+            ],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ReloadSpeedMultipler"
+              },
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_RELOAD_SPEED"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_sharpshooter",
+        "runtimeItemId": 2152872419,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "AMMO_STAT_DECLARATION_WITHOUT_VALUE",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 1,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 1,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [
+          {
+            "source": "directProvidedStats",
+            "index": 7,
+            "path": "$.directProvidedStats[7]",
+            "propertyKey": "ReloadSpeedMultipler",
+            "providedPropertyType": "MODIFIER_VALUE_RELOAD_SPEED",
+            "modifierValueTokens": [
+              "MODIFIER_VALUE_RELOAD_SPEED"
+            ],
+            "usageFlags": "",
+            "displayUnits": null,
+            "value": null,
+            "numericValue": null,
+            "suppliedValuePresent": false,
+            "valueSource": null,
+            "semanticClass": "STATIC_RELOAD_RATE"
+          }
+        ],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 5,
+            "value": "ReloadSpeedMultipler",
+            "semanticClass": "STATIC_RELOAD_RATE",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_sharpshooter",
+          "runtimeItemId": 2152872419,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ReloadSpeedMultipler"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ReloadSpeedMultipler"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_RELOAD_SPEED"
+              }
+            ],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "ReloadSpeedMultipler"
+              },
+              {
+                "tier": "E_CORROBORATING_RECORD_TOKEN",
+                "source": "recordModifierTokens",
+                "value": "MODIFIER_VALUE_RELOAD_SPEED"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_crushing_fists",
+        "runtimeItemId": 800008313,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "AMMO_FIELD_NAME_ONLY",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 0,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 5,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 3,
+            "value": "LightMeleeAmmo",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          },
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 5,
+            "value": "m_AmmoAddedVisualModifier",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          },
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 6,
+            "value": "m_ReloadVisualModifier",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          },
+          {
+            "source": "modifierBearingFieldNames",
+            "index": 0,
+            "value": "m_AmmoAddedVisualModifier",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          },
+          {
+            "source": "modifierBearingFieldNames",
+            "index": 3,
+            "value": "m_ReloadVisualModifier",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "meleeCharge",
+          "modifier_crushing_fists_debuff",
+          "modifier_crushing_fists_watcher",
+          "modifier_melee_charge"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_crushing_fists",
+          "runtimeItemId": 800008313,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "LightMeleeAmmo"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_AmmoAddedVisualModifier"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_ReloadVisualModifier"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "LightMeleeAmmo"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_AmmoAddedVisualModifier"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_ReloadVisualModifier"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "LightMeleeAmmo"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_AmmoAddedVisualModifier"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_ReloadVisualModifier"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_melee_charge",
+        "runtimeItemId": 26002154,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "AMMO_FIELD_NAME_ONLY",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 0,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 5,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 3,
+            "value": "m_AmmoAddedVisualModifier",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          },
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 4,
+            "value": "m_ReloadVisualModifier",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          },
+          {
+            "source": "modifierBearingFieldNames",
+            "index": 0,
+            "value": "m_AmmoAddedVisualModifier",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          },
+          {
+            "source": "modifierBearingFieldNames",
+            "index": 2,
+            "value": "m_ReloadVisualModifier",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "meleeCharge",
+          "modifier_melee_charge",
+          "panorama:\"file://{images}/items/weapon/melee_charge.psd\"",
+          "upgrade_melee_charge"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_melee_charge",
+          "runtimeItemId": 26002154,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_AmmoAddedVisualModifier"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_ReloadVisualModifier"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_AmmoAddedVisualModifier"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_ReloadVisualModifier"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_AmmoAddedVisualModifier"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_ReloadVisualModifier"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_return_fire",
+        "runtimeItemId": 3361075077,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "AMMO_FIELD_NAME_ONLY",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 0,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 4,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 25,
+            "value": "m_flReloadMoveSpeed",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": false
+          },
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 32,
+            "value": "m_iClipSize",
+            "semanticClass": "STATIC_CAPACITY",
+            "triggerHint": false
+          },
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 33,
+            "value": "m_reloadDuration",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": true
+          },
+          {
+            "source": "timingFieldNames",
+            "index": 12,
+            "value": "m_reloadDuration",
+            "semanticClass": "AMMO_OTHER",
+            "triggerHint": true
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "CITADEL_ABILITY_BEHAVIOR_NO_TARGET | CITADEL_ABILITY_BEHAVIOR_CAN_CAST_ON_ZIPLINE",
+          "m_flBurstShotCooldown",
+          "m_reloadDuration"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_return_fire",
+          "runtimeItemId": 3361075077,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_flReloadMoveSpeed"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_iClipSize"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_reloadDuration"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_flReloadMoveSpeed"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_iClipSize"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_reloadDuration"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_flReloadMoveSpeed"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_iClipSize"
+              },
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "m_reloadDuration"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_veil_walker",
+        "runtimeItemId": 865958998,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "AMMO_FIELD_NAME_ONLY",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 0,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 2,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [
+          {
+            "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+            "index": 1,
+            "value": "BonusClipSize",
+            "semanticClass": "STATIC_CAPACITY",
+            "triggerHint": false
+          }
+        ],
+        "triggerHints": [
+          "AbilityCastRange",
+          "modifier_veil_walker_watcher"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_veil_walker",
+          "runtimeItemId": 865958998,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSize"
+              }
+            ],
+            "diagnosticUnexplainedByStatic": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSize"
+              }
+            ],
+            "metadata": [],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "C_DIAGNOSTIC_FIELD_NAME",
+                "source": "weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly",
+                "value": "BonusClipSize"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      },
+      {
+        "recordKey": "upgrade_split_shot",
+        "runtimeItemId": 3647584222,
+        "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+        "itemFound": true,
+        "evidenceDepth": "WEAK_NAME_OR_SCHEMA_HINT_ONLY",
+        "currentAmmoValueCount": 0,
+        "currentAmmoFieldNameCount": 0,
+        "staticCapacityValueCount": 0,
+        "staticReloadValueCount": 0,
+        "directAmmoDeclarationCount": 0,
+        "directAmmoValueCount": 0,
+        "rawAmmoScalarCount": 0,
+        "triggerHintCount": 4,
+        "currentAmmoValues": [],
+        "currentAmmoFieldNames": [],
+        "staticCapacityValues": [],
+        "staticReloadValues": [],
+        "directAmmoStats": [],
+        "rawAmmoScalars": [],
+        "fieldNameEvidence": [],
+        "triggerHints": [
+          "AbilityCastRange",
+          "BonusShotsDuration",
+          "WeaponDamageBonusDuration",
+          "m_WeaponDamageBuff"
+        ],
+        "runtimeCoverage": {
+          "recordKey": "upgrade_split_shot",
+          "runtimeItemId": 3647584222,
+          "resourceClassification": "AMMO_RESOURCE_EVIDENCE_UNRESOLVED",
+          "evidence": {
+            "direct": [],
+            "separatedNonDirect": [],
+            "nested": [],
+            "diagnostic": [],
+            "diagnosticUnexplainedByStatic": [],
+            "metadata": [
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strCSSClass",
+                "value": "titanicMagazine"
+              }
+            ],
+            "dynamicMetadata": [],
+            "corroboratingRecordTokens": [],
+            "explicitCurrentAmmo": [],
+            "all": [
+              {
+                "tier": "D_NAME_OR_METADATA_ONLY",
+                "source": "selectedTopLevelMetadata.m_strCSSClass",
+                "value": "titanicMagazine"
+              }
+            ]
+          },
+          "disposition": "NOT_OBSERVED_IN_TEST",
+          "attackExposure": 0,
+          "exposedHeroIds": [],
+          "exposedContextCount": 0,
+          "restorationEventCount": 0,
+          "restorationEvents": []
+        }
+      }
+    ],
+    "classification": "COMPLETE_18_ITEM_STRICT_RESOURCE_VALUE_AUDIT_V02"
+  },
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "v01ReadyButSuperseded": {
+        "actual": "AMMO_CANDIDATE_RESOURCE_SEMANTICS_AUDIT_V01_READY_FOR_INTERPRETATION",
+        "expected": "AMMO_CANDIDATE_RESOURCE_SEMANTICS_AUDIT_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script202Ready": {
+        "actual": "STANDARD_SHOP_AMMO_MECHANISM_CENSUS_V03_READY_FOR_INTERPRETATION",
+        "expected": "STANDARD_SHOP_AMMO_MECHANISM_CENSUS_V03_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script203Ready": {
+        "actual": "AMMO_CANDIDATE_RUNTIME_COVERAGE_V01_READY_FOR_INTERPRETATION",
+        "expected": "AMMO_CANDIDATE_RUNTIME_COVERAGE_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "exactly18": {
+        "actual": 18,
+        "expected": 18,
+        "pass": true
+      },
+      "allRecordsFound": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "quickSilverNotPromotedByIcon": {
+        "actual": {
+          "currentValues": 0,
+          "currentFieldNames": 1,
+          "depth": "CURRENT_AMMO_FIELD_WITH_TRIGGER_HINT_NO_VALUE"
+        },
+        "expected": "no explicit current-ammo value unless one is actually present",
+        "pass": true
+      },
+      "expressFieldRetained": {
+        "actual": 1,
+        "expected": ">0",
+        "pass": true
+      },
+      "glassFieldRetained": {
+        "actual": 1,
+        "expected": ">0",
+        "pass": true
+      },
+      "surgingFieldRetained": {
+        "actual": 1,
+        "expected": ">0",
+        "pass": true
+      },
+      "knownObservedCandidatesPresent": {
+        "actual": [
+          true,
+          true,
+          true
+        ],
+        "expected": [
+          true,
+          true,
+          true
+        ],
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "STRICT_RESOURCE_VALUE_DISCRIMINATION_ONLY",
+    "authorityPromotion": false,
+    "replicationStatus": "resource_build_bound"
+  },
+  "nextStep": "INTERPRET_WHICH_OF_18_HAVE_EXPLICIT_CURRENT_AMMO_VALUES_VS_FIELD_NAMES_ONLY;_THEN_PRIORITIZE_TARGETED_CALIBRATION_FOR_UNOBSERVED_CURRENT_AMMO_FIELDS"
+}

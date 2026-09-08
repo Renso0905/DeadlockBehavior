@@ -1,0 +1,569 @@
+{
+  "version": "BURST_BOUNDARY_READY_DELAY_SEMANTICS_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T20:13:34.197Z",
+  "status": "BURST_BOUNDARY_READY_DELAY_SEMANTICS_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "replay": "test",
+  "inputs": {
+    "script161": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_state_substrate_v01.json",
+    "script165V02": "G:\\DeadlockBehavior\\output\\cross_replay\\primary_weapon_static_cadence_substrate_v02.json",
+    "script166": "G:\\DeadlockBehavior\\output\\test\\static_runtime_cadence_alignment_diagnostic_v01.json",
+    "runtimeEvents": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_runtime_events_v01.jsonl"
+  },
+  "design": {
+    "purpose": "Resolve Script166 burst-only failure by separating a wrong post-burst interval formula from a wrong runtime burst-counter phase.",
+    "replayParsing": "NONE",
+    "cohort": "Same clean explicit-Fire-Rate, no-special-EFireRate-scaling, dominant-fire-mode burst baseline used by Script166.",
+    "competingBoundaryHypotheses": [
+      "FULL_CYCLE_TIME = m_flCycleTime",
+      "INTRA_BURST_CYCLE_TIME = m_flIntraBurstCycleTime",
+      "POST_BURST_REMAINDER = m_flCycleTime - (burstCount-1)*m_flIntraBurstCycleTime"
+    ],
+    "burstCounterPhaseTest": "Within same effect context and active fire mode, test whether discharge-state m_nBurstShotsRemaining descends by one and resets 0 -> burstCount-1.",
+    "sustainedSequenceDefinition": "Next observed discharge occurs no later than current readyDelay + two replay ticks; used as the stronger counter-sequence subset.",
+    "tolerance": {
+      "absoluteSeconds": 0.015625,
+      "relativeOfCandidateInterval": 0.05,
+      "rationale": "Same frozen tolerance used by Script166; no threshold retuning after seeing its result."
+    },
+    "authorityPromotion": "NONE"
+  },
+  "counts": {
+    "cleanBurstDischargesBeforeDominantMode": 2615,
+    "strictBurstDischarges": 2615,
+    "boundaryRowsZeroRemaining": 844,
+    "nonBoundaryRowsPositiveRemaining": 1771,
+    "sameContextSequenceSteps": 2613,
+    "sustainedSequenceSteps": 2328
+  },
+  "boundaryCandidateSummary": [
+    {
+      "kind": "FULL_CYCLE_TIME",
+      "comparable": 844,
+      "aligned": 0,
+      "alignmentRate": 0,
+      "absoluteErrorSeconds": {
+        "n": 844,
+        "min": 0.06837158203124999,
+        "median": 0.07899169921874999,
+        "max": 2.087506103515625,
+        "mean": 0.08550364507882964
+      },
+      "ratioToCandidate": {
+        "n": 844,
+        "min": 1.260463169642857,
+        "median": 1.3009207589285714,
+        "max": 8.952404203869047,
+        "mean": 1.3257281717288658
+      }
+    },
+    {
+      "kind": "INTRA_BURST_CYCLE_TIME",
+      "comparable": 844,
+      "aligned": 0,
+      "alignmentRate": 0,
+      "absoluteErrorSeconds": {
+        "n": 844,
+        "min": 0.24687158203124998,
+        "median": 0.25749169921875,
+        "max": 2.266006103515625,
+        "mean": 0.2640036450788282
+      },
+      "ratioToCandidate": {
+        "n": 844,
+        "min": 3.9389474051339284,
+        "median": 4.065377371651786,
+        "max": 27.976263137090772,
+        "mean": 4.142900536652707
+      }
+    },
+    {
+      "kind": "POST_BURST_REMAINDER",
+      "comparable": 844,
+      "aligned": 0,
+      "alignmentRate": 0,
+      "absoluteErrorSeconds": {
+        "n": 844,
+        "min": 0.23637158203125,
+        "median": 0.24699169921875,
+        "max": 2.255506103515625,
+        "mean": 0.2535036450788284
+      },
+      "ratioToCandidate": {
+        "n": 844,
+        "min": 3.5012865823412698,
+        "median": 3.6136687748015874,
+        "max": 24.867789455191797,
+        "mean": 3.6825782548025066
+      }
+    }
+  ],
+  "nonBoundaryCandidateSummary": [
+    {
+      "kind": "INTRA_BURST_CYCLE_TIME",
+      "comparable": 1771,
+      "aligned": 1771,
+      "alignmentRate": 1,
+      "absoluteErrorSeconds": {
+        "n": 1771,
+        "min": 0.0005039062500000052,
+        "median": 0.009750732421875005,
+        "max": 0.015640625000000005,
+        "mean": 0.00900288805538873
+      },
+      "ratioToCandidate": {
+        "n": 1771,
+        "min": 0.8138020833333333,
+        "median": 0.8839198521205357,
+        "max": 0.9940011160714285,
+        "mean": 0.8928227612453644
+      }
+    },
+    {
+      "kind": "POST_BURST_REMAINDER",
+      "comparable": 1771,
+      "aligned": 961,
+      "alignmentRate": 0.5426312817617166,
+      "absoluteErrorSeconds": {
+        "n": 1771,
+        "min": 0.01100390625,
+        "median": 0.020250732421875,
+        "max": 0.026140625,
+        "mean": 0.019502888055388735
+      },
+      "ratioToCandidate": {
+        "n": 1771,
+        "min": 0.7233796296296297,
+        "median": 0.785706535218254,
+        "max": 0.8835565476190476,
+        "mean": 0.7936202322181058
+      }
+    },
+    {
+      "kind": "FULL_CYCLE_TIME",
+      "comparable": 1771,
+      "aligned": 0,
+      "alignmentRate": 0,
+      "absoluteErrorSeconds": {
+        "n": 1771,
+        "min": 0.17900390625,
+        "median": 0.188250732421875,
+        "max": 0.194140625,
+        "mean": 0.18750288805538287
+      },
+      "ratioToCandidate": {
+        "n": 1771,
+        "min": 0.26041666666666663,
+        "median": 0.2828543526785714,
+        "max": 0.31808035714285715,
+        "mean": 0.28570328359851677
+      }
+    }
+  ],
+  "counterSummary": {
+    "allSameContext": {
+      "comparable": 2613,
+      "expectedPostShotSequenceSteps": 2568,
+      "expectedPostShotSequenceRate": 0.9827784156142365,
+      "counts": {
+        "DESCEND_ONE": 1726,
+        "ZERO_TO_BURST_RESET": 842,
+        "RESET_TO_BURST_START_VALUE": 38,
+        "UNCHANGED": 7
+      }
+    },
+    "sustained": {
+      "comparable": 2328,
+      "expectedPostShotSequenceSteps": 2328,
+      "expectedPostShotSequenceRate": 1,
+      "counts": {
+        "DESCEND_ONE": 1725,
+        "ZERO_TO_BURST_RESET": 603
+      }
+    }
+  },
+  "byHero": [
+    {
+      "heroId": 2,
+      "displayName": "Seven",
+      "primaryWeaponRecordKey": "citadel_weapon_gigawatt_set",
+      "staticCadenceRegime": {
+        "regime": "BURST",
+        "cycleTimeSeconds": 0.2625,
+        "intraBurstCycleTimeSeconds": 0.084,
+        "burstShotCount": 3,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 1769,
+        "total": 1769,
+        "rate": 1
+      },
+      "strictDischarges": 1769,
+      "boundaryRows": 564,
+      "nonBoundaryRows": 1205,
+      "boundaryCandidateSummary": [
+        {
+          "kind": "FULL_CYCLE_TIME",
+          "comparable": 564,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 564,
+            "min": 0.06837158203124999,
+            "median": 0.07893066406249999,
+            "max": 0.15772705078125,
+            "mean": 0.08535166530744365
+          },
+          "ratioToCandidate": {
+            "n": 564,
+            "min": 1.260463169642857,
+            "median": 1.300688244047619,
+            "max": 1.6008649553571428,
+            "mean": 1.3251492011712092
+          }
+        },
+        {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 564,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 564,
+            "min": 0.24687158203124998,
+            "median": 0.2574306640625,
+            "max": 0.33622705078125,
+            "mean": 0.26385166530744164
+          },
+          "ratioToCandidate": {
+            "n": 564,
+            "min": 3.9389474051339284,
+            "median": 4.064650762648809,
+            "max": 5.002702985491071,
+            "mean": 4.141091253660047
+          }
+        },
+        {
+          "kind": "POST_BURST_REMAINDER",
+          "comparable": 564,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 564,
+            "min": 0.23637158203125,
+            "median": 0.2469306640625,
+            "max": 0.32572705078124997,
+            "mean": 0.2533516653074456
+          },
+          "ratioToCandidate": {
+            "n": 564,
+            "min": 3.5012865823412698,
+            "median": 3.613022900132275,
+            "max": 4.446847098214286,
+            "mean": 3.6809700032533854
+          }
+        }
+      ],
+      "nonBoundaryCandidateSummary": [
+        {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 1205,
+          "aligned": 1205,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 1205,
+            "min": 0.0005039062500000052,
+            "median": 0.009750732421875005,
+            "max": 0.015640625000000005,
+            "mean": 0.008771536039613465
+          },
+          "ratioToCandidate": {
+            "n": 1205,
+            "min": 0.8138020833333333,
+            "median": 0.8839198521205357,
+            "max": 0.9940011160714285,
+            "mean": 0.8955769519093585
+          }
+        },
+        {
+          "kind": "POST_BURST_REMAINDER",
+          "comparable": 1205,
+          "aligned": 670,
+          "alignmentRate": 0.5560165975103735,
+          "absoluteErrorSeconds": {
+            "n": 1205,
+            "min": 0.01100390625,
+            "median": 0.020250732421875,
+            "max": 0.026140625,
+            "mean": 0.019271536039613613
+          },
+          "ratioToCandidate": {
+            "n": 1205,
+            "min": 0.7233796296296297,
+            "median": 0.785706535218254,
+            "max": 0.8835565476190476,
+            "mean": 0.7960684016972095
+          }
+        },
+        {
+          "kind": "FULL_CYCLE_TIME",
+          "comparable": 1205,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 1205,
+            "min": 0.17900390625,
+            "median": 0.188250732421875,
+            "max": 0.194140625,
+            "mean": 0.18727153603960994
+          },
+          "ratioToCandidate": {
+            "n": 1205,
+            "min": 0.26041666666666663,
+            "median": 0.2828543526785714,
+            "max": 0.31808035714285715,
+            "mean": 0.28658462461099465
+          }
+        }
+      ],
+      "counterSummaryAllSameContext": {
+        "comparable": 1768,
+        "expectedPostShotSequenceSteps": 1726,
+        "expectedPostShotSequenceRate": 0.9762443438914027,
+        "counts": {
+          "DESCEND_ONE": 1163,
+          "ZERO_TO_BURST_RESET": 563,
+          "RESET_TO_BURST_START_VALUE": 35,
+          "UNCHANGED": 7
+        }
+      },
+      "counterSummarySustained": {
+        "comparable": 1604,
+        "expectedPostShotSequenceSteps": 1604,
+        "expectedPostShotSequenceRate": 1,
+        "counts": {
+          "DESCEND_ONE": 1162,
+          "ZERO_TO_BURST_RESET": 442
+        }
+      }
+    },
+    {
+      "heroId": 31,
+      "displayName": "Lash",
+      "primaryWeaponRecordKey": "citadel_weapon_lash_set",
+      "staticCadenceRegime": {
+        "regime": "BURST",
+        "cycleTimeSeconds": 0.2625,
+        "intraBurstCycleTimeSeconds": 0.084,
+        "burstShotCount": 3,
+        "spinsUp": false,
+        "staticInterpretation": {
+          "cycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_TIME_BETWEEN_SHOTS_OR_BURST_STARTS_NOT_RUNTIME_EFFECTIVE_CADENCE",
+          "intraBurstCycleTime": "RESOURCE_FIELD_CANDIDATE_FOR_WITHIN_BURST_SHOT_INTERVAL_ONLY_WHEN_BURST_COUNT_GT_1",
+          "spinUp": "STATIC_FLAG_REQUIRES_DYNAMIC_RUNTIME_SPIN_STATE_MODEL"
+        }
+      },
+      "dominantActiveFireMode": {
+        "activeFireMode": 1,
+        "samples": 846,
+        "total": 846,
+        "rate": 1
+      },
+      "strictDischarges": 846,
+      "boundaryRows": 280,
+      "nonBoundaryRows": 566,
+      "boundaryCandidateSummary": [
+        {
+          "kind": "FULL_CYCLE_TIME",
+          "comparable": 280,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 280,
+            "min": 0.06974487304687499,
+            "median": 0.07911376953124999,
+            "max": 2.087506103515625,
+            "mean": 0.08580977576119599
+          },
+          "ratioToCandidate": {
+            "n": 280,
+            "min": 1.2656947544642856,
+            "median": 1.301385788690476,
+            "max": 8.952404203869047,
+            "mean": 1.3268943838521827
+          }
+        },
+        {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 280,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 280,
+            "min": 0.24824487304687498,
+            "median": 0.25761376953125,
+            "max": 2.266006103515625,
+            "mean": 0.26430977576119397
+          },
+          "ratioToCandidate": {
+            "n": 280,
+            "min": 3.955296107700893,
+            "median": 4.066830589657738,
+            "max": 27.976263137090772,
+            "mean": 4.146544949538043
+          }
+        },
+        {
+          "kind": "POST_BURST_REMAINDER",
+          "comparable": 280,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 280,
+            "min": 0.237744873046875,
+            "median": 0.24711376953125,
+            "max": 2.255506103515625,
+            "mean": 0.25380977576119745
+          },
+          "ratioToCandidate": {
+            "n": 280,
+            "min": 3.5158187624007935,
+            "median": 3.6149605241402116,
+            "max": 24.867789455191797,
+            "mean": 3.685817732922684
+          }
+        }
+      ],
+      "nonBoundaryCandidateSummary": [
+        {
+          "kind": "INTRA_BURST_CYCLE_TIME",
+          "comparable": 566,
+          "aligned": 566,
+          "alignmentRate": 1,
+          "absoluteErrorSeconds": {
+            "n": 566,
+            "min": 0.0005039062500000052,
+            "median": 0.009781250000000005,
+            "max": 0.015640625000000005,
+            "mean": 0.009495430774486504
+          },
+          "ratioToCandidate": {
+            "n": 566,
+            "min": 0.8138020833333333,
+            "median": 0.8835565476190476,
+            "max": 0.9940011160714285,
+            "mean": 0.8869591574465893
+          }
+        },
+        {
+          "kind": "POST_BURST_REMAINDER",
+          "comparable": 566,
+          "aligned": 291,
+          "alignmentRate": 0.5141342756183745,
+          "absoluteErrorSeconds": {
+            "n": 566,
+            "min": 0.01100390625,
+            "median": 0.02028125,
+            "max": 0.026140625,
+            "mean": 0.019995430774486553
+          },
+          "ratioToCandidate": {
+            "n": 566,
+            "min": 0.7233796296296297,
+            "median": 0.7853835978835979,
+            "max": 0.8835565476190476,
+            "mean": 0.7884081399525231
+          }
+        },
+        {
+          "kind": "FULL_CYCLE_TIME",
+          "comparable": 566,
+          "aligned": 0,
+          "alignmentRate": 0,
+          "absoluteErrorSeconds": {
+            "n": 566,
+            "min": 0.17900390625,
+            "median": 0.18828125,
+            "max": 0.194140625,
+            "mean": 0.18799543077448833
+          },
+          "ratioToCandidate": {
+            "n": 566,
+            "min": 0.26041666666666663,
+            "median": 0.28273809523809523,
+            "max": 0.31808035714285715,
+            "mean": 0.2838269303829089
+          }
+        }
+      ],
+      "counterSummaryAllSameContext": {
+        "comparable": 845,
+        "expectedPostShotSequenceSteps": 842,
+        "expectedPostShotSequenceRate": 0.9964497041420118,
+        "counts": {
+          "DESCEND_ONE": 563,
+          "ZERO_TO_BURST_RESET": 279,
+          "RESET_TO_BURST_START_VALUE": 3
+        }
+      },
+      "counterSummarySustained": {
+        "comparable": 724,
+        "expectedPostShotSequenceSteps": 724,
+        "expectedPostShotSequenceRate": 1,
+        "counts": {
+          "DESCEND_ONE": 563,
+          "ZERO_TO_BURST_RESET": 161
+        }
+      }
+    }
+  ],
+  "diagnosticClassification": "BURST_BOUNDARY_READY_DELAY_SEMANTICS_REMAIN_UNRESOLVED",
+  "validation": {
+    "integrityPass": true,
+    "semanticValidation": "DIAGNOSTIC_ONLY_NOT_AUTHORITY_PROMOTION",
+    "replicationStatus": "SINGLE_REPLAY_DISCOVERY",
+    "checks": {
+      "script161Ready": {
+        "actual": "EFFECTIVE_WEAPON_STATE_SUBSTRATE_V01_READY_FOR_SEMANTIC_VALIDATION",
+        "expected": "EFFECTIVE_WEAPON_STATE_SUBSTRATE_V01_READY_FOR_SEMANTIC_VALIDATION",
+        "pass": true
+      },
+      "script165V02Ready": {
+        "actual": "PRIMARY_WEAPON_STATIC_CADENCE_SUBSTRATE_V02_READY_FOR_INTERPRETATION",
+        "expected": "PRIMARY_WEAPON_STATIC_CADENCE_SUBSTRATE_V02_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script166Ready": {
+        "actual": "STATIC_RUNTIME_CADENCE_ALIGNMENT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "expected": "STATIC_RUNTIME_CADENCE_ALIGNMENT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script166BurstCohortReproduced": {
+        "actual": 2615,
+        "expected": 2615,
+        "pass": true
+      },
+      "script166IntraRowsReproduced": {
+        "actual": 1771,
+        "expected": 1771,
+        "pass": true
+      },
+      "script166BoundaryRowsReproduced": {
+        "actual": 844,
+        "expected": 844,
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "script166BoundaryFailure": "Script166 observed 0/844 alignment for its derived post-burst remainder while intra-burst rows aligned 1771/1771. Script167 does not revise Script166; it diagnoses the competing semantics explicitly.",
+    "guardrail": "A strong full-cycle result would validate a runtime/static relation for this ready-delay carrier at burst boundaries. It would not by itself establish a universal external definition of m_flCycleTime or final effective Fire Rate composition."
+  },
+  "nextStage": "DIAGNOSE_HERO_SPECIFIC_BURST_BOUNDARY_SEMANTICS_WITHOUT_RETUNING_THRESHOLDS"
+}

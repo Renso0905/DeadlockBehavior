@@ -1,0 +1,210 @@
+{
+  "version": "BRIDGE_RUNTIME_INTERVAL_AUTHORITY_V01",
+  "canonical": true,
+  "createdAt": "2026-09-07T16:33:16.086Z",
+  "status": "BRIDGE_RUNTIME_INTERVAL_AUTHORITY_V01_READY",
+  "claimId": "runtime_bridge_buff_ownership",
+  "authority": {
+    "authorityStatus": "current",
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated"
+  },
+  "foundations": {
+    "bridgeResourceContractArtifact": "G:\\DeadlockBehavior\\output\\cross_replay\\world_stat_buff_resource_contract_v02.json",
+    "worldCollectionReplicationArtifact": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_world_collection_cross_replay_replication_v01.json",
+    "survivalDurationValidationArtifact": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_runtime_duration_validation_v01.json",
+    "matchEndOutlierDiagnosticArtifact": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_match_end_outlier_diagnostic_v01.json"
+  },
+  "bridgePowerups": [
+    {
+      "recordKey": "gun_powerup_pickup",
+      "modifierClass": "modifier_citadel_powerup_gun",
+      "durationSeconds": 160
+    },
+    {
+      "recordKey": "survival_powerup_pickup",
+      "modifierClass": "modifier_citadel_powerup_survival",
+      "durationSeconds": 160
+    },
+    {
+      "recordKey": "casting_powerup_pickup",
+      "modifierClass": "modifier_citadel_powerup_casting",
+      "durationSeconds": 160
+    },
+    {
+      "recordKey": "movement_powerup_pickup",
+      "modifierClass": "modifier_citadel_powerup_movement",
+      "durationSeconds": 160
+    }
+  ],
+  "runtimeIntervalContract": {
+    "representation": "RECONSTRUCTED_INTERVAL_FROM_VALIDATED_EVENTS_AND_RESOURCE_DURATION",
+    "acquisition": {
+      "worldEntityClass": "CCitadel_Pickup_Modifier",
+      "identityField": "m_nSubclassID",
+      "identityNamespace": "MurmurHash2(recordKey)",
+      "collectionTransition": "m_bActive true -> false UPDATE",
+      "collectorAttribution": "nearest resolved player at collection transition under the frozen <=300 HU semantic gate"
+    },
+    "nominalDurationSeconds": 160,
+    "naturalExpiration": "acquisition + resource-defined 160-second modifier lifetime during ordinary active gameplay",
+    "earlyTermination": [
+      "player death"
+    ],
+    "censoring": [
+      "native game state leaves EGameState_GameInProgress before nominal expiry",
+      "replay ends before nominal expiry"
+    ],
+    "clockBoundary": "Do not reduce resource GameTime_t lifetime to unconditional raw replay-tick arithmetic when a future interval overlaps pause/time-scale behavior; no pause-shifted validation anchor was available in the frozen cohort."
+  },
+  "evidenceSummary": {
+    "independentCollectionReplicationReplays": 5,
+    "collectionSemanticPassReplays": 5,
+    "collectionEvents": 76,
+    "collectorTrueWithin300Count": 76,
+    "collectorTrueWithin300Rate": 1,
+    "shiftedPlaceboWithin800Count": 2,
+    "shiftedPlaceboWithin800Rate": 0.02631578947368421,
+    "twoWaveCompleteBlocks": 12,
+    "twoWaveExactComplementBlocks": 12,
+    "twoWaveExactComplementRate": 1,
+    "sharedDurationSeconds": 160,
+    "directDurationConsequenceBuff": "survival_powerup_pickup",
+    "survivalDirectNaturalEvidenceReplays": 4,
+    "survivalScript152NaturalCandidates": 12,
+    "survivalMatchEndCensoredCandidates": 1,
+    "survivalUncensoredNaturalExpirations": 11,
+    "survivalValidatedNaturalExpirations": 11,
+    "survivalValidatedNaturalExpirationRate": 1,
+    "survivalMedianExpirationTimingErrorSeconds": 0.046875,
+    "survivalDeathTerminationAnchors": 7,
+    "survivalDeathTerminationsWithNegativeMaxHp": 7,
+    "survivalDeathTerminationRate": 1
+  },
+  "semanticBoundary": {
+    "supported": "Per-player bridge-powerup acquisition is cross-replay replicated for all four bridge types. The current build gives all four the same 160-second resource duration. Survival independently validates that duration in replay consequences at 11/11 uncensored natural expirations and validates death termination at 7/7 observed death-confounded acquisitions. Native match end is censoring, not an expiration failure.",
+    "scopedGeneralization": "Gun, Casting, and Movement share the same bridge pickup/modifier resource family and 160-second contract, but their player-side expiration consequences were not independently observed through dedicated stat reversals. Their interval end therefore uses the shared resource contract plus the validated Survival lifetime semantics rather than four separate direct consequence tests.",
+    "notEstablished": "Exact 5-to-40-minute effect interpolation and a directly serialized player-side bridge modifier ID remain unresolved. This authority reconstructs ownership intervals; it does not claim a direct modifier handle."
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "bridgeResourceAuthorityCurrent": {
+        "actual": "current",
+        "expected": "current",
+        "pass": true
+      },
+      "runtimeBridgeAuthorityCurrent": {
+        "actual": "current",
+        "expected": "current",
+        "pass": true
+      },
+      "runtimeBridgeSemanticPass": {
+        "actual": "pass",
+        "expected": "pass",
+        "pass": true
+      },
+      "runtimeBridgeReplicationFrozen": {
+        "actual": "cross_replay_replicated",
+        "expected": "cross_replay_replicated",
+        "pass": true
+      },
+      "worldContractReady": {
+        "actual": "WORLD_STAT_BUFF_RESOURCE_CONTRACT_V02_READY",
+        "expected": "WORLD_STAT_BUFF_RESOURCE_CONTRACT_V02_READY",
+        "pass": true
+      },
+      "fourBridgePowerups": {
+        "actual": 4,
+        "expected": 4,
+        "pass": true
+      },
+      "sharedDuration160Seconds": {
+        "actual": [
+          160
+        ],
+        "expected": [
+          160
+        ],
+        "pass": true
+      },
+      "collectionStronglyReplicated": {
+        "actual": "BRIDGE_WORLD_COLLECTION_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "expected": "BRIDGE_WORLD_COLLECTION_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "pass": true
+      },
+      "collectionIndependentReplaysFive": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "collectionSemanticPassFive": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "collectionEventsSeventySix": {
+        "actual": 76,
+        "expected": 76,
+        "pass": true
+      },
+      "collectorGeometryPerfectAt300HU": {
+        "actual": 76,
+        "expected": 76,
+        "pass": true
+      },
+      "shiftedPlaceboSeparated": {
+        "actual": 0.02631578947368421,
+        "expected": "<=0.1",
+        "pass": true
+      },
+      "deckRuleReplicated": {
+        "actual": 12,
+        "expected": 12,
+        "pass": true
+      },
+      "survivalDurationStronglyValidated": {
+        "actual": "BRIDGE_SURVIVAL_RUNTIME_DURATION_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+        "expected": "BRIDGE_SURVIVAL_RUNTIME_DURATION_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+        "pass": true
+      },
+      "matchEndDiagnosticResolved": {
+        "actual": "BRIDGE_SURVIVAL_MATCH_END_OUTLIER_V01_DIAGNOSED",
+        "expected": "BRIDGE_SURVIVAL_MATCH_END_OUTLIER_V01_DIAGNOSED",
+        "pass": true
+      },
+      "soleNaturalMissMatchEndCensored": {
+        "actual": 1,
+        "expected": 1,
+        "pass": true
+      },
+      "correctedNaturalDenominatorEleven": {
+        "actual": 11,
+        "expected": 11,
+        "pass": true
+      },
+      "correctedNaturalExpirationElevenOfEleven": {
+        "actual": 11,
+        "expected": 11,
+        "pass": true
+      },
+      "supportiveRegenExpirationEleven": {
+        "actual": 11,
+        "expected": 11,
+        "pass": true
+      },
+      "deathTerminationSevenOfSeven": {
+        "actual": 7,
+        "expected": 7,
+        "pass": true
+      },
+      "survivalExpiryTimingTight": {
+        "actual": 0.046875,
+        "expected": "<=0.125s",
+        "pass": true
+      }
+    }
+  },
+  "nextStage": "CONSUME_RUNTIME_BRIDGE_INTERVALS_IN_EFFECTIVE_PLAYER_STATE_COMPOSITION"
+}

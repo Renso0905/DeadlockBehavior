@@ -1,0 +1,1006 @@
+diff --git a/src/player-state/ammo-restoration-item-enrichment.mjs b/src/player-state/ammo-restoration-item-enrichment.mjs
+new file mode 100644
+index 0000000..498c466
+--- /dev/null
++++ b/src/player-state/ammo-restoration-item-enrichment.mjs
+@@ -0,0 +1,390 @@
++const AMMO_RE = /(ammo|reload|clip|bullet|magazine)/i;
++
++export function extractItemIds(value) {
++  const ids = new Set();
++  const seen = new WeakSet();
++
++  function visit(node) {
++    if (node === null || node === undefined || typeof node !== 'object') return;
++    if (seen.has(node)) return;
++    seen.add(node);
++
++    if (!Array.isArray(node)) {
++      for (const [key, child] of Object.entries(node)) {
++        if (key === 'itemId' && Number.isFinite(Number(child))) {
++          ids.add(Number(child));
++        }
++        visit(child);
++      }
++      return;
++    }
++
++    for (const child of node) visit(child);
++  }
++
++  visit(value);
++  return [...ids].sort((a, b) => a - b);
++}
++
++export function buildContextIndex(substrate) {
++  const contexts = new Map();
++  const seen = new WeakSet();
++
++  function visit(node) {
++    if (node === null || typeof node !== 'object') return;
++    if (seen.has(node)) return;
++    seen.add(node);
++
++    if (!Array.isArray(node)) {
++      const effectContextId =
++        typeof node.effectContextId === 'string'
++          ? node.effectContextId
++          : typeof node.id === 'string' && /^weapon-context-\d+$/.test(node.id)
++            ? node.id
++            : null;
++
++      if (effectContextId) {
++        contexts.set(effectContextId, {
++          effectContextId,
++          heroId: Number.isFinite(Number(node.heroId)) ? Number(node.heroId) : null,
++          itemIds: extractItemIds(node),
++          raw: node,
++        });
++      }
++
++      for (const child of Object.values(node)) visit(child);
++      return;
++    }
++
++    for (const child of node) visit(child);
++  }
++
++  visit(substrate);
++  return contexts;
++}
++
++export function summarizeAttackExposure(runtimeRows) {
++  const byContext = new Map();
++
++  for (const row of runtimeRows) {
++    const changedFields = Array.isArray(row?.changedFields) ? row.changedFields : [];
++    if (!changedFields.includes('m_nShotNumber')) continue;
++
++    const heroId = Number(row?.heroId);
++    const effectContextId = row?.effectContextId;
++
++    if (!Number.isFinite(heroId) || typeof effectContextId !== 'string') continue;
++
++    const key = `${heroId}|${effectContextId}`;
++    byContext.set(key, (byContext.get(key) ?? 0) + 1);
++  }
++
++  return byContext;
++}
++
++export function buildRestorationEvents(script199) {
++  const events = [];
++
++  for (const context of script199?.diagnostic?.contexts ?? []) {
++    const ticks = context?.ticks ?? [];
++    const net = context?.netGains ?? [];
++    const gross = context?.grossRestorationCandidates ?? [];
++    const heroes = context?.heroes ?? [];
++
++    for (let i = 0; i < ticks.length; i++) {
++      events.push({
++        heroId: heroes.length === 1 ? Number(heroes[0]) : null,
++        tick: Number(ticks[i]),
++        effectContextId: context.effectContextId,
++        logicalGain: Number(net[i]),
++        grossRestorationIfOneShotConsumed: Number(gross[i]),
++      });
++    }
++  }
++
++  return events;
++}
++
++export function computeItemEnrichment({
++  restorationEvents,
++  contextIndex,
++  attackExposure,
++}) {
++  const heroes = [
++    ...new Set(
++      restorationEvents
++        .map(row => row.heroId)
++        .filter(Number.isFinite),
++    ),
++  ];
++
++  const rows = [];
++
++  for (const heroId of heroes) {
++    const heroRestorations =
++      restorationEvents.filter(row => row.heroId === heroId);
++
++    const heroContexts =
++      [...contextIndex.values()]
++        .filter(context => context.heroId === heroId)
++        .map(context => ({
++          ...context,
++          attackCount:
++            attackExposure.get(`${heroId}|${context.effectContextId}`) ?? 0,
++        }))
++        .filter(context => context.attackCount > 0);
++
++    const candidateItems = new Set();
++
++    for (const event of heroRestorations) {
++      const context = contextIndex.get(event.effectContextId);
++      for (const itemId of context?.itemIds ?? []) {
++        candidateItems.add(itemId);
++      }
++    }
++
++    for (const itemId of candidateItems) {
++      let restorationPresent = 0;
++      let restorationAbsent = 0;
++      let attacksPresent = 0;
++      let attacksAbsent = 0;
++
++      for (const event of heroRestorations) {
++        const context = contextIndex.get(event.effectContextId);
++        if (context?.itemIds?.includes(itemId)) restorationPresent++;
++        else restorationAbsent++;
++      }
++
++      for (const context of heroContexts) {
++        if (context.itemIds.includes(itemId)) attacksPresent += context.attackCount;
++        else attacksAbsent += context.attackCount;
++      }
++
++      const ratePresent =
++        attacksPresent > 0 ? restorationPresent / attacksPresent : null;
++
++      const rateAbsent =
++        attacksAbsent > 0 ? restorationAbsent / attacksAbsent : null;
++
++      let riskRatio = null;
++      if (Number.isFinite(ratePresent) && Number.isFinite(rateAbsent)) {
++        if (rateAbsent > 0) riskRatio = ratePresent / rateAbsent;
++        else if (ratePresent > 0) riskRatio = Infinity;
++      }
++
++      rows.push({
++        heroId,
++        itemId,
++        restorationEvents: heroRestorations.length,
++        restorationPresent,
++        restorationAbsent,
++        restorationPresenceRate:
++          heroRestorations.length > 0
++            ? restorationPresent / heroRestorations.length
++            : null,
++        attacksPresent,
++        attacksAbsent,
++        restorationRatePresent: ratePresent,
++        restorationRateAbsent: rateAbsent,
++        riskRatio,
++      });
++    }
++  }
++
++  return rows.sort(
++    (a, b) =>
++      b.restorationPresent - a.restorationPresent
++      || sortFiniteDesc(a.riskRatio, b.riskRatio)
++      || a.itemId - b.itemId,
++  );
++}
++
++export function annotateCandidates({
++  enrichmentRows,
++  catalog,
++  effects,
++}) {
++  return enrichmentRows.map(row => {
++    const catalogMatches = findObjectsContainingScalar(catalog, row.itemId);
++    const effectMatches = findObjectsContainingScalar(effects, row.itemId);
++
++    return {
++      ...row,
++      catalogIdentity: bestIdentity(catalogMatches),
++      ammoEffectEvidence: collectAmmoEvidence(effectMatches),
++      effectMatchCount: effectMatches.length,
++    };
++  });
++}
++
++export function summarizeCandidates(rows) {
++  const byItem = new Map();
++
++  for (const row of rows) {
++    if (!byItem.has(row.itemId)) {
++      byItem.set(row.itemId, {
++        itemId: row.itemId,
++        heroIds: [],
++        restorationPresent: 0,
++        restorationEvents: 0,
++        attacksPresent: 0,
++        catalogIdentity: row.catalogIdentity,
++        ammoEffectEvidence: new Set(),
++      });
++    }
++
++    const aggregate = byItem.get(row.itemId);
++    aggregate.heroIds.push(row.heroId);
++    aggregate.restorationPresent += row.restorationPresent;
++    aggregate.restorationEvents += row.restorationEvents;
++    aggregate.attacksPresent += row.attacksPresent;
++
++    for (const token of row.ammoEffectEvidence) {
++      aggregate.ammoEffectEvidence.add(token);
++    }
++  }
++
++  const crossHero =
++    [...byItem.values()]
++      .map(row => ({
++        ...row,
++        heroIds: [...new Set(row.heroIds)],
++        heroSupport: new Set(row.heroIds).size,
++        ammoEffectEvidence: [...row.ammoEffectEvidence],
++      }))
++      .sort(
++        (a, b) =>
++          b.heroSupport - a.heroSupport
++          || b.restorationPresent - a.restorationPresent
++          || b.ammoEffectEvidence.length - a.ammoEffectEvidence.length,
++      );
++
++  return {
++    perHero: rows,
++    crossHero,
++    classification:
++      crossHero.some(
++        row =>
++          row.heroSupport >= 2
++          && row.restorationPresent >= 3
++          && row.ammoEffectEvidence.length > 0,
++      )
++        ? 'CROSS_HERO_ITEM_WITH_AMMO_EFFECT_EVIDENCE_AVAILABLE_FOR_SPECIFIC_HYPOTHESIS'
++        : 'NO_SINGLE_CROSS_HERO_ITEM_AMMO_MECHANISM_IDENTIFIED_YET',
++  };
++}
++
++export function findObjectsContainingScalar(root, scalar) {
++  const target = String(scalar);
++  const results = [];
++  const seen = new WeakSet();
++
++  function visit(node, path = '$') {
++    if (node === null || typeof node !== 'object') return;
++    if (seen.has(node)) return;
++    seen.add(node);
++
++    if (!Array.isArray(node)) {
++      const scalarValues =
++        Object.values(node)
++          .filter(
++            child =>
++              child === null
++              || ['string', 'number', 'boolean'].includes(typeof child),
++          )
++          .map(String);
++
++      if (scalarValues.includes(target)) {
++        results.push({ path, object: node });
++      }
++
++      for (const [key, child] of Object.entries(node)) {
++        visit(child, `${path}.${key}`);
++      }
++      return;
++    }
++
++    node.forEach((child, i) => visit(child, `${path}[${i}]`));
++  }
++
++  visit(root);
++  return results;
++}
++
++function bestIdentity(matches) {
++  const keys = [
++    'recordKey',
++    'itemName',
++    'displayName',
++    'name',
++    'className',
++    'abilityName',
++    'tier',
++    'price',
++    'slot',
++    'shopSlot',
++  ];
++
++  for (const match of matches) {
++    const identity = {};
++
++    for (const key of keys) {
++      if (match.object?.[key] !== undefined) {
++        identity[key] = match.object[key];
++      }
++    }
++
++    if (Object.keys(identity).length > 0) {
++      return identity;
++    }
++  }
++
++  return null;
++}
++
++function collectAmmoEvidence(matches) {
++  const evidence = new Set();
++  const seen = new WeakSet();
++
++  function visit(node, key = '') {
++    if (node === null || node === undefined) return;
++
++    if (
++      typeof node === 'string'
++      || typeof node === 'number'
++      || typeof node === 'boolean'
++    ) {
++      const value = String(node);
++
++      if (AMMO_RE.test(key) || AMMO_RE.test(value)) {
++        evidence.add(`${key}=${value}`);
++      }
++      return;
++    }
++
++    if (typeof node !== 'object') return;
++    if (seen.has(node)) return;
++    seen.add(node);
++
++    if (Array.isArray(node)) {
++      for (const child of node) visit(child, key);
++      return;
++    }
++
++    for (const [childKey, child] of Object.entries(node)) {
++      visit(child, childKey);
++    }
++  }
++
++  for (const match of matches) {
++    visit(match.object);
++  }
++
++  return [...evidence].sort().slice(0, 100);
++}
++
++function sortFiniteDesc(a, b) {
++  const aa = a === Infinity ? Number.MAX_SAFE_INTEGER : Number.isFinite(a) ? a : -Infinity;
++  const bb = b === Infinity ? Number.MAX_SAFE_INTEGER : Number.isFinite(b) ? b : -Infinity;
++  return bb - aa;
++}
+diff --git a/scripts/200-diagnose-ammo-restoration-item-enrichment-v01.mjs b/scripts/200-diagnose-ammo-restoration-item-enrichment-v01.mjs
+new file mode 100644
+index 0000000..e13234b
+--- /dev/null
++++ b/scripts/200-diagnose-ammo-restoration-item-enrichment-v01.mjs
+@@ -0,0 +1,414 @@
++import {
++  createReadStream,
++  existsSync,
++  mkdirSync,
++  readFileSync,
++  writeFileSync,
++} from 'node:fs';
++
++import {
++  createInterface,
++} from 'node:readline';
++
++import {
++  dirname,
++  resolve,
++} from 'node:path';
++
++import {
++  annotateCandidates,
++  buildContextIndex,
++  buildRestorationEvents,
++  computeItemEnrichment,
++  summarizeAttackExposure,
++  summarizeCandidates,
++} from '../src/player-state/ammo-restoration-item-enrichment.mjs';
++
++const VERSION =
++  'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V01';
++
++const PATHS = {
++  script199:
++    resolve(
++      'output',
++      'test',
++      'ammo_restoration_context_discovery_v02.json',
++    ),
++
++  substrate:
++    resolve(
++      'output',
++      'test',
++      'effective_weapon_state_substrate_v01.json',
++    ),
++
++  runtimeEvents:
++    resolve(
++      'output',
++      'test',
++      'effective_weapon_runtime_events_v01.jsonl',
++    ),
++
++  catalog:
++    resolve(
++      'output',
++      'cross_replay',
++      'current_purchasable_item_catalog_v02.json',
++    ),
++
++  effects:
++    resolve(
++      'output',
++      'cross_replay',
++      'standard_shop_item_effect_substrate_v03.json',
++    ),
++
++  output:
++    resolve(
++      'output',
++      'test',
++      'ammo_restoration_item_enrichment_diagnostic_v01.json',
++    ),
++};
++
++for (const [name, path] of Object.entries(PATHS)) {
++  if (name === 'output') continue;
++  if (!existsSync(path)) {
++    throw new Error(`Missing ${name}:\n${path}`);
++  }
++}
++
++const script199 =
++  JSON.parse(
++    readFileSync(
++      PATHS.script199,
++      'utf8',
++    ),
++  );
++
++const substrate =
++  JSON.parse(
++    readFileSync(
++      PATHS.substrate,
++      'utf8',
++    ),
++  );
++
++const catalog =
++  JSON.parse(
++    readFileSync(
++      PATHS.catalog,
++      'utf8',
++    ),
++  );
++
++const effects =
++  JSON.parse(
++    readFileSync(
++      PATHS.effects,
++      'utf8',
++    ),
++  );
++
++console.log('');
++console.log('========================================================');
++console.log('AMMO RESTORATION ITEM ENRICHMENT DIAGNOSTIC V0.1');
++console.log('========================================================');
++console.log('');
++console.log('Replay: test');
++console.log('Restoration source: Script198 V03 via Script199 V02');
++console.log('Controls: same-hero attack exposure across item-present/absent contexts');
++console.log('Static item effects: Script139 V03');
++console.log('Causal attribution: NO');
++console.log('Authority promotion: NO');
++console.log('');
++
++const runtimeRows = [];
++let jsonlParseFailures = 0;
++
++const reader =
++  createInterface({
++    input:
++      createReadStream(
++        PATHS.runtimeEvents,
++        { encoding: 'utf8' },
++      ),
++    crlfDelay: Infinity,
++  });
++
++for await (const line of reader) {
++  if (!line.trim()) continue;
++
++  try {
++    runtimeRows.push(JSON.parse(line));
++  } catch {
++    jsonlParseFailures++;
++  }
++}
++
++const contextIndex =
++  buildContextIndex(substrate);
++
++const attackExposure =
++  summarizeAttackExposure(runtimeRows);
++
++const restorationEvents =
++  buildRestorationEvents(script199);
++
++const enrichment =
++  computeItemEnrichment({
++    restorationEvents,
++    contextIndex,
++    attackExposure,
++  });
++
++const annotated =
++  annotateCandidates({
++    enrichmentRows: enrichment,
++    catalog,
++    effects,
++  });
++
++const diagnostic =
++  summarizeCandidates(annotated);
++
++const restorationContextsResolved =
++  restorationEvents.filter(
++    event =>
++      contextIndex.has(event.effectContextId),
++  ).length;
++
++const checks = {
++  script199Ready:
++    check(
++      script199?.status,
++      'AMMO_RESTORATION_CONTEXT_DISCOVERY_V02_READY_FOR_INTERPRETATION',
++      script199?.status
++        === 'AMMO_RESTORATION_CONTEXT_DISCOVERY_V02_READY_FOR_INTERPRETATION',
++    ),
++
++  restorationEventCountFrozen:
++    check(
++      restorationEvents.length,
++      8,
++      restorationEvents.length === 8,
++    ),
++
++  allRestorationContextsResolved:
++    check(
++      restorationContextsResolved,
++      8,
++      restorationContextsResolved === 8,
++    ),
++
++  contextIndexNonEmpty:
++    check(
++      contextIndex.size,
++      '>0',
++      contextIndex.size > 0,
++    ),
++
++  attackExposureNonEmpty:
++    check(
++      attackExposure.size,
++      '>0',
++      attackExposure.size > 0,
++    ),
++
++  jsonlParseClean:
++    check(
++      jsonlParseFailures,
++      0,
++      jsonlParseFailures === 0,
++    ),
++
++  testReplayOnly:
++    check(
++      script199?.replay,
++      'test',
++      script199?.replay === 'test',
++    ),
++};
++
++const integrityPass =
++  Object.values(checks).every(row => row.pass);
++
++const result = {
++  version: VERSION,
++  canonical: false,
++  createdAt: new Date().toISOString(),
++  replay: 'test',
++
++  status:
++    integrityPass
++      ? 'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION'
++      : 'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V01_INTEGRITY_FAILURE',
++
++  scientificBoundary: {
++    comparison:
++      'same-hero attack exposure with item present versus absent',
++    restorationSource:
++      'Script198 V03 via Script199 V02',
++    catalogAuthority:
++      'Script138 V02',
++    itemEffectAuthority:
++      'Script139 V03 resource contract',
++    causalAttribution: false,
++    authorityPromotion: false,
++    replicationStatus:
++      'discovery_calibration_only',
++  },
++
++  telemetry: {
++    runtimeRows: runtimeRows.length,
++    jsonlParseFailures,
++    contextCount: contextIndex.size,
++    attackContextCount: attackExposure.size,
++    restorationEvents: restorationEvents.length,
++    restorationContextsResolved,
++  },
++
++  diagnostic,
++
++  integrityValidation: {
++    pass: integrityPass,
++    checks,
++  },
++
++  semanticValidation: {
++    status: 'DISCOVERY_ONLY',
++    authorityPromotion: false,
++    replicationStatus:
++      'discovery_calibration_only',
++  },
++
++  nextStep:
++    diagnostic.classification
++      === 'CROSS_HERO_ITEM_WITH_AMMO_EFFECT_EVIDENCE_AVAILABLE_FOR_SPECIFIC_HYPOTHESIS'
++      ? 'FREEZE_TOP_ITEM_MECHANISM_HYPOTHESIS_ON_TEST;_VERIFY_EVENT_LEVEL_TRIGGER_STATE_AND_GAIN_MAGNITUDE_BEFORE_ANY_NEW_REPLAY_VALIDATION'
++      : 'NO_SINGLE_ITEM_EXPLAINS_THE_RESTORATIONS;_MOVE_TO_HERO_ABILITY_OR_MULTI_MECHANISM_ATTRIBUTION_ON_TEST',
++};
++
++mkdirSync(
++  dirname(PATHS.output),
++  { recursive: true },
++);
++
++writeFileSync(
++  PATHS.output,
++  `${JSON.stringify(result, null, 2)}\n`,
++  'utf8',
++);
++
++print(result);
++
++function check(
++  actual,
++  expected,
++  pass,
++) {
++  return {
++    actual,
++    expected,
++    pass: Boolean(pass),
++  };
++}
++
++function pct(value) {
++  return Number.isFinite(value)
++    ? `${(value * 100).toFixed(3)}%`
++    : 'n/a';
++}
++
++function rr(value) {
++  if (value === Infinity) return 'Inf';
++  return Number.isFinite(value)
++    ? value.toFixed(3)
++    : 'n/a';
++}
++
++function identity(row) {
++  const value =
++    row.catalogIdentity ?? {};
++
++  return (
++    value.recordKey
++    ?? value.itemName
++    ?? value.displayName
++    ?? value.name
++    ?? value.className
++    ?? `item:${row.itemId}`
++  );
++}
++
++function print(result) {
++  const d = result.diagnostic;
++
++  console.log('');
++  console.log('========================================================');
++  console.log('PER-HERO ITEM ENRICHMENT');
++  console.log('========================================================');
++  console.log('');
++
++  for (const row of d.perHero) {
++    console.log(
++      `hero=${String(row.heroId).padEnd(4)} item=${String(row.itemId).padEnd(11)} name=${identity(row)} restor=${row.restorationPresent}/${row.restorationEvents} (${pct(row.restorationPresenceRate)}) attacksWith=${String(row.attacksPresent).padEnd(6)} attacksWithout=${String(row.attacksAbsent).padEnd(6)} rateWith=${pct(row.restorationRatePresent)} rateWithout=${pct(row.restorationRateAbsent)} RR=${rr(row.riskRatio)} ammoEvidence=${row.ammoEffectEvidence.length}`,
++    );
++
++    if (row.ammoEffectEvidence.length > 0) {
++      console.log(
++        `  ammoEffectEvidence=${JSON.stringify(row.ammoEffectEvidence)}`,
++      );
++    }
++  }
++
++  console.log('');
++  console.log('========================================================');
++  console.log('CROSS-HERO CANDIDATES');
++  console.log('========================================================');
++  console.log('');
++
++  for (const row of d.crossHero) {
++    const name =
++      row.catalogIdentity?.recordKey
++      ?? row.catalogIdentity?.itemName
++      ?? row.catalogIdentity?.displayName
++      ?? row.catalogIdentity?.name
++      ?? `item:${row.itemId}`;
++
++    console.log(
++      `item=${String(row.itemId).padEnd(11)} name=${name} heroes=${JSON.stringify(row.heroIds)} heroSupport=${row.heroSupport} restorationPresent=${row.restorationPresent}/${row.restorationEvents} attacksPresent=${row.attacksPresent} ammoEvidence=${row.ammoEffectEvidence.length}`,
++    );
++
++    if (row.ammoEffectEvidence.length > 0) {
++      console.log(
++        `  ammoEffectEvidence=${JSON.stringify(row.ammoEffectEvidence)}`,
++      );
++    }
++  }
++
++  console.log('');
++  console.log('INTEGRITY VALIDATION');
++  console.log('--------------------');
++
++  for (
++    const [name, row]
++    of Object.entries(
++      result.integrityValidation.checks,
++    )
++  ) {
++    console.log(
++      `${name.padEnd(42)} ${String(row.pass).padEnd(5)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`,
++    );
++  }
++
++  console.log('');
++  console.log('CLASSIFICATION');
++  console.log('--------------');
++  console.log(d.classification);
++  console.log('');
++  console.log(`status: ${result.status}`);
++  console.log(`NEXT STAGE: ${result.nextStep}`);
++  console.log('');
++  console.log(`JSON:\n${PATHS.output}`);
++}
+diff --git a/tests/ammo-restoration-item-enrichment.test.mjs b/tests/ammo-restoration-item-enrichment.test.mjs
+new file mode 100644
+index 0000000..aa35251
+--- /dev/null
++++ b/tests/ammo-restoration-item-enrichment.test.mjs
+@@ -0,0 +1,184 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++
++import {
++  buildContextIndex,
++  computeItemEnrichment,
++  extractItemIds,
++  summarizeAttackExposure,
++  summarizeCandidates,
++} from '../src/player-state/ammo-restoration-item-enrichment.mjs';
++
++test('extracts nested item ids without duplication', () => {
++  assert.deepEqual(
++    extractItemIds({
++      itemInputs: [
++        { itemId: 10 },
++        { itemId: 20 },
++        { itemId: 10 },
++      ],
++    }),
++    [10, 20],
++  );
++});
++
++test('builds context index with hero and item set', () => {
++  const index =
++    buildContextIndex({
++      effectContextSignatures: [
++        {
++          effectContextId:
++            'weapon-context-1',
++          heroId: 25,
++          itemInputs: [
++            { itemId: 100 },
++          ],
++        },
++      ],
++    });
++
++  assert.equal(index.size, 1);
++  assert.deepEqual(
++    index
++      .get('weapon-context-1')
++      .itemIds,
++    [100],
++  );
++});
++
++test('attack exposure counts shot-number mutation rows', () => {
++  const exposure =
++    summarizeAttackExposure([
++      {
++        heroId: 25,
++        effectContextId:
++          'weapon-context-1',
++        changedFields: [
++          'm_nShotNumber',
++        ],
++      },
++      {
++        heroId: 25,
++        effectContextId:
++          'weapon-context-1',
++        changedFields: [
++          'm_flAmmoFrac',
++        ],
++      },
++    ]);
++
++  assert.equal(
++    exposure.get(
++      '25|weapon-context-1',
++    ),
++    1,
++  );
++});
++
++test('item enrichment compares present versus absent exposure within hero', () => {
++  const contextIndex =
++    new Map([
++      [
++        'weapon-context-a',
++        {
++          effectContextId:
++            'weapon-context-a',
++          heroId: 25,
++          itemIds: [100],
++        },
++      ],
++      [
++        'weapon-context-b',
++        {
++          effectContextId:
++            'weapon-context-b',
++          heroId: 25,
++          itemIds: [],
++        },
++      ],
++    ]);
++
++  const rows =
++    computeItemEnrichment({
++      restorationEvents: [
++        {
++          heroId: 25,
++          tick: 10,
++          effectContextId:
++            'weapon-context-a',
++        },
++        {
++          heroId: 25,
++          tick: 20,
++          effectContextId:
++            'weapon-context-a',
++        },
++      ],
++
++      contextIndex,
++
++      attackExposure:
++        new Map([
++          [
++            '25|weapon-context-a',
++            100,
++          ],
++          [
++            '25|weapon-context-b',
++            100,
++          ],
++        ]),
++    });
++
++  assert.equal(
++    rows[0].restorationPresent,
++    2,
++  );
++  assert.equal(
++    rows[0].restorationAbsent,
++    0,
++  );
++  assert.equal(
++    rows[0].riskRatio,
++    Infinity,
++  );
++});
++
++test('cross-hero classification requires ammo effect evidence', () => {
++  const result =
++    summarizeCandidates([
++      {
++        heroId: 25,
++        itemId: 100,
++        restorationPresent: 2,
++        restorationEvents: 2,
++        attacksPresent: 100,
++        ammoEffectEvidence: [
++          'modifier=ammo_restore',
++        ],
++        catalogIdentity: {
++          recordKey:
++            'upgrade_test',
++        },
++      },
++      {
++        heroId: 4,
++        itemId: 100,
++        restorationPresent: 1,
++        restorationEvents: 1,
++        attacksPresent: 50,
++        ammoEffectEvidence: [
++          'modifier=ammo_restore',
++        ],
++        catalogIdentity: {
++          recordKey:
++            'upgrade_test',
++        },
++      },
++    ]);
++
++  assert.equal(
++    result.classification,
++    'CROSS_HERO_ITEM_WITH_AMMO_EFFECT_EVIDENCE_AVAILABLE_FOR_SPECIFIC_HYPOTHESIS',
++  );
++});

@@ -1,0 +1,1038 @@
+{
+  "version": "BRIDGE_WORLD_COLLECTION_CROSS_REPLAY_REPLICATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T15:20:00.149Z",
+  "status": "BRIDGE_WORLD_COLLECTION_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+  "discoveryReplayExcluded": "test",
+  "frozenThresholds": {
+    "expectedSpawners": 2,
+    "expectedPowerups": 4,
+    "cadenceSeconds": 300,
+    "cadenceToleranceSeconds": 1,
+    "trueCollectorThresholdHU": 300,
+    "minTrueWithin300Rate": 0.9,
+    "shiftedPlaceboThresholdHU": 800,
+    "maxPlaceboWithin800Rate": 0.1,
+    "maxMedianTrueHU": 200,
+    "minMedianPlaceboHU": 800
+  },
+  "counts": {
+    "independentReplays": 5,
+    "completedReplays": 5,
+    "semanticPassReplays": 5,
+    "disappearEvents": 76,
+    "trueDistanceRows": 76,
+    "trueWithin300Count": 76,
+    "trueWithin300Rate": 1,
+    "placeboDistanceRows": 76,
+    "placeboWithin800Count": 2,
+    "placeboWithin800Rate": 0.02631578947368421
+  },
+  "deckReplication": {
+    "interpretation": "DESCRIPTIVE_ONLY_NOT_PART_OF_COLLECTION_SEMANTIC_GATE",
+    "ruleTested": "Within each 10-minute block beginning at 5:00, the two 5-minute waves collectively contain all four bridge powerups exactly once.",
+    "replaysWithCompleteBlocks": 5,
+    "replaysAllObservedBlocksExact": 5,
+    "completeBlocks": 12,
+    "exactComplementBlocks": 12,
+    "exactRate": 1
+  },
+  "replayResults": [
+    {
+      "replayName": "rep01",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep01.dem",
+      "processOk": true,
+      "semanticPass": true,
+      "failureStage": null,
+      "checks": {
+        "script147Ready": {
+          "pass": true,
+          "actual": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01",
+          "expected": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01"
+        },
+        "recordKeyCarrierObserved": {
+          "pass": true,
+          "actual": 80,
+          "expected": ">0"
+        },
+        "exactPlaceboTokenHitsAbsent": {
+          "pass": true,
+          "actual": 0,
+          "expected": 0
+        },
+        "script149Ready": {
+          "pass": true,
+          "actual": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01",
+          "expected": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01"
+        },
+        "exactlyTwoSpawners": {
+          "pass": true,
+          "actual": 2,
+          "expected": 2
+        },
+        "allFourPowerupsObserved": {
+          "pass": true,
+          "actual": 4,
+          "expected": 4
+        },
+        "nativeCadence300Seconds": {
+          "pass": true,
+          "actual": [
+            300,
+            300
+          ],
+          "expected": "all 300+/-1"
+        },
+        "disappearancesObserved": {
+          "pass": true,
+          "actual": 14,
+          "expected": ">0"
+        },
+        "trueCollectorGeometryStrong": {
+          "pass": true,
+          "actual": 1,
+          "expected": ">=0.9"
+        },
+        "shiftedPlaceboSeparated": {
+          "pass": true,
+          "actual": 0,
+          "expected": "<=0.1"
+        },
+        "medianTrueNear": {
+          "pass": true,
+          "actual": 88.69037697317196,
+          "expected": "<=200"
+        },
+        "medianPlaceboFar": {
+          "pass": true,
+          "actual": 2822.2653662060093,
+          "expected": ">=800"
+        }
+      },
+      "deck": {
+        "completeWaves": 2,
+        "completeBlocks": 1,
+        "exactComplementBlocks": 1,
+        "allCompleteBlocksExact": true,
+        "blocks": [
+          {
+            "blockIndex": 0,
+            "startMatchSeconds": 300,
+            "firstWave": [
+              {
+                "spawnerIndex": 406,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              },
+              {
+                "spawnerIndex": 407,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 406,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              },
+              {
+                "spawnerIndex": 407,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              }
+            ],
+            "powerupCounts": {
+              "movement_powerup_pickup": 1,
+              "gun_powerup_pickup": 1,
+              "survival_powerup_pickup": 1,
+              "casting_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          }
+        ]
+      },
+      "artifact147": {
+        "status": "BRIDGE_POWERUP_RUNTIME_CARRIER_V01_SECONDARY_TOKEN_CANDIDATES_FOUND",
+        "recordKeyHits": 80,
+        "controlExactHits": 0,
+        "primaryCompoundHits": 0,
+        "modifierClassHits": 0
+      },
+      "artifact149": {
+        "status": "BRIDGE_PVS_ROBUST_LIFECYCLE_V01_READY_FOR_INTERPRETATION",
+        "spawnerIndexes": 2,
+        "pickupActiveFalseToTrueUpdates": 12,
+        "pickupActiveTrueToFalseUpdates": 14,
+        "collectorEvents": 14,
+        "trueDistanceRows": 14,
+        "placeboDistanceRows": 14,
+        "medianTrueNearestDistanceHU": 88.69037697317196,
+        "medianPlaceboNearestDistanceHU": 2822.2653662060093,
+        "trueWithin300Count": 14,
+        "trueWithin300Rate": 1,
+        "placeboWithin800Count": 0,
+        "placeboWithin800Rate": 0,
+        "cadenceMedians": [
+          300,
+          300
+        ]
+      }
+    },
+    {
+      "replayName": "rep02",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep02.dem",
+      "processOk": true,
+      "semanticPass": true,
+      "failureStage": null,
+      "checks": {
+        "script147Ready": {
+          "pass": true,
+          "actual": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01",
+          "expected": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01"
+        },
+        "recordKeyCarrierObserved": {
+          "pass": true,
+          "actual": 79,
+          "expected": ">0"
+        },
+        "exactPlaceboTokenHitsAbsent": {
+          "pass": true,
+          "actual": 0,
+          "expected": 0
+        },
+        "script149Ready": {
+          "pass": true,
+          "actual": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01",
+          "expected": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01"
+        },
+        "exactlyTwoSpawners": {
+          "pass": true,
+          "actual": 2,
+          "expected": 2
+        },
+        "allFourPowerupsObserved": {
+          "pass": true,
+          "actual": 4,
+          "expected": 4
+        },
+        "nativeCadence300Seconds": {
+          "pass": true,
+          "actual": [
+            300,
+            300
+          ],
+          "expected": "all 300+/-1"
+        },
+        "disappearancesObserved": {
+          "pass": true,
+          "actual": 14,
+          "expected": ">0"
+        },
+        "trueCollectorGeometryStrong": {
+          "pass": true,
+          "actual": 1,
+          "expected": ">=0.9"
+        },
+        "shiftedPlaceboSeparated": {
+          "pass": true,
+          "actual": 0.07142857142857142,
+          "expected": "<=0.1"
+        },
+        "medianTrueNear": {
+          "pass": true,
+          "actual": 87.93404959909495,
+          "expected": "<=200"
+        },
+        "medianPlaceboFar": {
+          "pass": true,
+          "actual": 1936.340852808212,
+          "expected": ">=800"
+        }
+      },
+      "deck": {
+        "completeWaves": 7,
+        "completeBlocks": 3,
+        "exactComplementBlocks": 3,
+        "allCompleteBlocksExact": true,
+        "blocks": [
+          {
+            "blockIndex": 0,
+            "startMatchSeconds": 300,
+            "firstWave": [
+              {
+                "spawnerIndex": 412,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              },
+              {
+                "spawnerIndex": 413,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 412,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              },
+              {
+                "spawnerIndex": 413,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              }
+            ],
+            "powerupCounts": {
+              "movement_powerup_pickup": 1,
+              "survival_powerup_pickup": 1,
+              "casting_powerup_pickup": 1,
+              "gun_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          },
+          {
+            "blockIndex": 1,
+            "startMatchSeconds": 900,
+            "firstWave": [
+              {
+                "spawnerIndex": 412,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 900.03125
+              },
+              {
+                "spawnerIndex": 413,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 900.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 412,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 1200.03125
+              },
+              {
+                "spawnerIndex": 413,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 1200.03125
+              }
+            ],
+            "powerupCounts": {
+              "movement_powerup_pickup": 1,
+              "gun_powerup_pickup": 1,
+              "casting_powerup_pickup": 1,
+              "survival_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          },
+          {
+            "blockIndex": 2,
+            "startMatchSeconds": 1500,
+            "firstWave": [
+              {
+                "spawnerIndex": 412,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 1500.03125
+              },
+              {
+                "spawnerIndex": 413,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 1500.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 412,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 1800.03125
+              },
+              {
+                "spawnerIndex": 413,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 1800.03125
+              }
+            ],
+            "powerupCounts": {
+              "movement_powerup_pickup": 1,
+              "survival_powerup_pickup": 1,
+              "gun_powerup_pickup": 1,
+              "casting_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          }
+        ]
+      },
+      "artifact147": {
+        "status": "BRIDGE_POWERUP_RUNTIME_CARRIER_V01_SECONDARY_TOKEN_CANDIDATES_FOUND",
+        "recordKeyHits": 79,
+        "controlExactHits": 0,
+        "primaryCompoundHits": 0,
+        "modifierClassHits": 0
+      },
+      "artifact149": {
+        "status": "BRIDGE_PVS_ROBUST_LIFECYCLE_V01_READY_FOR_INTERPRETATION",
+        "spawnerIndexes": 2,
+        "pickupActiveFalseToTrueUpdates": 12,
+        "pickupActiveTrueToFalseUpdates": 14,
+        "collectorEvents": 14,
+        "trueDistanceRows": 14,
+        "placeboDistanceRows": 14,
+        "medianTrueNearestDistanceHU": 87.93404959909495,
+        "medianPlaceboNearestDistanceHU": 1936.340852808212,
+        "trueWithin300Count": 14,
+        "trueWithin300Rate": 1,
+        "placeboWithin800Count": 1,
+        "placeboWithin800Rate": 0.07142857142857142,
+        "cadenceMedians": [
+          300,
+          300
+        ]
+      }
+    },
+    {
+      "replayName": "rep03",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep03.dem",
+      "processOk": true,
+      "semanticPass": true,
+      "failureStage": null,
+      "checks": {
+        "script147Ready": {
+          "pass": true,
+          "actual": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01",
+          "expected": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01"
+        },
+        "recordKeyCarrierObserved": {
+          "pass": true,
+          "actual": 117,
+          "expected": ">0"
+        },
+        "exactPlaceboTokenHitsAbsent": {
+          "pass": true,
+          "actual": 0,
+          "expected": 0
+        },
+        "script149Ready": {
+          "pass": true,
+          "actual": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01",
+          "expected": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01"
+        },
+        "exactlyTwoSpawners": {
+          "pass": true,
+          "actual": 2,
+          "expected": 2
+        },
+        "allFourPowerupsObserved": {
+          "pass": true,
+          "actual": 4,
+          "expected": 4
+        },
+        "nativeCadence300Seconds": {
+          "pass": true,
+          "actual": [
+            300,
+            300
+          ],
+          "expected": "all 300+/-1"
+        },
+        "disappearancesObserved": {
+          "pass": true,
+          "actual": 20,
+          "expected": ">0"
+        },
+        "trueCollectorGeometryStrong": {
+          "pass": true,
+          "actual": 1,
+          "expected": ">=0.9"
+        },
+        "shiftedPlaceboSeparated": {
+          "pass": true,
+          "actual": 0,
+          "expected": "<=0.1"
+        },
+        "medianTrueNear": {
+          "pass": true,
+          "actual": 92.29134219655144,
+          "expected": "<=200"
+        },
+        "medianPlaceboFar": {
+          "pass": true,
+          "actual": 3123.4092633873906,
+          "expected": ">=800"
+        }
+      },
+      "deck": {
+        "completeWaves": 6,
+        "completeBlocks": 3,
+        "exactComplementBlocks": 3,
+        "allCompleteBlocksExact": true,
+        "blocks": [
+          {
+            "blockIndex": 0,
+            "startMatchSeconds": 300,
+            "firstWave": [
+              {
+                "spawnerIndex": 409,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              },
+              {
+                "spawnerIndex": 410,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 409,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              },
+              {
+                "spawnerIndex": 410,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              }
+            ],
+            "powerupCounts": {
+              "casting_powerup_pickup": 1,
+              "gun_powerup_pickup": 1,
+              "movement_powerup_pickup": 1,
+              "survival_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          },
+          {
+            "blockIndex": 1,
+            "startMatchSeconds": 900,
+            "firstWave": [
+              {
+                "spawnerIndex": 409,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 900.03125
+              },
+              {
+                "spawnerIndex": 410,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 900.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 409,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 1200.03125
+              },
+              {
+                "spawnerIndex": 410,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 1200.03125
+              }
+            ],
+            "powerupCounts": {
+              "movement_powerup_pickup": 1,
+              "survival_powerup_pickup": 1,
+              "gun_powerup_pickup": 1,
+              "casting_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          },
+          {
+            "blockIndex": 2,
+            "startMatchSeconds": 1500,
+            "firstWave": [
+              {
+                "spawnerIndex": 409,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 1500.03125
+              },
+              {
+                "spawnerIndex": 410,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 1500.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 409,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 1800.03125
+              },
+              {
+                "spawnerIndex": 410,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 1800.03125
+              }
+            ],
+            "powerupCounts": {
+              "movement_powerup_pickup": 1,
+              "gun_powerup_pickup": 1,
+              "survival_powerup_pickup": 1,
+              "casting_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          }
+        ]
+      },
+      "artifact147": {
+        "status": "BRIDGE_POWERUP_RUNTIME_CARRIER_V01_SECONDARY_TOKEN_CANDIDATES_FOUND",
+        "recordKeyHits": 117,
+        "controlExactHits": 0,
+        "primaryCompoundHits": 0,
+        "modifierClassHits": 0
+      },
+      "artifact149": {
+        "status": "BRIDGE_PVS_ROBUST_LIFECYCLE_V01_READY_FOR_INTERPRETATION",
+        "spawnerIndexes": 2,
+        "pickupActiveFalseToTrueUpdates": 18,
+        "pickupActiveTrueToFalseUpdates": 20,
+        "collectorEvents": 20,
+        "trueDistanceRows": 20,
+        "placeboDistanceRows": 20,
+        "medianTrueNearestDistanceHU": 92.29134219655144,
+        "medianPlaceboNearestDistanceHU": 3123.4092633873906,
+        "trueWithin300Count": 20,
+        "trueWithin300Rate": 1,
+        "placeboWithin800Count": 0,
+        "placeboWithin800Rate": 0,
+        "cadenceMedians": [
+          300,
+          300
+        ]
+      }
+    },
+    {
+      "replayName": "rep04",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep04.dem",
+      "processOk": true,
+      "semanticPass": true,
+      "failureStage": null,
+      "checks": {
+        "script147Ready": {
+          "pass": true,
+          "actual": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01",
+          "expected": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01"
+        },
+        "recordKeyCarrierObserved": {
+          "pass": true,
+          "actual": 77,
+          "expected": ">0"
+        },
+        "exactPlaceboTokenHitsAbsent": {
+          "pass": true,
+          "actual": 0,
+          "expected": 0
+        },
+        "script149Ready": {
+          "pass": true,
+          "actual": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01",
+          "expected": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01"
+        },
+        "exactlyTwoSpawners": {
+          "pass": true,
+          "actual": 2,
+          "expected": 2
+        },
+        "allFourPowerupsObserved": {
+          "pass": true,
+          "actual": 4,
+          "expected": 4
+        },
+        "nativeCadence300Seconds": {
+          "pass": true,
+          "actual": [
+            300,
+            300
+          ],
+          "expected": "all 300+/-1"
+        },
+        "disappearancesObserved": {
+          "pass": true,
+          "actual": 14,
+          "expected": ">0"
+        },
+        "trueCollectorGeometryStrong": {
+          "pass": true,
+          "actual": 1,
+          "expected": ">=0.9"
+        },
+        "shiftedPlaceboSeparated": {
+          "pass": true,
+          "actual": 0.07142857142857142,
+          "expected": "<=0.1"
+        },
+        "medianTrueNear": {
+          "pass": true,
+          "actual": 93.19387707117022,
+          "expected": "<=200"
+        },
+        "medianPlaceboFar": {
+          "pass": true,
+          "actual": 3302.9987441344047,
+          "expected": ">=800"
+        }
+      },
+      "deck": {
+        "completeWaves": 3,
+        "completeBlocks": 1,
+        "exactComplementBlocks": 1,
+        "allCompleteBlocksExact": true,
+        "blocks": [
+          {
+            "blockIndex": 0,
+            "startMatchSeconds": 300,
+            "firstWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              }
+            ],
+            "powerupCounts": {
+              "survival_powerup_pickup": 1,
+              "movement_powerup_pickup": 1,
+              "casting_powerup_pickup": 1,
+              "gun_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          }
+        ]
+      },
+      "artifact147": {
+        "status": "BRIDGE_POWERUP_RUNTIME_CARRIER_V01_SECONDARY_TOKEN_CANDIDATES_FOUND",
+        "recordKeyHits": 77,
+        "controlExactHits": 0,
+        "primaryCompoundHits": 0,
+        "modifierClassHits": 0
+      },
+      "artifact149": {
+        "status": "BRIDGE_PVS_ROBUST_LIFECYCLE_V01_READY_FOR_INTERPRETATION",
+        "spawnerIndexes": 2,
+        "pickupActiveFalseToTrueUpdates": 12,
+        "pickupActiveTrueToFalseUpdates": 14,
+        "collectorEvents": 14,
+        "trueDistanceRows": 14,
+        "placeboDistanceRows": 14,
+        "medianTrueNearestDistanceHU": 93.19387707117022,
+        "medianPlaceboNearestDistanceHU": 3302.9987441344047,
+        "trueWithin300Count": 14,
+        "trueWithin300Rate": 1,
+        "placeboWithin800Count": 1,
+        "placeboWithin800Rate": 0.07142857142857142,
+        "cadenceMedians": [
+          300,
+          300
+        ]
+      }
+    },
+    {
+      "replayName": "rep05",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep05.dem",
+      "processOk": true,
+      "semanticPass": true,
+      "failureStage": null,
+      "checks": {
+        "script147Ready": {
+          "pass": true,
+          "actual": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01",
+          "expected": "BRIDGE_POWERUP_RUNTIME_CARRIER_DISCOVERY_V01"
+        },
+        "recordKeyCarrierObserved": {
+          "pass": true,
+          "actual": 83,
+          "expected": ">0"
+        },
+        "exactPlaceboTokenHitsAbsent": {
+          "pass": true,
+          "actual": 0,
+          "expected": 0
+        },
+        "script149Ready": {
+          "pass": true,
+          "actual": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01",
+          "expected": "BRIDGE_PVS_ROBUST_LIFECYCLE_DISCOVERY_V01"
+        },
+        "exactlyTwoSpawners": {
+          "pass": true,
+          "actual": 2,
+          "expected": 2
+        },
+        "allFourPowerupsObserved": {
+          "pass": true,
+          "actual": 4,
+          "expected": 4
+        },
+        "nativeCadence300Seconds": {
+          "pass": true,
+          "actual": [
+            300,
+            300
+          ],
+          "expected": "all 300+/-1"
+        },
+        "disappearancesObserved": {
+          "pass": true,
+          "actual": 14,
+          "expected": ">0"
+        },
+        "trueCollectorGeometryStrong": {
+          "pass": true,
+          "actual": 1,
+          "expected": ">=0.9"
+        },
+        "shiftedPlaceboSeparated": {
+          "pass": true,
+          "actual": 0,
+          "expected": "<=0.1"
+        },
+        "medianTrueNear": {
+          "pass": true,
+          "actual": 82.72704413257948,
+          "expected": "<=200"
+        },
+        "medianPlaceboFar": {
+          "pass": true,
+          "actual": 3292.793964868593,
+          "expected": ">=800"
+        }
+      },
+      "deck": {
+        "completeWaves": 8,
+        "completeBlocks": 4,
+        "exactComplementBlocks": 4,
+        "allCompleteBlocksExact": true,
+        "blocks": [
+          {
+            "blockIndex": 0,
+            "startMatchSeconds": 300,
+            "firstWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 300.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 600.03125
+              }
+            ],
+            "powerupCounts": {
+              "movement_powerup_pickup": 1,
+              "casting_powerup_pickup": 1,
+              "survival_powerup_pickup": 1,
+              "gun_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          },
+          {
+            "blockIndex": 1,
+            "startMatchSeconds": 900,
+            "firstWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 900.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 900.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 1200.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 1200.03125
+              }
+            ],
+            "powerupCounts": {
+              "survival_powerup_pickup": 1,
+              "gun_powerup_pickup": 1,
+              "casting_powerup_pickup": 1,
+              "movement_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          },
+          {
+            "blockIndex": 2,
+            "startMatchSeconds": 1500,
+            "firstWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 1500.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 1500.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 1800.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 1800.03125
+              }
+            ],
+            "powerupCounts": {
+              "casting_powerup_pickup": 1,
+              "gun_powerup_pickup": 1,
+              "movement_powerup_pickup": 1,
+              "survival_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          },
+          {
+            "blockIndex": 3,
+            "startMatchSeconds": 2100,
+            "firstWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "movement_powerup_pickup",
+                "matchTimeSeconds": 2100.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "survival_powerup_pickup",
+                "matchTimeSeconds": 2100.03125
+              }
+            ],
+            "secondWave": [
+              {
+                "spawnerIndex": 405,
+                "recordKey": "casting_powerup_pickup",
+                "matchTimeSeconds": 2400.03125
+              },
+              {
+                "spawnerIndex": 406,
+                "recordKey": "gun_powerup_pickup",
+                "matchTimeSeconds": 2400.03125
+              }
+            ],
+            "powerupCounts": {
+              "movement_powerup_pickup": 1,
+              "survival_powerup_pickup": 1,
+              "casting_powerup_pickup": 1,
+              "gun_powerup_pickup": 1
+            },
+            "exactAllFourOnce": true
+          }
+        ]
+      },
+      "artifact147": {
+        "status": "BRIDGE_POWERUP_RUNTIME_CARRIER_V01_SECONDARY_TOKEN_CANDIDATES_FOUND",
+        "recordKeyHits": 83,
+        "controlExactHits": 0,
+        "primaryCompoundHits": 0,
+        "modifierClassHits": 0
+      },
+      "artifact149": {
+        "status": "BRIDGE_PVS_ROBUST_LIFECYCLE_V01_READY_FOR_INTERPRETATION",
+        "spawnerIndexes": 2,
+        "pickupActiveFalseToTrueUpdates": 14,
+        "pickupActiveTrueToFalseUpdates": 14,
+        "collectorEvents": 14,
+        "trueDistanceRows": 14,
+        "placeboDistanceRows": 14,
+        "medianTrueNearestDistanceHU": 82.72704413257948,
+        "medianPlaceboNearestDistanceHU": 3292.793964868593,
+        "trueWithin300Count": 14,
+        "trueWithin300Rate": 1,
+        "placeboWithin800Count": 0,
+        "placeboWithin800Rate": 0,
+        "cadenceMedians": [
+          300,
+          300
+        ]
+      }
+    }
+  ],
+  "semanticValidation": {
+    "manifestReady": {
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    "independentCohortExpected": {
+      "pass": true,
+      "actual": 5,
+      "expected": 5
+    },
+    "allProcessesCompleted": {
+      "pass": true,
+      "actual": 5,
+      "expected": 5
+    },
+    "allReplaysSemanticallyConsistent": {
+      "pass": true,
+      "actual": 5,
+      "expected": 5
+    },
+    "aggregateDisappearancesObserved": {
+      "pass": true,
+      "actual": 76,
+      "expected": ">0"
+    },
+    "aggregateTrueCollectorGeometryStrong": {
+      "pass": true,
+      "actual": 1,
+      "expected": ">=0.9"
+    },
+    "aggregateShiftedPlaceboSeparated": {
+      "pass": true,
+      "actual": 0.02631578947368421,
+      "expected": "<=0.1"
+    }
+  },
+  "interpretation": {
+    "supported": "The bridge world-pickup carrier, two-spawner topology, native ~300 s cadence, active true->false collection transition, and nearest-player collector attribution replicate across the independent cohort under frozen discovery thresholds.",
+    "notYetEstablished": [
+      "Player-side bridge modifier carrier after collection.",
+      "Replay-observed ~160 s expiration or any early-removal condition such as death.",
+      "Exact 5-40 minute effect interpolation.",
+      "runtime_bridge_buff_ownership registry promotion."
+    ]
+  }
+}

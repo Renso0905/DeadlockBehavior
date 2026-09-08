@@ -1,0 +1,1077 @@
+diff --git a/src/player-state/ammo-restoration-item-enrichment-v02.mjs b/src/player-state/ammo-restoration-item-enrichment-v02.mjs
+new file mode 100644
+index 0000000..080f4b9
+--- /dev/null
++++ b/src/player-state/ammo-restoration-item-enrichment-v02.mjs
+@@ -0,0 +1,392 @@
++export const DEADLOCK_MURMUR_SEED = 0x31415926;
++
++const AMMO_RE = /(ammo|reload|clip|bullet|magazine)/i;
++
++export function murmurHash2(text, seed = DEADLOCK_MURMUR_SEED) {
++  const bytes = Buffer.from(String(text), 'utf8');
++  const m = 0x5bd1e995;
++  const r = 24;
++
++  let h = (seed ^ bytes.length) >>> 0;
++  let i = 0;
++  let remaining = bytes.length;
++
++  while (remaining >= 4) {
++    let k =
++      (
++        bytes[i]
++        | (bytes[i + 1] << 8)
++        | (bytes[i + 2] << 16)
++        | (bytes[i + 3] << 24)
++      ) >>> 0;
++
++    k = Math.imul(k, m) >>> 0;
++    k ^= k >>> r;
++    k = Math.imul(k, m) >>> 0;
++
++    h = Math.imul(h, m) >>> 0;
++    h ^= k;
++
++    i += 4;
++    remaining -= 4;
++  }
++
++  if (remaining === 3) h ^= bytes[i + 2] << 16;
++  if (remaining >= 2) h ^= bytes[i + 1] << 8;
++
++  if (remaining >= 1) {
++    h ^= bytes[i];
++    h = Math.imul(h, m) >>> 0;
++  }
++
++  h ^= h >>> 13;
++  h = Math.imul(h, m) >>> 0;
++  h ^= h >>> 15;
++
++  return h >>> 0;
++}
++
++export function collectRecordKeyObjects(root) {
++  const rows = [];
++  const seen = new WeakSet();
++
++  function visit(node, path = '$') {
++    if (node === null || typeof node !== 'object') return;
++    if (seen.has(node)) return;
++    seen.add(node);
++
++    if (
++      !Array.isArray(node)
++      && typeof node.recordKey === 'string'
++    ) {
++      rows.push({
++        path,
++        recordKey: node.recordKey,
++        object: node,
++      });
++    }
++
++    if (Array.isArray(node)) {
++      node.forEach(
++        (child, i) =>
++          visit(child, `${path}[${i}]`),
++      );
++    } else {
++      for (const [key, child] of Object.entries(node)) {
++        visit(child, `${path}.${key}`);
++      }
++    }
++  }
++
++  visit(root);
++  return rows;
++}
++
++export function buildCatalogHashIndex(catalog) {
++  const byHash = new Map();
++  const collisions = [];
++
++  for (const row of collectRecordKeyObjects(catalog)) {
++    const hash = murmurHash2(row.recordKey);
++
++    if (byHash.has(hash)) {
++      collisions.push({
++        hash,
++        recordKeys: [
++          byHash.get(hash).recordKey,
++          row.recordKey,
++        ],
++      });
++      continue;
++    }
++
++    byHash.set(hash, {
++      runtimeItemId: hash,
++      recordKey: row.recordKey,
++      path: row.path,
++      object: row.object,
++    });
++  }
++
++  return {
++    byHash,
++    collisions,
++  };
++}
++
++export function buildEffectRecordIndex(effects) {
++  const byRecordKey = new Map();
++
++  for (const row of collectRecordKeyObjects(effects)) {
++    if (!byRecordKey.has(row.recordKey)) {
++      byRecordKey.set(
++        row.recordKey,
++        [],
++      );
++    }
++
++    byRecordKey
++      .get(row.recordKey)
++      .push(row);
++  }
++
++  return byRecordKey;
++}
++
++export function resolveRuntimeItems({
++  runtimeItemIds,
++  catalog,
++  effects,
++}) {
++  const catalogIndex =
++    buildCatalogHashIndex(catalog);
++
++  const effectIndex =
++    buildEffectRecordIndex(effects);
++
++  const resolved = [];
++  const unresolved = [];
++
++  for (const itemId of runtimeItemIds) {
++    const catalogRow =
++      catalogIndex.byHash.get(
++        Number(itemId),
++      );
++
++    if (!catalogRow) {
++      unresolved.push(Number(itemId));
++      continue;
++    }
++
++    const effectRows =
++      effectIndex.get(
++        catalogRow.recordKey,
++      ) ?? [];
++
++    resolved.push({
++      itemId: Number(itemId),
++      recordKey:
++        catalogRow.recordKey,
++      catalogPath:
++        catalogRow.path,
++      catalogIdentity:
++        identityFromObject(
++          catalogRow.object,
++        ),
++      effectMatchCount:
++        effectRows.length,
++      ammoEffectEvidence:
++        collectAmmoEvidence(
++          effectRows.map(
++            row => row.object,
++          ),
++        ),
++    });
++  }
++
++  return {
++    resolved,
++    unresolved,
++    catalogHashCollisions:
++      catalogIndex.collisions,
++  };
++}
++
++export function annotateEnrichmentRows({
++  enrichmentRows,
++  catalog,
++  effects,
++}) {
++  const ids =
++    [...new Set(
++      enrichmentRows.map(
++        row => Number(row.itemId),
++      ),
++    )];
++
++  const resolution =
++    resolveRuntimeItems({
++      runtimeItemIds: ids,
++      catalog,
++      effects,
++    });
++
++  const byId =
++    new Map(
++      resolution.resolved.map(
++        row => [row.itemId, row],
++      ),
++    );
++
++  return {
++    rows:
++      enrichmentRows.map(
++        row => ({
++          ...row,
++          itemResolution:
++            byId.get(
++              Number(row.itemId),
++            ) ?? null,
++        }),
++      ),
++    resolution,
++  };
++}
++
++export function summarizeResolvedCandidates(rows) {
++  const byItem = new Map();
++
++  for (const row of rows) {
++    const resolved =
++      row.itemResolution;
++
++    if (!resolved) continue;
++
++    if (!byItem.has(row.itemId)) {
++      byItem.set(row.itemId, {
++        itemId: row.itemId,
++        recordKey:
++          resolved.recordKey,
++        catalogIdentity:
++          resolved.catalogIdentity,
++        heroIds: [],
++        restorationPresent: 0,
++        restorationEvents: 0,
++        attacksPresent: 0,
++        ammoEffectEvidence:
++          new Set(),
++      });
++    }
++
++    const agg =
++      byItem.get(row.itemId);
++
++    agg.heroIds.push(
++      row.heroId,
++    );
++
++    agg.restorationPresent +=
++      row.restorationPresent;
++
++    agg.restorationEvents +=
++      row.restorationEvents;
++
++    agg.attacksPresent +=
++      row.attacksPresent;
++
++    for (
++      const token
++      of resolved.ammoEffectEvidence
++    ) {
++      agg.ammoEffectEvidence
++        .add(token);
++    }
++  }
++
++  const crossHero =
++    [...byItem.values()]
++      .map(row => ({
++        ...row,
++        heroIds:
++          [...new Set(row.heroIds)],
++        heroSupport:
++          new Set(row.heroIds).size,
++        ammoEffectEvidence:
++          [...row.ammoEffectEvidence],
++      }))
++      .sort(
++        (a, b) =>
++          b.heroSupport - a.heroSupport
++          || b.restorationPresent
++            - a.restorationPresent
++          || b.ammoEffectEvidence.length
++            - a.ammoEffectEvidence.length,
++      );
++
++  return {
++    crossHero,
++    classification:
++      crossHero.some(
++        row =>
++          row.heroSupport >= 2
++          && row.restorationPresent >= 3
++          && row.ammoEffectEvidence.length > 0,
++      )
++        ? 'RESOLVED_CROSS_HERO_ITEM_WITH_AMMO_EFFECT_EVIDENCE_AVAILABLE_FOR_SPECIFIC_HYPOTHESIS'
++        : 'RESOLVED_ITEM_JOIN_DOES_NOT_IDENTIFY_SINGLE_CROSS_HERO_AMMO_MECHANISM',
++  };
++}
++
++function identityFromObject(object) {
++  const keys = [
++    'recordKey',
++    'itemName',
++    'displayName',
++    'name',
++    'itemSlot',
++    'itemTier',
++    'shopPrice',
++  ];
++
++  const identity = {};
++
++  for (const key of keys) {
++    if (object?.[key] !== undefined) {
++      identity[key] = object[key];
++    }
++  }
++
++  return identity;
++}
++
++function collectAmmoEvidence(objects) {
++  const evidence = new Set();
++  const seen = new WeakSet();
++
++  function visit(node, key = '') {
++    if (node === null || node === undefined) return;
++
++    if (
++      typeof node === 'string'
++      || typeof node === 'number'
++      || typeof node === 'boolean'
++    ) {
++      const value =
++        String(node);
++
++      if (
++        AMMO_RE.test(key)
++        || AMMO_RE.test(value)
++      ) {
++        evidence.add(
++          `${key}=${value}`,
++        );
++      }
++
++      return;
++    }
++
++    if (typeof node !== 'object') return;
++    if (seen.has(node)) return;
++    seen.add(node);
++
++    if (Array.isArray(node)) {
++      for (const child of node) {
++        visit(child, key);
++      }
++      return;
++    }
++
++    for (const [childKey, child] of Object.entries(node)) {
++      visit(child, childKey);
++    }
++  }
++
++  for (const object of objects) {
++    visit(object);
++  }
++
++  return [...evidence]
++    .sort()
++    .slice(0, 100);
++}
+diff --git a/scripts/200-diagnose-ammo-restoration-item-enrichment-v02.mjs b/scripts/200-diagnose-ammo-restoration-item-enrichment-v02.mjs
+new file mode 100644
+index 0000000..fffc8c1
+--- /dev/null
++++ b/scripts/200-diagnose-ammo-restoration-item-enrichment-v02.mjs
+@@ -0,0 +1,517 @@
++import {
++  existsSync,
++  mkdirSync,
++  readFileSync,
++  writeFileSync,
++} from 'node:fs';
++
++import {
++  dirname,
++  resolve,
++} from 'node:path';
++
++import {
++  annotateEnrichmentRows,
++  murmurHash2,
++  summarizeResolvedCandidates,
++} from '../src/player-state/ammo-restoration-item-enrichment-v02.mjs';
++
++const VERSION =
++  'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V02';
++
++const PATHS = {
++  script200v01:
++    resolve(
++      'output',
++      'test',
++      'ammo_restoration_item_enrichment_diagnostic_v01.json',
++    ),
++
++  catalog:
++    resolve(
++      'output',
++      'cross_replay',
++      'current_purchasable_item_catalog_v02.json',
++    ),
++
++  effects:
++    resolve(
++      'output',
++      'cross_replay',
++      'standard_shop_item_effect_substrate_v03.json',
++    ),
++
++  output:
++    resolve(
++      'output',
++      'test',
++      'ammo_restoration_item_enrichment_diagnostic_v02.json',
++    ),
++};
++
++for (const [name, path] of Object.entries(PATHS)) {
++  if (name === 'output') continue;
++
++  if (!existsSync(path)) {
++    throw new Error(
++      `Missing ${name}:\n${path}`,
++    );
++  }
++}
++
++const script200v01 =
++  JSON.parse(
++    readFileSync(
++      PATHS.script200v01,
++      'utf8',
++    ),
++  );
++
++const catalog =
++  JSON.parse(
++    readFileSync(
++      PATHS.catalog,
++      'utf8',
++    ),
++  );
++
++const effects =
++  JSON.parse(
++    readFileSync(
++      PATHS.effects,
++      'utf8',
++    ),
++  );
++
++console.log('');
++console.log(
++  '========================================================',
++);
++console.log(
++  'AMMO RESTORATION ITEM ENRICHMENT DIAGNOSTIC V0.2',
++);
++console.log(
++  '========================================================',
++);
++console.log('');
++console.log(
++  'Successor reason: V01 attempted numeric-ID lookup against recordKey authorities',
++);
++console.log(
++  'Join: MurmurHash2(recordKey, 0x31415926) -> runtime item ID',
++);
++console.log(
++  'Hash fixture: upgrade_magic_reach -> 754480263',
++);
++console.log(
++  'Scientific exposure analysis changed: NO',
++);
++console.log(
++  'Authority promotion: NO',
++);
++console.log('');
++
++const enrichmentRows =
++  script200v01
++    ?.diagnostic
++    ?.perHero
++    ?? [];
++
++const annotated =
++  annotateEnrichmentRows({
++    enrichmentRows,
++    catalog,
++    effects,
++  });
++
++const diagnostic =
++  summarizeResolvedCandidates(
++    annotated.rows,
++  );
++
++const candidateIds =
++  [...new Set(
++    enrichmentRows.map(
++      row => Number(row.itemId),
++    ),
++  )];
++
++const resolvedCount =
++  annotated
++    .resolution
++    .resolved
++    .length;
++
++const unresolvedCount =
++  annotated
++    .resolution
++    .unresolved
++    .length;
++
++const effectResolvedCount =
++  annotated
++    .resolution
++    .resolved
++    .filter(
++      row =>
++        row.effectMatchCount > 0,
++    )
++    .length;
++
++const checks = {
++  script200V01Ready:
++    check(
++      script200v01?.status,
++      'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION',
++      script200v01?.status
++        === 'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION',
++    ),
++
++  hashFixture:
++    check(
++      murmurHash2(
++        'upgrade_magic_reach',
++      ),
++      754480263,
++      murmurHash2(
++        'upgrade_magic_reach',
++      ) === 754480263,
++    ),
++
++  candidateIdsObserved:
++    check(
++      candidateIds.length,
++      '>0',
++      candidateIds.length > 0,
++    ),
++
++  allCandidateIdsCatalogResolved:
++    check(
++      {
++        candidates:
++          candidateIds.length,
++        resolved:
++          resolvedCount,
++        unresolved:
++          unresolvedCount,
++      },
++      {
++        resolved:
++          candidateIds.length,
++        unresolved: 0,
++      },
++      resolvedCount
++        === candidateIds.length
++      && unresolvedCount === 0,
++    ),
++
++  allResolvedItemsHaveEffectRecord:
++    check(
++      effectResolvedCount,
++      resolvedCount,
++      effectResolvedCount
++        === resolvedCount,
++    ),
++
++  noCatalogHashCollisions:
++    check(
++      annotated
++        .resolution
++        .catalogHashCollisions
++        .length,
++      0,
++      annotated
++        .resolution
++        .catalogHashCollisions
++        .length === 0,
++    ),
++
++  testReplayOnly:
++    check(
++      script200v01?.replay,
++      'test',
++      script200v01?.replay
++        === 'test',
++    ),
++};
++
++const integrityPass =
++  Object.values(checks)
++    .every(
++      row => row.pass,
++    );
++
++const result = {
++  version:
++    VERSION,
++
++  canonical:
++    false,
++
++  createdAt:
++    new Date().toISOString(),
++
++  replay:
++    'test',
++
++  status:
++    integrityPass
++      ? 'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V02_READY_FOR_INTERPRETATION'
++      : 'AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V02_INTEGRITY_FAILURE',
++
++  scientificBoundary: {
++    successorReason:
++      'V01 catalog/effect join used runtime numeric IDs directly instead of MurmurHash2(recordKey)',
++
++    exposureAnalysisSource:
++      'Script200 V01 per-hero item enrichment counts',
++
++    itemIdentityJoin:
++      'MurmurHash2(recordKey, seed 0x31415926)',
++
++    itemEffectJoin:
++      'resolved recordKey -> Script139 V03',
++
++    causalAttribution:
++      false,
++
++    authorityPromotion:
++      false,
++
++    replicationStatus:
++      'discovery_calibration_only',
++  },
++
++  resolution:
++    annotated.resolution,
++
++  diagnostic,
++
++  integrityValidation: {
++    pass:
++      integrityPass,
++
++    checks,
++  },
++
++  semanticValidation: {
++    status:
++      'DISCOVERY_ONLY',
++
++    authorityPromotion:
++      false,
++
++    replicationStatus:
++      'discovery_calibration_only',
++  },
++
++  nextStep:
++    !integrityPass
++      ? 'STOP_AND_DIAGNOSE_ITEM_ID_OR_EFFECT_JOIN'
++      : diagnostic.classification
++        === 'RESOLVED_CROSS_HERO_ITEM_WITH_AMMO_EFFECT_EVIDENCE_AVAILABLE_FOR_SPECIFIC_HYPOTHESIS'
++          ? 'FREEZE_TOP_RESOLVED_ITEM_MECHANISM_HYPOTHESIS_ON_TEST;_VERIFY_TRIGGER_STATE_AND_GAIN_MAGNITUDE_EVENT_BY_EVENT'
++          : 'ITEM_IDENTITIES_RESOLVED_BUT_NO_SINGLE_CROSS_HERO_AMMO_EFFECT_CANDIDATE;_MOVE_TO_MULTI_MECHANISM_OR_HERO_ABILITY_ATTRIBUTION',
++};
++
++mkdirSync(
++  dirname(
++    PATHS.output,
++  ),
++  {
++    recursive:
++      true,
++  },
++);
++
++writeFileSync(
++  PATHS.output,
++  `${JSON.stringify(
++    result,
++    null,
++    2,
++  )}\n`,
++  'utf8',
++);
++
++print(result);
++
++function check(
++  actual,
++  expected,
++  pass,
++) {
++  return {
++    actual,
++    expected,
++    pass:
++      Boolean(pass),
++  };
++}
++
++function pct(value) {
++  return Number.isFinite(value)
++    ? `${(
++      value * 100
++    ).toFixed(3)}%`
++    : 'n/a';
++}
++
++function rr(value) {
++  if (value === Infinity) {
++    return 'Inf';
++  }
++
++  return Number.isFinite(value)
++    ? value.toFixed(3)
++    : 'n/a';
++}
++
++function print(result) {
++  console.log(
++    'ITEM RESOLUTION',
++  );
++  console.log(
++    '---------------',
++  );
++
++  for (
++    const row
++    of result
++      .resolution
++      .resolved
++  ) {
++    console.log(
++      `item=${String(row.itemId).padEnd(11)} recordKey=${row.recordKey} effectMatches=${row.effectMatchCount} ammoEvidence=${row.ammoEffectEvidence.length}`,
++    );
++
++    if (
++      row.ammoEffectEvidence.length > 0
++    ) {
++      console.log(
++        `  ammoEffectEvidence=${JSON.stringify(row.ammoEffectEvidence)}`,
++      );
++    }
++  }
++
++  if (
++    result
++      .resolution
++      .unresolved
++      .length > 0
++  ) {
++    console.log(
++      `UNRESOLVED=${JSON.stringify(result.resolution.unresolved)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'CROSS-HERO RESOLVED CANDIDATES',
++  );
++  console.log(
++    '------------------------------',
++  );
++
++  for (
++    const row
++    of result
++      .diagnostic
++      .crossHero
++  ) {
++    console.log(
++      `item=${String(row.itemId).padEnd(11)} recordKey=${row.recordKey.padEnd(36)} heroes=${JSON.stringify(row.heroIds)} support=${row.heroSupport} restor=${row.restorationPresent}/${row.restorationEvents} attacksWith=${row.attacksPresent} ammoEvidence=${row.ammoEffectEvidence.length}`,
++    );
++
++    if (
++      row.ammoEffectEvidence.length > 0
++    ) {
++      console.log(
++        `  ammoEffectEvidence=${JSON.stringify(row.ammoEffectEvidence)}`,
++      );
++    }
++  }
++
++  console.log('');
++  console.log(
++    'ORIGINAL PER-HERO EXPOSURE WITH RESOLVED IDENTITIES',
++  );
++  console.log(
++    '-----------------------------------------------',
++  );
++
++  const byId =
++    new Map(
++      result
++        .resolution
++        .resolved
++        .map(
++          row => [
++            row.itemId,
++            row,
++          ],
++        ),
++    );
++
++  for (
++    const row
++    of script200v01
++      ?.diagnostic
++      ?.perHero
++      ?? []
++  ) {
++    const resolved =
++      byId.get(
++        Number(row.itemId),
++      );
++
++    console.log(
++      `hero=${String(row.heroId).padEnd(4)} item=${String(row.itemId).padEnd(11)} recordKey=${String(resolved?.recordKey ?? 'UNRESOLVED').padEnd(36)} restor=${row.restorationPresent}/${row.restorationEvents} rateWith=${pct(row.restorationRatePresent)} rateWithout=${pct(row.restorationRateAbsent)} RR=${rr(row.riskRatio)} ammoEvidence=${resolved?.ammoEffectEvidence?.length ?? 0}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'INTEGRITY VALIDATION',
++  );
++  console.log(
++    '--------------------',
++  );
++
++  for (
++    const [name, row]
++    of Object.entries(
++      result
++        .integrityValidation
++        .checks,
++    )
++  ) {
++    console.log(
++      `${name.padEnd(42)} ${String(row.pass).padEnd(5)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'CLASSIFICATION',
++  );
++  console.log(
++    '--------------',
++  );
++  console.log(
++    result
++      .diagnostic
++      .classification,
++  );
++  console.log('');
++  console.log(
++    `status: ${result.status}`,
++  );
++  console.log(
++    `NEXT STAGE: ${result.nextStep}`,
++  );
++  console.log('');
++  console.log(
++    `JSON:\n${PATHS.output}`,
++  );
++}
+diff --git a/tests/ammo-restoration-item-enrichment-v02.test.mjs b/tests/ammo-restoration-item-enrichment-v02.test.mjs
+new file mode 100644
+index 0000000..6f77741
+--- /dev/null
++++ b/tests/ammo-restoration-item-enrichment-v02.test.mjs
+@@ -0,0 +1,150 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++
++import {
++  annotateEnrichmentRows,
++  buildCatalogHashIndex,
++  DEADLOCK_MURMUR_SEED,
++  murmurHash2,
++  resolveRuntimeItems,
++} from '../src/player-state/ammo-restoration-item-enrichment-v02.mjs';
++
++test('Deadlock MurmurHash2 fixture matches Script140', () => {
++  assert.equal(
++    DEADLOCK_MURMUR_SEED,
++    0x31415926,
++  );
++
++  assert.equal(
++    murmurHash2(
++      'upgrade_magic_reach',
++    ),
++    754480263,
++  );
++});
++
++test('catalog recordKey hashes to runtime item id', () => {
++  const catalog = {
++    standardCatalog: [
++      {
++        recordKey:
++          'upgrade_magic_reach',
++        itemTier: 2,
++      },
++    ],
++  };
++
++  const index =
++    buildCatalogHashIndex(
++      catalog,
++    );
++
++  assert.equal(
++    index.byHash
++      .get(754480263)
++      .recordKey,
++    'upgrade_magic_reach',
++  );
++});
++
++test('runtime id resolves catalog then effects by recordKey', () => {
++  const result =
++    resolveRuntimeItems({
++      runtimeItemIds: [
++        754480263,
++      ],
++
++      catalog: {
++        rows: [
++          {
++            recordKey:
++              'upgrade_magic_reach',
++          },
++        ],
++      },
++
++      effects: {
++        rows: [
++          {
++            recordKey:
++              'upgrade_magic_reach',
++            directProvidedStats: [
++              {
++                token:
++                  'MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT',
++                value: 10,
++              },
++            ],
++          },
++        ],
++      },
++    });
++
++  assert.deepEqual(
++    result.unresolved,
++    [],
++  );
++
++  assert.equal(
++    result.resolved[0]
++      .recordKey,
++    'upgrade_magic_reach',
++  );
++
++  assert.ok(
++    result.resolved[0]
++      .ammoEffectEvidence
++      .some(
++        value =>
++          value.includes(
++            'AMMO_CLIP_SIZE',
++          ),
++      ),
++  );
++});
++
++test('annotation preserves enrichment metrics while attaching resolution', () => {
++  const result =
++    annotateEnrichmentRows({
++      enrichmentRows: [
++        {
++          heroId: 25,
++          itemId: 754480263,
++          restorationPresent: 2,
++          restorationEvents: 2,
++          attacksPresent: 100,
++        },
++      ],
++
++      catalog: {
++        rows: [
++          {
++            recordKey:
++              'upgrade_magic_reach',
++          },
++        ],
++      },
++
++      effects: {
++        rows: [
++          {
++            recordKey:
++              'upgrade_magic_reach',
++          },
++        ],
++      },
++    });
++
++  assert.equal(
++    result.rows[0]
++      .restorationPresent,
++    2,
++  );
++
++  assert.equal(
++    result.rows[0]
++      .itemResolution
++      .recordKey,
++    'upgrade_magic_reach',
++  );
++});

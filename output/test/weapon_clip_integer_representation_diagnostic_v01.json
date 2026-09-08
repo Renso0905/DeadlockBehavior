@@ -1,0 +1,1303 @@
+{
+  "version": "WEAPON_CLIP_INTEGER_REPRESENTATION_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T22:18:21.537Z",
+  "status": "WEAPON_CLIP_INTEGER_REPRESENTATION_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "replay": "test",
+  "preRegisteredHypothesis": {
+    "source": "Script176 observed alternating-sign shot transitions such as implied -17 -> +16 on a one-shot advance.",
+    "candidateTransform": "raw >= 0 ? 2*raw : -2*raw - 1",
+    "interpretation": "Test whether Script161 clip is a signed ZigZag-decoded representation of a non-negative internal clip counter.",
+    "gameplayAmmoMeaningClaimed": false,
+    "magazineCapacityClaimed": false,
+    "thresholds": {
+      "minShotTransitions": 5000,
+      "minTransformedPositiveIntegerRate": 0.95,
+      "minAdvantageOverRawPositiveIntegerRate": 0.25
+    }
+  },
+  "signPattern": {
+    "clipRows": 61099,
+    "negative": 31398,
+    "zero": 0,
+    "positive": 29701,
+    "negativeRate": 0.5138872976644462,
+    "signComparableAdjacent": 61098,
+    "alternatingAdjacent": 31733,
+    "alternatingAdjacentRate": 0.5193787030672035,
+    "rawMin": -31,
+    "rawMax": 31,
+    "transformedMin": 1,
+    "transformedMax": 62
+  },
+  "pooledShotTransitions": {
+    "observations": 37571,
+    "transformed": {
+      "positiveIntegerPerShot": 30335,
+      "positiveIntegerPerShotRate": 0.8074046472012989,
+      "mode": 1,
+      "median": 1
+    },
+    "raw": {
+      "positiveIntegerPerShot": 15436,
+      "positiveIntegerPerShotRate": 0.4108487929520109,
+      "mode": 0,
+      "median": 0,
+      "negativeRate": 0.3968486332543717
+    },
+    "absoluteValue": {
+      "positiveIntegerPerShot": 14908,
+      "positiveIntegerPerShotRate": 0.39679540070799285,
+      "mode": 0,
+      "median": 0,
+      "negativeRate": 0.0003460115514625642
+    }
+  },
+  "candidateTransform": {
+    "contexts": [
+      {
+        "contextKey": "renso|2623|weapon-context-65|1",
+        "heroId": 31,
+        "rawCandidate": 15,
+        "transformedCandidate": 30,
+        "staticClipSize": 29,
+        "completionLikeReloads": 42,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Goldinfer|2572|weapon-context-43|1",
+        "heroId": 79,
+        "rawCandidate": 7,
+        "transformedCandidate": 14,
+        "staticClipSize": 13,
+        "completionLikeReloads": 12,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Snazzy314|2687|weapon-context-121|1",
+        "heroId": 4,
+        "rawCandidate": 5,
+        "transformedCandidate": 10,
+        "staticClipSize": 9,
+        "completionLikeReloads": 11,
+        "contextPass": true
+      },
+      {
+        "contextKey": "flem|496|weapon-context-1|1",
+        "heroId": 1,
+        "rawCandidate": 14,
+        "transformedCandidate": 28,
+        "staticClipSize": 27,
+        "completionLikeReloads": 6,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nacho4Sure|2546|weapon-context-33|1",
+        "heroId": 2,
+        "rawCandidate": 15,
+        "transformedCandidate": 30,
+        "staticClipSize": 29,
+        "completionLikeReloads": 64,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Zaeleth|2604|weapon-context-64|1",
+        "heroId": 77,
+        "rawCandidate": 8,
+        "transformedCandidate": 16,
+        "staticClipSize": 15,
+        "completionLikeReloads": 103,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-109|1",
+        "heroId": 50,
+        "rawCandidate": 6,
+        "transformedCandidate": 12,
+        "staticClipSize": null,
+        "completionLikeReloads": 30,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nebula|2638|weapon-context-72|1",
+        "heroId": 25,
+        "rawCandidate": 9,
+        "transformedCandidate": 18,
+        "staticClipSize": 17,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      },
+      {
+        "contextKey": "flem|496|weapon-context-2|1",
+        "heroId": 1,
+        "rawCandidate": 14,
+        "transformedCandidate": 28,
+        "staticClipSize": 27,
+        "completionLikeReloads": 19,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Goldinfer|2572|weapon-context-44|1",
+        "heroId": 79,
+        "rawCandidate": 7,
+        "transformedCandidate": 14,
+        "staticClipSize": 13,
+        "completionLikeReloads": 58,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nebula|2638|weapon-context-73|1",
+        "heroId": 25,
+        "rawCandidate": 9,
+        "transformedCandidate": 18,
+        "staticClipSize": 17,
+        "completionLikeReloads": 7,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Snazzy314|2687|weapon-context-122|1",
+        "heroId": 4,
+        "rawCandidate": 5,
+        "transformedCandidate": 10,
+        "staticClipSize": 9,
+        "completionLikeReloads": 6,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nebula|2638|weapon-context-74|1",
+        "heroId": 25,
+        "rawCandidate": 9,
+        "transformedCandidate": 18,
+        "staticClipSize": 17,
+        "completionLikeReloads": 9,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Snazzy314|2687|weapon-context-123|1",
+        "heroId": 4,
+        "rawCandidate": 5,
+        "transformedCandidate": 10,
+        "staticClipSize": 9,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      },
+      {
+        "contextKey": "viggoth 300|2704|weapon-context-149|1",
+        "heroId": 18,
+        "rawCandidate": 11,
+        "transformedCandidate": 22,
+        "staticClipSize": 20,
+        "completionLikeReloads": 12,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-110|1",
+        "heroId": 50,
+        "rawCandidate": 6,
+        "transformedCandidate": 12,
+        "staticClipSize": null,
+        "completionLikeReloads": 6,
+        "contextPass": true
+      },
+      {
+        "contextKey": "blooop354|2588|weapon-context-52|1",
+        "heroId": 58,
+        "rawCandidate": 13,
+        "transformedCandidate": 26,
+        "staticClipSize": null,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nebula|2638|weapon-context-79|1",
+        "heroId": 25,
+        "rawCandidate": 9,
+        "transformedCandidate": 18,
+        "staticClipSize": 17,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      },
+      {
+        "contextKey": "viggoth 300|2704|weapon-context-151|1",
+        "heroId": 18,
+        "rawCandidate": 11,
+        "transformedCandidate": 22,
+        "staticClipSize": 20,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-111|1",
+        "heroId": 50,
+        "rawCandidate": 6,
+        "transformedCandidate": 12,
+        "staticClipSize": null,
+        "completionLikeReloads": 13,
+        "contextPass": true
+      },
+      {
+        "contextKey": "renso|2623|weapon-context-67|1",
+        "heroId": 31,
+        "rawCandidate": 15,
+        "transformedCandidate": 30,
+        "staticClipSize": 29,
+        "completionLikeReloads": 9,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nebula|2638|weapon-context-82|1",
+        "heroId": 25,
+        "rawCandidate": 18,
+        "transformedCandidate": 36,
+        "staticClipSize": 17,
+        "completionLikeReloads": 13,
+        "contextPass": true
+      },
+      {
+        "contextKey": "viggoth 300|2704|weapon-context-152|1",
+        "heroId": 18,
+        "rawCandidate": 11,
+        "transformedCandidate": 22,
+        "staticClipSize": 20,
+        "completionLikeReloads": 14,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nacho4Sure|2546|weapon-context-34|1",
+        "heroId": 2,
+        "rawCandidate": 15,
+        "transformedCandidate": 30,
+        "staticClipSize": 29,
+        "completionLikeReloads": 6,
+        "contextPass": true
+      },
+      {
+        "contextKey": "TheWoogler|2531|weapon-context-19|1",
+        "heroId": 52,
+        "rawCandidate": 9,
+        "transformedCandidate": 18,
+        "staticClipSize": null,
+        "completionLikeReloads": 9,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-112|1",
+        "heroId": 50,
+        "rawCandidate": 7,
+        "transformedCandidate": 14,
+        "staticClipSize": null,
+        "completionLikeReloads": 14,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Snazzy314|2687|weapon-context-134|1",
+        "heroId": 4,
+        "rawCandidate": 11,
+        "transformedCandidate": 22,
+        "staticClipSize": 9,
+        "completionLikeReloads": 12,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nacho4Sure|2546|weapon-context-35|1",
+        "heroId": 2,
+        "rawCandidate": 16,
+        "transformedCandidate": 32,
+        "staticClipSize": 29,
+        "completionLikeReloads": 6,
+        "contextPass": true
+      },
+      {
+        "contextKey": "renso|2623|weapon-context-68|1",
+        "heroId": 31,
+        "rawCandidate": 15,
+        "transformedCandidate": 30,
+        "staticClipSize": 29,
+        "completionLikeReloads": 7,
+        "contextPass": true
+      },
+      {
+        "contextKey": "blooop354|2588|weapon-context-57|1",
+        "heroId": 58,
+        "rawCandidate": 14,
+        "transformedCandidate": 28,
+        "staticClipSize": null,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nacho4Sure|2546|weapon-context-36|1",
+        "heroId": 2,
+        "rawCandidate": 16,
+        "transformedCandidate": 32,
+        "staticClipSize": 29,
+        "completionLikeReloads": 28,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nebula|2638|weapon-context-85|1",
+        "heroId": 25,
+        "rawCandidate": 19,
+        "transformedCandidate": 38,
+        "staticClipSize": 17,
+        "completionLikeReloads": 10,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Goldinfer|2572|weapon-context-46|1",
+        "heroId": 79,
+        "rawCandidate": 8,
+        "transformedCandidate": 16,
+        "staticClipSize": 13,
+        "completionLikeReloads": 48,
+        "contextPass": true
+      },
+      {
+        "contextKey": "viggoth 300|2704|weapon-context-154|1",
+        "heroId": 18,
+        "rawCandidate": 12,
+        "transformedCandidate": 24,
+        "staticClipSize": 20,
+        "completionLikeReloads": 21,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Eriansan|2653|weapon-context-103|1",
+        "heroId": 69,
+        "rawCandidate": 5,
+        "transformedCandidate": 10,
+        "staticClipSize": 8,
+        "completionLikeReloads": 10,
+        "contextPass": true
+      },
+      {
+        "contextKey": "flem|496|weapon-context-9|1",
+        "heroId": 1,
+        "rawCandidate": 29,
+        "transformedCandidate": 58,
+        "staticClipSize": 27,
+        "completionLikeReloads": 24,
+        "contextPass": true
+      },
+      {
+        "contextKey": "renso|2623|weapon-context-69|1",
+        "heroId": 31,
+        "rawCandidate": 15,
+        "transformedCandidate": 30,
+        "staticClipSize": 29,
+        "completionLikeReloads": 28,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-114|1",
+        "heroId": 50,
+        "rawCandidate": 7,
+        "transformedCandidate": 14,
+        "staticClipSize": null,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Snazzy314|2687|weapon-context-135|1",
+        "heroId": 4,
+        "rawCandidate": 11,
+        "transformedCandidate": 22,
+        "staticClipSize": 9,
+        "completionLikeReloads": 6,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-117|1",
+        "heroId": 50,
+        "rawCandidate": 7,
+        "transformedCandidate": 14,
+        "staticClipSize": null,
+        "completionLikeReloads": 21,
+        "contextPass": true
+      },
+      {
+        "contextKey": "viggoth 300|2704|weapon-context-157|1",
+        "heroId": 18,
+        "rawCandidate": 12,
+        "transformedCandidate": 24,
+        "staticClipSize": 20,
+        "completionLikeReloads": 12,
+        "contextPass": true
+      },
+      {
+        "contextKey": "flem|496|weapon-context-10|1",
+        "heroId": 1,
+        "rawCandidate": 29,
+        "transformedCandidate": 58,
+        "staticClipSize": 27,
+        "completionLikeReloads": 10,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Snazzy314|2687|weapon-context-137|1",
+        "heroId": 4,
+        "rawCandidate": 11,
+        "transformedCandidate": 22,
+        "staticClipSize": 9,
+        "completionLikeReloads": 7,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Goldinfer|2572|weapon-context-47|1",
+        "heroId": 79,
+        "rawCandidate": 8,
+        "transformedCandidate": 16,
+        "staticClipSize": 13,
+        "completionLikeReloads": 17,
+        "contextPass": true
+      },
+      {
+        "contextKey": "flem|496|weapon-context-11|1",
+        "heroId": 1,
+        "rawCandidate": 30,
+        "transformedCandidate": 60,
+        "staticClipSize": 27,
+        "completionLikeReloads": 19,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Nebula|2638|weapon-context-92|1",
+        "heroId": 25,
+        "rawCandidate": 22,
+        "transformedCandidate": 44,
+        "staticClipSize": 17,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      },
+      {
+        "contextKey": "renso|2623|weapon-context-70|1",
+        "heroId": 31,
+        "rawCandidate": 15,
+        "transformedCandidate": 30,
+        "staticClipSize": 29,
+        "completionLikeReloads": 7,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-119|1",
+        "heroId": 50,
+        "rawCandidate": 8,
+        "transformedCandidate": 16,
+        "staticClipSize": null,
+        "completionLikeReloads": 25,
+        "contextPass": true
+      },
+      {
+        "contextKey": "TheWoogler|2531|weapon-context-29|1",
+        "heroId": 52,
+        "rawCandidate": 20,
+        "transformedCandidate": 40,
+        "staticClipSize": null,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      },
+      {
+        "contextKey": "viggoth 300|2704|weapon-context-162|1",
+        "heroId": 18,
+        "rawCandidate": 14,
+        "transformedCandidate": 28,
+        "staticClipSize": 20,
+        "completionLikeReloads": 10,
+        "contextPass": false
+      },
+      {
+        "contextKey": "Nebula|2638|weapon-context-95|1",
+        "heroId": 25,
+        "rawCandidate": 22,
+        "transformedCandidate": 44,
+        "staticClipSize": 17,
+        "completionLikeReloads": 6,
+        "contextPass": true
+      },
+      {
+        "contextKey": "flem|496|weapon-context-12|1",
+        "heroId": 1,
+        "rawCandidate": 30,
+        "transformedCandidate": 60,
+        "staticClipSize": 27,
+        "completionLikeReloads": 20,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Goldinfer|2572|weapon-context-48|1",
+        "heroId": 79,
+        "rawCandidate": 8,
+        "transformedCandidate": 16,
+        "staticClipSize": 13,
+        "completionLikeReloads": 23,
+        "contextPass": true
+      },
+      {
+        "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-120|1",
+        "heroId": 50,
+        "rawCandidate": 8,
+        "transformedCandidate": 16,
+        "staticClipSize": null,
+        "completionLikeReloads": 8,
+        "contextPass": true
+      }
+    ],
+    "byHero": [
+      {
+        "heroId": 1,
+        "rawCandidates": [
+          14,
+          29,
+          30
+        ],
+        "transformedCandidates": [
+          28,
+          58,
+          60
+        ],
+        "minTransformedCandidate": 28,
+        "modalShotConsumption": 1,
+        "staticClipSize": 27,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": 1,
+        "minCandidateMinusObservedShotConsumption": 27,
+        "correctedBaseComparison": 0
+      },
+      {
+        "heroId": 2,
+        "rawCandidates": [
+          15,
+          16
+        ],
+        "transformedCandidates": [
+          30,
+          32
+        ],
+        "minTransformedCandidate": 30,
+        "modalShotConsumption": 1,
+        "staticClipSize": 29,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": 1,
+        "minCandidateMinusObservedShotConsumption": 29,
+        "correctedBaseComparison": 0
+      },
+      {
+        "heroId": 4,
+        "rawCandidates": [
+          5,
+          11
+        ],
+        "transformedCandidates": [
+          10,
+          22
+        ],
+        "minTransformedCandidate": 10,
+        "modalShotConsumption": 1,
+        "staticClipSize": 9,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": 1,
+        "minCandidateMinusObservedShotConsumption": 9,
+        "correctedBaseComparison": 0
+      },
+      {
+        "heroId": 18,
+        "rawCandidates": [
+          11,
+          12,
+          14
+        ],
+        "transformedCandidates": [
+          22,
+          24,
+          28
+        ],
+        "minTransformedCandidate": 22,
+        "modalShotConsumption": 1,
+        "staticClipSize": 20,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": 2,
+        "minCandidateMinusObservedShotConsumption": 21,
+        "correctedBaseComparison": 1
+      },
+      {
+        "heroId": 25,
+        "rawCandidates": [
+          9,
+          18,
+          19,
+          22
+        ],
+        "transformedCandidates": [
+          18,
+          36,
+          38,
+          44
+        ],
+        "minTransformedCandidate": 18,
+        "modalShotConsumption": 1,
+        "staticClipSize": 17,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": 1,
+        "minCandidateMinusObservedShotConsumption": 17,
+        "correctedBaseComparison": 0
+      },
+      {
+        "heroId": 31,
+        "rawCandidates": [
+          15
+        ],
+        "transformedCandidates": [
+          30
+        ],
+        "minTransformedCandidate": 30,
+        "modalShotConsumption": 1,
+        "staticClipSize": 29,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": 1,
+        "minCandidateMinusObservedShotConsumption": 29,
+        "correctedBaseComparison": 0
+      },
+      {
+        "heroId": 50,
+        "rawCandidates": [
+          6,
+          7,
+          8
+        ],
+        "transformedCandidates": [
+          12,
+          14,
+          16
+        ],
+        "minTransformedCandidate": 12,
+        "modalShotConsumption": 1,
+        "staticClipSize": null,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": null,
+        "minCandidateMinusObservedShotConsumption": 11,
+        "correctedBaseComparison": null
+      },
+      {
+        "heroId": 52,
+        "rawCandidates": [
+          9,
+          20
+        ],
+        "transformedCandidates": [
+          18,
+          40
+        ],
+        "minTransformedCandidate": 18,
+        "modalShotConsumption": 1,
+        "staticClipSize": null,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": null,
+        "minCandidateMinusObservedShotConsumption": 17,
+        "correctedBaseComparison": null
+      },
+      {
+        "heroId": 58,
+        "rawCandidates": [
+          13,
+          14
+        ],
+        "transformedCandidates": [
+          26,
+          28
+        ],
+        "minTransformedCandidate": 26,
+        "modalShotConsumption": null,
+        "staticClipSize": null,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": null,
+        "minCandidateMinusObservedShotConsumption": null,
+        "correctedBaseComparison": null
+      },
+      {
+        "heroId": 69,
+        "rawCandidates": [
+          5
+        ],
+        "transformedCandidates": [
+          10
+        ],
+        "minTransformedCandidate": 10,
+        "modalShotConsumption": 1,
+        "staticClipSize": 8,
+        "staticAmmoConsumedPerShot": 1,
+        "minCandidateMinusStatic": 2,
+        "minCandidateMinusObservedShotConsumption": 9,
+        "correctedBaseComparison": 1
+      },
+      {
+        "heroId": 77,
+        "rawCandidates": [
+          8
+        ],
+        "transformedCandidates": [
+          16
+        ],
+        "minTransformedCandidate": 16,
+        "modalShotConsumption": 1,
+        "staticClipSize": 15,
+        "staticAmmoConsumedPerShot": 1,
+        "minCandidateMinusStatic": 1,
+        "minCandidateMinusObservedShotConsumption": 15,
+        "correctedBaseComparison": 0
+      },
+      {
+        "heroId": 79,
+        "rawCandidates": [
+          7,
+          8
+        ],
+        "transformedCandidates": [
+          14,
+          16
+        ],
+        "minTransformedCandidate": 14,
+        "modalShotConsumption": 1,
+        "staticClipSize": 13,
+        "staticAmmoConsumedPerShot": null,
+        "minCandidateMinusStatic": 1,
+        "minCandidateMinusObservedShotConsumption": 13,
+        "correctedBaseComparison": 0
+      }
+    ],
+    "transformedOvershootPhase": {
+      "total": 32,
+      "beforeFirstReload": 1,
+      "atOrAfterFirstReload": 31,
+      "contexts": [
+        {
+          "contextKey": "renso|2623|weapon-context-65|1",
+          "heroId": 31,
+          "transformedCandidate": 30,
+          "firstReloadExitTick": 4151,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Goldinfer|2572|weapon-context-43|1",
+          "heroId": 79,
+          "transformedCandidate": 14,
+          "firstReloadExitTick": 3921,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Snazzy314|2687|weapon-context-121|1",
+          "heroId": 4,
+          "transformedCandidate": 10,
+          "firstReloadExitTick": 4198,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "flem|496|weapon-context-1|1",
+          "heroId": 1,
+          "transformedCandidate": 28,
+          "firstReloadExitTick": 4244,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nacho4Sure|2546|weapon-context-33|1",
+          "heroId": 2,
+          "transformedCandidate": 30,
+          "firstReloadExitTick": 4338,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Zaeleth|2604|weapon-context-64|1",
+          "heroId": 77,
+          "transformedCandidate": 16,
+          "firstReloadExitTick": 4563,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-109|1",
+          "heroId": 50,
+          "transformedCandidate": 12,
+          "firstReloadExitTick": 4728,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nebula|2638|weapon-context-72|1",
+          "heroId": 25,
+          "transformedCandidate": 18,
+          "firstReloadExitTick": 5348,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "flem|496|weapon-context-2|1",
+          "heroId": 1,
+          "transformedCandidate": 28,
+          "firstReloadExitTick": 7887,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Goldinfer|2572|weapon-context-44|1",
+          "heroId": 79,
+          "transformedCandidate": 14,
+          "firstReloadExitTick": 10250,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nebula|2638|weapon-context-73|1",
+          "heroId": 25,
+          "transformedCandidate": 18,
+          "firstReloadExitTick": 10715,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Snazzy314|2687|weapon-context-122|1",
+          "heroId": 4,
+          "transformedCandidate": 10,
+          "firstReloadExitTick": 13215,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nebula|2638|weapon-context-74|1",
+          "heroId": 25,
+          "transformedCandidate": 18,
+          "firstReloadExitTick": 17209,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Snazzy314|2687|weapon-context-123|1",
+          "heroId": 4,
+          "transformedCandidate": 10,
+          "firstReloadExitTick": 19574,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "viggoth 300|2704|weapon-context-149|1",
+          "heroId": 18,
+          "transformedCandidate": 22,
+          "firstReloadExitTick": 27153,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-110|1",
+          "heroId": 50,
+          "transformedCandidate": 12,
+          "firstReloadExitTick": 35235,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "blooop354|2588|weapon-context-52|1",
+          "heroId": 58,
+          "transformedCandidate": 26,
+          "firstReloadExitTick": 35542,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nebula|2638|weapon-context-79|1",
+          "heroId": 25,
+          "transformedCandidate": 18,
+          "firstReloadExitTick": 35885,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "viggoth 300|2704|weapon-context-151|1",
+          "heroId": 18,
+          "transformedCandidate": 22,
+          "firstReloadExitTick": 40091,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-111|1",
+          "heroId": 50,
+          "transformedCandidate": 12,
+          "firstReloadExitTick": 41973,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "renso|2623|weapon-context-67|1",
+          "heroId": 31,
+          "transformedCandidate": 30,
+          "firstReloadExitTick": 49483,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nebula|2638|weapon-context-82|1",
+          "heroId": 25,
+          "transformedCandidate": 36,
+          "firstReloadExitTick": 47140,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "viggoth 300|2704|weapon-context-152|1",
+          "heroId": 18,
+          "transformedCandidate": 22,
+          "firstReloadExitTick": 52135,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nacho4Sure|2546|weapon-context-34|1",
+          "heroId": 2,
+          "transformedCandidate": 30,
+          "firstReloadExitTick": 54578,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "TheWoogler|2531|weapon-context-19|1",
+          "heroId": 52,
+          "transformedCandidate": 18,
+          "firstReloadExitTick": 56172,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-112|1",
+          "heroId": 50,
+          "transformedCandidate": 14,
+          "firstReloadExitTick": 61745,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Snazzy314|2687|weapon-context-134|1",
+          "heroId": 4,
+          "transformedCandidate": 22,
+          "firstReloadExitTick": 63042,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nacho4Sure|2546|weapon-context-35|1",
+          "heroId": 2,
+          "transformedCandidate": 32,
+          "firstReloadExitTick": 62078,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "renso|2623|weapon-context-68|1",
+          "heroId": 31,
+          "transformedCandidate": 30,
+          "firstReloadExitTick": 66541,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "blooop354|2588|weapon-context-57|1",
+          "heroId": 58,
+          "transformedCandidate": 28,
+          "firstReloadExitTick": 65474,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nacho4Sure|2546|weapon-context-36|1",
+          "heroId": 2,
+          "transformedCandidate": 32,
+          "firstReloadExitTick": 69374,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nebula|2638|weapon-context-85|1",
+          "heroId": 25,
+          "transformedCandidate": 38,
+          "firstReloadExitTick": 71246,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Goldinfer|2572|weapon-context-46|1",
+          "heroId": 79,
+          "transformedCandidate": 16,
+          "firstReloadExitTick": 72388,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "viggoth 300|2704|weapon-context-154|1",
+          "heroId": 18,
+          "transformedCandidate": 24,
+          "firstReloadExitTick": 73013,
+          "overshoots": 21,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 21
+        },
+        {
+          "contextKey": "Eriansan|2653|weapon-context-103|1",
+          "heroId": 69,
+          "transformedCandidate": 10,
+          "firstReloadExitTick": 76944,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "flem|496|weapon-context-9|1",
+          "heroId": 1,
+          "transformedCandidate": 58,
+          "firstReloadExitTick": 79772,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "renso|2623|weapon-context-69|1",
+          "heroId": 31,
+          "transformedCandidate": 30,
+          "firstReloadExitTick": 83870,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-114|1",
+          "heroId": 50,
+          "transformedCandidate": 14,
+          "firstReloadExitTick": 91455,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Snazzy314|2687|weapon-context-135|1",
+          "heroId": 4,
+          "transformedCandidate": 22,
+          "firstReloadExitTick": 105084,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-117|1",
+          "heroId": 50,
+          "transformedCandidate": 14,
+          "firstReloadExitTick": 111231,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "viggoth 300|2704|weapon-context-157|1",
+          "heroId": 18,
+          "transformedCandidate": 24,
+          "firstReloadExitTick": 114426,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "flem|496|weapon-context-10|1",
+          "heroId": 1,
+          "transformedCandidate": 58,
+          "firstReloadExitTick": 122732,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Snazzy314|2687|weapon-context-137|1",
+          "heroId": 4,
+          "transformedCandidate": 22,
+          "firstReloadExitTick": 124012,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Goldinfer|2572|weapon-context-47|1",
+          "heroId": 79,
+          "transformedCandidate": 16,
+          "firstReloadExitTick": 128185,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "flem|496|weapon-context-11|1",
+          "heroId": 1,
+          "transformedCandidate": 60,
+          "firstReloadExitTick": 142367,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Nebula|2638|weapon-context-92|1",
+          "heroId": 25,
+          "transformedCandidate": 44,
+          "firstReloadExitTick": 148894,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "renso|2623|weapon-context-70|1",
+          "heroId": 31,
+          "transformedCandidate": 30,
+          "firstReloadExitTick": 164083,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-119|1",
+          "heroId": 50,
+          "transformedCandidate": 16,
+          "firstReloadExitTick": 162861,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "TheWoogler|2531|weapon-context-29|1",
+          "heroId": 52,
+          "transformedCandidate": 40,
+          "firstReloadExitTick": 165912,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "viggoth 300|2704|weapon-context-162|1",
+          "heroId": 18,
+          "transformedCandidate": 28,
+          "firstReloadExitTick": 166553,
+          "overshoots": 10,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 10
+        },
+        {
+          "contextKey": "Nebula|2638|weapon-context-95|1",
+          "heroId": 25,
+          "transformedCandidate": 44,
+          "firstReloadExitTick": 166725,
+          "overshoots": 1,
+          "beforeFirstReload": 1,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "flem|496|weapon-context-12|1",
+          "heroId": 1,
+          "transformedCandidate": 60,
+          "firstReloadExitTick": 170123,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Goldinfer|2572|weapon-context-48|1",
+          "heroId": 79,
+          "transformedCandidate": 16,
+          "firstReloadExitTick": 172017,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        },
+        {
+          "contextKey": "Yosafire Worshipper [K]|2671|weapon-context-120|1",
+          "heroId": 50,
+          "transformedCandidate": 16,
+          "firstReloadExitTick": 190910,
+          "overshoots": 0,
+          "beforeFirstReload": 0,
+          "atOrAfterFirstReload": 0
+        }
+      ]
+    }
+  },
+  "classification": "CLIP_INTEGER_REPRESENTATION_REMAINS_UNRESOLVED",
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script174V02Ready": {
+        "actual": "RUNTIME_MAGAZINE_CAPACITY_CARRIER_DISCOVERY_V02_READY_FOR_SEMANTIC_VALIDATION",
+        "expected": "RUNTIME_MAGAZINE_CAPACITY_CARRIER_DISCOVERY_V02_READY_FOR_SEMANTIC_VALIDATION",
+        "pass": true
+      },
+      "script176Ready": {
+        "actual": "MAGAZINE_CAPACITY_CEILING_OUTLIER_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "expected": "MAGAZINE_CAPACITY_CEILING_OUTLIER_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "eventParseClean": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "eventCountFrozen": {
+        "actual": 61099,
+        "expected": 61099,
+        "pass": true
+      },
+      "candidateContextCountFrozen": {
+        "actual": 54,
+        "expected": 54,
+        "pass": true
+      },
+      "replicationCohortStillUnused": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "NOT_ESTABLISHED",
+    "replicationStatus": "single_replay_only",
+    "authorityPromotion": false
+  },
+  "nextStep": "DIAGNOSE_ALTERNATIVE_CLIP_ENCODING_OR_EVENT_SERIALIZATION_ON_TEST_ONLY"
+}

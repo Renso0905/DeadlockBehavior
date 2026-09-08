@@ -1,0 +1,929 @@
+{
+  "version": "BONUS_CLIP_COMPOSITE_COUNTER_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T23:57:15.919Z",
+  "status": "BONUS_CLIP_COMPOSITE_COUNTER_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "scientificBoundary": {
+    "authorityPromotion": false,
+    "carrierRetuned": false,
+    "replicationCohortFresh": false,
+    "formulasPreSpecified": [
+      "Z_PLUS_B",
+      "Z_MINUS_B"
+    ],
+    "purpose": "diagnose whether m_iBonusClip is a second runtime ammo-counter component that explains Script184 carrier-absent residuals"
+  },
+  "thresholds": {
+    "minBonusDeltaCoverageRate": 0.8,
+    "minResidualWithBonusChange": 100,
+    "minResidualResolutionRate": 0.8,
+    "maxPositiveControlHarmRate": 0.001,
+    "minOverallPositiveRateGain": 0.005
+  },
+  "replayIntegrity": [
+    {
+      "replayName": "rep01",
+      "pass": true,
+      "transitions": 25999,
+      "joined": 25999,
+      "joinFailures": 0,
+      "parseFailures": 0
+    },
+    {
+      "replayName": "rep02",
+      "pass": true,
+      "transitions": 29812,
+      "joined": 29812,
+      "joinFailures": 0,
+      "parseFailures": 0
+    },
+    {
+      "replayName": "rep03",
+      "pass": true,
+      "transitions": 37092,
+      "joined": 37092,
+      "joinFailures": 0,
+      "parseFailures": 0
+    },
+    {
+      "replayName": "rep04",
+      "pass": true,
+      "transitions": 30598,
+      "joined": 30598,
+      "joinFailures": 0,
+      "parseFailures": 0
+    },
+    {
+      "replayName": "rep05",
+      "pass": true,
+      "transitions": 17858,
+      "joined": 17858,
+      "joinFailures": 0,
+      "parseFailures": 0
+    }
+  ],
+  "diagnostic": {
+    "totalCarrierAbsent": 132613,
+    "bonusDeltaCovered": 132613,
+    "bonusDeltaCoverageRate": 1,
+    "baselineResidual": 2004,
+    "baselinePositive": 130609,
+    "residualWithBonusChange": 1516,
+    "results": {
+      "BASELINE_Z": {
+        "total": 132613,
+        "positive": 130609,
+        "zero": 1832,
+        "negative": 172,
+        "nonInteger": 0,
+        "positiveRate": 0.9848883593614502,
+        "zeroRate": 0.013814633557795993,
+        "negativeRate": 0.0012970070807537724,
+        "resolvedResidual": 0,
+        "residualWithBonusChange": 1516,
+        "residualResolutionRate": 0,
+        "harmedPositive": 0,
+        "baselinePositive": 130609,
+        "positiveControlHarmRate": 0
+      },
+      "Z_PLUS_B": {
+        "total": 132613,
+        "positive": 131371,
+        "zero": 318,
+        "negative": 924,
+        "nonInteger": 0,
+        "positiveRate": 0.9906344023587431,
+        "zeroRate": 0.00239795495162616,
+        "negativeRate": 0.00696764268963073,
+        "resolvedResidual": 762,
+        "residualWithBonusChange": 1516,
+        "residualResolutionRate": 0.5026385224274407,
+        "harmedPositive": 0,
+        "baselinePositive": 130609,
+        "positiveControlHarmRate": 0,
+        "positiveRateGain": 0.005746042997292866
+      },
+      "Z_MINUS_B": {
+        "total": 132613,
+        "positive": 131362,
+        "zero": 318,
+        "negative": 933,
+        "nonInteger": 0,
+        "positiveRate": 0.9905665357091687,
+        "zeroRate": 0.00239795495162616,
+        "negativeRate": 0.007035509339205055,
+        "resolvedResidual": 753,
+        "residualWithBonusChange": 1516,
+        "residualResolutionRate": 0.4967018469656992,
+        "harmedPositive": 0,
+        "baselinePositive": 130609,
+        "positiveControlHarmRate": 0,
+        "positiveRateGain": 0.0056781763477185
+      }
+    },
+    "candidates": [
+      {
+        "formulaName": "Z_PLUS_B",
+        "total": 132613,
+        "positive": 131371,
+        "zero": 318,
+        "negative": 924,
+        "nonInteger": 0,
+        "positiveRate": 0.9906344023587431,
+        "zeroRate": 0.00239795495162616,
+        "negativeRate": 0.00696764268963073,
+        "resolvedResidual": 762,
+        "residualWithBonusChange": 1516,
+        "residualResolutionRate": 0.5026385224274407,
+        "harmedPositive": 0,
+        "baselinePositive": 130609,
+        "positiveControlHarmRate": 0,
+        "positiveRateGain": 0.005746042997292866,
+        "strongCandidate": false
+      },
+      {
+        "formulaName": "Z_MINUS_B",
+        "total": 132613,
+        "positive": 131362,
+        "zero": 318,
+        "negative": 933,
+        "nonInteger": 0,
+        "positiveRate": 0.9905665357091687,
+        "zeroRate": 0.00239795495162616,
+        "negativeRate": 0.007035509339205055,
+        "resolvedResidual": 753,
+        "residualWithBonusChange": 1516,
+        "residualResolutionRate": 0.4967018469656992,
+        "harmedPositive": 0,
+        "baselinePositive": 130609,
+        "positiveControlHarmRate": 0,
+        "positiveRateGain": 0.0056781763477185,
+        "strongCandidate": false
+      }
+    ],
+    "classification": "BONUS_CLIP_COMPOSITE_COUNTER_REMAINS_UNRESOLVED",
+    "byHero": [
+      {
+        "key": "13",
+        "total": 17338,
+        "baselineResidual": 947,
+        "residualWithBonusChange": 923,
+        "plusResolved": 463,
+        "minusResolved": 460,
+        "plusResolutionRate": 0.5016251354279523,
+        "minusResolutionRate": 0.49837486457204766
+      },
+      {
+        "key": "65",
+        "total": 5037,
+        "baselineResidual": 221,
+        "residualWithBonusChange": 218,
+        "plusResolved": 112,
+        "minusResolved": 105,
+        "plusResolutionRate": 0.5137614678899083,
+        "minusResolutionRate": 0.481651376146789
+      },
+      {
+        "key": "63",
+        "total": 3241,
+        "baselineResidual": 213,
+        "residualWithBonusChange": 211,
+        "plusResolved": 104,
+        "minusResolved": 107,
+        "plusResolutionRate": 0.4928909952606635,
+        "minusResolutionRate": 0.5071090047393365
+      },
+      {
+        "key": "35",
+        "total": 4967,
+        "baselineResidual": 165,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "58",
+        "total": 4635,
+        "baselineResidual": 132,
+        "residualWithBonusChange": 101,
+        "plusResolved": 51,
+        "minusResolved": 50,
+        "plusResolutionRate": 0.504950495049505,
+        "minusResolutionRate": 0.49504950495049505
+      },
+      {
+        "key": "25",
+        "total": 8553,
+        "baselineResidual": 87,
+        "residualWithBonusChange": 63,
+        "plusResolved": 32,
+        "minusResolved": 31,
+        "plusResolutionRate": 0.5079365079365079,
+        "minusResolutionRate": 0.49206349206349204
+      },
+      {
+        "key": "27",
+        "total": 2094,
+        "baselineResidual": 76,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "2",
+        "total": 9199,
+        "baselineResidual": 41,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "76",
+        "total": 6681,
+        "baselineResidual": 29,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "1",
+        "total": 15949,
+        "baselineResidual": 25,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "7",
+        "total": 7041,
+        "baselineResidual": 11,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "8",
+        "total": 4503,
+        "baselineResidual": 11,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "31",
+        "total": 8858,
+        "baselineResidual": 10,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "15",
+        "total": 4359,
+        "baselineResidual": 8,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "19",
+        "total": 1547,
+        "baselineResidual": 8,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "66",
+        "total": 4852,
+        "baselineResidual": 7,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "3",
+        "total": 1909,
+        "baselineResidual": 3,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "60",
+        "total": 1884,
+        "baselineResidual": 3,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "18",
+        "total": 1629,
+        "baselineResidual": 3,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "11",
+        "total": 3106,
+        "baselineResidual": 1,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "67",
+        "total": 2853,
+        "baselineResidual": 1,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "64",
+        "total": 816,
+        "baselineResidual": 1,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "69",
+        "total": 523,
+        "baselineResidual": 1,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "10",
+        "total": 2779,
+        "baselineResidual": 0,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "4",
+        "total": 1942,
+        "baselineResidual": 0,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "81",
+        "total": 1500,
+        "baselineResidual": 0,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "79",
+        "total": 1282,
+        "baselineResidual": 0,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "16",
+        "total": 1221,
+        "baselineResidual": 0,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "14",
+        "total": 990,
+        "baselineResidual": 0,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "50",
+        "total": 523,
+        "baselineResidual": 0,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "6",
+        "total": 414,
+        "baselineResidual": 0,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      },
+      {
+        "key": "80",
+        "total": 388,
+        "baselineResidual": 0,
+        "residualWithBonusChange": 0,
+        "plusResolved": 0,
+        "minusResolved": 0,
+        "plusResolutionRate": null,
+        "minusResolutionRate": null
+      }
+    ],
+    "topJointPatterns": [
+      {
+        "pattern": "hero=2|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 41
+      },
+      {
+        "pattern": "hero=58|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 31
+      },
+      {
+        "pattern": "hero=63|wholeDrop=0|bonusDelta=9|shots=1",
+        "count": 30
+      },
+      {
+        "pattern": "hero=76|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 29
+      },
+      {
+        "pattern": "hero=63|wholeDrop=0|bonusDelta=-8|shots=1",
+        "count": 29
+      },
+      {
+        "pattern": "hero=63|wholeDrop=0|bonusDelta=7|shots=1",
+        "count": 27
+      },
+      {
+        "pattern": "hero=63|wholeDrop=0|bonusDelta=-6|shots=1",
+        "count": 26
+      },
+      {
+        "pattern": "hero=63|wholeDrop=0|bonusDelta=5|shots=1",
+        "count": 26
+      },
+      {
+        "pattern": "hero=1|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 25
+      },
+      {
+        "pattern": "hero=63|wholeDrop=0|bonusDelta=-2|shots=1",
+        "count": 25
+      },
+      {
+        "pattern": "hero=63|wholeDrop=0|bonusDelta=-4|shots=1",
+        "count": 24
+      },
+      {
+        "pattern": "hero=63|wholeDrop=0|bonusDelta=3|shots=1",
+        "count": 24
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 23
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-4|shots=1",
+        "count": 15
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=3|shots=1",
+        "count": 15
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-2|shots=1",
+        "count": 15
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=11|shots=1",
+        "count": 14
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-10|shots=1",
+        "count": 14
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=9|shots=1",
+        "count": 14
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-8|shots=1",
+        "count": 14
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=7|shots=1",
+        "count": 14
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-6|shots=1",
+        "count": 14
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=5|shots=1",
+        "count": 14
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=19|shots=1",
+        "count": 13
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-18|shots=1",
+        "count": 13
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=17|shots=1",
+        "count": 13
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-16|shots=1",
+        "count": 13
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=15|shots=1",
+        "count": 13
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-14|shots=1",
+        "count": 13
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=13|shots=1",
+        "count": 13
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-12|shots=1",
+        "count": 13
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=23|shots=1",
+        "count": 12
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-22|shots=1",
+        "count": 12
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=21|shots=1",
+        "count": 12
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-20|shots=1",
+        "count": 12
+      },
+      {
+        "pattern": "hero=35|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=25|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=7|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-8|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=8|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=33|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-32|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=31|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-30|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=29|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-28|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=27|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-26|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=25|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-24|shots=1",
+        "count": 11
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-10|shots=1",
+        "count": 10
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=9|shots=1",
+        "count": 10
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=7|shots=1",
+        "count": 10
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-6|shots=1",
+        "count": 10
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=5|shots=1",
+        "count": 10
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-4|shots=1",
+        "count": 10
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=3|shots=1",
+        "count": 10
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-2|shots=1",
+        "count": 10
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-34|shots=1",
+        "count": 10
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-14|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=13|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-12|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=11|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=51|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-50|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=49|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-48|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=47|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-46|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=45|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-44|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=43|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-42|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=41|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-40|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=39|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=37|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-36|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=35|shots=1",
+        "count": 9
+      },
+      {
+        "pattern": "hero=15|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=31|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-16|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=15|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-38|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=59|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-58|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=57|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-56|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=55|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-54|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=53|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=13|wholeDrop=0|bonusDelta=-52|shots=1",
+        "count": 8
+      },
+      {
+        "pattern": "hero=66|wholeDrop=0|bonusDelta=0|shots=1",
+        "count": 7
+      },
+      {
+        "pattern": "hero=35|wholeDrop=0|bonusDelta=0|shots=14",
+        "count": 7
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-22|shots=1",
+        "count": 7
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=21|shots=1",
+        "count": 7
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-20|shots=1",
+        "count": 7
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=19|shots=1",
+        "count": 7
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=-18|shots=1",
+        "count": 7
+      },
+      {
+        "pattern": "hero=65|wholeDrop=0|bonusDelta=17|shots=1",
+        "count": 7
+      }
+    ]
+  },
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script185Ready": {
+        "actual": "SLIDE_CARRIER_ABSENT_RESIDUAL_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "expected": "SLIDE_CARRIER_ABSENT_RESIDUAL_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "carrierStillFrozen": {
+        "actual": {
+          "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+          "bit": 5,
+          "mask": 32
+        },
+        "expected": {
+          "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+          "bit": 5,
+          "mask": 32
+        },
+        "pass": true
+      },
+      "allFiveIntegrityPass": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "cohortExplicitlyNotFresh": {
+        "actual": false,
+        "expected": false,
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "DIAGNOSTIC_ONLY",
+    "authorityPromotion": false,
+    "replicationStatus": "consumed_cohort_diagnostic"
+  },
+  "nextStep": "KEEP_ZIGZAG_AND_BONUS_CLIP_SEPARATE;_NEXT_DIAGNOSE_HERO13_65_63_ZERO_MECHANISMS_AND_HERO35_27_NEGATIVE_REFILL_MECHANISMS"
+}

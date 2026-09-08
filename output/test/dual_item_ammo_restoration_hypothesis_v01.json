@@ -1,0 +1,828 @@
+{
+  "version": "DUAL_ITEM_AMMO_RESTORATION_HYPOTHESIS_V01",
+  "canonical": false,
+  "createdAt": "2026-09-08T02:25:56.883Z",
+  "replay": "test",
+  "status": "DUAL_ITEM_AMMO_RESTORATION_HYPOTHESIS_V01_READY_FOR_INTERPRETATION",
+  "scientificBoundary": {
+    "hypothesisFormedAfter": "Script200 V02",
+    "candidateItems": [
+      {
+        "itemId": 84321454,
+        "recordKey": "upgrade_quick_silver"
+      },
+      {
+        "itemId": 3919289022,
+        "recordKey": "upgrade_ethereal_bullets"
+      }
+    ],
+    "purpose": "freeze and characterize exact dual-item partition on test",
+    "causalAttribution": false,
+    "authorityPromotion": false,
+    "replicationStatus": "discovery_calibration_only"
+  },
+  "telemetry": {
+    "runtimeRows": 61099,
+    "jsonlParseFailures": 0,
+    "contextCount": 163
+  },
+  "restorationMatrix": {
+    "rows": [
+      {
+        "heroId": 25,
+        "tick": 85449,
+        "effectContextId": "weapon-context-85",
+        "logicalGain": 12,
+        "grossRestorationIfOneShotConsumed": 13,
+        "pairState": "QUICK_SILVER_ONLY",
+        "quickSilverPresent": true,
+        "etherealBulletsPresent": false,
+        "contextResolved": true,
+        "previousCapacity": 37,
+        "currentCapacity": 37
+      },
+      {
+        "heroId": 18,
+        "tick": 92317,
+        "effectContextId": "weapon-context-154",
+        "logicalGain": 1,
+        "grossRestorationIfOneShotConsumed": 2,
+        "pairState": "QUICK_SILVER_ONLY",
+        "quickSilverPresent": true,
+        "etherealBulletsPresent": false,
+        "contextResolved": true,
+        "previousCapacity": 23,
+        "currentCapacity": 23
+      },
+      {
+        "heroId": 4,
+        "tick": 108069,
+        "effectContextId": "weapon-context-135",
+        "logicalGain": 2,
+        "grossRestorationIfOneShotConsumed": 3,
+        "pairState": "QUICK_SILVER_ONLY",
+        "quickSilverPresent": true,
+        "etherealBulletsPresent": false,
+        "contextResolved": true,
+        "previousCapacity": 21,
+        "currentCapacity": 21
+      },
+      {
+        "heroId": 25,
+        "tick": 115530,
+        "effectContextId": "weapon-context-89",
+        "logicalGain": 19,
+        "grossRestorationIfOneShotConsumed": 20,
+        "pairState": "ETHEREAL_BULLETS_ONLY",
+        "quickSilverPresent": false,
+        "etherealBulletsPresent": true,
+        "contextResolved": true,
+        "previousCapacity": 42,
+        "currentCapacity": 42
+      },
+      {
+        "heroId": 4,
+        "tick": 126800,
+        "effectContextId": "weapon-context-137",
+        "logicalGain": 2,
+        "grossRestorationIfOneShotConsumed": 3,
+        "pairState": "QUICK_SILVER_ONLY",
+        "quickSilverPresent": true,
+        "etherealBulletsPresent": false,
+        "contextResolved": true,
+        "previousCapacity": 21,
+        "currentCapacity": 21
+      },
+      {
+        "heroId": 25,
+        "tick": 146060,
+        "effectContextId": "weapon-context-91",
+        "logicalGain": 19,
+        "grossRestorationIfOneShotConsumed": 20,
+        "pairState": "ETHEREAL_BULLETS_ONLY",
+        "quickSilverPresent": false,
+        "etherealBulletsPresent": true,
+        "contextResolved": true,
+        "previousCapacity": 42,
+        "currentCapacity": 42
+      },
+      {
+        "heroId": 4,
+        "tick": 161696,
+        "effectContextId": "weapon-context-143",
+        "logicalGain": 5,
+        "grossRestorationIfOneShotConsumed": 6,
+        "pairState": "ETHEREAL_BULLETS_ONLY",
+        "quickSilverPresent": false,
+        "etherealBulletsPresent": true,
+        "contextResolved": true,
+        "previousCapacity": 26,
+        "currentCapacity": 26
+      },
+      {
+        "heroId": 25,
+        "tick": 200952,
+        "effectContextId": "weapon-context-98",
+        "logicalGain": 9,
+        "grossRestorationIfOneShotConsumed": 10,
+        "pairState": "ETHEREAL_BULLETS_ONLY",
+        "quickSilverPresent": false,
+        "etherealBulletsPresent": true,
+        "contextResolved": true,
+        "previousCapacity": 43,
+        "currentCapacity": 43
+      }
+    ],
+    "quickSilver": 4,
+    "etherealBullets": 4,
+    "both": 0,
+    "neither": 0,
+    "xor": 8
+  },
+  "diagnostic": {
+    "eventCount": 8,
+    "pairCoverage": {
+      "quickSilverOnly": 4,
+      "etherealBulletsOnly": 4,
+      "both": 0,
+      "neither": 0,
+      "xor": 8,
+      "exactPartition": true
+    },
+    "heroSupport": {
+      "quickSilver": [
+        25,
+        18,
+        4
+      ],
+      "etherealBullets": [
+        25,
+        4
+      ]
+    },
+    "exposureRows": [
+      {
+        "heroId": 1,
+        "pairState": "NEITHER",
+        "attacks": 6845,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 2,
+        "pairState": "NEITHER",
+        "attacks": 4853,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 4,
+        "pairState": "NEITHER",
+        "attacks": 449,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 4,
+        "pairState": "QUICK_SILVER_ONLY",
+        "attacks": 672,
+        "restorations": 2,
+        "restorationRate": 0.002976190476190476
+      },
+      {
+        "heroId": 4,
+        "pairState": "ETHEREAL_BULLETS_ONLY",
+        "attacks": 679,
+        "restorations": 1,
+        "restorationRate": 0.0014727540500736377
+      },
+      {
+        "heroId": 18,
+        "pairState": "NEITHER",
+        "attacks": 333,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 18,
+        "pairState": "QUICK_SILVER_ONLY",
+        "attacks": 1904,
+        "restorations": 1,
+        "restorationRate": 0.0005252100840336134
+      },
+      {
+        "heroId": 25,
+        "pairState": "NEITHER",
+        "attacks": 573,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 25,
+        "pairState": "QUICK_SILVER_ONLY",
+        "attacks": 1089,
+        "restorations": 1,
+        "restorationRate": 0.0009182736455463728
+      },
+      {
+        "heroId": 25,
+        "pairState": "ETHEREAL_BULLETS_ONLY",
+        "attacks": 2813,
+        "restorations": 3,
+        "restorationRate": 0.001066477070742979
+      },
+      {
+        "heroId": 31,
+        "pairState": "NEITHER",
+        "attacks": 875,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 31,
+        "pairState": "QUICK_SILVER_ONLY",
+        "attacks": 998,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 50,
+        "pairState": "NEITHER",
+        "attacks": 588,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 52,
+        "pairState": "NEITHER",
+        "attacks": 1587,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 52,
+        "pairState": "QUICK_SILVER_ONLY",
+        "attacks": 37,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 58,
+        "pairState": "NEITHER",
+        "attacks": 4262,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 58,
+        "pairState": "ETHEREAL_BULLETS_ONLY",
+        "attacks": 5582,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 69,
+        "pairState": "NEITHER",
+        "attacks": 932,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 77,
+        "pairState": "NEITHER",
+        "attacks": 1312,
+        "restorations": 0,
+        "restorationRate": 0
+      },
+      {
+        "heroId": 79,
+        "pairState": "NEITHER",
+        "attacks": 1931,
+        "restorations": 0,
+        "restorationRate": 0
+      }
+    ],
+    "staticMechanismEvidence": {
+      "quickSilver": [
+        {
+          "path": "$.items[129]",
+          "recordKey": "upgrade_quick_silver",
+          "relevantScalars": [
+            {
+              "path": "$.items[129].directProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[129].directProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[129].directProvidedStats[1].providedPropertyType",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[129].directProvidedStats[1].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[129].directProvidedStats[2].providedPropertyType",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[129].directProvidedStats[2].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[129].meaningfulDirectProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[129].meaningfulDirectProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[129].zeroOrEmptyDirectProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[129].zeroOrEmptyDirectProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[129].zeroOrEmptyDirectProvidedStats[1].providedPropertyType",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[129].zeroOrEmptyDirectProvidedStats[1].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[129].recordModifierTokens[0]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[129].recordModifierTokens[1]",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[129].recordModifierTokens[2]",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[129].nestedModifierClasses[0]",
+              "value": "modifier_quick_silver_buff"
+            },
+            {
+              "path": "$.items[129].nestedModifierClasses[1]",
+              "value": "modifier_quick_silver_watcher"
+            },
+            {
+              "path": "$.items[129].modifierBearingFieldNames[0]",
+              "value": "m_AutoIntrinsicModifiers"
+            },
+            {
+              "path": "$.items[129].modifierBearingFieldNames[1]",
+              "value": "m_BuffModifier"
+            },
+            {
+              "path": "$.items[129].weaponStateRelevant.directProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[129].weaponStateRelevant.directProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[129].weaponStateRelevant.operation.directProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[129].weaponStateRelevant.operation.directProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[129].weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly[0]",
+              "value": "AbilityCastRange"
+            },
+            {
+              "path": "$.items[129].weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly[1]",
+              "value": "AmmoReloadPercent"
+            },
+            {
+              "path": "$.items[129].timingFieldNames[0]",
+              "value": "AbilityCastDelay"
+            },
+            {
+              "path": "$.items[129].timingFieldNames[1]",
+              "value": "AbilityChannelTime"
+            },
+            {
+              "path": "$.items[129].timingFieldNames[2]",
+              "value": "AbilityChargeUpTime"
+            },
+            {
+              "path": "$.items[129].timingFieldNames[3]",
+              "value": "AbilityCooldown"
+            },
+            {
+              "path": "$.items[129].timingFieldNames[4]",
+              "value": "AbilityCooldownBetweenCharge"
+            },
+            {
+              "path": "$.items[129].timingFieldNames[5]",
+              "value": "AbilityDuration"
+            },
+            {
+              "path": "$.items[129].timingFieldNames[6]",
+              "value": "AbilityPostCastDuration"
+            },
+            {
+              "path": "$.items[129].timingFieldNames[8]",
+              "value": "BuffDuration"
+            },
+            {
+              "path": "$.items[129].timingFieldNames[9]",
+              "value": "m_bShouldApplyAbilityCooldown"
+            },
+            {
+              "path": "$.items[129].targetingFieldNames[0]",
+              "value": "AbilityCastRange"
+            },
+            {
+              "path": "$.items[129].targetingFieldNames[1]",
+              "value": "AbilityUnitTargetLimit"
+            },
+            {
+              "path": "$.items[129].targetingFieldNames[2]",
+              "value": "m_TargetAbilityEffectsToApply"
+            },
+            {
+              "path": "$.items[129].targetingFieldNames[3]",
+              "value": "m_eAbilityTargetingLocation"
+            },
+            {
+              "path": "$.items[129].targetingFieldNames[4]",
+              "value": "m_nAbilityTargetTypes"
+            },
+            {
+              "path": "$.items[129].selectedTopLevelMetadata.m_eAbilityType",
+              "value": "EAbilityType_Item"
+            },
+            {
+              "path": "$.items[129].selectedTopLevelMetadata.m_AbilityBehaviorsBits",
+              "value": "CITADEL_ABILITY_BEHAVIOR_NO_TARGET"
+            },
+            {
+              "path": "$.items[129].selectedTopLevelMetadata.m_nAbilityTargetTypes",
+              "value": "CITADEL_UNIT_TARGET_ALL_ENEMY"
+            },
+            {
+              "path": "$.items[129].selectedTopLevelMetadata.m_strShopIconLarge",
+              "value": "panorama:\"file://{images}/items/spirit/quicksilver_reload.psd\""
+            },
+            {
+              "path": "$.items[129].interpretation.nonDirectModifierTokens",
+              "value": "CONDITIONAL_PASSIVE_ACTIVE_PROC_AURA_OR_INTERNAL_SEMANTICS_UNRESOLVED"
+            }
+          ]
+        }
+      ],
+      "etherealBullets": [
+        {
+          "path": "$.items[130]",
+          "recordKey": "upgrade_ethereal_bullets",
+          "relevantScalars": [
+            {
+              "path": "$.items[130].directProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[130].directProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[130].directProvidedStats[1].providedPropertyType",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[130].directProvidedStats[1].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[130].directProvidedStats[2].providedPropertyType",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[130].directProvidedStats[2].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[130].directProvidedStats[3].propertyKey",
+              "value": "BonusClipSizePercent"
+            },
+            {
+              "path": "$.items[130].directProvidedStats[3].providedPropertyType",
+              "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            },
+            {
+              "path": "$.items[130].directProvidedStats[3].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            },
+            {
+              "path": "$.items[130].meaningfulDirectProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[130].meaningfulDirectProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[130].meaningfulDirectProvidedStats[1].providedPropertyType",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[130].meaningfulDirectProvidedStats[1].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[130].meaningfulDirectProvidedStats[2].propertyKey",
+              "value": "BonusClipSizePercent"
+            },
+            {
+              "path": "$.items[130].meaningfulDirectProvidedStats[2].providedPropertyType",
+              "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            },
+            {
+              "path": "$.items[130].meaningfulDirectProvidedStats[2].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            },
+            {
+              "path": "$.items[130].zeroOrEmptyDirectProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[130].zeroOrEmptyDirectProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[130].recordModifierTokens[0]",
+              "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            },
+            {
+              "path": "$.items[130].recordModifierTokens[1]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[130].recordModifierTokens[2]",
+              "value": "MODIFIER_VALUE_TECH_POWER"
+            },
+            {
+              "path": "$.items[130].recordModifierTokens[3]",
+              "value": "MODIFIER_VALUE_WEAPON_POWER"
+            },
+            {
+              "path": "$.items[130].nestedModifierClasses[0]",
+              "value": "modifier_ethereal_bullets_buff"
+            },
+            {
+              "path": "$.items[130].nestedModifierClasses[1]",
+              "value": "modifier_ethereal_bullets_bullet_buff"
+            },
+            {
+              "path": "$.items[130].nestedModifierClasses[2]",
+              "value": "modifier_ethereal_bullets_watcher"
+            },
+            {
+              "path": "$.items[130].nestedModifierClasses[3]",
+              "value": "modifier_intrinsic_base"
+            },
+            {
+              "path": "$.items[130].modifierBearingFieldNames[0]",
+              "value": "m_AutoIntrinsicModifiers"
+            },
+            {
+              "path": "$.items[130].modifierBearingFieldNames[1]",
+              "value": "m_BuffModifier"
+            },
+            {
+              "path": "$.items[130].modifierBearingFieldNames[2]",
+              "value": "m_BulletDamageBuffModifier"
+            },
+            {
+              "path": "$.items[130].modifierBearingFieldNames[3]",
+              "value": "m_vecAutoRegisterModifierValueFromAbilityPropertyName"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.directProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.directProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.directProvidedStats[1].propertyKey",
+              "value": "BonusClipSizePercent"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.directProvidedStats[1].providedPropertyType",
+              "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.directProvidedStats[1].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.operation.directProvidedStats[0].providedPropertyType",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.operation.directProvidedStats[0].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_FIRE_RATE"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.operation.directProvidedStats[1].propertyKey",
+              "value": "BonusClipSizePercent"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.operation.directProvidedStats[1].providedPropertyType",
+              "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.operation.directProvidedStats[1].modifierValueTokens[0]",
+              "value": "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly[0]",
+              "value": "AbilityCastRange"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly[1]",
+              "value": "AmmoReloadPercent"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly[2]",
+              "value": "BonusClipSizePercent"
+            },
+            {
+              "path": "$.items[130].weaponStateRelevant.genericRecordFieldNamesDiagnosticOnly[6]",
+              "value": "m_BulletDamageBuffModifier"
+            },
+            {
+              "path": "$.items[130].timingFieldNames[0]",
+              "value": "AbilityCastDelay"
+            },
+            {
+              "path": "$.items[130].timingFieldNames[1]",
+              "value": "AbilityChannelTime"
+            },
+            {
+              "path": "$.items[130].timingFieldNames[2]",
+              "value": "AbilityChargeUpTime"
+            },
+            {
+              "path": "$.items[130].timingFieldNames[3]",
+              "value": "AbilityCooldown"
+            },
+            {
+              "path": "$.items[130].timingFieldNames[4]",
+              "value": "AbilityCooldownBetweenCharge"
+            },
+            {
+              "path": "$.items[130].timingFieldNames[5]",
+              "value": "AbilityDuration"
+            },
+            {
+              "path": "$.items[130].timingFieldNames[6]",
+              "value": "AbilityPostCastDuration"
+            },
+            {
+              "path": "$.items[130].timingFieldNames[8]",
+              "value": "BuffDuration"
+            },
+            {
+              "path": "$.items[130].timingFieldNames[9]",
+              "value": "m_bShouldApplyAbilityCooldown"
+            },
+            {
+              "path": "$.items[130].targetingFieldNames[0]",
+              "value": "AbilityCastRange"
+            },
+            {
+              "path": "$.items[130].targetingFieldNames[1]",
+              "value": "AbilityUnitTargetLimit"
+            },
+            {
+              "path": "$.items[130].targetingFieldNames[2]",
+              "value": "m_TargetAbilityEffectsToApply"
+            },
+            {
+              "path": "$.items[130].targetingFieldNames[3]",
+              "value": "m_eAbilityTargetingLocation"
+            },
+            {
+              "path": "$.items[130].targetingFieldNames[4]",
+              "value": "m_nAbilityTargetTypes"
+            },
+            {
+              "path": "$.items[130].selectedTopLevelMetadata.m_eAbilityType",
+              "value": "EAbilityType_Item"
+            },
+            {
+              "path": "$.items[130].selectedTopLevelMetadata.m_AbilityBehaviorsBits",
+              "value": "CITADEL_ABILITY_BEHAVIOR_NO_TARGET"
+            },
+            {
+              "path": "$.items[130].selectedTopLevelMetadata.m_nAbilityTargetTypes",
+              "value": "CITADEL_UNIT_TARGET_ALL_ENEMY"
+            },
+            {
+              "path": "$.items[130].interpretation.nonDirectModifierTokens",
+              "value": "CONDITIONAL_PASSIVE_ACTIVE_PROC_AURA_OR_INTERNAL_SEMANTICS_UNRESOLVED"
+            }
+          ]
+        }
+      ]
+    },
+    "classification": "QUICK_SILVER_AND_ETHEREAL_BULLETS_EXACTLY_PARTITION_ALL_EIGHT_TEST_RESTORATIONS"
+  },
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script198V03Ready": {
+        "actual": "AMMO_FRACTION_COHERENCE_DIAGNOSTIC_V03_READY_FOR_INTERPRETATION",
+        "expected": "AMMO_FRACTION_COHERENCE_DIAGNOSTIC_V03_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script199V02Ready": {
+        "actual": "AMMO_RESTORATION_CONTEXT_DISCOVERY_V02_READY_FOR_INTERPRETATION",
+        "expected": "AMMO_RESTORATION_CONTEXT_DISCOVERY_V02_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script200V02Ready": {
+        "actual": "AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V02_READY_FOR_INTERPRETATION",
+        "expected": "AMMO_RESTORATION_ITEM_ENRICHMENT_DIAGNOSTIC_V02_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "eightRestorationEventsFrozen": {
+        "actual": 8,
+        "expected": 8,
+        "pass": true
+      },
+      "allContextsResolved": {
+        "actual": 8,
+        "expected": 8,
+        "pass": true
+      },
+      "exactXorPartition": {
+        "actual": {
+          "xor": 8,
+          "both": 0,
+          "neither": 0
+        },
+        "expected": {
+          "xor": 8,
+          "both": 0,
+          "neither": 0
+        },
+        "pass": true
+      },
+      "quickSilverCount": {
+        "actual": 4,
+        "expected": 4,
+        "pass": true
+      },
+      "etherealBulletsCount": {
+        "actual": 4,
+        "expected": 4,
+        "pass": true
+      },
+      "quickSilverStaticEffectResolved": {
+        "actual": 1,
+        "expected": ">0",
+        "pass": true
+      },
+      "etherealStaticEffectResolved": {
+        "actual": 1,
+        "expected": ">0",
+        "pass": true
+      },
+      "runtimeParseClean": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "testReplayOnly": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "STRONG_TEST_ONLY_HYPOTHESIS_SUPPORT",
+    "authorityPromotion": false,
+    "replicationStatus": "discovery_calibration_only"
+  },
+  "nextStep": "CHARACTERIZE_EACH_ITEM_TRIGGER_AND_AMMO_RELOAD_PERCENT_VALUE_ON_TEST;_THEN_FREEZE_EVENT_LEVEL_MAGNITUDE_PREDICTIONS_BEFORE_NEW_INDEPENDENT_REPLAYS"
+}

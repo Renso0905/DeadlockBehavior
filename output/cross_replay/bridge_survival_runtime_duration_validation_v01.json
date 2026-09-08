@@ -1,0 +1,2358 @@
+{
+  "version": "BRIDGE_SURVIVAL_RUNTIME_DURATION_VALIDATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T15:49:08.542Z",
+  "status": "BRIDGE_SURVIVAL_RUNTIME_DURATION_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+  "discoveryReplayExcluded": "test",
+  "foundations": {
+    "bridgeResourceClaim": "bridge_powerup_resource_contract",
+    "runtimeBridgeClaimCurrentStatus": "missing",
+    "worldCollectionReplicationArtifact": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_world_collection_cross_replay_replication_v01.json",
+    "resourceContractArtifact": "G:\\DeadlockBehavior\\output\\cross_replay\\world_stat_buff_resource_contract_v02.json"
+  },
+  "frozenValidationDesign": {
+    "recordKey": "survival_powerup_pickup",
+    "collectionMaxDistanceHU": 300,
+    "durationSeconds": 160,
+    "durationTicks": 10240,
+    "acquisitionHalfWindowTicks": 16,
+    "expirationHalfWindowTicks": 16,
+    "placeboOffsetsSeconds": [
+      120,
+      200
+    ],
+    "primaryField": "CCitadelPlayerController.m_iHealthMax",
+    "supportiveField": "CCitadelPlayerController.m_flHealthRegen",
+    "primaryInvariant": "Positive MaxHP delta at collection and equal-magnitude negative delta at natural +160s expiration; absolute baseline may drift between events.",
+    "deathPolicy": "Death-before-160s anchors excluded from natural-expiration gate and analyzed separately."
+  },
+  "staticSurvivalContract": {
+    "durationSeconds": 160,
+    "healthMax": {
+      "modifierValue": "MODIFIER_VALUE_HEALTH_MAX",
+      "valueMin": 200,
+      "valueMax": 750
+    },
+    "healthRegen": {
+      "modifierValue": "MODIFIER_VALUE_HEALTH_REGEN_PER_SECOND",
+      "valueMin": 4,
+      "valueMax": 40
+    }
+  },
+  "aggregate": {
+    "independentReplays": 5,
+    "processesCompleted": 5,
+    "replaysWithNaturalEvidence": 4,
+    "totalSurvivalAnchors": 20,
+    "naturalExpirationEligible": 12,
+    "deathConfounded": 7,
+    "censored": 1,
+    "healthMax": {
+      "acquisitionPositive": 12,
+      "expirationNegative": 11,
+      "symmetric": 11,
+      "acquisitionInResourceRange": 12,
+      "placeboNegative": 1,
+      "acquisitionPositiveRate": 1,
+      "expirationNegativeRate": 0.9166666666666666,
+      "symmetryRate": 0.9166666666666666,
+      "rangeRate": 1,
+      "placeboNegativeRate": 0.08333333333333333,
+      "medianAcquisitionTimingErrorSeconds": 0.0390625,
+      "medianExpirationTimingErrorSeconds": 0.046875,
+      "observedAcquisitionDeltas": [
+        373,
+        530,
+        687,
+        215,
+        451,
+        687,
+        310,
+        372,
+        608,
+        294,
+        373,
+        688
+      ],
+      "observedExpirationDeltas": [
+        -373,
+        -530,
+        -216,
+        -451,
+        -687,
+        -310,
+        -373,
+        -609,
+        -294,
+        -373,
+        -687
+      ]
+    },
+    "healthRegen": {
+      "acquisitionPositive": 12,
+      "expirationNegative": 11,
+      "symmetric": 11,
+      "acquisitionPositiveRate": 1,
+      "expirationNegativeRate": 0.9166666666666666,
+      "symmetryRate": 0.9166666666666666
+    },
+    "deathBehavior": {
+      "anchors": 7,
+      "healthMaxNegativeNearDeath": 7,
+      "healthMaxNegativeNearDeathRate": 1,
+      "healthMaxSymmetricToAcquisitionAtDeath": 7,
+      "healthMaxSymmetricToAcquisitionAtDeathRate": 1,
+      "interpretation": "DESCRIPTIVE_ONLY_IN_V01"
+    }
+  },
+  "replays": [
+    {
+      "replayName": "rep01",
+      "processOk": true,
+      "survivalAnchors": 4,
+      "naturalExpirationEligible": 3,
+      "deathConfounded": 1,
+      "censored": 0,
+      "healthMax": {
+        "acquisitionPositive": 3,
+        "expirationNegative": 2,
+        "symmetric": 2,
+        "acquisitionInResourceRange": 3,
+        "placeboNegative": 0,
+        "acquisitionPositiveRate": 1,
+        "expirationNegativeRate": 0.6666666666666666,
+        "symmetryRate": 0.6666666666666666,
+        "rangeRate": 1,
+        "placeboNegativeRate": 0,
+        "medianExpirationTimingErrorSeconds": 0.0625
+      },
+      "healthRegen": {
+        "acquisitionPositive": 3,
+        "expirationNegative": 2,
+        "symmetric": 2,
+        "acquisitionPositiveRate": 1,
+        "expirationNegativeRate": 0.6666666666666666,
+        "symmetryRate": 0.6666666666666666
+      },
+      "deathBehavior": {
+        "anchors": 1,
+        "healthMaxNegativeNearDeath": 1,
+        "healthMaxNegativeNearDeathRate": 1,
+        "healthMaxSymmetricToAcquisitionAtDeath": 1,
+        "healthMaxSymmetricToAcquisitionAtDeathRate": 1,
+        "interpretation": "DESCRIPTIVE_ONLY_IN_V01"
+      },
+      "anchors": [
+        {
+          "anchorId": 0,
+          "replayName": "rep01",
+          "pickupTick": 44156,
+          "expectedExpirationTick": 54396,
+          "matchTimeSeconds": 659.9375,
+          "matchClock": "10:59.938",
+          "playerName": "renso",
+          "steamId": "76561198107069146",
+          "heroId": 35,
+          "controllerIndex": 3,
+          "collectorDistanceHU": 79.68955266964109,
+          "spawnerIndex": 406,
+          "replayEndTick": 151775,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": true,
+          "deathTick": 54069,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 3,
+              "field": "m_iHealthMax",
+              "tick": 44157,
+              "before": 1290,
+              "after": 1584,
+              "delta": 294,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 3,
+              "field": "m_iHealthMax",
+              "tick": 54069,
+              "before": 1784,
+              "after": 1490,
+              "delta": -294,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 3,
+              "field": "m_flHealthRegen",
+              "tick": 44157,
+              "before": 2,
+              "after": 12.170000076293945,
+              "delta": 10.170000076293945,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 3,
+              "field": "m_flHealthRegen",
+              "tick": 54069,
+              "before": 12.170000076293945,
+              "after": 2,
+              "delta": -10.170000076293945,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 1,
+          "replayName": "rep01",
+          "pickupTick": 63512,
+          "expectedExpirationTick": 73752,
+          "matchTimeSeconds": 962.375,
+          "matchClock": "16:02.375",
+          "playerName": "Nebula",
+          "steamId": "76561198200463289",
+          "heroId": 14,
+          "controllerIndex": 13,
+          "collectorDistanceHU": 90.28241280836485,
+          "spawnerIndex": 406,
+          "replayEndTick": 151775,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 13,
+              "field": "m_iHealthMax",
+              "tick": 63515,
+              "before": 1845,
+              "after": 2218,
+              "delta": 373,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": {
+              "controllerIndex": 13,
+              "field": "m_iHealthMax",
+              "tick": 73757,
+              "before": 2352,
+              "after": 1979,
+              "delta": -373,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 13,
+              "field": "m_flHealthRegen",
+              "tick": 63515,
+              "before": 2,
+              "after": 17.310001373291016,
+              "delta": 15.310001373291016,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": {
+              "controllerIndex": 13,
+              "field": "m_flHealthRegen",
+              "tick": 73757,
+              "before": 17.310001373291016,
+              "after": 2,
+              "delta": -15.310001373291016,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 2,
+          "replayName": "rep01",
+          "pickupTick": 103145,
+          "expectedExpirationTick": 113385,
+          "matchTimeSeconds": 1581.640625,
+          "matchClock": "26:21.641",
+          "playerName": "Zaeleth",
+          "steamId": "76561198079477113",
+          "heroId": 64,
+          "controllerIndex": 2,
+          "collectorDistanceHU": 79.1133853047321,
+          "spawnerIndex": 407,
+          "replayEndTick": 151775,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 103146,
+              "before": 2914,
+              "after": 3444,
+              "delta": 530,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 113388,
+              "before": 3663,
+              "after": 3133,
+              "delta": -530,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 103146,
+              "before": 5.5,
+              "after": 31.100000381469727,
+              "delta": 25.600000381469727,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 113388,
+              "before": 31.100000381469727,
+              "after": 5.5,
+              "delta": -25.600000381469727,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 3,
+          "replayName": "rep01",
+          "pickupTick": 141428,
+          "expectedExpirationTick": 151668,
+          "matchTimeSeconds": 2179.8125,
+          "matchClock": "36:19.813",
+          "playerName": "Kabuto",
+          "steamId": "76561198796221441",
+          "heroId": 25,
+          "controllerIndex": 6,
+          "collectorDistanceHU": 51.6596527917339,
+          "spawnerIndex": 407,
+          "replayEndTick": 151775,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 6,
+              "field": "m_iHealthMax",
+              "tick": 141430,
+              "before": 4538,
+              "after": 5225,
+              "delta": 687,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "expiration": null,
+            "death": null,
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 6,
+              "field": "m_flHealthRegen",
+              "tick": 141430,
+              "before": 11,
+              "after": 46.880001068115234,
+              "delta": 35.880001068115234,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "expiration": null,
+            "death": null,
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        }
+      ],
+      "semanticPass": false
+    },
+    {
+      "replayName": "rep02",
+      "processOk": true,
+      "survivalAnchors": 4,
+      "naturalExpirationEligible": 3,
+      "deathConfounded": 1,
+      "censored": 0,
+      "healthMax": {
+        "acquisitionPositive": 3,
+        "expirationNegative": 3,
+        "symmetric": 3,
+        "acquisitionInResourceRange": 3,
+        "placeboNegative": 0,
+        "acquisitionPositiveRate": 1,
+        "expirationNegativeRate": 1,
+        "symmetryRate": 1,
+        "rangeRate": 1,
+        "placeboNegativeRate": 0,
+        "medianExpirationTimingErrorSeconds": 0.046875
+      },
+      "healthRegen": {
+        "acquisitionPositive": 3,
+        "expirationNegative": 3,
+        "symmetric": 3,
+        "acquisitionPositiveRate": 1,
+        "expirationNegativeRate": 1,
+        "symmetryRate": 1
+      },
+      "deathBehavior": {
+        "anchors": 1,
+        "healthMaxNegativeNearDeath": 1,
+        "healthMaxNegativeNearDeathRate": 1,
+        "healthMaxSymmetricToAcquisitionAtDeath": 1,
+        "healthMaxSymmetricToAcquisitionAtDeathRate": 1,
+        "interpretation": "DESCRIPTIVE_ONLY_IN_V01"
+      },
+      "anchors": [
+        {
+          "anchorId": 0,
+          "replayName": "rep02",
+          "pickupTick": 21732,
+          "expectedExpirationTick": 31972,
+          "matchTimeSeconds": 309.5625,
+          "matchClock": "5:09.563",
+          "playerName": "Rupa",
+          "steamId": "76561198405983351",
+          "heroId": 76,
+          "controllerIndex": 3,
+          "collectorDistanceHU": 112.89615146507431,
+          "spawnerIndex": 413,
+          "replayEndTick": 151866,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 3,
+              "field": "m_iHealthMax",
+              "tick": 21735,
+              "before": 940,
+              "after": 1155,
+              "delta": 215,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": {
+              "controllerIndex": 3,
+              "field": "m_iHealthMax",
+              "tick": 31977,
+              "before": 1397,
+              "after": 1181,
+              "delta": -216,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 1,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 3,
+              "field": "m_flHealthRegen",
+              "tick": 21735,
+              "before": 2,
+              "after": 7.019999980926514,
+              "delta": 5.019999980926514,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": {
+              "controllerIndex": 3,
+              "field": "m_flHealthRegen",
+              "tick": 31977,
+              "before": 6.019999980926514,
+              "after": 1,
+              "delta": -5.019999980926514,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 1,
+          "replayName": "rep02",
+          "pickupTick": 80331,
+          "expectedExpirationTick": 90571,
+          "matchTimeSeconds": 1225.171875,
+          "matchClock": "20:25.172",
+          "playerName": "renso",
+          "steamId": "76561198107069146",
+          "heroId": 35,
+          "controllerIndex": 7,
+          "collectorDistanceHU": 77.94016259485542,
+          "spawnerIndex": 413,
+          "replayEndTick": 151866,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 80332,
+              "before": 2448,
+              "after": 2899,
+              "delta": 451,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 90574,
+              "before": 3007,
+              "after": 2556,
+              "delta": -451,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 80332,
+              "before": 4,
+              "after": 24.450000762939453,
+              "delta": 20.450000762939453,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 90574,
+              "before": 24.450000762939453,
+              "after": 4,
+              "delta": -20.450000762939453,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 2,
+          "replayName": "rep02",
+          "pickupTick": 99261,
+          "expectedExpirationTick": 109501,
+          "matchTimeSeconds": 1520.953125,
+          "matchClock": "25:20.953",
+          "playerName": "renso",
+          "steamId": "76561198107069146",
+          "heroId": 35,
+          "controllerIndex": 7,
+          "collectorDistanceHU": 145.65242164031295,
+          "spawnerIndex": 413,
+          "replayEndTick": 151866,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": true,
+          "deathTick": 104632,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 99262,
+              "before": 2685,
+              "after": 3215,
+              "delta": 530,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 104632,
+              "before": 3269,
+              "after": 2739,
+              "delta": -530,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 99262,
+              "before": 8,
+              "after": 33.599998474121094,
+              "delta": 25.599998474121094,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 104632,
+              "before": 27.600000381469727,
+              "after": 2,
+              "delta": -25.600000381469727,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 3,
+          "replayName": "rep02",
+          "pickupTick": 136935,
+          "expectedExpirationTick": 147175,
+          "matchTimeSeconds": 2109.609375,
+          "matchClock": "35:09.609",
+          "playerName": "Wild Willy",
+          "steamId": "76561197966910759",
+          "heroId": 67,
+          "controllerIndex": 12,
+          "collectorDistanceHU": 123.1947652918439,
+          "spawnerIndex": 412,
+          "replayEndTick": 151866,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 12,
+              "field": "m_iHealthMax",
+              "tick": 136936,
+              "before": 2856,
+              "after": 3543,
+              "delta": 687,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": {
+              "controllerIndex": 12,
+              "field": "m_iHealthMax",
+              "tick": 147178,
+              "before": 3588,
+              "after": 2901,
+              "delta": -687,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 12,
+              "field": "m_flHealthRegen",
+              "tick": 136936,
+              "before": 20,
+              "after": 55.880001068115234,
+              "delta": 35.880001068115234,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": {
+              "controllerIndex": 12,
+              "field": "m_flHealthRegen",
+              "tick": 147178,
+              "before": 55.880001068115234,
+              "after": 20,
+              "delta": -35.880001068115234,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        }
+      ],
+      "semanticPass": true
+    },
+    {
+      "replayName": "rep03",
+      "processOk": true,
+      "survivalAnchors": 5,
+      "naturalExpirationEligible": 3,
+      "deathConfounded": 1,
+      "censored": 1,
+      "healthMax": {
+        "acquisitionPositive": 3,
+        "expirationNegative": 3,
+        "symmetric": 3,
+        "acquisitionInResourceRange": 3,
+        "placeboNegative": 0,
+        "acquisitionPositiveRate": 1,
+        "expirationNegativeRate": 1,
+        "symmetryRate": 1,
+        "rangeRate": 1,
+        "placeboNegativeRate": 0,
+        "medianExpirationTimingErrorSeconds": 0.046875
+      },
+      "healthRegen": {
+        "acquisitionPositive": 3,
+        "expirationNegative": 3,
+        "symmetric": 3,
+        "acquisitionPositiveRate": 1,
+        "expirationNegativeRate": 1,
+        "symmetryRate": 1
+      },
+      "deathBehavior": {
+        "anchors": 1,
+        "healthMaxNegativeNearDeath": 1,
+        "healthMaxNegativeNearDeathRate": 1,
+        "healthMaxSymmetricToAcquisitionAtDeath": 1,
+        "healthMaxSymmetricToAcquisitionAtDeathRate": 1,
+        "interpretation": "DESCRIPTIVE_ONLY_IN_V01"
+      },
+      "anchors": [
+        {
+          "anchorId": 0,
+          "replayName": "rep03",
+          "pickupTick": 43732,
+          "expectedExpirationTick": 53972,
+          "matchTimeSeconds": 653.3125,
+          "matchClock": "10:53.313",
+          "playerName": "renso",
+          "steamId": "76561198107069146",
+          "heroId": 35,
+          "controllerIndex": 7,
+          "collectorDistanceHU": 148.76117998952213,
+          "spawnerIndex": 410,
+          "replayEndTick": 215010,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 43737,
+              "before": 1518,
+              "after": 1828,
+              "delta": 310,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "expiration": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 53973,
+              "before": 2434,
+              "after": 2124,
+              "delta": -310,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 43737,
+              "before": 4,
+              "after": 15.199999809265137,
+              "delta": 11.199999809265137,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "expiration": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 53973,
+              "before": 15.199999809265137,
+              "after": 4,
+              "delta": -11.199999809265137,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 1,
+          "replayName": "rep03",
+          "pickupTick": 60905,
+          "expectedExpirationTick": 71145,
+          "matchTimeSeconds": 921.640625,
+          "matchClock": "15:21.641",
+          "playerName": "4rM4D1110",
+          "steamId": "76561199670727770",
+          "heroId": 58,
+          "controllerIndex": 11,
+          "collectorDistanceHU": 158.68563225072552,
+          "spawnerIndex": 410,
+          "replayEndTick": 215010,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 11,
+              "field": "m_iHealthMax",
+              "tick": 60907,
+              "before": 1587,
+              "after": 1959,
+              "delta": 372,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "expiration": {
+              "controllerIndex": 11,
+              "field": "m_iHealthMax",
+              "tick": 71149,
+              "before": 2038,
+              "after": 1665,
+              "delta": -373,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 1,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 11,
+              "field": "m_flHealthRegen",
+              "tick": 60907,
+              "before": 19.40250015258789,
+              "after": 34.712501525878906,
+              "delta": 15.310001373291016,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "expiration": {
+              "controllerIndex": 11,
+              "field": "m_flHealthRegen",
+              "tick": 71149,
+              "before": 20.310001373291016,
+              "after": 5,
+              "delta": -15.310001373291016,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 2,
+          "replayName": "rep03",
+          "pickupTick": 117699,
+          "expectedExpirationTick": 127939,
+          "matchTimeSeconds": 1809.046875,
+          "matchClock": "30:09.047",
+          "playerName": "MiggyTCD",
+          "steamId": "76561199208301420",
+          "heroId": 65,
+          "controllerIndex": 4,
+          "collectorDistanceHU": 97.65789498614538,
+          "spawnerIndex": 409,
+          "replayEndTick": 215010,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 117700,
+              "before": 3950,
+              "after": 4558,
+              "delta": 608,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 127942,
+              "before": 4594,
+              "after": 3985,
+              "delta": -609,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 1,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 117700,
+              "before": 11.5,
+              "after": 42.23999786376953,
+              "delta": 30.73999786376953,
+              "dtTicks": 1,
+              "dtSeconds": 0.015625
+            },
+            "expiration": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 127942,
+              "before": 42.23999786376953,
+              "after": 11.5,
+              "delta": -30.73999786376953,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 3,
+          "replayName": "rep03",
+          "pickupTick": 160359,
+          "expectedExpirationTick": 170599,
+          "matchTimeSeconds": 2475.609375,
+          "matchClock": "41:15.609",
+          "playerName": "renso",
+          "steamId": "76561198107069146",
+          "heroId": 35,
+          "controllerIndex": 7,
+          "collectorDistanceHU": 127.80346086618702,
+          "spawnerIndex": 410,
+          "replayEndTick": 215010,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": true,
+          "deathTick": 166938,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 160362,
+              "before": 3919,
+              "after": 4669,
+              "delta": 750,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 7,
+              "field": "m_iHealthMax",
+              "tick": 166938,
+              "before": 4669,
+              "after": 3919,
+              "delta": -750,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 160362,
+              "before": 12,
+              "after": 52,
+              "delta": 40,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 7,
+              "field": "m_flHealthRegen",
+              "tick": 166938,
+              "before": 27.299999237060547,
+              "after": 2,
+              "delta": -25.299999237060547,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 4,
+          "replayName": "rep03",
+          "pickupTick": 208390,
+          "expectedExpirationTick": 218630,
+          "matchTimeSeconds": 3226.09375,
+          "matchClock": "53:46.094",
+          "playerName": "jmillay",
+          "steamId": "76561198840286728",
+          "heroId": 31,
+          "controllerIndex": 2,
+          "collectorDistanceHU": 123.85256955095844,
+          "spawnerIndex": 409,
+          "replayEndTick": 215010,
+          "expirationObservable": false,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 208393,
+              "before": 4039,
+              "after": 4789,
+              "delta": 750,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": null,
+            "death": null,
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 208393,
+              "before": 10,
+              "after": 50,
+              "delta": 40,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": null,
+            "death": null,
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        }
+      ],
+      "semanticPass": true
+    },
+    {
+      "replayName": "rep04",
+      "processOk": true,
+      "survivalAnchors": 3,
+      "naturalExpirationEligible": 0,
+      "deathConfounded": 3,
+      "censored": 0,
+      "healthMax": {
+        "acquisitionPositive": 0,
+        "expirationNegative": 0,
+        "symmetric": 0,
+        "acquisitionInResourceRange": 0,
+        "placeboNegative": 0,
+        "acquisitionPositiveRate": null,
+        "expirationNegativeRate": null,
+        "symmetryRate": null,
+        "rangeRate": null,
+        "placeboNegativeRate": null,
+        "medianExpirationTimingErrorSeconds": null
+      },
+      "healthRegen": {
+        "acquisitionPositive": 0,
+        "expirationNegative": 0,
+        "symmetric": 0,
+        "acquisitionPositiveRate": null,
+        "expirationNegativeRate": null,
+        "symmetryRate": null
+      },
+      "deathBehavior": {
+        "anchors": 3,
+        "healthMaxNegativeNearDeath": 3,
+        "healthMaxNegativeNearDeathRate": 1,
+        "healthMaxSymmetricToAcquisitionAtDeath": 3,
+        "healthMaxSymmetricToAcquisitionAtDeathRate": 1,
+        "interpretation": "DESCRIPTIVE_ONLY_IN_V01"
+      },
+      "anchors": [
+        {
+          "anchorId": 0,
+          "replayName": "rep04",
+          "pickupTick": 21306,
+          "expectedExpirationTick": 31546,
+          "matchTimeSeconds": 302.90625,
+          "matchClock": "5:02.906",
+          "playerName": "Normal Canard",
+          "steamId": "76561198852992173",
+          "heroId": 31,
+          "controllerIndex": 3,
+          "collectorDistanceHU": 146.46620637326208,
+          "spawnerIndex": 405,
+          "replayEndTick": 149607,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": true,
+          "deathTick": 24706,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 3,
+              "field": "m_iHealthMax",
+              "tick": 21310,
+              "before": 1060,
+              "after": 1276,
+              "delta": 216,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 3,
+              "field": "m_iHealthMax",
+              "tick": 24706,
+              "before": 1326,
+              "after": 1110,
+              "delta": -216,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 3,
+              "field": "m_flHealthRegen",
+              "tick": 21310,
+              "before": 2,
+              "after": 7.019999980926514,
+              "delta": 5.019999980926514,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 3,
+              "field": "m_flHealthRegen",
+              "tick": 24706,
+              "before": 7.019999980926514,
+              "after": 2,
+              "delta": -5.019999980926514,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 1,
+          "replayName": "rep04",
+          "pickupTick": 59939,
+          "expectedExpirationTick": 70179,
+          "matchTimeSeconds": 906.546875,
+          "matchClock": "15:06.547",
+          "playerName": "butterflyflyhig",
+          "steamId": "76561198086537147",
+          "heroId": 6,
+          "controllerIndex": 5,
+          "collectorDistanceHU": 100.24689248612646,
+          "spawnerIndex": 406,
+          "replayEndTick": 149607,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": true,
+          "deathTick": 62836,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 5,
+              "field": "m_iHealthMax",
+              "tick": 59944,
+              "before": 2558,
+              "after": 2931,
+              "delta": 373,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 5,
+              "field": "m_iHealthMax",
+              "tick": 62836,
+              "before": 2999,
+              "after": 2626,
+              "delta": -373,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 5,
+              "field": "m_flHealthRegen",
+              "tick": 59944,
+              "before": 6.5,
+              "after": 21.810001373291016,
+              "delta": 15.310001373291016,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 5,
+              "field": "m_flHealthRegen",
+              "tick": 62836,
+              "before": 20.810001373291016,
+              "after": 5.5,
+              "delta": -15.310001373291016,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 2,
+          "replayName": "rep04",
+          "pickupTick": 100039,
+          "expectedExpirationTick": 110279,
+          "matchTimeSeconds": 1533.109375,
+          "matchClock": "25:33.109",
+          "playerName": "Queenie Juices",
+          "steamId": "76561199090036683",
+          "heroId": 81,
+          "controllerIndex": 2,
+          "collectorDistanceHU": 159.53226309668526,
+          "spawnerIndex": 405,
+          "replayEndTick": 149607,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": true,
+          "deathTick": 104433,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 100041,
+              "before": 2641,
+              "after": 3171,
+              "delta": 530,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 104433,
+              "before": 3239,
+              "after": 2709,
+              "delta": -530,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 100041,
+              "before": 3,
+              "after": 28.600000381469727,
+              "delta": 25.600000381469727,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 104433,
+              "before": 5.187001705169678,
+              "after": 1,
+              "delta": -4.187001705169678,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        }
+      ],
+      "semanticPass": false
+    },
+    {
+      "replayName": "rep05",
+      "processOk": true,
+      "survivalAnchors": 4,
+      "naturalExpirationEligible": 3,
+      "deathConfounded": 1,
+      "censored": 0,
+      "healthMax": {
+        "acquisitionPositive": 3,
+        "expirationNegative": 3,
+        "symmetric": 3,
+        "acquisitionInResourceRange": 3,
+        "placeboNegative": 1,
+        "acquisitionPositiveRate": 1,
+        "expirationNegativeRate": 1,
+        "symmetryRate": 1,
+        "rangeRate": 1,
+        "placeboNegativeRate": 0.3333333333333333,
+        "medianExpirationTimingErrorSeconds": 0.03125
+      },
+      "healthRegen": {
+        "acquisitionPositive": 3,
+        "expirationNegative": 3,
+        "symmetric": 3,
+        "acquisitionPositiveRate": 1,
+        "expirationNegativeRate": 1,
+        "symmetryRate": 1
+      },
+      "deathBehavior": {
+        "anchors": 1,
+        "healthMaxNegativeNearDeath": 1,
+        "healthMaxNegativeNearDeathRate": 1,
+        "healthMaxSymmetricToAcquisitionAtDeath": 1,
+        "healthMaxSymmetricToAcquisitionAtDeathRate": 1,
+        "interpretation": "DESCRIPTIVE_ONLY_IN_V01"
+      },
+      "anchors": [
+        {
+          "anchorId": 0,
+          "replayName": "rep05",
+          "pickupTick": 41719,
+          "expectedExpirationTick": 51959,
+          "matchTimeSeconds": 621.859375,
+          "matchClock": "10:21.859",
+          "playerName": "ACE_Lazzy",
+          "steamId": "76561199322325405",
+          "heroId": 63,
+          "controllerIndex": 6,
+          "collectorDistanceHU": 135.11200865508772,
+          "spawnerIndex": 405,
+          "replayEndTick": 157918,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 6,
+              "field": "m_iHealthMax",
+              "tick": 41722,
+              "before": 1312,
+              "after": 1606,
+              "delta": 294,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": {
+              "controllerIndex": 6,
+              "field": "m_iHealthMax",
+              "tick": 51964,
+              "before": 1903,
+              "after": 1609,
+              "delta": -294,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 6,
+              "field": "m_flHealthRegen",
+              "tick": 41722,
+              "before": 3.5,
+              "after": 13.670000076293945,
+              "delta": 10.170000076293945,
+              "dtTicks": 3,
+              "dtSeconds": 0.046875
+            },
+            "expiration": {
+              "controllerIndex": 6,
+              "field": "m_flHealthRegen",
+              "tick": 51964,
+              "before": 13.670000076293945,
+              "after": 3.5,
+              "delta": -10.170000076293945,
+              "dtTicks": 5,
+              "dtSeconds": 0.078125
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 1,
+          "replayName": "rep05",
+          "pickupTick": 60443,
+          "expectedExpirationTick": 70683,
+          "matchTimeSeconds": 914.421875,
+          "matchClock": "15:14.422",
+          "playerName": "JustJorsh",
+          "steamId": "76561198123784134",
+          "heroId": 4,
+          "controllerIndex": 8,
+          "collectorDistanceHU": 120.3516738172968,
+          "spawnerIndex": 405,
+          "replayEndTick": 157918,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 8,
+              "field": "m_iHealthMax",
+              "tick": 60447,
+              "before": 2459,
+              "after": 2832,
+              "delta": 373,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "expiration": {
+              "controllerIndex": 8,
+              "field": "m_iHealthMax",
+              "tick": 70683,
+              "before": 2974,
+              "after": 2601,
+              "delta": -373,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 8,
+              "field": "m_flHealthRegen",
+              "tick": 60447,
+              "before": 3,
+              "after": 18.310001373291016,
+              "delta": 15.310001373291016,
+              "dtTicks": 4,
+              "dtSeconds": 0.0625
+            },
+            "expiration": {
+              "controllerIndex": 8,
+              "field": "m_flHealthRegen",
+              "tick": 70683,
+              "before": 23.634002685546875,
+              "after": 8.324000358581543,
+              "delta": -15.310002326965332,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 9.5367431640625e-7,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 2,
+          "replayName": "rep05",
+          "pickupTick": 119378,
+          "expectedExpirationTick": 129618,
+          "matchTimeSeconds": 1835.28125,
+          "matchClock": "30:35.281",
+          "playerName": "Aleister",
+          "steamId": "76561198307535491",
+          "heroId": 50,
+          "controllerIndex": 2,
+          "collectorDistanceHU": 81.4291954226953,
+          "spawnerIndex": 406,
+          "replayEndTick": 157918,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": true,
+          "deathTick": 121010,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 119384,
+              "before": 2572,
+              "after": 3181,
+              "delta": 609,
+              "dtTicks": 6,
+              "dtSeconds": 0.09375
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 2,
+              "field": "m_iHealthMax",
+              "tick": 121010,
+              "before": 3181,
+              "after": 2572,
+              "delta": -609,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 119384,
+              "before": 13.5,
+              "after": 44.23999786376953,
+              "delta": 30.73999786376953,
+              "dtTicks": 6,
+              "dtSeconds": 0.09375
+            },
+            "expiration": null,
+            "death": {
+              "controllerIndex": 2,
+              "field": "m_flHealthRegen",
+              "tick": 121010,
+              "before": 34.73999786376953,
+              "after": 4,
+              "delta": -30.73999786376953,
+              "dtTicks": 0,
+              "dtSeconds": 0
+            },
+            "symmetric": false,
+            "symmetryError": null,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        },
+        {
+          "anchorId": 3,
+          "replayName": "rep05",
+          "pickupTick": 137368,
+          "expectedExpirationTick": 147608,
+          "matchTimeSeconds": 2116.375,
+          "matchClock": "35:16.375",
+          "playerName": "Ghostt",
+          "steamId": "76561198370355602",
+          "heroId": 13,
+          "controllerIndex": 4,
+          "collectorDistanceHU": 29.879935523273808,
+          "spawnerIndex": 406,
+          "replayEndTick": 157918,
+          "expirationObservable": true,
+          "deathBeforeExpectedExpiration": false,
+          "deathTick": null,
+          "healthMax": {
+            "acquisition": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 137374,
+              "before": 3105,
+              "after": 3793,
+              "delta": 688,
+              "dtTicks": 6,
+              "dtSeconds": 0.09375
+            },
+            "expiration": {
+              "controllerIndex": 4,
+              "field": "m_iHealthMax",
+              "tick": 147610,
+              "before": 4294,
+              "after": 3607,
+              "delta": -687,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 1,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              200,
+              750
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": {
+                  "controllerIndex": 4,
+                  "field": "m_iHealthMax",
+                  "tick": 145060,
+                  "before": 3976,
+                  "after": 3843,
+                  "delta": -133,
+                  "dtTicks": 12,
+                  "dtSeconds": 0.1875
+                }
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": true
+          },
+          "healthRegen": {
+            "acquisition": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 137374,
+              "before": 4,
+              "after": 39.880001068115234,
+              "delta": 35.880001068115234,
+              "dtTicks": 6,
+              "dtSeconds": 0.09375
+            },
+            "expiration": {
+              "controllerIndex": 4,
+              "field": "m_flHealthRegen",
+              "tick": 147610,
+              "before": 37.880001068115234,
+              "after": 2,
+              "delta": -35.880001068115234,
+              "dtTicks": 2,
+              "dtSeconds": 0.03125
+            },
+            "death": null,
+            "symmetric": true,
+            "symmetryError": 0,
+            "acquisitionInResourceRange": true,
+            "resourceRange": [
+              4,
+              40
+            ],
+            "placeboTransitions": [
+              {
+                "offsetSeconds": 120,
+                "transition": null
+              },
+              {
+                "offsetSeconds": 200,
+                "transition": null
+              }
+            ],
+            "placeboNegative": false
+          }
+        }
+      ],
+      "semanticPass": true
+    }
+  ],
+  "semanticValidation": {
+    "pass": true,
+    "checks": {
+      "manifestReady": {
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      "independentCohortExpected": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "allProcessesCompleted": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "script150StronglyReplicated": {
+        "actual": "BRIDGE_WORLD_COLLECTION_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "expected": "BRIDGE_WORLD_COLLECTION_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "pass": true
+      },
+      "survivalResourceDuration160": {
+        "actual": 160,
+        "expected": 160,
+        "pass": true
+      },
+      "naturalExpirationEvidenceAcrossAtLeastThreeReplays": {
+        "actual": 4,
+        "expected": ">=3",
+        "pass": true
+      },
+      "naturalExpirationAnchorsSufficient": {
+        "actual": 12,
+        "expected": ">=5",
+        "pass": true
+      },
+      "healthMaxAcquisitionPositiveStrong": {
+        "actual": 1,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "healthMaxExpirationNegativeStrong": {
+        "actual": 0.9166666666666666,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "healthMaxDeltaSymmetryStrong": {
+        "actual": 0.9166666666666666,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "healthMaxAcquisitionMagnitudeWithinResourceRange": {
+        "actual": 1,
+        "expected": ">=0.9",
+        "pass": true
+      },
+      "healthMaxExpirationTimingTight": {
+        "actual": 0.046875,
+        "expected": "<=0.125s",
+        "pass": true
+      },
+      "healthMaxPlaceboSeparated": {
+        "actual": 0.08333333333333333,
+        "expected": "<=0.1",
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "supported": "Independent replays support Survival bridge collection producing a networked MaxHP increase that reverses at the resource-defined 160-second natural expiration, with delta symmetry robust to baseline drift.",
+    "supportive": "Health regen is tracked as a second mechanistically expected consequence but is not required for the primary validation decision in V01.",
+    "notYetSupported": "This test alone does not establish death behavior or independently observe all four bridge modifiers on the player. Other bridge types still rely on the shared resource-duration contract plus the replicated world-side acquisition chain unless separately validated."
+  }
+}

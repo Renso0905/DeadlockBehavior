@@ -1,0 +1,92 @@
+{
+  "version": "BRIDGE_SURVIVAL_MATCH_END_OUTLIER_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T16:18:30.406Z",
+  "status": "BRIDGE_SURVIVAL_MATCH_END_OUTLIER_V01_DIAGNOSED",
+  "foundations": {
+    "script152": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_runtime_duration_validation_v01.json",
+    "script153": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_expiration_outlier_diagnostic_v01.json",
+    "script155": "G:\\DeadlockBehavior\\output\\cross_replay\\bridge_survival_overlap_outlier_diagnostic_v01.json"
+  },
+  "methodologicalBoundary": {
+    "retunesNothing": true,
+    "purpose": "Diagnose only pre-existing Script152 natural-expiration misses against native game-state/postgame boundaries.",
+    "eGameStateGameInProgress": 7,
+    "eGameStatePostGame": 8
+  },
+  "counts": {
+    "failedNaturalAnchors": 1,
+    "classifications": {
+      "MATCH_ENDED_BEFORE_EXPECTED_EXPIRY_CENSORED": 1
+    }
+  },
+  "diagnostics": [
+    {
+      "replayName": "rep01",
+      "playerName": "Kabuto",
+      "controllerIndex": 6,
+      "pickupTick": 141428,
+      "expectedExpirationTick": 151668,
+      "pickupMatchClock": "36:19.813",
+      "healthMaxAcquisition": {
+        "controllerIndex": 6,
+        "field": "m_iHealthMax",
+        "tick": 141430,
+        "before": 4538,
+        "after": 5225,
+        "delta": 687,
+        "dtTicks": 2,
+        "dtSeconds": 0.03125
+      },
+      "postGameTransition": {
+        "tick": 149216,
+        "before": 7,
+        "after": 8
+      },
+      "firstNonGameplayAfterPickup": {
+        "tick": 149216,
+        "before": 7,
+        "after": 8
+      },
+      "expectedToPostGameSeconds": -38.3125,
+      "pickupToPostGameSeconds": 121.6875,
+      "gameplaySecondsAfterExpectedExpiry": 0,
+      "replayMaxTick": 151775,
+      "replaySecondsAfterExpectedExpiry": 1.671875,
+      "lastControllerUpdateTick": 149879,
+      "lastControllerUpdateSecondsAfterExpectedExpiry": -27.953125,
+      "lastHealthMaxUpdateTick": null,
+      "lastHealthMaxUpdateSecondsAfterExpectedExpiry": null,
+      "lastHealthRegenUpdateTick": null,
+      "lastHealthRegenUpdateSecondsAfterExpectedExpiry": null,
+      "finalGameState": 11,
+      "gameStateTransitions": [
+        {
+          "tick": 1922,
+          "before": 6,
+          "after": 7
+        },
+        {
+          "tick": 149216,
+          "before": 7,
+          "after": 8
+        },
+        {
+          "tick": 149857,
+          "before": 8,
+          "after": 11
+        }
+      ],
+      "winningTeamTransitions": [
+        {
+          "tick": 149216,
+          "before": -1,
+          "after": 3
+        }
+      ],
+      "freezeTransitions": [],
+      "matchClockTransitionsNearExpected": [],
+      "classification": "MATCH_ENDED_BEFORE_EXPECTED_EXPIRY_CENSORED"
+    }
+  ]
+}

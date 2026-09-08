@@ -1,0 +1,401 @@
+{
+  "version": "HERO58_CLIP_BATCHING_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T22:42:04.997Z",
+  "status": "HERO58_CLIP_BATCHING_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "replay": "test",
+  "frozenBoundary": {
+    "zigzagTransform": "raw >= 0 ? 2*raw : -2*raw - 1",
+    "overallPartition": {
+      "positive": 30337,
+      "zero": 7221,
+      "negative": 13,
+      "total": 37571
+    },
+    "hero58Baseline": {
+      "observations": 9786,
+      "zero": 6535,
+      "zeroRate": 0.6677907214387901
+    },
+    "hero58AggregateShotAdvancePerPositiveWholeUnit": 3.013,
+    "replicationCohortConsumed": false,
+    "authorityPromotion": false
+  },
+  "overall": {
+    "total": 37571,
+    "positive": 30337,
+    "zero": 7221,
+    "negative": 13,
+    "positiveRate": 0.8074578797476777,
+    "zeroRate": 0.1921961087008597,
+    "negativeRate": 0.0003460115514625642,
+    "totalShotAdvance": 38026,
+    "positiveWholeUnits": 30345,
+    "shotAdvancePerPositiveWholeUnit": 1.2531224254407645
+  },
+  "genericVsHero58": {
+    "hero58": {
+      "total": 9786,
+      "positive": 3248,
+      "zero": 6535,
+      "negative": 3,
+      "positiveRate": 0.3319027181688126,
+      "zeroRate": 0.6677907214387901,
+      "negativeRate": 0.00030656039239730225,
+      "totalShotAdvance": 9786,
+      "positiveWholeUnits": 3248,
+      "shotAdvancePerPositiveWholeUnit": 3.0129310344827585
+    },
+    "excludingHero58": {
+      "total": 27785,
+      "positive": 27089,
+      "zero": 686,
+      "negative": 10,
+      "positiveRate": 0.9749505128666547,
+      "zeroRate": 0.024689580709015654,
+      "negativeRate": 0.00035990642432967427,
+      "totalShotAdvance": 28240,
+      "positiveWholeUnits": 27097,
+      "shotAdvancePerPositiveWholeUnit": 1.0421817913422151
+    }
+  },
+  "hero58CycleAnalysis": {
+    "completedCycles": 3248,
+    "positiveWholeDrop": {
+      "count": 3248,
+      "mode": 1,
+      "median": 1,
+      "min": 1,
+      "max": 1,
+      "unique": [
+        1
+      ]
+    },
+    "zeroShotAdvance": {
+      "count": 3248,
+      "mode": 0,
+      "median": 0,
+      "min": 0,
+      "max": 231,
+      "unique": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        44,
+        46,
+        47,
+        49,
+        50,
+        51,
+        53,
+        55,
+        56
+      ]
+    },
+    "totalShotAdvance": {
+      "count": 3248,
+      "mode": 1,
+      "median": 1,
+      "min": 1,
+      "max": 232,
+      "unique": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        45,
+        47,
+        48,
+        50,
+        51,
+        52,
+        54,
+        56,
+        57
+      ]
+    },
+    "shotAdvancePerWholeUnit": {
+      "count": 3248,
+      "median": 1,
+      "mean": 2.8907019704433496,
+      "min": 1,
+      "max": 232,
+      "p10": 1,
+      "p90": 1
+    },
+    "batchedPositiveDrops": 0,
+    "batchedPositiveDropRate": 0,
+    "closeToFrozenAggregateRatio": 2,
+    "closeToFrozenAggregateRatioRate": 0.0006157635467980296,
+    "targetRatio": 3.013,
+    "topJointPatterns": [
+      {
+        "zeroShotAdvance": 0,
+        "positiveWholeDrop": 1,
+        "count": 3087,
+        "impliedRatio": 1
+      },
+      {
+        "zeroShotAdvance": 20,
+        "positiveWholeDrop": 1,
+        "count": 8,
+        "impliedRatio": 21
+      },
+      {
+        "zeroShotAdvance": 1,
+        "positiveWholeDrop": 1,
+        "count": 7,
+        "impliedRatio": 2
+      },
+      {
+        "zeroShotAdvance": 21,
+        "positiveWholeDrop": 1,
+        "count": 6,
+        "impliedRatio": 22
+      },
+      {
+        "zeroShotAdvance": 8,
+        "positiveWholeDrop": 1,
+        "count": 5,
+        "impliedRatio": 9
+      },
+      {
+        "zeroShotAdvance": 16,
+        "positiveWholeDrop": 1,
+        "count": 5,
+        "impliedRatio": 17
+      },
+      {
+        "zeroShotAdvance": 23,
+        "positiveWholeDrop": 1,
+        "count": 5,
+        "impliedRatio": 24
+      },
+      {
+        "zeroShotAdvance": 7,
+        "positiveWholeDrop": 1,
+        "count": 4,
+        "impliedRatio": 8
+      },
+      {
+        "zeroShotAdvance": 9,
+        "positiveWholeDrop": 1,
+        "count": 4,
+        "impliedRatio": 10
+      },
+      {
+        "zeroShotAdvance": 13,
+        "positiveWholeDrop": 1,
+        "count": 4,
+        "impliedRatio": 14
+      },
+      {
+        "zeroShotAdvance": 15,
+        "positiveWholeDrop": 1,
+        "count": 4,
+        "impliedRatio": 16
+      },
+      {
+        "zeroShotAdvance": 22,
+        "positiveWholeDrop": 1,
+        "count": 4,
+        "impliedRatio": 23
+      },
+      {
+        "zeroShotAdvance": 24,
+        "positiveWholeDrop": 1,
+        "count": 4,
+        "impliedRatio": 25
+      },
+      {
+        "zeroShotAdvance": 34,
+        "positiveWholeDrop": 1,
+        "count": 4,
+        "impliedRatio": 35
+      },
+      {
+        "zeroShotAdvance": 36,
+        "positiveWholeDrop": 1,
+        "count": 4,
+        "impliedRatio": 37
+      },
+      {
+        "zeroShotAdvance": 6,
+        "positiveWholeDrop": 1,
+        "count": 3,
+        "impliedRatio": 7
+      },
+      {
+        "zeroShotAdvance": 14,
+        "positiveWholeDrop": 1,
+        "count": 3,
+        "impliedRatio": 15
+      },
+      {
+        "zeroShotAdvance": 19,
+        "positiveWholeDrop": 1,
+        "count": 3,
+        "impliedRatio": 20
+      },
+      {
+        "zeroShotAdvance": 27,
+        "positiveWholeDrop": 1,
+        "count": 3,
+        "impliedRatio": 28
+      },
+      {
+        "zeroShotAdvance": 35,
+        "positiveWholeDrop": 1,
+        "count": 3,
+        "impliedRatio": 36
+      }
+    ]
+  },
+  "hero58StaticEvidence": {
+    "script165": [],
+    "script131": []
+  },
+  "classification": "GENERIC_ZIGZAG_CLIP_COUNTER_STRONG_OUTSIDE_HERO58_HERO58_BATCH_MECHANISM_REQUIRES_DIAGNOSIS",
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script180StatusExpected": {
+        "actual": "ZERO_WHOLE_CLIP_DROP_MECHANISM_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "expected": "ZERO_WHOLE_CLIP_DROP_MECHANISM_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "script180ClassificationExpected": {
+        "actual": "ZERO_WHOLE_DROPS_DOMINATED_BY_HERO_SPECIFIC_WEAPON_MECHANIC_STATIC_MAPPING_UNRESOLVED",
+        "expected": "ZERO_WHOLE_DROPS_DOMINATED_BY_HERO_SPECIFIC_WEAPON_MECHANIC_STATIC_MAPPING_UNRESOLVED",
+        "pass": true
+      },
+      "overallPartitionFrozen": {
+        "actual": {
+          "positive": 30337,
+          "zero": 7221,
+          "negative": 13,
+          "total": 37571
+        },
+        "expected": {
+          "positive": 30337,
+          "zero": 7221,
+          "negative": 13,
+          "total": 37571
+        },
+        "pass": true
+      },
+      "hero58BaselineFrozen": {
+        "actual": {
+          "observations": 9786,
+          "zero": 6535
+        },
+        "expected": {
+          "observations": 9786,
+          "zero": 6535
+        },
+        "pass": true
+      },
+      "eventParseClean": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "eventCountFrozen": {
+        "actual": 61099,
+        "expected": 61099,
+        "pass": true
+      },
+      "hero58CyclesSubstantial": {
+        "actual": 3248,
+        "expected": ">100",
+        "pass": true
+      },
+      "replicationCohortStillUnused": {
+        "actual": "test",
+        "expected": "test",
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "DIAGNOSTIC_ONLY",
+    "replicationStatus": "single_replay_only",
+    "authorityPromotion": false
+  },
+  "nextStep": "INSPECT_HERO58_STATIC_EVIDENCE_AND_TOP_JOINT_ZERO_RUN_POSITIVE_DROP_PATTERNS_ON_TEST"
+}

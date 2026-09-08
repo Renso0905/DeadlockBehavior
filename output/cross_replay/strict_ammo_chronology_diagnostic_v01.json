@@ -1,0 +1,826 @@
+{
+  "version": "STRICT_AMMO_CHRONOLOGY_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-08T01:02:32.202Z",
+  "status": "STRICT_AMMO_CHRONOLOGY_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+  "scientificBoundary": {
+    "chronology": "strict consecutive final-per-tick states within player+weapon entity",
+    "effectContextGrouping": "not used for adjacency",
+    "combinedCounter": "ZigZag(m_iClip) + ZigZag(m_iBonusClip)",
+    "slideCarrier": {
+      "field": "m_pModifierProp.m_bvEnabledPredictedStateMask.0002",
+      "bit": 5,
+      "mask": 32
+    },
+    "independentValidation": false,
+    "authorityPromotion": false
+  },
+  "replayIntegrity": [
+    {
+      "replayName": "rep01",
+      "pass": true,
+      "weaponEvents": 48472,
+      "transitions": 26064,
+      "joined": 26064,
+      "joinFailures": 0,
+      "parseFailures": 0
+    },
+    {
+      "replayName": "rep02",
+      "pass": true,
+      "weaponEvents": 49239,
+      "transitions": 29873,
+      "joined": 29873,
+      "joinFailures": 0,
+      "parseFailures": 0
+    },
+    {
+      "replayName": "rep03",
+      "pass": true,
+      "weaponEvents": 61810,
+      "transitions": 37187,
+      "joined": 37187,
+      "joinFailures": 0,
+      "parseFailures": 0
+    },
+    {
+      "replayName": "rep04",
+      "pass": true,
+      "weaponEvents": 50555,
+      "transitions": 30645,
+      "joined": 30645,
+      "joinFailures": 0,
+      "parseFailures": 0
+    },
+    {
+      "replayName": "rep05",
+      "pass": true,
+      "weaponEvents": 46456,
+      "transitions": 17916,
+      "joined": 17916,
+      "joinFailures": 0,
+      "parseFailures": 0
+    }
+  ],
+  "strict": {
+    "total": 132903,
+    "positive": 132651,
+    "zero": 230,
+    "negative": 22,
+    "positiveRate": 0.998103880273583,
+    "zeroRate": 0.0017305854645869544,
+    "negativeRate": 0.0001655342618300565,
+    "residual": 252,
+    "residualRate": 0.0018961197264170109,
+    "shotAdvance": {
+      "count": 132903,
+      "min": 1,
+      "max": 1,
+      "mode": 1,
+      "median": 1,
+      "p90": 1,
+      "p99": 1
+    },
+    "residualShotAdvance": {
+      "count": 252,
+      "min": 1,
+      "max": 1,
+      "mode": 1,
+      "median": 1,
+      "p90": 1,
+      "p99": 1
+    },
+    "tickGap": {
+      "count": 132903,
+      "min": 1,
+      "max": 3827,
+      "mode": 5,
+      "median": 6,
+      "p90": 31,
+      "p99": 592
+    },
+    "residualTickGap": {
+      "count": 252,
+      "min": 1,
+      "max": 916,
+      "mode": 5,
+      "median": 6,
+      "p90": 14,
+      "p99": 216
+    },
+    "contextChanged": {
+      "residualTrue": 1,
+      "positiveTrue": 197,
+      "residualRate": 0.003968253968253968,
+      "positiveRate": 0.0014850999992461421,
+      "riskDifference": 0.002483153969007826
+    },
+    "fireModeChanged": {
+      "residualTrue": 0,
+      "positiveTrue": 792,
+      "residualRate": 0,
+      "positiveRate": 0.005970554311690074,
+      "riskDifference": -0.005970554311690074
+    },
+    "lastReloadStartTimeChanged": {
+      "residualTrue": 0,
+      "positiveTrue": 0,
+      "residualRate": 0,
+      "positiveRate": 0,
+      "riskDifference": 0
+    },
+    "reloadAvailableTimeChanged": {
+      "residualTrue": 1,
+      "positiveTrue": 2652,
+      "residualRate": 0.003968253968253968,
+      "positiveRate": 0.019992310649750097,
+      "riskDifference": -0.01602405668149613
+    },
+    "byHero": [
+      {
+        "key": "2",
+        "total": 41,
+        "zero": 41,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "58",
+        "total": 32,
+        "zero": 32,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 1,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "76",
+        "total": 29,
+        "zero": 29,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "1",
+        "total": 25,
+        "zero": 25,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "25",
+        "total": 24,
+        "zero": 11,
+        "negative": 13,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "13",
+        "total": 23,
+        "zero": 23,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "35",
+        "total": 11,
+        "zero": 11,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "7",
+        "total": 11,
+        "zero": 11,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "8",
+        "total": 11,
+        "zero": 11,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "31",
+        "total": 9,
+        "zero": 8,
+        "negative": 1,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "15",
+        "total": 8,
+        "zero": 8,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "66",
+        "total": 7,
+        "zero": 7,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "65",
+        "total": 5,
+        "zero": 3,
+        "negative": 2,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "60",
+        "total": 3,
+        "zero": 3,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "3",
+        "total": 3,
+        "zero": 0,
+        "negative": 3,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "18",
+        "total": 3,
+        "zero": 0,
+        "negative": 3,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "63",
+        "total": 2,
+        "zero": 2,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "64",
+        "total": 1,
+        "zero": 1,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "69",
+        "total": 1,
+        "zero": 1,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "67",
+        "total": 1,
+        "zero": 1,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "11",
+        "total": 1,
+        "zero": 1,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "27",
+        "total": 1,
+        "zero": 1,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      }
+    ],
+    "byReplay": [
+      {
+        "key": "rep03",
+        "total": 85,
+        "zero": 83,
+        "negative": 2,
+        "multiShot": 0,
+        "contextChanged": 1,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "rep02",
+        "total": 60,
+        "zero": 53,
+        "negative": 7,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "rep04",
+        "total": 53,
+        "zero": 49,
+        "negative": 4,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "rep01",
+        "total": 44,
+        "zero": 35,
+        "negative": 9,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      },
+      {
+        "key": "rep05",
+        "total": 10,
+        "zero": 10,
+        "negative": 0,
+        "multiShot": 0,
+        "contextChanged": 0,
+        "reloadStartChanged": 0
+      }
+    ],
+    "topResidualPatterns": [
+      {
+        "pattern": "replay=rep03|hero=2|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 22
+      },
+      {
+        "pattern": "replay=rep03|hero=58|label=ZERO|shots=1|drop=0|tickGap=4|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 13
+      },
+      {
+        "pattern": "replay=rep03|hero=1|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 9
+      },
+      {
+        "pattern": "replay=rep03|hero=58|label=ZERO|shots=1|drop=0|tickGap=3|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 9
+      },
+      {
+        "pattern": "replay=rep04|hero=8|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 9
+      },
+      {
+        "pattern": "replay=rep02|hero=7|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 8
+      },
+      {
+        "pattern": "replay=rep02|hero=76|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 8
+      },
+      {
+        "pattern": "replay=rep01|hero=2|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 6
+      },
+      {
+        "pattern": "replay=rep02|hero=76|label=ZERO|shots=1|drop=0|tickGap=7|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 6
+      },
+      {
+        "pattern": "replay=rep02|hero=15|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 6
+      },
+      {
+        "pattern": "replay=rep01|hero=25|label=ZERO|shots=1|drop=0|tickGap=10|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 5
+      },
+      {
+        "pattern": "replay=rep04|hero=76|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 5
+      },
+      {
+        "pattern": "replay=rep01|hero=1|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 4
+      },
+      {
+        "pattern": "replay=rep01|hero=1|label=ZERO|shots=1|drop=0|tickGap=4|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 4
+      },
+      {
+        "pattern": "replay=rep03|hero=58|label=ZERO|shots=1|drop=0|tickGap=2|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 4
+      },
+      {
+        "pattern": "replay=rep04|hero=13|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 4
+      },
+      {
+        "pattern": "replay=rep04|hero=2|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 4
+      },
+      {
+        "pattern": "replay=rep04|hero=13|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 4
+      },
+      {
+        "pattern": "replay=rep02|hero=76|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep02|hero=31|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep03|hero=66|label=ZERO|shots=1|drop=0|tickGap=12|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep03|hero=58|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep03|hero=1|label=ZERO|shots=1|drop=0|tickGap=7|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep04|hero=76|label=ZERO|shots=1|drop=0|tickGap=7|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep04|hero=13|label=ZERO|shots=1|drop=0|tickGap=4|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep04|hero=13|label=ZERO|shots=1|drop=0|tickGap=3|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep05|hero=13|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep01|hero=3|label=NEGATIVE|shots=1|drop=-10|tickGap=14|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 3
+      },
+      {
+        "pattern": "replay=rep01|hero=35|label=ZERO|shots=1|drop=0|tickGap=14|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep01|hero=13|label=ZERO|shots=1|drop=0|tickGap=7|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep01|hero=35|label=ZERO|shots=1|drop=0|tickGap=13|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep01|hero=25|label=ZERO|shots=1|drop=0|tickGap=12|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep01|hero=25|label=ZERO|shots=1|drop=0|tickGap=9|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep02|hero=15|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep02|hero=35|label=ZERO|shots=1|drop=0|tickGap=14|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep02|hero=35|label=ZERO|shots=1|drop=0|tickGap=13|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep02|hero=7|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep02|hero=76|label=ZERO|shots=1|drop=0|tickGap=4|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep03|hero=2|label=ZERO|shots=1|drop=0|tickGap=21|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep04|hero=76|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep04|hero=1|label=ZERO|shots=1|drop=0|tickGap=7|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep04|hero=1|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep05|hero=31|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep05|hero=60|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep03|hero=65|label=NEGATIVE|shots=1|drop=-31|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 2
+      },
+      {
+        "pattern": "replay=rep01|hero=13|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=13|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=2|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=64|label=ZERO|shots=1|drop=0|tickGap=15|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=69|label=ZERO|shots=1|drop=0|tickGap=216|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=1|label=ZERO|shots=1|drop=0|tickGap=78|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=66|label=ZERO|shots=1|drop=0|tickGap=43|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=63|label=ZERO|shots=1|drop=0|tickGap=51|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=25|label=ZERO|shots=1|drop=0|tickGap=16|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=60|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=25|label=ZERO|shots=1|drop=0|tickGap=36|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=66|label=ZERO|shots=1|drop=0|tickGap=12|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=66|label=ZERO|shots=1|drop=0|tickGap=11|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=67|label=ZERO|shots=1|drop=0|tickGap=31|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=7|label=ZERO|shots=1|drop=0|tickGap=3|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=58|label=ZERO|shots=1|drop=0|tickGap=91|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=35|label=ZERO|shots=1|drop=0|tickGap=13|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=2|label=ZERO|shots=1|drop=0|tickGap=22|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=58|label=ZERO|shots=1|drop=0|tickGap=916|ctxChanged=true|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=31|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=2|label=ZERO|shots=1|drop=0|tickGap=39|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=65|label=ZERO|shots=1|drop=0|tickGap=216|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=65|label=ZERO|shots=1|drop=0|tickGap=7|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=66|label=ZERO|shots=1|drop=0|tickGap=11|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=2|label=ZERO|shots=1|drop=0|tickGap=40|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=11|label=ZERO|shots=1|drop=0|tickGap=15|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=58|label=ZERO|shots=1|drop=0|tickGap=1|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=2|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=65|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep03|hero=2|label=ZERO|shots=1|drop=0|tickGap=154|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep04|hero=31|label=ZERO|shots=1|drop=0|tickGap=5|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep04|hero=8|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep04|hero=8|label=ZERO|shots=1|drop=0|tickGap=8|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep04|hero=35|label=ZERO|shots=1|drop=0|tickGap=14|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep04|hero=2|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep04|hero=35|label=ZERO|shots=1|drop=0|tickGap=13|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep04|hero=27|label=ZERO|shots=1|drop=0|tickGap=217|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep04|hero=13|label=ZERO|shots=1|drop=0|tickGap=92|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep05|hero=31|label=ZERO|shots=1|drop=0|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep05|hero=13|label=ZERO|shots=1|drop=0|tickGap=9|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep05|hero=63|label=ZERO|shots=1|drop=0|tickGap=32|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=25|label=NEGATIVE|shots=1|drop=-1|tickGap=14|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=25|label=NEGATIVE|shots=1|drop=-3|tickGap=14|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=25|label=NEGATIVE|shots=1|drop=-13|tickGap=13|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=25|label=NEGATIVE|shots=1|drop=-1|tickGap=13|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=25|label=NEGATIVE|shots=1|drop=-16|tickGap=11|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep01|hero=25|label=NEGATIVE|shots=1|drop=-18|tickGap=11|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=25|label=NEGATIVE|shots=1|drop=-1|tickGap=7|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=25|label=NEGATIVE|shots=1|drop=-17|tickGap=9|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=25|label=NEGATIVE|shots=1|drop=-2|tickGap=8|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=25|label=NEGATIVE|shots=1|drop=-17|tickGap=11|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=25|label=NEGATIVE|shots=1|drop=-14|tickGap=10|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=25|label=NEGATIVE|shots=1|drop=-4|tickGap=8|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep02|hero=25|label=NEGATIVE|shots=1|drop=-5|tickGap=6|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      },
+      {
+        "pattern": "replay=rep04|hero=18|label=NEGATIVE|shots=1|drop=-1|tickGap=93|ctxChanged=false|modeChanged=false|reloadStartChanged=false",
+        "count": 1
+      }
+    ]
+  },
+  "comparison": {
+    "legacyResidual": 490,
+    "strictResidual": 252,
+    "reduction": 0.48571428571428577,
+    "classification": "STRICT_CHRONOLOGY_DOES_NOT_EXPLAIN_MOST_LEGACY_RESIDUALS"
+  },
+  "integrityValidation": {
+    "pass": true,
+    "checks": {
+      "script189Ready": {
+        "actual": "COMBINED_AMMO_RESIDUAL_PROVENANCE_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "expected": "COMBINED_AMMO_RESIDUAL_PROVENANCE_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION",
+        "pass": true
+      },
+      "legacyResidualFrozen": {
+        "actual": 490,
+        "expected": 490,
+        "pass": true
+      },
+      "allFiveIntegrityPass": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "consumedCohortStillNotIndependent": {
+        "actual": false,
+        "expected": false,
+        "pass": true
+      }
+    }
+  },
+  "semanticValidation": {
+    "status": "DIAGNOSTIC_ONLY",
+    "authorityPromotion": false,
+    "replicationStatus": "not_independent"
+  },
+  "nextStep": "STRICT_CHRONOLOGY_DOES_NOT_REMOVE_MOST_RESIDUALS;_CONTINUE_WITH_RELOAD_AND_HERO_MECHANIC_DIAGNOSIS"
+}

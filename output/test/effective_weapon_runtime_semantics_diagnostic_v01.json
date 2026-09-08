@@ -1,0 +1,950 @@
+{
+  "version": "EFFECTIVE_WEAPON_RUNTIME_SEMANTICS_DIAGNOSTIC_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T17:31:21.043Z",
+  "status": "EFFECTIVE_WEAPON_RUNTIME_SEMANTICS_V01_DIAGNOSED",
+  "replay": "test",
+  "inputs": {
+    "script161Summary": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_state_substrate_v01.json",
+    "script161Events": "G:\\DeadlockBehavior\\output\\test\\effective_weapon_runtime_events_v01.jsonl",
+    "script161Status": "EFFECTIVE_WEAPON_STATE_SUBSTRATE_V01_READY_FOR_SEMANTIC_VALIDATION"
+  },
+  "ammoCapacitySemantic": {
+    "question": "Does PlayerState observedRuntime.maxAmmo behave as current effective primary-weapon magazine capacity?",
+    "allComparableEvents": 61099,
+    "allClipWithinMaxAmmo": 0,
+    "allClipWithinMaxAmmoRate": 0,
+    "allClipWithinMaxAmmoPlusBonusClip": 0,
+    "allClipWithinMaxAmmoPlusBonusClipRate": 0,
+    "reloadExitComparable": 1644,
+    "reloadExitExactMaxAmmo": 0,
+    "reloadExitExactMaxAmmoRate": 0,
+    "reloadExitExactAugmented": 0,
+    "reloadExitExactAugmentedRate": 0,
+    "reloadExitWithinOneMaxAmmoRate": 0.00851581508515815,
+    "reloadExitWithinOneAugmentedRate": 0.00851581508515815,
+    "reloadExitWithoutPotentialAmmoModifier": 671,
+    "baselineReloadExactMaxAmmoRate": 0,
+    "baselineReloadExactAugmentedRate": 0,
+    "reloadExitWithPotentialAmmoModifier": 973,
+    "maxAmmoDistribution": {
+      "n": 61099,
+      "min": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0,
+      "max": 0,
+      "mean": 0
+    },
+    "clipDistribution": {
+      "n": 61099,
+      "min": -31,
+      "p25": -9,
+      "median": -1,
+      "p75": 8,
+      "max": 31,
+      "mean": -0.36786199446799456
+    },
+    "bonusClipDistribution": {
+      "n": 61099,
+      "min": -14,
+      "p25": -1,
+      "median": -1,
+      "p75": -1,
+      "max": 13,
+      "mean": -1.0587570991341921
+    },
+    "clipMinusMaxAmmo": {
+      "n": 61099,
+      "min": -31,
+      "p25": -9,
+      "median": -1,
+      "p75": 8,
+      "max": 31,
+      "mean": -0.36786199446799456
+    },
+    "clipMinusAugmentedCapacity": {
+      "n": 61099,
+      "min": -31,
+      "p25": -9,
+      "median": -1,
+      "p75": 8,
+      "max": 31,
+      "mean": -0.3877804874056859
+    },
+    "topMaxAmmoValues": [
+      {
+        "value": 0,
+        "count": 61099
+      }
+    ],
+    "perPlayerReloadComparison": [
+      {
+        "playerKey": "Goldinfer",
+        "heroId": 79,
+        "reloads": 180,
+        "maxAmmo": {
+          "n": 180,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 180,
+          "min": -8,
+          "p25": 7,
+          "median": 7,
+          "p75": 8,
+          "max": 8,
+          "mean": 5.694444444444445
+        },
+        "clipMinusMaxAmmo": {
+          "n": 180,
+          "min": -8,
+          "p25": 7,
+          "median": 7,
+          "p75": 8,
+          "max": 8,
+          "mean": 5.694444444444445
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "Nacho4Sure",
+        "heroId": 2,
+        "reloads": 175,
+        "maxAmmo": {
+          "n": 175,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 175,
+          "min": -18,
+          "p25": -17,
+          "median": 15,
+          "p75": 15,
+          "max": 16,
+          "mean": 2.4514285714285715
+        },
+        "clipMinusMaxAmmo": {
+          "n": 175,
+          "min": -18,
+          "p25": -17,
+          "median": 15,
+          "p75": 15,
+          "max": 16,
+          "mean": 2.4514285714285715
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "flem",
+        "heroId": 1,
+        "reloads": 166,
+        "maxAmmo": {
+          "n": 166,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 166,
+          "min": -29,
+          "p25": -19,
+          "median": 14,
+          "p75": 30,
+          "max": 31,
+          "mean": 8.03012048192771
+        },
+        "clipMinusMaxAmmo": {
+          "n": 166,
+          "min": -29,
+          "p25": -19,
+          "median": 14,
+          "p75": 30,
+          "max": 31,
+          "mean": 8.03012048192771
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "Nebula",
+        "heroId": 25,
+        "reloads": 156,
+        "maxAmmo": {
+          "n": 156,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 156,
+          "min": -22,
+          "p25": -19,
+          "median": 9,
+          "p75": 19,
+          "max": 28,
+          "mean": 3.6794871794871793
+        },
+        "clipMinusMaxAmmo": {
+          "n": 156,
+          "min": -22,
+          "p25": -19,
+          "median": 9,
+          "p75": 19,
+          "max": 28,
+          "mean": 3.6794871794871793
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "blooop354",
+        "heroId": 58,
+        "reloads": 147,
+        "maxAmmo": {
+          "n": 147,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 147,
+          "min": -18,
+          "p25": -15.5,
+          "median": -13,
+          "p75": -13,
+          "max": 24,
+          "mean": -8.605442176870747
+        },
+        "clipMinusMaxAmmo": {
+          "n": 147,
+          "min": -18,
+          "p25": -15.5,
+          "median": -13,
+          "p75": -13,
+          "max": 24,
+          "mean": -8.605442176870747
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "Yosafire Worshipper [K]",
+        "heroId": 50,
+        "reloads": 146,
+        "maxAmmo": {
+          "n": 146,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 146,
+          "min": -8,
+          "p25": 6,
+          "median": 7,
+          "p75": 7,
+          "max": 8,
+          "mean": 5.493150684931507
+        },
+        "clipMinusMaxAmmo": {
+          "n": 146,
+          "min": -8,
+          "p25": 6,
+          "median": 7,
+          "p75": 7,
+          "max": 8,
+          "mean": 5.493150684931507
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "viggoth 300",
+        "heroId": 18,
+        "reloads": 135,
+        "maxAmmo": {
+          "n": 135,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 135,
+          "min": -14,
+          "p25": -11,
+          "median": 11,
+          "p75": 12,
+          "max": 21,
+          "mean": 5.644444444444445
+        },
+        "clipMinusMaxAmmo": {
+          "n": 135,
+          "min": -14,
+          "p25": -11,
+          "median": 11,
+          "p75": 12,
+          "max": 21,
+          "mean": 5.644444444444445
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "Eriansan",
+        "heroId": 69,
+        "reloads": 119,
+        "maxAmmo": {
+          "n": 119,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 119,
+          "min": -7,
+          "p25": -7,
+          "median": -5,
+          "p75": -5,
+          "max": 5,
+          "mean": -3.7058823529411766
+        },
+        "clipMinusMaxAmmo": {
+          "n": 119,
+          "min": -7,
+          "p25": -7,
+          "median": -5,
+          "p75": -5,
+          "max": 5,
+          "mean": -3.7058823529411766
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "TheWoogler",
+        "heroId": 52,
+        "reloads": 115,
+        "maxAmmo": {
+          "n": 115,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 115,
+          "min": -20,
+          "p25": -12,
+          "median": -9,
+          "p75": -9,
+          "max": 20,
+          "mean": -5.478260869565218
+        },
+        "clipMinusMaxAmmo": {
+          "n": 115,
+          "min": -20,
+          "p25": -12,
+          "median": -9,
+          "p75": -9,
+          "max": 20,
+          "mean": -5.478260869565218
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "Zaeleth",
+        "heroId": 77,
+        "reloads": 108,
+        "maxAmmo": {
+          "n": 108,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 108,
+          "min": -1,
+          "p25": 8,
+          "median": 8,
+          "p75": 8,
+          "max": 8,
+          "mean": 7.62962962962963
+        },
+        "clipMinusMaxAmmo": {
+          "n": 108,
+          "min": -1,
+          "p25": 8,
+          "median": 8,
+          "p75": 8,
+          "max": 8,
+          "mean": 7.62962962962963
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "renso",
+        "heroId": 31,
+        "reloads": 99,
+        "maxAmmo": {
+          "n": 99,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 99,
+          "min": -8,
+          "p25": 15,
+          "median": 15,
+          "p75": 15,
+          "max": 15,
+          "mean": 14.767676767676768
+        },
+        "clipMinusMaxAmmo": {
+          "n": 99,
+          "min": -8,
+          "p25": 15,
+          "median": 15,
+          "p75": 15,
+          "max": 15,
+          "mean": 14.767676767676768
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      },
+      {
+        "playerKey": "Snazzy314",
+        "heroId": 4,
+        "reloads": 98,
+        "maxAmmo": {
+          "n": 98,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "reloadClip": {
+          "n": 98,
+          "min": -15,
+          "p25": -13,
+          "median": 5,
+          "p75": 11,
+          "max": 14,
+          "mean": -1
+        },
+        "clipMinusMaxAmmo": {
+          "n": 98,
+          "min": -15,
+          "p25": -13,
+          "median": 5,
+          "p75": 11,
+          "max": 14,
+          "mean": -1
+        },
+        "exactMaxRate": 0,
+        "exactAugmentedRate": 0
+      }
+    ],
+    "classification": "PLAYER_MAX_AMMO_NOT_VALIDATED_AS_MAGAZINE_CAPACITY",
+    "interpretation": "Do not use PlayerState m_iMaxAmmo as effective primary-weapon clip capacity until a separate runtime semantic is established."
+  },
+  "cadenceReadyDelaySemantic": {
+    "question": "Does current m_flNextPrimaryAttack-current m_flLastAttackTime behave as a lower bound on the next observed primary-weapon discharge?",
+    "comparableConsecutiveDischargePairs": 37642,
+    "lowerBoundViolationsBeyondOneTick": 1,
+    "lowerBoundPassRateOneTickTolerance": 0.9999734339301843,
+    "sameEffectContextPairs": 37497,
+    "sameEffectContextViolationsBeyondOneTick": 1,
+    "sameEffectContextPassRateOneTickTolerance": 0.9999733311998293,
+    "readyDelaySeconds": {
+      "n": 37642,
+      "min": 0.012451171875,
+      "p25": 0.06005859375,
+      "median": 0.0817413330078125,
+      "p75": 0.244384765625,
+      "max": 4.25,
+      "mean": 0.15420730926868773
+    },
+    "nextObservedSpacingSeconds": {
+      "n": 37642,
+      "min": 0.015625,
+      "p25": 0.0625,
+      "median": 0.09375,
+      "p75": 0.296875,
+      "max": 270.828125,
+      "mean": 0.982860734020509
+    },
+    "spacingMinusReadyDelaySeconds": {
+      "n": 37642,
+      "min": -1.640625,
+      "p25": 0.00469970703125,
+      "median": 0.009380340576171875,
+      "p75": 0.013671875,
+      "max": 270.76904296875,
+      "mean": 0.8286534247518212
+    },
+    "byHero": [
+      {
+        "heroId": 58,
+        "pairs": 9788,
+        "violations": 1,
+        "passRate": 0.9998978340825501,
+        "readyDelay": {
+          "n": 9788,
+          "min": 0.012451171875,
+          "p25": 0.030029296875,
+          "median": 0.040283203125,
+          "p75": 0.05438232421875,
+          "max": 4.25,
+          "mean": 0.04294732720889897
+        },
+        "spacing": {
+          "n": 9788,
+          "min": 0.015625,
+          "p25": 0.03125,
+          "median": 0.046875,
+          "p75": 0.0625,
+          "max": 270.828125,
+          "mean": 0.31206579485083774
+        },
+        "residual": {
+          "n": 9788,
+          "min": -1.640625,
+          "p25": 0.00390625,
+          "median": 0.00811767578125,
+          "p75": 0.0118408203125,
+          "max": 270.76904296875,
+          "mean": 0.2691184676419388
+        }
+      },
+      {
+        "heroId": 1,
+        "pairs": 6789,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 6789,
+          "min": 0.0361328125,
+          "p25": 0.0653076171875,
+          "median": 0.0732421875,
+          "p75": 0.081298828125,
+          "max": 1.199951171875,
+          "mean": 0.0740468014952957
+        },
+        "spacing": {
+          "n": 6789,
+          "min": 0.046875,
+          "p25": 0.078125,
+          "median": 0.078125,
+          "p75": 0.09375,
+          "max": 108.328125,
+          "mean": 0.4564207725732803
+        },
+        "residual": {
+          "n": 6789,
+          "min": -0.00390625,
+          "p25": 0.0048828125,
+          "median": 0.0089111328125,
+          "p75": 0.012939453125,
+          "max": 108.26806640625,
+          "mean": 0.3823739710779846
+        }
+      },
+      {
+        "heroId": 2,
+        "pairs": 4797,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 4797,
+          "min": 0.068359375,
+          "p25": 0.073211669921875,
+          "median": 0.079742431640625,
+          "p75": 0.3173828125,
+          "max": 2.3499755859375,
+          "mean": 0.15874669351551915
+        },
+        "spacing": {
+          "n": 4797,
+          "min": 0.078125,
+          "p25": 0.078125,
+          "median": 0.09375,
+          "p75": 0.328125,
+          "max": 103.859375,
+          "mean": 0.645947336877215
+        },
+        "residual": {
+          "n": 4797,
+          "min": 0,
+          "p25": 0.00390625,
+          "median": 0.0079345703125,
+          "p75": 0.011871337890625,
+          "max": 103.539306640625,
+          "mean": 0.4872006433616958
+        }
+      },
+      {
+        "heroId": 25,
+        "pairs": 4419,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 4419,
+          "min": 0.06591796875,
+          "p25": 0.113525390625,
+          "median": 0.140380859375,
+          "p75": 0.174560546875,
+          "max": 2.550048828125,
+          "mean": 0.14895510409152948
+        },
+        "spacing": {
+          "n": 4419,
+          "min": 0.078125,
+          "p25": 0.125,
+          "median": 0.15625,
+          "p75": 0.1875,
+          "max": 133.625,
+          "mean": 0.6966190031681376
+        },
+        "residual": {
+          "n": 4419,
+          "min": 0,
+          "p25": 0.00439453125,
+          "median": 0.0086669921875,
+          "p75": 0.0126953125,
+          "max": 133.515869140625,
+          "mean": 0.5476638990766081
+        }
+      },
+      {
+        "heroId": 18,
+        "pairs": 2181,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 2181,
+          "min": 0.107177734375,
+          "p25": 0.1552734375,
+          "median": 0.165771484375,
+          "p75": 0.1778564453125,
+          "max": 0.2672119140625,
+          "mean": 0.16820621971469688
+        },
+        "spacing": {
+          "n": 2181,
+          "min": 0.109375,
+          "p25": 0.171875,
+          "median": 0.171875,
+          "p75": 0.203125,
+          "max": 264.375,
+          "mean": 1.4239669303071985
+        },
+        "residual": {
+          "n": 2181,
+          "min": 0,
+          "p25": 0.0050048828125,
+          "median": 0.0098876953125,
+          "p75": 0.01409912109375,
+          "max": 264.21728515625,
+          "mean": 1.2557607105925017
+        }
+      },
+      {
+        "heroId": 79,
+        "pairs": 1875,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 1875,
+          "min": 0.177001953125,
+          "p25": 0.244384765625,
+          "median": 0.248779296875,
+          "p75": 0.25439453125,
+          "max": 0.389404296875,
+          "mean": 0.250523828125
+        },
+        "spacing": {
+          "n": 1875,
+          "min": 0.1875,
+          "p25": 0.25,
+          "median": 0.265625,
+          "p75": 0.40625,
+          "max": 116.84375,
+          "mean": 1.6508416666666668
+        },
+        "residual": {
+          "n": 1875,
+          "min": 0.000244140625,
+          "p25": 0.005615234375,
+          "median": 0.010498046875,
+          "p75": 0.1766357421875,
+          "max": 116.58935546875,
+          "mean": 1.4003178385416666
+        }
+      },
+      {
+        "heroId": 31,
+        "pairs": 1817,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 1817,
+          "min": 0.068359375,
+          "p25": 0.0731201171875,
+          "median": 0.07867431640625,
+          "p75": 0.309814453125,
+          "max": 2.35009765625,
+          "mean": 0.16187197150407287
+        },
+        "spacing": {
+          "n": 1817,
+          "min": 0.078125,
+          "p25": 0.078125,
+          "median": 0.09375,
+          "p75": 0.328125,
+          "max": 165.34375,
+          "mean": 1.7092305310952118
+        },
+        "residual": {
+          "n": 1817,
+          "min": 0.0001220703125,
+          "p25": 0.00390625,
+          "median": 0.008392333984375,
+          "p75": 0.01129150390625,
+          "max": 165.270263671875,
+          "mean": 1.547358559591139
+        }
+      },
+      {
+        "heroId": 4,
+        "pairs": 1744,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 1744,
+          "min": 0.156494140625,
+          "p25": 0.24755859375,
+          "median": 0.3280029296875,
+          "p75": 0.3662109375,
+          "max": 0.636016845703125,
+          "mean": 0.3279036950627598
+        },
+        "spacing": {
+          "n": 1744,
+          "min": 0.171875,
+          "p25": 0.28125,
+          "median": 0.359375,
+          "p75": 0.46875,
+          "max": 110.59375,
+          "mean": 1.778723480504587
+        },
+        "residual": {
+          "n": 1744,
+          "min": 0,
+          "p25": 0.00439453125,
+          "median": 0.01123046875,
+          "p75": 0.118896484375,
+          "max": 110.406005859375,
+          "mean": 1.4508197854418274
+        }
+      },
+      {
+        "heroId": 52,
+        "pairs": 1568,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 1568,
+          "min": 0.217041015625,
+          "p25": 0.28515625,
+          "median": 0.35186767578125,
+          "p75": 0.3519287109375,
+          "max": 0.513427734375,
+          "mean": 0.3283418295334797
+        },
+        "spacing": {
+          "n": 1568,
+          "min": 0.21875,
+          "p25": 0.359375,
+          "median": 0.4375,
+          "p75": 0.796875,
+          "max": 117.34375,
+          "mean": 1.927016900510204
+        },
+        "residual": {
+          "n": 1568,
+          "min": 0,
+          "p25": 0.014892578125,
+          "median": 0.085601806640625,
+          "p75": 0.46563720703125,
+          "max": 117.060546875,
+          "mean": 1.5986750709767243
+        }
+      },
+      {
+        "heroId": 77,
+        "pairs": 1256,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 1256,
+          "min": 0.221923828125,
+          "p25": 0.3642578125,
+          "median": 0.3643798828125,
+          "p75": 0.369384765625,
+          "max": 0.56201171875,
+          "mean": 0.35497188568115234
+        },
+        "spacing": {
+          "n": 1256,
+          "min": 0.234375,
+          "p25": 0.375,
+          "median": 0.40625,
+          "p75": 1.21875,
+          "max": 120.953125,
+          "mean": 2.4155553343949046
+        },
+        "residual": {
+          "n": 1256,
+          "min": 0.00048828125,
+          "p25": 0.0106201171875,
+          "median": 0.055419921875,
+          "p75": 0.807525634765625,
+          "max": 120.687255859375,
+          "mean": 2.060583448713752
+        }
+      },
+      {
+        "heroId": 69,
+        "pairs": 876,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 876,
+          "min": 0.4295654296875,
+          "p25": 0.5439453125,
+          "median": 0.606231689453125,
+          "p75": 0.6187744140625,
+          "max": 0.92938232421875,
+          "mean": 0.6049160021080818
+        },
+        "spacing": {
+          "n": 876,
+          "min": 0.453125,
+          "p25": 0.625,
+          "median": 0.8125,
+          "p75": 2.17578125,
+          "max": 135.875,
+          "mean": 3.5503174942922375
+        },
+        "residual": {
+          "n": 876,
+          "min": 0.00048828125,
+          "p25": 0.01125335693359375,
+          "median": 0.20458984375,
+          "p75": 1.567352294921875,
+          "max": 135.170654296875,
+          "mean": 2.9454014921841556
+        }
+      },
+      {
+        "heroId": 50,
+        "pairs": 532,
+        "violations": 0,
+        "passRate": 1,
+        "readyDelay": {
+          "n": 532,
+          "min": 0.359375,
+          "p25": 0.4638671875,
+          "median": 0.5015869140625,
+          "p75": 0.512481689453125,
+          "max": 0.7718505859375,
+          "mean": 0.5050609273121769
+        },
+        "spacing": {
+          "n": 532,
+          "min": 0.359375,
+          "p25": 0.515625,
+          "median": 0.625,
+          "p75": 3.9453125,
+          "max": 189.578125,
+          "mean": 5.812764332706767
+        },
+        "residual": {
+          "n": 532,
+          "min": 0,
+          "p25": 0.0108642578125,
+          "median": 0.0632781982421875,
+          "p75": 3.400054931640625,
+          "max": 189.1229248046875,
+          "mean": 5.30770340539459
+        }
+      }
+    ],
+    "largestViolations": [
+      {
+        "heroId": 58,
+        "playerKey": "blooop354",
+        "weaponEntityIndex": 2588,
+        "tick": 191468,
+        "nextTick": 191567,
+        "readyDelaySeconds": 3.1875,
+        "observedNextSpacingSeconds": 1.546875,
+        "residualSeconds": -1.640625,
+        "lowerBoundViolationOneTick": true,
+        "sameEffectContext": true,
+        "currentEffectContextId": "weapon-context-63",
+        "nextEffectContextId": "weapon-context-63",
+        "activeFireMode": 1,
+        "continuousShots": 116,
+        "burstShotsRemaining": 0
+      }
+    ],
+    "classification": "READY_DELAY_REQUIRES_HERO_FIRE_MODE_DIAGNOSIS",
+    "interpretation": "The ready-delay candidate has material cases where the next discharge occurs earlier than the proposed readiness interval; diagnose hero/fire-mode/burst semantics before using it as effective cadence."
+  },
+  "nextStage": "DIAGNOSE_READY_DELAY_BY_HERO_FIRE_MODE_AND_BURST_STATE_BEFORE_EFFECT_COMPOSITION"
+}

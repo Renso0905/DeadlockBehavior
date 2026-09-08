@@ -609,7 +609,7 @@
     {
       "claimId": "assigned_gold_exact_732_735hu_threshold",
       "domain": "economy",
-      "construct": "Exact ~732\u2013735 HU AssignedGold vacuum-onset threshold",
+      "construct": "Exact ~732–735 HU AssignedGold vacuum-onset threshold",
       "authorityStatus": "withdrawn",
       "integrityValidation": "pass",
       "semanticValidation": "fail",
@@ -814,7 +814,7 @@
     {
       "claimId": "flying_soul_temporal_phases",
       "domain": "souls",
-      "construct": "Flying-soul launch \u2192 attackable \u2192 resolution phase substrate",
+      "construct": "Flying-soul launch → attackable → resolution phase substrate",
       "authorityStatus": "current",
       "integrityValidation": "pass",
       "semanticValidation": "pass",
@@ -839,7 +839,7 @@
     {
       "claimId": "flying_soul_dynamic_geometry",
       "domain": "souls",
-      "construct": "All-player dynamic player\u2013orb geometry substrate",
+      "construct": "All-player dynamic player–orb geometry substrate",
       "authorityStatus": "current",
       "integrityValidation": "pass",
       "semanticValidation": "pass",
@@ -1262,39 +1262,156 @@
       "claimId": "runtime_permanent_buff_ownership",
       "domain": "player_state_runtime",
       "construct": "Per-player permanent world-buff acquisition/stack count over time",
-      "authorityStatus": "missing",
-      "integrityValidation": "not_applicable",
-      "semanticValidation": "not_established",
-      "replicationStatus": "pending",
-      "scope": "",
-      "sourceScripts": [],
-      "currentArtifacts": [],
-      "downstreamUses": [
-        "PlayerState(t)"
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "CCitadelPlayerController.m_vecStatViewerModifierValues rows whose m_SourceModifierID resolves to the validated 18 permanent-pickup subclass hashes. Runtime row values are cumulative permanent-buff state; positive deltas resolve to exact tier-specific static unit multiples. Authority is limited to the validated replay/build cohort and does not identify the world interaction that granted a pickup.",
+      "sourceScripts": [
+        "136-v02-world-buff-contract",
+        "145-v01-runtime-permanent-pickup-semantic-validation",
+        "146-v01-runtime-permanent-pickup-cross-replay-replication"
       ],
-      "valueSummary": {},
+      "currentArtifacts": [
+        "output/cross_replay/runtime_permanent_pickup_cross_replay_replication_v01.json"
+      ],
+      "downstreamUses": [
+        "PlayerState(t)",
+        "effective weapon state",
+        "permanent-buff-adjusted opportunity models"
+      ],
+      "valueSummary": {
+        "discoveryReplay": "test",
+        "independentReplicationReplays": 5,
+        "semanticConsistentReplays": 5,
+        "fullStrongReplays": 5,
+        "permanentFamilies": 6,
+        "permanentSourceCandidates": 18,
+        "sourceCandidatesObservedAcrossCohort": 18,
+        "positiveAccumulationEvents": 1297,
+        "exactAmountEvents": 1297,
+        "exactAmountEventRate": 1,
+        "inferredPickupUnits": 1635,
+        "negativeInPlaceDeltas": 0,
+        "finalExactUnitMultiples": 619,
+        "finalValueRows": 619,
+        "finalExactUnitMultipleRate": 1,
+        "familyValueTypes": {
+          "ammo_permanent_pickup": 63,
+          "cd_permanent_pickup": 98,
+          "firerate_permanent_pickup": 91,
+          "hp_permanent_pickup": 43,
+          "spirit_permanent_pickup": 158,
+          "wp_permanent_pickup": 19
+        }
+      },
       "supersedes": [],
       "supersededBy": null,
-      "notes": ""
+      "notes": "Strong cross-replay runtime authority. Discovery plus all five frozen independent replication replays reproduced the same six-family/18-source permanent-pickup structure. Across the independent cohort, 1,297/1,297 positive accumulation events matched exact static tier-unit multiples, 619/619 final values matched exact unit multiples, and no negative in-place permanent value delta was observed. This establishes cumulative runtime permanent-buff acquisition/stack state, not the causal map object or interaction that granted each pickup. Bridge powerups are tracked separately under runtime_bridge_buff_ownership."
     },
     {
       "claimId": "runtime_bridge_buff_ownership",
       "domain": "player_state_runtime",
       "construct": "Per-player bridge-powerup acquisition/expiration over time",
-      "authorityStatus": "missing",
-      "integrityValidation": "not_applicable",
-      "semanticValidation": "not_established",
-      "replicationStatus": "pending",
-      "scope": "",
-      "sourceScripts": [],
-      "currentArtifacts": [],
-      "downstreamUses": [
-        "PlayerState(t)"
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "Reconstructed per-player bridge-powerup intervals. Acquisition is the CCitadel_Pickup_Modifier m_bActive true->false UPDATE with identity from the m_nSubclassID record-key hash and nearest-player attribution under the frozen <=300 HU collector gate. All four bridge types share a build-bound 160-second resource duration. Survival directly validates 11/11 uncensored natural expirations and 7/7 death terminations; one prior apparent natural miss was native PostGame censoring. Gun, Casting, and Movement use the shared 160-second bridge resource contract plus replicated acquisition semantics; their individual player-side expiration consequences were not separately validated through dedicated stat reversals. Match/replay end before nominal expiry is censoring. Do not reduce the resource lifetime to unconditional raw replay-tick arithmetic when a future interval overlaps unvalidated pause/time-scale behavior.",
+      "sourceScripts": [
+        "136-v02-world-buff-contract",
+        "147-v01-runtime-bridge-powerup-carrier",
+        "149-v01-bridge-pvs-robust-lifecycle",
+        "150-v01-bridge-world-collection-cross-replay-replication",
+        "152-v01-bridge-survival-runtime-duration-validation",
+        "156-v01-bridge-survival-match-end-outlier-diagnostic",
+        "157-v01-bridge-runtime-interval-authority"
       ],
-      "valueSummary": {},
+      "currentArtifacts": [
+        "output/cross_replay/bridge_world_collection_cross_replay_replication_v01.json",
+        "output/cross_replay/bridge_survival_runtime_duration_validation_v01.json",
+        "output/cross_replay/bridge_survival_match_end_outlier_diagnostic_v01.json",
+        "output/cross_replay/bridge_runtime_interval_authority_v01.json"
+      ],
+      "downstreamUses": [
+        "PlayerState(t)",
+        "effective weapon state",
+        "bridge-buff-adjusted opportunity models"
+      ],
+      "valueSummary": {
+        "discoveryReplay": "test",
+        "bridgePowerupTypes": 4,
+        "independentReplicationReplays": 5,
+        "semanticConsistentCollectionReplays": 5,
+        "collectionEvents": 76,
+        "collectorWithin300Count": 76,
+        "collectorWithin300Rate": 1,
+        "shiftedPlaceboWithin800Count": 2,
+        "shiftedPlaceboWithin800Rate": 0.02631578947368421,
+        "twoWaveCompleteBlocks": 12,
+        "twoWaveExactComplementBlocks": 12,
+        "twoWaveExactComplementRate": 1,
+        "sharedDurationSeconds": 160,
+        "directDurationConsequenceBuff": "survival_powerup_pickup",
+        "survivalNaturalEvidenceReplays": 4,
+        "survivalUncensoredNaturalExpirations": 11,
+        "survivalValidatedNaturalExpirations": 11,
+        "survivalNaturalExpirationRate": 1,
+        "survivalMedianExpirationTimingErrorSeconds": 0.046875,
+        "survivalDeathTerminationAnchors": 7,
+        "survivalDeathTerminationsObserved": 7,
+        "survivalDeathTerminationRate": 1,
+        "matchEndCensoredCandidates": 1
+      },
       "supersedes": [],
       "supersededBy": null,
-      "notes": ""
+      "notes": "Current scoped runtime authority. World-side bridge identity/collection and collector attribution replicated under frozen thresholds in 5/5 independent replays: 76/76 collection disappearances were within 300 HU of the attributed player versus 2/76 within 800 HU at the +30 s shifted control. The two-wave all-four deck rule replicated in 12/12 complete blocks. All four current-build bridge modifier resources specify 160 seconds. Survival provides direct player-side consequence validation: after correcting native match-end censoring, 11/11 uncensored natural expirations reversed Max HP and regen at the expected lifetime with median Max-HP timing error 0.046875 s; 7/7 death-confounded Survival acquisitions showed Max-HP removal at death. Ownership is reconstructed from validated collection events plus the scoped lifetime/termination contract; a directly serialized player-side bridge modifier ID was not established. Exact 5-to-40-minute bridge effect interpolation remains unresolved."
+    },
+    {
+      "claimId": "runtime_primary_attack_ready_schedule",
+      "domain": "player_state_runtime",
+      "construct": "Observed runtime primary-attack readiness/cadence schedule for the next sustained discharge",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "Within sustained consecutive primary-weapon discharge pairs on the same player, weapon entity, effect context, and active fire mode under the frozen Script172 fixed-regime strict-baseline semantics, m_flNextPrimaryAttack - m_flLastAttackTime is authoritative as the observed schedule for the next discharge. This does not promote static cadence formulas, spin-up cadence, ammo capacity, projectile state, damage composition, or the broader effective_weapon_state.",
+      "sourceScripts": [
+        "161-build-effective-weapon-state-substrate-v01",
+        "170-diagnose-actual-discharge-spacing-vs-static-cadence-v01",
+        "171-freeze-observed-primary-attack-ready-schedule-v01",
+        "172-validate-observed-primary-attack-ready-schedule-cross-replay-v01",
+        "173-promote-observed-primary-attack-ready-schedule-authority-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/observed_primary_attack_ready_schedule_cross_replay_validation_v01.json",
+        "output/cross_replay/observed_primary_attack_ready_schedule_authority_v01.json"
+      ],
+      "downstreamUses": [
+        "primary-weapon action readiness",
+        "cadence-aware attempt timing",
+        "cadence-aware opportunity timing",
+        "future effective weapon state composition"
+      ],
+      "valueSummary": {
+        "independentReplicationReplays": 5,
+        "semanticStrongReplays": 5,
+        "pooledSustainedPairs": 27465,
+        "pooledObservedReadyAligned": 27459,
+        "pooledObservedReadyAlignmentRate": 0.9997815401419989,
+        "burstBoundaryPairs": 1463,
+        "burstBoundaryReadyAlignmentRate": 1,
+        "burstPositivePairs": 5043,
+        "burstPositiveReadyAlignmentRate": 1,
+        "nonBurstPairs": 20959,
+        "nonBurstReadyAlignmentRate": 0.9997137267999427,
+        "boundaryLastAttackReplaySpacingAlignmentRate": 1,
+        "boundaryNextLastAttackVsCurrentNextPrimaryAlignmentRate": 1,
+        "staticExplanatoryModelV02PooledAlignmentRate": 0.8472237393045694
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Observed runtime schedule authority only. Static cadence V02 is explanatory and materially weaker pooled; rep04/non-burst static mismatch does not contradict the directly observed schedule. Keep effective_weapon_state missing until its remaining dimensions are independently validated."
     },
     {
       "claimId": "effective_weapon_state",
@@ -1324,26 +1441,52 @@
       "claimId": "player_state_t_v1",
       "domain": "player_state_runtime",
       "construct": "Integrated time-indexed PlayerState(t)",
-      "authorityStatus": "missing",
-      "integrityValidation": "not_applicable",
-      "semanticValidation": "not_established",
-      "replicationStatus": "pending",
-      "scope": "",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "Event-sourced per-player runtime state indexed by replay tick/time. The current authority integrates observed controller state with current standard-shop ownership, cumulative permanent world-buff state, and reconstructed active bridge-powerup intervals. Hero progression, item-effect definitions, and world-buff resource definitions are retained as provenance/resource inputs rather than silently promoted into fully composed numeric effective stats. Queries use the latest authoritative event at or before t without future leakage. This claim does not establish effective weapon composition, conditional item/modifier activation, universal stacking order, or every derived gameplay stat.",
       "sourceScripts": [
+        "03-player-state-extractor",
         "131-v02-hero-stat-progression",
         "136-v02-world-buff-contract",
-        "138-v02-current-shop-catalog"
+        "138-v02-current-shop-catalog",
+        "139-v03-standard-shop-item-effect-substrate",
+        "142-v02-runtime-item-ownership-cross-replay-replication",
+        "146-v01-runtime-permanent-pickup-cross-replay-replication",
+        "157-v01-bridge-runtime-interval-authority",
+        "158-v01-integrated-authoritative-player-state-substrate",
+        "159-v01-integrated-player-state-cross-replay-validation",
+        "160-v01-integrated-player-state-authority"
       ],
-      "currentArtifacts": [],
+      "currentArtifacts": [
+        "output/cross_replay/integrated_authoritative_player_state_cross_replay_validation_v01.json",
+        "output/cross_replay/integrated_player_state_authority_v01.json"
+      ],
       "downstreamUses": [
+        "effective weapon state",
         "opportunity engine",
         "behavioral metrics",
         "prediction"
       ],
-      "valueSummary": {},
+      "valueSummary": {
+        "independentReplicationReplays": 5,
+        "integrityPassReplays": 5,
+        "semanticPassReplays": 5,
+        "coverageCompleteReplays": 5,
+        "totalContradictions": 0,
+        "players": 60,
+        "timelineEvents": 604530,
+        "itemTransitions": 1518,
+        "bridgeIntervals": 76,
+        "permanentFamiliesAcrossCohort": 6,
+        "runtimeModel": "event_sourced_latest_event_at_or_before_t",
+        "effectiveStatsComposed": false,
+        "effectiveWeaponStateEstablished": false
+      },
       "supersedes": [],
       "supersededBy": null,
-      "notes": "Static pieces exist, but runtime ownership/composition is not yet resolved."
+      "notes": "Current cross-replay runtime integration authority. Script159 reproduced the integrated state semantics in all five frozen independent replays with 5/5 integrity pass, 5/5 semantic pass, 5/5 complete layer coverage, and zero structural contradictions across 60 players and 604,530 event boundaries. The authority establishes time-indexed runtime ownership/state composition and deterministic event-stream reconstruction; it does not establish effective_weapon_state or imply that every attached hero/item/buff resource value has validated runtime stacking/formula semantics."
     },
     {
       "claimId": "behavioral_metrics_v01",

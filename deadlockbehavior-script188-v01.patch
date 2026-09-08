@@ -1,0 +1,1433 @@
+diff --git a/src/player-state/combined-ammo-counter-consumed-cohort.mjs b/src/player-state/combined-ammo-counter-consumed-cohort.mjs
+new file mode 100644
+index 0000000..41d276f
+--- /dev/null
++++ b/src/player-state/combined-ammo-counter-consumed-cohort.mjs
+@@ -0,0 +1,403 @@
++// Script188 helpers.
++//
++// Diagnostic-only application of the Script187 frozen hypothesis to the
++// already-consumed rep01-rep05 cohort:
++//
++//   logicalMain  = ZigZag(m_iClip)
++//   logicalBonus = ZigZag(m_iBonusClip)
++//   combinedDrop = drop(logicalMain) + drop(logicalBonus)
++//
++// This is NOT independent replication. rep01-rep05 were used to form the
++// bonus-ZigZag hypothesis through Scripts185-186.
++
++export const COMBINED_AMMO_DIAGNOSTIC_THRESHOLDS = Object.freeze({
++  minInformativeBonusTransitionsPerHero: 20,
++  minBonusLogicalPositiveRate: 0.95,
++  minBonusLogicalOneUnitRate: 0.90,
++  minSupportingHeroes: 3,
++});
++
++export function zigzagReencode(raw) {
++  if (!Number.isFinite(raw)) return null;
++  return raw >= 0 ? 2 * raw : -2 * raw - 1;
++}
++
++export function enrichCombinedTransition(row) {
++  const previousBonusLogical =
++    zigzagReencode(row.previousBonusClip);
++
++  const currentBonusLogical =
++    zigzagReencode(row.currentBonusClip);
++
++  const bonusLogicalDrop =
++    Number.isFinite(previousBonusLogical)
++    && Number.isFinite(currentBonusLogical)
++      ? previousBonusLogical - currentBonusLogical
++      : null;
++
++  const combinedDrop =
++    Number.isFinite(row.wholeDrop)
++    && Number.isFinite(bonusLogicalDrop)
++      ? row.wholeDrop + bonusLogicalDrop
++      : null;
++
++  return {
++    ...row,
++    previousBonusLogical,
++    currentBonusLogical,
++    bonusLogicalDrop,
++    combinedDrop,
++    combinedLabel:
++      !Number.isFinite(combinedDrop)
++        ? 'UNEVALUABLE'
++        : combinedDrop > 0
++          ? 'POSITIVE'
++          : combinedDrop < 0
++            ? 'NEGATIVE'
++            : 'ZERO',
++  };
++}
++
++export function summarizeCombinedAmmoRows(
++  rows,
++  thresholds = COMBINED_AMMO_DIAGNOSTIC_THRESHOLDS,
++) {
++  const absent =
++    rows.filter(
++      row =>
++        row.covered === true
++        && row.carrierPresent === false,
++    )
++    .map(enrichCombinedTransition)
++    .filter(
++      row =>
++        Number.isFinite(row.bonusLogicalDrop)
++        && Number.isFinite(row.combinedDrop),
++    );
++
++  const baseline =
++    partition(absent, row => row.wholeDrop);
++
++  const combined =
++    partition(absent, row => row.combinedDrop);
++
++  const mainZeroBonusChanging =
++    absent.filter(
++      row =>
++        row.wholeDrop === 0
++        && Number.isFinite(row.bonusClipDelta)
++        && row.bonusClipDelta !== 0,
++    );
++
++  const bonusPositive =
++    mainZeroBonusChanging.filter(
++      row => row.bonusLogicalDrop > 0,
++    );
++
++  const bonusOne =
++    mainZeroBonusChanging.filter(
++      row => row.bonusLogicalDrop === 1,
++    );
++
++  const byHero =
++    summarizeByHero(
++      absent,
++      thresholds,
++    );
++
++  const byReplay =
++    summarizeByReplay(
++      absent,
++    );
++
++  const residualRows =
++    absent.filter(
++      row =>
++        row.combinedLabel === 'ZERO'
++        || row.combinedLabel === 'NEGATIVE',
++    );
++
++  const supportingHeroes =
++    byHero
++      .filter(row => row.support)
++      .map(row => row.heroId);
++
++  return {
++    carrierAbsent:
++      absent.length,
++
++    baseline,
++    combined,
++
++    positiveRateGain:
++      Number.isFinite(combined.positiveRate)
++      && Number.isFinite(baseline.positiveRate)
++        ? combined.positiveRate - baseline.positiveRate
++        : null,
++
++    baselineResidual:
++      baseline.zero + baseline.negative,
++
++    combinedResidual:
++      combined.zero + combined.negative,
++
++    residualReduction:
++      (baseline.zero + baseline.negative) > 0
++        ? 1 - (
++          (combined.zero + combined.negative)
++          / (baseline.zero + baseline.negative)
++        )
++        : null,
++
++    mainZeroBonusChanging:
++      mainZeroBonusChanging.length,
++
++    bonusLogicalPositive:
++      bonusPositive.length,
++
++    bonusLogicalOne:
++      bonusOne.length,
++
++    bonusLogicalPositiveRate:
++      mainZeroBonusChanging.length > 0
++        ? bonusPositive.length
++          / mainZeroBonusChanging.length
++        : null,
++
++    bonusLogicalOneUnitRate:
++      mainZeroBonusChanging.length > 0
++        ? bonusOne.length
++          / mainZeroBonusChanging.length
++        : null,
++
++    byHero,
++    byReplay,
++
++    supportingHeroes,
++    supportingHeroCount:
++      supportingHeroes.length,
++
++    classification:
++      supportingHeroes.length
++        >= thresholds.minSupportingHeroes
++      && mainZeroBonusChanging.length > 0
++      && bonusPositive.length
++        / mainZeroBonusChanging.length
++        >= thresholds.minBonusLogicalPositiveRate
++      && bonusOne.length
++        / mainZeroBonusChanging.length
++        >= thresholds.minBonusLogicalOneUnitRate
++        ? 'BONUS_CLIP_ZIGZAG_GENERALIZES_ACROSS_MULTIPLE_HEROES_IN_CONSUMED_COHORT'
++        : 'BONUS_CLIP_ZIGZAG_GENERALIZATION_REMAINS_DIAGNOSTIC',
++
++    remainingResidualByHero:
++      residualGroup(
++        residualRows,
++        row => String(row.heroId),
++      ),
++
++    remainingResidualByReplay:
++      residualGroup(
++        residualRows,
++        row => row.replayName,
++      ),
++
++    topRemainingPatterns:
++      topPatterns(
++        residualRows,
++      ),
++  };
++}
++
++function summarizeByHero(rows, thresholds) {
++  const groups = new Map();
++
++  for (const row of rows) {
++    if (!groups.has(row.heroId)) {
++      groups.set(row.heroId, []);
++    }
++    groups.get(row.heroId).push(row);
++  }
++
++  return [...groups.entries()]
++    .map(([heroId, heroRows]) => {
++      const informative =
++        heroRows.filter(
++          row =>
++            row.wholeDrop === 0
++            && Number.isFinite(row.bonusClipDelta)
++            && row.bonusClipDelta !== 0,
++        );
++
++      const positive =
++        informative.filter(
++          row => row.bonusLogicalDrop > 0,
++        ).length;
++
++      const one =
++        informative.filter(
++          row => row.bonusLogicalDrop === 1,
++        ).length;
++
++      const positiveRate =
++        informative.length > 0
++          ? positive / informative.length
++          : null;
++
++      const oneRate =
++        informative.length > 0
++          ? one / informative.length
++          : null;
++
++      const support =
++        informative.length
++          >= thresholds.minInformativeBonusTransitionsPerHero
++        && positiveRate
++          >= thresholds.minBonusLogicalPositiveRate
++        && oneRate
++          >= thresholds.minBonusLogicalOneUnitRate;
++
++      return {
++        heroId,
++        total:
++          heroRows.length,
++        informative:
++          informative.length,
++        positive,
++        one,
++        positiveRate,
++        oneRate,
++        support,
++      };
++    })
++    .sort(
++      (a, b) =>
++        b.informative - a.informative
++        || b.total - a.total,
++    );
++}
++
++function summarizeByReplay(rows) {
++  const groups = new Map();
++
++  for (const row of rows) {
++    if (!groups.has(row.replayName)) {
++      groups.set(row.replayName, []);
++    }
++    groups.get(row.replayName).push(row);
++  }
++
++  return [...groups.entries()]
++    .map(([replayName, replayRows]) => {
++      const baseline =
++        partition(replayRows, row => row.wholeDrop);
++
++      const combined =
++        partition(replayRows, row => row.combinedDrop);
++
++      return {
++        replayName,
++        total:
++          replayRows.length,
++        baseline,
++        combined,
++      };
++    })
++    .sort(
++      (a, b) =>
++        a.replayName.localeCompare(b.replayName),
++    );
++}
++
++function partition(rows, valueFn) {
++  let positive = 0;
++  let zero = 0;
++  let negative = 0;
++
++  for (const row of rows) {
++    const value = valueFn(row);
++
++    if (!Number.isFinite(value)) continue;
++
++    if (value > 0) positive++;
++    else if (value < 0) negative++;
++    else zero++;
++  }
++
++  const total =
++    positive + zero + negative;
++
++  return {
++    total,
++    positive,
++    zero,
++    negative,
++    positiveRate:
++      total > 0 ? positive / total : null,
++    zeroRate:
++      total > 0 ? zero / total : null,
++    negativeRate:
++      total > 0 ? negative / total : null,
++  };
++}
++
++function residualGroup(rows, keyFn) {
++  const groups = new Map();
++
++  for (const row of rows) {
++    const key = keyFn(row);
++    if (!groups.has(key)) groups.set(key, []);
++    groups.get(key).push(row);
++  }
++
++  return [...groups.entries()]
++    .map(([key, groupRows]) => ({
++      key,
++      total:
++        groupRows.length,
++      zero:
++        groupRows.filter(
++          row => row.combinedLabel === 'ZERO',
++        ).length,
++      negative:
++        groupRows.filter(
++          row => row.combinedLabel === 'NEGATIVE',
++        ).length,
++    }))
++    .sort(
++      (a, b) =>
++        b.total - a.total,
++    );
++}
++
++function topPatterns(rows) {
++  const counts = new Map();
++
++  for (const row of rows) {
++    const key =
++      [
++        `replay=${row.replayName}`,
++        `hero=${row.heroId}`,
++        `mainDrop=${row.wholeDrop}`,
++        `bonusDrop=${row.bonusLogicalDrop}`,
++        `combined=${row.combinedDrop}`,
++        `shots=${row.shotAdvance}`,
++      ].join('|');
++
++    counts.set(
++      key,
++      (counts.get(key) ?? 0) + 1,
++    );
++  }
++
++  return [...counts.entries()]
++    .map(([pattern, count]) => ({
++      pattern,
++      count,
++    }))
++    .sort(
++      (a, b) =>
++        b.count - a.count,
++    )
++    .slice(0, 100);
++}
+diff --git a/scripts/188-diagnose-combined-ammo-counter-consumed-cohort-v01.mjs b/scripts/188-diagnose-combined-ammo-counter-consumed-cohort-v01.mjs
+new file mode 100644
+index 0000000..49cb7db
+--- /dev/null
++++ b/scripts/188-diagnose-combined-ammo-counter-consumed-cohort-v01.mjs
+@@ -0,0 +1,868 @@
++import {
++  createReadStream,
++  existsSync,
++  mkdirSync,
++  readFileSync,
++  writeFileSync,
++} from 'node:fs';
++
++import {
++  dirname,
++  resolve,
++} from 'node:path';
++
++import {
++  EntityOperation,
++  InterceptorStage,
++  Logger,
++  Parser,
++  ParserConfiguration,
++} from 'deadem';
++
++import {
++  flattenPrimitiveChanges,
++} from '../src/player-state/slide-carrier-discovery.mjs';
++
++import {
++  createAttackTickGuard,
++  resolvePawnForHero,
++} from '../src/player-state/slide-carrier-controller-join.mjs';
++
++import {
++  evaluateCarrierState,
++  PRIMARY_SLIDE_AMMO_CARRIER,
++} from '../src/player-state/slide-infinite-ammo-validation.mjs';
++
++import {
++  groupDetailedWeaponEvents,
++  normalizeDetailedWeaponEvent,
++} from '../src/player-state/slide-carrier-residual-diagnostic.mjs';
++
++import {
++  COMBINED_AMMO_DIAGNOSTIC_THRESHOLDS,
++  summarizeCombinedAmmoRows,
++  zigzagReencode,
++} from '../src/player-state/combined-ammo-counter-consumed-cohort.mjs';
++
++const VERSION =
++  'COMBINED_AMMO_COUNTER_CONSUMED_COHORT_DIAGNOSTIC_V01';
++
++const PATHS = {
++  manifest:
++    resolve(
++      'output',
++      'cross_replay',
++      'replication_manifest_v01.json',
++    ),
++
++  script187:
++    resolve(
++      'output',
++      'test',
++      'bonus_clip_zigzag_representation_diagnostic_v01.json',
++    ),
++
++  output:
++    resolve(
++      'output',
++      'cross_replay',
++      'combined_ammo_counter_consumed_cohort_diagnostic_v01.json',
++    ),
++};
++
++for (const [name, path] of Object.entries(PATHS)) {
++  if (name === 'output') continue;
++
++  if (!existsSync(path)) {
++    throw new Error(
++      `Missing ${name}:\n${path}`,
++    );
++  }
++}
++
++const manifest =
++  JSON.parse(
++    readFileSync(
++      PATHS.manifest,
++      'utf8',
++    ),
++  );
++
++const script187 =
++  JSON.parse(
++    readFileSync(
++      PATHS.script187,
++      'utf8',
++    ),
++  );
++
++const EXPECTED_187_STATUS =
++  'BONUS_CLIP_ZIGZAG_REPRESENTATION_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION';
++
++const EXPECTED_187_CLASSIFICATION =
++  'BONUS_CLIP_ZIGZAG_IS_STRONG_SECOND_LOGICAL_AMMO_COUNTER_CANDIDATE';
++
++const cohort =
++  Array.isArray(
++    manifest?.selectedReplicationCohort,
++  )
++    ? manifest.selectedReplicationCohort
++      .map(row => String(row.replayName))
++    : [];
++
++if (cohort.length !== 5) {
++  throw new Error(
++    `Expected five consumed replays, found ${cohort.length}.`,
++  );
++}
++
++console.log('');
++console.log(
++  '========================================================',
++);
++console.log(
++  'COMBINED AMMO COUNTER — CONSUMED COHORT DIAGNOSTIC V0.1',
++);
++console.log(
++  '========================================================',
++);
++console.log('');
++console.log(
++  'Frozen hypothesis: Z(m_iClip) + Z(m_iBonusClip)',
++);
++console.log(
++  'rep01-rep05 treated as independent validation: NO',
++);
++console.log(
++  'Authority promotion: NO',
++);
++console.log('');
++
++const allRows = [];
++const replayIntegrity = [];
++
++for (const replayName of cohort) {
++  const replayPath =
++    resolve(
++      'replays',
++      `${replayName}.dem`,
++    );
++
++  const weaponPath =
++    resolve(
++      'output',
++      replayName,
++      'effective_weapon_runtime_events_v01.jsonl',
++    );
++
++  if (
++    !existsSync(replayPath)
++    || !existsSync(weaponPath)
++  ) {
++    replayIntegrity.push({
++      replayName,
++      pass: false,
++      reason:
++        'MISSING_REQUIRED_INPUT',
++    });
++    continue;
++  }
++
++  const weaponEvents = [];
++  let parseFailures = 0;
++
++  for await (
++    const line
++    of readLines(weaponPath)
++  ) {
++    if (!line.trim()) continue;
++
++    try {
++      weaponEvents.push(
++        normalizeDetailedWeaponEvent(
++          JSON.parse(line),
++          weaponEvents.length,
++        ),
++      );
++    } catch {
++      parseFailures++;
++    }
++  }
++
++  const transitions =
++    deriveTransitions(
++      groupDetailedWeaponEvents(
++        weaponEvents,
++      ),
++    );
++
++  const byTick = new Map();
++
++  for (const row of transitions) {
++    if (!byTick.has(row.tick)) {
++      byTick.set(row.tick, []);
++    }
++    byTick.get(row.tick).push(row);
++  }
++
++  const pawnStateByEntity = new Map();
++  const tickGuard = createAttackTickGuard();
++
++  const replayRows = [];
++  let joined = 0;
++  let joinFailures = 0;
++
++  const parser =
++    new Parser(
++      new ParserConfiguration({
++        entityClasses: [
++          'CCitadelPlayerController',
++          'CCitadelPlayerPawn',
++        ],
++      }),
++      Logger.CONSOLE_INFO,
++    );
++
++  parser.registerPostInterceptor(
++    InterceptorStage.ENTITY_PACKET,
++    (
++      demoPacket,
++      messagePacket,
++      events,
++    ) => {
++      for (const event of events) {
++        if (
++          event.operation
++            !== EntityOperation.CREATE
++          && event.operation
++            !== EntityOperation.UPDATE
++        ) {
++          continue;
++        }
++
++        const entity =
++          event.entity;
++
++        if (
++          entity?.class?.name
++          !== 'CCitadelPlayerPawn'
++        ) {
++          continue;
++        }
++
++        if (
++          !pawnStateByEntity.has(
++            entity.index,
++          )
++        ) {
++          pawnStateByEntity.set(
++            entity.index,
++            {},
++          );
++        }
++
++        Object.assign(
++          pawnStateByEntity.get(
++            entity.index,
++          ),
++          flattenPrimitiveChanges(
++            event.getChanges(),
++          ),
++        );
++      }
++    },
++  );
++
++  parser.registerPostInterceptor(
++    InterceptorStage.DEMO_PACKET,
++    demoPacket => {
++      const tick =
++        demoPacket.tick;
++
++      if (!byTick.has(tick)) return;
++
++      if (
++        !tickGuard.shouldProcess(tick)
++      ) {
++        return;
++      }
++
++      const demo =
++        parser.getDemo();
++
++      const controllers =
++        demo.getEntitiesByClassName(
++          'CCitadelPlayerController',
++        );
++
++      for (
++        const transition
++        of byTick.get(tick)
++      ) {
++        const resolution =
++          resolvePawnForHero({
++            demo,
++            controllers,
++            heroId:
++              transition.heroId,
++          });
++
++        if (!resolution.pawn) {
++          joinFailures++;
++          continue;
++        }
++
++        const state =
++          pawnStateByEntity.get(
++            resolution.pawn.index,
++          );
++
++        if (!state) {
++          joinFailures++;
++          continue;
++        }
++
++        joined++;
++
++        const carrier =
++          evaluateCarrierState(
++            state,
++            PRIMARY_SLIDE_AMMO_CARRIER,
++          );
++
++        replayRows.push({
++          replayName,
++          ...transition,
++          covered:
++            carrier.covered,
++          carrierPresent:
++            carrier.present,
++        });
++      }
++    },
++  );
++
++  try {
++    await parser.parse(
++      createReadStream(replayPath),
++    );
++  } finally {
++    await parser.dispose();
++  }
++
++  const pass =
++    parseFailures === 0
++    && joinFailures === 0
++    && joined === transitions.length;
++
++  replayIntegrity.push({
++    replayName,
++    pass,
++    transitions:
++      transitions.length,
++    joined,
++    joinFailures,
++    parseFailures,
++  });
++
++  allRows.push(...replayRows);
++
++  console.log(
++    `${replayName}: transitions=${transitions.length} joined=${joined}/${transitions.length}`,
++  );
++}
++
++const diagnostic =
++  summarizeCombinedAmmoRows(
++    allRows,
++    COMBINED_AMMO_DIAGNOSTIC_THRESHOLDS,
++  );
++
++const checks = {
++  script187Ready:
++    check(
++      script187?.status,
++      EXPECTED_187_STATUS,
++      script187?.status
++        === EXPECTED_187_STATUS,
++    ),
++
++  script187ClassificationExpected:
++    check(
++      script187
++        ?.diagnostic
++        ?.classification,
++      EXPECTED_187_CLASSIFICATION,
++      script187
++        ?.diagnostic
++        ?.classification
++        === EXPECTED_187_CLASSIFICATION,
++    ),
++
++  bonusZigzagFrozen:
++    check(
++      {
++        negative5:
++          zigzagReencode(-5),
++        positive4:
++          zigzagReencode(4),
++      },
++      {
++        negative5: 9,
++        positive4: 8,
++      },
++      zigzagReencode(-5) === 9
++      && zigzagReencode(4) === 8,
++    ),
++
++  allFiveIntegrityPass:
++    check(
++      replayIntegrity.filter(
++        row => row.pass,
++      ).length,
++      5,
++      replayIntegrity.length === 5
++      && replayIntegrity.every(
++        row => row.pass,
++      ),
++    ),
++
++  consumedCohortExplicitlyNotIndependent:
++    check(
++      false,
++      false,
++      true,
++    ),
++};
++
++const integrityPass =
++  Object.values(checks)
++    .every(row => row.pass);
++
++const result = {
++  version:
++    VERSION,
++
++  canonical:
++    false,
++
++  createdAt:
++    new Date().toISOString(),
++
++  status:
++    integrityPass
++      ? 'COMBINED_AMMO_COUNTER_CONSUMED_COHORT_DIAGNOSTIC_V01_READY_FOR_INTERPRETATION'
++      : 'COMBINED_AMMO_COUNTER_CONSUMED_COHORT_DIAGNOSTIC_V01_INTEGRITY_FAILURE',
++
++  scientificBoundary: {
++    hypothesis:
++      'drop(Z(m_iClip)) + drop(Z(m_iBonusClip))',
++
++    cohort:
++      cohort,
++
++    independentValidation:
++      false,
++
++    reason:
++      'rep01-rep05 contributed to formation of the bonus-ZigZag hypothesis through Scripts185-186',
++
++    authorityPromotion:
++      false,
++  },
++
++  thresholds:
++    COMBINED_AMMO_DIAGNOSTIC_THRESHOLDS,
++
++  replayIntegrity,
++
++  diagnostic,
++
++  integrityValidation: {
++    pass:
++      integrityPass,
++    checks,
++  },
++
++  semanticValidation: {
++    status:
++      'CONSUMED_COHORT_DIAGNOSTIC_ONLY',
++    authorityPromotion:
++      false,
++    replicationStatus:
++      'not_independent',
++  },
++
++  nextStep:
++    diagnostic.classification
++      === 'BONUS_CLIP_ZIGZAG_GENERALIZES_ACROSS_MULTIPLE_HEROES_IN_CONSUMED_COHORT'
++      ? 'FREEZE_COMBINED_LOGICAL_AMMO_COUNTER_AS_CANDIDATE;_NEW_INDEPENDENT_REPLAYS_ARE_REQUIRED_FOR_REPLICATION;_DIAGNOSE_REMAINING_COMBINED_ZERO_NEGATIVE_TRANSITIONS_SEPARATELY'
++      : 'KEEP_BONUS_ZIGZAG_HERO_SCOPED_OR_UNRESOLVED_AND_DIAGNOSE_FAILURES_BEFORE_NEW_REPLICATION',
++};
++
++mkdirSync(
++  dirname(PATHS.output),
++  {
++    recursive: true,
++  },
++);
++
++writeFileSync(
++  PATHS.output,
++  `${JSON.stringify(
++    result,
++    null,
++    2,
++  )}\n`,
++  'utf8',
++);
++
++print(result);
++
++function deriveTransitions(grouped) {
++  const transitions = [];
++
++  for (
++    const contextRows
++    of grouped.values()
++  ) {
++    const byTick =
++      new Map();
++
++    for (const row of contextRows) {
++      if (Number.isFinite(row.tick)) {
++        byTick.set(
++          row.tick,
++          row,
++        );
++      }
++    }
++
++    const settled =
++      [...byTick.values()]
++        .sort(
++          (a, b) =>
++            a.tick - b.tick
++            || a.sourceIndex
++            - b.sourceIndex,
++        );
++
++    for (
++      let index = 1;
++      index < settled.length;
++      index++
++    ) {
++      const previous =
++        settled[index - 1];
++
++      const current =
++        settled[index];
++
++      if (
++        previous.inReload === true
++        || current.inReload === true
++        || !Number.isFinite(
++          previous.shotNumber,
++        )
++        || !Number.isFinite(
++          current.shotNumber,
++        )
++        || !Number.isFinite(
++          previous.wholeClip,
++        )
++        || !Number.isFinite(
++          current.wholeClip,
++        )
++      ) {
++        continue;
++      }
++
++      const shotAdvance =
++        current.shotNumber
++        - previous.shotNumber;
++
++      if (shotAdvance <= 0) {
++        continue;
++      }
++
++      const wholeDrop =
++        previous.wholeClip
++        - current.wholeClip;
++
++      const previousBonusClip =
++        previous.bonusClip;
++
++      const currentBonusClip =
++        current.bonusClip;
++
++      const bonusClipDelta =
++        Number.isFinite(
++          previousBonusClip,
++        )
++        && Number.isFinite(
++          currentBonusClip,
++        )
++          ? currentBonusClip
++            - previousBonusClip
++          : null;
++
++      transitions.push({
++        tick:
++          current.tick,
++
++        previousTick:
++          previous.tick,
++
++        heroId:
++          current.heroId,
++
++        playerKey:
++          current.playerKey,
++
++        weaponEntityIndex:
++          current.weaponEntityIndex,
++
++        effectContextId:
++          current.effectContextId,
++
++        activeFireMode:
++          current.activeFireMode,
++
++        shotAdvance,
++        wholeDrop,
++
++        label:
++          wholeDrop > 0
++            ? 'POSITIVE'
++            : wholeDrop < 0
++              ? 'NEGATIVE'
++              : 'ZERO',
++
++        previousBonusClip,
++        currentBonusClip,
++        bonusClipDelta,
++      });
++    }
++  }
++
++  return transitions;
++}
++
++async function* readLines(path) {
++  const {
++    createInterface,
++  } = await import(
++    'node:readline'
++  );
++
++  const reader =
++    createInterface({
++      input:
++        createReadStream(
++          path,
++          {
++            encoding:
++              'utf8',
++          },
++        ),
++      crlfDelay:
++        Infinity,
++    });
++
++  for await (const line of reader) {
++    yield line;
++  }
++}
++
++function check(
++  actual,
++  expected,
++  pass,
++) {
++  return {
++    actual,
++    expected,
++    pass:
++      Boolean(pass),
++  };
++}
++
++function percent(value) {
++  return Number.isFinite(value)
++    ? `${(
++      value * 100
++    ).toFixed(2)}%`
++    : 'n/a';
++}
++
++function print(result) {
++  const d =
++    result.diagnostic;
++
++  console.log('');
++  console.log(
++    '========================================================',
++  );
++  console.log(
++    'COMBINED LOGICAL AMMO SUMMARY',
++  );
++  console.log(
++    '========================================================',
++  );
++  console.log('');
++
++  console.log(
++    `carrier-absent transitions:          ${d.carrierAbsent}`,
++  );
++  console.log(
++    `main-zero bonus-changing:            ${d.mainZeroBonusChanging}`,
++  );
++  console.log(
++    `bonus logical positive:              ${d.bonusLogicalPositive} (${percent(d.bonusLogicalPositiveRate)})`,
++  );
++  console.log(
++    `bonus logical exactly one:           ${d.bonusLogicalOne} (${percent(d.bonusLogicalOneUnitRate)})`,
++  );
++  console.log('');
++
++  console.log(
++    'BASELINE MAIN COUNTER',
++  );
++  console.log(
++    '---------------------',
++  );
++  console.log(
++    `positive=${d.baseline.positive} (${percent(d.baseline.positiveRate)}) zero=${d.baseline.zero} (${percent(d.baseline.zeroRate)}) negative=${d.baseline.negative} (${percent(d.baseline.negativeRate)}) residual=${d.baselineResidual}`,
++  );
++  console.log('');
++
++  console.log(
++    'COMBINED MAIN + BONUS COUNTER',
++  );
++  console.log(
++    '-----------------------------',
++  );
++  console.log(
++    `positive=${d.combined.positive} (${percent(d.combined.positiveRate)}) zero=${d.combined.zero} (${percent(d.combined.zeroRate)}) negative=${d.combined.negative} (${percent(d.combined.negativeRate)}) residual=${d.combinedResidual}`,
++  );
++  console.log(
++    `positive-rate gain:                   ${percent(d.positiveRateGain)}`,
++  );
++  console.log(
++    `residual reduction:                   ${percent(d.residualReduction)}`,
++  );
++  console.log('');
++
++  console.log(
++    'BY REPLAY',
++  );
++  console.log(
++    '---------',
++  );
++
++  for (const row of d.byReplay) {
++    console.log(
++      `${row.replayName}: baselinePositive=${percent(row.baseline.positiveRate)} combinedPositive=${percent(row.combined.positiveRate)} combinedZero=${percent(row.combined.zeroRate)} combinedNegative=${percent(row.combined.negativeRate)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'BY HERO — BONUS ZIGZAG SUPPORT',
++  );
++  console.log(
++    '------------------------------',
++  );
++
++  for (
++    const row
++    of d.byHero.slice(0, 25)
++  ) {
++    console.log(
++      `hero=${String(row.heroId).padEnd(4)} informative=${String(row.informative).padEnd(5)} positive=${percent(row.positiveRate).padEnd(8)} oneUnit=${percent(row.oneRate).padEnd(8)} support=${row.support}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    `supporting heroes:                    ${JSON.stringify(d.supportingHeroes)}`,
++  );
++  console.log(
++    `supporting hero count:                ${d.supportingHeroCount}`,
++  );
++
++  console.log('');
++  console.log(
++    'REMAINING COMBINED RESIDUALS BY HERO',
++  );
++  console.log(
++    '------------------------------------',
++  );
++
++  for (
++    const row
++    of d.remainingResidualByHero.slice(0, 20)
++  ) {
++    console.log(
++      `hero=${String(row.key).padEnd(4)} total=${String(row.total).padEnd(5)} zero=${String(row.zero).padEnd(5)} negative=${row.negative}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'TOP REMAINING PATTERNS',
++  );
++  console.log(
++    '----------------------',
++  );
++
++  for (
++    const row
++    of d.topRemainingPatterns.slice(0, 30)
++  ) {
++    console.log(
++      `${row.pattern} count=${row.count}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'INTEGRITY VALIDATION',
++  );
++  console.log(
++    '--------------------',
++  );
++
++  for (
++    const [name, row]
++    of Object.entries(
++      result.integrityValidation.checks,
++    )
++  ) {
++    console.log(
++      `${name.padEnd(44)} ${String(row.pass).padEnd(5)} actual=${JSON.stringify(row.actual)} expected=${JSON.stringify(row.expected)}`,
++    );
++  }
++
++  console.log('');
++  console.log(
++    'CLASSIFICATION',
++  );
++  console.log(
++    '--------------',
++  );
++  console.log(
++    d.classification,
++  );
++  console.log('');
++  console.log(
++    `status: ${result.status}`,
++  );
++  console.log(
++    `NEXT STAGE: ${result.nextStep}`,
++  );
++  console.log('');
++  console.log(
++    `JSON:\n${PATHS.output}`,
++  );
++}
+diff --git a/tests/combined-ammo-counter-consumed-cohort.test.mjs b/tests/combined-ammo-counter-consumed-cohort.test.mjs
+new file mode 100644
+index 0000000..0efa65c
+--- /dev/null
++++ b/tests/combined-ammo-counter-consumed-cohort.test.mjs
+@@ -0,0 +1,144 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++
++import {
++  enrichCombinedTransition,
++  summarizeCombinedAmmoRows,
++  zigzagReencode,
++} from '../src/player-state/combined-ammo-counter-consumed-cohort.mjs';
++
++test('bonus uses same ZigZag encoding as main clip', () => {
++  assert.equal(
++    zigzagReencode(-5),
++    9,
++  );
++
++  assert.equal(
++    zigzagReencode(4),
++    8,
++  );
++});
++
++test('main-zero raw alternating bonus transition becomes one combined decrement', () => {
++  const row =
++    enrichCombinedTransition({
++      wholeDrop: 0,
++      previousBonusClip: -5,
++      currentBonusClip: 4,
++    });
++
++  assert.equal(
++    row.bonusLogicalDrop,
++    1,
++  );
++
++  assert.equal(
++    row.combinedDrop,
++    1,
++  );
++});
++
++test('combined counter preserves ordinary main-only decrement', () => {
++  const row =
++    enrichCombinedTransition({
++      wholeDrop: 1,
++      previousBonusClip: 0,
++      currentBonusClip: 0,
++    });
++
++  assert.equal(
++    row.bonusLogicalDrop,
++    0,
++  );
++
++  assert.equal(
++    row.combinedDrop,
++    1,
++  );
++});
++
++test('multiple heroes can independently support the bonus ZigZag hypothesis', () => {
++  const rows = [];
++
++  for (
++    const heroId
++    of [13, 63, 65]
++  ) {
++    for (let i = 0; i < 30; i++) {
++      rows.push({
++        covered: true,
++        carrierPresent: false,
++        heroId,
++        replayName: 'rep01',
++        wholeDrop: 0,
++        previousBonusClip:
++          i % 2 === 0 ? -5 : 4,
++        currentBonusClip:
++          i % 2 === 0 ? 4 : -4,
++        bonusClipDelta:
++          i % 2 === 0 ? 9 : -8,
++        shotAdvance: 1,
++      });
++    }
++  }
++
++  for (let i = 0; i < 1000; i++) {
++    rows.push({
++      covered: true,
++      carrierPresent: false,
++      heroId: 1,
++      replayName: 'rep01',
++      wholeDrop: 1,
++      previousBonusClip: 0,
++      currentBonusClip: 0,
++      bonusClipDelta: 0,
++      shotAdvance: 1,
++    });
++  }
++
++  const result =
++    summarizeCombinedAmmoRows(
++      rows,
++    );
++
++  assert.equal(
++    result.supportingHeroCount,
++    3,
++  );
++
++  assert.equal(
++    result.classification,
++    'BONUS_CLIP_ZIGZAG_GENERALIZES_ACROSS_MULTIPLE_HEROES_IN_CONSUMED_COHORT',
++  );
++});
++
++test('remaining combined residuals stay visible rather than disappearing', () => {
++  const rows = [
++    {
++      covered: true,
++      carrierPresent: false,
++      heroId: 35,
++      replayName: 'rep01',
++      wholeDrop: -5,
++      previousBonusClip: 0,
++      currentBonusClip: 0,
++      bonusClipDelta: 0,
++      shotAdvance: 1,
++    },
++  ];
++
++  const result =
++    summarizeCombinedAmmoRows(
++      rows,
++    );
++
++  assert.equal(
++    result.combined.negative,
++    1,
++  );
++
++  assert.equal(
++    result.remainingResidualByHero[0].key,
++    '35',
++  );
++});

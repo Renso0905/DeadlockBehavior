@@ -1,0 +1,833 @@
+{
+  "version": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_CROSS_REPLAY_VALIDATION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-07T16:59:12.052Z",
+  "status": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_V01_STRONGLY_VALIDATED_ACROSS_INDEPENDENT_REPLAYS",
+  "foundations": {
+    "replicationManifest": "G:\\DeadlockBehavior\\output\\cross_replay\\replication_manifest_v01.json",
+    "script158": "G:\\DeadlockBehavior\\scripts\\158-build-integrated-authoritative-player-state-substrate-v01.mjs",
+    "script158Version": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+    "playerStateClaim": {
+      "claimId": "player_state_t_v1",
+      "authorityStatus": "missing"
+    },
+    "effectiveWeaponClaim": {
+      "claimId": "effective_weapon_state",
+      "authorityStatus": "missing"
+    }
+  },
+  "validationPolicy": {
+    "frozenBeforeReplicationInspection": true,
+    "coverageVsSemantics": "Missing layer exposure is reported as coverage. Contradictions require a structural inconsistency in the integrated event stream or its authoritative ownership projections.",
+    "semanticGates": [
+      "strictly increasing per-player event ticks",
+      "deterministic final-state reconstruction from event stream",
+      "coherent standard-shop add/remove set mutations",
+      "all item effectInputRef values resolve to Script139-derived top-level inputs",
+      "stable resolved player identity",
+      "finite nonnegative and monotonic permanent-buff accumulation",
+      "well-formed 160-second/death/censor bridge intervals",
+      "bridge acquisition/end boundary events present",
+      "active bridge interval projection exact at every saved player event"
+    ],
+    "noRegistryPromotion": true
+  },
+  "cohort": {
+    "requestedReplays": 5,
+    "integrityPassReplays": 5,
+    "semanticPassReplays": 5,
+    "coverageCompleteReplays": 5,
+    "totalContradictions": 0,
+    "totalPlayers": 60,
+    "totalTimelineEvents": 604530,
+    "totalItemTransitions": 1518,
+    "totalBridgeIntervals": 76,
+    "permanentFamiliesAcrossCohort": [
+      "ammo_permanent_pickup",
+      "cd_permanent_pickup",
+      "firerate_permanent_pickup",
+      "hp_permanent_pickup",
+      "spirit_permanent_pickup",
+      "wp_permanent_pickup"
+    ]
+  },
+  "integrityValidation": {
+    "pass": true,
+    "expectedIndependentReplays": 5,
+    "actualIndependentReplays": 5,
+    "integrityPassReplays": 5
+  },
+  "semanticValidation": {
+    "pass": true,
+    "semanticPassReplays": 5,
+    "totalContradictions": 0
+  },
+  "replicationStatus": "cross_replay_replicated",
+  "coverageDiagnostics": {
+    "adequateForCrossReplayReplication": true,
+    "checks": {
+      "independentCohortExactlyFive": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "allReplaysContainPlayers": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "shopLayerExercisedEveryReplay": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "permanentLayerExercisedEveryReplay": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "bridgeLayerExercisedEveryReplay": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "sixPermanentFamiliesAcrossCohort": {
+        "actual": 6,
+        "expected": 6,
+        "pass": true
+      }
+    }
+  },
+  "replays": [
+    {
+      "replayName": "rep01",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep01.dem",
+      "artifactPath": "G:\\DeadlockBehavior\\output\\rep01\\integrated_authoritative_player_state_substrate_v01.json",
+      "generated": true,
+      "script158Status": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+      "failedScript158Checks": [],
+      "coverageLikeScript158Failures": [],
+      "hardIntegrityFailures": [],
+      "integrityValidation": {
+        "pass": true,
+        "checks": {
+          "script158VersionExpected": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "pass": true
+          },
+          "script158StatusRecognized": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION or INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_REQUIRES_DIAGNOSIS",
+            "pass": true
+          },
+          "noHardScript158IntegrityFailures": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          },
+          "replayNameMatches": {
+            "actual": "rep01",
+            "expected": "rep01",
+            "pass": true
+          },
+          "playerStateClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          },
+          "effectiveWeaponClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          }
+        }
+      },
+      "semanticValidation": {
+        "pass": true,
+        "checks": {
+          "artifactShapeUsable": {
+            "pass": true
+          },
+          "eventTicksStrictlyIncreasing": {
+            "pass": true
+          },
+          "finalStateReconstructionExact": {
+            "pass": true
+          },
+          "itemOwnershipTransitionsCoherent": {
+            "pass": true
+          },
+          "itemEffectReferencesResolved": {
+            "pass": true
+          },
+          "stableResolvedIdentity": {
+            "pass": true
+          },
+          "permanentBuffStateFiniteNonnegative": {
+            "pass": true
+          },
+          "permanentBuffStateMonotonic": {
+            "pass": true
+          },
+          "bridgeIntervalsWellFormed": {
+            "pass": true
+          },
+          "bridgeBoundaryEventsPresent": {
+            "pass": true
+          },
+          "bridgeProjectionExactAtAllEvents": {
+            "pass": true
+          }
+        },
+        "contradictions": []
+      },
+      "coverageDiagnostics": {
+        "complete": true,
+        "checks": {
+          "playersObservedAtLeastTen": {
+            "actual": 12,
+            "expected": ">=10",
+            "pass": true
+          },
+          "timelineLayerExercised": {
+            "actual": 104744,
+            "expected": ">0",
+            "pass": true
+          },
+          "shopLayerExercised": {
+            "actual": 280,
+            "expected": ">0",
+            "pass": true
+          },
+          "permanentLayerExercised": {
+            "actual": 122,
+            "expected": ">0",
+            "pass": true
+          },
+          "bridgeLayerExercised": {
+            "actual": 14,
+            "expected": ">0",
+            "pass": true
+          },
+          "allSixPermanentFamiliesObserved": {
+            "actual": 6,
+            "expected": 6,
+            "pass": true
+          },
+          "heroResourceReferencesCovered": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          }
+        },
+        "heroRefsMissing": []
+      },
+      "metrics": {
+        "players": 12,
+        "timelineEvents": 104744,
+        "itemAdds": 201,
+        "itemRemoves": 79,
+        "itemTransitions": 280,
+        "permanentStateEvents": 122,
+        "permanentFamiliesObserved": [
+          "ammo_permanent_pickup",
+          "cd_permanent_pickup",
+          "firerate_permanent_pickup",
+          "hp_permanent_pickup",
+          "spirit_permanent_pickup",
+          "wp_permanent_pickup"
+        ],
+        "bridgeIntervals": 14,
+        "bridgeProjectedEventChecks": 104744,
+        "finalStateChecks": 12,
+        "identityChecks": 1920
+      }
+    },
+    {
+      "replayName": "rep02",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep02.dem",
+      "artifactPath": "G:\\DeadlockBehavior\\output\\rep02\\integrated_authoritative_player_state_substrate_v01.json",
+      "generated": true,
+      "script158Status": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+      "failedScript158Checks": [],
+      "coverageLikeScript158Failures": [],
+      "hardIntegrityFailures": [],
+      "integrityValidation": {
+        "pass": true,
+        "checks": {
+          "script158VersionExpected": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "pass": true
+          },
+          "script158StatusRecognized": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION or INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_REQUIRES_DIAGNOSIS",
+            "pass": true
+          },
+          "noHardScript158IntegrityFailures": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          },
+          "replayNameMatches": {
+            "actual": "rep02",
+            "expected": "rep02",
+            "pass": true
+          },
+          "playerStateClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          },
+          "effectiveWeaponClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          }
+        }
+      },
+      "semanticValidation": {
+        "pass": true,
+        "checks": {
+          "artifactShapeUsable": {
+            "pass": true
+          },
+          "eventTicksStrictlyIncreasing": {
+            "pass": true
+          },
+          "finalStateReconstructionExact": {
+            "pass": true
+          },
+          "itemOwnershipTransitionsCoherent": {
+            "pass": true
+          },
+          "itemEffectReferencesResolved": {
+            "pass": true
+          },
+          "stableResolvedIdentity": {
+            "pass": true
+          },
+          "permanentBuffStateFiniteNonnegative": {
+            "pass": true
+          },
+          "permanentBuffStateMonotonic": {
+            "pass": true
+          },
+          "bridgeIntervalsWellFormed": {
+            "pass": true
+          },
+          "bridgeBoundaryEventsPresent": {
+            "pass": true
+          },
+          "bridgeProjectionExactAtAllEvents": {
+            "pass": true
+          }
+        },
+        "contradictions": []
+      },
+      "coverageDiagnostics": {
+        "complete": true,
+        "checks": {
+          "playersObservedAtLeastTen": {
+            "actual": 12,
+            "expected": ">=10",
+            "pass": true
+          },
+          "timelineLayerExercised": {
+            "actual": 114771,
+            "expected": ">0",
+            "pass": true
+          },
+          "shopLayerExercised": {
+            "actual": 285,
+            "expected": ">0",
+            "pass": true
+          },
+          "permanentLayerExercised": {
+            "actual": 179,
+            "expected": ">0",
+            "pass": true
+          },
+          "bridgeLayerExercised": {
+            "actual": 14,
+            "expected": ">0",
+            "pass": true
+          },
+          "allSixPermanentFamiliesObserved": {
+            "actual": 6,
+            "expected": 6,
+            "pass": true
+          },
+          "heroResourceReferencesCovered": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          }
+        },
+        "heroRefsMissing": []
+      },
+      "metrics": {
+        "players": 12,
+        "timelineEvents": 114771,
+        "itemAdds": 203,
+        "itemRemoves": 82,
+        "itemTransitions": 285,
+        "permanentStateEvents": 179,
+        "permanentFamiliesObserved": [
+          "ammo_permanent_pickup",
+          "cd_permanent_pickup",
+          "firerate_permanent_pickup",
+          "hp_permanent_pickup",
+          "spirit_permanent_pickup",
+          "wp_permanent_pickup"
+        ],
+        "bridgeIntervals": 14,
+        "bridgeProjectedEventChecks": 114771,
+        "finalStateChecks": 12,
+        "identityChecks": 1920
+      }
+    },
+    {
+      "replayName": "rep03",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep03.dem",
+      "artifactPath": "G:\\DeadlockBehavior\\output\\rep03\\integrated_authoritative_player_state_substrate_v01.json",
+      "generated": true,
+      "script158Status": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+      "failedScript158Checks": [],
+      "coverageLikeScript158Failures": [],
+      "hardIntegrityFailures": [],
+      "integrityValidation": {
+        "pass": true,
+        "checks": {
+          "script158VersionExpected": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "pass": true
+          },
+          "script158StatusRecognized": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION or INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_REQUIRES_DIAGNOSIS",
+            "pass": true
+          },
+          "noHardScript158IntegrityFailures": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          },
+          "replayNameMatches": {
+            "actual": "rep03",
+            "expected": "rep03",
+            "pass": true
+          },
+          "playerStateClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          },
+          "effectiveWeaponClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          }
+        }
+      },
+      "semanticValidation": {
+        "pass": true,
+        "checks": {
+          "artifactShapeUsable": {
+            "pass": true
+          },
+          "eventTicksStrictlyIncreasing": {
+            "pass": true
+          },
+          "finalStateReconstructionExact": {
+            "pass": true
+          },
+          "itemOwnershipTransitionsCoherent": {
+            "pass": true
+          },
+          "itemEffectReferencesResolved": {
+            "pass": true
+          },
+          "stableResolvedIdentity": {
+            "pass": true
+          },
+          "permanentBuffStateFiniteNonnegative": {
+            "pass": true
+          },
+          "permanentBuffStateMonotonic": {
+            "pass": true
+          },
+          "bridgeIntervalsWellFormed": {
+            "pass": true
+          },
+          "bridgeBoundaryEventsPresent": {
+            "pass": true
+          },
+          "bridgeProjectionExactAtAllEvents": {
+            "pass": true
+          }
+        },
+        "contradictions": []
+      },
+      "coverageDiagnostics": {
+        "complete": true,
+        "checks": {
+          "playersObservedAtLeastTen": {
+            "actual": 12,
+            "expected": ">=10",
+            "pass": true
+          },
+          "timelineLayerExercised": {
+            "actual": 161576,
+            "expected": ">0",
+            "pass": true
+          },
+          "shopLayerExercised": {
+            "actual": 388,
+            "expected": ">0",
+            "pass": true
+          },
+          "permanentLayerExercised": {
+            "actual": 237,
+            "expected": ">0",
+            "pass": true
+          },
+          "bridgeLayerExercised": {
+            "actual": 20,
+            "expected": ">0",
+            "pass": true
+          },
+          "allSixPermanentFamiliesObserved": {
+            "actual": 6,
+            "expected": 6,
+            "pass": true
+          },
+          "heroResourceReferencesCovered": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          }
+        },
+        "heroRefsMissing": []
+      },
+      "metrics": {
+        "players": 12,
+        "timelineEvents": 161576,
+        "itemAdds": 266,
+        "itemRemoves": 122,
+        "itemTransitions": 388,
+        "permanentStateEvents": 237,
+        "permanentFamiliesObserved": [
+          "ammo_permanent_pickup",
+          "cd_permanent_pickup",
+          "firerate_permanent_pickup",
+          "hp_permanent_pickup",
+          "spirit_permanent_pickup",
+          "wp_permanent_pickup"
+        ],
+        "bridgeIntervals": 20,
+        "bridgeProjectedEventChecks": 161576,
+        "finalStateChecks": 12,
+        "identityChecks": 2688
+      }
+    },
+    {
+      "replayName": "rep04",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep04.dem",
+      "artifactPath": "G:\\DeadlockBehavior\\output\\rep04\\integrated_authoritative_player_state_substrate_v01.json",
+      "generated": true,
+      "script158Status": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+      "failedScript158Checks": [],
+      "coverageLikeScript158Failures": [],
+      "hardIntegrityFailures": [],
+      "integrityValidation": {
+        "pass": true,
+        "checks": {
+          "script158VersionExpected": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "pass": true
+          },
+          "script158StatusRecognized": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION or INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_REQUIRES_DIAGNOSIS",
+            "pass": true
+          },
+          "noHardScript158IntegrityFailures": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          },
+          "replayNameMatches": {
+            "actual": "rep04",
+            "expected": "rep04",
+            "pass": true
+          },
+          "playerStateClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          },
+          "effectiveWeaponClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          }
+        }
+      },
+      "semanticValidation": {
+        "pass": true,
+        "checks": {
+          "artifactShapeUsable": {
+            "pass": true
+          },
+          "eventTicksStrictlyIncreasing": {
+            "pass": true
+          },
+          "finalStateReconstructionExact": {
+            "pass": true
+          },
+          "itemOwnershipTransitionsCoherent": {
+            "pass": true
+          },
+          "itemEffectReferencesResolved": {
+            "pass": true
+          },
+          "stableResolvedIdentity": {
+            "pass": true
+          },
+          "permanentBuffStateFiniteNonnegative": {
+            "pass": true
+          },
+          "permanentBuffStateMonotonic": {
+            "pass": true
+          },
+          "bridgeIntervalsWellFormed": {
+            "pass": true
+          },
+          "bridgeBoundaryEventsPresent": {
+            "pass": true
+          },
+          "bridgeProjectionExactAtAllEvents": {
+            "pass": true
+          }
+        },
+        "contradictions": []
+      },
+      "coverageDiagnostics": {
+        "complete": true,
+        "checks": {
+          "playersObservedAtLeastTen": {
+            "actual": 12,
+            "expected": ">=10",
+            "pass": true
+          },
+          "timelineLayerExercised": {
+            "actual": 106300,
+            "expected": ">0",
+            "pass": true
+          },
+          "shopLayerExercised": {
+            "actual": 275,
+            "expected": ">0",
+            "pass": true
+          },
+          "permanentLayerExercised": {
+            "actual": 134,
+            "expected": ">0",
+            "pass": true
+          },
+          "bridgeLayerExercised": {
+            "actual": 14,
+            "expected": ">0",
+            "pass": true
+          },
+          "allSixPermanentFamiliesObserved": {
+            "actual": 6,
+            "expected": 6,
+            "pass": true
+          },
+          "heroResourceReferencesCovered": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          }
+        },
+        "heroRefsMissing": []
+      },
+      "metrics": {
+        "players": 12,
+        "timelineEvents": 106300,
+        "itemAdds": 201,
+        "itemRemoves": 74,
+        "itemTransitions": 275,
+        "permanentStateEvents": 134,
+        "permanentFamiliesObserved": [
+          "ammo_permanent_pickup",
+          "cd_permanent_pickup",
+          "firerate_permanent_pickup",
+          "hp_permanent_pickup",
+          "spirit_permanent_pickup",
+          "wp_permanent_pickup"
+        ],
+        "bridgeIntervals": 14,
+        "bridgeProjectedEventChecks": 106300,
+        "finalStateChecks": 12,
+        "identityChecks": 1872
+      }
+    },
+    {
+      "replayName": "rep05",
+      "replayPath": "G:\\DeadlockBehavior\\replays\\rep05.dem",
+      "artifactPath": "G:\\DeadlockBehavior\\output\\rep05\\integrated_authoritative_player_state_substrate_v01.json",
+      "generated": true,
+      "script158Status": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+      "failedScript158Checks": [],
+      "coverageLikeScript158Failures": [],
+      "hardIntegrityFailures": [],
+      "integrityValidation": {
+        "pass": true,
+        "checks": {
+          "script158VersionExpected": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01",
+            "pass": true
+          },
+          "script158StatusRecognized": {
+            "actual": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION",
+            "expected": "INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_READY_FOR_VALIDATION or INTEGRATED_AUTHORITATIVE_PLAYER_STATE_SUBSTRATE_V01_REQUIRES_DIAGNOSIS",
+            "pass": true
+          },
+          "noHardScript158IntegrityFailures": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          },
+          "replayNameMatches": {
+            "actual": "rep05",
+            "expected": "rep05",
+            "pass": true
+          },
+          "playerStateClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          },
+          "effectiveWeaponClaimStillMissing": {
+            "actual": "missing",
+            "expected": "missing",
+            "pass": true
+          }
+        }
+      },
+      "semanticValidation": {
+        "pass": true,
+        "checks": {
+          "artifactShapeUsable": {
+            "pass": true
+          },
+          "eventTicksStrictlyIncreasing": {
+            "pass": true
+          },
+          "finalStateReconstructionExact": {
+            "pass": true
+          },
+          "itemOwnershipTransitionsCoherent": {
+            "pass": true
+          },
+          "itemEffectReferencesResolved": {
+            "pass": true
+          },
+          "stableResolvedIdentity": {
+            "pass": true
+          },
+          "permanentBuffStateFiniteNonnegative": {
+            "pass": true
+          },
+          "permanentBuffStateMonotonic": {
+            "pass": true
+          },
+          "bridgeIntervalsWellFormed": {
+            "pass": true
+          },
+          "bridgeBoundaryEventsPresent": {
+            "pass": true
+          },
+          "bridgeProjectionExactAtAllEvents": {
+            "pass": true
+          }
+        },
+        "contradictions": []
+      },
+      "coverageDiagnostics": {
+        "complete": true,
+        "checks": {
+          "playersObservedAtLeastTen": {
+            "actual": 12,
+            "expected": ">=10",
+            "pass": true
+          },
+          "timelineLayerExercised": {
+            "actual": 117139,
+            "expected": ">0",
+            "pass": true
+          },
+          "shopLayerExercised": {
+            "actual": 290,
+            "expected": ">0",
+            "pass": true
+          },
+          "permanentLayerExercised": {
+            "actual": 161,
+            "expected": ">0",
+            "pass": true
+          },
+          "bridgeLayerExercised": {
+            "actual": 14,
+            "expected": ">0",
+            "pass": true
+          },
+          "allSixPermanentFamiliesObserved": {
+            "actual": 6,
+            "expected": 6,
+            "pass": true
+          },
+          "heroResourceReferencesCovered": {
+            "actual": 0,
+            "expected": 0,
+            "pass": true
+          }
+        },
+        "heroRefsMissing": []
+      },
+      "metrics": {
+        "players": 12,
+        "timelineEvents": 117139,
+        "itemAdds": 209,
+        "itemRemoves": 81,
+        "itemTransitions": 290,
+        "permanentStateEvents": 161,
+        "permanentFamiliesObserved": [
+          "ammo_permanent_pickup",
+          "cd_permanent_pickup",
+          "firerate_permanent_pickup",
+          "hp_permanent_pickup",
+          "spirit_permanent_pickup",
+          "wp_permanent_pickup"
+        ],
+        "bridgeIntervals": 14,
+        "bridgeProjectedEventChecks": 117139,
+        "finalStateChecks": 12,
+        "identityChecks": 2016
+      }
+    }
+  ],
+  "interpretation": {
+    "supported": "The integrated PlayerState substrate preserved its event-sourced ownership/state semantics across the five frozen independent replications with all required runtime layers exercised.",
+    "notYetPromoted": "Script159 does not mutate the claim registry. player_state_t_v1 remains missing until a dedicated promotion/freeze step reviews this cross-replay artifact.",
+    "effectiveWeapon": "Effective weapon composition remains unresolved and is not implied by successful PlayerState substrate validation."
+  }
+}
