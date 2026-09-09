@@ -1,0 +1,341 @@
+{
+  "version": "DEADLOCK_PRODUCTION_MANIFEST_V01",
+  "replayName": "104373259",
+  "generatedAt": "2026-09-09T03:04:03.998Z",
+  "pipelineVersion": "DEADLOCK_PRODUCTION_PIPELINE_V01",
+  "runStatus": "COMPLETE_WITH_UNSUPPORTED_CAPABILITIES",
+  "validationTaxonomy": [
+    "integrityValidation",
+    "semanticValidation",
+    "replicationStatus"
+  ],
+  "coverage": {
+    "authoritativeTotal": 68,
+    "completeAuthoritative": 62,
+    "failedAuthoritative": 0,
+    "blockedAuthoritative": 0,
+    "notSupportedAuthoritative": 6,
+    "unclassifiedAuthoritative": 0,
+    "metricIds": {
+      "complete": [
+        "alive_share",
+        "alive_time",
+        "ap_networth",
+        "average_life",
+        "bridge_collections",
+        "bridge_current",
+        "bridge_overlaps",
+        "bridge_team_uptime",
+        "bridge_termination",
+        "bridge_uptime",
+        "bridge_uptime_share",
+        "checkpoint_builds",
+        "composition",
+        "controller_entity",
+        "current_items",
+        "dead_time",
+        "death_count",
+        "death_timing",
+        "final_build",
+        "gold_networth",
+        "health",
+        "health_max",
+        "health_minmax",
+        "health_percent",
+        "hero_id",
+        "item_acquisition_order",
+        "item_acquisition_time",
+        "item_count",
+        "item_ownership_duration",
+        "item_removals",
+        "largest_lead_swing",
+        "level",
+        "level_rate",
+        "level_timing",
+        "low_health_25",
+        "low_health_50",
+        "match_clock",
+        "match_duration",
+        "max_team_deficit",
+        "max_team_lead",
+        "networth_checkpoints",
+        "networth_rank",
+        "networth_rate",
+        "pawn_entity",
+        "permanent_acquisitions",
+        "permanent_by_family",
+        "permanent_count",
+        "permanent_current",
+        "permanent_team_diff",
+        "permanent_value",
+        "player_name",
+        "player_team_share",
+        "respawn_downtime",
+        "respawn_time",
+        "roster",
+        "steam_id",
+        "survival_intervals",
+        "team",
+        "team_ahead_time",
+        "team_behind_time",
+        "team_networth",
+        "team_networth_diff"
+      ],
+      "failed": [],
+      "blocked": [],
+      "not_supported": [
+        "health_regen",
+        "inter_attack_interval",
+        "next_primary_ready",
+        "primary_attack_rate",
+        "primary_discharges",
+        "ready_delay"
+      ],
+      "unclassified": []
+    }
+  },
+  "contractErrors": {
+    "missingMetricOwners": [],
+    "duplicateMetricOwners": []
+  },
+  "stages": [
+    {
+      "id": "core-player-state",
+      "label": "Extract generic player state",
+      "capability": "core_state_economy",
+      "required": true,
+      "metricIds": [
+        "match_clock",
+        "match_duration",
+        "player_name",
+        "steam_id",
+        "hero_id",
+        "team",
+        "controller_entity",
+        "pawn_entity",
+        "roster",
+        "composition",
+        "level",
+        "level_timing",
+        "level_rate",
+        "alive_time",
+        "dead_time",
+        "alive_share",
+        "death_count",
+        "death_timing",
+        "survival_intervals",
+        "average_life",
+        "respawn_time",
+        "respawn_downtime",
+        "health",
+        "health_max",
+        "health_percent",
+        "health_minmax",
+        "low_health_25",
+        "low_health_50",
+        "gold_networth",
+        "ap_networth",
+        "networth_rate",
+        "networth_checkpoints",
+        "networth_rank",
+        "team_networth",
+        "team_networth_diff",
+        "player_team_share",
+        "team_ahead_time",
+        "team_behind_time",
+        "max_team_lead",
+        "max_team_deficit",
+        "largest_lead_swing"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh player_state.jsonl and player_state_summary.json must be produced by the current run.",
+        "semanticValidation": "Current A-status PlayerState/controller timing, identity, state, and economy contracts; per-sample player-state authority traces to A151.",
+        "replicationStatus": "Semantic authority is inherited from the current claim/contract layer; each production replay still receives its own run-integrity check."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-09T03:02:57.677Z",
+      "finishedAt": "2026-09-09T03:03:20.029Z",
+      "outputs": [
+        {
+          "path": "output/104373259/player_state.jsonl",
+          "present": true,
+          "size": 163655137,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/player_state_summary.json",
+          "present": true,
+          "size": 871,
+          "fresh": true,
+          "minBytes": 2
+        }
+      ]
+    },
+    {
+      "id": "health-regen",
+      "label": "Extract runtime health regeneration",
+      "capability": "health_regen",
+      "required": false,
+      "metricIds": [
+        "health_regen"
+      ],
+      "validation": {
+        "integrityValidation": "No replay-generic production carrier is currently consolidated.",
+        "semanticValidation": "Metric remains A-status in the inspector contract, but Script 03 does not emit health regeneration.",
+        "replicationStatus": "Research authority exists in the integrated substrate; production extraction is pending."
+      },
+      "status": "not_supported",
+      "ok": false,
+      "skipped": true,
+      "reason": "Do not infer health regeneration from health deltas. Consolidate the validated runtime carrier into a replay-generic extractor first."
+    },
+    {
+      "id": "shop-items",
+      "label": "Extract runtime shop-item ownership",
+      "capability": "runtime_item_ownership",
+      "required": true,
+      "metricIds": [
+        "current_items",
+        "final_build",
+        "item_acquisition_time",
+        "item_acquisition_order",
+        "item_count",
+        "item_ownership_duration",
+        "item_removals",
+        "checkpoint_builds"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_item_ownership_production_v01.json and runtime_item_ownership_events_v01.jsonl must be produced; the Script 138 V02 catalog must be current, collision-free, and resolve every observed runtime item ID.",
+        "semanticValidation": "A142 runtime_item_ownership. CCitadelPlayerController.m_vecUpgrades is interpreted as current standard-shop item ownership. Ownership exit is not called a sale; mixed add/remove is not called an upgrade.",
+        "replicationStatus": "Strong cross-replay replication across five independent replays via Script 142 V02."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-09T03:03:20.029Z",
+      "finishedAt": "2026-09-09T03:03:34.612Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_item_ownership_production_v01.json",
+          "present": true,
+          "size": 1812239,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_item_ownership_events_v01.jsonl",
+          "present": true,
+          "size": 109341,
+          "fresh": true,
+          "minBytes": 2
+        }
+      ]
+    },
+    {
+      "id": "permanent-buffs",
+      "label": "Extract permanent world-buff ownership",
+      "capability": "runtime_permanent_buff_ownership",
+      "required": true,
+      "metricIds": [
+        "permanent_current",
+        "permanent_acquisitions",
+        "permanent_count",
+        "permanent_by_family",
+        "permanent_value",
+        "permanent_team_diff"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_permanent_buff_ownership_production_v01.json and runtime_permanent_buff_events_v01.jsonl must be produced. The Script 136 V02 contract, frozen six-family value-type map, 18 subclass hashes, exact static-unit multiples, and nondecreasing in-place permanent state are checked on every replay. Zero acquisition events are valid when the carrier is intact.",
+        "semanticValidation": "runtime_permanent_buff_ownership current claim. Resolved m_vecStatViewerModifierValues permanent subclass rows are cumulative permanent-pickup state; positive integral unit deltas are authoritative accumulation events. Physical producer/object attribution is not claimed.",
+        "replicationStatus": "Strong cross-replay replication across five independent replays via Script 146 V01; all six families and all 18 permanent subclass candidates were covered across the cohort."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-09T03:03:34.612Z",
+      "finishedAt": "2026-09-09T03:03:49.410Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_permanent_buff_ownership_production_v01.json",
+          "present": true,
+          "size": 1059436,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_permanent_buff_events_v01.jsonl",
+          "present": true,
+          "size": 429040,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "bridge-buffs",
+      "label": "Extract bridge powerup intervals",
+      "capability": "runtime_bridge_buff_ownership",
+      "required": true,
+      "metricIds": [
+        "bridge_collections",
+        "bridge_current",
+        "bridge_uptime",
+        "bridge_uptime_share",
+        "bridge_overlaps",
+        "bridge_termination",
+        "bridge_team_uptime"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_bridge_buff_ownership_production_v01.json and runtime_bridge_buff_events_v01.jsonl must be produced. The four frozen bridge record-key hashes, CCitadel_Pickup_Modifier carrier, <=300 HU collector gate, player-state snapshot envelope, exact death boundaries, and nonnegative interval reconstruction are checked on every replay.",
+        "semanticValidation": "runtime_bridge_buff_ownership / A148 bridge runtime interval authority. m_bActive true -> false on the validated bridge world-pickup carrier is collection when nearest-player geometry satisfies the frozen <=300 HU gate. Ownership intervals use the shared resource-defined 160-second lifetime, with death termination and native match/replay censoring.",
+        "replicationStatus": "Bridge world collection semantics are strongly replicated across five independent replays; the current runtime-interval authority is cross-replay replicated. Survival independently validates natural 160-second expiration and death termination; the other three families inherit the shared resource-duration contract within the authority scope."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-09T03:03:49.410Z",
+      "finishedAt": "2026-09-09T03:04:03.998Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_bridge_buff_ownership_production_v01.json",
+          "present": true,
+          "size": 45315,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_bridge_buff_events_v01.jsonl",
+          "present": true,
+          "size": 9923,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "primary-fire",
+      "label": "Extract primary-fire cadence",
+      "capability": "primary_fire_cadence",
+      "required": false,
+      "metricIds": [
+        "primary_discharges",
+        "primary_attack_rate",
+        "inter_attack_interval",
+        "next_primary_ready",
+        "ready_delay"
+      ],
+      "validation": {
+        "integrityValidation": "Pending replay-generic production extractor.",
+        "semanticValidation": "A004 primary weapon discharge authority. Firing means weapon discharge, not click/trigger-pull inference.",
+        "replicationStatus": "Use current claim-registry replication status; production extraction is pending."
+      },
+      "status": "not_supported",
+      "ok": false,
+      "skipped": true,
+      "reason": "The effective-weapon research pipeline must be consolidated before these metrics can be produced on arbitrary replay import."
+    }
+  ]
+}

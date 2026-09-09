@@ -1,0 +1,41 @@
+{
+  "version": "DEADLOCK_PRODUCTION_PIPELINE_V01",
+  "stopOnRequiredFailure": true,
+  "manifestFile": "production_manifest_v01.json",
+  "notes": [
+    "Only replay-generic production entrypoints belong here. Historical numbered research scripts remain evidence history and are not mass-run as ETL.",
+    "A stage is complete only when the current run executes successfully and its expected outputs are freshly written.",
+    "Validated capabilities without a replay-generic producer are explicitly reported as not_supported rather than inferred from stale output files."
+  ],
+  "steps": [
+    {
+      "id": "core-player-state",
+      "label": "Extract generic player state",
+      "capability": "core_state_economy",
+      "required": true,
+      "args": ["scripts/03-extract-player-state.mjs", "replays/{replay}.dem"],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {"path": "output/{replay}/player_state.jsonl", "minBytes": 2},
+        {"path": "output/{replay}/player_state_summary.json", "minBytes": 2}
+      ]
+    },
+    {"id": "health-regen", "label": "Extract runtime health regeneration", "capability": "health_regen", "required": false},
+    {
+      "id": "shop-items",
+      "label": "Extract runtime shop-item ownership",
+      "capability": "runtime_item_ownership",
+      "required": true,
+      "dependsOn": ["core-player-state"],
+      "args": ["inspector-v04/production/extract-runtime-items.mjs", "replays/{replay}.dem"],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {"path": "output/{replay}/runtime_item_ownership_production_v01.json", "minBytes": 2},
+        {"path": "output/{replay}/runtime_item_ownership_events_v01.jsonl", "minBytes": 2}
+      ]
+    },
+    {"id": "permanent-buffs", "label": "Extract permanent world-buff ownership", "capability": "runtime_permanent_buff_ownership", "required": false},
+    {"id": "bridge-buffs", "label": "Extract bridge powerup intervals", "capability": "runtime_bridge_buff_ownership", "required": false},
+    {"id": "primary-fire", "label": "Extract primary-fire cadence", "capability": "primary_fire_cadence", "required": false}
+  ]
+}

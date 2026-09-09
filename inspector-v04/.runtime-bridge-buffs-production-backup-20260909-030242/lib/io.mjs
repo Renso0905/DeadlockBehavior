@@ -29,8 +29,6 @@ export async function sourceHealth(replayDir) {
     ['runtime_item_events','runtime_item_ownership_events_v01.jsonl','A','A142 ownership-entry / ownership-exit evidence'],
     ['runtime_permanent_buffs','runtime_permanent_buff_ownership_production_v01.json','A','Replicated cumulative permanent world-buff ownership'],
     ['runtime_permanent_buff_events','runtime_permanent_buff_events_v01.jsonl','A','Positive permanent-buff accumulation evidence'],
-    ['runtime_bridge_buffs','runtime_bridge_buff_ownership_production_v01.json','A','A148 bridge powerup collection and runtime intervals'],
-    ['runtime_bridge_buff_events','runtime_bridge_buff_events_v01.jsonl','A','A148 bridge collection evidence'],
     ['behavioral_metrics','behavioral_metrics_v02.json','B','Movement, melee, resource exposure, breakables'],
     ['resource_features','behavioral_resource_features_summary_v01.json','B','Close/core accessibility + camp exposure'],
     ['breakable_catalog','breakable_catalog_v1.json','B','Persistent breakable slots / availability'],

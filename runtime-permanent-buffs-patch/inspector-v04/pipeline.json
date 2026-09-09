@@ -87,25 +87,7 @@
       "id": "bridge-buffs",
       "label": "Extract bridge powerup intervals",
       "capability": "runtime_bridge_buff_ownership",
-      "required": true,
-      "dependsOn": [
-        "core-player-state"
-      ],
-      "args": [
-        "inspector-v04/production/extract-runtime-bridge-buffs.mjs",
-        "replays/{replay}.dem"
-      ],
-      "ifExists": "replays/{replay}.dem",
-      "expectedOutputs": [
-        {
-          "path": "output/{replay}/runtime_bridge_buff_ownership_production_v01.json",
-          "minBytes": 2
-        },
-        {
-          "path": "output/{replay}/runtime_bridge_buff_events_v01.jsonl",
-          "minBytes": 0
-        }
-      ]
+      "required": false
     },
     {
       "id": "primary-fire",

@@ -74,15 +74,11 @@ const evidenceFiles={
   melee:['jsonl','verified_melee_events.jsonl'],
   playerState:['jsonl','player_state.jsonl'],
   orbs:['json','citemxp_inspector_events_v01.json','events'],
-  items:['jsonl','runtime_item_ownership_events_v01.jsonl'],
-  permanentBuffs:['jsonl','runtime_permanent_buff_events_v01.jsonl'],
-  bridgeBuffs:['jsonl','runtime_bridge_buff_events_v01.jsonl'],
+  items:['json','integrated_authoritative_player_state_substrate_v01.json','players'],
 };
 async function getEvidence(replay,kind,url){
-  let def=evidenceFiles[kind];if(!def)return{error:`Unknown evidence kind: ${kind}`,available:Object.keys(evidenceFiles)};
-  let path=join(outputRoot,replay,def[1]);
-  if(kind==='items'&&!existsSync(path)){def=['json','integrated_authoritative_player_state_substrate_v01.json','players'];path=join(outputRoot,replay,def[1]);}
-  if(!existsSync(path))return{kind,rows:[],matched:0,missing:true,file:def[1]};
+  const def=evidenceFiles[kind];if(!def)return{error:`Unknown evidence kind: ${kind}`,available:Object.keys(evidenceFiles)};
+  const path=join(outputRoot,replay,def[1]);if(!existsSync(path))return{kind,rows:[],matched:0,missing:true,file:def[1]};
   const player=url.searchParams.get('player');const offset=Math.max(0,Number(url.searchParams.get('offset')??0));const limit=Math.min(500,Math.max(1,Number(url.searchParams.get('limit')??100)));
   if(def[0]==='jsonl'){
     const filterPlayer=kind==='troopers'?null:player;

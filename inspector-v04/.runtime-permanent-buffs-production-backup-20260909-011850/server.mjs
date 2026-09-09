@@ -75,8 +75,6 @@ const evidenceFiles={
   playerState:['jsonl','player_state.jsonl'],
   orbs:['json','citemxp_inspector_events_v01.json','events'],
   items:['jsonl','runtime_item_ownership_events_v01.jsonl'],
-  permanentBuffs:['jsonl','runtime_permanent_buff_events_v01.jsonl'],
-  bridgeBuffs:['jsonl','runtime_bridge_buff_events_v01.jsonl'],
 };
 async function getEvidence(replay,kind,url){
   let def=evidenceFiles[kind];if(!def)return{error:`Unknown evidence kind: ${kind}`,available:Object.keys(evidenceFiles)};

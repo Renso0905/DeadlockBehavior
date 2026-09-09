@@ -8,7 +8,7 @@ const CHECKPOINTS=[300,600,900,1200,1500,1800,2100,2400,2700,3000];
 export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,force=false}) {
   const dir=join(outputRoot,replayName);
   const sourceFiles=[
-    'player_state.jsonl','player_state_summary.json','integrated_authoritative_player_state_substrate_v01.json','runtime_item_ownership_production_v01.json','runtime_permanent_buff_ownership_production_v01.json','runtime_bridge_buff_ownership_production_v01.json','behavioral_metrics_v02.json',
+    'player_state.jsonl','player_state_summary.json','integrated_authoritative_player_state_substrate_v01.json','behavioral_metrics_v02.json',
     'behavioral_resource_features_summary_v01.json','breakable_catalog_v1.json','breakable_action_stream_summary_v1.json',
     'breakable_reward_acquisition_summary_v1.json','trooper_ground_soul_one_to_one_summary_v01.json',
     'citemxp_inspector_events_v01.json','citemxp_auto_award_resolution_validation_v02.json','effective_weapon_runtime_events_v01.jsonl'
@@ -25,10 +25,7 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
   const health=await sourceHealth(dir);
   const playerStateSummary=await readJson(join(dir,'player_state_summary.json'));
   const integrated=await readJson(join(dir,'integrated_authoritative_player_state_substrate_v01.json'));
-  const runtimeItems=await readJson(join(dir,'runtime_item_ownership_production_v01.json'));
-  const runtimePermanent=await readJson(join(dir,'runtime_permanent_buff_ownership_production_v01.json'));
-  const runtimeBridge=await readJson(join(dir,'runtime_bridge_buff_ownership_production_v01.json'));
-  const offset=Number(runtimeItems?.replay?.matchClockOffsetSeconds ?? runtimePermanent?.replay?.matchClockOffsetSeconds ?? runtimeBridge?.replay?.matchClockOffsetSeconds ?? playerStateSummary?.matchClockOffsetSeconds ?? integrated?.replay?.matchClockOffsetSeconds ?? 0);
+  const offset=Number(integrated?.replay?.matchClockOffsetSeconds ?? playerStateSummary?.matchClockOffsetSeconds ?? 0);
   const core=await aggregatePlayerState(join(dir,'player_state.jsonl'),offset);
   const behavioral=await readJson(join(dir,'behavioral_metrics_v02.json'));
   const resourceFeatures=await readJson(join(dir,'behavioral_resource_features_summary_v01.json'));
@@ -41,9 +38,6 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
 
   const playerByName=new Map(core.players.map(p=>[p.playerName,p]));
   applyIntegrated(playerByName,integrated,offset,core.matchEndSeconds);
-  applyRuntimeItems(playerByName,runtimeItems);
-  applyRuntimePermanent(playerByName,runtimePermanent);
-  applyRuntimeBridge(playerByName,runtimeBridge);
   applyBehavioral(playerByName,behavioral,resourceFeatures);
   applyRewards(playerByName,rewardSummary,breakSummary);
   applyCitemxp(playerByName,citemxp);
@@ -216,63 +210,6 @@ function normalizeState(s,tick,demoTime,matchTime){return{
   goldNetWorth:finite(s.goldNetWorth)??0,apNetWorth:finite(s.apNetWorth)??0,respawnTime:finite(s.respawnTime),position:Array.isArray(s.position)?s.position.map(v=>finite(v)??0):null
 };}
 function compactState(s){return pick(s,['tick','matchTime','alive','health','healthMax','healthRegen','level','kills','deaths','assists','denies','lastHits','goldNetWorth','apNetWorth','respawnTime','position']);}
-
-function applyRuntimeBridge(playerByName,artifact){
-  if (!artifact || artifact.status!=='RUNTIME_BRIDGE_BUFF_OWNERSHIP_PRODUCTION_V01_READY') return;
-  const players=[...playerByName.values()];
-  for (const row of artifact.players??[]) {
-    const p=players.find(x=>Number.isInteger(row.controllerEntityIndex)&&x.identity?.controllerEntityIndex===row.controllerEntityIndex)
-      ?? players.find(x=>row.steamId!=null&&String(x.identity?.steamId)===String(row.steamId))
-      ?? playerByName.get(row.playerName);
-    if (!p) continue;
-    const intervals=(row.bridgeIntervals??[]).map(i=>({...i,startTime:i.startTime??null,endTime:i.endTime??null,durationSeconds:i.durationSeconds??null}));
-    p.bridgeBuffs={
-      intervals,
-      finalActive:intervals.filter(i=>Number.isFinite(artifact?.replay?.replayEndTick)&&i.startTick<=artifact.replay.replayEndTick&&i.stateEndTick>artifact.replay.replayEndTick),
-      summary:row.summary??null,
-      authority:'runtime_bridge_buff_ownership',
-      source:'runtime_bridge_buff_ownership_production_v01.json'
-    };
-  }
-}
-
-function applyRuntimePermanent(playerByName,artifact){
-  if (!artifact || artifact.status!=='RUNTIME_PERMANENT_BUFF_OWNERSHIP_PRODUCTION_V01_READY') return;
-  const players=[...playerByName.values()];
-  for (const row of artifact.players??[]) {
-    const p=players.find(x=>Number.isInteger(row.entityIndex)&&x.identity?.controllerEntityIndex===row.entityIndex)
-      ?? players.find(x=>row.steamId!=null&&String(x.identity?.steamId)===String(row.steamId))
-      ?? playerByName.get(row.playerName);
-    if (!p) continue;
-    const final=row.finalPermanentBuffs??{};
-    p.permanentBuffs={
-      events:(row.acquisitionEvents??[]).map(e=>({...e,time:e.matchTimeSeconds??e.time??null,state:e.state??{}})),
-      final,
-      summary:row.summary??summarizePermanent(final),
-      authority:'runtime_permanent_buff_ownership',
-      source:'runtime_permanent_buff_ownership_production_v01.json'
-    };
-  }
-}
-
-function applyRuntimeItems(playerByName,artifact){
-  if (!artifact || artifact.status!=='RUNTIME_ITEM_OWNERSHIP_PRODUCTION_V01_READY') return;
-  const players=[...playerByName.values()];
-  for (const row of artifact.players??[]) {
-    const p=players.find(x=>Number.isInteger(row.entityIndex)&&x.identity?.controllerEntityIndex===row.entityIndex)
-      ?? players.find(x=>row.steamId!=null&&String(x.identity?.steamId)===String(row.steamId))
-      ?? playerByName.get(row.playerName);
-    if (!p) continue;
-    p.items={
-      events:(row.itemEvents??[]).map(e=>({...e,sourceEventType:e.eventType,eventType:e.eventType==='ITEM_OWNERSHIP_ENTERED'?'ITEM_ADDED':e.eventType==='ITEM_OWNERSHIP_EXITED'?'ITEM_REMOVED':e.eventType})),
-      finalItems:row.finalStandardShopItems??[],
-      ownershipIntervals:row.ownershipIntervals??[],
-      checkpointBuilds:row.checkpointBuilds??{},
-      authority:'A142 runtime_item_ownership',
-      source:'runtime_item_ownership_production_v01.json'
-    };
-  }
-}
 
 function applyIntegrated(playerByName,integrated,offset,matchEnd){
   if (!integrated) return;
