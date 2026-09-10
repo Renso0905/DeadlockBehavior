@@ -1,0 +1,889 @@
+{
+  "version": "DEADLOCK_PRODUCTION_METRIC_CONTRACT_V01",
+  "canonical": true,
+  "introducedAgainstCommit": "cdbaa2e1f89c09c0e391052c50494d9781c51959",
+  "purpose": "Canonical machine-enforced link between every A-status inspector metric and the claim, production capability, pipeline producer stage, authority layer, entrypoint, and expected outputs that permit that metric to be treated as replay-generic production authority.",
+  "promotionRule": "A metric must not be promoted to status A unless it has an explicit entry in this contract and passes the claim, capability, and producer-chain regression tests.",
+  "expectedAuthoritativeMetricCount": 77,
+  "expectedProducerCount": 9,
+  "claimPolicy": {
+    "requireSemantic": true,
+    "requireReplication": true,
+    "allowProvisional": false
+  },
+  "metrics": [
+    {
+      "metricId": "match_clock",
+      "status": "A",
+      "primaryClaimId": "replay_tick_rate_64hz",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "match_duration",
+      "status": "A",
+      "primaryClaimId": "replay_tick_rate_64hz",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "player_name",
+      "status": "A",
+      "primaryClaimId": "player_controller_pawn_identity",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "steam_id",
+      "status": "A",
+      "primaryClaimId": "player_controller_pawn_identity",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "hero_id",
+      "status": "A",
+      "primaryClaimId": "player_controller_pawn_identity",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "team",
+      "status": "A",
+      "primaryClaimId": "player_controller_pawn_identity",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "controller_entity",
+      "status": "A",
+      "primaryClaimId": "player_controller_pawn_identity",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "pawn_entity",
+      "status": "A",
+      "primaryClaimId": "player_controller_pawn_identity",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "roster",
+      "status": "A",
+      "primaryClaimId": "player_controller_pawn_identity",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "composition",
+      "status": "A",
+      "primaryClaimId": "player_controller_pawn_identity",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "level",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "level_timing",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "level_rate",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "alive_time",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "dead_time",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "alive_share",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "death_count",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "death_timing",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "survival_intervals",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "average_life",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "respawn_time",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "respawn_downtime",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "health",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "health_max",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "health_percent",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "health_minmax",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "low_health_25",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "low_health_50",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "gold_networth",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "ap_networth",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "networth_rate",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "networth_checkpoints",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "networth_rank",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "team_networth",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "team_networth_diff",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "player_team_share",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "team_ahead_time",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "team_behind_time",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "max_team_lead",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "max_team_deficit",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "largest_lead_swing",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "health_regen",
+      "status": "A",
+      "primaryClaimId": "player_state_t_v1",
+      "dependencyClaimIds": [],
+      "capabilityId": "health_regen",
+      "producerStageId": "health-regen",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "current_items",
+      "status": "A",
+      "primaryClaimId": "runtime_item_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_item_ownership",
+      "producerStageId": "shop-items",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "final_build",
+      "status": "A",
+      "primaryClaimId": "runtime_item_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_item_ownership",
+      "producerStageId": "shop-items",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "item_acquisition_time",
+      "status": "A",
+      "primaryClaimId": "runtime_item_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_item_ownership",
+      "producerStageId": "shop-items",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "item_acquisition_order",
+      "status": "A",
+      "primaryClaimId": "runtime_item_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_item_ownership",
+      "producerStageId": "shop-items",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "item_count",
+      "status": "A",
+      "primaryClaimId": "runtime_item_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_item_ownership",
+      "producerStageId": "shop-items",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "item_ownership_duration",
+      "status": "A",
+      "primaryClaimId": "runtime_item_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_item_ownership",
+      "producerStageId": "shop-items",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "item_removals",
+      "status": "A",
+      "primaryClaimId": "runtime_item_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_item_ownership",
+      "producerStageId": "shop-items",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "checkpoint_builds",
+      "status": "A",
+      "primaryClaimId": "runtime_item_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_item_ownership",
+      "producerStageId": "shop-items",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "permanent_current",
+      "status": "A",
+      "primaryClaimId": "runtime_permanent_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_permanent_buff_ownership",
+      "producerStageId": "permanent-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "permanent_acquisitions",
+      "status": "A",
+      "primaryClaimId": "runtime_permanent_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_permanent_buff_ownership",
+      "producerStageId": "permanent-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "permanent_count",
+      "status": "A",
+      "primaryClaimId": "runtime_permanent_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_permanent_buff_ownership",
+      "producerStageId": "permanent-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "permanent_by_family",
+      "status": "A",
+      "primaryClaimId": "runtime_permanent_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_permanent_buff_ownership",
+      "producerStageId": "permanent-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "permanent_value",
+      "status": "A",
+      "primaryClaimId": "runtime_permanent_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_permanent_buff_ownership",
+      "producerStageId": "permanent-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "permanent_team_diff",
+      "status": "A",
+      "primaryClaimId": "runtime_permanent_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_permanent_buff_ownership",
+      "producerStageId": "permanent-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "bridge_collections",
+      "status": "A",
+      "primaryClaimId": "runtime_bridge_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_bridge_buff_ownership",
+      "producerStageId": "bridge-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "bridge_current",
+      "status": "A",
+      "primaryClaimId": "runtime_bridge_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_bridge_buff_ownership",
+      "producerStageId": "bridge-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "bridge_uptime",
+      "status": "A",
+      "primaryClaimId": "runtime_bridge_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_bridge_buff_ownership",
+      "producerStageId": "bridge-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "bridge_uptime_share",
+      "status": "A",
+      "primaryClaimId": "runtime_bridge_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_bridge_buff_ownership",
+      "producerStageId": "bridge-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "bridge_overlaps",
+      "status": "A",
+      "primaryClaimId": "runtime_bridge_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_bridge_buff_ownership",
+      "producerStageId": "bridge-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "bridge_termination",
+      "status": "A",
+      "primaryClaimId": "runtime_bridge_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_bridge_buff_ownership",
+      "producerStageId": "bridge-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "bridge_team_uptime",
+      "status": "A",
+      "primaryClaimId": "runtime_bridge_buff_ownership",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_bridge_buff_ownership",
+      "producerStageId": "bridge-buffs",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "primary_discharges",
+      "status": "A",
+      "primaryClaimId": "primary_weapon_discharge_telemetry",
+      "dependencyClaimIds": [],
+      "capabilityId": "primary_fire_cadence",
+      "producerStageId": "primary-fire",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "primary_attack_rate",
+      "status": "A",
+      "primaryClaimId": "primary_weapon_discharge_telemetry",
+      "dependencyClaimIds": [
+        "player_state_t_v1"
+      ],
+      "capabilityId": "primary_fire_cadence",
+      "producerStageId": "primary-fire",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "inter_attack_interval",
+      "status": "A",
+      "primaryClaimId": "primary_weapon_discharge_telemetry",
+      "dependencyClaimIds": [],
+      "capabilityId": "primary_fire_cadence",
+      "producerStageId": "primary-fire",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "next_primary_ready",
+      "status": "A",
+      "primaryClaimId": "runtime_primary_attack_ready_schedule",
+      "dependencyClaimIds": [
+        "primary_weapon_discharge_telemetry"
+      ],
+      "capabilityId": "primary_fire_cadence",
+      "producerStageId": "primary-fire",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "ready_delay",
+      "status": "A",
+      "primaryClaimId": "runtime_primary_attack_ready_schedule",
+      "dependencyClaimIds": [
+        "primary_weapon_discharge_telemetry"
+      ],
+      "capabilityId": "primary_fire_cadence",
+      "producerStageId": "primary-fire",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "trooper_deaths",
+      "status": "A",
+      "primaryClaimId": "trooper_death_transition",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_trooper_death_events",
+      "producerStageId": "trooper-deaths",
+      "authorityLayer": "extended"
+    },
+    {
+      "metricId": "trooper_death_timing",
+      "status": "A",
+      "primaryClaimId": "trooper_death_transition",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_trooper_death_events",
+      "producerStageId": "trooper-deaths",
+      "authorityLayer": "extended"
+    },
+    {
+      "metricId": "ground_soul_activations",
+      "status": "A",
+      "primaryClaimId": "ground_soul_lifecycle",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_ground_soul_lifecycle",
+      "producerStageId": "ground-soul-lifecycle",
+      "authorityLayer": "extended"
+    },
+    {
+      "metricId": "ground_soul_targeted_activations",
+      "status": "A",
+      "primaryClaimId": "ground_soul_lifecycle",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_ground_soul_lifecycle",
+      "producerStageId": "ground-soul-lifecycle",
+      "authorityLayer": "extended"
+    },
+    {
+      "metricId": "ground_soul_lifecycle_duration",
+      "status": "A",
+      "primaryClaimId": "ground_soul_lifecycle",
+      "dependencyClaimIds": [],
+      "capabilityId": "runtime_ground_soul_lifecycle",
+      "producerStageId": "ground-soul-lifecycle",
+      "authorityLayer": "extended"
+    },
+    {
+      "metricId": "ground_soul_economic_credit_events",
+      "status": "A",
+      "primaryClaimId": "assigned_gold_economic_recipient_set",
+      "dependencyClaimIds": [
+        "ground_soul_lifecycle"
+      ],
+      "capabilityId": "runtime_assigned_gold_economic_credit",
+      "producerStageId": "ground-soul-economic-credit",
+      "authorityLayer": "extended"
+    },
+    {
+      "metricId": "ground_soul_economic_recipient_transitions",
+      "status": "A",
+      "primaryClaimId": "assigned_gold_economic_recipient_set",
+      "dependencyClaimIds": [
+        "ground_soul_lifecycle"
+      ],
+      "capabilityId": "runtime_assigned_gold_economic_credit",
+      "producerStageId": "ground-soul-economic-credit",
+      "authorityLayer": "extended"
+    },
+    {
+      "metricId": "ground_soul_multi_recipient_share",
+      "status": "A",
+      "primaryClaimId": "assigned_gold_economic_recipient_set",
+      "dependencyClaimIds": [
+        "ground_soul_lifecycle"
+      ],
+      "capabilityId": "runtime_assigned_gold_economic_credit",
+      "producerStageId": "ground-soul-economic-credit",
+      "authorityLayer": "extended"
+    },
+    {
+      "metricId": "ground_soul_economic_gain",
+      "status": "A",
+      "primaryClaimId": "assigned_gold_economic_recipient_set",
+      "dependencyClaimIds": [
+        "ground_soul_lifecycle"
+      ],
+      "capabilityId": "runtime_assigned_gold_economic_credit",
+      "producerStageId": "ground-soul-economic-credit",
+      "authorityLayer": "extended"
+    }
+  ],
+  "producers": [
+    {
+      "producerStageId": "core-player-state",
+      "capabilityId": "core_state_economy",
+      "authorityLayer": "core",
+      "entrypoint": "scripts/03-extract-player-state.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/player_state.jsonl",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/player_state_summary.json",
+          "minBytes": 2
+        }
+      ]
+    },
+    {
+      "producerStageId": "trooper-deaths",
+      "capabilityId": "runtime_trooper_death_events",
+      "authorityLayer": "extended",
+      "entrypoint": "inspector-v04/production/extract-runtime-trooper-deaths.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_trooper_deaths_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_trooper_death_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "producerStageId": "ground-soul-lifecycle",
+      "capabilityId": "runtime_ground_soul_lifecycle",
+      "authorityLayer": "extended",
+      "entrypoint": "inspector-v04/production/extract-runtime-ground-soul-lifecycle.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_ground_soul_lifecycle_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_ground_soul_lifecycle_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "producerStageId": "ground-soul-economic-credit",
+      "capabilityId": "runtime_assigned_gold_economic_credit",
+      "authorityLayer": "extended",
+      "entrypoint": "inspector-v04/production/extract-runtime-assigned-gold-economic-credit.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_assigned_gold_economic_credit_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_assigned_gold_economic_credit_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "producerStageId": "health-regen",
+      "capabilityId": "health_regen",
+      "authorityLayer": "core",
+      "entrypoint": "inspector-v04/production/extract-runtime-health-regen.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_health_regen_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_health_regen_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "producerStageId": "shop-items",
+      "capabilityId": "runtime_item_ownership",
+      "authorityLayer": "core",
+      "entrypoint": "inspector-v04/production/extract-runtime-items.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_item_ownership_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_item_ownership_events_v01.jsonl",
+          "minBytes": 2
+        }
+      ]
+    },
+    {
+      "producerStageId": "permanent-buffs",
+      "capabilityId": "runtime_permanent_buff_ownership",
+      "authorityLayer": "core",
+      "entrypoint": "inspector-v04/production/extract-runtime-permanent-buffs.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_permanent_buff_ownership_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_permanent_buff_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "producerStageId": "bridge-buffs",
+      "capabilityId": "runtime_bridge_buff_ownership",
+      "authorityLayer": "core",
+      "entrypoint": "inspector-v04/production/extract-runtime-bridge-buffs.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_bridge_buff_ownership_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_bridge_buff_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "producerStageId": "primary-fire",
+      "capabilityId": "primary_fire_cadence",
+      "authorityLayer": "core",
+      "entrypoint": "inspector-v04/production/extract-runtime-primary-fire.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_primary_fire_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_primary_fire_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    }
+  ]
+}
