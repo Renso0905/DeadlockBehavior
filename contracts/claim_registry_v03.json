@@ -1535,6 +1535,72 @@
       "supersedes": [],
       "supersededBy": null,
       "notes": "Do not train substantive predictive models yet; future validation should leave match/player/party groups out rather than random row/time splits."
+    },
+    {
+      "claimId": "ground_soul_lifecycle",
+      "domain": "souls",
+      "construct": "CCitadel_Pickup_AssignedGold activation, physical vacuum-target, and active lifecycle semantics",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "Observed AssignedGold lifecycle only; no collector, reward, exact radius, or unmatched-death semantics.",
+      "sourceScripts": [
+        "75-assigned-gold-lifecycle",
+        "88-assigned-gold-lifecycle-classifier",
+        "103-foundational-replication",
+        "104-foundational-replication"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/foundational_replication_metrics_v02.json",
+        "output/cross_replay/foundational_replication_interpretation_audit_v01.json"
+      ],
+      "downstreamUses": [
+        "ground-soul lifecycle visualization",
+        "resource-state construction",
+        "future opportunity models"
+      ],
+      "valueSummary": {
+        "replicatedReplays": 5
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "5/5 independent replay support for Ground-Soul/AssignedGold lifecycle. m_hVacuumTarget is physical target telemetry only. m_bActive=false is lifecycle termination only. Exact 732/735-HU radius, economic recipient identity, reward amount/formula, and unmatched=missed interpretations are excluded."
+    },
+    {
+      "claimId": "assigned_gold_economic_recipient_set",
+      "domain": "souls",
+      "construct": "High-confidence AssignedGold economic recipient set at isolated targeted lifecycle termination",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "strong_support",
+      "replicationStatus": "multi_replay_supported",
+      "scope": "Isolated physically targeted completed CCitadel_Pickup_AssignedGold lifecycles only. Economic recipients are same-team player pawns with direct positive m_nCurrencies.0000 transitions on the exact lifecycle termination tick, with a clean integer partition across the observed recipient set.",
+      "sourceScripts": [
+        "88-assigned-gold-economic-recipient-discovery",
+        "89-assigned-gold-exact-credit-attribution-validation",
+        "103-foundational-replication",
+        "104-foundational-replication"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/trooper_reward_source_semantics_closure_v01.json",
+        "output/cross_replay/foundational_replication_metrics_v02.json"
+      ],
+      "downstreamUses": [
+        "Ground Soul economic-credit visualization",
+        "recipient-set behavioral statistics",
+        "future lane-economy models"
+      ],
+      "valueSummary": {
+        "replicatedReplays": 5,
+        "currencyCarrier": "CCitadelPlayerPawn.m_nCurrencies.0000",
+        "exactOffsetTicks": 0,
+        "isolationRadiusTicks": 16,
+        "recipientSetSizesObserved": "1-6"
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Economic recipient-set semantics replicated across five independent replays. m_hVacuumTarget is a physical attraction target and is not equivalent to the economic recipient set. This claim does not establish physical collector, last-hitter identity, damage method, melee semantics, a canonical reward amount/formula, exact share radius, or exact vacuum radius. Nonisolated, targetless, censored, no-delta, and non-partition-clean cases stay unresolved rather than being forced into the authoritative set."
     }
   ]
 }

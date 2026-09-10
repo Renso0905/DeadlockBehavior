@@ -30,10 +30,100 @@
       ]
     },
     {
+      "id": "trooper-deaths",
+      "label": "Extract authoritative Trooper death transitions",
+      "capability": "runtime_trooper_death_events",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-trooper-deaths.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_trooper_deaths_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_trooper_death_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "ground-soul-lifecycle",
+      "label": "Extract authoritative Ground Soul lifecycle",
+      "capability": "runtime_ground_soul_lifecycle",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-ground-soul-lifecycle.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_ground_soul_lifecycle_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_ground_soul_lifecycle_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "ground-soul-economic-credit",
+      "label": "Extract authoritative Ground Soul economic recipient sets",
+      "capability": "runtime_assigned_gold_economic_credit",
+      "required": true,
+      "dependsOn": [
+        "ground-soul-lifecycle"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-assigned-gold-economic-credit.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_assigned_gold_economic_credit_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_assigned_gold_economic_credit_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
       "id": "health-regen",
-      "label": "Extract runtime health regeneration",
+      "label": "Extract observed runtime health regeneration",
       "capability": "health_regen",
-      "required": false
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-health-regen.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_health_regen_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_health_regen_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
     },
     {
       "id": "shop-items",
@@ -111,7 +201,25 @@
       "id": "primary-fire",
       "label": "Extract primary-fire cadence",
       "capability": "primary_fire_cadence",
-      "required": false
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-primary-fire.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_primary_fire_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_primary_fire_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
     }
   ]
 }

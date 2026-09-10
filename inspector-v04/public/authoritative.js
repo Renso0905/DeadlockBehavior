@@ -13,6 +13,9 @@ const AUTH_IDS=[
   'current_items','final_build','item_acquisition_time','item_acquisition_order','item_count','item_ownership_duration','item_removals','checkpoint_builds',
   'permanent_current','permanent_acquisitions','permanent_count','permanent_by_family','permanent_value','permanent_team_diff',
   'bridge_collections','bridge_current','bridge_uptime','bridge_uptime_share','bridge_overlaps','bridge_termination','bridge_team_uptime',
+  'trooper_deaths','trooper_death_timing',
+  'ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration',
+  'ground_soul_economic_credit_events','ground_soul_economic_recipient_transitions','ground_soul_multi_recipient_share','ground_soul_economic_gain',
   'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay'
 ];
 
@@ -131,6 +134,7 @@ function authCard(metric,result){
   </article>`;
 }
 
+function authGroundSoulEconomicGainAtTime(summary,p,time){const rows=summary?.byPlayer??[];const steam=String(p?.identity?.steamId??'');const name=String(p?.playerName??'');const row=rows.find(x=>steam&&String(x.steamId??'')===steam)??rows.find(x=>String(x.playerName??'')===name);const timeline=row?.cumulativeTimeline??[];let gain=0,creditEvents=0;for(const x of timeline){if(Number(x.matchTime)<=Number(time)){gain=Number(x.cumulativeCurrency0Delta)||0;creditEvents=Number(x.creditEvents)||0;}else break;}return {gain,creditEvents,fullMatch:Number(row?.observedCurrency0DeltaTotal)||0};}
 function metricValue(id,{model,p,time,weaponReady}){
   const s=stateAt(p,time);
   const teamNow=teamAt(model,p.team,time);
@@ -223,6 +227,15 @@ function metricValue(id,{model,p,time,weaponReady}){
     case 'bridge_termination': return v(`${bridges.length} intervals`,countByText(bridges,x=>pretty(x.terminationReason??'UNRESOLVED')));
     case 'bridge_team_uptime': return v(duration(teamFinal?.bridgeUptimeSeconds));
 
+    case 'trooper_deaths': return v(model.troopers?.deaths??model.troopers?.summary?.deaths??'—','Observed CNPC_Trooper positive-health → 0 transitions');
+    case 'trooper_death_timing': { const ts=model.troopers?.summary??{}; const times=ts.deathTimesSeconds??[]; return v(`${ts.gameplayDeaths??times.length} gameplay deaths`,times.length?`first ${clock(ts.firstGameplayDeathSeconds)} · median ${clock(ts.medianGameplayDeathSeconds)} · last ${clock(ts.lastGameplayDeathSeconds)}`:'No gameplay deaths observed'); }
+    case 'ground_soul_activations': return v(model.groundSoulLifecycle?.summary?.activations??'—','Match-level observed CCitadel_Pickup_AssignedGold active episodes');
+    case 'ground_soul_targeted_activations': { const gs=model.groundSoulLifecycle?.summary??{}; return v(gs.targetedActivations??'—',`${percent(gs.targetedShare)} of observed activations · physical m_hVacuumTarget only`); }
+    case 'ground_soul_lifecycle_duration': { const gs=model.groundSoulLifecycle?.summary??{}; return v(gs.medianCompletedDurationSeconds!=null?duration(gs.medianCompletedDurationSeconds):'—',`${gs.completedActiveToInactive??0} completed active → inactive · ${gs.censoredActivations??0} censored`); }
+    case 'ground_soul_economic_credit_events': { const ge=model.groundSoulEconomicCredit?.summary??{}; return v(ge.resolvedCreditEvents??'—',`${percent(ge.resolutionShare)} of isolated targeted candidates · ${ge.unresolvedCandidateEvents??0} unresolved candidates`); }
+    case 'ground_soul_economic_recipient_transitions': { const ge=model.groundSoulEconomicCredit?.summary??{}; return v(ge.recipientTransitions??'—',`${ge.resolvedCreditEvents??0} resolved events · exact terminal-tick currency transitions`); }
+    case 'ground_soul_multi_recipient_share': { const ge=model.groundSoulEconomicCredit?.summary??{}; return v(percent(ge.multiRecipientShare),`${ge.multiRecipientEvents??0} / ${ge.resolvedCreditEvents??0} resolved events`); }
+    case 'ground_soul_economic_gain': { const g=authGroundSoulEconomicGainAtTime(model.groundSoulEconomicCredit?.summary,p,time); return v(num(g.gain),`${g.creditEvents} resolved credit events through ${clock(time)} · full-match ${num(g.fullMatch)}`); }
     case 'primary_discharges': return v(weapon.discharges??0,`${weapon.events??0} weapon telemetry events`);
     case 'primary_attack_rate': return v(perMin(safeDiv(weapon.discharges,p.aliveMinutes)));
     case 'inter_attack_interval': return v(`${num(weapon.medianInterAttackSeconds,4)} s median`,`mean ${num(weapon.meanInterAttackSeconds,4)} s · n=${weapon.interAttackSampleCount??0}`);

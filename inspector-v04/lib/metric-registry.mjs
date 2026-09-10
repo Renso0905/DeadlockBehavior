@@ -33,7 +33,7 @@ export const METRIC_REGISTRY = [
     m('health_minmax','Health extrema',A,'number','PlayerState','Observed minimum and maximum health.'),
     m('low_health_25','Time below 25% HP',A,'seconds','PlayerState','Integrated observed time below 25% max HP.'),
     m('low_health_50','Time below 50% HP',A,'seconds','PlayerState','Integrated observed time below 50% max HP.'),
-    m('health_regen','Health regeneration',A,'number','PlayerState','Observed runtime health regeneration field.'),
+    m('health_regen','Observed health regen',A,'number','CCitadelPlayerController.m_flHealthRegen','Direct observed runtime regeneration field; not realized healing or causal decomposition.'),
     m('gold_networth','Gold net worth',A,'number','PlayerState','Observed controller gold net-worth counter.'),
     m('ap_networth','AP net worth',A,'number','PlayerState','Observed controller AP net-worth counter.'),
     m('networth_rate','Net-worth gain rate',A,'per_min','PlayerState','Observed net-worth change per match minute; deliberately not labeled souls/min.'),
@@ -161,11 +161,26 @@ export const METRIC_REGISTRY = [
     m('camp_clear_during_exposure_rate','Clear-during-exposure rate',B,'percent','behavioral_resource_features_v01','Clear during core-proximity episodes; causal attribution prohibited.', true),
   ]),
   section('troopers', 'Troopers & ground souls', [
-    m('trooper_deaths','Trooper deaths',B,'integer','trooper_deaths_typed_v02','Typed Trooper death events.'),
+    m('trooper_deaths','Trooper deaths',A,'integer','runtime_trooper_death_events','Authoritative observed CNPC_Trooper positive m_iHealth -> 0 transitions.'),
+    m('trooper_death_timing','Trooper death timings',A,'series','runtime_trooper_death_events','Observed timestamps of authoritative positive-health-to-zero Trooper death transitions.'),
+
+    m('ground_soul_activations','Ground Soul activations',A,'integer','runtime_ground_soul_lifecycle_events','Observed CCitadel_Pickup_AssignedGold active lifecycle activations.'),
+
+    m('ground_soul_targeted_activations','Vacuum-targeted Ground Soul activations',A,'integer','runtime_ground_soul_lifecycle_events','Ground Soul lifecycle activations that acquire a valid physical m_hVacuumTarget handle; not an economic-recipient claim.'),
+
+    m('ground_soul_lifecycle_duration','Ground Soul lifecycle duration',A,'seconds','runtime_ground_soul_lifecycle_events','Median duration of completed observed m_bActive true→false Ground Soul lifecycle episodes; censored episodes excluded.'),
     m('economic_trooper_deaths','Economic Trooper deaths',B,'integer','trooper_ground_soul_one_to_one_v01','Eligible economic-death subset.'),
     m('trooper_base_types','Trooper deaths by base type',B,'integer','trooper_deaths_typed_v02','Ranged/Medic/Melee classification.'),
     m('trooper_variants','Trooper deaths by variant',B,'integer','trooper_deaths_typed_v02','Normal/Super/Rift/Unresolved classification.'),
     m('trooper_team_lane','Trooper deaths by team/lane',B,'integer','trooper_deaths_typed_v02','Observed team/lane fields.'),
+    m('ground_soul_economic_credit_events','Resolved Ground Soul economic-credit events',A,'integer','runtime_assigned_gold_economic_credit_events','Isolated targeted completed AssignedGold lifecycle terminations with a high-confidence exact-tick same-team economic recipient set.'),
+
+    m('ground_soul_economic_recipient_transitions','Observed Ground Soul economic-recipient transitions',A,'integer','runtime_assigned_gold_economic_credit_events','Total direct positive CCitadelPlayerPawn.m_nCurrencies.0000 recipient transitions across resolved economic-credit events.'),
+
+    m('ground_soul_multi_recipient_share','Multi-recipient Ground Soul share',A,'percent','runtime_assigned_gold_economic_credit_events','Share of resolved economic-credit events whose validated recipient set contains more than one allied player; denominator excludes unresolved events.'),
+
+    m('ground_soul_economic_gain','Total Ground Soul Economic Gain',A,'number','runtime_assigned_gold_economic_credit_events','Cumulative selected-player sum of observed positive m_nCurrencies.0000 deltas across resolved Ground Soul economic-credit events up to the selected match time; unresolved events are excluded.'),
+
     m('ground_soul_eligible','Ground-soul eligible deaths',B,'integer','trooper_ground_soul_one_to_one_v01','Economically eligible Trooper deaths.'),
     m('opponent_45m','Opponent within 45m',B,'integer','trooper_ground_soul_range_validation','Validated opponent-range eligibility signal.'),
     m('nearest_opponent_distance','Nearest opposing-player distance',B,'hu','trooper_ground_soul_one_to_one_v01','Nearest resolved opposing player at eligibility context.'),

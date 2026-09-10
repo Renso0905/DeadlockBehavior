@@ -8,7 +8,7 @@ const CHECKPOINTS=[300,600,900,1200,1500,1800,2100,2400,2700,3000];
 export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,force=false}) {
   const dir=join(outputRoot,replayName);
   const sourceFiles=[
-    'player_state.jsonl','player_state_summary.json','integrated_authoritative_player_state_substrate_v01.json','runtime_item_ownership_production_v01.json','runtime_permanent_buff_ownership_production_v01.json','runtime_bridge_buff_ownership_production_v01.json','behavioral_metrics_v02.json',
+    'player_state.jsonl','player_state_summary.json','integrated_authoritative_player_state_substrate_v01.json','runtime_item_ownership_production_v01.json','runtime_permanent_buff_ownership_production_v01.json','runtime_bridge_buff_ownership_production_v01.json','runtime_primary_fire_production_v01.json','runtime_primary_fire_events_v01.jsonl','production_manifest_v01.json','runtime_health_regen_production_v01.json','runtime_health_regen_events_v01.jsonl','runtime_trooper_deaths_production_v01.json','runtime_trooper_death_events_v01.jsonl','runtime_ground_soul_lifecycle_production_v01.json','runtime_ground_soul_lifecycle_events_v01.jsonl','runtime_assigned_gold_economic_credit_production_v01.json','runtime_assigned_gold_economic_credit_events_v01.jsonl','behavioral_metrics_v02.json',
     'behavioral_resource_features_summary_v01.json','breakable_catalog_v1.json','breakable_action_stream_summary_v1.json',
     'breakable_reward_acquisition_summary_v1.json','trooper_ground_soul_one_to_one_summary_v01.json',
     'citemxp_inspector_events_v01.json','citemxp_auto_award_resolution_validation_v02.json','effective_weapon_runtime_events_v01.jsonl'
@@ -28,6 +28,12 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
   const runtimeItems=await readJson(join(dir,'runtime_item_ownership_production_v01.json'));
   const runtimePermanent=await readJson(join(dir,'runtime_permanent_buff_ownership_production_v01.json'));
   const runtimeBridge=await readJson(join(dir,'runtime_bridge_buff_ownership_production_v01.json'));
+  const runtimeHealthRegen=await readJson(join(dir,'runtime_health_regen_production_v01.json'));
+  const runtimeTrooperDeaths=await readJson(join(dir,'runtime_trooper_deaths_production_v01.json'));
+  const runtimeGroundSoulLifecycle=await readJson(join(dir,'runtime_ground_soul_lifecycle_production_v01.json'));
+  const runtimeAssignedGoldEconomicCredit=await readJson(join(dir,'runtime_assigned_gold_economic_credit_production_v01.json'));  
+  const runtimePrimaryFire=await readJson(join(dir,'runtime_primary_fire_production_v01.json'));
+  const productionManifest=await readJson(join(dir,'production_manifest_v01.json'));
   const offset=Number(runtimeItems?.replay?.matchClockOffsetSeconds ?? runtimePermanent?.replay?.matchClockOffsetSeconds ?? runtimeBridge?.replay?.matchClockOffsetSeconds ?? playerStateSummary?.matchClockOffsetSeconds ?? integrated?.replay?.matchClockOffsetSeconds ?? 0);
   const core=await aggregatePlayerState(join(dir,'player_state.jsonl'),offset);
   const behavioral=await readJson(join(dir,'behavioral_metrics_v02.json'));
@@ -44,12 +50,15 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
   applyRuntimeItems(playerByName,runtimeItems);
   applyRuntimePermanent(playerByName,runtimePermanent);
   applyRuntimeBridge(playerByName,runtimeBridge);
+  applyRuntimeHealthRegen(playerByName,runtimeHealthRegen);
   applyBehavioral(playerByName,behavioral,resourceFeatures);
   applyRewards(playerByName,rewardSummary,breakSummary);
   applyCitemxp(playerByName,citemxp);
   applyGroundSouls(playerByName,groundSummary);
-  const weapon=await aggregateWeaponEvents(join(dir,'effective_weapon_runtime_events_v01.jsonl'),playerByName,offset);
-  const troopers=await aggregateTroopers(join(dir,'trooper_deaths_typed_v02.jsonl'));
+  const legacyWeapon=await aggregateWeaponEvents(join(dir,'effective_weapon_runtime_events_v01.jsonl'),playerByName,offset);
+  const weapon=applyRuntimePrimaryFire(playerByName,runtimePrimaryFire,legacyWeapon);
+  const trooperResearch=await aggregateTroopers(join(dir,'trooper_deaths_typed_v02.jsonl'));
+  const troopers=applyRuntimeTrooperDeaths(runtimeTrooperDeaths,trooperResearch);
   const autoAwards=autoAwardSummary ? {
     status:autoAwardSummary.status,
     counts:autoAwardSummary.resolutionStatusCounts ?? {},
@@ -74,6 +83,7 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
       roster:players.map(p=>pick(p.identity,['playerName','steamId','heroId','team','controllerEntityIndex','pawnEntityIndex'])),
     },
     sourceHealth:health,
+    productionManifest,
     players,
     teams,
     teamSeries:core.teamSeries,
@@ -94,6 +104,9 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
       breakerCollector:rewardSummary.breakerCollector,geometry:rewardSummary.confirmedCollectionGeometry
     }:null,
     troopers,
+    groundSoulLifecycle:runtimeGroundSoulLifecycle?.status==='RUNTIME_GROUND_SOUL_LIFECYCLE_PRODUCTION_V01_READY'?{status:runtimeGroundSoulLifecycle.status,authorityLayer:'extended',summary:runtimeGroundSoulLifecycle.summary,counts:runtimeGroundSoulLifecycle.counts,semanticScope:runtimeGroundSoulLifecycle.semanticScope,validation:runtimeGroundSoulLifecycle.validation,source:'runtime_ground_soul_lifecycle_production_v01.json'}:null,
+
+    groundSoulEconomicCredit:runtimeAssignedGoldEconomicCredit?.status==='RUNTIME_ASSIGNED_GOLD_ECONOMIC_CREDIT_PRODUCTION_V01_READY'?{status:runtimeAssignedGoldEconomicCredit.status,authorityLayer:'extended',summary:runtimeAssignedGoldEconomicCredit.summary,counts:runtimeAssignedGoldEconomicCredit.counts,semanticScope:runtimeAssignedGoldEconomicCredit.semanticScope,diagnostics:runtimeAssignedGoldEconomicCredit.diagnostics,validation:runtimeAssignedGoldEconomicCredit.validation,source:'runtime_assigned_gold_economic_credit_production_v01.json'}:null,
     groundSouls:groundSummary?{
       status:groundSummary.status,
       deathEligibility:groundSummary.deathEligibility,
@@ -217,6 +230,20 @@ function normalizeState(s,tick,demoTime,matchTime){return{
 };}
 function compactState(s){return pick(s,['tick','matchTime','alive','health','healthMax','healthRegen','level','kills','deaths','assists','denies','lastHits','goldNetWorth','apNetWorth','respawnTime','position']);}
 
+function applyRuntimeHealthRegen(playerByName,artifact){
+  if(!artifact || artifact.status!=='RUNTIME_HEALTH_REGEN_PRODUCTION_V01_READY')return;
+  const players=[...playerByName.values()];
+  for(const row of artifact.players??[]){
+    const p=players.find(x=>Number.isInteger(row.controllerEntityIndex)&&x.identity?.controllerEntityIndex===row.controllerEntityIndex)
+      ?? players.find(x=>row.steamId!=null&&String(x.identity?.steamId)===String(row.steamId))
+      ?? playerByName.get(row.playerName);
+    if(!p)continue;
+    const events=[...(row.changeEvents??[])].sort((a,b)=>(a.matchTimeSeconds??0)-(b.matchTimeSeconds??0));
+    let j=0,current=null;
+    for(const s of p.timeline??[]){while(j<events.length&&Number(events[j].matchTimeSeconds)<=Number(s.matchTime)){current=Number(events[j].currentValue);j++;}s.healthRegen=Number.isFinite(current)?current:null;}
+    p.healthRegen={gameplayObserved:row.gameplayObserved??null,rawObserved:row.rawObserved??null,gameplaySampleCount:row.gameplaySampleCount??0,pregameSampleCount:row.pregameSampleCount??0,changeCount:row.changeCount??0,firstGameplayValue:row.firstGameplayValue??null,lastGameplayValue:row.lastGameplayValue??null,events,authority:'player_state_t_v1',source:'runtime_health_regen_production_v01.json'};
+  }
+}
 function applyRuntimeBridge(playerByName,artifact){
   if (!artifact || artifact.status!=='RUNTIME_BRIDGE_BUFF_OWNERSHIP_PRODUCTION_V01_READY') return;
   const players=[...playerByName.values()];
@@ -316,6 +343,42 @@ function applyGroundSouls(playerByName,summary){
   else if(counts&&typeof counts==='object'){for(const [name,n] of Object.entries(counts)){const p=playerByName.get(name);if(p)p.groundSoulTargets=finite(n)??0;}}
 }
 
+function applyRuntimePrimaryFire(playerByName,artifact,legacyWeapon=null){
+  if(!artifact || artifact.status!=='RUNTIME_PRIMARY_FIRE_PRODUCTION_V01_READY') return legacyWeapon;
+  const players=[...playerByName.values()],byPlayer={};
+  for(const row of artifact.players??[]){
+    const p=players.find(x=>Number.isInteger(row.controllerEntityIndex)&&x.identity?.controllerEntityIndex===row.controllerEntityIndex)
+      ?? players.find(x=>row.steamId!=null&&String(x.identity?.steamId)===String(row.steamId))
+      ?? playerByName.get(row.playerName);
+    if(!p)continue;
+    const w={
+      ...(p.weapon??{}),
+      events:row.dischargeEvents??0,
+      discharges:row.discharges??0,
+      primaryAttacksPerAliveMinute:row.primaryAttacksPerAliveMinute??null,
+      meanInterAttackSeconds:row.interAttackIntervalSeconds?.mean??null,
+      medianInterAttackSeconds:row.interAttackIntervalSeconds?.median??null,
+      interAttackSampleCount:row.interAttackIntervalSeconds?.count??0,
+      meanReadyDelaySeconds:row.readyDelaySeconds?.mean??null,
+      medianReadyDelaySeconds:row.readyDelaySeconds?.median??null,
+      readyDelaySampleCount:row.readyDelaySeconds?.count??0,
+      lastObservedNextPrimaryReady:row.lastObservedNextPrimaryReady??null,
+      lastAttackCorroborationRate:row.lastAttackCorroborationRate??null,
+      authority:'runtime_primary_attack_ready_schedule',
+      source:'runtime_primary_fire_production_v01.json'
+    };
+    p.weapon=w;byPlayer[p.playerName]=w;
+  }
+  return {
+    ...(legacyWeapon??{}),
+    events:artifact.counts?.dischargeEvents??0,
+    discharges:artifact.counts?.dischargeUnits??0,
+    byPlayer,
+    authority:'runtime_primary_attack_ready_schedule',
+    source:'runtime_primary_fire_production_v01.json'
+  };
+}
+
 async function aggregateWeaponEvents(path,playerByName,offset){
   if(!existsSync(path))return null; const byPlayer={};let discharges=0,reloadTransitions=0,events=0;
   for await(const e of readJsonl(path)){events++;const name=e.playerName??e.playerKey;if(!name)continue;const a=byPlayer[name]??={events:0,discharges:0,reloadTransitions:0,fireModeChanges:0,readyDelays:[],interAttackIntervals:[],lastDischargeTime:null,lastFireMode:null};a.events++;
@@ -332,6 +395,11 @@ async function aggregateWeaponEvents(path,playerByName,offset){
   return {events,discharges,reloadTransitions,byPlayer};
 }
 
+function applyRuntimeTrooperDeaths(artifact,research){
+  if(!artifact || artifact.status!=='RUNTIME_TROOPER_DEATH_PRODUCTION_V01_READY')return research;
+  const summary=artifact.summary??{};
+  return {...(research??{}),deaths:summary.deaths??artifact.counts?.deaths??0,summary,cumulativeTimeline:summary.cumulativeTimeline??[],authority:'trooper_death_transition',authorityLayer:'extended',source:'runtime_trooper_deaths_production_v01.json',researchTyping:research??null};
+}
 async function aggregateTroopers(path){
   if(!existsSync(path))return null;const byBaseType={},byVariant={},byTeam={},byLane={};let deaths=0;
   for await(const r of readJsonl(path)){

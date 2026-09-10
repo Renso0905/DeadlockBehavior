@@ -24,6 +24,8 @@ export async function listReplayDirs(outputRoot) {
 export async function sourceHealth(replayDir) {
   const defs = [
     ['player_state','player_state.jsonl','A','Core state / scoreboard / trajectory'],
+    ['runtime_health_regen','runtime_health_regen_production_v01.json','A','Direct observed CCitadelPlayerController.m_flHealthRegen production summary'],
+    ['runtime_health_regen_events','runtime_health_regen_events_v01.jsonl','A','Observed health-regeneration change boundaries'],
     ['integrated_state','integrated_authoritative_player_state_substrate_v01.json','A','Legacy integrated items, permanent buffs, bridge intervals'],
     ['runtime_items','runtime_item_ownership_production_v01.json','A','A142 runtime standard-shop item ownership'],
     ['runtime_item_events','runtime_item_ownership_events_v01.jsonl','A','A142 ownership-entry / ownership-exit evidence'],
@@ -37,14 +39,22 @@ export async function sourceHealth(replayDir) {
     ['breakable_actions','breakable_action_stream_v1.jsonl','B','Breakable event evidence'],
     ['breakable_rewards','breakable_reward_acquisition_summary_v1.json','B','Reward acquisition summaries'],
     ['breakable_reward_events','breakable_reward_acquisition_v1.jsonl','B','Reward lifecycle evidence'],
+    ['runtime_trooper_deaths','runtime_trooper_deaths_production_v01.json','A','Extended A: replicated positive-health-to-zero Trooper death summary'],
+    ['runtime_trooper_death_events','runtime_trooper_death_events_v01.jsonl','A','Extended A: authoritative Trooper death timing evidence'],
+    ['runtime_ground_soul_lifecycle','runtime_ground_soul_lifecycle_production_v01.json','A','Extended A: replicated Ground Soul / AssignedGold lifecycle summary'],
+    ['runtime_ground_soul_lifecycle_events','runtime_ground_soul_lifecycle_events_v01.jsonl','A','Extended A: Ground Soul activation, physical vacuum-target, termination, and censoring evidence'],
+    ['runtime_assigned_gold_economic_credit','runtime_assigned_gold_economic_credit_production_v01.json','A','Extended A: conservative Ground Soul economic-recipient-set summary'],
+    ['runtime_assigned_gold_economic_credit_events','runtime_assigned_gold_economic_credit_events_v01.jsonl','A','Extended A: resolved and unresolved AssignedGold economic-credit evidence with exact-tick recipient rows'],
     ['trooper_deaths','trooper_deaths_typed_v02.jsonl','B','Typed Trooper deaths'],
     ['ground_souls','trooper_ground_soul_one_to_one_v01.jsonl','B','Death→ground-soul one-to-one evidence'],
     ['ground_soul_summary','trooper_ground_soul_one_to_one_summary_v01.json','B','Ground-soul aggregate semantics'],
     ['citemxp','citemxp_inspector_events_v01.json','B','Flying Trooper / Urn soul objects'],
     ['auto_awards','citemxp_auto_award_units_v02.jsonl','B','No-shot automatic-award categories'],
     ['urn_bursts','citemxp_auto_award_urn_bursts_v02.jsonl','B','Urn payout bursts'],
-    ['weapon_events','effective_weapon_runtime_events_v01.jsonl','A/B','Primary fire/reload evidence'],
-    ['primary_ready','observed_primary_attack_ready_schedule_candidate_v01.json','A','Primary ready-schedule replay validation'],
+    ['runtime_primary_fire','runtime_primary_fire_production_v01.json','A','Replay-generic observed primary discharge and readiness cadence'],
+    ['runtime_primary_fire_events','runtime_primary_fire_events_v01.jsonl','A','Observed primary discharge / readiness evidence'],
+    ['weapon_events','effective_weapon_runtime_events_v01.jsonl','B','Legacy/research reload and fire-mode evidence'],
+    ['primary_ready','observed_primary_attack_ready_schedule_candidate_v01.json','A','Legacy single-replay readiness research artifact; production authority is the dedicated runtime primary-fire artifact'],
   ];
   const result=[];
   for (const [id,file,status,purpose] of defs) {

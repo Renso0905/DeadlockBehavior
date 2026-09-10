@@ -1,7 +1,7 @@
 import { existsSync, promises as fs } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { basename, join, resolve } from 'node:path';
-import { AUTHORITATIVE_PRODUCTION_METRIC_IDS, getProductionCapability } from './production-capabilities.mjs';
+import { AUTHORITATIVE_PRODUCTION_METRIC_IDS, CORE_AUTHORITATIVE_PRODUCTION_METRIC_IDS, EXTENDED_AUTHORITATIVE_PRODUCTION_METRIC_IDS, getProductionCapability } from './production-capabilities.mjs';
 
 const MANIFEST_VERSION='DEADLOCK_PRODUCTION_MANIFEST_V01';
 const TERMINAL_FAILURES=new Set(['failed','blocked']);
@@ -162,6 +162,8 @@ export function buildProductionManifest({replayName,config,response}) {
     blockedAuthoritative:buckets.blocked.length,
     notSupportedAuthoritative:buckets.not_supported.length,
     unclassifiedAuthoritative:buckets.unclassified.length,
+    core:layerCoverage(CORE_AUTHORITATIVE_PRODUCTION_METRIC_IDS,buckets),
+    extended:layerCoverage(EXTENDED_AUTHORITATIVE_PRODUCTION_METRIC_IDS,buckets),
     metricIds:buckets
   };
   return {
@@ -177,6 +179,18 @@ export function buildProductionManifest({replayName,config,response}) {
   };
 }
 
+function layerCoverage(metricIds,buckets) {
+  const ids=new Set(metricIds);
+  const count=key=>(buckets[key]??[]).filter(id=>ids.has(id)).length;
+  return {
+    authoritativeTotal:metricIds.length,
+    completeAuthoritative:count('complete'),
+    failedAuthoritative:count('failed'),
+    blockedAuthoritative:count('blocked'),
+    notSupportedAuthoritative:count('not_supported'),
+    unclassifiedAuthoritative:count('unclassified')
+  };
+}
 function normalizeExpectedOutputs(values,repoRoot,replayName) {
   return values.map(value=>{
     const spec=typeof value==='string'?{path:value}:value;
