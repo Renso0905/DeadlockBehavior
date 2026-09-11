@@ -1652,6 +1652,45 @@
       "supersedes": [],
       "supersededBy": null,
       "notes": "Scripts 208-210 establish the narrow scoreboard meaning without claiming universal direct-damage causation. Across test + rep01-rep05, all 537 death-confirmed direct enemy-player fatal anchors agreed with the resolved attacker m_iPlayerKills credit (100%) while the +10 s placebo was 1.49% and +30 s placebo was 0%. Script 209 showed that 33 victimHealthNew <= 0 direct-player fatal-looking groups lacking a victim death credit produced no residual kill credit and were not within 5 s of a confirmed same-victim death, so victimHealthNew <= 0 alone is not a valid scored-death rule. Script 210 found that all 20 residual kill credits still had death-confirmed terminal-damage context; 3 additionally resolved directly to the credited player, while 17 residual kill credits retain unresolved indirect attacker/inflictor ownership mechanics. Those 17 attribution gaps do not invalidate the game-awarded scoreboard counter, but they prohibit relabeling this claim as universal final-blow or projectile-ownership authority."
+    },
+    {
+      "claimId": "scoreboard_assist_credit_counter",
+      "domain": "scoreboard",
+      "construct": "Game-awarded player assist-credit counter",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "CCitadelPlayerController.m_iPlayerAssists is authoritative for game-awarded per-player assist credits across the validated replay cohort. The construct is the scoreboard credit itself. It does not establish the game rule that determines assist eligibility, including any required damage, healing, debuff, proximity, participation window, or causal contribution threshold.",
+      "sourceScripts": [
+        "03-extract-player-state",
+        "211-validate-player-assist-credit-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/player_assist_credit_validation_batch_v01.json"
+      ],
+      "downstreamUses": [
+        "scoreboard assists",
+        "assist-rate features after denominator/time authority is specified",
+        "KDA after component claims are independently promoted",
+        "player behavioral profiles",
+        "predictive features"
+      ],
+      "valueSummary": {
+        "cohortReplays": 6,
+        "independentReplicationReplays": 5,
+        "assistCredits": 1113,
+        "opposingScoredDeathAgreementCount": 1113,
+        "opposingScoredDeathAgreementRate": 1,
+        "unmatchedAssistCredits": 0,
+        "sameTeamKillContextRate": 0.9874,
+        "victimTeamConflictRate": 0,
+        "tenSecondPlaceboAgreementRate": 0.0422,
+        "thirtySecondPlaceboAgreementRate": 0.0153
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Script 211 validates the narrow scoreboard meaning without reverse-engineering the assist-eligibility mechanic. Across test + rep01-rep05, all 1,113 observed m_iPlayerAssists credits aligned within the frozen timing window to an opposing player m_iDeaths scored-death increment (100%), with zero victim-team conflicts and zero unmatched assist credits. Same-team kill-credit context was present for 98.74% of assist credits; that supportive control is not required for the construct because the victim scored-death carrier is independently established. Shifted-placebo opposing-death agreement fell to 4.22% at +10 s and 1.53% at +30 s. This claim must not be relabeled as a validated damage-assist, healing-assist, debuff-assist, or assist-eligibility rule."
     }
   ]
 }

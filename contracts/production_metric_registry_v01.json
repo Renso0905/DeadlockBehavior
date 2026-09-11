@@ -4,7 +4,7 @@
   "introducedAgainstCommit": "cdbaa2e1f89c09c0e391052c50494d9781c51959",
   "purpose": "Canonical machine-enforced link between every A-status inspector metric and the claim, production capability, pipeline producer stage, authority layer, entrypoint, and expected outputs that permit that metric to be treated as replay-generic production authority.",
   "promotionRule": "A metric must not be promoted to status A unless it has an explicit entry in this contract and passes the claim, capability, and producer-chain regression tests.",
-  "expectedAuthoritativeMetricCount": 78,
+  "expectedAuthoritativeMetricCount": 79,
   "expectedProducerCount": 9,
   "claimPolicy": {
     "requireSemantic": true,
@@ -333,6 +333,18 @@
       "metricId": "kills",
       "status": "A",
       "primaryClaimId": "scoreboard_kill_credit_counter",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "assists",
+      "status": "A",
+      "primaryClaimId": "scoreboard_assist_credit_counter",
       "dependencyClaimIds": [
         "player_controller_pawn_identity",
         "player_state_t_v1"
