@@ -11,7 +11,7 @@ const publicRoot=join(here,'..','public');
 test('every A-status metric is explicitly wired in Authoritative Stats', async()=>{
   const source=await readFile(join(publicRoot,'authoritative.js'),'utf8');
   const authoritative=METRIC_REGISTRY.flatMap(section=>section.metrics).filter(metric=>metric.status==='A');
-  assert.equal(authoritative.length,77,'A-status metric count changed; review the display contract intentionally');
+  assert.equal(authoritative.length,78,'A-status metric count changed; review the display contract intentionally');
   for(const metric of authoritative){
     assert.match(source,new RegExp(`case ['"]${escapeRegex(metric.id)}['"]\\s*:`),`A metric ${metric.id} is not wired`);
   }

@@ -13,6 +13,13 @@ import {
   loadClaimRegistry,
   isClaimUsable,
 } from '../src/contracts/claim-registry.mjs';
+import {
+  PRODUCTION_METRIC_CONTRACT,
+  getProductionMetric,
+  isAuthoritativeProductionMetric,
+  getProductionMetricIdsForCapability,
+  getProductionProducerForCapability,
+} from '../src/contracts/production-metric-contract.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const contractPath = path.resolve(__dirname, '../contracts/production_metric_registry_v01.json');
@@ -35,12 +42,12 @@ function duplicateValues(values) {
   return [...duplicates].sort();
 }
 
-test('production metric contract freezes the current 77 A metrics', () => {
+test('production metric contract freezes the current 78 A metrics', () => {
   assert.equal(contract.version, 'DEADLOCK_PRODUCTION_METRIC_CONTRACT_V01');
   assert.equal(contract.canonical, true);
-  assert.equal(contract.expectedAuthoritativeMetricCount, 77);
+  assert.equal(contract.expectedAuthoritativeMetricCount, 78);
   assert.equal(contract.expectedProducerCount, 9);
-  assert.equal(contract.metrics.length, 77);
+  assert.equal(contract.metrics.length, 78);
   assert.equal(contract.producers.length, 9);
 
   assert.deepEqual(
@@ -208,5 +215,62 @@ test('pipeline contains no uncontracted authoritative producer capability', () =
     pipelineCapabilities,
     contractCapabilities,
     'pipeline capability set drifted from the canonical production metric contract'
+  );
+});
+
+test('canonical contract is the executable source of truth for A membership', () => {
+  assert.equal(PRODUCTION_METRIC_CONTRACT.version, contract.version);
+  assert.equal(PRODUCTION_METRIC_CONTRACT.metrics.length, 78);
+
+  for (const section of METRIC_REGISTRY) {
+    for (const metric of section.metrics) {
+      const expectedStatus = isAuthoritativeProductionMetric(metric.id) ? 'A' : 'B';
+      assert.equal(
+        metric.status,
+        expectedStatus,
+        `${metric.id}: inspector status is not derived from canonical contract membership`
+      );
+    }
+  }
+
+  assert.equal(isAuthoritativeProductionMetric('current_items'), true);
+  assert.equal(getProductionMetric('current_items')?.capabilityId, 'runtime_item_ownership');
+  assert.equal(isAuthoritativeProductionMetric('kills'), true);
+  assert.equal(getProductionMetric('kills')?.primaryClaimId, 'scoreboard_kill_credit_counter');
+});
+
+test('production capability ownership is derived from the canonical contract', () => {
+  for (const capability of PRODUCTION_CAPABILITIES) {
+    assert.deepEqual(
+      capability.metricIds,
+      getProductionMetricIdsForCapability(capability.id),
+      `${capability.id}: capability metric ownership is not contract-derived`
+    );
+
+    const producer = getProductionProducerForCapability(capability.id);
+    assert.ok(producer, `${capability.id}: canonical contract is missing producer`);
+    assert.equal(producer.authorityLayer, capability.authorityLayer);
+  }
+});
+
+test('source modules consume the canonical contract instead of independently deciding authority', () => {
+  const metricRegistrySource = fs.readFileSync(
+    path.resolve(__dirname, '../inspector-v04/lib/metric-registry.mjs'),
+    'utf8'
+  );
+  const capabilitySource = fs.readFileSync(
+    path.resolve(__dirname, '../inspector-v04/lib/production-capabilities.mjs'),
+    'utf8'
+  );
+
+  assert.match(
+    metricRegistrySource,
+    /isAuthoritativeProductionMetric\(id\)/,
+    'metric registry must derive A/B status from canonical contract membership'
+  );
+  assert.match(
+    capabilitySource,
+    /getProductionMetricIdsForCapability\(id\)/,
+    'production capabilities must derive metric ownership from canonical contract'
   );
 });

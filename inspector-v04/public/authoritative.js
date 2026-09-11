@@ -8,7 +8,7 @@ const AUTH_IDS=[
   'match_clock','match_duration','player_name','steam_id','hero_id','team','controller_entity','pawn_entity','roster','composition',
   'level','level_timing','level_rate','alive_time','dead_time','alive_share','death_count','death_timing','survival_intervals','average_life',
   'respawn_time','respawn_downtime','health','health_max','health_percent','health_minmax','low_health_25','low_health_50','health_regen',
-  'gold_networth','ap_networth','networth_rate','networth_checkpoints','networth_rank',
+  'gold_networth','ap_networth','networth_rate','networth_checkpoints','networth_rank','kills',
   'team_networth','team_networth_diff','player_team_share','team_ahead_time','team_behind_time','max_team_lead','max_team_deficit','largest_lead_swing',
   'current_items','final_build','item_acquisition_time','item_acquisition_order','item_count','item_ownership_duration','item_removals','checkpoint_builds',
   'permanent_current','permanent_acquisitions','permanent_count','permanent_by_family','permanent_value','permanent_team_diff',
@@ -190,6 +190,7 @@ function metricValue(id,{model,p,time,weaponReady}){
     case 'networth_rate': return v(perMin(p.core?.netWorthGainPerMinute),'Observed net-worth change; not relabeled Souls/min');
     case 'networth_checkpoints': return v(`${Object.keys(p.core?.checkpoints??{}).length} checkpoints`,formatCheckpoints(p.core?.checkpoints));
     case 'networth_rank': return v(`#${p.rank?.matchNetWorth??'—'} match`,`#${p.rank?.teamNetWorth??'—'} on team`);
+    case 'kills': return v(s?.kills??p.scoreboard?.kills??0,`final ${num(p.scoreboard?.kills??0)}`);
 
     case 'team_networth': return v(num(teamNow?.goldNetWorth??teamFinal?.goldNetWorth));
     case 'team_networth_diff': return v(signed((teamNow?.goldNetWorth??teamFinal?.goldNetWorth??0)-(otherNow?.goldNetWorth??otherFinal?.goldNetWorth??0)));
