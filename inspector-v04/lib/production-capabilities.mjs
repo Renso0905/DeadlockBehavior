@@ -1,3 +1,5 @@
+import { getProductionMetricIdsForCapability } from '../../src/contracts/production-metric-contract.mjs';
+
 export const PRODUCTION_CAPABILITIES = [
   capability('core_state_economy', 'Core state, identity, and economy', 'supported', [
     'match_clock','match_duration','player_name','steam_id','hero_id','team','controller_entity','pawn_entity','roster','composition',
@@ -42,6 +44,13 @@ export const PRODUCTION_CAPABILITIES = [
     semanticValidation: 'primary_weapon_discharge_telemetry current claim plus the promoted observed primary-attack readiness authority. Firing means observed weapon discharge, not click/trigger-pull inference. Readiness is the observed m_flNextPrimaryAttack - m_flLastAttackTime runtime carrier; static fire-rate formulas are not used as runtime authority.',
     replicationStatus: 'Primary discharge telemetry is multi-replay supported. The observed readiness carrier is strongly cross-replay replicated across rep01-rep05 (27,459/27,465 pooled sustained pairs aligned).'
   }),
+  capability('runtime_melee_execution', 'Runtime melee executions', 'supported', [
+    'melee_attacks','melee_hits','melee_hit_rate','light_melee','heavy_melee','air_heavy_melee','melee_type_share','melee_per_alive_min'
+  ], {
+    integrityValidation: 'Fresh runtime_melee_production_v01.json and runtime_melee_events_v01.jsonl must be produced. Execution identities are unique, post-start owners resolve to the player roster, direct attack types are known, and per-player counts reconcile exactly.',
+    semanticValidation: 'runtime_melee_execution_state_v01 + runtime_melee_hit_flag_v01 + melee_derived_metrics_v01. Executions come from CCitadel_Ability_HoldMelee; hits are direct m_bHitWithThisAttack telemetry; types are direct m_eCurrentAttackType; melee/alive-minute uses the frozen Movement alive-observation denominator.',
+    replicationStatus: 'Direct execution/type/hit carrier reproduced across test plus five independent replication replays; calibration reproduces the historical direct-event carrier exactly before the deliberate pre-match exclusion.'
+  }),
   capability('runtime_trooper_death_events', 'Observed Trooper death transitions', 'supported', [
     'trooper_deaths','trooper_death_timing'
   ], {
@@ -73,6 +82,10 @@ export function getProductionCapability(id) {
   return PRODUCTION_CAPABILITIES.find(c=>c.id===id) ?? null;
 }
 
-function capability(id,label,productionStatus,metricIds,validation,reason=null,authorityLayer='core') {
+function capability(id,label,productionStatus,_legacyMetricIds,validation,reason=null,authorityLayer='core') {
+  const metricIds = getProductionMetricIdsForCapability(id);
+  if (productionStatus === 'supported' && metricIds.length === 0) {
+    throw new Error(`Supported production capability ${id} has no metrics in the canonical production metric contract`);
+  }
   return Object.freeze({id,label,productionStatus,metricIds:Object.freeze([...metricIds]),validation:Object.freeze({...validation}),reason,authorityLayer});
 }

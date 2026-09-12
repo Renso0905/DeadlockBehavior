@@ -115,3 +115,49 @@ function median(a){const x=[...(a??[])].filter(Number.isFinite).sort((a,b)=>a-b)
 function mean(a){const x=[...(a??[])].filter(Number.isFinite);return x.length?x.reduce((s,v)=>s+v,0)/x.length:null;}
 function finite(v){const n=Number(v);return Number.isFinite(n)?n:null;}
 function num(v){const n=Number(v);return Number.isFinite(n)?n:0;}
+
+/**
+ * Canonicalize one narrowly defined Source2 packet-fragmentation signature.
+ *
+ * A removable group must contain exactly two records with the same entity/tick.
+ * The first must be a finalized, censored, zero-duration
+ * REACTIVATED_WITHOUT_INACTIVE_CENSORED fragment and the second must be the
+ * immediately consecutive sequence. All other duplicate shapes are preserved
+ * so the producer's existing duplicateActivationKeys integrity check still
+ * fails closed. The input array is mutated in place only for qualifying rows.
+ */
+export function collapseBenignSameTickReactivationFragments(episodes=[]){
+  const groups=new Map();
+  for(const e of episodes??[]){
+    const tick=finite(e?.activationTick),entity=finite(e?.entityIndex);
+    if(tick===null||entity===null)continue;
+    const k=String(Math.trunc(entity))+':'+String(Math.trunc(tick));
+    if(!groups.has(k))groups.set(k,[]);
+    groups.get(k).push(e);
+  }
+  const remove=new Set(),resolvedGroups=[];
+  let duplicateGroups=0,unresolvedDuplicateGroups=0;
+  for(const [key,rows0] of groups){
+    if(rows0.length<2)continue;
+    duplicateGroups++;
+    const rows=[...rows0].sort((a,b)=>(finite(a?.sequence)??0)-(finite(b?.sequence)??0));
+    let resolved=false;
+    if(rows.length===2){
+      const [fragment,successor]=rows;
+      const sameTick=finite(fragment.activationTick)!==null&&finite(fragment.activationTick)===finite(fragment.endTick)&&finite(fragment.activationTick)===finite(successor.activationTick);
+      const zeroDuration=finite(fragment.durationSeconds)===0;
+      const exactReason=fragment.endReason==='REACTIVATED_WITHOUT_INACTIVE_CENSORED'&&fragment.censored===true&&fragment.finalized===true;
+      const consecutive=Number.isInteger(Number(fragment.sequence))&&Number(successor.sequence)===Number(fragment.sequence)+1;
+      const sameEntity=Number(fragment.entityIndex)===Number(successor.entityIndex);
+      if(sameTick&&zeroDuration&&exactReason&&consecutive&&sameEntity){
+        remove.add(fragment);resolved=true;
+        resolvedGroups.push({key,entityIndex:fragment.entityIndex,activationTick:fragment.activationTick,removedSequence:fragment.sequence,retainedSequence:successor.sequence,removedActivationId:fragment.activationId??null,retainedActivationId:successor.activationId??null});
+      }
+    }
+    if(!resolved)unresolvedDuplicateGroups++;
+  }
+  if(remove.size){
+    let w=0;for(let r=0;r<episodes.length;r++){if(remove.has(episodes[r]))continue;episodes[w++]=episodes[r];}episodes.length=w;
+  }
+  return {duplicateGroups,removedCount:remove.size,resolvedGroups,unresolvedDuplicateGroups};
+}

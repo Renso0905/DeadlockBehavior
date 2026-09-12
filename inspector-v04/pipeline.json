@@ -220,6 +220,30 @@
           "minBytes": 0
         }
       ]
+    },
+    {
+      "id": "runtime-melee",
+      "label": "Extract runtime melee executions",
+      "capability": "runtime_melee_execution",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-melee.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_melee_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_melee_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
     }
   ]
 }

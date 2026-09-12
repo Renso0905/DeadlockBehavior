@@ -3,12 +3,14 @@ import { join } from 'node:path';
 import { readJson, readJsonl, sourceHealth, fileFingerprint } from './io.mjs';
 
 const TICKS_PER_SECOND=64;
+const MOVING_SPEED_THRESHOLD_3D=25;
+const MAX_ACCEPTED_MOVEMENT_STEP_3D=2000;
 const CHECKPOINTS=[300,600,900,1200,1500,1800,2100,2400,2700,3000];
 
 export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,force=false}) {
   const dir=join(outputRoot,replayName);
   const sourceFiles=[
-    'player_state.jsonl','player_state_summary.json','integrated_authoritative_player_state_substrate_v01.json','runtime_item_ownership_production_v01.json','runtime_permanent_buff_ownership_production_v01.json','runtime_bridge_buff_ownership_production_v01.json','runtime_primary_fire_production_v01.json','runtime_primary_fire_events_v01.jsonl','production_manifest_v01.json','runtime_health_regen_production_v01.json','runtime_health_regen_events_v01.jsonl','runtime_trooper_deaths_production_v01.json','runtime_trooper_death_events_v01.jsonl','runtime_ground_soul_lifecycle_production_v01.json','runtime_ground_soul_lifecycle_events_v01.jsonl','runtime_assigned_gold_economic_credit_production_v01.json','runtime_assigned_gold_economic_credit_events_v01.jsonl','behavioral_metrics_v02.json',
+    'player_state.jsonl','player_state_summary.json','integrated_authoritative_player_state_substrate_v01.json','runtime_item_ownership_production_v01.json','runtime_permanent_buff_ownership_production_v01.json','runtime_bridge_buff_ownership_production_v01.json','runtime_primary_fire_production_v01.json','runtime_primary_fire_events_v01.jsonl','runtime_melee_production_v01.json','runtime_melee_events_v01.jsonl','production_manifest_v01.json','runtime_health_regen_production_v01.json','runtime_health_regen_events_v01.jsonl','runtime_trooper_deaths_production_v01.json','runtime_trooper_death_events_v01.jsonl','runtime_ground_soul_lifecycle_production_v01.json','runtime_ground_soul_lifecycle_events_v01.jsonl','runtime_assigned_gold_economic_credit_production_v01.json','runtime_assigned_gold_economic_credit_events_v01.jsonl','behavioral_metrics_v02.json',
     'behavioral_resource_features_summary_v01.json','breakable_catalog_v1.json','breakable_action_stream_summary_v1.json',
     'breakable_reward_acquisition_summary_v1.json','trooper_ground_soul_one_to_one_summary_v01.json',
     'citemxp_inspector_events_v01.json','citemxp_auto_award_resolution_validation_v02.json','effective_weapon_runtime_events_v01.jsonl'
@@ -33,6 +35,7 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
   const runtimeGroundSoulLifecycle=await readJson(join(dir,'runtime_ground_soul_lifecycle_production_v01.json'));
   const runtimeAssignedGoldEconomicCredit=await readJson(join(dir,'runtime_assigned_gold_economic_credit_production_v01.json'));  
   const runtimePrimaryFire=await readJson(join(dir,'runtime_primary_fire_production_v01.json'));
+  const runtimeMelee=await readJson(join(dir,'runtime_melee_production_v01.json'));
   const productionManifest=await readJson(join(dir,'production_manifest_v01.json'));
   const offset=Number(runtimeItems?.replay?.matchClockOffsetSeconds ?? runtimePermanent?.replay?.matchClockOffsetSeconds ?? runtimeBridge?.replay?.matchClockOffsetSeconds ?? playerStateSummary?.matchClockOffsetSeconds ?? integrated?.replay?.matchClockOffsetSeconds ?? 0);
   const core=await aggregatePlayerState(join(dir,'player_state.jsonl'),offset);
@@ -52,6 +55,7 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
   applyRuntimeBridge(playerByName,runtimeBridge);
   applyRuntimeHealthRegen(playerByName,runtimeHealthRegen);
   applyBehavioral(playerByName,behavioral,resourceFeatures);
+  applyRuntimeMelee(playerByName,runtimeMelee);
   applyRewards(playerByName,rewardSummary,breakSummary);
   applyCitemxp(playerByName,citemxp);
   applyGroundSouls(playerByName,groundSummary);
@@ -147,7 +151,7 @@ async function aggregatePlayerState(path,offset) {
         controllerEntityIndex:c.entityIndex,playerName:c.playerName,steamId:c.steamId,team:c.team,heroId:c.heroId,heroEntityIndex:pawn.entityIndex,
         laneColor:c.assignedLane??pawn.deducedLane,alive:c.alive,health:c.health,healthMax:c.maxHealth,healthRegen:c.healthRegen,maxAmmo:c.maxAmmo,
         level:c.level,kills:c.kills,deaths:c.deaths,assists:c.assists,denies:c.denies,lastHits:c.lastHits,goldNetWorth:c.netWorth,apNetWorth:c.abilityPointNetWorth,
-        respawnTime:c.respawnTime,position:pos?[pos.x,pos.y,pos.z]:null
+        respawnTime:c.respawnTime,position:pos?[pos.x,pos.y,pos.z]:null,positionValidForMovement:pawn.positionValidForMovement===true
       };
       updatePlayer(byName,state,demoTime,offset,tick,finite(row.matchTimeSeconds));
     } else {
@@ -182,13 +186,17 @@ function updatePlayer(map,s,demoTime,offset,tick,matchTimeOverride=null) {
       identity:{playerName:name,steamId:s.steamId??null,heroId:s.heroId??null,team:s.team??null,controllerEntityIndex:s.controllerEntityIndex??null,pawnEntityIndex:s.heroEntityIndex??null,laneColor:s.laneColor??null},
       initialState:null,finalState:null,prev:null,aliveSeconds:0,deadSeconds:0,low25Seconds:0,low50Seconds:0,
       minHealth:Infinity,maxHealth:-Infinity,minHealthMax:Infinity,maxHealthMax:-Infinity,
-      deathsObserved:[],respawnsObserved:[],survivalIntervals:[],respawnIntervals:[],levelTimings:{},timeline:[],lastSampleMatch:-Infinity,
-      lifeStartDemo:null,deathStartDemo:null
+      deathsObserved:[],respawnsObserved:[],survivalIntervals:[],respawnIntervals:[],levelTimings:{},scoreboardTimelines:{kills:[],assists:[],lastHits:[],denies:[]},timeline:[],lastSampleMatch:-Infinity,
+      lifeStartDemo:null,deathStartDemo:null,
+      movementCore:{trajectory:[],trajectorySampleCount:0,acceptedStepCount:0,rejectedJumpCount:0,movementAliveSeconds:0,validMovementSeconds:0,travelDistanceXY:0,travelDistance3D:0,movingSeconds:0,lowMotionSeconds:0}
     }; map.set(name,p);
   }
   const matchTime=matchTimeOverride ?? (demoTime-offset); const state=normalizeState(s,tick,demoTime,matchTime);
+  recordMovementTrajectorySample(p,state);
   if (!p.initialState) { p.initialState=state; if(state.alive) p.lifeStartDemo=demoTime; else p.deathStartDemo=demoTime; }
   if (p.prev) {
+    accumulateMovementStep(p,p.prev,state);
+    recordScoreboardCounterTransitions(p,p.prev,state);
     const dt=Math.max(0,demoTime-p.prev.demoTime);
     if (p.prev.alive) p.aliveSeconds+=dt; else p.deadSeconds+=dt;
     const ratio=(p.prev.healthMax>0)?p.prev.health/p.prev.healthMax:null;
@@ -215,6 +223,22 @@ function updatePlayer(map,s,demoTime,offset,tick,matchTimeOverride=null) {
   p.prev=state; p.finalState=state;
 }
 
+
+function recordScoreboardCounterTransitions(p,previous,current){
+  const specs=[['kills','kills'],['assists','assists'],['lastHits','lastHits'],['denies','denies']];
+  for(const [key,bucket] of specs){
+    const prev=finite(previous?.[key]),cur=finite(current?.[key]);
+    if(prev===null||cur===null||cur<=prev)continue;
+    p.scoreboardTimelines[bucket].push({
+      observedSampleTick:current.tick,
+      observedMatchTime:current.matchTime,
+      previous:prev,
+      current:cur,
+      delta:cur-prev
+    });
+  }
+}
+
 function closePlayerIntervals(p,endDemo) {
   if (!p.prev) return;
   const dt=Math.max(0,endDemo-p.prev.demoTime);
@@ -223,10 +247,61 @@ function closePlayerIntervals(p,endDemo) {
   if (ratio!==null && ratio<.25)p.low25Seconds+=dt;if(ratio!==null&&ratio<.5)p.low50Seconds+=dt;
 }
 
+
+function movementPosition(value){
+  if(!Array.isArray(value)||value.length<3)return null;
+  const x=finite(value[0]),y=finite(value[1]),z=finite(value[2]);
+  return x===null||y===null||z===null?null:[x,y,z];
+}
+function recordMovementTrajectorySample(p,state){
+  if(state.matchTime<0||!Array.isArray(state.position))return;
+  p.movementCore.trajectorySampleCount+=1;
+  p.movementCore.trajectory.push([
+    state.tick,
+    state.matchTime,
+    state.position[0],
+    state.position[1],
+    state.position[2],
+    state.alive?1:0,
+    state.positionValidForMovement===true?1:0
+  ]);
+}
+function accumulateMovementStep(p,previous,current){
+  const dt=current.matchTime-previous.matchTime;
+  if(previous.matchTime<0||current.matchTime<0||!Number.isFinite(dt)||dt<=0)return;
+  if(!previous.alive||!current.alive)return;
+
+  p.movementCore.movementAliveSeconds+=dt;
+
+  if(previous.positionValidForMovement!==true||current.positionValidForMovement!==true)return;
+  if(!Array.isArray(previous.position)||!Array.isArray(current.position))return;
+
+  const dx=current.position[0]-previous.position[0];
+  const dy=current.position[1]-previous.position[1];
+  const dz=current.position[2]-previous.position[2];
+  const xy=Math.hypot(dx,dy);
+  const xyz=Math.hypot(dx,dy,dz);
+  if(!Number.isFinite(xy)||!Number.isFinite(xyz))return;
+
+  if(xyz>MAX_ACCEPTED_MOVEMENT_STEP_3D){
+    p.movementCore.rejectedJumpCount+=1;
+    return;
+  }
+
+  p.movementCore.acceptedStepCount+=1;
+  p.movementCore.travelDistanceXY+=xy;
+  p.movementCore.travelDistance3D+=xyz;
+  p.movementCore.validMovementSeconds+=dt;
+
+  const speed3D=xyz/dt;
+  if(speed3D>=MOVING_SPEED_THRESHOLD_3D)p.movementCore.movingSeconds+=dt;
+  else p.movementCore.lowMotionSeconds+=dt;
+}
+
 function normalizeState(s,tick,demoTime,matchTime){return{
   tick:finite(tick),demoTime,matchTime,alive:Boolean(s.alive),health:finite(s.health),healthMax:finite(s.healthMax),healthRegen:finite(s.healthRegen),
   level:finite(s.level),kills:finite(s.kills)??0,deaths:finite(s.deaths)??0,assists:finite(s.assists)??0,denies:finite(s.denies)??0,lastHits:finite(s.lastHits)??0,
-  goldNetWorth:finite(s.goldNetWorth)??0,apNetWorth:finite(s.apNetWorth)??0,respawnTime:finite(s.respawnTime),position:Array.isArray(s.position)?s.position.map(v=>finite(v)??0):null
+  goldNetWorth:finite(s.goldNetWorth)??0,apNetWorth:finite(s.apNetWorth)??0,respawnTime:finite(s.respawnTime),position:movementPosition(s.position),positionValidForMovement:s.positionValidForMovement===true
 };}
 function compactState(s){return pick(s,['tick','matchTime','alive','health','healthMax','healthRegen','level','kills','deaths','assists','denies','lastHits','goldNetWorth','apNetWorth','respawnTime','position']);}
 
@@ -328,6 +403,14 @@ function applyBehavioral(playerByName,behavioral,resourceFeatures){
   for(const b of behavioral?.players??[]){const p=playerByName.get(b.playerName);if(!p)continue;p.behavioral={movement:b.movement??{},resourceExposure:b.resourceExposure??{},breakables:b.knownBreakableActions??{},melee:b.melee??{},soulOrbs:b.soulOrbBehavior??{}};}
   for(const r of resourceFeatures?.players??[]){const p=playerByName.get(r.playerName);if(p)p.resourceFeatures=r;}
 }
+function applyRuntimeMelee(playerByName,runtimeMelee){
+  if(runtimeMelee?.status!=='RUNTIME_MELEE_PRODUCTION_V01_READY')return;
+  for(const row of runtimeMelee?.players??[]){
+    const p=playerByName.get(row.playerName);if(!p)continue;
+    const attacks=Number(row.attackCount)||0,hits=Number(row.hitCount)||0,byType=row.byType??{},movementAliveSeconds=Number(p.movementCore?.movementAliveSeconds)||0;
+    p.melee={source:'runtime_melee_production_v01.json',attacks,hits,hitRate:safeDiv(hits,attacks),light:Number(byType.LIGHT)||0,heavy:Number(byType.HEAVY)||0,airHeavy:Number(byType.HEAVY_AIR)||0,slide:Number(byType.SLIDE)||0,typeShare:row.typeShare??{},movementAliveSeconds,attacksPerAliveMinute:safeDiv(attacks,movementAliveSeconds/60)};
+  }
+}
 function applyRewards(playerByName,rewardSummary,breakSummary){
   for(const c of rewardSummary?.collectors??[]){const p=playerByName.get(c.playerName);if(p)p.rewardCollector=c;}
   for(const bp of breakSummary?.players??[]){const name=bp.playerName;const p=playerByName.get(name);if(p)p.breakableAction=bp;}
@@ -413,15 +496,15 @@ async function aggregateTroopers(path){
 }
 
 function finalizePlayer(p,core){
-  const f=p.finalState??{};const minutes=Math.max(core.matchEndSeconds/60,1e-9);const deaths=f.deaths??p.deathsObserved.length;
-  p.scoreboard={kills:f.kills??0,deaths,assists:f.assists??0,lastHits:f.lastHits??0,denies:f.denies??0,goldNetWorth:f.goldNetWorth??0,apNetWorth:f.apNetWorth??0,
-    kd:safeDiv(f.kills??0,Math.max(deaths,1)),kda:safeDiv((f.kills??0)+(f.assists??0),Math.max(deaths,1)),killsPerMinute:(f.kills??0)/minutes,assistsPerMinute:(f.assists??0)/minutes,lastHitsPerMinute:(f.lastHits??0)/minutes,deniesPerMinute:(f.denies??0)/minutes};
+  const f=p.finalState??{};const minutes=core.matchEndSeconds>0?core.matchEndSeconds/60:null;const deaths=f.deaths??p.deathsObserved.length;
+  p.scoreboard={kills:f.kills??0,deaths,assists:f.assists??0,lastHits:f.lastHits??0,denies:f.denies??0,timelines:p.scoreboardTimelines,goldNetWorth:f.goldNetWorth??0,apNetWorth:f.apNetWorth??0,
+    kd:safeDiv(f.kills??0,deaths),kda:safeDiv((f.kills??0)+(f.assists??0),deaths),killsPerMinute:safeDiv((f.kills??0),minutes),assistsPerMinute:safeDiv((f.assists??0),minutes),lastHitsPerMinute:safeDiv((f.lastHits??0),minutes),deniesPerMinute:safeDiv((f.denies??0),minutes)};
   p.core={level:f.level,alive:f.alive,health:f.health,healthMax:f.healthMax,healthPercent:f.healthMax>0?f.health/f.healthMax:null,healthRegen:f.healthRegen,
     aliveSeconds:p.aliveSeconds,deadSeconds:p.deadSeconds,aliveShare:p.aliveShare,deathsObserved:p.deathsObserved.length,deathTimings:p.deathsObserved,respawns:p.respawnsObserved,
     survivalIntervals:p.survivalIntervals,averageLifeSeconds:p.averageLifeSeconds,totalRespawnDowntimeSeconds:p.totalRespawnDowntimeSeconds,
     minHealth:Number.isFinite(p.minHealth)?p.minHealth:null,maxHealth:Number.isFinite(p.maxHealth)?p.maxHealth:null,low25Seconds:p.low25Seconds,low50Seconds:p.low50Seconds,
     levelTimings:p.levelTimings,levelRatePerMinute:p.levelRatePerMinute,netWorthGainPerMinute:p.netWorthGainPerMinute,checkpoints:p.checkpoints};
-  const mv=p.behavioral?.movement??{};p.movement={...mv,distancePerMinute:safeDiv(mv.travelDistanceXY,minutes),distancePerAliveMinute:safeDiv(mv.travelDistanceXY,p.aliveMinutes),movingShare:mv.validMovementSeconds?safeDiv(mv.movingSeconds,mv.validMovementSeconds):null};
+  const movement=p.movementCore??{};const matchMinutes=core.matchEndSeconds>0?core.matchEndSeconds/60:null;const movementAliveMinutes=movement.movementAliveSeconds>0?movement.movementAliveSeconds/60:null;const validMovementSeconds=movement.validMovementSeconds>0?movement.validMovementSeconds:null;p.movement={trajectory:movement.trajectory??[],trajectorySampleCount:movement.trajectorySampleCount??0,acceptedStepCount:movement.acceptedStepCount??0,rejectedJumpCount:movement.rejectedJumpCount??0,movementAliveSeconds:movement.movementAliveSeconds??0,validMovementSeconds:movement.validMovementSeconds??0,travelDistanceXY:movement.travelDistanceXY??0,travelDistance3D:movement.travelDistance3D??0,distancePerMinute:safeDiv(movement.travelDistanceXY??0,matchMinutes),distancePerAliveMinute:safeDiv(movement.travelDistanceXY??0,movementAliveMinutes),meanSpeedXY:safeDiv(movement.travelDistanceXY??0,validMovementSeconds),meanSpeed3D:safeDiv(movement.travelDistance3D??0,validMovementSeconds),movingSeconds:movement.movingSeconds??0,movingShare:safeDiv(movement.movingSeconds??0,validMovementSeconds),lowMotionSeconds:movement.lowMotionSeconds??0,lowMotionShare:safeDiv(movement.lowMotionSeconds??0,validMovementSeconds),maxAcceptedStep3D:MAX_ACCEPTED_MOVEMENT_STEP_3D,movingThreshold3D:MOVING_SPEED_THRESHOLD_3D};
   p.rank={};
   return p;
 }

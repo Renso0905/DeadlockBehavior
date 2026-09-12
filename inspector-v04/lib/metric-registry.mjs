@@ -1,3 +1,5 @@
+import { isAuthoritativeProductionMetric } from '../../src/contracts/production-metric-contract.mjs';
+
 const A = 'A';
 const B = 'B';
 
@@ -92,27 +94,27 @@ export const METRIC_REGISTRY = [
     m('bridge_team_uptime','Team bridge uptime',A,'seconds','runtime_bridge_buff_ownership','Team aggregate interval duration.'),
   ]),
   section('movement', 'Movement', [
-    m('xy_distance','XY distance traveled',B,'hu','behavioral_metrics_v02','Validated movement feature substrate.'),
-    m('xyz_distance','3D distance traveled',B,'hu','behavioral_metrics_v02','Validated movement feature substrate.'),
-    m('distance_per_min','Distance/min',B,'hu_per_min','behavioral_metrics_v02','XY distance / match minutes.'),
-    m('distance_per_alive_min','Distance/alive min',B,'hu_per_min','behavioral_metrics_v02','XY distance / alive minutes.'),
-    m('mean_xy_speed','Mean XY speed',B,'hu_per_sec','behavioral_metrics_v02','Mean valid XY movement speed.'),
-    m('mean_xyz_speed','Mean 3D speed',B,'hu_per_sec','behavioral_metrics_v02','Mean valid 3D movement speed.'),
-    m('moving_time','Moving time',B,'seconds','behavioral_metrics_v02','Calibrated valid moving duration.'),
-    m('moving_share','Moving %',B,'percent','behavioral_metrics_v02','Moving duration / valid movement duration.'),
-    m('low_motion_time','Low-motion time',B,'seconds','behavioral_metrics_v02','Calibrated low-motion duration.'),
-    m('low_motion_share','Low-motion share',B,'percent','behavioral_metrics_v02','Low-motion duration / valid movement duration.'),
-    m('position_trajectory','Position trajectory',B,'series','player_state','Observed player position samples; invalid jumps excluded only from behavioral movement summaries.'),
+    m('xy_distance','XY distance traveled',A,'hu','PlayerState movement substrate','Cumulative planar displacement across validated post-start alive→alive movement-valid steps; >2000-HU 3D hard jumps excluded, not clamped.'),
+    m('xyz_distance','3D distance traveled',A,'hu','PlayerState movement substrate','Cumulative 3D displacement across validated post-start alive→alive movement-valid steps; >2000-HU 3D hard jumps excluded, not clamped.'),
+    m('distance_per_min','Distance/min',A,'hu_per_min','PlayerState movement substrate','Authoritative XY displacement divided by observed full-match minutes; zero/nonpositive duration returns null.'),
+    m('distance_per_alive_min','Distance/alive min',A,'hu_per_min','PlayerState movement substrate','Authoritative XY displacement divided by post-start minutes whose consecutive sample endpoints are both alive; distinct from broader alive_time.'),
+    m('mean_xy_speed','Mean XY speed',A,'hu_per_sec','PlayerState movement substrate','Time-weighted mean planar speed: authoritative XY displacement / valid movement seconds.'),
+    m('mean_xyz_speed','Mean 3D speed',A,'hu_per_sec','PlayerState movement substrate','Time-weighted mean 3D speed: authoritative 3D displacement / valid movement seconds.'),
+    m('moving_time','Moving time',A,'seconds','PlayerState movement substrate','Valid movement-step duration whose observed 3D step speed is >=25 HU/s.'),
+    m('moving_share','Moving %',A,'percent','PlayerState movement substrate','Moving duration / valid movement duration using the frozen >=25 HU/s 3D classification.'),
+    m('low_motion_time','Low-motion time',A,'seconds','PlayerState movement substrate','Valid movement-step duration whose observed 3D step speed is <25 HU/s.'),
+    m('low_motion_share','Low-motion share',A,'percent','PlayerState movement substrate','Low-motion duration / valid movement duration using the frozen <25 HU/s 3D classification.'),
+    m('position_trajectory','Position trajectory',A,'series','PlayerState movement substrate','Discrete finite post-start raw PlayerState position samples with tick/time and alive/movement-valid metadata; not a continuous geometric path.'),
   ]),
   section('melee', 'Melee', [
-    m('melee_attacks','Melee attacks',B,'integer','behavioral_metrics_v02','Validated melee action count.'),
-    m('melee_hits','Confirmed melee hits',B,'integer','behavioral_metrics_v02','Confirmed melee-hit count.'),
-    m('melee_hit_rate','Melee hit rate',B,'percent','behavioral_metrics_v02','Confirmed hits / detected melee attacks.'),
-    m('light_melee','Light melees',B,'integer','behavioral_metrics_v02','Detected light-melee actions.'),
-    m('heavy_melee','Heavy melees',B,'integer','behavioral_metrics_v02','Detected heavy-melee actions.'),
-    m('air_heavy_melee','Air-heavy melees',B,'integer','behavioral_metrics_v02','Detected air-heavy-melee actions.'),
-    m('melee_type_share','Melee type share',B,'percent','behavioral_metrics_v02','Share by melee type.'),
-    m('melee_per_alive_min','Melees/alive min',B,'per_min','behavioral_metrics_v02','Melee attacks / alive minutes.'),
+    m('melee_attacks','Melee attacks',A,'integer','runtime_melee_execution','Observed post-start executed CCitadel_Ability_HoldMelee episodes; not raw input attempts.'),
+    m('melee_hits','Melee hits',A,'integer','runtime_melee_execution','Executed melee episodes where m_bHitWithThisAttack becomes true; not unique victim or damage-event count.'),
+    m('melee_hit_rate','Melee hit rate',A,'percent','runtime_melee_execution','Observed melee hit flags / executed melee episodes; zero attacks returns null.'),
+    m('light_melee','Light melees',A,'integer','runtime_melee_execution','Executed melee episodes with direct m_eCurrentAttackType=LIGHT.'),
+    m('heavy_melee','Heavy melees',A,'integer','runtime_melee_execution','Executed melee episodes with direct m_eCurrentAttackType=HEAVY.'),
+    m('air_heavy_melee','Air-heavy melees',A,'integer','runtime_melee_execution','Executed melee episodes with direct m_eCurrentAttackType=HEAVY_AIR.'),
+    m('melee_type_share','Melee type share',A,'percent','runtime_melee_execution','Direct runtime attack-type counts / all executed melee episodes; SLIDE remains explicitly represented when observed.'),
+    m('melee_per_alive_min','Melees/alive min',A,'per_min','runtime_melee_execution + Movement','Executed melee episodes / frozen Movement both-endpoints-alive observation minutes; zero denominator returns null.'),
   ]),
   section('breakables', 'Breakables', [
     m('breakable_slots','Persistent breakable slots',B,'integer','breakable_catalog_v1','Cataloged persistent resource slots.'),
@@ -230,6 +232,7 @@ export const METRIC_REGISTRY = [
 export const METRIC_BY_ID = new Map(METRIC_REGISTRY.flatMap(s => s.metrics).map(x => [x.id, x]));
 
 function section(id, label, metrics) { return { id, label, metrics }; }
-function m(id,label,status,unit,source,definition,warning=false) {
+function m(id,label,_legacyStatus,unit,source,definition,warning=false) {
+  const status = isAuthoritativeProductionMetric(id) ? 'A' : 'B';
   return { id,label,status,unit,source,definition,warning };
 }

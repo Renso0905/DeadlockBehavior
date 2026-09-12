@@ -3,7 +3,8 @@ import { basename, dirname, extname, resolve } from 'node:path';
 import { createInterface } from 'node:readline';
 import { EntityOperation, InterceptorStage, Logger, Parser, ParserConfiguration } from 'deadem';
 import { requireClaim } from '../../src/contracts/claim-registry.mjs';
-import { beginGroundSoulEpisode, buildGroundSoulLifecycleSummary, compareActivationKeys, decodeSource2EntityHandle, finishGroundSoulEpisode, observeGroundSoulEpisode } from '../lib/runtime-ground-soul-lifecycle.mjs';
+import { beginGroundSoulEpisode, buildGroundSoulLifecycleSummary, compareActivationKeys, decodeSource2EntityHandle, finishGroundSoulEpisode, observeGroundSoulEpisode, collapseBenignSameTickReactivationFragments } from '../lib/runtime-ground-soul-lifecycle.mjs';
+import { buildDuplicateActivationDiagnostic, duplicateDiagnosticConsoleLines } from '../lib/runtime-ground-soul-lifecycle-duplicate-diagnostic.mjs';
 
 const VERSION='RUNTIME_GROUND_SOUL_LIFECYCLE_PRODUCTION_V01';
 const STATUS_READY='RUNTIME_GROUND_SOUL_LIFECYCLE_PRODUCTION_V01_READY';
@@ -18,6 +19,7 @@ const playerSummaryPath=resolve('output',replayName,'player_state_summary.json')
 const researchPath=resolve('output',replayName,'replication_assigned_gold_activations_v01.jsonl');
 const outputPath=resolve('output',replayName,'runtime_ground_soul_lifecycle_production_v01.json');
 const eventsPath=resolve('output',replayName,'runtime_ground_soul_lifecycle_events_v01.jsonl');
+const duplicateDiagnosticPath=resolve('output',replayName,'runtime_ground_soul_lifecycle_duplicate_activation_diagnostic_v01.json');
 for(const path of [replayPath,playerSummaryPath])if(!existsSync(path))throw new Error(`Required input missing: ${path}`);
 
 const claim=requireClaim('ground_soul_lifecycle',{requireSemantic:true,requireReplication:true});
@@ -76,8 +78,25 @@ parser.registerPostInterceptor(InterceptorStage.ENTITY_PACKET,(demoPacket,messag
 try{await parser.parse(createReadStream(replayPath));}finally{await parser.dispose();}
 const endTime=timing(replayEndTick);for(const entityIndex of [...openByEntity.keys()])end(entityIndex,endTime,'REPLAY_END_CENSORED',true);
 
+const sameTickFragmentRepair=collapseBenignSameTickReactivationFragments(episodes);
+if(sameTickFragmentRepair.removedCount){
+  console.log(`Same-tick reactivation fragments canonicalized: ${sameTickFragmentRepair.removedCount} across ${sameTickFragmentRepair.resolvedGroups.length} duplicate groups`);
+}
 const summary=buildGroundSoulLifecycleSummary(episodes);
 const duplicateKeys=findDuplicateKeys(episodes);
+// GROUND_SOUL_LIFECYCLE_DUPLICATE_DIAGNOSTIC_V01_INSTRUMENTATION
+const duplicateDiagnostic=buildDuplicateActivationDiagnostic(episodes,{replayName,replayPath,replayEndTick});
+if(duplicateDiagnostic.duplicateKeyCount>0){
+  mkdirSync(dirname(duplicateDiagnosticPath),{recursive:true});
+  writeFileSync(duplicateDiagnosticPath,JSON.stringify(duplicateDiagnostic,null,2)+'\n','utf8');
+  console.log('');
+  console.log('DUPLICATE ACTIVATION-KEY DIAGNOSTIC V01');
+  console.log('---------------------------------------');
+  for(const line of duplicateDiagnosticConsoleLines(duplicateDiagnostic,{limit:20}))console.log(line);
+  console.log(`Diagnostic JSON: ${duplicateDiagnosticPath}`);
+  console.log('Integrity failure is intentionally preserved; no duplicate episodes were merged or discarded.');
+}
+
 let researchComparison=null;if(existsSync(researchPath)){researchComparison=compareActivationKeys(episodes,await readJsonl(researchPath));}
 const checks={
   authorityCurrent:check(claim.authorityStatus,'current',claim.authorityStatus==='current'),
@@ -104,7 +123,7 @@ const output={
   },
   counts:{candidateEntityEvents,assignedGoldEntities:assignedGoldEntities.size,activeFieldEntities:activeFieldEntities.size,validVacuumTargetObservations},
   summary,
-  diagnostics:{researchArtifact:existsSync(researchPath)?researchPath:null,researchComparison},
+  diagnostics:{sameTickReactivationFragmentRepair:sameTickFragmentRepair,researchArtifact:existsSync(researchPath)?researchPath:null,researchComparison},
   validation:{pass:true,checks}
 };
 mkdirSync(dirname(outputPath),{recursive:true});writeFileSync(outputPath,JSON.stringify(output,null,2)+'\n','utf8');writeFileSync(eventsPath,episodes.map(x=>JSON.stringify(x)).join('\n')+(episodes.length?'\n':''),'utf8');

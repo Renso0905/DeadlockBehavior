@@ -3,6 +3,9 @@ import { createReadStream, existsSync, promises as fs } from 'node:fs';
 import { extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildReplayModel } from './lib/replay-model.mjs';
+import { AUTHORITATIVE_PRODUCTION_METRIC_IDS } from './lib/production-capabilities.mjs';
+import { listReplayInventory, needsReplayProcessing, replayReadiness } from './lib/replay-readiness.mjs';
+import { startReplayAutoIngestion } from './lib/replay-auto-ingestion.mjs';
 import { METRIC_REGISTRY } from './lib/metric-registry.mjs';
 import { jsonlPage, listReplayDirs, readJson, rowMatchesPlayer, sourceHealth } from './lib/io.mjs';
 import { importReplay, runPipeline } from './lib/pipeline.mjs';
@@ -15,6 +18,8 @@ const publicRoot=join(inspectorRoot,'public');
 const port=Number(process.env.DEADLOCK_INSPECTOR_PORT ?? 4177);
 const host=process.env.DEADLOCK_INSPECTOR_HOST ?? '127.0.0.1';
 const modelPromises=new Map();
+const processingPromises=new Map();
+const processingState=new Map();
 
 const server=createServer(async(req,res)=>{
   try {
@@ -30,6 +35,7 @@ server.listen(port,host,()=>{
   console.log(`  http://${host}:${port}`);
   console.log(`  repo:   ${repoRoot}`);
   console.log(`  output: ${outputRoot}`);
+  startAutoIngestion().catch(err=>console.error('[auto-ingest]',err));
 });
 
 async function api(req,res,url){
@@ -42,8 +48,9 @@ async function api(req,res,url){
     return sendJson(res,200,data);
   }
   if(req.method==='GET'&&url.pathname==='/api/replays'){
-    const names=await listReplayDirs(outputRoot);const rows=[];for(const name of names){const health=await sourceHealth(join(outputRoot,name));rows.push({name,ready:health.filter(x=>x.present).length,total:health.length,coreReady:health.find(x=>x.id==='player_state')?.present===true});}
-    return sendJson(res,200,{replays:rows});
+    const names=await listReplayInventory({repoRoot,outputRoot});const rows=[];
+    for(const name of names){const health=await sourceHealth(join(outputRoot,name));const readiness=await replayReadiness({repoRoot,outputRoot,replayName:name,authoritativeTotal:AUTHORITATIVE_PRODUCTION_METRIC_IDS.length,processing:processingState.get(name)??null});rows.push({name,ready:readiness.completeAuthoritative,total:readiness.authoritativeTotal,coreReady:health.find(x=>x.id==='player_state')?.present===true,...readiness});}
+    return sendJson(res,200,{authoritativeTotal:AUTHORITATIVE_PRODUCTION_METRIC_IDS.length,replays:rows});
   }
   let m=url.pathname.match(/^\/api\/replay\/([^/]+)\/model$/);
   if(req.method==='GET'&&m){const replay=decodeURIComponent(m[1]);const force=url.searchParams.get('force')==='1';return sendJson(res,200,await getModel(replay,force));}
@@ -73,8 +80,41 @@ async function api(req,res,url){
     return sendJson(res,201,{...imported,next:`POST /api/process/${encodeURIComponent(imported.replayName)}`});
   }
   m=url.pathname.match(/^\/api\/process\/([^/]+)$/);
-  if(req.method==='POST'&&m){const replayName=decodeURIComponent(m[1]);const result=await runPipeline({repoRoot,inspectorRoot,replayName});modelPromises.delete(replayName);return sendJson(res,200,result);}
+  if(req.method==='POST'&&m){const replayName=decodeURIComponent(m[1]);const result=await processReplayOnce(replayName,{origin:'api'});return sendJson(res,200,result);}
   sendJson(res,404,{error:'Not found'});
+}
+
+async function startAutoIngestion(){
+  if(process.env.DEADLOCK_AUTO_INGEST==='0')return;
+  const handle=await startReplayAutoIngestion({
+    repoRoot,
+    shouldProcess:async replayName=>(await needsReplayProcessing({repoRoot,outputRoot,replayName})).needed,
+    processReplay:replayName=>processReplayOnce(replayName,{origin:'filesystem'}),
+    onLog:message=>console.log(`[auto-ingest] ${message}`)
+  });
+  server.on('close',()=>handle.close());
+}
+
+async function processReplayOnce(replayName,{origin='api'}={}){
+  if(!/^[A-Za-z0-9._-]+$/.test(replayName))throw new Error('Invalid replay name');
+  if(processingPromises.has(replayName))return processingPromises.get(replayName);
+  const startedAt=new Date().toISOString();
+  processingState.set(replayName,{state:'PROCESSING',origin,currentStage:null,startedAt});
+  const promise=(async()=>{
+    try{
+      const result=await runPipeline({repoRoot,inspectorRoot,replayName,onEvent:event=>{
+        if(event?.type==='step-start'){const current=processingState.get(replayName)??{};processingState.set(replayName,{...current,state:'PROCESSING',currentStage:event.id??null,currentStageLabel:event.label??null});}
+      }});
+      modelPromises.delete(replayName);
+      processingState.set(replayName,{state:result.status==='COMPLETE'?'READY':'INCOMPLETE',origin,currentStage:null,startedAt,finishedAt:new Date().toISOString(),runStatus:result.status,completeAuthoritative:result.productionManifest?.coverage?.completeAuthoritative??0,authoritativeTotal:result.productionManifest?.coverage?.authoritativeTotal??AUTHORITATIVE_PRODUCTION_METRIC_IDS.length});
+      return result;
+    }catch(error){
+      processingState.set(replayName,{state:'INCOMPLETE',origin,currentStage:null,startedAt,finishedAt:new Date().toISOString(),runStatus:'PROCESSING_EXCEPTION',error:error?.message??String(error)});
+      throw error;
+    }finally{processingPromises.delete(replayName);}
+  })();
+  processingPromises.set(replayName,promise);
+  return promise;
 }
 
 async function getModel(replay,force=false){

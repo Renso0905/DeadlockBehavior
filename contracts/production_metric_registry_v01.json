@@ -4,8 +4,8 @@
   "introducedAgainstCommit": "cdbaa2e1f89c09c0e391052c50494d9781c51959",
   "purpose": "Canonical machine-enforced link between every A-status inspector metric and the claim, production capability, pipeline producer stage, authority layer, entrypoint, and expected outputs that permit that metric to be treated as replay-generic production authority.",
   "promotionRule": "A metric must not be promoted to status A unless it has an explicit entry in this contract and passes the claim, capability, and producer-chain regression tests.",
-  "expectedAuthoritativeMetricCount": 79,
-  "expectedProducerCount": 9,
+  "expectedAuthoritativeMetricCount": 108,
+  "expectedProducerCount": 10,
   "claimPolicy": {
     "requireSemantic": true,
     "requireReplication": true,
@@ -347,6 +347,130 @@
       "primaryClaimId": "scoreboard_assist_credit_counter",
       "dependencyClaimIds": [
         "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "last_hits",
+      "status": "A",
+      "primaryClaimId": "scoreboard_last_hit_credit_counter",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "denies",
+      "status": "A",
+      "primaryClaimId": "scoreboard_deny_credit_counter",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "deaths_scoreboard",
+      "status": "A",
+      "primaryClaimId": "scoreboard_death_credit_counter",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "kd",
+      "status": "A",
+      "primaryClaimId": "scoreboard_kd_kda_formula_v01",
+      "dependencyClaimIds": [
+        "scoreboard_kill_credit_counter",
+        "scoreboard_death_credit_counter"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "kda",
+      "status": "A",
+      "primaryClaimId": "scoreboard_kd_kda_formula_v01",
+      "dependencyClaimIds": [
+        "scoreboard_kill_credit_counter",
+        "scoreboard_assist_credit_counter",
+        "scoreboard_death_credit_counter"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "kills_rate",
+      "dependencyClaimIds": [
+        "scoreboard_kill_credit_counter",
+        "player_state_t_v1"
+      ],
+      "status": "A",
+      "primaryClaimId": "scoreboard_per_minute_rate_formula_v01",
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "assists_rate",
+      "dependencyClaimIds": [
+        "scoreboard_assist_credit_counter",
+        "player_state_t_v1"
+      ],
+      "status": "A",
+      "primaryClaimId": "scoreboard_per_minute_rate_formula_v01",
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "last_hits_rate",
+      "dependencyClaimIds": [
+        "scoreboard_last_hit_credit_counter",
+        "player_state_t_v1"
+      ],
+      "status": "A",
+      "primaryClaimId": "scoreboard_per_minute_rate_formula_v01",
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "denies_rate",
+      "dependencyClaimIds": [
+        "scoreboard_deny_credit_counter",
+        "player_state_t_v1"
+      ],
+      "status": "A",
+      "primaryClaimId": "scoreboard_per_minute_rate_formula_v01",
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "scoreboard_timelines",
+      "status": "A",
+      "primaryClaimId": "scoreboard_sampled_counter_timeline_v01",
+      "dependencyClaimIds": [
+        "scoreboard_kill_credit_counter",
+        "scoreboard_assist_credit_counter",
+        "scoreboard_last_hit_credit_counter",
+        "scoreboard_deny_credit_counter",
         "player_state_t_v1"
       ],
       "capabilityId": "core_state_economy",
@@ -762,6 +886,249 @@
       "capabilityId": "runtime_assigned_gold_economic_credit",
       "producerStageId": "ground-soul-economic-credit",
       "authorityLayer": "extended"
+    },
+    {
+      "metricId": "xy_distance",
+      "status": "A",
+      "primaryClaimId": "player_movement_observation_substrate_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "xyz_distance",
+      "status": "A",
+      "primaryClaimId": "player_movement_observation_substrate_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "distance_per_min",
+      "status": "A",
+      "primaryClaimId": "player_movement_derived_metrics_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1",
+        "player_movement_observation_substrate_v01"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "distance_per_alive_min",
+      "status": "A",
+      "primaryClaimId": "player_movement_derived_metrics_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1",
+        "player_movement_observation_substrate_v01"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "mean_xy_speed",
+      "status": "A",
+      "primaryClaimId": "player_movement_derived_metrics_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1",
+        "player_movement_observation_substrate_v01"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "mean_xyz_speed",
+      "status": "A",
+      "primaryClaimId": "player_movement_derived_metrics_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1",
+        "player_movement_observation_substrate_v01"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "moving_time",
+      "status": "A",
+      "primaryClaimId": "player_movement_observation_substrate_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "moving_share",
+      "status": "A",
+      "primaryClaimId": "player_movement_derived_metrics_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1",
+        "player_movement_observation_substrate_v01"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "low_motion_time",
+      "status": "A",
+      "primaryClaimId": "player_movement_observation_substrate_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "low_motion_share",
+      "status": "A",
+      "primaryClaimId": "player_movement_derived_metrics_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1",
+        "player_movement_observation_substrate_v01"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "position_trajectory",
+      "status": "A",
+      "primaryClaimId": "player_movement_observation_substrate_v01",
+      "dependencyClaimIds": [
+        "world_position_reconstruction",
+        "player_controller_pawn_identity",
+        "player_state_t_v1"
+      ],
+      "capabilityId": "core_state_economy",
+      "producerStageId": "core-player-state",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "melee_attacks",
+      "status": "A",
+      "primaryClaimId": "runtime_melee_execution_state_v01",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity"
+      ],
+      "capabilityId": "runtime_melee_execution",
+      "producerStageId": "runtime-melee",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "melee_hits",
+      "status": "A",
+      "primaryClaimId": "runtime_melee_hit_flag_v01",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity",
+        "runtime_melee_execution_state_v01"
+      ],
+      "capabilityId": "runtime_melee_execution",
+      "producerStageId": "runtime-melee",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "melee_hit_rate",
+      "status": "A",
+      "primaryClaimId": "melee_derived_metrics_v01",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity",
+        "runtime_melee_execution_state_v01",
+        "runtime_melee_hit_flag_v01"
+      ],
+      "capabilityId": "runtime_melee_execution",
+      "producerStageId": "runtime-melee",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "light_melee",
+      "status": "A",
+      "primaryClaimId": "runtime_melee_execution_state_v01",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity"
+      ],
+      "capabilityId": "runtime_melee_execution",
+      "producerStageId": "runtime-melee",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "heavy_melee",
+      "status": "A",
+      "primaryClaimId": "runtime_melee_execution_state_v01",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity"
+      ],
+      "capabilityId": "runtime_melee_execution",
+      "producerStageId": "runtime-melee",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "air_heavy_melee",
+      "status": "A",
+      "primaryClaimId": "runtime_melee_execution_state_v01",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity"
+      ],
+      "capabilityId": "runtime_melee_execution",
+      "producerStageId": "runtime-melee",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "melee_type_share",
+      "status": "A",
+      "primaryClaimId": "melee_derived_metrics_v01",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity",
+        "runtime_melee_execution_state_v01"
+      ],
+      "capabilityId": "runtime_melee_execution",
+      "producerStageId": "runtime-melee",
+      "authorityLayer": "core"
+    },
+    {
+      "metricId": "melee_per_alive_min",
+      "status": "A",
+      "primaryClaimId": "melee_derived_metrics_v01",
+      "dependencyClaimIds": [
+        "player_controller_pawn_identity",
+        "runtime_melee_execution_state_v01",
+        "player_movement_observation_substrate_v01"
+      ],
+      "capabilityId": "runtime_melee_execution",
+      "producerStageId": "runtime-melee",
+      "authorityLayer": "core"
     }
   ],
   "producers": [
@@ -905,6 +1272,22 @@
         },
         {
           "path": "output/{replay}/runtime_primary_fire_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "producerStageId": "runtime-melee",
+      "capabilityId": "runtime_melee_execution",
+      "authorityLayer": "core",
+      "entrypoint": "inspector-v04/production/extract-runtime-melee.mjs",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_melee_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_melee_events_v01.jsonl",
           "minBytes": 0
         }
       ]

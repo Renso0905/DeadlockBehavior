@@ -8,7 +8,7 @@ const AUTH_IDS=[
   'match_clock','match_duration','player_name','steam_id','hero_id','team','controller_entity','pawn_entity','roster','composition',
   'level','level_timing','level_rate','alive_time','dead_time','alive_share','death_count','death_timing','survival_intervals','average_life',
   'respawn_time','respawn_downtime','health','health_max','health_percent','health_minmax','low_health_25','low_health_50','health_regen',
-  'gold_networth','ap_networth','networth_rate','networth_checkpoints','networth_rank','kills','assists',
+  'gold_networth','ap_networth','networth_rate','networth_checkpoints','networth_rank','kills','assists','last_hits','denies','deaths_scoreboard','kd','kda','kills_rate','assists_rate','last_hits_rate','denies_rate','scoreboard_timelines',
   'team_networth','team_networth_diff','player_team_share','team_ahead_time','team_behind_time','max_team_lead','max_team_deficit','largest_lead_swing',
   'current_items','final_build','item_acquisition_time','item_acquisition_order','item_count','item_ownership_duration','item_removals','checkpoint_builds',
   'permanent_current','permanent_acquisitions','permanent_count','permanent_by_family','permanent_value','permanent_team_diff',
@@ -16,7 +16,9 @@ const AUTH_IDS=[
   'trooper_deaths','trooper_death_timing',
   'ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration',
   'ground_soul_economic_credit_events','ground_soul_economic_recipient_transitions','ground_soul_multi_recipient_share','ground_soul_economic_gain',
-  'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay'
+  'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay',
+  'xy_distance','xyz_distance','distance_per_min','distance_per_alive_min','mean_xy_speed','mean_xyz_speed','moving_time','moving_share','low_motion_time','low_motion_share','position_trajectory',
+  'melee_attacks','melee_hits','melee_hit_rate','light_melee','heavy_melee','air_heavy_melee','melee_type_share','melee_per_alive_min'
 ];
 
 installAuthoritativeStyles();
@@ -135,6 +137,21 @@ function authCard(metric,result){
 }
 
 function authGroundSoulEconomicGainAtTime(summary,p,time){const rows=summary?.byPlayer??[];const steam=String(p?.identity?.steamId??'');const name=String(p?.playerName??'');const row=rows.find(x=>steam&&String(x.steamId??'')===steam)??rows.find(x=>String(x.playerName??'')===name);const timeline=row?.cumulativeTimeline??[];let gain=0,creditEvents=0;for(const x of timeline){if(Number(x.matchTime)<=Number(time)){gain=Number(x.cumulativeCurrency0Delta)||0;creditEvents=Number(x.creditEvents)||0;}else break;}return {gain,creditEvents,fullMatch:Number(row?.observedCurrency0DeltaTotal)||0};}
+
+function movementTrajectoryAt(p,time){
+  const rows=p?.movement?.trajectory??[];
+  if(!Array.isArray(rows)||!rows.length)return null;
+  let lo=0,hi=rows.length-1,best=null;
+  while(lo<=hi){
+    const mid=(lo+hi)>>1;
+    const row=rows[mid];
+    const t=Number(row?.[1]);
+    if(!Number.isFinite(t)){lo=mid+1;continue;}
+    if(t<=time){best=row;lo=mid+1;}else hi=mid-1;
+  }
+  return best;
+}
+
 function metricValue(id,{model,p,time,weaponReady}){
   const s=stateAt(p,time);
   const teamNow=teamAt(model,p.team,time);
@@ -192,6 +209,37 @@ function metricValue(id,{model,p,time,weaponReady}){
     case 'networth_rank': return v(`#${p.rank?.matchNetWorth??'—'} match`,`#${p.rank?.teamNetWorth??'—'} on team`);
     case 'kills': return v(s?.kills??p.scoreboard?.kills??0,`final ${num(p.scoreboard?.kills??0)}`);
     case 'assists': return v(s?.assists??p.scoreboard?.assists??0,`final ${num(p.scoreboard?.assists??0)}`);
+    case 'last_hits': return v(s?.lastHits??p.scoreboard?.lastHits??0,`final ${num(p.scoreboard?.lastHits??0)}`);
+    case 'denies': return v(s?.denies??p.scoreboard?.denies??0,`final ${num(p.scoreboard?.denies??0)}`);
+    case 'deaths_scoreboard': return v(s?.deaths??p.scoreboard?.deaths??0,`final ${num(p.scoreboard?.deaths??0)} · distinct from observed death_count`);
+    case 'kd': return Number.isFinite(p.scoreboard?.kd)?v(p.scoreboard.kd,`${num(p.scoreboard?.kills??0)} kills / ${num(p.scoreboard?.deaths??0)} deaths`):v(null,'N/A · 0 deaths');
+    case 'kda': return Number.isFinite(p.scoreboard?.kda)?v(p.scoreboard.kda,`(${num(p.scoreboard?.kills??0)} kills + ${num(p.scoreboard?.assists??0)} assists) / ${num(p.scoreboard?.deaths??0)} deaths`):v(null,'N/A · 0 deaths');
+    case 'kills_rate': return Number.isFinite(p.scoreboard?.killsPerMinute)?v(p.scoreboard.killsPerMinute,`${num(p.scoreboard?.kills??0)} kills / match minute`):v(null,'N/A · nonpositive match duration');
+    case 'assists_rate': return Number.isFinite(p.scoreboard?.assistsPerMinute)?v(p.scoreboard.assistsPerMinute,`${num(p.scoreboard?.assists??0)} assists / match minute`):v(null,'N/A · nonpositive match duration');
+    case 'last_hits_rate': return Number.isFinite(p.scoreboard?.lastHitsPerMinute)?v(p.scoreboard.lastHitsPerMinute,`${num(p.scoreboard?.lastHits??0)} last hits / match minute`):v(null,'N/A · nonpositive match duration');
+    case 'denies_rate': return Number.isFinite(p.scoreboard?.deniesPerMinute)?v(p.scoreboard.deniesPerMinute,`${num(p.scoreboard?.denies??0)} denies / match minute`):v(null,'N/A · nonpositive match duration');
+    case 'scoreboard_timelines': { const t=p.scoreboard?.timelines??{}; const groups=[['K',t.kills],['A',t.assists],['LH',t.lastHits],['D',t.denies]]; const total=groups.reduce((n,[,rows])=>n+(rows?.length??0),0); const detail=groups.map(([label,rows])=>`${label}: ${formatScoreboardTimeline(rows)}`).join(' · '); return v(`${total} observed counter transitions`,`${detail} · first observed sample; not exact server award time`); }
+
+    case 'position_trajectory': { const row=movementTrajectoryAt(p,time); const count=p.movement?.trajectorySampleCount??p.movement?.trajectory?.length??0; return row?v(`(${num(row[2],1)}, ${num(row[3],1)}, ${num(row[4],1)})`,`tick ${num(row[0])} · ${clock(row[1],true)} · ${num(count)} discrete raw samples · alive=${row[5]===1?'yes':'no'} · movement-valid=${row[6]===1?'yes':'no'}`):v('—',`${num(count)} discrete raw samples`); }
+    case 'xy_distance': return v(num(p.movement?.travelDistanceXY,1),`${num(p.movement?.acceptedStepCount??0)} valid steps · >2000-HU 3D jumps excluded`);
+    case 'xyz_distance': return v(num(p.movement?.travelDistance3D,1),`${num(p.movement?.acceptedStepCount??0)} valid steps · >2000-HU 3D jumps excluded`);
+    case 'distance_per_min': return Number.isFinite(p.movement?.distancePerMinute)?v(num(p.movement.distancePerMinute,1),'XY distance / observed full-match minute'):v('N/A','nonpositive match duration');
+    case 'distance_per_alive_min': return Number.isFinite(p.movement?.distancePerAliveMinute)?v(num(p.movement.distancePerAliveMinute,1),`XY distance / ${duration(p.movement?.movementAliveSeconds)} both-endpoints-alive time`):v('N/A','nonpositive movement-alive denominator');
+    case 'mean_xy_speed': return Number.isFinite(p.movement?.meanSpeedXY)?v(num(p.movement.meanSpeedXY,2),`XY distance / ${duration(p.movement?.validMovementSeconds)} valid movement time`):v('N/A','no valid movement duration');
+    case 'mean_xyz_speed': return Number.isFinite(p.movement?.meanSpeed3D)?v(num(p.movement.meanSpeed3D,2),`3D distance / ${duration(p.movement?.validMovementSeconds)} valid movement time`):v('N/A','no valid movement duration');
+    case 'moving_time': return v(duration(p.movement?.movingSeconds),'>=25 HU/s observed 3D step speed');
+    case 'moving_share': return Number.isFinite(p.movement?.movingShare)?v(percent(p.movement.movingShare),'>=25 HU/s duration / valid movement duration'):v('N/A','no valid movement duration');
+    case 'low_motion_time': return v(duration(p.movement?.lowMotionSeconds),'<25 HU/s observed 3D step speed');
+    case 'low_motion_share': return Number.isFinite(p.movement?.lowMotionShare)?v(percent(p.movement.lowMotionShare),'<25 HU/s duration / valid movement duration'):v('N/A','no valid movement duration');
+
+    case 'melee_attacks': return v(num(p.melee?.attacks??0),'Observed executed melee episodes; raw button presses are not counted');
+    case 'melee_hits': return v(num(p.melee?.hits??0),'Executions where m_bHitWithThisAttack became true');
+    case 'melee_hit_rate': return Number.isFinite(p.melee?.hitRate)?v(percent(p.melee.hitRate),'hit-flag executions / executed melee episodes'):v('N/A','0 executed melee attacks');
+    case 'light_melee': return v(num(p.melee?.light??0),'Direct m_eCurrentAttackType=LIGHT');
+    case 'heavy_melee': return v(num(p.melee?.heavy??0),'Direct m_eCurrentAttackType=HEAVY');
+    case 'air_heavy_melee': return v(num(p.melee?.airHeavy??0),'Direct m_eCurrentAttackType=HEAVY_AIR');
+    case 'melee_type_share': { const sh=p.melee?.typeShare??{}; return v(`L ${percent(sh.LIGHT)} · H ${percent(sh.HEAVY)} · Air ${percent(sh.HEAVY_AIR)}`,Number(sh.SLIDE)>0?`Slide ${percent(sh.SLIDE)} · direct runtime attack types`:'Direct runtime attack types'); }
+    case 'melee_per_alive_min': return Number.isFinite(p.melee?.attacksPerAliveMinute)?v(perMin(p.melee.attacksPerAliveMinute),`executions / ${duration(p.melee?.movementAliveSeconds)} Movement alive-observation time`):v('N/A','nonpositive Movement alive-observation denominator');
 
     case 'team_networth': return v(num(teamNow?.goldNetWorth??teamFinal?.goldNetWorth));
     case 'team_networth_diff': return v(signed((teamNow?.goldNetWorth??teamFinal?.goldNetWorth??0)-(otherNow?.goldNetWorth??otherFinal?.goldNetWorth??0)));
@@ -351,6 +399,11 @@ async function apiJson(path){
   const r=await fetch(path,{headers:{accept:'application/json'}});const data=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(data.error||`${r.status} ${r.statusText}`);return data;
 }
+function formatScoreboardTimeline(rows){
+  if(!Array.isArray(rows)||!rows.length)return 'none';
+  return rows.map(x=>`${clock(x.observedMatchTime)} +${num(x.delta??0)}`).join(', ');
+}
+
 function installAuthoritativeStyles(){
   if(document.querySelector(`#${AUTH_STYLE_ID}`))return;
   const style=document.createElement('style');style.id=AUTH_STYLE_ID;style.textContent=`

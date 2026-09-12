@@ -1691,6 +1691,456 @@
       "supersedes": [],
       "supersededBy": null,
       "notes": "Script 211 validates the narrow scoreboard meaning without reverse-engineering the assist-eligibility mechanic. Across test + rep01-rep05, all 1,113 observed m_iPlayerAssists credits aligned within the frozen timing window to an opposing player m_iDeaths scored-death increment (100%), with zero victim-team conflicts and zero unmatched assist credits. Same-team kill-credit context was present for 98.74% of assist credits; that supportive control is not required for the construct because the victim scored-death carrier is independently established. Shifted-placebo opposing-death agreement fell to 4.22% at +10 s and 1.53% at +30 s. This claim must not be relabeled as a validated damage-assist, healing-assist, debuff-assist, or assist-eligibility rule."
+    },
+    {
+      "claimId": "scoreboard_last_hit_credit_counter",
+      "domain": "scoreboard",
+      "construct": "Game-awarded player last-hit credit counter",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "CCitadelPlayerController.m_iLastHits is authoritative for game-awarded per-player last-hit credits across the validated replay cohort. The construct is the scoreboard credit itself. It does not establish the specific victim for every credit, all target classes eligible for last-hit credit, distance/economic eligibility rules, direct damage ownership, final-blow mechanics, Ground Soul collection, or economic-recipient attribution.",
+      "sourceScripts": [
+        "03-extract-player-state",
+        "215-reconcile-last-hit-counter-v01",
+        "219-close-scoreboard-last-hit-semantics-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/player_last_hit_counter_reconciliation_batch_v01.json",
+        "output/cross_replay/player_last_hit_semantic_closure_v01.json"
+      ],
+      "downstreamUses": [
+        "scoreboard last hits",
+        "last-hit-rate features after denominator/time authority is specified",
+        "lane and farming behavioral profiles",
+        "resource-conversion analyses",
+        "predictive features"
+      ],
+      "valueSummary": {
+        "cohortReplays": 6,
+        "independentReplicationReplays": 5,
+        "observedLastHitCredits": 14196,
+        "positiveControlEvents": 5666,
+        "positiveControlExactOpposing": 5664,
+        "positiveControlExactOpposingRate": 0.9996470172961525,
+        "uniqueExactOpposing": 5630,
+        "uniqueExactOpposingRate": 0.9936463113307448,
+        "economicNoAssignedGoldControlEvents": 1135,
+        "economicNoAssignedGoldControlExactOpposing": 102,
+        "economicNoAssignedGoldControlRate": 0.08986784140969163,
+        "nonEconomicControlEvents": 11484,
+        "nonEconomicControlExactOpposing": 483,
+        "nonEconomicControlRate": 0.04205851619644723,
+        "positiveVsEconomicNoAssignedGoldRiskRatio": 11.123523182658166,
+        "positiveVsNonEconomicRiskRatio": 23.768004858445167
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Scripts 215 and 219 establish the narrow scoreboard meaning without reverse-engineering every last-hit eligibility mechanism. Script 215 reconciled 14,196 sampled final last hits with the positive raw counter transitions across test + rep01-rep05, with no negative/reset magnitude and no positive credits outside gameplay. Script 219 then used an independent replication positive control: 5,664 of 5,666 economic Trooper deaths with an AssignedGold candidate (99.96%) had an exact-tick opposing-player m_iLastHits signal, and 5,630 of 5,666 (99.36%) had a unique exact opposing-player signal. Context controls were only 8.99% for economic deaths without an AssignedGold candidate and 4.21% for non-economic deaths. Scripts 213-218 preserve unresolved mechanism research; those residual attribution gaps do not invalidate the game-awarded scoreboard carrier and must not be relabeled as complete last-hit eligibility, final-blow, Ground Soul collection, or economic-recipient authority."
+    },
+    {
+      "claimId": "scoreboard_death_credit_counter",
+      "domain": "scoreboard",
+      "construct": "Game-awarded player scored-death counter",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "CCitadelPlayerController.m_iDeaths is authoritative for game-awarded per-player scored deaths across the validated replay cohort. This construct is distinct from death_count, which counts observed alive->dead state transitions. It does not establish killer identity, damage source, death cause, revive mechanics, or that every observed alive->dead episode is a game-scored death.",
+      "sourceScripts": [
+        "03-extract-player-state",
+        "220-close-scoreboard-death-semantics-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/player_scoreboard_death_semantic_closure_v01.json"
+      ],
+      "downstreamUses": [
+        "scoreboard deaths",
+        "K/D after denominator convention is frozen",
+        "KDA after denominator convention is frozen",
+        "death-rate features after denominator/time authority is specified",
+        "player behavioral profiles",
+        "predictive features"
+      ],
+      "valueSummary": {
+        "cohortReplays": 6,
+        "deathCredits": 563,
+        "observedAliveToDeadTransitions": 597,
+        "matchedDeathCredits": 563,
+        "unmatchedDeathCredits": 0,
+        "creditToAliveDeathAgreementRate": 1,
+        "extraAliveToDeadTransitions": 34,
+        "completedExtraAliveToDeadEpisodes": 31,
+        "censoredExtraAliveToDeadEpisodes": 3,
+        "tenSecondPlaceboRate": 0,
+        "thirtySecondPlaceboRate": 0
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Script 220 establishes the narrow scoreboard meaning without equating every alive->dead state episode with a scored death. Across test + rep01-rep05, all 563 observed positive m_iDeaths credit units matched a same-player alive->dead transition within the frozen sampling window (100.00%), with zero unmatched scoreboard death credits. The state stream contained 34 additional alive->dead transitions that did not increment m_iDeaths, preserving the distinction between deaths_scoreboard and death_count. Shifted-placebo agreement was 0.00% at +10 s and 0.00% at +30 s. This claim must not be relabeled as killer attribution, lethal-damage attribution, death-cause authority, or revive-mechanic authority."
+    },
+    {
+      "claimId": "scoreboard_kd_kda_formula_v01",
+      "domain": "scoreboard",
+      "construct": "Derived K/D and KDA scoreboard ratio formulas",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "K/D is kills divided by deaths_scoreboard. KDA is kills plus assists divided by deaths_scoreboard. If deaths_scoreboard equals zero, both authoritative derived values are null and the visualizer presents N/A · 0 deaths. This claim does not authorize denominator substitution, Infinity, smoothed ratios, observed death_count as denominator, or per-minute combat rates.",
+      "sourceScripts": [
+        "208-validate-player-kill-credit-v01",
+        "211-validate-player-assist-credit-v01",
+        "220-close-scoreboard-death-semantics-v01",
+        "221-freeze-scoreboard-kd-kda-formulas-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/scoreboard_kd_kda_formula_contract_v01.json"
+      ],
+      "downstreamUses": [
+        "authoritative scoreboard K/D",
+        "authoritative scoreboard KDA",
+        "descriptive combat profiles",
+        "future model features with missing-value handling preserved"
+      ],
+      "valueSummary": {
+        "cohortReplays": 6,
+        "playerReplayScoreboards": 72,
+        "zeroDeathCases": 0,
+        "kdFormula": "kills / deaths_scoreboard",
+        "kdaFormula": "(kills + assists) / deaths_scoreboard",
+        "zeroDeathConvention": "null"
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "This is a deterministic derivation claim. Its raw components are separately authoritative scoreboard counters. The prior runtime shortcut Math.max(deaths,1) is intentionally withdrawn from authoritative K/D and KDA semantics because it changes the mathematical construct for zero-death players."
+    },
+    {
+      "claimId": "scoreboard_deny_credit_counter",
+      "domain": "scoreboard",
+      "construct": "Game-awarded player deny-credit counter",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "CCitadelPlayerController.m_iDenies is authoritative for game-awarded per-player deny credits across the validated independent replication cohort. The construct is the scoreboard credit itself. Validation used independently classified flying-soul terminal DENY_HIT episodes as a positive control and terminal SECURE_HIT episodes plus shifted-time anchors as controls. This claim does not establish that every deny-side hit is a scored deny, the hidden server adjudication rule for contested orb races, every denyable object or entity class, all deny eligibility rules, projectile causal identity for every credit, Soul Urn deny semantics, or economic-recipient attribution.",
+      "sourceScripts": [
+        "03-extract-player-state",
+        "222-validate-scoreboard-denies-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/player_scoreboard_deny_validation_batch_v01.json",
+        "output/<replay>/flying_soul_full_damage_hits_v01.jsonl"
+      ],
+      "downstreamUses": [
+        "scoreboard denies",
+        "deny-rate features after denominator/time authority is specified",
+        "lane resource-contest profiles",
+        "secure-versus-deny behavioral analyses",
+        "predictive features"
+      ],
+      "valueSummary": {
+        "independentReplicationReplays": 5,
+        "observedDenyCredits": 266,
+        "reconciledFinalCounterTotal": 266,
+        "terminalDenyAnchors": 100,
+        "terminalDenyMatches": 89,
+        "terminalDenyMatchRate": 0.89,
+        "denyCounterCoverageByThisPositiveControl": 0.33458646616541354,
+        "terminalSecureAnchors": 314,
+        "terminalSecureMatches": 3,
+        "terminalSecureMatchRate": 0.009554140127388535,
+        "placebo10Rate": 0,
+        "placebo30Rate": 0.01,
+        "positiveVsSecureRiskRatio": 93.15333333333334,
+        "weakestReplayPositiveControlRate": 0.7692307692307693
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Script 222 reconciled 266 positive m_iDenies credit units with the final scoreboard total of 266 and found no negative transitions, non-integer values, negative values, or first-observed nonzero players. Across rep01-rep05, 89 of 100 independently identified terminal flying-soul DENY_HIT anchors (89.00%) were followed by the same player receiving an m_iDenies credit within 32 ticks, compared with 3 of 314 terminal SECURE_HIT controls (0.96%), 0 of 100 +10 s placebos, and 1 of 100 +30 s placebos. The positive-control rate was at least 76.92% in every replay and was approximately 93.15x the secure-control rate. These flying-soul anchors explain 89 of 266 scoreboard deny credits (33.46%); that partial mechanism coverage is sufficient for the narrow scoreboard-carrier claim but does not authorize relabeling all remaining credits as flying-soul events or infer their mechanisms."
+    },
+    {
+      "claimId": "scoreboard_per_minute_rate_formula_v01",
+      "domain": "scoreboard",
+      "construct": "Derived full-match scoreboard per-minute rate formulas",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "kills_rate, assists_rate, last_hits_rate, and denies_rate are final authoritative scoreboard counters divided by authoritative observed match duration in minutes. If match duration is zero or nonpositive, all four authoritative rate values are null. The claim does not authorize alive-minute rates, lane-phase rates, rolling rates, smoothing, regularization, or epsilon denominator substitution.",
+      "sourceScripts": [
+        "03-extract-player-state",
+        "208-validate-player-kill-credit-v01",
+        "211-validate-player-assist-credit-v01",
+        "219-close-scoreboard-last-hit-semantics-v01",
+        "222-validate-scoreboard-denies-v01",
+        "223-freeze-scoreboard-rate-formulas-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/scoreboard_per_minute_rate_formula_contract_v01.json"
+      ],
+      "downstreamUses": [
+        "full-match kills per minute",
+        "full-match assists per minute",
+        "full-match last hits per minute",
+        "full-match denies per minute",
+        "descriptive player profiles",
+        "future predictive features with null duration handling preserved"
+      ],
+      "valueSummary": {
+        "cohortReplays": 6,
+        "playerReplayScoreboards": 72,
+        "denominatorMetric": "match_duration",
+        "denominatorUnit": "minutes",
+        "zeroOrNonpositiveDurationConvention": "null",
+        "killsRateFormula": "kills / match_duration_minutes",
+        "assistsRateFormula": "assists / match_duration_minutes",
+        "lastHitsRateFormula": "last_hits / match_duration_minutes",
+        "deniesRateFormula": "denies / match_duration_minutes"
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "This is a deterministic derivation claim. The four scoreboard counters and match-duration timing substrate are separately authoritative. Script 223 validates the formula contract across test + rep01-rep05 and intentionally rejects the prior epsilon-denominator shortcut for zero/nonpositive duration because it would manufacture extreme artificial rates."
+    },
+    {
+      "claimId": "scoreboard_sampled_counter_timeline_v01",
+      "domain": "scoreboard",
+      "construct": "Sampled authoritative scoreboard counter timelines",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "scoreboard_timelines is the observed-sample event timeline for positive transitions in the authoritative kills, assists, last_hits, and denies counters. Each event is timestamped at the first observed PlayerState sample carrying the increased counter value and records previous, current, and delta. This timing is explicitly not the hidden exact server award tick. Multi-unit sampled deltas remain one observed transition and are not expanded into invented individual timestamps.",
+      "sourceScripts": [
+        "03-extract-player-state",
+        "208-validate-player-kill-credit-v01",
+        "211-validate-player-assist-credit-v01",
+        "219-close-scoreboard-last-hit-semantics-v01",
+        "222-validate-scoreboard-denies-v01",
+        "224-freeze-scoreboard-sampled-timelines-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/scoreboard_sampled_counter_timeline_contract_v01.json"
+      ],
+      "downstreamUses": [
+        "sampled kill-credit timing",
+        "sampled assist-credit timing",
+        "sampled last-hit-credit timing",
+        "sampled deny-credit timing",
+        "within-match behavioral sequencing",
+        "phase-specific descriptive analysis with sampling uncertainty preserved"
+      ],
+      "valueSummary": {
+        "cohortReplays": 6,
+        "playerReplayScoreboards": 72,
+        "timingSemantics": "first observed PlayerState sample carrying the increased counter",
+        "exactServerAwardTick": false,
+        "negativeTransitions": 0,
+        "invalidTimelineEvents": 0,
+        "positiveTransitionsBeforeMatchStart": 0,
+        "killTransitionEvents": 556,
+        "killCreditUnits": 557,
+        "reconciliationDifferenceKills": 0,
+        "assistTransitionEvents": 1108,
+        "assistCreditUnits": 1113,
+        "reconciliationDifferenceAssists": 0,
+        "lastHitTransitionEvents": 12479,
+        "lastHitCreditUnits": 14196,
+        "reconciliationDifferenceLastHits": 0,
+        "denyTransitionEvents": 318,
+        "denyCreditUnits": 326,
+        "reconciliationDifferenceDenies": 0
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Script 224 validates sampled counter timelines independently of the inspector display timeline. Across test + rep01-rep05, every positive sampled delta in kills, assists, last hits, and denies reconciles exactly to the corresponding final authoritative counter, with zero negative transitions, zero invalid events, zero first-observed nonzero values, and zero positive transitions before match start. The production implementation intentionally records these events from the raw PlayerState ingestion path rather than the inspector p.timeline, which is thinned to approximately 1 Hz for display/state scrubbing."
+    },
+    {
+      "claimId": "player_movement_observation_substrate_v01",
+      "domain": "movement",
+      "construct": "Discrete observed player position trajectory, frozen valid-step displacement, and movement-state interval substrate",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "Finite post-start pawn.positionWorld observations are the discrete position trajectory. Valid movement steps are consecutive post-start PlayerState observations with both endpoints alive, both positionValidForMovement, finite positions, positive dt, and 3D displacement <=2000 HU. Steps above 2000 HU are excluded rather than clamped. On valid steps, 3D speed >=25 HU/s is operationally classified as moving and <25 HU/s as low-motion.",
+      "sourceScripts": [
+        "03-player-state",
+        "225-validate-movement-distance-substrate-v01",
+        "226-validate-complete-movement-family-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/movement_distance_substrate_validation_v01.json",
+        "output/cross_replay/movement_family_validation_v01.json"
+      ],
+      "downstreamUses": [
+        "position_trajectory",
+        "xy_distance",
+        "xyz_distance",
+        "mean_xy_speed",
+        "mean_xyz_speed",
+        "moving_time",
+        "moving_share",
+        "low_motion_time",
+        "low_motion_share",
+        "future spatial and behavioral sequence analysis"
+      ],
+      "valueSummary": {
+        "cohortReplays": 6,
+        "playerReplayRecords": 72,
+        "trajectorySamples": 764376,
+        "acceptedSteps": 656360,
+        "maxAcceptedStep3D": 1980.7062150535003,
+        "minRejectedStep3D": 2005.003809564258,
+        "maxAcceptedStepHU": 2000,
+        "movingThreshold3DHUPerSecond": 25,
+        "zeroDenominatorConvention": "null"
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "This is an observed telemetry construct. It does not establish continuous geometric path length, movement intent, voluntary versus forced movement, strategic quality, or a natural/game-defined meaning for the 25-HU/s threshold. The 25-HU/s threshold is a frozen analytic classification reproduced exactly from the existing V02 substrate."
+    },
+    {
+      "claimId": "player_movement_derived_metrics_v01",
+      "domain": "movement",
+      "construct": "Deterministic full-match movement rate, speed, duration, and share formulas",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "Movement rates and shares are deterministic derivations from player_movement_observation_substrate_v01. Full-match distance rate divides planar valid-step displacement by observed match minutes. Distance/alive-minute divides by post-start time whose consecutive sample endpoints are both alive. Mean speeds divide valid-step displacement by valid movement seconds. Moving and low-motion shares divide their classified valid-step durations by valid movement seconds. Zero/nonpositive denominators return null.",
+      "sourceScripts": [
+        "226-validate-complete-movement-family-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/movement_family_validation_v01.json"
+      ],
+      "downstreamUses": [
+        "distance_per_min",
+        "distance_per_alive_min",
+        "mean_xy_speed",
+        "mean_xyz_speed",
+        "moving_time",
+        "moving_share",
+        "low_motion_time",
+        "low_motion_share"
+      ],
+      "valueSummary": {
+        "distancePerMinuteFormula": "xy_distance / (match_duration_seconds / 60)",
+        "distancePerAliveMinuteFormula": "xy_distance / (movement_alive_seconds / 60)",
+        "meanXYSpeedFormula": "xy_distance / valid_movement_seconds",
+        "meanXYZSpeedFormula": "xyz_distance / valid_movement_seconds",
+        "movingShareFormula": "moving_time / valid_movement_seconds",
+        "lowMotionShareFormula": "low_motion_time / valid_movement_seconds",
+        "movementAliveDenominator": "Sum of positive dt for consecutive post-start samples whose two endpoints are both alive.",
+        "zeroDenominatorConvention": "null"
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "distance_per_alive_min intentionally does not silently reuse the broader alive_time metric. Its denominator is the frozen movement-family both-endpoints-alive observation duration, which exactly reproduces behavioral_metrics_v02 aliveSeconds on the calibration replay."
+    },
+    {
+      "claimId": "runtime_melee_execution_state_v01",
+      "domain": "melee",
+      "construct": "Observed executed melee ability episodes and direct runtime attack-type classification",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "A melee execution is a unique observed CCitadel_Ability_HoldMelee episode keyed by ability entity index, m_flAttackTriggeredTime, and m_eCurrentAttackType. Production match statistics include only episodes first observed at matchTime>=0. LIGHT, HEAVY, HEAVY_AIR, and SLIDE are direct m_eCurrentAttackType values; raw input/button holds are not counted as executed attacks.",
+      "sourceScripts": [
+        "227-validate-complete-melee-family-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/melee_family_validation_v01.json"
+      ],
+      "downstreamUses": [
+        "melee_attacks",
+        "light_melee",
+        "heavy_melee",
+        "air_heavy_melee",
+        "melee_type_share",
+        "melee_per_alive_min"
+      ],
+      "valueSummary": {
+        "cohortReplays": 6,
+        "playerReplayRecords": 72,
+        "rawExecutions": 8317,
+        "preMatchExecutionsExcluded": 19,
+        "matchExecutions": 8298,
+        "ownerResolutionRateMatch": 1,
+        "calibrationExactRows": 1598,
+        "calibrationHistoricalRawAttacks": 1598
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "This is executed runtime ability telemetry, not behavioral intention or raw button-press attempts. The calibration replay reproduces the historical direct carrier exactly while deliberately excluding pre-match executions from match statistics."
+    },
+    {
+      "claimId": "runtime_melee_hit_flag_v01",
+      "domain": "melee",
+      "construct": "Observed per-execution melee hit flag",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "A melee hit is an authoritative melee execution for which CCitadel_Ability_HoldMelee.m_bHitWithThisAttack becomes true. This is the game/runtime ability hit flag, not an independently reconstructed collision, damage amount, target identity, kill, breakable interaction, or economic outcome.",
+      "sourceScripts": [
+        "227-validate-complete-melee-family-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/melee_family_validation_v01.json"
+      ],
+      "downstreamUses": [
+        "melee_hits",
+        "melee_hit_rate"
+      ],
+      "valueSummary": {
+        "cohortMatchExecutions": 8298,
+        "cohortObservedHitFlags": 8273,
+        "calibrationRawHits": 1577,
+        "calibrationMatchHits": 1577
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "Absence of a legacy MeleeHit game message is not used as negative evidence. Authority comes from the direct ability-state carrier and its replicated runtime behavior."
+    },
+    {
+      "claimId": "melee_derived_metrics_v01",
+      "domain": "melee",
+      "construct": "Deterministic melee hit-rate, type-share, and execution-per-alive-minute formulas",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "melee_hit_rate = melee_hits / melee_attacks. melee_type_share = direct attack-type count / melee_attacks for every observed type, including SLIDE when present. melee_per_alive_min = melee_attacks / (Movement movementAliveSeconds / 60). Zero/nonpositive denominators return null.",
+      "sourceScripts": [
+        "227-validate-complete-melee-family-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/melee_family_validation_v01.json",
+        "output/cross_replay/movement_family_validation_v01.json"
+      ],
+      "dependencyClaimIds": [
+        "runtime_melee_execution_state_v01",
+        "runtime_melee_hit_flag_v01",
+        "player_movement_observation_substrate_v01"
+      ],
+      "downstreamUses": [
+        "melee_hit_rate",
+        "melee_type_share",
+        "melee_per_alive_min"
+      ],
+      "valueSummary": {
+        "hitRateFormula": "melee_hits / melee_attacks",
+        "typeShareFormula": "count(type) / melee_attacks for every observed runtime type",
+        "perAliveMinuteFormula": "melee_attacks / (movementAliveSeconds / 60)",
+        "zeroDenominatorConvention": "null"
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "melee_per_alive_min deliberately uses the frozen Movement both-endpoints-alive observation denominator, not the broader alive_time metric."
     }
   ]
 }

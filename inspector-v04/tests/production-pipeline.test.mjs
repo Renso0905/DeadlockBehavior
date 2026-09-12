@@ -11,12 +11,12 @@ import { runPipeline } from '../lib/pipeline.mjs';
 test('production capability contract owns every A metric exactly once',()=>{
   const a=METRIC_REGISTRY.flatMap(s=>s.metrics).filter(m=>m.status==='A').map(m=>m.id).sort();
   const production=[...AUTHORITATIVE_PRODUCTION_METRIC_IDS].sort();
-  assert.equal(a.length,79);
-  assert.equal(new Set(production).size,79);
+  assert.equal(a.length,108);
+  assert.equal(new Set(production).size,108);
   assert.deepEqual(production,a);
   const core=PRODUCTION_CAPABILITIES.find(c=>c.id==='core_state_economy');
   assert.equal(core.productionStatus,'supported');
-  assert.equal(core.metricIds.length,43);
+  assert.equal(core.metricIds.length,64);
   const health=PRODUCTION_CAPABILITIES.find(c=>c.id==='health_regen');assert.equal(health.productionStatus,'supported');assert.equal(health.metricIds.length,1);
   const items=PRODUCTION_CAPABILITIES.find(c=>c.id==='runtime_item_ownership');assert.equal(items.metricIds.length,8);
   const perm=PRODUCTION_CAPABILITIES.find(c=>c.id==='runtime_permanent_buff_ownership');assert.equal(perm.metricIds.length,6);
@@ -28,10 +28,10 @@ test('production capability contract owns every A metric exactly once',()=>{
   const supported=PRODUCTION_CAPABILITIES.filter(c=>c.productionStatus==='supported');
   const coreA=supported.filter(c=>(c.authorityLayer??'core')==='core').flatMap(c=>c.metricIds);
   const extendedA=supported.filter(c=>c.authorityLayer==='extended').flatMap(c=>c.metricIds);
-  assert.equal(coreA.length,70);assert.equal(extendedA.length,9);assert.equal(supported.flatMap(c=>c.metricIds).length,79);
+  assert.equal(coreA.length,99);assert.equal(extendedA.length,9);assert.equal(supported.flatMap(c=>c.metricIds).length,108);
 });
 
-test('pipeline requires fresh outputs and records 70/70 Core A plus 9/9 Extended A coverage',async()=>{
+test('pipeline requires fresh outputs and records 99/99 Core A plus 9/9 Extended A coverage',async()=>{
   const root=await mkdtemp(join(tmpdir(),'db-production-'));const inspector=join(root,'inspector-v04');await mkdir(join(root,'replays'),{recursive:true});await mkdir(inspector,{recursive:true});await writeFile(join(root,'replays','fixture.dem'),'fixture');
   async function fixtureProducer(name,files){const path=join(root,name),payload=JSON.stringify(files);await writeFile(path,`import {mkdir,writeFile} from 'node:fs/promises';import {join} from 'node:path';const root=process.argv[2],r=process.argv[3],files=${payload};await mkdir(join(root,'output',r),{recursive:true});for(const f of files)await writeFile(join(root,'output',r,f),'{}\\n');`);return path;}
   const producer=await fixtureProducer('producer.mjs',['player_state.jsonl','player_state_summary.json']);
@@ -40,6 +40,7 @@ test('pipeline requires fresh outputs and records 70/70 Core A plus 9/9 Extended
   const permProducer=await fixtureProducer('perm-producer.mjs',['runtime_permanent_buff_ownership_production_v01.json','runtime_permanent_buff_events_v01.jsonl']);
   const bridgeProducer=await fixtureProducer('bridge-producer.mjs',['runtime_bridge_buff_ownership_production_v01.json','runtime_bridge_buff_events_v01.jsonl']);
   const fireProducer=await fixtureProducer('fire-producer.mjs',['runtime_primary_fire_production_v01.json','runtime_primary_fire_events_v01.jsonl']);
+  const meleeProducer=await fixtureProducer('melee-producer.mjs',['runtime_melee_production_v01.json','runtime_melee_events_v01.jsonl']);
   const trooperProducer=await fixtureProducer('trooper-producer.mjs',['runtime_trooper_deaths_production_v01.json','runtime_trooper_death_events_v01.jsonl']);
   const groundProducer=await fixtureProducer('ground-producer.mjs',['runtime_ground_soul_lifecycle_production_v01.json','runtime_ground_soul_lifecycle_events_v01.jsonl']);
   const econProducer=await fixtureProducer('econ-producer.mjs',['runtime_assigned_gold_economic_credit_production_v01.json','runtime_assigned_gold_economic_credit_events_v01.jsonl']);
@@ -51,15 +52,16 @@ test('pipeline requires fresh outputs and records 70/70 Core A plus 9/9 Extended
     {id:'perm',label:'perm',capability:'runtime_permanent_buff_ownership',required:true,dependsOn:['core'],args:[permProducer,'{repoRoot}','{replay}'],expectedOutputs:outputs(['runtime_permanent_buff_ownership_production_v01.json','runtime_permanent_buff_events_v01.jsonl'])},
     {id:'bridge',label:'bridge',capability:'runtime_bridge_buff_ownership',required:true,dependsOn:['core'],args:[bridgeProducer,'{repoRoot}','{replay}'],expectedOutputs:outputs(['runtime_bridge_buff_ownership_production_v01.json','runtime_bridge_buff_events_v01.jsonl'])},
     {id:'fire',label:'fire',capability:'primary_fire_cadence',required:true,dependsOn:['core'],args:[fireProducer,'{repoRoot}','{replay}'],expectedOutputs:outputs(['runtime_primary_fire_production_v01.json','runtime_primary_fire_events_v01.jsonl'])},
+    {id:'melee',label:'melee',capability:'runtime_melee_execution',required:true,dependsOn:['core'],args:[meleeProducer,'{repoRoot}','{replay}'],expectedOutputs:outputs(['runtime_melee_production_v01.json','runtime_melee_events_v01.jsonl'])},
     {id:'trooper',label:'trooper',capability:'runtime_trooper_death_events',required:true,dependsOn:['core'],args:[trooperProducer,'{repoRoot}','{replay}'],expectedOutputs:outputs(['runtime_trooper_deaths_production_v01.json','runtime_trooper_death_events_v01.jsonl'])},
     {id:'ground',label:'ground',capability:'runtime_ground_soul_lifecycle',required:true,dependsOn:['core'],args:[groundProducer,'{repoRoot}','{replay}'],expectedOutputs:outputs(['runtime_ground_soul_lifecycle_production_v01.json','runtime_ground_soul_lifecycle_events_v01.jsonl'])},
     {id:'econ',label:'econ',capability:'runtime_assigned_gold_economic_credit',required:true,dependsOn:['ground'],args:[econProducer,'{repoRoot}','{replay}'],expectedOutputs:outputs(['runtime_assigned_gold_economic_credit_production_v01.json','runtime_assigned_gold_economic_credit_events_v01.jsonl'])}
   ]};
   await writeFile(join(inspector,'pipeline.json'),JSON.stringify(pipeline));const result=await runPipeline({repoRoot:root,inspectorRoot:inspector,replayName:'fixture'});
-  assert.equal(result.status,'COMPLETE');for(const id of ['core','health','items','perm','bridge','fire','trooper','ground','econ'])assert.equal(result.results.find(r=>r.id===id)?.status,'complete',`${id} fixture step must complete`);
-  assert.equal(result.productionManifest.coverage.completeAuthoritative,79);assert.equal(result.productionManifest.coverage.authoritativeTotal,79);assert.equal(result.productionManifest.coverage.notSupportedAuthoritative,0);assert.equal(result.productionManifest.coverage.failedAuthoritative,0);assert.equal(result.productionManifest.coverage.blockedAuthoritative,0);assert.equal(result.productionManifest.coverage.unclassifiedAuthoritative,0);
-  assert.equal(result.productionManifest.coverage.core.completeAuthoritative,70);assert.equal(result.productionManifest.coverage.core.authoritativeTotal,70);assert.equal(result.productionManifest.coverage.extended.completeAuthoritative,9);assert.equal(result.productionManifest.coverage.extended.authoritativeTotal,9);
-  const disk=JSON.parse(await readFile(join(root,'output','fixture','production_manifest_v01.json'),'utf8'));assert.equal(disk.coverage.authoritativeTotal,79);assert.equal(disk.coverage.core.authoritativeTotal,70);assert.equal(disk.coverage.extended.authoritativeTotal,9);
+  assert.equal(result.status,'COMPLETE');for(const id of ['core','health','items','perm','bridge','fire','melee','trooper','ground','econ'])assert.equal(result.results.find(r=>r.id===id)?.status,'complete',`${id} fixture step must complete`);
+  assert.equal(result.productionManifest.coverage.completeAuthoritative,108);assert.equal(result.productionManifest.coverage.authoritativeTotal,108);assert.equal(result.productionManifest.coverage.notSupportedAuthoritative,0);assert.equal(result.productionManifest.coverage.failedAuthoritative,0);assert.equal(result.productionManifest.coverage.blockedAuthoritative,0);assert.equal(result.productionManifest.coverage.unclassifiedAuthoritative,0);
+  assert.equal(result.productionManifest.coverage.core.completeAuthoritative,99);assert.equal(result.productionManifest.coverage.core.authoritativeTotal,99);assert.equal(result.productionManifest.coverage.extended.completeAuthoritative,9);assert.equal(result.productionManifest.coverage.extended.authoritativeTotal,9);
+  const disk=JSON.parse(await readFile(join(root,'output','fixture','production_manifest_v01.json'),'utf8'));assert.equal(disk.coverage.authoritativeTotal,108);assert.equal(disk.coverage.core.authoritativeTotal,99);assert.equal(disk.coverage.extended.authoritativeTotal,9);
 });
 
 test('existing outputs are not accepted when the current producer does not rewrite them',async()=>{
@@ -71,7 +73,7 @@ test('existing outputs are not accepted when the current producer does not rewri
   const result=await runPipeline({repoRoot:root,inspectorRoot:inspector,replayName:'fixture'});
   assert.equal(result.results[0].status,'failed');
   assert.match(result.results[0].reason,/not freshly written/);
-  assert.equal(result.productionManifest.coverage.failedAuthoritative,43);
+  assert.equal(result.productionManifest.coverage.failedAuthoritative,64);
 });
 
 test('player-state summary supplies match-clock offset when integrated substrate is absent',async()=>{

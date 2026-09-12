@@ -42,12 +42,12 @@ function duplicateValues(values) {
   return [...duplicates].sort();
 }
 
-test('production metric contract freezes the current 79 A metrics', () => {
+test('production metric contract freezes the current 108 A metrics', () => {
   assert.equal(contract.version, 'DEADLOCK_PRODUCTION_METRIC_CONTRACT_V01');
   assert.equal(contract.canonical, true);
-  assert.equal(contract.expectedAuthoritativeMetricCount, 79);
+  assert.equal(contract.expectedAuthoritativeMetricCount, 108);
   assert.equal(contract.expectedProducerCount, 9);
-  assert.equal(contract.metrics.length, 79);
+  assert.equal(contract.metrics.length, 108);
   assert.equal(contract.producers.length, 9);
 
   assert.deepEqual(
@@ -220,7 +220,7 @@ test('pipeline contains no uncontracted authoritative producer capability', () =
 
 test('canonical contract is the executable source of truth for A membership', () => {
   assert.equal(PRODUCTION_METRIC_CONTRACT.version, contract.version);
-  assert.equal(PRODUCTION_METRIC_CONTRACT.metrics.length, 79);
+  assert.equal(PRODUCTION_METRIC_CONTRACT.metrics.length, 108);
 
   for (const section of METRIC_REGISTRY) {
     for (const metric of section.metrics) {
@@ -237,6 +237,22 @@ test('canonical contract is the executable source of truth for A membership', ()
   assert.equal(getProductionMetric('current_items')?.capabilityId, 'runtime_item_ownership');
   assert.equal(isAuthoritativeProductionMetric('kills'), true);
   assert.equal(getProductionMetric('kills')?.primaryClaimId, 'scoreboard_kill_credit_counter');
+  assert.equal(isAuthoritativeProductionMetric('last_hits'), true);
+  assert.equal(getProductionMetric('last_hits')?.primaryClaimId, 'scoreboard_last_hit_credit_counter');
+  assert.equal(isAuthoritativeProductionMetric('denies'), true);
+  assert.equal(getProductionMetric('denies')?.primaryClaimId, 'scoreboard_deny_credit_counter');
+  for (const id of ['kills_rate','assists_rate','last_hits_rate','denies_rate']) {
+    assert.equal(isAuthoritativeProductionMetric(id), true);
+    assert.equal(getProductionMetric(id)?.primaryClaimId, 'scoreboard_per_minute_rate_formula_v01');
+  }
+  assert.equal(isAuthoritativeProductionMetric('scoreboard_timelines'), true);
+  assert.equal(getProductionMetric('scoreboard_timelines')?.primaryClaimId, 'scoreboard_sampled_counter_timeline_v01');
+  assert.equal(isAuthoritativeProductionMetric('deaths_scoreboard'), true);
+  assert.equal(getProductionMetric('deaths_scoreboard')?.primaryClaimId, 'scoreboard_death_credit_counter');
+  assert.equal(isAuthoritativeProductionMetric('kd'), true);
+  assert.equal(isAuthoritativeProductionMetric('kda'), true);
+  assert.equal(getProductionMetric('kd')?.primaryClaimId, 'scoreboard_kd_kda_formula_v01');
+  assert.equal(getProductionMetric('kda')?.primaryClaimId, 'scoreboard_kd_kda_formula_v01');
 });
 
 test('production capability ownership is derived from the canonical contract', () => {
