@@ -517,7 +517,7 @@ async function aggregateWeaponEvents(path,playerByName,offset){
 function applyRuntimeTrooperDeaths(artifact,research){
   if(!artifact || artifact.status!=='RUNTIME_TROOPER_DEATH_PRODUCTION_V01_READY')return research;
   const summary=artifact.summary??{};
-  return {...(research??{}),deaths:summary.deaths??artifact.counts?.deaths??0,summary,cumulativeTimeline:summary.cumulativeTimeline??[],authority:'trooper_death_transition',authorityLayer:'extended',source:'runtime_trooper_deaths_production_v01.json',researchTyping:research??null};
+  return {...(research??{}),deaths:summary.deaths??artifact.counts?.deaths??0,bySubclassId:summary.bySubclassId??{},byTeam:summary.byTeam??{},byLane:summary.byLane??{},byTeamLane:summary.byTeamLane??{},summary,cumulativeTimeline:summary.cumulativeTimeline??[],authority:'trooper_death_transition + runtime_trooper_direct_context_v01',authorityLayer:'extended',source:'runtime_trooper_deaths_production_v01.json',researchTyping:research??null};
 }
 async function aggregateTroopers(path){
   if(!existsSync(path))return null;const byBaseType={},byVariant={},byTeam={},byLane={};let deaths=0;

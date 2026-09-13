@@ -118,7 +118,7 @@ Use **Import .dem** to save and process a replay in one flow. Use **Process / re
 To validate published metrics independently:
 
 ```powershell
-G:\Node\node.exe scripts\228-validate-production-reliability.mjs test rep01 rep02 rep03 rep04 rep05 104373259
+G:\Node\node.exe scripts\228-validate-production-reliability.mjs 104373259 104559948 105367926 rep01 rep02 rep03 rep04 rep05 test
 ```
 
-The current contract contains 112 A metrics: 102 core and 10 extended. The scoped promotions are `ground_soul_vacuum_target` (resolved physical attraction targets only), `reload_state` (direct observed reload state/transitions), `active_fire_mode` (raw numeric mode value), and `burst_continuous_state` (raw continuous-shot and burst-remaining counters).
+The current contract contains 114 A metrics: 102 core and 12 extended. The scoped promotions are `ground_soul_vacuum_target` (resolved physical attraction targets only), `reload_state` (direct observed reload state/transitions), `active_fire_mode` (raw numeric mode value), `burst_continuous_state` (raw continuous-shot and burst-remaining counters), `trooper_base_types` (legacy ID narrowed to direct raw subclass-ID counts), and `trooper_team_lane` (direct raw numeric team/lane-pair counts). Named Trooper types, lane names, and variants remain research/B.

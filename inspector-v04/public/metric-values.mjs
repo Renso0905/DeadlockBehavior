@@ -7,7 +7,7 @@ export const AUTH_IDS=[
   'current_items','final_build','item_acquisition_time','item_acquisition_order','item_count','item_ownership_duration','item_removals','checkpoint_builds',
   'permanent_current','permanent_acquisitions','permanent_count','permanent_by_family','permanent_value','permanent_team_diff',
   'bridge_collections','bridge_current','bridge_uptime','bridge_uptime_share','bridge_overlaps','bridge_termination','bridge_team_uptime',
-  'trooper_deaths','trooper_death_timing',
+  'trooper_deaths','trooper_death_timing','trooper_base_types','trooper_team_lane',
   'ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration','ground_soul_vacuum_target',
   'ground_soul_economic_credit_events','ground_soul_economic_recipient_transitions','ground_soul_multi_recipient_share','ground_soul_economic_gain',
   'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay','reload_state','active_fire_mode','burst_continuous_state',
@@ -158,6 +158,8 @@ function rawMetricValue(id,{model,p,time,weaponReady}){
 
     case 'trooper_deaths': return v(model.troopers?.deaths??model.troopers?.summary?.deaths??'—','Observed CNPC_Trooper positive-health → 0 transitions');
     case 'trooper_death_timing': { const ts=model.troopers?.summary??{}; const times=ts.deathTimesSeconds??[]; return v(`${ts.gameplayDeaths??times.length} gameplay deaths`,times.length?`first ${clock(ts.firstGameplayDeathSeconds)} · median ${clock(ts.medianGameplayDeathSeconds)} · last ${clock(ts.lastGameplayDeathSeconds)}`:'No gameplay deaths observed'); }
+    case 'trooper_base_types': { const rows=model.troopers?.bySubclassId??model.troopers?.summary?.bySubclassId??{}; return v(`${Object.keys(rows).length} observed subclass IDs`,formatRawCounts(rows,'subclass')); }
+    case 'trooper_team_lane': { const rows=model.troopers?.byTeamLane??model.troopers?.summary?.byTeamLane??{}; return v(`${Object.keys(rows).length} observed team/lane pairs`,formatRawCounts(rows)); }
     case 'ground_soul_activations': return v(model.groundSoulLifecycle?.summary?.activations??'—','Match-level observed CCitadel_Pickup_AssignedGold active episodes');
     case 'ground_soul_targeted_activations': { const gs=model.groundSoulLifecycle?.summary??{}; return v(gs.targetedActivations??'—',`${percent(gs.targetedShare)} of observed activations · physical m_hVacuumTarget only`); }
     case 'ground_soul_lifecycle_duration': { const gs=model.groundSoulLifecycle?.summary??{}; return v(gs.medianCompletedDurationSeconds!=null?duration(gs.medianCompletedDurationSeconds):'—',`${gs.completedActiveToInactive??0} completed active → inactive · ${gs.censoredActivations??0} censored`); }
@@ -277,6 +279,10 @@ function formatCheckpoints(o){
 function countByText(xs,keyFn){
   const m=new Map();for(const x of xs){const k=keyFn(x)||'Unknown';m.set(k,(m.get(k)||0)+1);}
   return [...m].map(([k,n])=>`${k} ${n}`).join(' · ')||'None';
+}
+function formatRawCounts(object,prefix=''){
+  const rows=Object.entries(object??{}).sort((a,b)=>String(a[0]).localeCompare(String(b[0]),undefined,{numeric:true}));
+  return rows.map(([key,count])=>`${prefix?`${prefix} `:''}${key}: ${num(count)}`).join(' · ')||'None observed';
 }
 function countByDuration(xs,keyFn){
   const m=new Map();for(const x of xs){const k=keyFn(x)||'Unknown';m.set(k,(m.get(k)||0)+(Number(x.durationSeconds)||0));}

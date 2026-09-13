@@ -18,7 +18,7 @@ for(const replayName of names){
   const errors=[];
   const check=(pass,message)=>{if(!pass)errors.push(message);};
   check(manifest?.runStatus==='COMPLETE','published manifest is not COMPLETE');
-  check(manifest?.coverage?.completeAuthoritative===112,`manifest complete A count is ${manifest?.coverage?.completeAuthoritative??'missing'}, expected 112`);
+  check(manifest?.coverage?.completeAuthoritative===114,`manifest complete A count is ${manifest?.coverage?.completeAuthoritative??'missing'}, expected 114`);
   check(artifact?.status==='RUNTIME_PRIMARY_FIRE_PRODUCTION_V01_READY','primary-fire artifact is not READY');
   check(artifact?.validation?.pass===true,'primary-fire artifact validation did not pass');
   const playerRows=artifact?.directStatePlayers??[];

@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root=resolve(process.cwd());
+const root=dirname(dirname(fileURLToPath(import.meta.url)));
 const read=rel=>readFile(join(root,rel),'utf8');
 
 test('collision audit has research script, summary endpoint, evidence endpoint, and workspace panel',async()=>{

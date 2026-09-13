@@ -165,6 +165,8 @@ export const METRIC_REGISTRY = [
   section('troopers', 'Troopers & ground souls', [
     m('trooper_deaths','Trooper deaths',A,'integer','runtime_trooper_death_events','Authoritative observed CNPC_Trooper positive m_iHealth -> 0 transitions.'),
     m('trooper_death_timing','Trooper death timings',A,'series','runtime_trooper_death_events','Observed timestamps of authoritative positive-health-to-zero Trooper death transitions.'),
+    m('trooper_base_types','Trooper deaths by observed subclass ID',A,'distribution','runtime_trooper_death_events','Counts by direct raw m_nSubclassID. The legacy metric ID does not imply a named base-type mapping.'),
+    m('trooper_team_lane','Trooper deaths by observed team/lane',A,'distribution','runtime_trooper_death_events','Counts by direct raw m_iTeamNum and m_iLane pair; lane names and jungle semantics are not inferred.'),
 
     m('ground_soul_activations','Ground Soul activations',A,'integer','runtime_ground_soul_lifecycle_events','Observed CCitadel_Pickup_AssignedGold active lifecycle activations.'),
 
@@ -172,9 +174,7 @@ export const METRIC_REGISTRY = [
 
     m('ground_soul_lifecycle_duration','Ground Soul lifecycle duration',A,'seconds','runtime_ground_soul_lifecycle_events','Median duration of completed observed m_bActive true→false Ground Soul lifecycle episodes; censored episodes excluded.'),
     m('economic_trooper_deaths','Economic Trooper deaths',B,'integer','trooper_ground_soul_one_to_one_v01','Eligible economic-death subset.'),
-    m('trooper_base_types','Trooper deaths by base type',B,'integer','trooper_deaths_typed_v02','Ranged/Medic/Melee classification.'),
     m('trooper_variants','Trooper deaths by variant',B,'integer','trooper_deaths_typed_v02','Normal/Super/Rift/Unresolved classification.'),
-    m('trooper_team_lane','Trooper deaths by team/lane',B,'integer','trooper_deaths_typed_v02','Observed team/lane fields.'),
     m('ground_soul_economic_credit_events','Resolved Ground Soul economic-credit events',A,'integer','runtime_assigned_gold_economic_credit_events','Isolated targeted completed AssignedGold lifecycle terminations with a high-confidence exact-tick same-team economic recipient set.'),
 
     m('ground_soul_economic_recipient_transitions','Observed Ground Soul economic-recipient transitions',A,'integer','runtime_assigned_gold_economic_credit_events','Total direct positive CCitadelPlayerPawn.m_nCurrencies.0000 recipient transitions across resolved economic-credit events.'),

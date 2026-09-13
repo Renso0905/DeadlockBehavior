@@ -52,11 +52,11 @@ export const PRODUCTION_CAPABILITIES = [
     replicationStatus: 'Direct execution/type/hit carrier reproduced across test plus five independent replication replays; calibration reproduces the historical direct-event carrier exactly before the deliberate pre-match exclusion.'
   }),
   capability('runtime_trooper_death_events', 'Observed Trooper death transitions', 'supported', [
-    'trooper_deaths','trooper_death_timing'
+    'trooper_deaths','trooper_death_timing','trooper_base_types','trooper_team_lane'
   ], {
-    integrityValidation: 'Fresh runtime_trooper_deaths_production_v01.json and runtime_trooper_death_events_v01.jsonl must be produced. Every authoritative event is an observed CNPC_Trooper positive m_iHealth -> 0 transition; duplicate tick/entity death identities are rejected.',
-    semanticValidation: 'trooper_death_transition current claim. Trooper death means the replicated positive m_iHealth -> 0 death transition. Timing is the observed transition timestamp. Killer, last hitter, attack method, subtype, lane/jungle classification, and Ground-Soul outcome are outside this claim.',
-    replicationStatus: 'Strong independent multi-replay support through the foundational replication authority. Existing replication_trooper_deaths_v01 evidence is compared by exact tick/entity identity when present.'
+    integrityValidation: 'Fresh runtime_trooper_deaths_production_v01.json and runtime_trooper_death_events_v01.jsonl must be produced. Every authoritative event is an observed CNPC_Trooper positive m_iHealth -> 0 transition with complete direct subclass/team/lane context; duplicate tick/entity identities and aggregate count mismatches are rejected.',
+    semanticValidation: 'trooper_death_transition plus runtime_trooper_direct_context_v01. Timing and raw numeric m_nSubclassID, m_iTeamNum, and m_iLane are direct observations. Named base types, lane names, jungle semantics, variants, killer, last hitter, attack method, and Ground-Soul outcome are excluded.',
+    replicationStatus: 'Death identities and direct context completeness are validated across all nine production replays. Existing replication_trooper_deaths_v01 evidence is compared by exact tick/entity identity when present.'
   }, null, 'extended'),
   capability('runtime_ground_soul_lifecycle', 'Observed Ground Soul / AssignedGold lifecycle', 'supported', [
     'ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration'

@@ -3,7 +3,7 @@ import { basename, dirname, extname, resolve } from 'node:path';
 import { createInterface } from 'node:readline';
 import { EntityOperation, InterceptorStage, Logger, Parser, ParserConfiguration } from 'deadem';
 import { requireClaim } from '../../src/contracts/claim-registry.mjs';
-import { buildTrooperDeathSummary, compareEventKeys, deriveTrooperDeathTransition } from '../lib/runtime-trooper-deaths.mjs';
+import { buildTrooperDeathSummary, compareEventKeys, deriveTrooperDeathTransition, directTrooperContext } from '../lib/runtime-trooper-deaths.mjs';
 
 const VERSION='RUNTIME_TROOPER_DEATH_PRODUCTION_V01';
 const STATUS_READY='RUNTIME_TROOPER_DEATH_PRODUCTION_V01_READY';
@@ -21,6 +21,7 @@ const eventsPath=resolve('output',replayName,'runtime_trooper_death_events_v01.j
 for(const path of [replayPath,playerSummaryPath]) if(!existsSync(path)) throw new Error(`Required input missing: ${path}`);
 
 const claim=requireClaim('trooper_death_transition',{requireSemantic:true});
+const contextClaim=requireClaim('runtime_trooper_direct_context_v01',{requireSemantic:true,requireReplication:true});
 const replicationOk=['multi_replay_replication','multi_replay_supported','cross_replay_replicated'].includes(String(claim.replicationStatus));
 const playerSummary=JSON.parse(readFileSync(playerSummaryPath,'utf8'));
 const matchClockOffsetSeconds=finite(playerSummary?.matchClockOffsetSeconds)??0;
@@ -64,6 +65,9 @@ parser.registerPostInterceptor(InterceptorStage.ENTITY_PACKET,(demoPacket,messag
       health:finite(entity.getField('m_iHealth')),
       lifeState:finite(entity.getField('m_lifeState')),
       maxHealth:finite(entity.getField('m_iMaxHealth'))??finite(entity.getField('m_iHealthMax')),
+      subclassId:finite(entity.getField('m_nSubclassID')),
+      team:finite(entity.getField('m_iTeamNum')),
+      lane:finite(entity.getField('m_iLane')),
     };
     if(current.health!==null){finiteHealthObservations++;healthObservedEntities.add(entity.index);}
     const previous=stateByEntity.get(entity.index)??null;
@@ -74,9 +78,10 @@ parser.registerPostInterceptor(InterceptorStage.ENTITY_PACKET,(demoPacket,messag
     if(transition.lifeStateSignal!==null){lifeStateAvailableDeaths++;if(transition.lifeStateSignal)lifeStateCorroboratedDeaths++;}
     const demoSeconds=tick===null?null:tick/TICKS_PER_SECOND;
     const matchTimeSeconds=demoSeconds===null?null:demoSeconds-matchClockOffsetSeconds;
+    const trooperContext=directTrooperContext(previous,current);
     events.push({
       schemaVersion:'runtime_trooper_death_event_v01',replay:replayName,tick,demoSeconds,matchTimeSeconds,
-      entityIndex:entity.index,...transition,
+      entityIndex:entity.index,...transition,trooperContext,
       semanticStatus:'OBSERVED_CNPC_TROOPER_POSITIVE_HEALTH_TO_ZERO_TRANSITION'
     });
   }
@@ -94,6 +99,7 @@ if(existsSync(researchPath)){
 const lifeStateCorroborationRate=lifeStateAvailableDeaths?lifeStateCorroboratedDeaths/lifeStateAvailableDeaths:null;
 const checks={
   authorityCurrent:check(claim.authorityStatus,'current',claim.authorityStatus==='current'),
+  contextAuthorityCurrent:check(contextClaim.authorityStatus,'current',contextClaim.authorityStatus==='current'),
   integrityPass:check(claim.integrityValidation,'pass',claim.integrityValidation==='pass'),
   semanticPass:check(claim.semanticValidation,'pass or strong_support',['pass','strong_support'].includes(claim.semanticValidation)),
   independentlyReplicated:check(claim.replicationStatus,'multi/cross-replay replication',replicationOk),
@@ -101,6 +107,9 @@ const checks={
   healthCarrierObservedWhenEligible:check(healthObservedEntities.size,sufficientlyLongReplay?'>0':'not required before 5:00',!sufficientlyLongReplay||healthObservedEntities.size>0),
   deathsObservedWhenEligible:check(events.length,sufficientlyLongReplay?'>0':'not required before 5:00',!sufficientlyLongReplay||events.length>0),
   allEventsPositiveHealthToZero:check(events.filter(e=>!(e.previousHealth>0&&e.currentHealth===0)).length,0,events.every(e=>e.previousHealth>0&&e.currentHealth===0)),
+  completeDirectContext:check(summary.incompleteContextDeaths,0,summary.incompleteContextDeaths===0),
+  subclassCountsReconcile:check(sumValues(summary.bySubclassId),events.length,sumValues(summary.bySubclassId)===events.length),
+  teamLaneCountsReconcile:check(sumValues(summary.byTeamLane),events.length,sumValues(summary.byTeamLane)===events.length),
   duplicateDeathKeys:check(duplicateKeys.length,0,duplicateKeys.length===0),
   researchArtifactExactWhenPresent:check(researchComparison?.exact??null,researchComparison?'exact tick/entity agreement':'no local research artifact',!researchComparison||researchComparison.exact),
 };
@@ -110,10 +119,10 @@ if(failed.length)throw new Error(`Trooper-death production integrity failed: ${f
 const output={
   version:VERSION,canonical:false,createdAt:new Date().toISOString(),status:STATUS_READY,authorityLayer:'extended',
   replay:{replayName,replayPath,ticksPerSecond:TICKS_PER_SECOND,matchClockOffsetSeconds,replayEndTick,finalMatchTimeSeconds},
-  foundation:{claimId:claim.claimId,authorityScript:claim.authorityScript??null,authorityOutput:claim.authorityOutput??null,replicationStatus:claim.replicationStatus},
+  foundation:{claimId:claim.claimId,contextClaimId:contextClaim.claimId,authorityScript:claim.authorityScript??null,authorityOutput:claim.authorityOutput??null,replicationStatus:claim.replicationStatus,contextReplicationStatus:contextClaim.replicationStatus},
   semanticScope:{
-    supported:'Observed CNPC_Trooper death transitions defined by replicated positive m_iHealth -> 0 transitions, including their replay/match timing.',
-    notClaimed:['Killer identity','Last-hit identity','Attack method','Melee attribution','Trooper base type or variant','Lane/jungle classification','Ground-soul eligibility or reward outcome']
+    supported:'Observed CNPC_Trooper death transitions defined by replicated positive m_iHealth -> 0 transitions, including timing and direct raw m_nSubclassID, m_iTeamNum, and m_iLane context.',
+    notClaimed:['Killer identity','Last-hit identity','Attack method','Melee attribution','Named Trooper base-type mapping','Trooper variant','Lane/jungle semantics beyond the raw lane value','Ground-soul eligibility or reward outcome']
   },
   counts:{candidateEntityEvents,trooperEntities:trooperEntities.size,healthObservedEntities:healthObservedEntities.size,finiteHealthObservations,deaths:events.length,gameplayDeaths:summary.gameplayDeaths,pregameDeaths:summary.pregameDeaths,lifeStateAvailableDeaths,lifeStateCorroboratedDeaths},
   summary,
@@ -126,12 +135,14 @@ writeFileSync(eventsPath,events.map(x=>JSON.stringify(x)).join('\n')+(events.len
 console.log(`Status: ${STATUS_READY}`);
 console.log(`Trooper entities: ${trooperEntities.size}`);
 console.log(`Deaths: ${events.length} (${summary.gameplayDeaths} gameplay, ${summary.pregameDeaths} pregame)`);
+console.log(`Direct context: ${summary.completeContextDeaths}/${events.length} complete`);
 console.log(`Life-state corroboration: ${lifeStateCorroborationRate===null?'n/a':(lifeStateCorroborationRate*100).toFixed(2)+'%'}`);
 if(researchComparison)console.log(`Research tick/entity agreement: ${researchComparison.exact?'EXACT':'MISMATCH'} (${researchComparison.matched}/${researchComparison.research})`);
 console.log(`JSON: ${outputPath}`);
 console.log(`Events: ${eventsPath}`);
 
 function check(actual,expected,pass){return{actual,expected,pass:Boolean(pass)};}
-function finite(v){const n=Number(v);return Number.isFinite(n)?n:null;}
+function finite(v){if(v===null||v===undefined||v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null;}
+function sumValues(object){return Object.values(object??{}).reduce((sum,value)=>sum+(Number(value)||0),0);}
 function findDuplicateKeys(rows){const seen=new Set(),dupes=[];for(const e of rows){const k=`${e.tick}:${e.entityIndex}`;if(seen.has(k))dupes.push(k);else seen.add(k);}return dupes;}
 async function readJsonl(path){const rows=[];const rl=createInterface({input:createReadStream(path,{encoding:'utf8'}),crlfDelay:Infinity});for await(const line of rl){if(!line.trim())continue;try{rows.push(JSON.parse(line));}catch{}}return rows;}

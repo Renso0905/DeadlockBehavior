@@ -2172,6 +2172,51 @@
       "supersedes": [],
       "supersededBy": null,
       "notes": "melee_per_alive_min deliberately uses the frozen Movement both-endpoints-alive observation denominator, not the broader alive_time metric."
+    },
+    {
+      "claimId": "runtime_trooper_direct_context_v01",
+      "domain": "troopers",
+      "construct": "Direct raw Trooper subclass, team, and lane values at observed death transitions",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "For every authoritative CNPC_Trooper positive-health-to-zero death transition, production records the direct raw m_nSubclassID, m_iTeamNum, and m_iLane values. trooper_base_types is retained as a legacy metric ID but reports counts by observed numeric subclass ID only. trooper_team_lane reports counts by observed numeric team and lane pair. No human-readable base-type mapping, lane name, jungle interpretation, variant, killer, last hitter, attack method, or economic outcome is inferred.",
+      "sourceScripts": [
+        "49b-dual-death-transition",
+        "102-cross-replay-raw-extraction",
+        "103-foundational-replication",
+        "231-validate-runtime-trooper-context-promotion"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/runtime_trooper_context_promotion_validation_v01.json"
+      ],
+      "dependencyClaimIds": [
+        "trooper_death_transition"
+      ],
+      "downstreamUses": [
+        "trooper_base_types",
+        "trooper_team_lane",
+        "descriptive replay-level Trooper death context"
+      ],
+      "valueSummary": {
+        "cohortReplays": 9,
+        "deathEventRows": 34610,
+        "completeContextRows": 34610,
+        "observedSubclassIds": 4,
+        "observedTeams": 2,
+        "observedLaneValues": 3,
+        "observedTeamLanePairs": 6,
+        "contextFields": [
+          "m_nSubclassID",
+          "m_iTeamNum",
+          "m_iLane"
+        ],
+        "contextSemantics": "direct raw numeric values"
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "This promotion deliberately narrows the former research labels. The legacy trooper_base_types metric ID does not authorize Ranged, Medic, Melee, Super, Rift, or any other named class interpretation."
     }
   ]
 }

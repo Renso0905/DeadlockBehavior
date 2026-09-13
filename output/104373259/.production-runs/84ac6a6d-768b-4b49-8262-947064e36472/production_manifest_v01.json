@@ -1,0 +1,625 @@
+{
+  "version": "DEADLOCK_PRODUCTION_MANIFEST_V01",
+  "replayName": "104373259",
+  "generatedAt": "2026-09-13T16:58:34.353Z",
+  "pipelineVersion": "DEADLOCK_PRODUCTION_PIPELINE_V01",
+  "runStatus": "COMPLETE",
+  "validationTaxonomy": [
+    "integrityValidation",
+    "semanticValidation",
+    "replicationStatus"
+  ],
+  "coverage": {
+    "authoritativeTotal": 114,
+    "completeAuthoritative": 114,
+    "failedAuthoritative": 0,
+    "blockedAuthoritative": 0,
+    "notSupportedAuthoritative": 0,
+    "unclassifiedAuthoritative": 0,
+    "core": {
+      "authoritativeTotal": 102,
+      "completeAuthoritative": 102,
+      "failedAuthoritative": 0,
+      "blockedAuthoritative": 0,
+      "notSupportedAuthoritative": 0,
+      "unclassifiedAuthoritative": 0
+    },
+    "extended": {
+      "authoritativeTotal": 12,
+      "completeAuthoritative": 12,
+      "failedAuthoritative": 0,
+      "blockedAuthoritative": 0,
+      "notSupportedAuthoritative": 0,
+      "unclassifiedAuthoritative": 0
+    },
+    "metricIds": {
+      "complete": [
+        "active_fire_mode",
+        "air_heavy_melee",
+        "alive_share",
+        "alive_time",
+        "ap_networth",
+        "assists",
+        "assists_rate",
+        "average_life",
+        "bridge_collections",
+        "bridge_current",
+        "bridge_overlaps",
+        "bridge_team_uptime",
+        "bridge_termination",
+        "bridge_uptime",
+        "bridge_uptime_share",
+        "burst_continuous_state",
+        "checkpoint_builds",
+        "composition",
+        "controller_entity",
+        "current_items",
+        "dead_time",
+        "death_count",
+        "death_timing",
+        "deaths_scoreboard",
+        "denies",
+        "denies_rate",
+        "distance_per_alive_min",
+        "distance_per_min",
+        "final_build",
+        "gold_networth",
+        "ground_soul_activations",
+        "ground_soul_economic_credit_events",
+        "ground_soul_economic_gain",
+        "ground_soul_economic_recipient_transitions",
+        "ground_soul_lifecycle_duration",
+        "ground_soul_multi_recipient_share",
+        "ground_soul_targeted_activations",
+        "ground_soul_vacuum_target",
+        "health",
+        "health_max",
+        "health_minmax",
+        "health_percent",
+        "health_regen",
+        "heavy_melee",
+        "hero_id",
+        "inter_attack_interval",
+        "item_acquisition_order",
+        "item_acquisition_time",
+        "item_count",
+        "item_ownership_duration",
+        "item_removals",
+        "kd",
+        "kda",
+        "kills",
+        "kills_rate",
+        "largest_lead_swing",
+        "last_hits",
+        "last_hits_rate",
+        "level",
+        "level_rate",
+        "level_timing",
+        "light_melee",
+        "low_health_25",
+        "low_health_50",
+        "low_motion_share",
+        "low_motion_time",
+        "match_clock",
+        "match_duration",
+        "max_team_deficit",
+        "max_team_lead",
+        "mean_xy_speed",
+        "mean_xyz_speed",
+        "melee_attacks",
+        "melee_hit_rate",
+        "melee_hits",
+        "melee_per_alive_min",
+        "melee_type_share",
+        "moving_share",
+        "moving_time",
+        "networth_checkpoints",
+        "networth_rank",
+        "networth_rate",
+        "next_primary_ready",
+        "pawn_entity",
+        "permanent_acquisitions",
+        "permanent_by_family",
+        "permanent_count",
+        "permanent_current",
+        "permanent_team_diff",
+        "permanent_value",
+        "player_name",
+        "player_team_share",
+        "position_trajectory",
+        "primary_attack_rate",
+        "primary_discharges",
+        "ready_delay",
+        "reload_state",
+        "respawn_downtime",
+        "respawn_time",
+        "roster",
+        "scoreboard_timelines",
+        "steam_id",
+        "survival_intervals",
+        "team",
+        "team_ahead_time",
+        "team_behind_time",
+        "team_networth",
+        "team_networth_diff",
+        "trooper_base_types",
+        "trooper_death_timing",
+        "trooper_deaths",
+        "trooper_team_lane",
+        "xy_distance",
+        "xyz_distance"
+      ],
+      "failed": [],
+      "blocked": [],
+      "not_supported": [],
+      "unclassified": []
+    }
+  },
+  "contractErrors": {
+    "missingMetricOwners": [],
+    "duplicateMetricOwners": []
+  },
+  "stages": [
+    {
+      "id": "core-player-state",
+      "label": "Extract generic player state",
+      "capability": "core_state_economy",
+      "required": true,
+      "metricIds": [
+        "match_clock",
+        "match_duration",
+        "player_name",
+        "steam_id",
+        "hero_id",
+        "team",
+        "controller_entity",
+        "pawn_entity",
+        "roster",
+        "composition",
+        "level",
+        "level_timing",
+        "level_rate",
+        "alive_time",
+        "dead_time",
+        "alive_share",
+        "death_count",
+        "death_timing",
+        "survival_intervals",
+        "average_life",
+        "respawn_time",
+        "respawn_downtime",
+        "health",
+        "health_max",
+        "health_percent",
+        "health_minmax",
+        "low_health_25",
+        "low_health_50",
+        "gold_networth",
+        "ap_networth",
+        "networth_rate",
+        "networth_checkpoints",
+        "networth_rank",
+        "kills",
+        "assists",
+        "last_hits",
+        "denies",
+        "deaths_scoreboard",
+        "kd",
+        "kda",
+        "kills_rate",
+        "assists_rate",
+        "last_hits_rate",
+        "denies_rate",
+        "scoreboard_timelines",
+        "team_networth",
+        "team_networth_diff",
+        "player_team_share",
+        "team_ahead_time",
+        "team_behind_time",
+        "max_team_lead",
+        "max_team_deficit",
+        "largest_lead_swing",
+        "xy_distance",
+        "xyz_distance",
+        "distance_per_min",
+        "distance_per_alive_min",
+        "mean_xy_speed",
+        "mean_xyz_speed",
+        "moving_time",
+        "moving_share",
+        "low_motion_time",
+        "low_motion_share",
+        "position_trajectory"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh player_state.jsonl and player_state_summary.json must be produced by the current run.",
+        "semanticValidation": "Current A-status PlayerState/controller timing, identity, state, and economy contracts; per-sample player-state authority traces to A151.",
+        "replicationStatus": "Semantic authority is inherited from the current claim/contract layer; each production replay still receives its own run-integrity check."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:55:04.904Z",
+      "finishedAt": "2026-09-13T16:55:27.178Z",
+      "outputs": [
+        {
+          "path": "output/104373259/player_state.jsonl",
+          "present": true,
+          "size": 163655137,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/player_state_summary.json",
+          "present": true,
+          "size": 871,
+          "fresh": true,
+          "minBytes": 2
+        }
+      ]
+    },
+    {
+      "id": "trooper-deaths",
+      "label": "Extract authoritative Trooper death transitions",
+      "capability": "runtime_trooper_death_events",
+      "required": true,
+      "metricIds": [
+        "trooper_deaths",
+        "trooper_death_timing",
+        "trooper_base_types",
+        "trooper_team_lane"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_trooper_deaths_production_v01.json and runtime_trooper_death_events_v01.jsonl must be produced. Every authoritative event is an observed CNPC_Trooper positive m_iHealth -> 0 transition with complete direct subclass/team/lane context; duplicate tick/entity identities and aggregate count mismatches are rejected.",
+        "semanticValidation": "trooper_death_transition plus runtime_trooper_direct_context_v01. Timing and raw numeric m_nSubclassID, m_iTeamNum, and m_iLane are direct observations. Named base types, lane names, jungle semantics, variants, killer, last hitter, attack method, and Ground-Soul outcome are excluded.",
+        "replicationStatus": "Death identities and direct context completeness are validated across all nine production replays. Existing replication_trooper_deaths_v01 evidence is compared by exact tick/entity identity when present."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:55:27.179Z",
+      "finishedAt": "2026-09-13T16:55:51.337Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_trooper_deaths_production_v01.json",
+          "present": true,
+          "size": 415000,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_trooper_death_events_v01.jsonl",
+          "present": true,
+          "size": 1574828,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "ground-soul-lifecycle",
+      "label": "Extract authoritative Ground Soul lifecycle",
+      "capability": "runtime_ground_soul_lifecycle",
+      "required": true,
+      "metricIds": [
+        "ground_soul_activations",
+        "ground_soul_targeted_activations",
+        "ground_soul_lifecycle_duration",
+        "ground_soul_vacuum_target"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_ground_soul_lifecycle_production_v01.json and runtime_ground_soul_lifecycle_events_v01.jsonl must be produced. Activation identities are unique and completed active-to-inactive durations must be nonnegative.",
+        "semanticValidation": "ground_soul_lifecycle current claim. CCitadel_Pickup_AssignedGold m_bActive defines the replicated lifecycle carrier; m_hVacuumTarget is physical target telemetry only. Inactivity is not relabeled collection or payout.",
+        "replicationStatus": "Ground-Soul production/lifecycle semantics reproduced across five independent replays. Exact vacuum radius, economic recipient identity, reward allocation, and unmatched-death interpretation remain outside this capability."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:55:51.337Z",
+      "finishedAt": "2026-09-13T16:56:05.710Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_ground_soul_lifecycle_production_v01.json",
+          "present": true,
+          "size": 416981,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_ground_soul_lifecycle_events_v01.jsonl",
+          "present": true,
+          "size": 1471168,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "ground-soul-economic-credit",
+      "label": "Extract authoritative Ground Soul economic recipient sets",
+      "capability": "runtime_assigned_gold_economic_credit",
+      "required": true,
+      "metricIds": [
+        "ground_soul_economic_credit_events",
+        "ground_soul_economic_recipient_transitions",
+        "ground_soul_multi_recipient_share",
+        "ground_soul_economic_gain"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_assigned_gold_economic_credit_production_v01.json and runtime_assigned_gold_economic_credit_events_v01.jsonl must be produced. Promoted recipient rows are same-team, positive, exact-terminal-tick m_nCurrencies.0000 transitions with unique pawn identity and clean integer partitioning.",
+        "semanticValidation": "assigned_gold_economic_recipient_set current claim. Authority is deliberately limited to isolated, physically targeted, completed AssignedGold lifecycle terminations. m_hVacuumTarget remains physical attraction telemetry and is not used as economic-recipient identity. The economic-gain metric is the cumulative selected-player sum of observed recipient m_nCurrencies.0000 deltas from resolved events only; unresolved events are excluded.",
+        "replicationStatus": "Economic recipient-set identity, recipient geometry relationship, and final integer allocation structure reproduced across five independent replays. The old exact reward-magnitude heuristic and frozen exact radii are explicitly excluded."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:56:05.711Z",
+      "finishedAt": "2026-09-13T16:56:26.248Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_assigned_gold_economic_credit_production_v01.json",
+          "present": true,
+          "size": 426224,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_assigned_gold_economic_credit_events_v01.jsonl",
+          "present": true,
+          "size": 1252777,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "health-regen",
+      "label": "Extract observed runtime health regeneration",
+      "capability": "health_regen",
+      "required": true,
+      "metricIds": [
+        "health_regen"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_health_regen_production_v01.json and runtime_health_regen_events_v01.jsonl must be produced. CCitadelPlayerController.m_flHealthRegen is sampled directly at the PlayerState cadence; finite/nonnegative values and gameplay roster coverage are checked on every eligible replay.",
+        "semanticValidation": "PlayerState(t) direct-observation authority. health_regen is the observed networked CCitadelPlayerController.m_flHealthRegen field. It is not inferred from health deltas and is not decomposed into base, item, buff, zone, or ability causes.",
+        "replicationStatus": "Inherited from the strongly cross-replay replicated PlayerState(t) authority across five independent replays; direct observedRuntime.healthRegen is inside that validated state boundary."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:56:26.248Z",
+      "finishedAt": "2026-09-13T16:56:42.739Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_health_regen_production_v01.json",
+          "present": true,
+          "size": 1722638,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_health_regen_events_v01.jsonl",
+          "present": true,
+          "size": 2248336,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "shop-items",
+      "label": "Extract runtime shop-item ownership",
+      "capability": "runtime_item_ownership",
+      "required": true,
+      "metricIds": [
+        "current_items",
+        "final_build",
+        "item_acquisition_time",
+        "item_acquisition_order",
+        "item_count",
+        "item_ownership_duration",
+        "item_removals",
+        "checkpoint_builds"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_item_ownership_production_v01.json and runtime_item_ownership_events_v01.jsonl must be produced; the Script 138 V02 catalog must be current, collision-free, and resolve every observed runtime item ID.",
+        "semanticValidation": "A142 runtime_item_ownership. CCitadelPlayerController.m_vecUpgrades is interpreted as current standard-shop item ownership. Ownership exit is not called a sale; mixed add/remove is not called an upgrade.",
+        "replicationStatus": "Strong cross-replay replication across five independent replays via Script 142 V02."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:56:42.739Z",
+      "finishedAt": "2026-09-13T16:56:57.815Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_item_ownership_production_v01.json",
+          "present": true,
+          "size": 1812363,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_item_ownership_events_v01.jsonl",
+          "present": true,
+          "size": 109341,
+          "fresh": true,
+          "minBytes": 2
+        }
+      ]
+    },
+    {
+      "id": "permanent-buffs",
+      "label": "Extract permanent world-buff ownership",
+      "capability": "runtime_permanent_buff_ownership",
+      "required": true,
+      "metricIds": [
+        "permanent_current",
+        "permanent_acquisitions",
+        "permanent_count",
+        "permanent_by_family",
+        "permanent_value",
+        "permanent_team_diff"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_permanent_buff_ownership_production_v01.json and runtime_permanent_buff_events_v01.jsonl must be produced. The Script 136 V02 contract, frozen six-family value-type map, 18 subclass hashes, exact static-unit multiples, and nondecreasing in-place permanent state are checked on every replay. Zero acquisition events are valid when the carrier is intact.",
+        "semanticValidation": "runtime_permanent_buff_ownership current claim. Resolved m_vecStatViewerModifierValues permanent subclass rows are cumulative permanent-pickup state; positive integral unit deltas are authoritative accumulation events. Physical producer/object attribution is not claimed.",
+        "replicationStatus": "Strong cross-replay replication across five independent replays via Script 146 V01; all six families and all 18 permanent subclass candidates were covered across the cohort."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:56:57.815Z",
+      "finishedAt": "2026-09-13T16:57:12.920Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_permanent_buff_ownership_production_v01.json",
+          "present": true,
+          "size": 1059622,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_permanent_buff_events_v01.jsonl",
+          "present": true,
+          "size": 429040,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "bridge-buffs",
+      "label": "Extract bridge powerup intervals",
+      "capability": "runtime_bridge_buff_ownership",
+      "required": true,
+      "metricIds": [
+        "bridge_collections",
+        "bridge_current",
+        "bridge_uptime",
+        "bridge_uptime_share",
+        "bridge_overlaps",
+        "bridge_termination",
+        "bridge_team_uptime"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_bridge_buff_ownership_production_v01.json and runtime_bridge_buff_events_v01.jsonl must be produced. The four frozen bridge record-key hashes, CCitadel_Pickup_Modifier carrier, <=300 HU collector gate, player-state snapshot envelope, exact death boundaries, and nonnegative interval reconstruction are checked on every replay.",
+        "semanticValidation": "runtime_bridge_buff_ownership / A148 bridge runtime interval authority. m_bActive true -> false on the validated bridge world-pickup carrier is collection when nearest-player geometry satisfies the frozen <=300 HU gate. Ownership intervals use the shared resource-defined 160-second lifetime, with death termination and native match/replay censoring.",
+        "replicationStatus": "Bridge world collection semantics are strongly replicated across five independent replays; the current runtime-interval authority is cross-replay replicated. Survival independently validates natural 160-second expiration and death termination; the other three families inherit the shared resource-duration contract within the authority scope."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:57:12.920Z",
+      "finishedAt": "2026-09-13T16:57:27.993Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_bridge_buff_ownership_production_v01.json",
+          "present": true,
+          "size": 45563,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_bridge_buff_events_v01.jsonl",
+          "present": true,
+          "size": 9923,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "primary-fire",
+      "label": "Extract primary-fire cadence",
+      "capability": "primary_fire_cadence",
+      "required": true,
+      "metricIds": [
+        "primary_discharges",
+        "primary_attack_rate",
+        "inter_attack_interval",
+        "next_primary_ready",
+        "ready_delay",
+        "reload_state",
+        "active_fire_mode",
+        "burst_continuous_state"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_primary_fire_production_v01.json, discharge events, and direct weapon-state events must be produced. Every promoted discharge is a positive m_nShotNumber transition on a PrimaryWeapon entity, player-linked through the Source2 owner handle; every player must expose all four promoted direct-state carriers.",
+        "semanticValidation": "Primary discharge and ready-schedule claims plus runtime_primary_weapon_direct_state_v01. Reload, fire mode, continuous shots, and burst remaining are direct raw runtime carriers. Numeric categories/counters remain unnamed; no trigger, ammo-efficiency, burst-design, or composed effective-weapon inference is made.",
+        "replicationStatus": "Primary discharge/readiness authority is cross-replay replicated. Direct weapon-state carrier coverage is validated across nine production replays, including two unseen uploads."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:57:27.994Z",
+      "finishedAt": "2026-09-13T16:58:01.671Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_primary_fire_production_v01.json",
+          "present": true,
+          "size": 17216356,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_primary_fire_events_v01.jsonl",
+          "present": true,
+          "size": 24733219,
+          "fresh": true,
+          "minBytes": 0
+        },
+        {
+          "path": "output/104373259/runtime_primary_weapon_state_events_v01.jsonl",
+          "present": true,
+          "size": 27811876,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "runtime-melee",
+      "label": "Extract runtime melee executions",
+      "capability": "runtime_melee_execution",
+      "required": true,
+      "metricIds": [
+        "melee_attacks",
+        "melee_hits",
+        "melee_hit_rate",
+        "light_melee",
+        "heavy_melee",
+        "air_heavy_melee",
+        "melee_type_share",
+        "melee_per_alive_min"
+      ],
+      "validation": {
+        "integrityValidation": "Fresh runtime_melee_production_v01.json and runtime_melee_events_v01.jsonl must be produced. Execution identities are unique, post-start owners resolve to the player roster, direct attack types are known, and per-player counts reconcile exactly.",
+        "semanticValidation": "runtime_melee_execution_state_v01 + runtime_melee_hit_flag_v01 + melee_derived_metrics_v01. Executions come from CCitadel_Ability_HoldMelee; hits are direct m_bHitWithThisAttack telemetry; types are direct m_eCurrentAttackType; melee/alive-minute uses the frozen Movement alive-observation denominator.",
+        "replicationStatus": "Direct execution/type/hit carrier reproduced across test plus five independent replication replays; calibration reproduces the historical direct-event carrier exactly before the deliberate pre-match exclusion."
+      },
+      "ok": true,
+      "code": 0,
+      "status": "complete",
+      "startedAt": "2026-09-13T16:58:01.671Z",
+      "finishedAt": "2026-09-13T16:58:34.352Z",
+      "outputs": [
+        {
+          "path": "output/104373259/runtime_melee_production_v01.json",
+          "present": true,
+          "size": 10190,
+          "fresh": true,
+          "minBytes": 2
+        },
+        {
+          "path": "output/104373259/runtime_melee_events_v01.jsonl",
+          "present": true,
+          "size": 1064237,
+          "fresh": true,
+          "minBytes": 0
+        }
+      ]
+    }
+  ]
+}
