@@ -38,11 +38,11 @@ export const PRODUCTION_CAPABILITIES = [
     replicationStatus: 'Bridge world collection semantics are strongly replicated across five independent replays; the current runtime-interval authority is cross-replay replicated. Survival independently validates natural 160-second expiration and death termination; the other three families inherit the shared resource-duration contract within the authority scope.'
   }),
   capability('primary_fire_cadence', 'Primary weapon discharge cadence', 'supported', [
-    'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay'
+    'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay','reload_state','active_fire_mode','burst_continuous_state'
   ], {
-    integrityValidation: 'Fresh runtime_primary_fire_production_v01.json and runtime_primary_fire_events_v01.jsonl must be produced. Every promoted discharge is a positive m_nShotNumber transition on a PrimaryWeapon entity, player-linked through the Source2 owner handle; last-attack corroboration and readiness-carrier availability are checked on every eligible replay.',
-    semanticValidation: 'primary_weapon_discharge_telemetry current claim plus the promoted observed primary-attack readiness authority. Firing means observed weapon discharge, not click/trigger-pull inference. Readiness is the observed m_flNextPrimaryAttack - m_flLastAttackTime runtime carrier; static fire-rate formulas are not used as runtime authority.',
-    replicationStatus: 'Primary discharge telemetry is multi-replay supported. The observed readiness carrier is strongly cross-replay replicated across rep01-rep05 (27,459/27,465 pooled sustained pairs aligned).'
+    integrityValidation: 'Fresh runtime_primary_fire_production_v01.json, discharge events, and direct weapon-state events must be produced. Every promoted discharge is a positive m_nShotNumber transition on a PrimaryWeapon entity, player-linked through the Source2 owner handle; every player must expose all four promoted direct-state carriers.',
+    semanticValidation: 'Primary discharge and ready-schedule claims plus runtime_primary_weapon_direct_state_v01. Reload, fire mode, continuous shots, and burst remaining are direct raw runtime carriers. Numeric categories/counters remain unnamed; no trigger, ammo-efficiency, burst-design, or composed effective-weapon inference is made.',
+    replicationStatus: 'Primary discharge/readiness authority is cross-replay replicated. Direct weapon-state carrier coverage is validated across nine production replays, including two unseen uploads.'
   }),
   capability('runtime_melee_execution', 'Runtime melee executions', 'supported', [
     'melee_attacks','melee_hits','melee_hit_rate','light_melee','heavy_melee','air_heavy_melee','melee_type_share','melee_per_alive_min'

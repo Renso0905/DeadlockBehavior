@@ -1414,6 +1414,37 @@
       "notes": "Observed runtime schedule authority only. Static cadence V02 is explanatory and materially weaker pooled; rep04/non-burst static mismatch does not contradict the directly observed schedule. Keep effective_weapon_state missing until its remaining dimensions are independently validated."
     },
     {
+      "claimId": "runtime_primary_weapon_direct_state_v01",
+      "domain": "player_state_runtime",
+      "construct": "Direct observed primary-weapon reload, fire-mode, and burst/continuous counter state",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "On player-linked PrimaryWeapon entities, m_bInReload is retained as the observed reload-state flag, m_eActiveFireMode as an unnamed raw numeric mode, and m_nNumContinuousShots plus m_nBurstShotsRemaining as unnamed raw counters. State is time-indexed from direct entity observations with weapon-deletion gaps kept unavailable. This authority does not infer current-ammo correctness, reload cause or efficiency, trigger intent, named fire-mode semantics, burst design, projectile behavior, damage, or composed effective weapon performance.",
+      "sourceScripts": [
+        "126-primary-weapon-discharge-telemetry",
+        "161-build-effective-weapon-state-substrate-v01",
+        "230-validate-primary-weapon-direct-state-promotion-v01"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/primary_weapon_direct_state_promotion_validation_v01.json"
+      ],
+      "downstreamUses": [
+        "time-indexed reload-state description",
+        "raw fire-mode state description",
+        "raw burst and continuous-counter state description"
+      ],
+      "valueSummary": {
+        "productionValidationReplays": 9,
+        "productionValidationPlayers": 108,
+        "requiredDirectCarriers": 4
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "This promotion deliberately splits direct observed carriers from the still-missing broad effective_weapon_state construct. Numeric mode and counter values remain raw and unnamed."
+    },
+    {
       "claimId": "effective_weapon_state",
       "domain": "player_state_runtime",
       "construct": "Runtime ammo/reload/cadence/projectile state after hero/item/buff composition",

@@ -121,4 +121,4 @@ To validate published metrics independently:
 G:\Node\node.exe scripts\228-validate-production-reliability.mjs test rep01 rep02 rep03 rep04 rep05 104373259
 ```
 
-The current contract contains 109 A metrics: 99 core and 10 extended. `ground_soul_vacuum_target` is the only promotion in this reliability pass and means resolved physical attraction targets only.
+The current contract contains 112 A metrics: 102 core and 10 extended. The scoped promotions are `ground_soul_vacuum_target` (resolved physical attraction targets only), `reload_state` (direct observed reload state/transitions), `active_fire_mode` (raw numeric mode value), and `burst_continuous_state` (raw continuous-shot and burst-remaining counters).

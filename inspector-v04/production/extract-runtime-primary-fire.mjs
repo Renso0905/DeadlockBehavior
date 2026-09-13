@@ -3,7 +3,7 @@ import { basename, dirname, extname, resolve } from 'node:path';
 import { createInterface } from 'node:readline';
 import { EntityOperation, InterceptorStage, Parser } from 'deadem';
 import { requireClaim } from '../../src/contracts/claim-registry.mjs';
-import { buildPlayerPrimaryFireSummary, deriveDischargeTransition, resolveEntityHandleIndex } from '../lib/runtime-primary-fire.mjs';
+import { buildPlayerPrimaryFireSummary, buildPlayerPrimaryWeaponStateSummary, deriveDischargeTransition, derivePrimaryWeaponStateTransition, resolveEntityHandleIndex } from '../lib/runtime-primary-fire.mjs';
 
 const VERSION='RUNTIME_PRIMARY_FIRE_PRODUCTION_V01';
 const STATUS_READY='RUNTIME_PRIMARY_FIRE_PRODUCTION_V01_READY';
@@ -19,6 +19,7 @@ const playerSummaryPath=resolve('output',replayName,'player_state_summary.json')
 const readyAuthorityPath=resolve('output','cross_replay','observed_primary_attack_ready_schedule_authority_v01.json');
 const outputPath=resolve('output',replayName,'runtime_primary_fire_production_v01.json');
 const eventsPath=resolve('output',replayName,'runtime_primary_fire_events_v01.jsonl');
+const stateEventsPath=resolve('output',replayName,'runtime_primary_weapon_state_events_v01.jsonl');
 for (const path of [replayPath,playerStatePath,playerSummaryPath,readyAuthorityPath]) if (!existsSync(path)) throw new Error(`Required input missing: ${path}`);
 
 const dischargeClaim=requireClaim('primary_weapon_discharge_telemetry',{requireSemantic:true});
@@ -38,7 +39,9 @@ console.log(`Ready authority: ${readyAuthorityPath}`);
 
 const parser=new Parser();
 const weaponState=new Map();
+const weaponOwner=new Map();
 const events=[];
+const stateEvents=[];
 const weaponEntities=new Set();
 const linkedWeaponEntities=new Set();
 const weaponClassCounts={};
@@ -48,6 +51,7 @@ let positiveShotTransitions=0;
 let unlinkedDischargeUnits=0;
 let nonCorroboratedDischargeUnits=0;
 let invalidReadyDelayEvents=0;
+let stateEventSequence=0;
 
 parser.registerPostInterceptor(InterceptorStage.DEMO_PACKET,(demoPacket)=>{
   if (Number.isFinite(demoPacket?.tick)) replayEndTick=Math.max(replayEndTick,demoPacket.tick);
@@ -60,7 +64,18 @@ parser.registerPostInterceptor(InterceptorStage.ENTITY_PACKET,(demoPacket,messag
     const entity=event.entity;
     const className=String(entity?.class?.name??'');
     if (!entity || !className.includes('PrimaryWeapon')) continue;
-    if (event.operation===EntityOperation.DELETE) { weaponState.delete(entity.index); continue; }
+    if (event.operation===EntityOperation.DELETE) {
+      const owner=weaponOwner.get(entity.index)??null;
+      if(owner&&weaponState.has(entity.index))stateEvents.push({
+        schemaVersion:'runtime_primary_weapon_state_event_v01',replay:replayName,sequence:++stateEventSequence,tick,
+        demoSeconds:tick===null?null:tick/TICKS_PER_SECOND,matchTimeSeconds:tick===null?null:tick/TICKS_PER_SECOND-matchClockOffsetSeconds,
+        controllerEntityIndex:owner.controllerEntityIndex,playerName:owner.playerName,steamId:owner.steamId,heroId:owner.heroId,team:owner.team,
+        pawnEntityIndex:weaponState.get(entity.index)?.ownerPawnEntityIndex??null,weaponEntityIndex:entity.index,weaponClass:className,
+        available:false,eventType:'WEAPON_DELETE',changedFields:[],directState:null,
+        semanticStatus:'OBSERVED_PRIMARY_WEAPON_DIRECT_STATE_CARRIERS'
+      });
+      weaponState.delete(entity.index);weaponOwner.delete(entity.index);continue;
+    }
     if (event.operation!==EntityOperation.CREATE && event.operation!==EntityOperation.UPDATE) continue;
 
     const shotNumber=finite(entity.getField('m_nShotNumber'));
@@ -75,9 +90,28 @@ parser.registerPostInterceptor(InterceptorStage.ENTITY_PACKET,(demoPacket,messag
     const ownerPawnEntityIndex=resolveEntityHandleIndex(ownerHandle);
     const player=ownerPawnEntityIndex===null?null:playerByPawn.get(ownerPawnEntityIndex)??null;
     if (player) linkedWeaponEntities.add(entity.index);
-    const current={shotNumber,lastAttackTime,nextPrimaryAttack,activeFireMode:finite(entity.getField('m_eActiveFireMode')),ownerPawnEntityIndex};
+    const current={
+      shotNumber,lastAttackTime,nextPrimaryAttack,
+      inReload:booleanOrNull(entity.getField('m_bInReload')),
+      activeFireMode:finite(entity.getField('m_eActiveFireMode')),
+      continuousShots:finite(entity.getField('m_nNumContinuousShots')),
+      burstShotsRemaining:finite(entity.getField('m_nBurstShotsRemaining')),
+      ownerPawnEntityIndex
+    };
     const previous=weaponState.get(entity.index)??null;
     weaponState.set(entity.index,current);
+    if(player)weaponOwner.set(entity.index,player);
+    const directTransition=derivePrimaryWeaponStateTransition(previous,current);
+    if(player&&(event.operation===EntityOperation.CREATE||!previous||directTransition.changed))stateEvents.push({
+      schemaVersion:'runtime_primary_weapon_state_event_v01',replay:replayName,sequence:++stateEventSequence,tick,
+      demoSeconds:tick===null?null:tick/TICKS_PER_SECOND,matchTimeSeconds:tick===null?null:tick/TICKS_PER_SECOND-matchClockOffsetSeconds,
+      controllerEntityIndex:player.controllerEntityIndex,playerName:player.playerName,steamId:player.steamId,heroId:player.heroId,team:player.team,
+      pawnEntityIndex:ownerPawnEntityIndex,weaponEntityIndex:entity.index,weaponClass:className,available:true,
+      eventType:event.operation===EntityOperation.CREATE||!previous?'WEAPON_STATE_INITIAL':'WEAPON_STATE_CHANGE',
+      changedFields:directTransition.changedFields,directState:directTransition.state,
+      transition:{reloadTransition:directTransition.reloadTransition,fireModeChanged:directTransition.fireModeChanged,continuousShotsChanged:directTransition.continuousShotsChanged,burstShotsRemainingChanged:directTransition.burstShotsRemainingChanged},
+      semanticStatus:'OBSERVED_PRIMARY_WEAPON_DIRECT_STATE_CARRIERS'
+    });
     if (event.operation===EntityOperation.CREATE || !previous) continue;
 
     const transition=deriveDischargeTransition(previous,current,{tick,demoSeconds:tick===null?null:tick/TICKS_PER_SECOND,matchClockOffsetSeconds});
@@ -109,12 +143,23 @@ for (const e of events) {
   eventsByController.get(e.controllerEntityIndex).push(e);
 }
 const players=sampled.players.map(p=>buildPlayerPrimaryFireSummary(p,eventsByController.get(p.controllerEntityIndex)??[]));
+const stateEventsByController=new Map();
+for(const e of stateEvents){if(!stateEventsByController.has(e.controllerEntityIndex))stateEventsByController.set(e.controllerEntityIndex,[]);stateEventsByController.get(e.controllerEntityIndex).push(e);}
+const finalMatchTimeSeconds=finite(playerSummary?.finalMatchTimeSeconds);
+const directStatePlayers=sampled.players.map(p=>buildPlayerPrimaryWeaponStateSummary(p,stateEventsByController.get(p.controllerEntityIndex)??[],{matchEndSeconds:finalMatchTimeSeconds}));
 const dischargeUnits=players.reduce((n,p)=>n+p.discharges,0);
 const corroboratedUnits=players.reduce((n,p)=>n+p.corroboratedDischargeUnits,0);
 const readyDelaySamples=players.reduce((n,p)=>n+(p.readyDelaySeconds?.count??0),0);
 const sufficientlyLongReplay=(finite(playerSummary?.finalMatchTimeSeconds)??0)>=300;
 const corroborationRate=dischargeUnits>0?corroboratedUnits/dischargeUnits:null;
 const linkedRate=weaponEntities.size?linkedWeaponEntities.size/weaponEntities.size:null;
+const playersWithDirectState=directStatePlayers.filter(p=>p.observations>0);
+const playersWithAllDirectCarriers=playersWithDirectState.filter(p=>p.allDirectCarriersObserved).length;
+const reloadEnters=directStatePlayers.reduce((n,p)=>n+(p.reload?.enterCount??0),0);
+const reloadExits=directStatePlayers.reduce((n,p)=>n+(p.reload?.exitCount??0),0);
+const fireModeChanges=directStatePlayers.reduce((n,p)=>n+(p.fireMode?.changeCount??0),0);
+const continuousCounterChanges=directStatePlayers.reduce((n,p)=>n+(p.burstContinuous?.continuousChangeCount??0),0);
+const burstRemainingChanges=directStatePlayers.reduce((n,p)=>n+(p.burstContinuous?.burstRemainingChangeCount??0),0);
 const checks={
   dischargeClaimCurrent:check(dischargeClaim.authorityStatus,'current',dischargeClaim.authorityStatus==='current'),
   dischargeSemanticPass:check(dischargeClaim.semanticValidation,'pass',dischargeClaim.semanticValidation==='pass'),
@@ -130,34 +175,44 @@ const checks={
   lastAttackCorroborationStrong:check(corroborationRate,dischargeUnits?'>=0.95':'no discharges',dischargeUnits===0||(corroborationRate!==null&&corroborationRate>=.95)),
   readyDelayAvailableForDischarges:check(readyDelaySamples,dischargeUnits?'>=95% discharge events':'no discharges',events.length===0||readyDelaySamples/events.length>=.95),
   emittedReadyDelaysNonnegative:check(invalidReadyDelayEvents,dischargeUnits?'<=5% discharge events':'no discharges',events.length===0||invalidReadyDelayEvents/events.length<=.05),
+  directStateRosterCoverageStrong:check(playersWithDirectState.length,sufficientlyLongReplay?'>=10':'not required before 5:00',!sufficientlyLongReplay||playersWithDirectState.length>=10),
+  allObservedStatePlayersHaveDirectCarriers:check(playersWithAllDirectCarriers,playersWithDirectState.length,playersWithAllDirectCarriers===playersWithDirectState.length),
+  directStateEventsPlayerLinked:check(stateEvents.filter(e=>e.controllerEntityIndex===null||e.controllerEntityIndex===undefined).length,0,stateEvents.every(e=>e.controllerEntityIndex!==null&&e.controllerEntityIndex!==undefined)),
 };
 const failed=Object.entries(checks).filter(([,v])=>!v.pass).map(([k])=>k);
-if (failed.length) throw new Error(`Primary-fire production integrity failed: ${failed.join(', ')}`);
+if (failed.length) {
+  const missingDirect=directStatePlayers.filter(p=>!p.allDirectCarriersObserved).map(p=>({playerName:p.playerName,controllerEntityIndex:p.controllerEntityIndex,carrierObservations:p.carrierObservations,observations:p.observations}));
+  throw new Error(`Primary-fire production integrity failed: ${failed.join(', ')}${missingDirect.length?`; missing direct carriers=${JSON.stringify(missingDirect)}`:''}`);
+}
 
 const output={
   version:VERSION,canonical:false,createdAt:new Date().toISOString(),status:STATUS_READY,
   replay:{replayName,replayPath,ticksPerSecond:TICKS_PER_SECOND,matchClockOffsetSeconds,replayEndTick,finalMatchTimeSeconds:finite(playerSummary?.finalMatchTimeSeconds)},
   foundations:{dischargeClaim:dischargeClaim.claimId,readyScheduleAuthorityArtifact:readyAuthorityPath},
   semanticScope:{
-    supported:'Observed primary-weapon discharge units, per-player discharge cadence, observed inter-discharge spacing, and the cross-replay replicated runtime readiness carrier m_flNextPrimaryAttack - m_flLastAttackTime at discharge boundaries.',
-    notClaimed:['Trigger/click attempts that do not discharge','Generic weapon accuracy','Current ammo','Effective magazine size','Effective DPS or damage composition','Static fire-rate formulas as runtime authority','Spin-up cadence outside the frozen fixed-regime readiness authority','Projectile travel or impact identity']
+    supported:'Observed primary-weapon discharge units, per-player discharge cadence, observed inter-discharge spacing, the cross-replay replicated runtime readiness carrier, and direct raw m_bInReload, m_eActiveFireMode, m_nNumContinuousShots, and m_nBurstShotsRemaining state carriers.',
+    notClaimed:['Trigger/click attempts that do not discharge','Generic weapon accuracy','Current ammo','Effective magazine size','Effective DPS or damage composition','Static fire-rate formulas as runtime authority','Spin-up cadence outside the frozen fixed-regime readiness authority','Projectile travel or impact identity','Named meanings for numeric fire-mode values','Burst design or trigger intent inferred from raw counters']
   },
-  counts:{players:players.length,candidateWeaponEvents,weaponEntities:weaponEntities.size,playerLinkedWeaponEntities:linkedWeaponEntities.size,positiveShotTransitions,dischargeEvents:events.length,dischargeUnits,corroboratedDischargeUnits:corroboratedUnits,nonCorroboratedDischargeUnits,readyDelaySamples,invalidReadyDelayEvents},
+  counts:{players:players.length,candidateWeaponEvents,weaponEntities:weaponEntities.size,playerLinkedWeaponEntities:linkedWeaponEntities.size,positiveShotTransitions,dischargeEvents:events.length,dischargeUnits,corroboratedDischargeUnits:corroboratedUnits,nonCorroboratedDischargeUnits,readyDelaySamples,invalidReadyDelayEvents,directStateEvents:stateEvents.length,playersWithDirectState:playersWithDirectState.length,playersWithoutDirectState:directStatePlayers.length-playersWithDirectState.length,playersWithAllDirectCarriers,reloadEnters,reloadExits,fireModeChanges,continuousCounterChanges,burstRemainingChanges},
   weaponClassCounts,
   players,
+  directStatePlayers,
   validation:{pass:true,checks}
 };
 mkdirSync(dirname(outputPath),{recursive:true});
 writeFileSync(outputPath,JSON.stringify(output,null,2)+'\n','utf8');
 writeFileSync(eventsPath,events.map(x=>JSON.stringify(x)).join('\n')+(events.length?'\n':''),'utf8');
+writeFileSync(stateEventsPath,stateEvents.map(x=>JSON.stringify(x)).join('\n')+(stateEvents.length?'\n':''),'utf8');
 console.log(`Status: ${STATUS_READY}`);
 console.log(`Players: ${players.length}`);
 console.log(`Weapon entities: ${weaponEntities.size} (${linkedWeaponEntities.size} player-linked)`);
 console.log(`Primary discharges: ${dischargeUnits} units across ${events.length} observed transitions`);
 console.log(`Ready-delay samples: ${readyDelaySamples}`);
+console.log(`Direct weapon-state events: ${stateEvents.length}; players with all carriers: ${playersWithAllDirectCarriers}/${sampled.players.length}`);
 console.log(`Last-attack corroboration: ${corroborationRate===null?'n/a':(corroborationRate*100).toFixed(2)+'%'}`);
 console.log(`JSON: ${outputPath}`);
 console.log(`Events: ${eventsPath}`);
+console.log(`State events: ${stateEventsPath}`);
 
 async function loadPlayerState(path){
   const map=new Map();
@@ -180,4 +235,5 @@ async function loadPlayerState(path){
 function findPreviousPlayerWeaponEvent(all,controllerEntityIndex,weaponEntityIndex){for(let i=all.length-1;i>=0;i--){const e=all[i];if(e.controllerEntityIndex===controllerEntityIndex&&e.weaponEntityIndex===weaponEntityIndex)return e;}return null;}
 function check(actual,expected,pass){return{actual,expected,pass:Boolean(pass)};}
 function finite(v){if(v===null||v===undefined||v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null;}
+function booleanOrNull(v){return v===true||v===1?true:v===false||v===0?false:null;}
 function serializable(v){if(v===undefined)return null;if(v===null||typeof v==='string'||typeof v==='number'||typeof v==='boolean')return v;if(typeof v==='object'){try{return JSON.parse(JSON.stringify(v));}catch{return String(v);}}return String(v);}

@@ -152,6 +152,7 @@ const evidenceFiles={
   autoAwards:['jsonl','citemxp_auto_award_units_v02.jsonl'],
   urnBursts:['jsonl','citemxp_auto_award_urn_bursts_v02.jsonl'],
   weapon:['jsonl','runtime_primary_fire_events_v01.jsonl'],
+  weaponState:['jsonl','runtime_primary_weapon_state_events_v01.jsonl'],
   melee:['jsonl','runtime_melee_events_v01.jsonl'],
   playerState:['jsonl','player_state.jsonl'],
   scoreboard:['jsonl','player_state.jsonl'],

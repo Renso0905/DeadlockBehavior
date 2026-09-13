@@ -6,7 +6,8 @@ import { PRODUCTION_METRIC_CONTRACT } from '../src/contracts/production-metric-c
 import { runPipeline } from '../inspector-v04/lib/pipeline.mjs';
 
 const args=process.argv.slice(2),processFirst=args.includes('--process');
-const names=args.filter(x=>!x.startsWith('--'));if(!names.length)names.push('104373259','test','rep01','rep02','rep03','rep04','rep05');
+const names=args.filter(x=>!x.startsWith('--'));
+if(!names.length)names.push(...(await fs.readdir('replays')).filter(x=>x.toLowerCase().endsWith('.dem')).map(x=>x.slice(0,-4)).sort());
 const results=[];
 for(const replayName of names){
  console.log(`Validating ${replayName}`);

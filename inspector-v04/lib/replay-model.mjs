@@ -21,7 +21,7 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
   const productionDir=publishedDirectory(dir,publishedManifest);
   const productionPath=f=>join(/^(player_state|runtime_)/.test(f)?productionDir:dir,f);
   const sourceFiles=[
-    'player_state.jsonl','player_state_summary.json','integrated_authoritative_player_state_substrate_v01.json','runtime_item_ownership_production_v01.json','runtime_permanent_buff_ownership_production_v01.json','runtime_bridge_buff_ownership_production_v01.json','runtime_primary_fire_production_v01.json','runtime_primary_fire_events_v01.jsonl','runtime_melee_production_v01.json','runtime_melee_events_v01.jsonl','production_manifest_v01.json','runtime_health_regen_production_v01.json','runtime_health_regen_events_v01.jsonl','runtime_trooper_deaths_production_v01.json','runtime_trooper_death_events_v01.jsonl','runtime_ground_soul_lifecycle_production_v01.json','runtime_ground_soul_lifecycle_events_v01.jsonl','runtime_assigned_gold_economic_credit_production_v01.json','runtime_assigned_gold_economic_credit_events_v01.jsonl','behavioral_metrics_v02.json',
+    'player_state.jsonl','player_state_summary.json','integrated_authoritative_player_state_substrate_v01.json','runtime_item_ownership_production_v01.json','runtime_permanent_buff_ownership_production_v01.json','runtime_bridge_buff_ownership_production_v01.json','runtime_primary_fire_production_v01.json','runtime_primary_fire_events_v01.jsonl','runtime_primary_weapon_state_events_v01.jsonl','runtime_melee_production_v01.json','runtime_melee_events_v01.jsonl','production_manifest_v01.json','runtime_health_regen_production_v01.json','runtime_health_regen_events_v01.jsonl','runtime_trooper_deaths_production_v01.json','runtime_trooper_death_events_v01.jsonl','runtime_ground_soul_lifecycle_production_v01.json','runtime_ground_soul_lifecycle_events_v01.jsonl','runtime_assigned_gold_economic_credit_production_v01.json','runtime_assigned_gold_economic_credit_events_v01.jsonl','behavioral_metrics_v02.json',
     'behavioral_resource_features_summary_v01.json','breakable_catalog_v1.json','breakable_action_stream_summary_v1.json',
     'breakable_reward_acquisition_summary_v1.json','trooper_ground_soul_one_to_one_summary_v01.json',
     'citemxp_inspector_events_v01.json','citemxp_auto_award_resolution_validation_v02.json','effective_weapon_runtime_events_v01.jsonl'
@@ -453,11 +453,13 @@ function applyGroundSouls(playerByName,summary){
 function applyRuntimePrimaryFire(playerByName,artifact,legacyWeapon=null){
   if(!artifact || artifact.status!=='RUNTIME_PRIMARY_FIRE_PRODUCTION_V01_READY') return legacyWeapon;
   const players=[...playerByName.values()],byPlayer={};
+  const directByController=new Map((artifact.directStatePlayers??[]).filter(x=>Number.isInteger(x.controllerEntityIndex)).map(x=>[x.controllerEntityIndex,x]));
   for(const row of artifact.players??[]){
     const p=players.find(x=>Number.isInteger(row.controllerEntityIndex)&&x.identity?.controllerEntityIndex===row.controllerEntityIndex)
       ?? players.find(x=>row.steamId!=null&&String(x.identity?.steamId)===String(row.steamId))
       ?? playerByName.get(row.playerName);
     if(!p)continue;
+    const direct=directByController.get(p.identity?.controllerEntityIndex)??(artifact.directStatePlayers??[]).find(x=>x.steamId!=null&&String(x.steamId)===String(p.identity?.steamId))??(artifact.directStatePlayers??[]).find(x=>x.playerName===p.playerName)??null;
     const w={
       ...(p.weapon??{}),
       events:row.dischargeEvents??0,
@@ -472,6 +474,13 @@ function applyRuntimePrimaryFire(playerByName,artifact,legacyWeapon=null){
       nextPrimaryReadyTimeline:row.nextPrimaryReadyTimeline??[],
       lastObservedNextPrimaryReady:row.lastObservedNextPrimaryReady??null,
       lastAttackCorroborationRate:row.lastAttackCorroborationRate??null,
+      directState:direct,
+      directStateTimeline:direct?.timeline??[],
+      reload:direct?.reload??null,
+      fireMode:direct?.fireMode??null,
+      burstContinuous:direct?.burstContinuous??null,
+      lastObservedDirectState:direct?.lastObservedState??null,
+      directStateAuthority:direct?'runtime_primary_weapon_direct_state_v01':null,
       authority:'runtime_primary_attack_ready_schedule',
       source:'runtime_primary_fire_production_v01.json'
     };
@@ -481,6 +490,8 @@ function applyRuntimePrimaryFire(playerByName,artifact,legacyWeapon=null){
     ...(legacyWeapon??{}),
     events:artifact.counts?.dischargeEvents??0,
     discharges:artifact.counts?.dischargeUnits??0,
+    directStateEvents:artifact.counts?.directStateEvents??0,
+    directStatePlayers:artifact.directStatePlayers?.length??0,
     byPlayer,
     authority:'runtime_primary_attack_ready_schedule',
     source:'runtime_primary_fire_production_v01.json'

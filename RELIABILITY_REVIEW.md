@@ -2,7 +2,7 @@
 
 Backup: `G:\DeadlockBehavior-backup-before-reliability-20260912`. SHA-256 verified 4,542 files / 10,749,693,828 bytes before application edits. Verification is recorded in the backup's `BACKUP_VERIFICATION.json`.
 
-The implementation preserves the research notebook, validated all original 108 A metrics, and then promoted one narrowly supported B metric. The current contract is 109 A metrics: 99 core and 10 extended. All promotions require evidence, producer ownership, availability, and display/export coverage.
+The implementation preserves the research notebook, validated all original 108 A metrics, and has now promoted four narrowly supported B metrics. The current contract is 112 A metrics: 102 core and 10 extended. All promotions require evidence, producer ownership, availability, and display/export coverage.
 
 | Finding | Action / review status |
 |---|---|
@@ -20,10 +20,14 @@ The implementation preserves the research notebook, validated all original 108 A
 | Existing producer-count test expected nine | Updated to ten; current root suite passes. |
 | Full sample stream reduced to one-second samples in UI | State queries now retain the observed sample cadence, avoiding omitted within-second changes. |
 | Final fractional second of team advantage omitted | Team series includes observed fractional end boundary. |
-| Some legacy A summary cards bypassed availability | Fixed: canonical cards use the shared evaluator; legacy A summaries fail closed when the published run or required field is unavailable. Browser checked at 109/109 with zero unavailable/unmapped cards. |
+| Some legacy A summary cards bypassed availability | Fixed: canonical cards use the shared evaluator; legacy A summaries fail closed when the published run or required field is unavailable. |
 | Comparison panels reset distinct same-name/player selections | Fixed: workspace persistence and validation use stable controller-based player IDs. |
 | No visible retry for a failed or stale replay | Fixed: Process / retry invokes the same serialized production path as import and the filesystem watcher. |
 | B metric `ground_soul_vacuum_target` mixed research matching with a broad label | Promoted narrowly as per-player resolved first physical `m_hVacuumTarget` links. Across all seven local replays, 12,181/12,183 links resolved (99.98%); two stale identities remain unresolved. All seven AssignedGold-index negative controls resolved zero. This is not economic receipt, collection, payout, ownership, reward value, or last-hit identity. |
+| Direct weapon-state summaries compared interleaved replacement-weapon rows | Fixed: reload and counter transitions are computed independently per weapon entity before player aggregation. The independent validator recomputes every transition from the published JSONL. |
+| A player with no PrimaryWeapon observations caused replay failure or risked a false zero | Fixed: the replay source remains authoritative when its observed players meet all carrier gates; an unobserved player/time is explicitly `N/A`. `rep02` contains one such player and passes this behavior end to end. |
+| A stale visualizer server and CLI validator could publish competing runs | Fixed: an atomic per-replay filesystem lock now rejects cross-process contention and safely removes locks left by dead processes. Server-side queue coalescing still handles duplicates inside one process. |
+| Three B weapon-state labels implied broader semantics than the carriers establish | Promoted with narrow definitions: observed reload state/transitions, raw numeric active-fire-mode value, and raw continuous/burst counters. Reload cause/efficiency, mode names, trigger intent, burst design, ammo, projectiles, damage, and effective-weapon composition remain excluded. |
 | Original broad Ground Soul resolver promotion candidate | HELD FOR REVIEW: V03 deterministic recovery and no-reuse gates do not independently prove economic attribution; negative/control evidence is still needed. |
 | Official/pause-adjusted game clock | OPEN SCIENTIFIC LIMIT: current axis is observed demo ticks minus the observed offset; official pause-adjusted clock authority is not established. |
 | Resource compatibility across future game patches | OPEN SCIENTIFIC LIMIT: frozen resource contracts are fingerprinted and producer gates reject unknown carriers; unseen builds still require validation. |
@@ -31,6 +35,6 @@ The implementation preserves the research notebook, validated all original 108 A
 
 The backup includes pre-existing uncommitted research outputs. They were not reset. A review finding does not automatically authorize a scientific promotion.
 
-Final validation: all seven local replays published 109/109 (`test`, `rep01`–`rep05`, `104373259`). The reliability validator passed 84 players and 27,468 start/mid/end probes with no errors. The research/contract suite passed 362/362 and the inspector/pipeline suite passed 96/96. Browser validation showed 109/109 available and mapped, including the promoted stat.
+Final validation: all nine local replays published 112/112 (`104373259`, `104559948`, `105367926`, `test`, and `rep01`–`rep05`). The reliability validator passed 108 players and 36,288 start/mid/end probes with no errors. The direct weapon-state replication audit passed 335,734 event rows, 12,680 reload entries and exits, 1,298 raw fire-mode changes, 303,656 continuous-count changes, and 49,862 burst-remaining changes. The research/contract suite passed 362/362 and the inspector/pipeline suite passed 99/99.
 
-Validation command: `node scripts/228-validate-production-reliability.mjs --process <replay-name> ...`. Reports go to `output/cross_replay/production_reliability_*_v02.json`. The promotion replication report is `output/cross_replay/ground_soul_physical_target_promotion_validation_v01.json`. The validator checks the entire canonical A set for every player at start, midpoint and end, plus time, movement, melee, scoreboard and team reconciliations. `available=false` and a measured zero are distinct.
+Validation command: `node scripts/228-validate-production-reliability.mjs --process <replay-name> ...`. Reports go to `output/cross_replay/production_reliability_*_v02.json`. Promotion replication reports include `output/cross_replay/ground_soul_physical_target_promotion_validation_v01.json` and `output/cross_replay/primary_weapon_direct_state_promotion_validation_v01.json`. The validator checks the entire canonical A set for every player at start, midpoint and end, plus time, movement, melee, scoreboard and team reconciliations. `available=false` and a measured zero are distinct.

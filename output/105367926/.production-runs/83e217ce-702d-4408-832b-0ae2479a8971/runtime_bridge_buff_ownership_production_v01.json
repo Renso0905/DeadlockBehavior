@@ -1,0 +1,1577 @@
+{
+  "version": "RUNTIME_BRIDGE_BUFF_OWNERSHIP_PRODUCTION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-13T05:48:50.626Z",
+  "status": "RUNTIME_BRIDGE_BUFF_OWNERSHIP_PRODUCTION_V01_READY",
+  "replay": {
+    "replayName": "105367926",
+    "replayPath": "G:\\DeadlockBehavior\\output\\.pipeline-work\\83e217ce-702d-4408-832b-0ae2479a8971\\replays\\105367926.dem",
+    "ticksPerSecond": 64,
+    "matchClockOffsetSeconds": 30,
+    "replayEndTick": 188772,
+    "matchEndTick": 186213,
+    "gameplayState": 7
+  },
+  "foundations": {
+    "resourceClaim": "bridge_powerup_resource_contract",
+    "ownershipClaim": "runtime_bridge_buff_ownership",
+    "resourceContractArtifact": "G:\\DeadlockBehavior\\output\\.pipeline-work\\83e217ce-702d-4408-832b-0ae2479a8971\\output\\cross_replay\\world_stat_buff_resource_contract_v02.json",
+    "collectionReplicationArtifact": "G:\\DeadlockBehavior\\output\\.pipeline-work\\83e217ce-702d-4408-832b-0ae2479a8971\\output\\cross_replay\\bridge_world_collection_cross_replay_replication_v01.json",
+    "runtimeIntervalAuthorityArtifact": "G:\\DeadlockBehavior\\output\\.pipeline-work\\83e217ce-702d-4408-832b-0ae2479a8971\\output\\cross_replay\\bridge_runtime_interval_authority_v01.json"
+  },
+  "semanticScope": {
+    "supported": "Per-player bridge-powerup collection and reconstructed ownership intervals using the cross-replay replicated world collection transition, frozen <=300 HU collector attribution, shared 160-second resource lifetime, exact replay death boundaries, and native match/replay censoring.",
+    "notClaimed": [
+      "A directly serialized player-side bridge modifier handle",
+      "Exact 5-to-40-minute effect interpolation",
+      "Gun/Casting/Movement dedicated player-side expiration consequence tests beyond the shared validated duration contract",
+      "Persistence beyond a replay or match censoring boundary"
+    ]
+  },
+  "counts": {
+    "players": 12,
+    "playerSnapshots": 11798,
+    "pickupMutationEvents": 618,
+    "pickupEntitiesObserved": 7,
+    "mappedIdentityObservations": 124,
+    "activeTrueToFalseUpdates": 18,
+    "controllerMutationEvents": 425162,
+    "deathEvents": 86,
+    "collectionEvents": 18,
+    "intervals": 18,
+    "naturalExpirations": 14,
+    "deathTerminations": 2,
+    "matchEndCensored": 2,
+    "replayEndCensored": 0
+  },
+  "powerups": [
+    {
+      "recordKey": "gun_powerup_pickup",
+      "recordId": 201785745,
+      "modifierClass": "modifier_citadel_powerup_gun",
+      "durationSeconds": 160
+    },
+    {
+      "recordKey": "survival_powerup_pickup",
+      "recordId": 828222066,
+      "modifierClass": "modifier_citadel_powerup_survival",
+      "durationSeconds": 160
+    },
+    {
+      "recordKey": "casting_powerup_pickup",
+      "recordId": 15572055,
+      "modifierClass": "modifier_citadel_powerup_casting",
+      "durationSeconds": 160
+    },
+    {
+      "recordKey": "movement_powerup_pickup",
+      "recordId": 754654000,
+      "modifierClass": "modifier_citadel_powerup_movement",
+      "durationSeconds": 160
+    }
+  ],
+  "players": [
+    {
+      "controllerEntityIndex": 2,
+      "playerName": "StarClan's Strongest Warrior",
+      "steamId": "76561198135963540",
+      "heroId": 64,
+      "team": 2,
+      "alive": true,
+      "position": [
+        -146.625,
+        -2096.28125,
+        376.0625
+      ],
+      "bridgeIntervals": [
+        {
+          "intervalId": "bridge-2",
+          "playerName": "StarClan's Strongest Warrior",
+          "steamId": "76561198135963540",
+          "controllerEntityIndex": 2,
+          "heroId": 64,
+          "team": 2,
+          "buffType": "gun_powerup_pickup",
+          "recordKey": "gun_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_gun",
+          "sourceEntityIndex": 2946,
+          "recordId": 201785745,
+          "startTick": 22234,
+          "nominalEndTick": 32474,
+          "stateEndTick": 32474,
+          "startTime": 317.40625,
+          "nominalEndTime": 477.40625,
+          "endTime": 477.40625,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 76.18287901285629,
+          "collectorSnapshotTick": 22240,
+          "collectorSnapshotGapTicks": 6,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-7",
+          "playerName": "StarClan's Strongest Warrior",
+          "steamId": "76561198135963540",
+          "controllerEntityIndex": 2,
+          "heroId": 64,
+          "team": 2,
+          "buffType": "survival_powerup_pickup",
+          "recordKey": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "sourceEntityIndex": 2917,
+          "recordId": 828222066,
+          "startTick": 79844,
+          "nominalEndTick": 90084,
+          "stateEndTick": 90084,
+          "startTime": 1217.5625,
+          "nominalEndTime": 1377.5625,
+          "endTime": 1377.5625,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 106.59770312957029,
+          "collectorSnapshotTick": 79840,
+          "collectorSnapshotGapTicks": -4,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-10",
+          "playerName": "StarClan's Strongest Warrior",
+          "steamId": "76561198135963540",
+          "controllerEntityIndex": 2,
+          "heroId": 64,
+          "team": 2,
+          "buffType": "movement_powerup_pickup",
+          "recordKey": "movement_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_movement",
+          "sourceEntityIndex": 2946,
+          "recordId": 754654000,
+          "startTick": 98866,
+          "nominalEndTick": 109106,
+          "stateEndTick": 109106,
+          "startTime": 1514.78125,
+          "nominalEndTime": 1674.78125,
+          "endTime": 1674.78125,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 81.87181530065764,
+          "collectorSnapshotTick": 98864,
+          "collectorSnapshotGapTicks": -2,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-18",
+          "playerName": "StarClan's Strongest Warrior",
+          "steamId": "76561198135963540",
+          "controllerEntityIndex": 2,
+          "heroId": 64,
+          "team": 2,
+          "buffType": "survival_powerup_pickup",
+          "recordKey": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "sourceEntityIndex": 2917,
+          "recordId": 828222066,
+          "startTick": 183100,
+          "nominalEndTick": 193340,
+          "stateEndTick": 186213,
+          "startTime": 2830.9375,
+          "nominalEndTime": 2990.9375,
+          "endTime": 2879.578125,
+          "durationSeconds": 48.640625,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "MATCH_END_CENSORED",
+          "terminationObserved": false,
+          "collectionDistanceHU": 78.4589487606417,
+          "collectorSnapshotTick": 183104,
+          "collectorSnapshotGapTicks": 4,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "collectionEvents": [
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 22234,
+          "matchTimeSeconds": 317.40625,
+          "time": 317.40625,
+          "playerName": "StarClan's Strongest Warrior",
+          "steamId": "76561198135963540",
+          "controllerEntityIndex": 2,
+          "heroId": 64,
+          "team": 2,
+          "recordKey": "gun_powerup_pickup",
+          "buffType": "gun_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_gun",
+          "recordId": 201785745,
+          "sourceEntityIndex": 2946,
+          "collectionDistanceHU": 76.18287901285629,
+          "collectorSnapshotTick": 22240,
+          "collectorSnapshotGapTicks": 6,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 32474,
+          "endTime": 477.40625,
+          "durationSeconds": 160
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 79844,
+          "matchTimeSeconds": 1217.5625,
+          "time": 1217.5625,
+          "playerName": "StarClan's Strongest Warrior",
+          "steamId": "76561198135963540",
+          "controllerEntityIndex": 2,
+          "heroId": 64,
+          "team": 2,
+          "recordKey": "survival_powerup_pickup",
+          "buffType": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "recordId": 828222066,
+          "sourceEntityIndex": 2917,
+          "collectionDistanceHU": 106.59770312957029,
+          "collectorSnapshotTick": 79840,
+          "collectorSnapshotGapTicks": -4,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 90084,
+          "endTime": 1377.5625,
+          "durationSeconds": 160
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 98866,
+          "matchTimeSeconds": 1514.78125,
+          "time": 1514.78125,
+          "playerName": "StarClan's Strongest Warrior",
+          "steamId": "76561198135963540",
+          "controllerEntityIndex": 2,
+          "heroId": 64,
+          "team": 2,
+          "recordKey": "movement_powerup_pickup",
+          "buffType": "movement_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_movement",
+          "recordId": 754654000,
+          "sourceEntityIndex": 2946,
+          "collectionDistanceHU": 81.87181530065764,
+          "collectorSnapshotTick": 98864,
+          "collectorSnapshotGapTicks": -2,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 109106,
+          "endTime": 1674.78125,
+          "durationSeconds": 160
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 183100,
+          "matchTimeSeconds": 2830.9375,
+          "time": 2830.9375,
+          "playerName": "StarClan's Strongest Warrior",
+          "steamId": "76561198135963540",
+          "controllerEntityIndex": 2,
+          "heroId": 64,
+          "team": 2,
+          "recordKey": "survival_powerup_pickup",
+          "buffType": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "recordId": 828222066,
+          "sourceEntityIndex": 2917,
+          "collectionDistanceHU": 78.4589487606417,
+          "collectorSnapshotTick": 183104,
+          "collectorSnapshotGapTicks": 4,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          },
+          "terminationReason": "MATCH_END_CENSORED",
+          "stateEndTick": 186213,
+          "endTime": 2879.578125,
+          "durationSeconds": 48.640625
+        }
+      ],
+      "summary": {
+        "collections": 4,
+        "totalUptimeSeconds": 528.640625,
+        "byFamily": {
+          "gun_powerup_pickup": 1,
+          "survival_powerup_pickup": 2,
+          "movement_powerup_pickup": 1
+        },
+        "termination": {
+          "NATURAL_EXPIRATION": 3,
+          "MATCH_END_CENSORED": 1
+        },
+        "maxConcurrent": 1,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 3,
+      "playerName": "Vari",
+      "steamId": "76561198881311140",
+      "heroId": 63,
+      "team": 2,
+      "alive": true,
+      "position": [
+        349.65625,
+        -645.59375,
+        248
+      ],
+      "bridgeIntervals": [
+        {
+          "intervalId": "bridge-8",
+          "playerName": "Vari",
+          "steamId": "76561198881311140",
+          "controllerEntityIndex": 3,
+          "heroId": 63,
+          "team": 2,
+          "buffType": "gun_powerup_pickup",
+          "recordKey": "gun_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_gun",
+          "sourceEntityIndex": 2946,
+          "recordId": 201785745,
+          "startTick": 80105,
+          "nominalEndTick": 90345,
+          "stateEndTick": 90345,
+          "startTime": 1221.640625,
+          "nominalEndTime": 1381.640625,
+          "endTime": 1381.640625,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 75.2999600556003,
+          "collectorSnapshotTick": 80112,
+          "collectorSnapshotGapTicks": 7,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-14",
+          "playerName": "Vari",
+          "steamId": "76561198881311140",
+          "controllerEntityIndex": 3,
+          "heroId": 63,
+          "team": 2,
+          "buffType": "casting_powerup_pickup",
+          "recordKey": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "sourceEntityIndex": 2917,
+          "recordId": 15572055,
+          "startTick": 137219,
+          "nominalEndTick": 147459,
+          "stateEndTick": 139235,
+          "startTime": 2114.046875,
+          "nominalEndTime": 2274.046875,
+          "endTime": 2145.546875,
+          "durationSeconds": 31.5,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "DEATH_TERMINATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 97.0401465325692,
+          "collectorSnapshotTick": 137216,
+          "collectorSnapshotGapTicks": -3,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "collectionEvents": [
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 80105,
+          "matchTimeSeconds": 1221.640625,
+          "time": 1221.640625,
+          "playerName": "Vari",
+          "steamId": "76561198881311140",
+          "controllerEntityIndex": 3,
+          "heroId": 63,
+          "team": 2,
+          "recordKey": "gun_powerup_pickup",
+          "buffType": "gun_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_gun",
+          "recordId": 201785745,
+          "sourceEntityIndex": 2946,
+          "collectionDistanceHU": 75.2999600556003,
+          "collectorSnapshotTick": 80112,
+          "collectorSnapshotGapTicks": 7,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 90345,
+          "endTime": 1381.640625,
+          "durationSeconds": 160
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 137219,
+          "matchTimeSeconds": 2114.046875,
+          "time": 2114.046875,
+          "playerName": "Vari",
+          "steamId": "76561198881311140",
+          "controllerEntityIndex": 3,
+          "heroId": 63,
+          "team": 2,
+          "recordKey": "casting_powerup_pickup",
+          "buffType": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "recordId": 15572055,
+          "sourceEntityIndex": 2917,
+          "collectionDistanceHU": 97.0401465325692,
+          "collectorSnapshotTick": 137216,
+          "collectorSnapshotGapTicks": -3,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          },
+          "terminationReason": "DEATH_TERMINATION",
+          "stateEndTick": 139235,
+          "endTime": 2145.546875,
+          "durationSeconds": 31.5
+        }
+      ],
+      "summary": {
+        "collections": 2,
+        "totalUptimeSeconds": 191.5,
+        "byFamily": {
+          "gun_powerup_pickup": 1,
+          "casting_powerup_pickup": 1
+        },
+        "termination": {
+          "NATURAL_EXPIRATION": 1,
+          "DEATH_TERMINATION": 1
+        },
+        "maxConcurrent": 1,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 4,
+      "playerName": "Gambling Addicted Raccoon",
+      "steamId": "76561198802534594",
+      "heroId": 76,
+      "team": 2,
+      "alive": false,
+      "position": [
+        -1.53125,
+        -9989.1875,
+        1216.03125
+      ],
+      "bridgeIntervals": [
+        {
+          "intervalId": "bridge-4",
+          "playerName": "Gambling Addicted Raccoon",
+          "steamId": "76561198802534594",
+          "controllerEntityIndex": 4,
+          "heroId": 76,
+          "team": 2,
+          "buffType": "movement_powerup_pickup",
+          "recordKey": "movement_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_movement",
+          "sourceEntityIndex": 2917,
+          "recordId": 754654000,
+          "startTick": 42641,
+          "nominalEndTick": 52881,
+          "stateEndTick": 52881,
+          "startTime": 636.265625,
+          "nominalEndTime": 796.265625,
+          "endTime": 796.265625,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 85.56389242840697,
+          "collectorSnapshotTick": 42640,
+          "collectorSnapshotGapTicks": -1,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-6",
+          "playerName": "Gambling Addicted Raccoon",
+          "steamId": "76561198802534594",
+          "controllerEntityIndex": 4,
+          "heroId": 76,
+          "team": 2,
+          "buffType": "movement_powerup_pickup",
+          "recordKey": "movement_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_movement",
+          "sourceEntityIndex": 2917,
+          "recordId": 754654000,
+          "startTick": 60531,
+          "nominalEndTick": 70771,
+          "stateEndTick": 70771,
+          "startTime": 915.796875,
+          "nominalEndTime": 1075.796875,
+          "endTime": 1075.796875,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 102.85939754860759,
+          "collectorSnapshotTick": 60528,
+          "collectorSnapshotGapTicks": -3,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-9",
+          "playerName": "Gambling Addicted Raccoon",
+          "steamId": "76561198802534594",
+          "controllerEntityIndex": 4,
+          "heroId": 76,
+          "team": 2,
+          "buffType": "survival_powerup_pickup",
+          "recordKey": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "sourceEntityIndex": 2917,
+          "recordId": 828222066,
+          "startTick": 98360,
+          "nominalEndTick": 108600,
+          "stateEndTick": 108600,
+          "startTime": 1506.875,
+          "nominalEndTime": 1666.875,
+          "endTime": 1666.875,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 163.64088384993372,
+          "collectorSnapshotTick": 98352,
+          "collectorSnapshotGapTicks": -8,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "collectionEvents": [
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 42641,
+          "matchTimeSeconds": 636.265625,
+          "time": 636.265625,
+          "playerName": "Gambling Addicted Raccoon",
+          "steamId": "76561198802534594",
+          "controllerEntityIndex": 4,
+          "heroId": 76,
+          "team": 2,
+          "recordKey": "movement_powerup_pickup",
+          "buffType": "movement_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_movement",
+          "recordId": 754654000,
+          "sourceEntityIndex": 2917,
+          "collectionDistanceHU": 85.56389242840697,
+          "collectorSnapshotTick": 42640,
+          "collectorSnapshotGapTicks": -1,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 52881,
+          "endTime": 796.265625,
+          "durationSeconds": 160
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 60531,
+          "matchTimeSeconds": 915.796875,
+          "time": 915.796875,
+          "playerName": "Gambling Addicted Raccoon",
+          "steamId": "76561198802534594",
+          "controllerEntityIndex": 4,
+          "heroId": 76,
+          "team": 2,
+          "recordKey": "movement_powerup_pickup",
+          "buffType": "movement_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_movement",
+          "recordId": 754654000,
+          "sourceEntityIndex": 2917,
+          "collectionDistanceHU": 102.85939754860759,
+          "collectorSnapshotTick": 60528,
+          "collectorSnapshotGapTicks": -3,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 70771,
+          "endTime": 1075.796875,
+          "durationSeconds": 160
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 98360,
+          "matchTimeSeconds": 1506.875,
+          "time": 1506.875,
+          "playerName": "Gambling Addicted Raccoon",
+          "steamId": "76561198802534594",
+          "controllerEntityIndex": 4,
+          "heroId": 76,
+          "team": 2,
+          "recordKey": "survival_powerup_pickup",
+          "buffType": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "recordId": 828222066,
+          "sourceEntityIndex": 2917,
+          "collectionDistanceHU": 163.64088384993372,
+          "collectorSnapshotTick": 98352,
+          "collectorSnapshotGapTicks": -8,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 108600,
+          "endTime": 1666.875,
+          "durationSeconds": 160
+        }
+      ],
+      "summary": {
+        "collections": 3,
+        "totalUptimeSeconds": 480,
+        "byFamily": {
+          "movement_powerup_pickup": 2,
+          "survival_powerup_pickup": 1
+        },
+        "termination": {
+          "NATURAL_EXPIRATION": 3
+        },
+        "maxConcurrent": 1,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 5,
+      "playerName": "gooeytip",
+      "steamId": "76561198675651730",
+      "heroId": 10,
+      "team": 3,
+      "alive": false,
+      "position": [
+        0,
+        10200,
+        1216.03125
+      ],
+      "bridgeIntervals": [
+        {
+          "intervalId": "bridge-11",
+          "playerName": "gooeytip",
+          "steamId": "76561198675651730",
+          "controllerEntityIndex": 5,
+          "heroId": 10,
+          "team": 3,
+          "buffType": "gun_powerup_pickup",
+          "recordKey": "gun_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_gun",
+          "sourceEntityIndex": 2946,
+          "recordId": 201785745,
+          "startTick": 117822,
+          "nominalEndTick": 128062,
+          "stateEndTick": 128062,
+          "startTime": 1810.96875,
+          "nominalEndTime": 1970.96875,
+          "endTime": 1970.96875,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 81.29878943786618,
+          "collectorSnapshotTick": 117824,
+          "collectorSnapshotGapTicks": 2,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-15",
+          "playerName": "gooeytip",
+          "steamId": "76561198675651730",
+          "controllerEntityIndex": 5,
+          "heroId": 10,
+          "team": 3,
+          "buffType": "gun_powerup_pickup",
+          "recordKey": "gun_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_gun",
+          "sourceEntityIndex": 2917,
+          "recordId": 201785745,
+          "startTick": 156950,
+          "nominalEndTick": 167190,
+          "stateEndTick": 167190,
+          "startTime": 2422.34375,
+          "nominalEndTime": 2582.34375,
+          "endTime": 2582.34375,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 136.13908185886595,
+          "collectorSnapshotTick": 156944,
+          "collectorSnapshotGapTicks": -6,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        }
+      ],
+      "collectionEvents": [
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 117822,
+          "matchTimeSeconds": 1810.96875,
+          "time": 1810.96875,
+          "playerName": "gooeytip",
+          "steamId": "76561198675651730",
+          "controllerEntityIndex": 5,
+          "heroId": 10,
+          "team": 3,
+          "recordKey": "gun_powerup_pickup",
+          "buffType": "gun_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_gun",
+          "recordId": 201785745,
+          "sourceEntityIndex": 2946,
+          "collectionDistanceHU": 81.29878943786618,
+          "collectorSnapshotTick": 117824,
+          "collectorSnapshotGapTicks": 2,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 128062,
+          "endTime": 1970.96875,
+          "durationSeconds": 160
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 156950,
+          "matchTimeSeconds": 2422.34375,
+          "time": 2422.34375,
+          "playerName": "gooeytip",
+          "steamId": "76561198675651730",
+          "controllerEntityIndex": 5,
+          "heroId": 10,
+          "team": 3,
+          "recordKey": "gun_powerup_pickup",
+          "buffType": "gun_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_gun",
+          "recordId": 201785745,
+          "sourceEntityIndex": 2917,
+          "collectionDistanceHU": 136.13908185886595,
+          "collectorSnapshotTick": 156944,
+          "collectorSnapshotGapTicks": -6,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 167190,
+          "endTime": 2582.34375,
+          "durationSeconds": 160
+        }
+      ],
+      "summary": {
+        "collections": 2,
+        "totalUptimeSeconds": 320,
+        "byFamily": {
+          "gun_powerup_pickup": 2
+        },
+        "termination": {
+          "NATURAL_EXPIRATION": 2
+        },
+        "maxConcurrent": 1,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 6,
+      "playerName": "Zaeleth",
+      "steamId": "76561198079477113",
+      "heroId": 81,
+      "team": 3,
+      "alive": false,
+      "position": [
+        0,
+        10301.1875,
+        1218
+      ],
+      "bridgeIntervals": [
+        {
+          "intervalId": "bridge-12",
+          "playerName": "Zaeleth",
+          "steamId": "76561198079477113",
+          "controllerEntityIndex": 6,
+          "heroId": 81,
+          "team": 3,
+          "buffType": "casting_powerup_pickup",
+          "recordKey": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "sourceEntityIndex": 2917,
+          "recordId": 15572055,
+          "startTick": 118667,
+          "nominalEndTick": 128907,
+          "stateEndTick": 128907,
+          "startTime": 1824.171875,
+          "nominalEndTime": 1984.171875,
+          "endTime": 1984.171875,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 101.32163264667372,
+          "collectorSnapshotTick": 118672,
+          "collectorSnapshotGapTicks": 5,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-16",
+          "playerName": "Zaeleth",
+          "steamId": "76561198079477113",
+          "controllerEntityIndex": 6,
+          "heroId": 81,
+          "team": 3,
+          "buffType": "movement_powerup_pickup",
+          "recordKey": "movement_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_movement",
+          "sourceEntityIndex": 2946,
+          "recordId": 754654000,
+          "startTick": 157268,
+          "nominalEndTick": 167508,
+          "stateEndTick": 167508,
+          "startTime": 2427.3125,
+          "nominalEndTime": 2587.3125,
+          "endTime": 2587.3125,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 114.0824725664508,
+          "collectorSnapshotTick": 157264,
+          "collectorSnapshotGapTicks": -4,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "collectionEvents": [
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 118667,
+          "matchTimeSeconds": 1824.171875,
+          "time": 1824.171875,
+          "playerName": "Zaeleth",
+          "steamId": "76561198079477113",
+          "controllerEntityIndex": 6,
+          "heroId": 81,
+          "team": 3,
+          "recordKey": "casting_powerup_pickup",
+          "buffType": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "recordId": 15572055,
+          "sourceEntityIndex": 2917,
+          "collectionDistanceHU": 101.32163264667372,
+          "collectorSnapshotTick": 118672,
+          "collectorSnapshotGapTicks": 5,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 128907,
+          "endTime": 1984.171875,
+          "durationSeconds": 160
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 157268,
+          "matchTimeSeconds": 2427.3125,
+          "time": 2427.3125,
+          "playerName": "Zaeleth",
+          "steamId": "76561198079477113",
+          "controllerEntityIndex": 6,
+          "heroId": 81,
+          "team": 3,
+          "recordKey": "movement_powerup_pickup",
+          "buffType": "movement_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_movement",
+          "recordId": 754654000,
+          "sourceEntityIndex": 2946,
+          "collectionDistanceHU": 114.0824725664508,
+          "collectorSnapshotTick": 157264,
+          "collectorSnapshotGapTicks": -4,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 167508,
+          "endTime": 2587.3125,
+          "durationSeconds": 160
+        }
+      ],
+      "summary": {
+        "collections": 2,
+        "totalUptimeSeconds": 320,
+        "byFamily": {
+          "casting_powerup_pickup": 1,
+          "movement_powerup_pickup": 1
+        },
+        "termination": {
+          "NATURAL_EXPIRATION": 2
+        },
+        "maxConcurrent": 1,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 7,
+      "playerName": "Nebula",
+      "steamId": "76561198200463289",
+      "heroId": 65,
+      "team": 3,
+      "alive": false,
+      "position": [
+        -32,
+        10248,
+        1216.03125
+      ],
+      "bridgeIntervals": [
+        {
+          "intervalId": "bridge-3",
+          "playerName": "Nebula",
+          "steamId": "76561198200463289",
+          "controllerEntityIndex": 7,
+          "heroId": 65,
+          "team": 3,
+          "buffType": "survival_powerup_pickup",
+          "recordKey": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "sourceEntityIndex": 2946,
+          "recordId": 828222066,
+          "startTick": 41547,
+          "nominalEndTick": 51787,
+          "stateEndTick": 51787,
+          "startTime": 619.171875,
+          "nominalEndTime": 779.171875,
+          "endTime": 779.171875,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 34.45588495181193,
+          "collectorSnapshotTick": 41552,
+          "collectorSnapshotGapTicks": 5,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-13",
+          "playerName": "Nebula",
+          "steamId": "76561198200463289",
+          "controllerEntityIndex": 7,
+          "heroId": 65,
+          "team": 3,
+          "buffType": "survival_powerup_pickup",
+          "recordKey": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "sourceEntityIndex": 2946,
+          "recordId": 828222066,
+          "startTick": 136814,
+          "nominalEndTick": 147054,
+          "stateEndTick": 147054,
+          "startTime": 2107.71875,
+          "nominalEndTime": 2267.71875,
+          "endTime": 2267.71875,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 142.82179605959132,
+          "collectorSnapshotTick": 136816,
+          "collectorSnapshotGapTicks": 2,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "collectionEvents": [
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 41547,
+          "matchTimeSeconds": 619.171875,
+          "time": 619.171875,
+          "playerName": "Nebula",
+          "steamId": "76561198200463289",
+          "controllerEntityIndex": 7,
+          "heroId": 65,
+          "team": 3,
+          "recordKey": "survival_powerup_pickup",
+          "buffType": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "recordId": 828222066,
+          "sourceEntityIndex": 2946,
+          "collectionDistanceHU": 34.45588495181193,
+          "collectorSnapshotTick": 41552,
+          "collectorSnapshotGapTicks": 5,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 51787,
+          "endTime": 779.171875,
+          "durationSeconds": 160
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 136814,
+          "matchTimeSeconds": 2107.71875,
+          "time": 2107.71875,
+          "playerName": "Nebula",
+          "steamId": "76561198200463289",
+          "controllerEntityIndex": 7,
+          "heroId": 65,
+          "team": 3,
+          "recordKey": "survival_powerup_pickup",
+          "buffType": "survival_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_survival",
+          "recordId": 828222066,
+          "sourceEntityIndex": 2946,
+          "collectionDistanceHU": 142.82179605959132,
+          "collectorSnapshotTick": 136816,
+          "collectorSnapshotGapTicks": 2,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 147054,
+          "endTime": 2267.71875,
+          "durationSeconds": 160
+        }
+      ],
+      "summary": {
+        "collections": 2,
+        "totalUptimeSeconds": 320,
+        "byFamily": {
+          "survival_powerup_pickup": 2
+        },
+        "termination": {
+          "NATURAL_EXPIRATION": 2
+        },
+        "maxConcurrent": 1,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 8,
+      "playerName": "Quindarious Gooch",
+      "steamId": "76561198156944274",
+      "heroId": 79,
+      "team": 2,
+      "alive": true,
+      "position": [
+        213.46875,
+        -2233.28125,
+        376.03125
+      ],
+      "bridgeIntervals": [],
+      "collectionEvents": [],
+      "summary": {
+        "collections": 0,
+        "totalUptimeSeconds": 0,
+        "byFamily": {},
+        "termination": {},
+        "maxConcurrent": 0,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 9,
+      "playerName": "knuckle sandwich",
+      "steamId": "76561198141800719",
+      "heroId": 2,
+      "team": 3,
+      "alive": false,
+      "position": [
+        64,
+        10200,
+        1215.84375
+      ],
+      "bridgeIntervals": [],
+      "collectionEvents": [],
+      "summary": {
+        "collections": 0,
+        "totalUptimeSeconds": 0,
+        "byFamily": {},
+        "termination": {},
+        "maxConcurrent": 0,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 10,
+      "playerName": "renso",
+      "steamId": "76561198107069146",
+      "heroId": 35,
+      "team": 3,
+      "alive": false,
+      "position": [
+        64,
+        10301.1875,
+        1218
+      ],
+      "bridgeIntervals": [],
+      "collectionEvents": [],
+      "summary": {
+        "collections": 0,
+        "totalUptimeSeconds": 0,
+        "byFamily": {},
+        "termination": {},
+        "maxConcurrent": 0,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 11,
+      "playerName": "Bafly",
+      "steamId": "76561199233449296",
+      "heroId": 13,
+      "team": 2,
+      "alive": true,
+      "position": [
+        859.25,
+        -4459.6875,
+        512.8125
+      ],
+      "bridgeIntervals": [
+        {
+          "intervalId": "bridge-5",
+          "playerName": "Bafly",
+          "steamId": "76561199233449296",
+          "controllerEntityIndex": 11,
+          "heroId": 13,
+          "team": 2,
+          "buffType": "casting_powerup_pickup",
+          "recordKey": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "sourceEntityIndex": 2946,
+          "recordId": 15572055,
+          "startTick": 60029,
+          "nominalEndTick": 70269,
+          "stateEndTick": 70269,
+          "startTime": 907.953125,
+          "nominalEndTime": 1067.953125,
+          "endTime": 1067.953125,
+          "durationSeconds": 160,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "NATURAL_EXPIRATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 83.14639644739573,
+          "collectorSnapshotTick": 60032,
+          "collectorSnapshotGapTicks": 3,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "collectionEvents": [
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 60029,
+          "matchTimeSeconds": 907.953125,
+          "time": 907.953125,
+          "playerName": "Bafly",
+          "steamId": "76561199233449296",
+          "controllerEntityIndex": 11,
+          "heroId": 13,
+          "team": 2,
+          "recordKey": "casting_powerup_pickup",
+          "buffType": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "recordId": 15572055,
+          "sourceEntityIndex": 2946,
+          "collectionDistanceHU": 83.14639644739573,
+          "collectorSnapshotTick": 60032,
+          "collectorSnapshotGapTicks": 3,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          },
+          "terminationReason": "NATURAL_EXPIRATION",
+          "stateEndTick": 70269,
+          "endTime": 1067.953125,
+          "durationSeconds": 160
+        }
+      ],
+      "summary": {
+        "collections": 1,
+        "totalUptimeSeconds": 160,
+        "byFamily": {
+          "casting_powerup_pickup": 1
+        },
+        "termination": {
+          "NATURAL_EXPIRATION": 1
+        },
+        "maxConcurrent": 1,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 12,
+      "playerName": "Goldinfer",
+      "steamId": "76561198101422226",
+      "heroId": 19,
+      "team": 3,
+      "alive": false,
+      "position": [
+        32,
+        10248,
+        1215.84375
+      ],
+      "bridgeIntervals": [],
+      "collectionEvents": [],
+      "summary": {
+        "collections": 0,
+        "totalUptimeSeconds": 0,
+        "byFamily": {},
+        "termination": {},
+        "maxConcurrent": 0,
+        "overlapSeconds": 0
+      }
+    },
+    {
+      "controllerEntityIndex": 13,
+      "playerName": "PatchyRogue",
+      "steamId": "76561199083377119",
+      "heroId": 27,
+      "team": 2,
+      "alive": true,
+      "position": [
+        -272.03125,
+        -2515,
+        384.1875
+      ],
+      "bridgeIntervals": [
+        {
+          "intervalId": "bridge-1",
+          "playerName": "PatchyRogue",
+          "steamId": "76561199083377119",
+          "controllerEntityIndex": 13,
+          "heroId": 27,
+          "team": 2,
+          "buffType": "casting_powerup_pickup",
+          "recordKey": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "sourceEntityIndex": 2917,
+          "recordId": 15572055,
+          "startTick": 21808,
+          "nominalEndTick": 32048,
+          "stateEndTick": 25986,
+          "startTime": 310.75,
+          "nominalEndTime": 470.75,
+          "endTime": 376.03125,
+          "durationSeconds": 65.28125,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "DEATH_TERMINATION",
+          "terminationObserved": true,
+          "collectionDistanceHU": 83.5672504726732,
+          "collectorSnapshotTick": 21808,
+          "collectorSnapshotGapTicks": 0,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          }
+        },
+        {
+          "intervalId": "bridge-17",
+          "playerName": "PatchyRogue",
+          "steamId": "76561199083377119",
+          "controllerEntityIndex": 13,
+          "heroId": 27,
+          "team": 2,
+          "buffType": "casting_powerup_pickup",
+          "recordKey": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "sourceEntityIndex": 2946,
+          "recordId": 15572055,
+          "startTick": 176202,
+          "nominalEndTick": 186442,
+          "stateEndTick": 186213,
+          "startTime": 2723.15625,
+          "nominalEndTime": 2883.15625,
+          "endTime": 2879.578125,
+          "durationSeconds": 156.421875,
+          "resourceDurationSeconds": 160,
+          "terminationReason": "MATCH_END_CENSORED",
+          "terminationObserved": false,
+          "collectionDistanceHU": 78.44383689541837,
+          "collectorSnapshotTick": 176208,
+          "collectorSnapshotGapTicks": 6,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          }
+        }
+      ],
+      "collectionEvents": [
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 21808,
+          "matchTimeSeconds": 310.75,
+          "time": 310.75,
+          "playerName": "PatchyRogue",
+          "steamId": "76561199083377119",
+          "controllerEntityIndex": 13,
+          "heroId": 27,
+          "team": 2,
+          "recordKey": "casting_powerup_pickup",
+          "buffType": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "recordId": 15572055,
+          "sourceEntityIndex": 2917,
+          "collectionDistanceHU": 83.5672504726732,
+          "collectorSnapshotTick": 21808,
+          "collectorSnapshotGapTicks": 0,
+          "position": {
+            "x": -3936,
+            "y": 136,
+            "z": 912
+          },
+          "terminationReason": "DEATH_TERMINATION",
+          "stateEndTick": 25986,
+          "endTime": 376.03125,
+          "durationSeconds": 65.28125
+        },
+        {
+          "eventType": "BRIDGE_POWERUP_COLLECTED",
+          "tick": 176202,
+          "matchTimeSeconds": 2723.15625,
+          "time": 2723.15625,
+          "playerName": "PatchyRogue",
+          "steamId": "76561199083377119",
+          "controllerEntityIndex": 13,
+          "heroId": 27,
+          "team": 2,
+          "recordKey": "casting_powerup_pickup",
+          "buffType": "casting_powerup_pickup",
+          "modifierClass": "modifier_citadel_powerup_casting",
+          "recordId": 15572055,
+          "sourceEntityIndex": 2946,
+          "collectionDistanceHU": 78.44383689541837,
+          "collectorSnapshotTick": 176208,
+          "collectorSnapshotGapTicks": 6,
+          "position": {
+            "x": 3936,
+            "y": -128,
+            "z": 912
+          },
+          "terminationReason": "MATCH_END_CENSORED",
+          "stateEndTick": 186213,
+          "endTime": 2879.578125,
+          "durationSeconds": 156.421875
+        }
+      ],
+      "summary": {
+        "collections": 2,
+        "totalUptimeSeconds": 221.703125,
+        "byFamily": {
+          "casting_powerup_pickup": 2
+        },
+        "termination": {
+          "DEATH_TERMINATION": 1,
+          "MATCH_END_CENSORED": 1
+        },
+        "maxConcurrent": 1,
+        "overlapSeconds": 0
+      }
+    }
+  ],
+  "diagnostics": {
+    "nonGameplayActiveDowns": [],
+    "unattributedGameplayActiveDowns": []
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "resourceClaimCurrent": {
+        "actual": "current",
+        "expected": "current",
+        "pass": true
+      },
+      "ownershipClaimCurrent": {
+        "actual": "current",
+        "expected": "current",
+        "pass": true
+      },
+      "ownershipSemanticPass": {
+        "actual": "pass",
+        "expected": "pass",
+        "pass": true
+      },
+      "ownershipReplicationCrossReplay": {
+        "actual": "cross_replay_replicated",
+        "expected": "cross_replay_replicated",
+        "pass": true
+      },
+      "resourceContractReady": {
+        "actual": "WORLD_STAT_BUFF_RESOURCE_CONTRACT_V02_READY",
+        "expected": "WORLD_STAT_BUFF_RESOURCE_CONTRACT_V02_READY",
+        "pass": true
+      },
+      "collectionReplicationStrong": {
+        "actual": "BRIDGE_WORLD_COLLECTION_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "expected": "BRIDGE_WORLD_COLLECTION_V01_STRONGLY_REPLICATED_ACROSS_INDEPENDENT_REPLAYS",
+        "pass": true
+      },
+      "intervalAuthorityReady": {
+        "actual": "BRIDGE_RUNTIME_INTERVAL_AUTHORITY_V01_READY",
+        "expected": "BRIDGE_RUNTIME_INTERVAL_AUTHORITY_V01_READY",
+        "pass": true
+      },
+      "fourBridgePowerupsFrozen": {
+        "actual": 4,
+        "expected": 4,
+        "pass": true
+      },
+      "allBridgeDurations160": {
+        "actual": [
+          160
+        ],
+        "expected": [
+          160
+        ],
+        "pass": true
+      },
+      "tokenHashCollisionsAbsent": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "playerStateSnapshotsObserved": {
+        "actual": 11798,
+        "expected": ">0",
+        "pass": true
+      },
+      "gameplayStateResolved": {
+        "actual": 7,
+        "expected": "non-null",
+        "pass": true
+      },
+      "pickupCarrierObservedWhenEligible": {
+        "actual": 618,
+        "expected": ">0",
+        "pass": true
+      },
+      "mappedBridgeIdentityObservedWhenEligible": {
+        "actual": 124,
+        "expected": ">0",
+        "pass": true
+      },
+      "gameplayActiveDownsAllAttributed": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "collectorSnapshotGapsWithinFrozenEnvelope": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "collectorDistancesWithin300HU": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "intervalsNonnegative": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "collectionKeysUnique": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      }
+    }
+  }
+}

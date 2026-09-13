@@ -48,6 +48,102 @@ export function deriveDischargeTransition(previous, current, {tick=null,demoSeco
   };
 }
 
+const DIRECT_STATE_KEYS = Object.freeze(['inReload','activeFireMode','continuousShots','burstShotsRemaining']);
+
+export function derivePrimaryWeaponStateTransition(previous, current) {
+  const state = {
+    inReload:booleanOrNull(current?.inReload),
+    activeFireMode:finite(current?.activeFireMode),
+    continuousShots:finite(current?.continuousShots),
+    burstShotsRemaining:finite(current?.burstShotsRemaining),
+  };
+  const prior = previous ? {
+    inReload:booleanOrNull(previous.inReload),
+    activeFireMode:finite(previous.activeFireMode),
+    continuousShots:finite(previous.continuousShots),
+    burstShotsRemaining:finite(previous.burstShotsRemaining),
+  } : null;
+  const changedFields = DIRECT_STATE_KEYS.filter(key => !prior || !Object.is(prior[key],state[key]));
+  let reloadTransition=null;
+  if (prior) {
+    if (prior.inReload!==true && state.inReload===true) reloadTransition='RELOAD_ENTER';
+    else if (prior.inReload===true && state.inReload!==true) reloadTransition='RELOAD_EXIT';
+  }
+  return {
+    state,
+    changedFields,
+    changed:changedFields.length>0,
+    reloadTransition,
+    fireModeChanged:Boolean(prior&&prior.activeFireMode!==null&&state.activeFireMode!==null&&prior.activeFireMode!==state.activeFireMode),
+    continuousShotsChanged:Boolean(prior&&prior.continuousShots!==null&&state.continuousShots!==null&&prior.continuousShots!==state.continuousShots),
+    burstShotsRemainingChanged:Boolean(prior&&prior.burstShotsRemaining!==null&&state.burstShotsRemaining!==null&&prior.burstShotsRemaining!==state.burstShotsRemaining),
+  };
+}
+
+export function buildPlayerPrimaryWeaponStateSummary(player, events, {matchEndSeconds=null}={}) {
+  const ordered=[...(events??[])].sort((a,b)=>(a.tick??0)-(b.tick??0)||(a.sequence??0)-(b.sequence??0));
+  const timeline=[];
+  const reloadIntervals=[];
+  const observedModes=new Set();
+  const carrierObservations={inReload:0,activeFireMode:0,continuousShots:0,burstShotsRemaining:0};
+  let reloadEnterCount=0,reloadExitCount=0,fireModeChanges=0,continuousChanges=0,burstChanges=0;
+  const stateByWeapon=new Map();
+  const reloadStartByWeapon=new Map();
+  for(const event of ordered){
+    const time=finite(event.matchTimeSeconds);
+    const weaponKey=event.weaponEntityIndex??'UNSPECIFIED_WEAPON';
+    if(event.eventType==='WEAPON_DELETE'||event.available===false){
+      const reloadStart=reloadStartByWeapon.get(weaponKey)??null;
+      if(reloadStart!==null&&time!==null){
+        reloadIntervals.push({weaponEntityIndex:event.weaponEntityIndex??null,startTime:reloadStart,endTime:Math.max(reloadStart,time),durationSeconds:Math.max(0,time-reloadStart),endReason:'WEAPON_DELETE'});
+      }
+      reloadStartByWeapon.delete(weaponKey);stateByWeapon.delete(weaponKey);
+      const fallback=[...stateByWeapon.values()].sort((a,b)=>(a.sequence??0)-(b.sequence??0)).at(-1)??null;
+      timeline.push(fallback?{...fallback,tick:event.tick??null,matchTime:time,eventType:'WEAPON_DELETE_FALLBACK'}:{tick:event.tick??null,matchTime:time,available:false,eventType:'WEAPON_DELETE',weaponEntityIndex:event.weaponEntityIndex??null});
+      continue;
+    }
+    const state=event.directState??event.state??{};
+    const row={
+      tick:event.tick??null,sequence:event.sequence??null,matchTime:time,available:true,eventType:event.eventType??'STATE_CHANGE',weaponEntityIndex:event.weaponEntityIndex??null,
+      inReload:booleanOrNull(state.inReload),activeFireMode:finite(state.activeFireMode),continuousShots:finite(state.continuousShots),burstShotsRemaining:finite(state.burstShotsRemaining),
+    };
+    for(const key of DIRECT_STATE_KEYS)if(row[key]!==null)carrierObservations[key]++;
+    if(row.activeFireMode!==null)observedModes.add(row.activeFireMode);
+    const prior=stateByWeapon.get(weaponKey)??null;
+    if(prior){
+      if(prior.inReload!==true&&row.inReload===true){reloadEnterCount++;if(time!==null)reloadStartByWeapon.set(weaponKey,Math.max(0,time));}
+      if(prior.inReload===true&&row.inReload!==true){
+        reloadExitCount++;
+        const reloadStart=reloadStartByWeapon.get(weaponKey)??null;
+        if(reloadStart!==null&&time!==null)reloadIntervals.push({weaponEntityIndex:event.weaponEntityIndex??null,startTime:reloadStart,endTime:Math.max(reloadStart,time),durationSeconds:Math.max(0,time-reloadStart),endReason:'RELOAD_EXIT'});
+        reloadStartByWeapon.delete(weaponKey);
+      }
+      if(prior.activeFireMode!==null&&row.activeFireMode!==null&&prior.activeFireMode!==row.activeFireMode)fireModeChanges++;
+      if(prior.continuousShots!==null&&row.continuousShots!==null&&prior.continuousShots!==row.continuousShots)continuousChanges++;
+      if(prior.burstShotsRemaining!==null&&row.burstShotsRemaining!==null&&prior.burstShotsRemaining!==row.burstShotsRemaining)burstChanges++;
+    }else if(row.inReload===true&&time!==null)reloadStartByWeapon.set(weaponKey,Math.max(0,time));
+    timeline.push(row);stateByWeapon.set(weaponKey,row);
+  }
+  const end=finite(matchEndSeconds);
+  if(end!==null)for(const [weaponKey,reloadStart] of reloadStartByWeapon)if(end>=reloadStart)reloadIntervals.push({weaponEntityIndex:weaponKey==='UNSPECIFIED_WEAPON'?null:weaponKey,startTime:reloadStart,endTime:end,durationSeconds:end-reloadStart,endReason:'REPLAY_END_CENSORED'});
+  const latest=[...timeline].reverse().find(row=>row.available)??null;
+  return {
+    controllerEntityIndex:player?.controllerEntityIndex??null,
+    playerName:player?.playerName??null,
+    steamId:player?.steamId??null,
+    heroId:player?.heroId??null,
+    team:player?.team??null,
+    observations:ordered.filter(e=>e.eventType!=='WEAPON_DELETE'&&e.available!==false).length,
+    timeline,
+    carrierObservations,
+    allDirectCarriersObserved:DIRECT_STATE_KEYS.every(key=>carrierObservations[key]>0),
+    reload:{enterCount:reloadEnterCount,exitCount:reloadExitCount,intervals:reloadIntervals,completedIntervals:reloadIntervals.filter(x=>x.endReason==='RELOAD_EXIT').length},
+    fireMode:{changeCount:fireModeChanges,observedModes:[...observedModes].sort((a,b)=>a-b)},
+    burstContinuous:{continuousChangeCount:continuousChanges,burstRemainingChangeCount:burstChanges},
+    lastObservedState:latest?{tick:latest.tick,matchTime:latest.matchTime,inReload:latest.inReload,activeFireMode:latest.activeFireMode,continuousShots:latest.continuousShots,burstShotsRemaining:latest.burstShotsRemaining}:null,
+  };
+}
+
 export function summarizeNumbers(values) {
   const a=(values??[]).map(finite).filter(v=>v!==null).sort((x,y)=>x-y);
   if (!a.length) return {count:0,min:null,p25:null,median:null,p75:null,max:null,mean:null};
@@ -134,4 +230,5 @@ function normalizeIndex(n) {
   return i>=0 && i<INVALID_ENTITY_INDEX ? i : null;
 }
 function finite(v){const n=Number(v);return Number.isFinite(n)?n:null;}
+function booleanOrNull(v){return v===true||v===1?true:v===false||v===0?false:null;}
 function quantile(sorted,q){if(!sorted.length)return null;const pos=(sorted.length-1)*q;const lo=Math.floor(pos),hi=Math.ceil(pos);if(lo===hi)return sorted[lo];const w=pos-lo;return sorted[lo]*(1-w)+sorted[hi]*w;}

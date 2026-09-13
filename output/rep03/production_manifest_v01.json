@@ -1,7 +1,7 @@
 {
   "version": "DEADLOCK_PRODUCTION_MANIFEST_V01",
   "replayName": "rep03",
-  "generatedAt": "2026-09-13T00:26:31.987Z",
+  "generatedAt": "2026-09-13T07:23:24.183Z",
   "pipelineVersion": "DEADLOCK_PRODUCTION_PIPELINE_V01",
   "runStatus": "COMPLETE",
   "validationTaxonomy": [
@@ -10,15 +10,15 @@
     "replicationStatus"
   ],
   "coverage": {
-    "authoritativeTotal": 109,
-    "completeAuthoritative": 109,
+    "authoritativeTotal": 112,
+    "completeAuthoritative": 112,
     "failedAuthoritative": 0,
     "blockedAuthoritative": 0,
     "notSupportedAuthoritative": 0,
     "unclassifiedAuthoritative": 0,
     "core": {
-      "authoritativeTotal": 99,
-      "completeAuthoritative": 99,
+      "authoritativeTotal": 102,
+      "completeAuthoritative": 102,
       "failedAuthoritative": 0,
       "blockedAuthoritative": 0,
       "notSupportedAuthoritative": 0,
@@ -34,6 +34,7 @@
     },
     "metricIds": {
       "complete": [
+        "active_fire_mode",
         "air_heavy_melee",
         "alive_share",
         "alive_time",
@@ -48,6 +49,7 @@
         "bridge_termination",
         "bridge_uptime",
         "bridge_uptime_share",
+        "burst_continuous_state",
         "checkpoint_builds",
         "composition",
         "controller_entity",
@@ -128,6 +130,7 @@
         "primary_attack_rate",
         "primary_discharges",
         "ready_delay",
+        "reload_state",
         "respawn_downtime",
         "respawn_time",
         "roster",
@@ -234,8 +237,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:17:19.884Z",
-      "finishedAt": "2026-09-13T00:18:22.904Z",
+      "startedAt": "2026-09-13T07:18:56.553Z",
+      "finishedAt": "2026-09-13T07:19:25.230Z",
       "outputs": [
         {
           "path": "output/rep03/player_state.jsonl",
@@ -270,8 +273,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:18:22.905Z",
-      "finishedAt": "2026-09-13T00:19:28.155Z",
+      "startedAt": "2026-09-13T07:19:25.230Z",
+      "finishedAt": "2026-09-13T07:19:54.457Z",
       "outputs": [
         {
           "path": "output/rep03/runtime_trooper_deaths_production_v01.json",
@@ -308,8 +311,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:19:28.156Z",
-      "finishedAt": "2026-09-13T00:20:07.664Z",
+      "startedAt": "2026-09-13T07:19:54.458Z",
+      "finishedAt": "2026-09-13T07:20:12.207Z",
       "outputs": [
         {
           "path": "output/rep03/runtime_ground_soul_lifecycle_production_v01.json",
@@ -346,8 +349,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:20:07.665Z",
-      "finishedAt": "2026-09-13T00:21:08.738Z",
+      "startedAt": "2026-09-13T07:20:12.207Z",
+      "finishedAt": "2026-09-13T07:20:37.820Z",
       "outputs": [
         {
           "path": "output/rep03/runtime_assigned_gold_economic_credit_production_v01.json",
@@ -381,8 +384,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:21:08.740Z",
-      "finishedAt": "2026-09-13T00:21:57.114Z",
+      "startedAt": "2026-09-13T07:20:37.820Z",
+      "finishedAt": "2026-09-13T07:20:58.725Z",
       "outputs": [
         {
           "path": "output/rep03/runtime_health_regen_production_v01.json",
@@ -423,8 +426,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:21:57.115Z",
-      "finishedAt": "2026-09-13T00:22:40.461Z",
+      "startedAt": "2026-09-13T07:20:58.725Z",
+      "finishedAt": "2026-09-13T07:21:18.043Z",
       "outputs": [
         {
           "path": "output/rep03/runtime_item_ownership_production_v01.json",
@@ -463,8 +466,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:22:40.461Z",
-      "finishedAt": "2026-09-13T00:23:20.524Z",
+      "startedAt": "2026-09-13T07:21:18.043Z",
+      "finishedAt": "2026-09-13T07:21:37.579Z",
       "outputs": [
         {
           "path": "output/rep03/runtime_permanent_buff_ownership_production_v01.json",
@@ -504,8 +507,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:23:20.525Z",
-      "finishedAt": "2026-09-13T00:23:59.996Z",
+      "startedAt": "2026-09-13T07:21:37.579Z",
+      "finishedAt": "2026-09-13T07:21:56.680Z",
       "outputs": [
         {
           "path": "output/rep03/runtime_bridge_buff_ownership_production_v01.json",
@@ -533,23 +536,26 @@
         "primary_attack_rate",
         "inter_attack_interval",
         "next_primary_ready",
-        "ready_delay"
+        "ready_delay",
+        "reload_state",
+        "active_fire_mode",
+        "burst_continuous_state"
       ],
       "validation": {
-        "integrityValidation": "Fresh runtime_primary_fire_production_v01.json and runtime_primary_fire_events_v01.jsonl must be produced. Every promoted discharge is a positive m_nShotNumber transition on a PrimaryWeapon entity, player-linked through the Source2 owner handle; last-attack corroboration and readiness-carrier availability are checked on every eligible replay.",
-        "semanticValidation": "primary_weapon_discharge_telemetry current claim plus the promoted observed primary-attack readiness authority. Firing means observed weapon discharge, not click/trigger-pull inference. Readiness is the observed m_flNextPrimaryAttack - m_flLastAttackTime runtime carrier; static fire-rate formulas are not used as runtime authority.",
-        "replicationStatus": "Primary discharge telemetry is multi-replay supported. The observed readiness carrier is strongly cross-replay replicated across rep01-rep05 (27,459/27,465 pooled sustained pairs aligned)."
+        "integrityValidation": "Fresh runtime_primary_fire_production_v01.json, discharge events, and direct weapon-state events must be produced. Every promoted discharge is a positive m_nShotNumber transition on a PrimaryWeapon entity, player-linked through the Source2 owner handle; every player must expose all four promoted direct-state carriers.",
+        "semanticValidation": "Primary discharge and ready-schedule claims plus runtime_primary_weapon_direct_state_v01. Reload, fire mode, continuous shots, and burst remaining are direct raw runtime carriers. Numeric categories/counters remain unnamed; no trigger, ammo-efficiency, burst-design, or composed effective-weapon inference is made.",
+        "replicationStatus": "Primary discharge/readiness authority is cross-replay replicated. Direct weapon-state carrier coverage is validated across nine production replays, including two unseen uploads."
       },
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:23:59.996Z",
-      "finishedAt": "2026-09-13T00:25:20.968Z",
+      "startedAt": "2026-09-13T07:21:56.681Z",
+      "finishedAt": "2026-09-13T07:22:41.234Z",
       "outputs": [
         {
           "path": "output/rep03/runtime_primary_fire_production_v01.json",
           "present": true,
-          "size": 4791768,
+          "size": 21052971,
           "fresh": true,
           "minBytes": 2
         },
@@ -557,6 +563,13 @@
           "path": "output/rep03/runtime_primary_fire_events_v01.jsonl",
           "present": true,
           "size": 30075467,
+          "fresh": true,
+          "minBytes": 0
+        },
+        {
+          "path": "output/rep03/runtime_primary_weapon_state_events_v01.jsonl",
+          "present": true,
+          "size": 33674799,
           "fresh": true,
           "minBytes": 0
         }
@@ -585,8 +598,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T00:25:20.968Z",
-      "finishedAt": "2026-09-13T00:26:31.986Z",
+      "startedAt": "2026-09-13T07:22:41.234Z",
+      "finishedAt": "2026-09-13T07:23:24.183Z",
       "outputs": [
         {
           "path": "output/rep03/runtime_melee_production_v01.json",
@@ -605,9 +618,9 @@
       ]
     }
   ],
-  "runId": "1df17a81-27d1-4e3e-989e-da9de2314a9f",
-  "inputFingerprint": "99b8594c8232fd6cc927d1ac103c2c22e662929683a433d59a51af1616c7164a",
-  "publishedOutputDir": ".production-runs\\1df17a81-27d1-4e3e-989e-da9de2314a9f",
+  "runId": "82db37e2-b322-4b98-a9e6-a2d2edd2455a",
+  "inputFingerprint": "ee3f08d6e26ae4944d5df10c3405025d95d9ed907abc36601f9c9a206b73cf55",
+  "publishedOutputDir": ".production-runs\\82db37e2-b322-4b98-a9e6-a2d2edd2455a",
   "outputDigests": {
     "player_state.jsonl": {
       "sha256": "126965ba1f692fee40964b4601f6bcd1e06aded2a123312358883d9febfdc269",
@@ -618,7 +631,7 @@
       "bytes": 871
     },
     "runtime_trooper_deaths_production_v01.json": {
-      "sha256": "46fd9a31b3bcd2e3b2bd566ce5a7931ac365a0a3e69baadec9305a7593d7547c",
+      "sha256": "abb3b644d82d7f5f8907306ca4476ae810d599993dea3d3235777f8b13309d0f",
       "bytes": 581658
     },
     "runtime_trooper_death_events_v01.jsonl": {
@@ -626,7 +639,7 @@
       "bytes": 1881282
     },
     "runtime_ground_soul_lifecycle_production_v01.json": {
-      "sha256": "55d69027a83b4fc66a8a7ddf473ab92f95c7189a455fd1fe3def127e374f3a4a",
+      "sha256": "a5fba07bfb257cbf97f96fcba9e33f17d530c6ee3f084bdc7b1bbf8a7e40ae00",
       "bytes": 583648
     },
     "runtime_ground_soul_lifecycle_events_v01.jsonl": {
@@ -634,7 +647,7 @@
       "bytes": 2101215
     },
     "runtime_assigned_gold_economic_credit_production_v01.json": {
-      "sha256": "0916a60ebedbcd593cd88f725c3c9aaf0d2f585488913a2d3b12010b0bc59d74",
+      "sha256": "9feeb32d2155c216cf52c23f343a51ece16add1af5937aaaa1211adead975ada",
       "bytes": 590648
     },
     "runtime_assigned_gold_economic_credit_events_v01.jsonl": {
@@ -642,7 +655,7 @@
       "bytes": 1782375
     },
     "runtime_health_regen_production_v01.json": {
-      "sha256": "1e8560becadc3785ac92e30bdcd6848343c29f60dc0583503530ac516e5b485b",
+      "sha256": "aa2e4cb448168ab5ffcca3413d9867b25238ea35f290b3669556f8ab91dc9010",
       "bytes": 2496154
     },
     "runtime_health_regen_events_v01.jsonl": {
@@ -650,7 +663,7 @@
       "bytes": 3231329
     },
     "runtime_item_ownership_production_v01.json": {
-      "sha256": "078021491ae5bbfdafc9480ce758cbc350b44edaa4db67ce8375485a0472bec5",
+      "sha256": "2b1652ec320268db4ac660a308a4d389a2d7ac7d9a649b8be287066876aebe35",
       "bytes": 2303475
     },
     "runtime_item_ownership_events_v01.jsonl": {
@@ -658,7 +671,7 @@
       "bytes": 129600
     },
     "runtime_permanent_buff_ownership_production_v01.json": {
-      "sha256": "43e83c1c9dac620c734316aaaccabb244fb1af567b590f4d59f5edcab1f5f607",
+      "sha256": "50ac41208caea01d0dc631f29831b4d727554270e9d3e646660ffba34c1e842d",
       "bytes": 1856803
     },
     "runtime_permanent_buff_events_v01.jsonl": {
@@ -666,7 +679,7 @@
       "bytes": 788580
     },
     "runtime_bridge_buff_ownership_production_v01.json": {
-      "sha256": "3ee7895e664fc0a649f1197b3fd6604cde774b63ce9d9f4350d6c5e97a5633ef",
+      "sha256": "ee98cc4694f8af2f666398ac27188bbe18ca0fa0844cec47f3b89ea137b5ab3d",
       "bytes": 53748
     },
     "runtime_bridge_buff_events_v01.jsonl": {
@@ -674,15 +687,19 @@
       "bytes": 12407
     },
     "runtime_primary_fire_production_v01.json": {
-      "sha256": "d39962af2de3343e59daf37661b39e030c1ec75d657c33f4b3549632e7f5e8ae",
-      "bytes": 4791768
+      "sha256": "dad2f2bdbee04e3e93cc27167c527a75130a622bc0e5de1226b3957344061026",
+      "bytes": 21052971
     },
     "runtime_primary_fire_events_v01.jsonl": {
       "sha256": "abfb98aed9710df984a1296fb856b13a6c24175ab6cfb16a271f0ac58e0ec4bc",
       "bytes": 30075467
     },
+    "runtime_primary_weapon_state_events_v01.jsonl": {
+      "sha256": "35b1486b86a8e1361b53318d0706143bd868574872682a94050cfc925a5394d6",
+      "bytes": 33674799
+    },
     "runtime_melee_production_v01.json": {
-      "sha256": "e3f9736891cb5c5ccac8e9888cc57f497f6c9f3dfbd6c0044e3b73db6c2a629e",
+      "sha256": "0b7da391dd7f1aaedc53a20fbe63fc684a7a5bfc9d4fe0884a1dbe4bb88924c3",
       "bytes": 10381
     },
     "runtime_melee_events_v01.jsonl": {

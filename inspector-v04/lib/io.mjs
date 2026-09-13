@@ -55,6 +55,7 @@ export async function sourceHealth(replayDir) {
     ['urn_bursts','citemxp_auto_award_urn_bursts_v02.jsonl','B','Urn payout bursts'],
     ['runtime_primary_fire','runtime_primary_fire_production_v01.json','A','Replay-generic observed primary discharge and readiness cadence'],
     ['runtime_primary_fire_events','runtime_primary_fire_events_v01.jsonl','A','Observed primary discharge / readiness evidence'],
+    ['runtime_primary_weapon_state_events','runtime_primary_weapon_state_events_v01.jsonl','A','Direct observed reload, raw fire-mode, and burst/continuous counter evidence'],
     ['weapon_events','effective_weapon_runtime_events_v01.jsonl','B','Legacy/research reload and fire-mode evidence'],
     ['primary_ready','observed_primary_attack_ready_schedule_candidate_v01.json','A','Legacy single-replay readiness research artifact; production authority is the dedicated runtime primary-fire artifact'],
   ];

@@ -223,9 +223,9 @@ export const METRIC_REGISTRY = [
     m('inter_attack_interval','Inter-attack interval',A,'seconds','runtime_primary_attack_ready_schedule','Observed discharge spacing.'),
     m('next_primary_ready','Next-primary-ready time',A,'time','runtime_primary_attack_ready_schedule','Observed next-primary-attack schedule carrier.'),
     m('ready_delay','Ready delay',A,'seconds','runtime_primary_attack_ready_schedule','Observed nextPrimaryAttack - lastAttackTime.'),
-    m('reload_state','Reload state intervals/transitions',B,'events','effective_weapon_runtime_events_v01','Observed runtime reload flag/transitions; no ammo-efficiency inference.'),
-    m('active_fire_mode','Active fire mode',B,'category','effective_weapon_runtime_events_v01','Observed runtime fire mode.'),
-    m('burst_continuous_state','Burst/continuous-shot counters',B,'number','effective_weapon_runtime_events_v01','Observed raw weapon counters.'),
+    m('reload_state','Reload state intervals/transitions',B,'events','runtime_primary_weapon_state','Direct m_bInReload state at the selected time, with observed enter/exit intervals; no reload-cause or ammo-efficiency inference.'),
+    m('active_fire_mode','Active fire mode',B,'category','runtime_primary_weapon_state','Direct raw m_eActiveFireMode numeric value at the selected time; numeric modes remain unnamed.'),
+    m('burst_continuous_state','Burst/continuous-shot counters',B,'number','runtime_primary_weapon_state','Direct raw m_nNumContinuousShots and m_nBurstShotsRemaining values at the selected time; no trigger-intent or burst-design inference.'),
   ]),
 ];
 

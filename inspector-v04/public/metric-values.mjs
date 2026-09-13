@@ -10,7 +10,7 @@ export const AUTH_IDS=[
   'trooper_deaths','trooper_death_timing',
   'ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration','ground_soul_vacuum_target',
   'ground_soul_economic_credit_events','ground_soul_economic_recipient_transitions','ground_soul_multi_recipient_share','ground_soul_economic_gain',
-  'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay',
+  'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay','reload_state','active_fire_mode','burst_continuous_state',
   'xy_distance','xyz_distance','distance_per_min','distance_per_alive_min','mean_xy_speed','mean_xyz_speed','moving_time','moving_share','low_motion_time','low_motion_share','position_trajectory',
   'melee_attacks','melee_hits','melee_hit_rate','light_melee','heavy_melee','air_heavy_melee','melee_type_share','melee_per_alive_min'
 ];
@@ -171,6 +171,9 @@ function rawMetricValue(id,{model,p,time,weaponReady}){
     case 'inter_attack_interval': return v(`${num(weapon.medianInterAttackSeconds,4)} s median`,`mean ${num(weapon.meanInterAttackSeconds,4)} s · n=${weapon.interAttackSampleCount??0}`);
     case 'next_primary_ready': return weaponReady?v(num(weaponReady.nextPrimaryAttack,6),`latest observed carrier · row at ${clock(weaponReady.matchTime)} · raw runtime schedule time`):v('—','No next-primary-ready carrier found in available weapon evidence');
     case 'ready_delay': return v(`${num(weapon.medianReadyDelaySeconds,4)} s median`,`mean ${num(weapon.meanReadyDelaySeconds,4)} s · n=${weapon.readyDelaySampleCount??0}`);
+    case 'reload_state': { const d=weaponDirectStateAt(p,time); return d.current?.available?v(d.current.inReload===true?'Reloading':d.current.inReload===false?'Not reloading':'N/A',`${d.reloadEnters} enters · ${d.reloadExits} exits observed through ${clock(time)} · direct m_bInReload`):v('N/A','No player-linked primary-weapon state is available at this time.'); }
+    case 'active_fire_mode': { const d=weaponDirectStateAt(p,time); return d.current?.available&&d.current.activeFireMode!==null?v(`Mode ${num(d.current.activeFireMode)}`,`${d.fireModeChanges} observed changes through ${clock(time)} · raw m_eActiveFireMode enum; modes remain unnamed`):v('N/A','No direct m_eActiveFireMode observation is available at this time.'); }
+    case 'burst_continuous_state': { const d=weaponDirectStateAt(p,time),c=d.current?.continuousShots,b=d.current?.burstShotsRemaining; return d.current?.available&&(c!==null||b!==null)?v(`Continuous ${c===null?'—':num(c)} · burst remaining ${b===null?'—':num(b)}`,`${d.continuousChanges} continuous-counter changes · ${d.burstChanges} burst-remaining changes through ${clock(time)} · raw counters only`):v('N/A','No direct burst/continuous counter observation is available at this time.'); }
     default: return {wired:false,value:'NOT WIRED',detail:''};
   }
 }
@@ -201,6 +204,24 @@ function stateAt(p,time){
   let lo=0,hi=tl.length-1,best=null;
   while(lo<=hi){const mid=(lo+hi)>>1;const x=tl[mid];if((x.matchTime??-Infinity)<=time){best=x;lo=mid+1;}else hi=mid-1;}
   return best;
+}
+function weaponDirectStateAt(p,time){
+  const rows=p?.weapon?.directStateTimeline??[];const byWeapon=new Map();let current=null,reloadEnters=0,reloadExits=0,fireModeChanges=0,continuousChanges=0,burstChanges=0;
+  for(const row of rows){
+    if(!Number.isFinite(Number(row?.matchTime))||Number(row.matchTime)>Number(time))break;
+    const weaponKey=row.weaponEntityIndex??'UNSPECIFIED_WEAPON';
+    if(row.available===false){byWeapon.delete(weaponKey);current=row;continue;}
+    const prior=byWeapon.get(weaponKey)??null;
+    if(prior){
+      if(prior.inReload!==true&&row.inReload===true)reloadEnters++;
+      if(prior.inReload===true&&row.inReload!==true)reloadExits++;
+      if(prior.activeFireMode!==null&&row.activeFireMode!==null&&prior.activeFireMode!==row.activeFireMode)fireModeChanges++;
+      if(prior.continuousShots!==null&&row.continuousShots!==null&&prior.continuousShots!==row.continuousShots)continuousChanges++;
+      if(prior.burstShotsRemaining!==null&&row.burstShotsRemaining!==null&&prior.burstShotsRemaining!==row.burstShotsRemaining)burstChanges++;
+    }
+    byWeapon.set(weaponKey,row);current=row;
+  }
+  return{current,reloadEnters,reloadExits,fireModeChanges,continuousChanges,burstChanges};
 }
 function teamAt(model,team,time){
   const series=model.teamSeries??[]; if(!series.length)return null;
@@ -289,7 +310,7 @@ export function getMetricAvailability(model,p,id){return p?.metricAvailability?.
 export function metricValue(id,ctx){
  const availability=getMetricAvailability(ctx.model,ctx.p,id);
  if(!availability.available)return{wired:AUTH_IDS.includes(id),available:false,value:'Unavailable',detail:availability.reason,...{availability}};
- const selected=new Set(['match_clock','level','health','health_max','health_percent','health_regen','gold_networth','ap_networth','kills','assists','last_hits','denies','deaths_scoreboard','current_items','item_count','permanent_current','bridge_current','position_trajectory','ground_soul_economic_gain','next_primary_ready','team_networth','team_networth_diff','player_team_share']);
+ const selected=new Set(['match_clock','level','health','health_max','health_percent','health_regen','gold_networth','ap_networth','kills','assists','last_hits','denies','deaths_scoreboard','current_items','item_count','permanent_current','bridge_current','position_trajectory','ground_soul_economic_gain','next_primary_ready','reload_state','active_fire_mode','burst_continuous_state','team_networth','team_networth_diff','player_team_share']);
  let weaponReady=null;for(const row of ctx.p.weapon?.nextPrimaryReadyTimeline??[]){if(row.matchTime<=ctx.time)weaponReady=row;else break;}
  const atState=stateAt(ctx.p,ctx.time);
  const stateFields={level:'level',health:'health',health_max:'healthMax',health_percent:'health',health_regen:'healthRegen',gold_networth:'goldNetWorth',ap_networth:'apNetWorth',kills:'kills',assists:'assists',last_hits:'lastHits',denies:'denies',deaths_scoreboard:'deaths'};
