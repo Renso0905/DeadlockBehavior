@@ -1,0 +1,1549 @@
+{
+  "version": "PLAYER_KILL_CREDIT_RESIDUAL_DIAGNOSTICS_V01",
+  "canonical": false,
+  "createdAt": "2026-09-11T04:04:50.922Z",
+  "requestedReplays": [
+    "test",
+    "rep01",
+    "rep02",
+    "rep03",
+    "rep04",
+    "rep05"
+  ],
+  "successCount": 6,
+  "replayCount": 6,
+  "allRequestedReplaysSucceeded": true,
+  "purpose": [
+    "Diagnose the residual cases left by Script 208 without reparsing raw replays.",
+    "Test whether a direct enemy terminal-damage group that lacked a victim m_iDeaths credit nevertheless aligns with an otherwise-unmatched attacker m_iPlayerKills credit.",
+    "Detect repeated/nearby terminal-damage groups around an already death-confirmed event for the same victim.",
+    "Preserve remaining unmatched kill credits for a later raw-event attribution pass."
+  ],
+  "boundaries": {
+    "noNewSemanticClaim": true,
+    "noMetricPromotion": true,
+    "usesOnlyScript208Outputs": true,
+    "note": "This diagnostic cannot classify projectile/summon/DoT/environment kill credits because Script 208 V01 did not persist every unresolved fatal-damage group."
+  },
+  "aggregate": {
+    "unmatchedDirectEnemyFatalWithoutVictimDeathCredit": 33,
+    "unmatchedKillCreditsWithoutDeathConfirmedDirectFatalAnchor": 20,
+    "unmatchedFatalPairedToUnmatchedKillCredit": 0,
+    "unmatchedFatalStillUnpaired": 33,
+    "unmatchedKillCreditsStillUnpaired": 20,
+    "unmatchedFatalNearExistingSameVictimDeathAnchorWithin5s": 0
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "counts": {
+        "scoreboardKillCredits": 113,
+        "directEnemyFatalGroups": 118,
+        "deathConfirmedDirectEnemyFatalAnchors": 111,
+        "unmatchedDirectEnemyFatalWithoutVictimDeathCredit": 7,
+        "unmatchedKillCreditsWithoutDeathConfirmedDirectFatalAnchor": 2,
+        "unmatchedFatalPairedToUnmatchedKillCredit": 0,
+        "unmatchedFatalStillUnpaired": 7,
+        "unmatchedKillCreditsStillUnpaired": 2,
+        "unmatchedFatalNearExistingSameVictimDeathAnchorWithin5s": 0
+      },
+      "fatalToKillResidualMatch": {
+        "windowTicks": 32,
+        "windowSeconds": 0.5,
+        "matches": []
+      },
+      "fatalDiagnostics": [
+        {
+          "fatalId": "fatal|90|112033",
+          "tick": 112033,
+          "attackerPlayer": {
+            "controllerEntityIndex": 3,
+            "pawnEntityIndex": 81,
+            "playerName": "blooop354",
+            "team": 3,
+            "heroId": 58,
+            "playerSlot": null,
+            "steamId": "76561199827569844"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 8,
+            "pawnEntityIndex": 90,
+            "playerName": "Snazzy314",
+            "team": 2,
+            "heroId": 4,
+            "playerSlot": null,
+            "steamId": "76561199751953144"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 112033,
+            "anchorId": "fatal|90|113518",
+            "anchorTick": 113518,
+            "signedTickDelta": 1485,
+            "absoluteTickDelta": 1485,
+            "signedSecondsDelta": 23.203125,
+            "absoluteSecondsDelta": 23.203125
+          }
+        },
+        {
+          "fatalId": "fatal|78|112847",
+          "tick": 112847,
+          "attackerPlayer": {
+            "controllerEntityIndex": 5,
+            "pawnEntityIndex": 84,
+            "playerName": "Zaeleth",
+            "team": 3,
+            "heroId": 77,
+            "playerSlot": null,
+            "steamId": "76561198079477113"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 2,
+            "pawnEntityIndex": 78,
+            "playerName": "Nacho4Sure",
+            "team": 2,
+            "heroId": 2,
+            "playerSlot": null,
+            "steamId": "76561197983209811"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 112847,
+            "anchorId": "fatal|78|114051",
+            "anchorTick": 114051,
+            "signedTickDelta": 1204,
+            "absoluteTickDelta": 1204,
+            "signedSecondsDelta": 18.8125,
+            "absoluteSecondsDelta": 18.8125
+          }
+        },
+        {
+          "fatalId": "fatal|89|114351",
+          "tick": 114351,
+          "attackerPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 87,
+            "playerName": "Nebula",
+            "team": 3,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198200463289"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 6,
+            "pawnEntityIndex": 89,
+            "playerName": "Yosafire Worshipper [K]",
+            "team": 2,
+            "heroId": 50,
+            "playerSlot": null,
+            "steamId": "76561198322712152"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 114351,
+            "anchorId": "fatal|89|124615",
+            "anchorTick": 124615,
+            "signedTickDelta": 10264,
+            "absoluteTickDelta": 10264,
+            "signedSecondsDelta": 160.375,
+            "absoluteSecondsDelta": 160.375
+          }
+        },
+        {
+          "fatalId": "fatal|89|163251",
+          "tick": 163251,
+          "attackerPlayer": {
+            "controllerEntityIndex": 3,
+            "pawnEntityIndex": 81,
+            "playerName": "blooop354",
+            "team": 3,
+            "heroId": 58,
+            "playerSlot": null,
+            "steamId": "76561199827569844"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 6,
+            "pawnEntityIndex": 89,
+            "playerName": "Yosafire Worshipper [K]",
+            "team": 2,
+            "heroId": 50,
+            "playerSlot": null,
+            "steamId": "76561198322712152"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 163251,
+            "anchorId": "fatal|89|124615",
+            "anchorTick": 124615,
+            "signedTickDelta": -38636,
+            "absoluteTickDelta": 38636,
+            "signedSecondsDelta": -603.6875,
+            "absoluteSecondsDelta": 603.6875
+          }
+        },
+        {
+          "fatalId": "fatal|91|164300",
+          "tick": 164300,
+          "attackerPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 87,
+            "playerName": "Nebula",
+            "team": 3,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198200463289"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 91,
+            "playerName": "viggoth 300",
+            "team": 2,
+            "heroId": 18,
+            "playerSlot": null,
+            "steamId": "76561198307482194"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 164300,
+            "anchorId": "fatal|91|182629",
+            "anchorTick": 182629,
+            "signedTickDelta": 18329,
+            "absoluteTickDelta": 18329,
+            "signedSecondsDelta": 286.390625,
+            "absoluteSecondsDelta": 286.390625
+          }
+        },
+        {
+          "fatalId": "fatal|79|164843",
+          "tick": 164843,
+          "attackerPlayer": {
+            "controllerEntityIndex": 9,
+            "pawnEntityIndex": 77,
+            "playerName": "TheWoogler",
+            "team": 3,
+            "heroId": 52,
+            "playerSlot": null,
+            "steamId": "76561198259248348"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 4,
+            "pawnEntityIndex": 79,
+            "playerName": "flem",
+            "team": 2,
+            "heroId": 1,
+            "playerSlot": null,
+            "steamId": "76561197982948887"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 164843,
+            "anchorId": "fatal|79|182138",
+            "anchorTick": 182138,
+            "signedTickDelta": 17295,
+            "absoluteTickDelta": 17295,
+            "signedSecondsDelta": 270.234375,
+            "absoluteSecondsDelta": 270.234375
+          }
+        },
+        {
+          "fatalId": "fatal|78|200552",
+          "tick": 200552,
+          "attackerPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 87,
+            "playerName": "Nebula",
+            "team": 3,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198200463289"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 2,
+            "pawnEntityIndex": 78,
+            "playerName": "Nacho4Sure",
+            "team": 2,
+            "heroId": 2,
+            "playerSlot": null,
+            "steamId": "76561197983209811"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 200552,
+            "anchorId": "fatal|78|187999",
+            "anchorTick": 187999,
+            "signedTickDelta": -12553,
+            "absoluteTickDelta": 12553,
+            "signedSecondsDelta": -196.140625,
+            "absoluteSecondsDelta": 196.140625
+          }
+        }
+      ],
+      "remainingUnpairedKillCredits": [
+        {
+          "id": "kill|13|32238|0",
+          "kind": "kill",
+          "tick": 32238,
+          "controllerEntityIndex": 13,
+          "pawnEntityIndex": 91,
+          "playerName": "viggoth 300",
+          "team": 2,
+          "heroId": 18,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|12|95353|0",
+          "kind": "kill",
+          "tick": 95353,
+          "controllerEntityIndex": 12,
+          "pawnEntityIndex": 88,
+          "playerName": "Eriansan",
+          "team": 2,
+          "heroId": 69,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        }
+      ]
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "counts": {
+        "scoreboardKillCredits": 86,
+        "directEnemyFatalGroups": 90,
+        "deathConfirmedDirectEnemyFatalAnchors": 83,
+        "unmatchedDirectEnemyFatalWithoutVictimDeathCredit": 7,
+        "unmatchedKillCreditsWithoutDeathConfirmedDirectFatalAnchor": 3,
+        "unmatchedFatalPairedToUnmatchedKillCredit": 0,
+        "unmatchedFatalStillUnpaired": 7,
+        "unmatchedKillCreditsStillUnpaired": 3,
+        "unmatchedFatalNearExistingSameVictimDeathAnchorWithin5s": 0
+      },
+      "fatalToKillResidualMatch": {
+        "windowTicks": 32,
+        "windowSeconds": 0.5,
+        "matches": []
+      },
+      "fatalDiagnostics": [
+        {
+          "fatalId": "fatal|78|105798",
+          "tick": 105798,
+          "attackerPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 79,
+            "playerName": "Parker",
+            "team": 2,
+            "heroId": 1,
+            "playerSlot": null,
+            "steamId": "76561198082593367"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 8,
+            "pawnEntityIndex": 78,
+            "playerName": "Goldinfer",
+            "team": 3,
+            "heroId": 27,
+            "playerSlot": null,
+            "steamId": "76561198101422226"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 105798,
+            "anchorId": "fatal|78|83498",
+            "anchorTick": 83498,
+            "signedTickDelta": -22300,
+            "absoluteTickDelta": 22300,
+            "signedSecondsDelta": -348.4375,
+            "absoluteSecondsDelta": 348.4375
+          }
+        },
+        {
+          "fatalId": "fatal|92|108932",
+          "tick": 108932,
+          "attackerPlayer": {
+            "controllerEntityIndex": 11,
+            "pawnEntityIndex": 87,
+            "playerName": "BlamBlam50",
+            "team": 2,
+            "heroId": 10,
+            "playerSlot": null,
+            "steamId": "76561198885630319"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 6,
+            "pawnEntityIndex": 92,
+            "playerName": "Kabuto",
+            "team": 3,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198796221441"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 108932,
+            "anchorId": "fatal|92|90874",
+            "anchorTick": 90874,
+            "signedTickDelta": -18058,
+            "absoluteTickDelta": 18058,
+            "signedSecondsDelta": -282.15625,
+            "absoluteSecondsDelta": 282.15625
+          }
+        },
+        {
+          "fatalId": "fatal|84|109427",
+          "tick": 109427,
+          "attackerPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 79,
+            "playerName": "Parker",
+            "team": 2,
+            "heroId": 1,
+            "playerSlot": null,
+            "steamId": "76561198082593367"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 3,
+            "pawnEntityIndex": 84,
+            "playerName": "renso",
+            "team": 3,
+            "heroId": 35,
+            "playerSlot": null,
+            "steamId": "76561198107069146"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 109427,
+            "anchorId": "fatal|84|110130",
+            "anchorTick": 110130,
+            "signedTickDelta": 703,
+            "absoluteTickDelta": 703,
+            "signedSecondsDelta": 10.984375,
+            "absoluteSecondsDelta": 10.984375
+          }
+        },
+        {
+          "fatalId": "fatal|82|133183",
+          "tick": 133183,
+          "attackerPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 79,
+            "playerName": "Parker",
+            "team": 2,
+            "heroId": 1,
+            "playerSlot": null,
+            "steamId": "76561198082593367"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 2,
+            "pawnEntityIndex": 82,
+            "playerName": "Zaeleth",
+            "team": 3,
+            "heroId": 64,
+            "playerSlot": null,
+            "steamId": "76561198079477113"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 133183,
+            "anchorId": "fatal|82|134315",
+            "anchorTick": 134315,
+            "signedTickDelta": 1132,
+            "absoluteTickDelta": 1132,
+            "signedSecondsDelta": 17.6875,
+            "absoluteSecondsDelta": 17.6875
+          }
+        },
+        {
+          "fatalId": "fatal|92|133767",
+          "tick": 133767,
+          "attackerPlayer": {
+            "controllerEntityIndex": 11,
+            "pawnEntityIndex": 87,
+            "playerName": "BlamBlam50",
+            "team": 2,
+            "heroId": 10,
+            "playerSlot": null,
+            "steamId": "76561198885630319"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 6,
+            "pawnEntityIndex": 92,
+            "playerName": "Kabuto",
+            "team": 3,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198796221441"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 133767,
+            "anchorId": "fatal|92|90874",
+            "anchorTick": 90874,
+            "signedTickDelta": -42893,
+            "absoluteTickDelta": 42893,
+            "signedSecondsDelta": -670.203125,
+            "absoluteSecondsDelta": 670.203125
+          }
+        },
+        {
+          "fatalId": "fatal|90|136852",
+          "tick": 136852,
+          "attackerPlayer": {
+            "controllerEntityIndex": 11,
+            "pawnEntityIndex": 87,
+            "playerName": "BlamBlam50",
+            "team": 2,
+            "heroId": 10,
+            "playerSlot": null,
+            "steamId": "76561198885630319"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 90,
+            "playerName": "Nebula",
+            "team": 3,
+            "heroId": 14,
+            "playerSlot": null,
+            "steamId": "76561198200463289"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 136852,
+            "anchorId": "fatal|90|127207",
+            "anchorTick": 127207,
+            "signedTickDelta": -9645,
+            "absoluteTickDelta": 9645,
+            "signedSecondsDelta": -150.703125,
+            "absoluteSecondsDelta": 150.703125
+          }
+        },
+        {
+          "fatalId": "fatal|88|149386",
+          "tick": 149386,
+          "attackerPlayer": {
+            "controllerEntityIndex": 10,
+            "pawnEntityIndex": 96,
+            "playerName": "Quackinator17",
+            "team": 3,
+            "heroId": 2,
+            "playerSlot": null,
+            "steamId": "76561199221184484"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 9,
+            "pawnEntityIndex": 88,
+            "playerName": "ArsonBoy5996",
+            "team": 2,
+            "heroId": 69,
+            "playerSlot": null,
+            "steamId": "76561198017909943"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 149386,
+            "anchorId": "fatal|88|99501",
+            "anchorTick": 99501,
+            "signedTickDelta": -49885,
+            "absoluteTickDelta": 49885,
+            "signedSecondsDelta": -779.453125,
+            "absoluteSecondsDelta": 779.453125
+          }
+        }
+      ],
+      "remainingUnpairedKillCredits": [
+        {
+          "id": "kill|8|33003|0",
+          "kind": "kill",
+          "tick": 33003,
+          "controllerEntityIndex": 8,
+          "pawnEntityIndex": 78,
+          "playerName": "Goldinfer",
+          "team": 3,
+          "heroId": 27,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|13|51343|0",
+          "kind": "kill",
+          "tick": 51343,
+          "controllerEntityIndex": 13,
+          "pawnEntityIndex": 90,
+          "playerName": "Nebula",
+          "team": 3,
+          "heroId": 14,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|9|57145|0",
+          "kind": "kill",
+          "tick": 57145,
+          "controllerEntityIndex": 9,
+          "pawnEntityIndex": 88,
+          "playerName": "ArsonBoy5996",
+          "team": 2,
+          "heroId": 69,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        }
+      ]
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "counts": {
+        "scoreboardKillCredits": 92,
+        "directEnemyFatalGroups": 93,
+        "deathConfirmedDirectEnemyFatalAnchors": 87,
+        "unmatchedDirectEnemyFatalWithoutVictimDeathCredit": 6,
+        "unmatchedKillCreditsWithoutDeathConfirmedDirectFatalAnchor": 5,
+        "unmatchedFatalPairedToUnmatchedKillCredit": 0,
+        "unmatchedFatalStillUnpaired": 6,
+        "unmatchedKillCreditsStillUnpaired": 5,
+        "unmatchedFatalNearExistingSameVictimDeathAnchorWithin5s": 0
+      },
+      "fatalToKillResidualMatch": {
+        "windowTicks": 32,
+        "windowSeconds": 0.5,
+        "matches": []
+      },
+      "fatalDiagnostics": [
+        {
+          "fatalId": "fatal|79|110557",
+          "tick": 110557,
+          "attackerPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 85,
+            "playerName": "renso",
+            "team": 3,
+            "heroId": 35,
+            "playerSlot": null,
+            "steamId": "76561198107069146"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 12,
+            "pawnEntityIndex": 79,
+            "playerName": "Wild Willy",
+            "team": 2,
+            "heroId": 67,
+            "playerSlot": null,
+            "steamId": "76561197966910759"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 110557,
+            "anchorId": "fatal|79|123533",
+            "anchorTick": 123533,
+            "signedTickDelta": 12976,
+            "absoluteTickDelta": 12976,
+            "signedSecondsDelta": 202.75,
+            "absoluteSecondsDelta": 202.75
+          }
+        },
+        {
+          "fatalId": "fatal|86|113859",
+          "tick": 113859,
+          "attackerPlayer": {
+            "controllerEntityIndex": 4,
+            "pawnEntityIndex": 89,
+            "playerName": "Zaeleth",
+            "team": 3,
+            "heroId": 63,
+            "playerSlot": null,
+            "steamId": "76561198079477113"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 8,
+            "pawnEntityIndex": 86,
+            "playerName": "pistachio",
+            "team": 2,
+            "heroId": 60,
+            "playerSlot": null,
+            "steamId": "76561198058509674"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 113859,
+            "anchorId": "fatal|86|125362",
+            "anchorTick": 125362,
+            "signedTickDelta": 11503,
+            "absoluteTickDelta": 11503,
+            "signedSecondsDelta": 179.734375,
+            "absoluteSecondsDelta": 179.734375
+          }
+        },
+        {
+          "fatalId": "fatal|101|114169",
+          "tick": 114169,
+          "attackerPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 98,
+            "playerName": "Goldinfer",
+            "team": 3,
+            "heroId": 19,
+            "playerSlot": null,
+            "steamId": "76561198101422226"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 5,
+            "pawnEntityIndex": 101,
+            "playerName": "Moodamu",
+            "team": 2,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198064630040"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 114169,
+            "anchorId": "fatal|101|126285",
+            "anchorTick": 126285,
+            "signedTickDelta": 12116,
+            "absoluteTickDelta": 12116,
+            "signedSecondsDelta": 189.3125,
+            "absoluteSecondsDelta": 189.3125
+          }
+        },
+        {
+          "fatalId": "fatal|101|146053",
+          "tick": 146053,
+          "attackerPlayer": {
+            "controllerEntityIndex": 2,
+            "pawnEntityIndex": 78,
+            "playerName": "Nameless Shado",
+            "team": 3,
+            "heroId": 7,
+            "playerSlot": null,
+            "steamId": "76561197971062728"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 5,
+            "pawnEntityIndex": 101,
+            "playerName": "Moodamu",
+            "team": 2,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198064630040"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 146053,
+            "anchorId": "fatal|101|134499",
+            "anchorTick": 134499,
+            "signedTickDelta": -11554,
+            "absoluteTickDelta": 11554,
+            "signedSecondsDelta": -180.53125,
+            "absoluteSecondsDelta": 180.53125
+          }
+        },
+        {
+          "fatalId": "fatal|80|146065",
+          "tick": 146065,
+          "attackerPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 98,
+            "playerName": "Goldinfer",
+            "team": 3,
+            "heroId": 19,
+            "playerSlot": null,
+            "steamId": "76561198101422226"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 3,
+            "pawnEntityIndex": 80,
+            "playerName": "Rupa",
+            "team": 2,
+            "heroId": 76,
+            "playerSlot": null,
+            "steamId": "76561198405983351"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 146065,
+            "anchorId": "fatal|80|92950",
+            "anchorTick": 92950,
+            "signedTickDelta": -53115,
+            "absoluteTickDelta": 53115,
+            "signedSecondsDelta": -829.921875,
+            "absoluteSecondsDelta": 829.921875
+          }
+        },
+        {
+          "fatalId": "fatal|98|146577",
+          "tick": 146577,
+          "attackerPlayer": {
+            "controllerEntityIndex": 5,
+            "pawnEntityIndex": 101,
+            "playerName": "Moodamu",
+            "team": 2,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198064630040"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 98,
+            "playerName": "Goldinfer",
+            "team": 3,
+            "heroId": 19,
+            "playerSlot": null,
+            "steamId": "76561198101422226"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 146577,
+            "anchorId": "fatal|98|148267",
+            "anchorTick": 148267,
+            "signedTickDelta": 1690,
+            "absoluteTickDelta": 1690,
+            "signedSecondsDelta": 26.40625,
+            "absoluteSecondsDelta": 26.40625
+          }
+        }
+      ],
+      "remainingUnpairedKillCredits": [
+        {
+          "id": "kill|2|16550|0",
+          "kind": "kill",
+          "tick": 16550,
+          "controllerEntityIndex": 2,
+          "pawnEntityIndex": 78,
+          "playerName": "Nameless Shado",
+          "team": 3,
+          "heroId": 7,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|9|28461|0",
+          "kind": "kill",
+          "tick": 28461,
+          "controllerEntityIndex": 9,
+          "pawnEntityIndex": 91,
+          "playerName": "Gnome Garden",
+          "team": 2,
+          "heroId": 66,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|11|61346|0",
+          "kind": "kill",
+          "tick": 61346,
+          "controllerEntityIndex": 11,
+          "pawnEntityIndex": 87,
+          "playerName": "Nebula",
+          "team": 3,
+          "heroId": 31,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|3|111059|0",
+          "kind": "kill",
+          "tick": 111059,
+          "controllerEntityIndex": 3,
+          "pawnEntityIndex": 80,
+          "playerName": "Rupa",
+          "team": 2,
+          "heroId": 76,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|3|114596|0",
+          "kind": "kill",
+          "tick": 114596,
+          "controllerEntityIndex": 3,
+          "pawnEntityIndex": 80,
+          "playerName": "Rupa",
+          "team": 2,
+          "heroId": 76,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        }
+      ]
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "counts": {
+        "scoreboardKillCredits": 87,
+        "directEnemyFatalGroups": 91,
+        "deathConfirmedDirectEnemyFatalAnchors": 85,
+        "unmatchedDirectEnemyFatalWithoutVictimDeathCredit": 6,
+        "unmatchedKillCreditsWithoutDeathConfirmedDirectFatalAnchor": 2,
+        "unmatchedFatalPairedToUnmatchedKillCredit": 0,
+        "unmatchedFatalStillUnpaired": 6,
+        "unmatchedKillCreditsStillUnpaired": 2,
+        "unmatchedFatalNearExistingSameVictimDeathAnchorWithin5s": 0
+      },
+      "fatalToKillResidualMatch": {
+        "windowTicks": 32,
+        "windowSeconds": 0.5,
+        "matches": []
+      },
+      "fatalDiagnostics": [
+        {
+          "fatalId": "fatal|86|162902",
+          "tick": 162902,
+          "attackerPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 91,
+            "playerName": "Spiirit0",
+            "team": 3,
+            "heroId": 16,
+            "playerSlot": null,
+            "steamId": "76561199001931467"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 11,
+            "pawnEntityIndex": 86,
+            "playerName": "4rM4D1110",
+            "team": 2,
+            "heroId": 58,
+            "playerSlot": null,
+            "steamId": "76561199670727770"
+          },
+          "terminalMessageCount": 3,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 162902,
+            "anchorId": "fatal|86|164493",
+            "anchorTick": 164493,
+            "signedTickDelta": 1591,
+            "absoluteTickDelta": 1591,
+            "signedSecondsDelta": 24.859375,
+            "absoluteSecondsDelta": 24.859375
+          }
+        },
+        {
+          "fatalId": "fatal|78|162935",
+          "tick": 162935,
+          "attackerPlayer": {
+            "controllerEntityIndex": 2,
+            "pawnEntityIndex": 99,
+            "playerName": "jmillay",
+            "team": 3,
+            "heroId": 31,
+            "playerSlot": null,
+            "steamId": "76561198840286728"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 10,
+            "pawnEntityIndex": 78,
+            "playerName": "Paradox_Cowkitty",
+            "team": 2,
+            "heroId": 4,
+            "playerSlot": null,
+            "steamId": "76561198740302968"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 162935,
+            "anchorId": "fatal|78|163781",
+            "anchorTick": 163781,
+            "signedTickDelta": 846,
+            "absoluteTickDelta": 846,
+            "signedSecondsDelta": 13.21875,
+            "absoluteSecondsDelta": 13.21875
+          }
+        },
+        {
+          "fatalId": "fatal|84|166937",
+          "tick": 166937,
+          "attackerPlayer": {
+            "controllerEntityIndex": 5,
+            "pawnEntityIndex": 77,
+            "playerName": "Jake",
+            "team": 3,
+            "heroId": 2,
+            "playerSlot": null,
+            "steamId": "76561198064370048"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 84,
+            "playerName": "renso",
+            "team": 2,
+            "heroId": 35,
+            "playerSlot": null,
+            "steamId": "76561198107069146"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 166937,
+            "anchorId": "fatal|84|168128",
+            "anchorTick": 168128,
+            "signedTickDelta": 1191,
+            "absoluteTickDelta": 1191,
+            "signedSecondsDelta": 18.609375,
+            "absoluteSecondsDelta": 18.609375
+          }
+        },
+        {
+          "fatalId": "fatal|84|189094",
+          "tick": 189094,
+          "attackerPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 91,
+            "playerName": "Spiirit0",
+            "team": 3,
+            "heroId": 16,
+            "playerSlot": null,
+            "steamId": "76561199001931467"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 84,
+            "playerName": "renso",
+            "team": 2,
+            "heroId": 35,
+            "playerSlot": null,
+            "steamId": "76561198107069146"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 189094,
+            "anchorId": "fatal|84|190205",
+            "anchorTick": 190205,
+            "signedTickDelta": 1111,
+            "absoluteTickDelta": 1111,
+            "signedSecondsDelta": 17.359375,
+            "absoluteSecondsDelta": 17.359375
+          }
+        },
+        {
+          "fatalId": "fatal|86|189970",
+          "tick": 189970,
+          "attackerPlayer": {
+            "controllerEntityIndex": 3,
+            "pawnEntityIndex": 81,
+            "playerName": "phishymundo",
+            "team": 3,
+            "heroId": 1,
+            "playerSlot": null,
+            "steamId": "76561198375104685"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 11,
+            "pawnEntityIndex": 86,
+            "playerName": "4rM4D1110",
+            "team": 2,
+            "heroId": 58,
+            "playerSlot": null,
+            "steamId": "76561199670727770"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 189970,
+            "anchorId": "fatal|86|191661",
+            "anchorTick": 191661,
+            "signedTickDelta": 1691,
+            "absoluteTickDelta": 1691,
+            "signedSecondsDelta": 26.421875,
+            "absoluteSecondsDelta": 26.421875
+          }
+        },
+        {
+          "fatalId": "fatal|94|190104",
+          "tick": 190104,
+          "attackerPlayer": {
+            "controllerEntityIndex": 5,
+            "pawnEntityIndex": 77,
+            "playerName": "Jake",
+            "team": 3,
+            "heroId": 2,
+            "playerSlot": null,
+            "steamId": "76561198064370048"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 9,
+            "pawnEntityIndex": 94,
+            "playerName": "FwankToo",
+            "team": 2,
+            "heroId": 11,
+            "playerSlot": null,
+            "steamId": "76561197981048677"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 190104,
+            "anchorId": "fatal|94|190698",
+            "anchorTick": 190698,
+            "signedTickDelta": 594,
+            "absoluteTickDelta": 594,
+            "signedSecondsDelta": 9.28125,
+            "absoluteSecondsDelta": 9.28125
+          }
+        }
+      ],
+      "remainingUnpairedKillCredits": [
+        {
+          "id": "kill|10|15795|0",
+          "kind": "kill",
+          "tick": 15795,
+          "controllerEntityIndex": 10,
+          "pawnEntityIndex": 78,
+          "playerName": "Paradox_Cowkitty",
+          "team": 2,
+          "heroId": 4,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|5|118899|0",
+          "kind": "kill",
+          "tick": 118899,
+          "controllerEntityIndex": 5,
+          "pawnEntityIndex": 77,
+          "playerName": "Jake",
+          "team": 3,
+          "heroId": 2,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        }
+      ]
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "counts": {
+        "scoreboardKillCredits": 80,
+        "directEnemyFatalGroups": 80,
+        "deathConfirmedDirectEnemyFatalAnchors": 78,
+        "unmatchedDirectEnemyFatalWithoutVictimDeathCredit": 2,
+        "unmatchedKillCreditsWithoutDeathConfirmedDirectFatalAnchor": 2,
+        "unmatchedFatalPairedToUnmatchedKillCredit": 0,
+        "unmatchedFatalStillUnpaired": 2,
+        "unmatchedKillCreditsStillUnpaired": 2,
+        "unmatchedFatalNearExistingSameVictimDeathAnchorWithin5s": 0
+      },
+      "fatalToKillResidualMatch": {
+        "windowTicks": 32,
+        "windowSeconds": 0.5,
+        "matches": []
+      },
+      "fatalDiagnostics": [
+        {
+          "fatalId": "fatal|91|121184",
+          "tick": 121184,
+          "attackerPlayer": {
+            "controllerEntityIndex": 8,
+            "pawnEntityIndex": 89,
+            "playerName": "Coochieman",
+            "team": 2,
+            "heroId": 76,
+            "playerSlot": null,
+            "steamId": "76561199212745051"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 5,
+            "pawnEntityIndex": 91,
+            "playerName": "butterflyflyhig",
+            "team": 3,
+            "heroId": 6,
+            "playerSlot": null,
+            "steamId": "76561198086537147"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 121184,
+            "anchorId": "fatal|91|121619",
+            "anchorTick": 121619,
+            "signedTickDelta": 435,
+            "absoluteTickDelta": 435,
+            "signedSecondsDelta": 6.796875,
+            "absoluteSecondsDelta": 6.796875
+          }
+        },
+        {
+          "fatalId": "fatal|95|144320",
+          "tick": 144320,
+          "attackerPlayer": {
+            "controllerEntityIndex": 12,
+            "pawnEntityIndex": 79,
+            "playerName": "giga jimmy",
+            "team": 2,
+            "heroId": 18,
+            "playerSlot": null,
+            "steamId": "76561198041920601"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 95,
+            "playerName": "renso",
+            "team": 3,
+            "heroId": 35,
+            "playerSlot": null,
+            "steamId": "76561198107069146"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 144320,
+            "anchorId": "fatal|95|126723",
+            "anchorTick": 126723,
+            "signedTickDelta": -17597,
+            "absoluteTickDelta": 17597,
+            "signedSecondsDelta": -274.953125,
+            "absoluteSecondsDelta": 274.953125
+          }
+        }
+      ],
+      "remainingUnpairedKillCredits": [
+        {
+          "id": "kill|13|90971|0",
+          "kind": "kill",
+          "tick": 90971,
+          "controllerEntityIndex": 13,
+          "pawnEntityIndex": 77,
+          "playerName": "aHUNTER360",
+          "team": 2,
+          "heroId": 1,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|12|92733|0",
+          "kind": "kill",
+          "tick": 92733,
+          "controllerEntityIndex": 12,
+          "pawnEntityIndex": 79,
+          "playerName": "giga jimmy",
+          "team": 2,
+          "heroId": 18,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        }
+      ]
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "counts": {
+        "scoreboardKillCredits": 99,
+        "directEnemyFatalGroups": 98,
+        "deathConfirmedDirectEnemyFatalAnchors": 93,
+        "unmatchedDirectEnemyFatalWithoutVictimDeathCredit": 5,
+        "unmatchedKillCreditsWithoutDeathConfirmedDirectFatalAnchor": 6,
+        "unmatchedFatalPairedToUnmatchedKillCredit": 0,
+        "unmatchedFatalStillUnpaired": 5,
+        "unmatchedKillCreditsStillUnpaired": 6,
+        "unmatchedFatalNearExistingSameVictimDeathAnchorWithin5s": 0
+      },
+      "fatalToKillResidualMatch": {
+        "windowTicks": 32,
+        "windowSeconds": 0.5,
+        "matches": []
+      },
+      "fatalDiagnostics": [
+        {
+          "fatalId": "fatal|77|100407",
+          "tick": 100407,
+          "attackerPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 95,
+            "playerName": "FlameHead58",
+            "team": 2,
+            "heroId": 27,
+            "playerSlot": null,
+            "steamId": "76561199007206598"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 2,
+            "pawnEntityIndex": 77,
+            "playerName": "Aleister",
+            "team": 3,
+            "heroId": 50,
+            "playerSlot": null,
+            "steamId": "76561198307535491"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 100407,
+            "anchorId": "fatal|77|103099",
+            "anchorTick": 103099,
+            "signedTickDelta": 2692,
+            "absoluteTickDelta": 2692,
+            "signedSecondsDelta": 42.0625,
+            "absoluteSecondsDelta": 42.0625
+          }
+        },
+        {
+          "fatalId": "fatal|93|106543",
+          "tick": 106543,
+          "attackerPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 95,
+            "playerName": "FlameHead58",
+            "team": 2,
+            "heroId": 27,
+            "playerSlot": null,
+            "steamId": "76561199007206598"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 10,
+            "pawnEntityIndex": 93,
+            "playerName": "Dolan_161",
+            "team": 3,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198047054872"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 106543,
+            "anchorId": "fatal|93|111836",
+            "anchorTick": 111836,
+            "signedTickDelta": 5293,
+            "absoluteTickDelta": 5293,
+            "signedSecondsDelta": 82.703125,
+            "absoluteSecondsDelta": 82.703125
+          }
+        },
+        {
+          "fatalId": "fatal|88|108531",
+          "tick": 108531,
+          "attackerPlayer": {
+            "controllerEntityIndex": 12,
+            "pawnEntityIndex": 85,
+            "playerName": "Spk",
+            "team": 2,
+            "heroId": 81,
+            "playerSlot": null,
+            "steamId": "76561198306286724"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 5,
+            "pawnEntityIndex": 88,
+            "playerName": "renso",
+            "team": 3,
+            "heroId": 35,
+            "playerSlot": null,
+            "steamId": "76561198107069146"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 108531,
+            "anchorId": "fatal|88|109674",
+            "anchorTick": 109674,
+            "signedTickDelta": 1143,
+            "absoluteTickDelta": 1143,
+            "signedSecondsDelta": 17.859375,
+            "absoluteSecondsDelta": 17.859375
+          }
+        },
+        {
+          "fatalId": "fatal|86|138824",
+          "tick": 138824,
+          "attackerPlayer": {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 78,
+            "playerName": "Jack",
+            "team": 3,
+            "heroId": 19,
+            "playerSlot": null,
+            "steamId": "76561198300773879"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 9,
+            "pawnEntityIndex": 86,
+            "playerName": "Mirzero",
+            "team": 2,
+            "heroId": 11,
+            "playerSlot": null,
+            "steamId": "76561197960960996"
+          },
+          "terminalMessageCount": 1,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 138824,
+            "anchorId": "fatal|86|152742",
+            "anchorTick": 152742,
+            "signedTickDelta": 13918,
+            "absoluteTickDelta": 13918,
+            "signedSecondsDelta": 217.46875,
+            "absoluteSecondsDelta": 217.46875
+          }
+        },
+        {
+          "fatalId": "fatal|77|155501",
+          "tick": 155501,
+          "attackerPlayer": {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 95,
+            "playerName": "FlameHead58",
+            "team": 2,
+            "heroId": 27,
+            "playerSlot": null,
+            "steamId": "76561199007206598"
+          },
+          "victimPlayer": {
+            "controllerEntityIndex": 2,
+            "pawnEntityIndex": 77,
+            "playerName": "Aleister",
+            "team": 3,
+            "heroId": 50,
+            "playerSlot": null,
+            "steamId": "76561198307535491"
+          },
+          "terminalMessageCount": 2,
+          "unresolvedAttackerMessageCount": 0,
+          "pairedUnmatchedKillCredit": null,
+          "nearestDeathConfirmedAnchorForSameVictim": {
+            "fatalTick": 155501,
+            "anchorId": "fatal|77|143720",
+            "anchorTick": 143720,
+            "signedTickDelta": -11781,
+            "absoluteTickDelta": 11781,
+            "signedSecondsDelta": -184.078125,
+            "absoluteSecondsDelta": 184.078125
+          }
+        }
+      ],
+      "remainingUnpairedKillCredits": [
+        {
+          "id": "kill|4|29456|0",
+          "kind": "kill",
+          "tick": 29456,
+          "controllerEntityIndex": 4,
+          "pawnEntityIndex": 80,
+          "playerName": "Ghostt",
+          "team": 2,
+          "heroId": 13,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|2|32035|0",
+          "kind": "kill",
+          "tick": 32035,
+          "controllerEntityIndex": 2,
+          "pawnEntityIndex": 77,
+          "playerName": "Aleister",
+          "team": 3,
+          "heroId": 50,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|12|43417|0",
+          "kind": "kill",
+          "tick": 43417,
+          "controllerEntityIndex": 12,
+          "pawnEntityIndex": 85,
+          "playerName": "Spk",
+          "team": 2,
+          "heroId": 81,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|4|70148|0",
+          "kind": "kill",
+          "tick": 70148,
+          "controllerEntityIndex": 4,
+          "pawnEntityIndex": 80,
+          "playerName": "Ghostt",
+          "team": 2,
+          "heroId": 13,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|3|84558|0",
+          "kind": "kill",
+          "tick": 84558,
+          "controllerEntityIndex": 3,
+          "pawnEntityIndex": 92,
+          "playerName": "Sugon",
+          "team": 3,
+          "heroId": 31,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        },
+        {
+          "id": "kill|4|155111|0",
+          "kind": "kill",
+          "tick": 155111,
+          "controllerEntityIndex": 4,
+          "pawnEntityIndex": 80,
+          "playerName": "Ghostt",
+          "team": 2,
+          "heroId": 13,
+          "transitionDelta": 1,
+          "ordinalWithinTransition": 1
+        }
+      ]
+    }
+  ],
+  "decisionGuide": {
+    "ifFatalNoDeathPairsToKill": "These cases show terminal enemy-player damage plus attacker kill credit without victim m_iDeaths credit; inspect them individually before treating m_iDeaths as a universal victim-death confirmation gate.",
+    "ifFatalNoDeathNearExistingVictimAnchor": "These are candidates for duplicate/repeated terminal-damage packets around one scored death.",
+    "remainingKillCredits": "Any kill credits still unmatched after this pass require a V02 raw-event extraction that persists unresolved/indirect fatal groups."
+  }
+}

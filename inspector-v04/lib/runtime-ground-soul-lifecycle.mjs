@@ -105,6 +105,32 @@ export function compareActivationKeys(productionEpisodes,researchEpisodes){
   return {production:production.size,research:research.size,matched,precision:production.size?matched/production.size:null,recall:research.size?matched/research.size:null,exact:production.size===research.size&&matched===production.size};
 }
 
+export async function attributePhysicalVacuumTargets(episodes=[],playerStateRows,{maxLagTicks=16}={}){
+  const targeted=(episodes??[]).filter(e=>e.targeted&&Number.isInteger(e.targetEntityIndex)&&finite(e.targetOnsetTick)!==null)
+    .sort((a,b)=>num(a.targetOnsetTick)-num(b.targetOnsetTick)||num(a.entityIndex)-num(b.entityIndex));
+  const latest=new Map();let cursor=0,currentTick=null;
+  const resolveOne=e=>{
+    const observed=latest.get(e.targetEntityIndex),targetTick=num(e.targetOnsetTick),lag=observed?targetTick-observed.tick:null;
+    if(!observed||lag<0||lag>maxLagTicks){e.physicalTargetPlayer=null;e.physicalTargetResolution='UNRESOLVED_NO_FRESH_PAWN_IDENTITY';return;}
+    if(observed.ambiguous){e.physicalTargetPlayer=null;e.physicalTargetResolution='UNRESOLVED_AMBIGUOUS_PAWN_IDENTITY';return;}
+    e.physicalTargetPlayer={...observed.identity,pawnEntityIndex:e.targetEntityIndex,identityObservedTick:observed.tick,identityLagTicks:lag};
+    e.physicalTargetResolution='RESOLVED_OBSERVED_PAWN_IDENTITY';
+  };
+  const resolveBefore=tick=>{while(cursor<targeted.length&&num(targeted[cursor].targetOnsetTick)<tick)resolveOne(targeted[cursor++]);};
+  for await(const row of playerStateRows){
+    const tick=finite(row?.demoTick);if(tick===null)continue;
+    if(currentTick===null)currentTick=tick;
+    if(tick!==currentTick){resolveBefore(tick);currentTick=tick;}
+    const pawn=finite(row?.pawn?.entityIndex),controller=finite(row?.controller?.entityIndex);if(pawn===null||controller===null)continue;
+    const identity={controllerEntityIndex:controller,steamId:row.controller?.steamId??null,playerName:row.controller?.playerName??null,team:finite(row.controller?.team),heroId:finite(row.controller?.heroId)};
+    const prior=latest.get(pawn);latest.set(pawn,{tick,identity,ambiguous:Boolean(prior?.tick===tick&&prior.identity.controllerEntityIndex!==controller)});
+  }
+  while(cursor<targeted.length)resolveOne(targeted[cursor++]);
+  const resolved=targeted.filter(e=>e.physicalTargetPlayer),byPlayerMap=new Map();
+  for(const e of resolved){const p=e.physicalTargetPlayer,key=String(p.controllerEntityIndex);if(!byPlayerMap.has(key))byPlayerMap.set(key,{...p,resolvedPhysicalTargets:0,cumulativeTimeline:[]});const row=byPlayerMap.get(key);row.resolvedPhysicalTargets++;row.cumulativeTimeline.push({tick:e.targetOnsetTick,matchTime:e.targetOnsetMatchTimeSeconds,resolvedPhysicalTargets:row.resolvedPhysicalTargets});}
+  return {definition:'First valid m_hVacuumTarget per observed AssignedGold lifecycle, joined to a fresh sampled player pawn identity; this is physical attraction telemetry, not economic receipt.',maxIdentityLagTicks:maxLagTicks,targetedActivations:targeted.length,resolvedPhysicalTargets:resolved.length,unresolvedPhysicalTargets:targeted.length-resolved.length,resolutionShare:targeted.length?resolved.length/targeted.length:null,byPlayer:[...byPlayerMap.values()].sort((a,b)=>a.controllerEntityIndex-b.controllerEntityIndex)};
+}
+
 function handleNumber(v){
   if(v&&typeof v==='object'){
     for(const k of ['value','raw','_value','handle']){const n=Number(v[k]);if(Number.isFinite(n))return n;}

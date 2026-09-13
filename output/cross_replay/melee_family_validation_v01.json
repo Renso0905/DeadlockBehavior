@@ -1,0 +1,1719 @@
+{
+  "version": "MELEE_FAMILY_VALIDATION_V01",
+  "canonical": false,
+  "researchOnly": true,
+  "createdAt": "2026-09-12T20:55:44.850Z",
+  "metricsUnderTest": [
+    "melee_attacks",
+    "melee_hits",
+    "melee_hit_rate",
+    "light_melee",
+    "heavy_melee",
+    "air_heavy_melee",
+    "melee_type_share",
+    "melee_per_alive_min"
+  ],
+  "operationalContract": {
+    "execution": "Unique observed CCitadel_Ability_HoldMelee execution keyed by ability entity index + m_flAttackTriggeredTime + m_eCurrentAttackType.",
+    "matchEligibility": "Only executions whose firstObservedMatchTimeSeconds >= 0 enter authoritative match statistics. Raw pre-match executions remain in the audit event stream.",
+    "hit": "Execution where observed m_bHitWithThisAttack becomes true. This is an observed ability hit flag, not an independently reconstructed collision/damage causal claim.",
+    "attackTypes": {
+      "LIGHT": 1,
+      "HEAVY": 2,
+      "HEAVY_AIR": 3,
+      "SLIDE": 4
+    },
+    "aliveMinuteDenominator": "Movement authority movementAliveSeconds: sum of consecutive post-start PlayerState intervals with both endpoints alive.",
+    "zeroDenominator": "null"
+  },
+  "formulas": {
+    "melee_hit_rate": "melee_hits / melee_attacks",
+    "melee_type_share": "count(type) / melee_attacks for every observed runtime type",
+    "melee_per_alive_min": "melee_attacks / (movementAliveSeconds / 60)"
+  },
+  "semanticBoundary": [
+    "melee_attacks is executed melee telemetry, not raw input/button-press attempts.",
+    "m_bHitWithThisAttack is observed game ability telemetry; it does not independently prove collision geometry, damage amount, target identity, or causal final blow.",
+    "LIGHT/HEAVY/HEAVY_AIR/SLIDE come from m_eCurrentAttackType rather than input hold-duration heuristics.",
+    "No intent, strategic quality, or perceived opportunity is inferred.",
+    "Legacy MeleeHit game-message absence is not used as negative evidence against the direct ability carrier."
+  ],
+  "calibration": {
+    "historicalRawAttacks": 1598,
+    "historicalConfirmedHits": 1577,
+    "historicalInputEventsLoaded": 1792,
+    "historicalDirectEventsMatchedToInput": 1545,
+    "historicalInputAgreement": {
+      "HEAVY_AIR": {
+        "AMBIGUOUS_CHARGE": 38,
+        "LIGHT": 4,
+        "HEAVY": 34
+      },
+      "LIGHT": {
+        "LIGHT": 641,
+        "AMBIGUOUS_CHARGE": 4,
+        "HEAVY": 3
+      },
+      "HEAVY": {
+        "AMBIGUOUS_CHARGE": 247,
+        "HEAVY": 562,
+        "LIGHT": 12
+      }
+    },
+    "productionRawAttacks": 1598,
+    "productionRawHits": 1577,
+    "exactRows": 1598,
+    "mismatchCount": 0,
+    "mismatchExamples": [],
+    "rawTypePass": true,
+    "rawExactReproductionPass": true,
+    "productionPreMatchAttacks": 16,
+    "productionPreMatchHits": 0,
+    "productionMatchAttacks": 1582,
+    "productionMatchHits": 1577,
+    "productionMatchByType": {
+      "LIGHT": 635,
+      "HEAVY": 873,
+      "HEAVY_AIR": 74
+    },
+    "matchTypePass": true,
+    "frozenMatchExclusionPass": true,
+    "note": "Legacy behavioral_metrics_v02 melee totals used the raw 1,598-event numerator, which included 16 pre-match whiffs. Production match metrics deliberately correct this by excluding matchTime<0 executions."
+  },
+  "movementDependency": {
+    "version": "MOVEMENT_FAMILY_VALIDATION_V01",
+    "validationPass": true,
+    "playerReplayRows": 72
+  },
+  "aggregate": {
+    "requestedReplays": 6,
+    "successfulReplays": 6,
+    "playerReplayCount": 72,
+    "rawAttacks": 8317,
+    "preMatchAttacksExcluded": 19,
+    "matchAttacks": 8298,
+    "matchHits": 8273,
+    "unresolvedOwnerMatch": 0,
+    "unknownAttackTypeMatch": 0,
+    "duplicateKeyCount": 0,
+    "lightMelee": 2990,
+    "heavyMelee": 4968,
+    "airHeavyMelee": 340,
+    "slideMelee": 0,
+    "hitRateFormulaMaxAbsoluteError": 0,
+    "typeShareFormulaMaxAbsoluteError": 0,
+    "playerSumMaxAbsoluteError": 0,
+    "attacksPerAliveMinuteFormulaMaxAbsoluteError": 0,
+    "ownerResolutionRateMatch": 1
+  },
+  "gates": {
+    "sixOfSixReplays": true,
+    "runtimeVersionEveryReplay": true,
+    "runtimeReadyEveryReplay": true,
+    "runtimeIntegrityEveryReplay": true,
+    "substantialExecutionEveryReplay": true,
+    "uniqueExecutionKeys": true,
+    "completePostStartOwnerResolution": true,
+    "knownPostStartAttackTypes": true,
+    "booleanHitStateEveryEvent": true,
+    "summaryEventReconciliation": true,
+    "playerSummaryReconciliation": true,
+    "hitCountBoundedByAttacks": true,
+    "movementAuthorityPass": true,
+    "movementRoster72": true,
+    "movementJoinComplete": true,
+    "playerReplay72": true,
+    "hitRateFormulaExact": true,
+    "typeShareFormulaExact": true,
+    "attacksPerAliveMinuteFormulaExact": true,
+    "syntheticZeroDenominatorContract": true,
+    "calibrationRawExactReproduction": true,
+    "calibrationFrozenMatchExclusion": true
+  },
+  "validationPass": true,
+  "recommendedAuthorityIfPass": {
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated"
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "runtimeVersionPass": true,
+      "runtimeReadyPass": true,
+      "runtimeIntegrityPass": true,
+      "rawAttacks": 1598,
+      "preMatchAttacks": 16,
+      "matchAttacks": 1582,
+      "matchHits": 1577,
+      "lightMelee": 635,
+      "heavyMelee": 873,
+      "airHeavyMelee": 74,
+      "slideMelee": 0,
+      "unresolvedOwnerMatch": 0,
+      "ownerResolutionRateMatch": 1,
+      "unknownAttackTypeMatch": 0,
+      "duplicateKeyCount": 0,
+      "booleanHitStatePass": true,
+      "summaryEventReconciliationPass": true,
+      "playerSummaryReconciliationPass": true,
+      "movementRosterPlayers": 12,
+      "movementJoinMissing": 0,
+      "hitRateFormulaMaxAbsoluteError": 0,
+      "typeShareFormulaMaxAbsoluteError": 0,
+      "playerSumMaxAbsoluteError": 0
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "runtimeVersionPass": true,
+      "runtimeReadyPass": true,
+      "runtimeIntegrityPass": true,
+      "rawAttacks": 1138,
+      "preMatchAttacks": 1,
+      "matchAttacks": 1137,
+      "matchHits": 1134,
+      "lightMelee": 376,
+      "heavyMelee": 715,
+      "airHeavyMelee": 46,
+      "slideMelee": 0,
+      "unresolvedOwnerMatch": 0,
+      "ownerResolutionRateMatch": 1,
+      "unknownAttackTypeMatch": 0,
+      "duplicateKeyCount": 0,
+      "booleanHitStatePass": true,
+      "summaryEventReconciliationPass": true,
+      "playerSummaryReconciliationPass": true,
+      "movementRosterPlayers": 12,
+      "movementJoinMissing": 0,
+      "hitRateFormulaMaxAbsoluteError": 0,
+      "typeShareFormulaMaxAbsoluteError": 0,
+      "playerSumMaxAbsoluteError": 0
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "runtimeVersionPass": true,
+      "runtimeReadyPass": true,
+      "runtimeIntegrityPass": true,
+      "rawAttacks": 1591,
+      "preMatchAttacks": 0,
+      "matchAttacks": 1591,
+      "matchHits": 1586,
+      "lightMelee": 525,
+      "heavyMelee": 981,
+      "airHeavyMelee": 85,
+      "slideMelee": 0,
+      "unresolvedOwnerMatch": 0,
+      "ownerResolutionRateMatch": 1,
+      "unknownAttackTypeMatch": 0,
+      "duplicateKeyCount": 0,
+      "booleanHitStatePass": true,
+      "summaryEventReconciliationPass": true,
+      "playerSummaryReconciliationPass": true,
+      "movementRosterPlayers": 12,
+      "movementJoinMissing": 0,
+      "hitRateFormulaMaxAbsoluteError": 0,
+      "typeShareFormulaMaxAbsoluteError": 0,
+      "playerSumMaxAbsoluteError": 0
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "runtimeVersionPass": true,
+      "runtimeReadyPass": true,
+      "runtimeIntegrityPass": true,
+      "rawAttacks": 1561,
+      "preMatchAttacks": 0,
+      "matchAttacks": 1561,
+      "matchHits": 1558,
+      "lightMelee": 576,
+      "heavyMelee": 917,
+      "airHeavyMelee": 68,
+      "slideMelee": 0,
+      "unresolvedOwnerMatch": 0,
+      "ownerResolutionRateMatch": 1,
+      "unknownAttackTypeMatch": 0,
+      "duplicateKeyCount": 0,
+      "booleanHitStatePass": true,
+      "summaryEventReconciliationPass": true,
+      "playerSummaryReconciliationPass": true,
+      "movementRosterPlayers": 12,
+      "movementJoinMissing": 0,
+      "hitRateFormulaMaxAbsoluteError": 0,
+      "typeShareFormulaMaxAbsoluteError": 0,
+      "playerSumMaxAbsoluteError": 0
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "runtimeVersionPass": true,
+      "runtimeReadyPass": true,
+      "runtimeIntegrityPass": true,
+      "rawAttacks": 1081,
+      "preMatchAttacks": 2,
+      "matchAttacks": 1079,
+      "matchHits": 1075,
+      "lightMelee": 384,
+      "heavyMelee": 665,
+      "airHeavyMelee": 30,
+      "slideMelee": 0,
+      "unresolvedOwnerMatch": 0,
+      "ownerResolutionRateMatch": 1,
+      "unknownAttackTypeMatch": 0,
+      "duplicateKeyCount": 0,
+      "booleanHitStatePass": true,
+      "summaryEventReconciliationPass": true,
+      "playerSummaryReconciliationPass": true,
+      "movementRosterPlayers": 12,
+      "movementJoinMissing": 0,
+      "hitRateFormulaMaxAbsoluteError": 0,
+      "typeShareFormulaMaxAbsoluteError": 0,
+      "playerSumMaxAbsoluteError": 0
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "runtimeVersionPass": true,
+      "runtimeReadyPass": true,
+      "runtimeIntegrityPass": true,
+      "rawAttacks": 1348,
+      "preMatchAttacks": 0,
+      "matchAttacks": 1348,
+      "matchHits": 1343,
+      "lightMelee": 494,
+      "heavyMelee": 817,
+      "airHeavyMelee": 37,
+      "slideMelee": 0,
+      "unresolvedOwnerMatch": 0,
+      "ownerResolutionRateMatch": 1,
+      "unknownAttackTypeMatch": 0,
+      "duplicateKeyCount": 0,
+      "booleanHitStatePass": true,
+      "summaryEventReconciliationPass": true,
+      "playerSummaryReconciliationPass": true,
+      "movementRosterPlayers": 12,
+      "movementJoinMissing": 0,
+      "hitRateFormulaMaxAbsoluteError": 0,
+      "typeShareFormulaMaxAbsoluteError": 0,
+      "playerSumMaxAbsoluteError": 0
+    }
+  ],
+  "players": [
+    {
+      "replayName": "test",
+      "playerName": "Nacho4Sure",
+      "movementAliveSeconds": 2528.75,
+      "attackCount": 52,
+      "hitCount": 52,
+      "byType": {
+        "HEAVY": 29,
+        "LIGHT": 23
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.5576923076923077,
+        "LIGHT": 0.4423076923076923
+      },
+      "attacksPerAliveMinute": 1.2338111715274345,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "blooop354",
+      "movementAliveSeconds": 2311.5,
+      "attackCount": 63,
+      "hitCount": 62,
+      "byType": {
+        "LIGHT": 23,
+        "HEAVY": 32,
+        "HEAVY_AIR": 8
+      },
+      "hitRate": 0.9841269841269841,
+      "typeShare": {
+        "LIGHT": 0.36507936507936506,
+        "HEAVY": 0.5079365079365079,
+        "HEAVY_AIR": 0.12698412698412698
+      },
+      "attacksPerAliveMinute": 1.63530175210902,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "flem",
+      "movementAliveSeconds": 2616.5,
+      "attackCount": 89,
+      "hitCount": 88,
+      "byType": {
+        "LIGHT": 58,
+        "HEAVY": 31
+      },
+      "hitRate": 0.9887640449438202,
+      "typeShare": {
+        "LIGHT": 0.651685393258427,
+        "HEAVY": 0.34831460674157305
+      },
+      "attacksPerAliveMinute": 2.0408943244792663,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "Zaeleth",
+      "movementAliveSeconds": 2490.25,
+      "attackCount": 71,
+      "hitCount": 71,
+      "byType": {
+        "HEAVY": 60,
+        "LIGHT": 9,
+        "HEAVY_AIR": 2
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.8450704225352113,
+        "LIGHT": 0.1267605633802817,
+        "HEAVY_AIR": 0.028169014084507043
+      },
+      "attacksPerAliveMinute": 1.7106716193153297,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "Yosafire Worshipper [K]",
+      "movementAliveSeconds": 3054.75,
+      "attackCount": 197,
+      "hitCount": 197,
+      "byType": {
+        "HEAVY": 86,
+        "LIGHT": 104,
+        "HEAVY_AIR": 7
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.4365482233502538,
+        "LIGHT": 0.5279187817258884,
+        "HEAVY_AIR": 0.03553299492385787
+      },
+      "attacksPerAliveMinute": 3.8693837466241097,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "Nebula",
+      "movementAliveSeconds": 2611.75,
+      "attackCount": 143,
+      "hitCount": 142,
+      "byType": {
+        "HEAVY": 91,
+        "LIGHT": 40,
+        "HEAVY_AIR": 12
+      },
+      "hitRate": 0.993006993006993,
+      "typeShare": {
+        "HEAVY": 0.6363636363636364,
+        "LIGHT": 0.27972027972027974,
+        "HEAVY_AIR": 0.08391608391608392
+      },
+      "attacksPerAliveMinute": 3.2851536326218054,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "Snazzy314",
+      "movementAliveSeconds": 2568,
+      "attackCount": 223,
+      "hitCount": 223,
+      "byType": {
+        "HEAVY": 158,
+        "LIGHT": 62,
+        "HEAVY_AIR": 3
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.7085201793721974,
+        "LIGHT": 0.27802690582959644,
+        "HEAVY_AIR": 0.013452914798206279
+      },
+      "attacksPerAliveMinute": 5.210280373831776,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "TheWoogler",
+      "movementAliveSeconds": 2327.5,
+      "attackCount": 52,
+      "hitCount": 52,
+      "byType": {
+        "HEAVY": 32,
+        "LIGHT": 20
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6153846153846154,
+        "LIGHT": 0.38461538461538464
+      },
+      "attacksPerAliveMinute": 1.3404940923737918,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "Goldinfer",
+      "movementAliveSeconds": 2571.5,
+      "attackCount": 109,
+      "hitCount": 109,
+      "byType": {
+        "LIGHT": 70,
+        "HEAVY": 37,
+        "HEAVY_AIR": 2
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "LIGHT": 0.6422018348623854,
+        "HEAVY": 0.3394495412844037,
+        "HEAVY_AIR": 0.01834862385321101
+      },
+      "attacksPerAliveMinute": 2.543262687147579,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "renso",
+      "movementAliveSeconds": 2634.25,
+      "attackCount": 214,
+      "hitCount": 214,
+      "byType": {
+        "HEAVY": 130,
+        "LIGHT": 74,
+        "HEAVY_AIR": 10
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6074766355140186,
+        "LIGHT": 0.34579439252336447,
+        "HEAVY_AIR": 0.04672897196261682
+      },
+      "attacksPerAliveMinute": 4.874252633576919,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "Eriansan",
+      "movementAliveSeconds": 2985.75,
+      "attackCount": 223,
+      "hitCount": 222,
+      "byType": {
+        "HEAVY_AIR": 21,
+        "HEAVY": 133,
+        "LIGHT": 69
+      },
+      "hitRate": 0.9955156950672646,
+      "typeShare": {
+        "HEAVY_AIR": 0.09417040358744394,
+        "HEAVY": 0.5964125560538116,
+        "LIGHT": 0.3094170403587444
+      },
+      "attacksPerAliveMinute": 4.481286109017835,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "test",
+      "playerName": "viggoth 300",
+      "movementAliveSeconds": 3043.5,
+      "attackCount": 146,
+      "hitCount": 145,
+      "byType": {
+        "LIGHT": 83,
+        "HEAVY": 54,
+        "HEAVY_AIR": 9
+      },
+      "hitRate": 0.9931506849315068,
+      "typeShare": {
+        "LIGHT": 0.5684931506849316,
+        "HEAVY": 0.3698630136986301,
+        "HEAVY_AIR": 0.06164383561643835
+      },
+      "attacksPerAliveMinute": 2.878265155248891,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "Zaeleth",
+      "movementAliveSeconds": 1989.5,
+      "attackCount": 60,
+      "hitCount": 60,
+      "byType": {
+        "HEAVY": 51,
+        "LIGHT": 8,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.85,
+        "LIGHT": 0.13333333333333333,
+        "HEAVY_AIR": 0.016666666666666666
+      },
+      "attacksPerAliveMinute": 1.8094998743402866,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "renso",
+      "movementAliveSeconds": 2035,
+      "attackCount": 217,
+      "hitCount": 217,
+      "byType": {
+        "LIGHT": 51,
+        "HEAVY": 157,
+        "HEAVY_AIR": 9
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "LIGHT": 0.2350230414746544,
+        "HEAVY": 0.7235023041474654,
+        "HEAVY_AIR": 0.041474654377880185
+      },
+      "attacksPerAliveMinute": 6.398034398034398,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "Mushie",
+      "movementAliveSeconds": 1943,
+      "attackCount": 75,
+      "hitCount": 75,
+      "byType": {
+        "HEAVY": 49,
+        "LIGHT": 25,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6533333333333333,
+        "LIGHT": 0.3333333333333333,
+        "HEAVY_AIR": 0.013333333333333334
+      },
+      "attacksPerAliveMinute": 2.3160061760164696,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "The White Samoan",
+      "movementAliveSeconds": 1896.25,
+      "attackCount": 10,
+      "hitCount": 10,
+      "byType": {
+        "HEAVY": 5,
+        "HEAVY_AIR": 3,
+        "LIGHT": 2
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.5,
+        "HEAVY_AIR": 0.3,
+        "LIGHT": 0.2
+      },
+      "attacksPerAliveMinute": 0.3164139749505603,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "Kabuto",
+      "movementAliveSeconds": 2233.5,
+      "attackCount": 117,
+      "hitCount": 117,
+      "byType": {
+        "HEAVY": 73,
+        "LIGHT": 40,
+        "HEAVY_AIR": 4
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6239316239316239,
+        "LIGHT": 0.3418803418803419,
+        "HEAVY_AIR": 0.03418803418803419
+      },
+      "attacksPerAliveMinute": 3.143049026192075,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "Parker",
+      "movementAliveSeconds": 1905.25,
+      "attackCount": 71,
+      "hitCount": 70,
+      "byType": {
+        "HEAVY_AIR": 2,
+        "HEAVY": 32,
+        "LIGHT": 37
+      },
+      "hitRate": 0.9859154929577465,
+      "typeShare": {
+        "HEAVY_AIR": 0.028169014084507043,
+        "HEAVY": 0.4507042253521127,
+        "LIGHT": 0.5211267605633803
+      },
+      "attacksPerAliveMinute": 2.235927043695053,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "Goldinfer",
+      "movementAliveSeconds": 2205,
+      "attackCount": 170,
+      "hitCount": 170,
+      "byType": {
+        "HEAVY": 111,
+        "LIGHT": 57,
+        "HEAVY_AIR": 2
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6529411764705882,
+        "LIGHT": 0.3352941176470588,
+        "HEAVY_AIR": 0.011764705882352941
+      },
+      "attacksPerAliveMinute": 4.625850340136054,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "ArsonBoy5996",
+      "movementAliveSeconds": 2179.75,
+      "attackCount": 143,
+      "hitCount": 143,
+      "byType": {
+        "HEAVY": 90,
+        "LIGHT": 43,
+        "HEAVY_AIR": 10
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6293706293706294,
+        "LIGHT": 0.3006993006993007,
+        "HEAVY_AIR": 0.06993006993006994
+      },
+      "attacksPerAliveMinute": 3.936231219176511,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "Quackinator17",
+      "movementAliveSeconds": 2161,
+      "attackCount": 90,
+      "hitCount": 90,
+      "byType": {
+        "HEAVY": 54,
+        "HEAVY_AIR": 5,
+        "LIGHT": 31
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6,
+        "HEAVY_AIR": 0.05555555555555555,
+        "LIGHT": 0.34444444444444444
+      },
+      "attacksPerAliveMinute": 2.4988431281813974,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "BlamBlam50",
+      "movementAliveSeconds": 1929.25,
+      "attackCount": 92,
+      "hitCount": 91,
+      "byType": {
+        "HEAVY": 53,
+        "LIGHT": 36,
+        "HEAVY_AIR": 3
+      },
+      "hitRate": 0.9891304347826086,
+      "typeShare": {
+        "HEAVY": 0.5760869565217391,
+        "LIGHT": 0.391304347826087,
+        "HEAVY_AIR": 0.03260869565217391
+      },
+      "attacksPerAliveMinute": 2.8612154982506155,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "Archivist Eris",
+      "movementAliveSeconds": 1914.5,
+      "attackCount": 20,
+      "hitCount": 20,
+      "byType": {
+        "LIGHT": 18,
+        "HEAVY": 2
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "LIGHT": 0.9,
+        "HEAVY": 0.1
+      },
+      "attacksPerAliveMinute": 0.6267955079655262,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep01",
+      "playerName": "Nebula",
+      "movementAliveSeconds": 2088.25,
+      "attackCount": 72,
+      "hitCount": 71,
+      "byType": {
+        "LIGHT": 28,
+        "HEAVY_AIR": 6,
+        "HEAVY": 38
+      },
+      "hitRate": 0.9861111111111112,
+      "typeShare": {
+        "LIGHT": 0.3888888888888889,
+        "HEAVY_AIR": 0.08333333333333333,
+        "HEAVY": 0.5277777777777778
+      },
+      "attacksPerAliveMinute": 2.0687178259308032,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "Nameless Shado",
+      "movementAliveSeconds": 1938.25,
+      "attackCount": 100,
+      "hitCount": 100,
+      "byType": {
+        "LIGHT": 64,
+        "HEAVY": 36
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "LIGHT": 0.64,
+        "HEAVY": 0.36
+      },
+      "attacksPerAliveMinute": 3.0955759061008643,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "Rupa",
+      "movementAliveSeconds": 2226.25,
+      "attackCount": 125,
+      "hitCount": 125,
+      "byType": {
+        "HEAVY": 61,
+        "LIGHT": 60,
+        "HEAVY_AIR": 4
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.488,
+        "LIGHT": 0.48,
+        "HEAVY_AIR": 0.032
+      },
+      "attacksPerAliveMinute": 3.368893879842785,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "Zaeleth",
+      "movementAliveSeconds": 1912.75,
+      "attackCount": 52,
+      "hitCount": 52,
+      "byType": {
+        "HEAVY": 44,
+        "HEAVY_AIR": 2,
+        "LIGHT": 6
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.8461538461538461,
+        "HEAVY_AIR": 0.038461538461538464,
+        "LIGHT": 0.11538461538461539
+      },
+      "attacksPerAliveMinute": 1.6311593255783559,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "Moodamu",
+      "movementAliveSeconds": 2014.25,
+      "attackCount": 123,
+      "hitCount": 123,
+      "byType": {
+        "HEAVY": 74,
+        "LIGHT": 45,
+        "HEAVY_AIR": 4
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6016260162601627,
+        "LIGHT": 0.36585365853658536,
+        "HEAVY_AIR": 0.032520325203252036
+      },
+      "attacksPerAliveMinute": 3.6638947499069134,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "cloudlightfellow",
+      "movementAliveSeconds": 2078.75,
+      "attackCount": 124,
+      "hitCount": 124,
+      "byType": {
+        "HEAVY": 89,
+        "LIGHT": 34,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.717741935483871,
+        "LIGHT": 0.27419354838709675,
+        "HEAVY_AIR": 0.008064516129032258
+      },
+      "attacksPerAliveMinute": 3.5790739627179793,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "renso",
+      "movementAliveSeconds": 1922.5,
+      "attackCount": 157,
+      "hitCount": 157,
+      "byType": {
+        "LIGHT": 45,
+        "HEAVY": 108,
+        "HEAVY_AIR": 4
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "LIGHT": 0.28662420382165604,
+        "HEAVY": 0.6878980891719745,
+        "HEAVY_AIR": 0.025477707006369428
+      },
+      "attacksPerAliveMinute": 4.899869960988297,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "pistachio",
+      "movementAliveSeconds": 1799.5,
+      "attackCount": 321,
+      "hitCount": 321,
+      "byType": {
+        "HEAVY": 199,
+        "LIGHT": 72,
+        "HEAVY_AIR": 50
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6199376947040498,
+        "LIGHT": 0.22429906542056074,
+        "HEAVY_AIR": 0.1557632398753894
+      },
+      "attacksPerAliveMinute": 10.702973048068907,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "Gnome Garden",
+      "movementAliveSeconds": 1994.25,
+      "attackCount": 107,
+      "hitCount": 107,
+      "byType": {
+        "HEAVY": 81,
+        "LIGHT": 22,
+        "HEAVY_AIR": 4
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.7570093457943925,
+        "LIGHT": 0.205607476635514,
+        "HEAVY_AIR": 0.037383177570093455
+      },
+      "attacksPerAliveMinute": 3.2192553591575783,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "Ripoleon BonerFarts",
+      "movementAliveSeconds": 1945.5,
+      "attackCount": 133,
+      "hitCount": 133,
+      "byType": {
+        "HEAVY": 109,
+        "LIGHT": 23,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.8195488721804511,
+        "LIGHT": 0.17293233082706766,
+        "HEAVY_AIR": 0.007518796992481203
+      },
+      "attacksPerAliveMinute": 4.1017733230532,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "Nebula",
+      "movementAliveSeconds": 1990.75,
+      "attackCount": 92,
+      "hitCount": 90,
+      "byType": {
+        "LIGHT": 37,
+        "HEAVY_AIR": 11,
+        "HEAVY": 44
+      },
+      "hitRate": 0.9782608695652174,
+      "typeShare": {
+        "LIGHT": 0.40217391304347827,
+        "HEAVY_AIR": 0.11956521739130435,
+        "HEAVY": 0.4782608695652174
+      },
+      "attacksPerAliveMinute": 2.7728243124450582,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "Wild Willy",
+      "movementAliveSeconds": 2166.5,
+      "attackCount": 55,
+      "hitCount": 52,
+      "byType": {
+        "HEAVY": 29,
+        "LIGHT": 25,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 0.9454545454545454,
+      "typeShare": {
+        "HEAVY": 0.5272727272727272,
+        "LIGHT": 0.45454545454545453,
+        "HEAVY_AIR": 0.01818181818181818
+      },
+      "attacksPerAliveMinute": 1.5231940918532194,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep02",
+      "playerName": "Goldinfer",
+      "movementAliveSeconds": 2069.25,
+      "attackCount": 202,
+      "hitCount": 202,
+      "byType": {
+        "LIGHT": 92,
+        "HEAVY": 107,
+        "HEAVY_AIR": 3
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "LIGHT": 0.45544554455445546,
+        "HEAVY": 0.5297029702970297,
+        "HEAVY_AIR": 0.01485148514851485
+      },
+      "attacksPerAliveMinute": 5.857194635737587,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "jmillay",
+      "movementAliveSeconds": 3047,
+      "attackCount": 62,
+      "hitCount": 62,
+      "byType": {
+        "HEAVY": 24,
+        "HEAVY_AIR": 10,
+        "LIGHT": 28
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.3870967741935484,
+        "HEAVY_AIR": 0.16129032258064516,
+        "LIGHT": 0.45161290322580644
+      },
+      "attacksPerAliveMinute": 1.2208729898260584,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "phishymundo",
+      "movementAliveSeconds": 2939.5,
+      "attackCount": 147,
+      "hitCount": 145,
+      "byType": {
+        "LIGHT": 71,
+        "HEAVY": 75,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 0.9863945578231292,
+      "typeShare": {
+        "LIGHT": 0.48299319727891155,
+        "HEAVY": 0.5102040816326531,
+        "HEAVY_AIR": 0.006802721088435374
+      },
+      "attacksPerAliveMinute": 3.0005102908657935,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "MiggyTCD",
+      "movementAliveSeconds": 2947.5,
+      "attackCount": 112,
+      "hitCount": 112,
+      "byType": {
+        "HEAVY": 82,
+        "LIGHT": 25,
+        "HEAVY_AIR": 5
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.7321428571428571,
+        "LIGHT": 0.22321428571428573,
+        "HEAVY_AIR": 0.044642857142857144
+      },
+      "attacksPerAliveMinute": 2.2798982188295165,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "Jake",
+      "movementAliveSeconds": 3128,
+      "attackCount": 124,
+      "hitCount": 124,
+      "byType": {
+        "LIGHT": 69,
+        "HEAVY": 54,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "LIGHT": 0.5564516129032258,
+        "HEAVY": 0.43548387096774194,
+        "HEAVY_AIR": 0.008064516129032258
+      },
+      "attacksPerAliveMinute": 2.3785166240409206,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "SpookFist Tha Strong",
+      "movementAliveSeconds": 3183,
+      "attackCount": 129,
+      "hitCount": 128,
+      "byType": {
+        "HEAVY_AIR": 12,
+        "HEAVY": 65,
+        "LIGHT": 52
+      },
+      "hitRate": 0.9922480620155039,
+      "typeShare": {
+        "HEAVY_AIR": 0.09302325581395349,
+        "HEAVY": 0.5038759689922481,
+        "LIGHT": 0.40310077519379844
+      },
+      "attacksPerAliveMinute": 2.4316682375117815,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "renso",
+      "movementAliveSeconds": 2804.75,
+      "attackCount": 163,
+      "hitCount": 163,
+      "byType": {
+        "LIGHT": 56,
+        "HEAVY": 98,
+        "HEAVY_AIR": 9
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "LIGHT": 0.34355828220858897,
+        "HEAVY": 0.6012269938650306,
+        "HEAVY_AIR": 0.05521472392638037
+      },
+      "attacksPerAliveMinute": 3.48694179516891,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "Pattern",
+      "movementAliveSeconds": 2954.75,
+      "attackCount": 124,
+      "hitCount": 124,
+      "byType": {
+        "HEAVY": 73,
+        "LIGHT": 47,
+        "HEAVY_AIR": 4
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.5887096774193549,
+        "LIGHT": 0.3790322580645161,
+        "HEAVY_AIR": 0.03225806451612903
+      },
+      "attacksPerAliveMinute": 2.517979524494458,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "FwankToo",
+      "movementAliveSeconds": 2880,
+      "attackCount": 189,
+      "hitCount": 189,
+      "byType": {
+        "HEAVY": 145,
+        "LIGHT": 41,
+        "HEAVY_AIR": 3
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.7671957671957672,
+        "LIGHT": 0.21693121693121692,
+        "HEAVY_AIR": 0.015873015873015872
+      },
+      "attacksPerAliveMinute": 3.9375,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "Paradox_Cowkitty",
+      "movementAliveSeconds": 2656,
+      "attackCount": 103,
+      "hitCount": 103,
+      "byType": {
+        "LIGHT": 42,
+        "HEAVY": 61
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "LIGHT": 0.4077669902912621,
+        "HEAVY": 0.5922330097087378
+      },
+      "attacksPerAliveMinute": 2.3268072289156625,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "4rM4D1110",
+      "movementAliveSeconds": 2749.5,
+      "attackCount": 151,
+      "hitCount": 151,
+      "byType": {
+        "HEAVY": 86,
+        "HEAVY_AIR": 16,
+        "LIGHT": 49
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.5695364238410596,
+        "HEAVY_AIR": 0.10596026490066225,
+        "LIGHT": 0.32450331125827814
+      },
+      "attacksPerAliveMinute": 3.295144571740316,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "McThiccems",
+      "movementAliveSeconds": 3032.75,
+      "attackCount": 103,
+      "hitCount": 103,
+      "byType": {
+        "HEAVY": 52,
+        "LIGHT": 49,
+        "HEAVY_AIR": 2
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.5048543689320388,
+        "LIGHT": 0.47572815533980584,
+        "HEAVY_AIR": 0.019417475728155338
+      },
+      "attacksPerAliveMinute": 2.037754513230566,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep03",
+      "playerName": "Spiirit0",
+      "movementAliveSeconds": 2952,
+      "attackCount": 154,
+      "hitCount": 154,
+      "byType": {
+        "HEAVY": 102,
+        "LIGHT": 47,
+        "HEAVY_AIR": 5
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6623376623376623,
+        "LIGHT": 0.3051948051948052,
+        "HEAVY_AIR": 0.032467532467532464
+      },
+      "attacksPerAliveMinute": 3.130081300813008,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "Queenie Juices",
+      "movementAliveSeconds": 1961,
+      "attackCount": 119,
+      "hitCount": 119,
+      "byType": {
+        "HEAVY": 49,
+        "LIGHT": 63,
+        "HEAVY_AIR": 7
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.4117647058823529,
+        "LIGHT": 0.5294117647058824,
+        "HEAVY_AIR": 0.058823529411764705
+      },
+      "attacksPerAliveMinute": 3.6409994900560942,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "Normal Canard",
+      "movementAliveSeconds": 2059.75,
+      "attackCount": 119,
+      "hitCount": 119,
+      "byType": {
+        "HEAVY": 70,
+        "LIGHT": 47,
+        "HEAVY_AIR": 2
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.5882352941176471,
+        "LIGHT": 0.3949579831932773,
+        "HEAVY_AIR": 0.01680672268907563
+      },
+      "attacksPerAliveMinute": 3.4664401019541207,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "Roronoa Zoro",
+      "movementAliveSeconds": 1941.75,
+      "attackCount": 57,
+      "hitCount": 57,
+      "byType": {
+        "HEAVY": 41,
+        "LIGHT": 16
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.7192982456140351,
+        "LIGHT": 0.2807017543859649
+      },
+      "attacksPerAliveMinute": 1.7612977983777522,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "butterflyflyhig",
+      "movementAliveSeconds": 2018.5,
+      "attackCount": 224,
+      "hitCount": 223,
+      "byType": {
+        "HEAVY": 112,
+        "LIGHT": 102,
+        "HEAVY_AIR": 10
+      },
+      "hitRate": 0.9955357142857143,
+      "typeShare": {
+        "HEAVY": 0.5,
+        "LIGHT": 0.45535714285714285,
+        "HEAVY_AIR": 0.044642857142857144
+      },
+      "attacksPerAliveMinute": 6.658409710180828,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "HPE",
+      "movementAliveSeconds": 1944.25,
+      "attackCount": 50,
+      "hitCount": 48,
+      "byType": {
+        "HEAVY": 38,
+        "LIGHT": 11,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 0.96,
+      "typeShare": {
+        "HEAVY": 0.76,
+        "LIGHT": 0.22,
+        "HEAVY_AIR": 0.02
+      },
+      "attacksPerAliveMinute": 1.543011444001543,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "renso",
+      "movementAliveSeconds": 2083.25,
+      "attackCount": 93,
+      "hitCount": 93,
+      "byType": {
+        "HEAVY": 70,
+        "LIGHT": 23
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.7526881720430108,
+        "LIGHT": 0.24731182795698925
+      },
+      "attacksPerAliveMinute": 2.6785071402856118,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "Coochieman",
+      "movementAliveSeconds": 2152.25,
+      "attackCount": 138,
+      "hitCount": 138,
+      "byType": {
+        "HEAVY": 106,
+        "LIGHT": 31,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.7681159420289855,
+        "LIGHT": 0.2246376811594203,
+        "HEAVY_AIR": 0.007246376811594203
+      },
+      "attacksPerAliveMinute": 3.8471367173887794,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "Solace",
+      "movementAliveSeconds": 2171,
+      "attackCount": 80,
+      "hitCount": 80,
+      "byType": {
+        "HEAVY": 54,
+        "LIGHT": 26
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.675,
+        "LIGHT": 0.325
+      },
+      "attacksPerAliveMinute": 2.210962690004606,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "shoto",
+      "movementAliveSeconds": 1945.5,
+      "attackCount": 135,
+      "hitCount": 135,
+      "byType": {
+        "HEAVY": 87,
+        "LIGHT": 47,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6444444444444445,
+        "LIGHT": 0.34814814814814815,
+        "HEAVY_AIR": 0.007407407407407408
+      },
+      "attacksPerAliveMinute": 4.163454124903624,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "Sympathy",
+      "movementAliveSeconds": 1857.5,
+      "attackCount": 22,
+      "hitCount": 22,
+      "byType": {
+        "HEAVY": 13,
+        "LIGHT": 1,
+        "HEAVY_AIR": 8
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.5909090909090909,
+        "LIGHT": 0.045454545454545456,
+        "HEAVY_AIR": 0.36363636363636365
+      },
+      "attacksPerAliveMinute": 0.7106325706594886,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "giga jimmy",
+      "movementAliveSeconds": 1887.5,
+      "attackCount": 8,
+      "hitCount": 7,
+      "byType": {
+        "HEAVY": 4,
+        "LIGHT": 4
+      },
+      "hitRate": 0.875,
+      "typeShare": {
+        "HEAVY": 0.5,
+        "LIGHT": 0.5
+      },
+      "attacksPerAliveMinute": 0.2543046357615894,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep04",
+      "playerName": "aHUNTER360",
+      "movementAliveSeconds": 1923.75,
+      "attackCount": 34,
+      "hitCount": 34,
+      "byType": {
+        "HEAVY": 21,
+        "LIGHT": 13
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6176470588235294,
+        "LIGHT": 0.38235294117647056
+      },
+      "attacksPerAliveMinute": 1.060428849902534,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "Aleister",
+      "movementAliveSeconds": 1749.75,
+      "attackCount": 80,
+      "hitCount": 80,
+      "byType": {
+        "HEAVY": 30,
+        "LIGHT": 50
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.375,
+        "LIGHT": 0.625
+      },
+      "attacksPerAliveMinute": 2.7432490355765107,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "Sugon",
+      "movementAliveSeconds": 2126.25,
+      "attackCount": 79,
+      "hitCount": 79,
+      "byType": {
+        "HEAVY": 43,
+        "LIGHT": 34,
+        "HEAVY_AIR": 2
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.5443037974683544,
+        "LIGHT": 0.43037974683544306,
+        "HEAVY_AIR": 0.02531645569620253
+      },
+      "attacksPerAliveMinute": 2.2292768959435625,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "Ghostt",
+      "movementAliveSeconds": 2255,
+      "attackCount": 102,
+      "hitCount": 101,
+      "byType": {
+        "HEAVY": 69,
+        "LIGHT": 31,
+        "HEAVY_AIR": 2
+      },
+      "hitRate": 0.9901960784313726,
+      "typeShare": {
+        "HEAVY": 0.6764705882352942,
+        "LIGHT": 0.30392156862745096,
+        "HEAVY_AIR": 0.0196078431372549
+      },
+      "attacksPerAliveMinute": 2.713968957871397,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "renso",
+      "movementAliveSeconds": 2116.75,
+      "attackCount": 143,
+      "hitCount": 143,
+      "byType": {
+        "HEAVY": 90,
+        "LIGHT": 50,
+        "HEAVY_AIR": 3
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.6293706293706294,
+        "LIGHT": 0.34965034965034963,
+        "HEAVY_AIR": 0.02097902097902098
+      },
+      "attacksPerAliveMinute": 4.053383725050194,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "ACE_Lazzy",
+      "movementAliveSeconds": 1868,
+      "attackCount": 41,
+      "hitCount": 40,
+      "byType": {
+        "HEAVY": 24,
+        "LIGHT": 17
+      },
+      "hitRate": 0.975609756097561,
+      "typeShare": {
+        "HEAVY": 0.5853658536585366,
+        "LIGHT": 0.4146341463414634
+      },
+      "attacksPerAliveMinute": 1.316916488222698,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "Jack",
+      "movementAliveSeconds": 2073.25,
+      "attackCount": 115,
+      "hitCount": 115,
+      "byType": {
+        "HEAVY": 91,
+        "LIGHT": 23,
+        "HEAVY_AIR": 1
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.7913043478260869,
+        "LIGHT": 0.2,
+        "HEAVY_AIR": 0.008695652173913044
+      },
+      "attacksPerAliveMinute": 3.3281080429277705,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "JustJorsh",
+      "movementAliveSeconds": 2253.75,
+      "attackCount": 186,
+      "hitCount": 185,
+      "byType": {
+        "HEAVY": 140,
+        "LIGHT": 40,
+        "HEAVY_AIR": 6
+      },
+      "hitRate": 0.9946236559139785,
+      "typeShare": {
+        "HEAVY": 0.7526881720430108,
+        "LIGHT": 0.21505376344086022,
+        "HEAVY_AIR": 0.03225806451612903
+      },
+      "attacksPerAliveMinute": 4.951747088186356,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "Mirzero",
+      "movementAliveSeconds": 2225.75,
+      "attackCount": 77,
+      "hitCount": 76,
+      "byType": {
+        "HEAVY": 46,
+        "LIGHT": 29,
+        "HEAVY_AIR": 2
+      },
+      "hitRate": 0.987012987012987,
+      "typeShare": {
+        "HEAVY": 0.5974025974025974,
+        "LIGHT": 0.37662337662337664,
+        "HEAVY_AIR": 0.025974025974025976
+      },
+      "attacksPerAliveMinute": 2.075704818600472,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "Dolan_161",
+      "movementAliveSeconds": 1817.5,
+      "attackCount": 128,
+      "hitCount": 127,
+      "byType": {
+        "HEAVY": 35,
+        "LIGHT": 91,
+        "HEAVY_AIR": 2
+      },
+      "hitRate": 0.9921875,
+      "typeShare": {
+        "HEAVY": 0.2734375,
+        "LIGHT": 0.7109375,
+        "HEAVY_AIR": 0.015625
+      },
+      "attacksPerAliveMinute": 4.225584594222833,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "Senor watermelon",
+      "movementAliveSeconds": 2060,
+      "attackCount": 107,
+      "hitCount": 107,
+      "byType": {
+        "HEAVY_AIR": 7,
+        "HEAVY": 69,
+        "LIGHT": 31
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY_AIR": 0.06542056074766354,
+        "HEAVY": 0.6448598130841121,
+        "LIGHT": 0.2897196261682243
+      },
+      "attacksPerAliveMinute": 3.116504854368932,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "Spk",
+      "movementAliveSeconds": 2042.75,
+      "attackCount": 122,
+      "hitCount": 122,
+      "byType": {
+        "HEAVY_AIR": 5,
+        "HEAVY": 60,
+        "LIGHT": 57
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY_AIR": 0.040983606557377046,
+        "HEAVY": 0.4918032786885246,
+        "LIGHT": 0.4672131147540984
+      },
+      "attacksPerAliveMinute": 3.5834047240239872,
+      "attacksPerAliveMinuteFormulaError": 0
+    },
+    {
+      "replayName": "rep05",
+      "playerName": "FlameHead58",
+      "movementAliveSeconds": 2110.75,
+      "attackCount": 168,
+      "hitCount": 168,
+      "byType": {
+        "HEAVY": 120,
+        "HEAVY_AIR": 7,
+        "LIGHT": 41
+      },
+      "hitRate": 1,
+      "typeShare": {
+        "HEAVY": 0.7142857142857143,
+        "HEAVY_AIR": 0.041666666666666664,
+        "LIGHT": 0.24404761904761904
+      },
+      "attacksPerAliveMinute": 4.7755537131351415,
+      "attacksPerAliveMinuteFormulaError": 0
+    }
+  ]
+}

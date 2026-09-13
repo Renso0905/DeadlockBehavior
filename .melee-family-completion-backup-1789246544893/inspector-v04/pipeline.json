@@ -1,0 +1,225 @@
+{
+  "version": "DEADLOCK_PRODUCTION_PIPELINE_V01",
+  "stopOnRequiredFailure": true,
+  "manifestFile": "production_manifest_v01.json",
+  "notes": [
+    "Only replay-generic production entrypoints belong here. Historical numbered research scripts remain evidence history and are not mass-run as ETL.",
+    "A stage is complete only when the current run executes successfully and its expected outputs are freshly written.",
+    "Validated capabilities without a replay-generic producer are explicitly reported as not_supported rather than inferred from stale output files."
+  ],
+  "steps": [
+    {
+      "id": "core-player-state",
+      "label": "Extract generic player state",
+      "capability": "core_state_economy",
+      "required": true,
+      "args": [
+        "scripts/03-extract-player-state.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/player_state.jsonl",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/player_state_summary.json",
+          "minBytes": 2
+        }
+      ]
+    },
+    {
+      "id": "trooper-deaths",
+      "label": "Extract authoritative Trooper death transitions",
+      "capability": "runtime_trooper_death_events",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-trooper-deaths.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_trooper_deaths_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_trooper_death_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "ground-soul-lifecycle",
+      "label": "Extract authoritative Ground Soul lifecycle",
+      "capability": "runtime_ground_soul_lifecycle",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-ground-soul-lifecycle.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_ground_soul_lifecycle_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_ground_soul_lifecycle_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "ground-soul-economic-credit",
+      "label": "Extract authoritative Ground Soul economic recipient sets",
+      "capability": "runtime_assigned_gold_economic_credit",
+      "required": true,
+      "dependsOn": [
+        "ground-soul-lifecycle"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-assigned-gold-economic-credit.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_assigned_gold_economic_credit_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_assigned_gold_economic_credit_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "health-regen",
+      "label": "Extract observed runtime health regeneration",
+      "capability": "health_regen",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-health-regen.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_health_regen_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_health_regen_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "shop-items",
+      "label": "Extract runtime shop-item ownership",
+      "capability": "runtime_item_ownership",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-items.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_item_ownership_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_item_ownership_events_v01.jsonl",
+          "minBytes": 2
+        }
+      ]
+    },
+    {
+      "id": "permanent-buffs",
+      "label": "Extract permanent world-buff ownership",
+      "capability": "runtime_permanent_buff_ownership",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-permanent-buffs.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_permanent_buff_ownership_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_permanent_buff_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "bridge-buffs",
+      "label": "Extract bridge powerup intervals",
+      "capability": "runtime_bridge_buff_ownership",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-bridge-buffs.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_bridge_buff_ownership_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_bridge_buff_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
+      "id": "primary-fire",
+      "label": "Extract primary-fire cadence",
+      "capability": "primary_fire_cadence",
+      "required": true,
+      "dependsOn": [
+        "core-player-state"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-primary-fire.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_primary_fire_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_primary_fire_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    }
+  ]
+}

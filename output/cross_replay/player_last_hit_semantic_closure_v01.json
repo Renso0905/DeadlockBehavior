@@ -1,0 +1,355 @@
+{
+  "version": "PLAYER_LAST_HIT_SEMANTIC_CLOSURE_V01",
+  "canonical": false,
+  "researchOnly": true,
+  "createdAt": "2026-09-12T07:08:54.281Z",
+  "construct": "game-awarded per-player last-hit credit counter",
+  "field": "CCitadelPlayerController.m_iLastHits",
+  "requestedReplicationReplays": [
+    "rep01",
+    "rep02",
+    "rep03",
+    "rep04",
+    "rep05"
+  ],
+  "successfulReplicationReplays": 5,
+  "evidenceLayers": {
+    "counterIntegrity": {
+      "available": true,
+      "pass": true,
+      "path": "G:\\DeadlockBehavior\\output\\cross_replay\\player_last_hit_counter_reconciliation_batch_v01.json",
+      "replayCount": 6,
+      "successCount": 6,
+      "sampledFinalLastHits": 14196,
+      "sampledPositiveCredits": 14196,
+      "rawPositiveCreditsAll": 14196,
+      "rawPositiveCreditsGameplay": 14196,
+      "sampledNegativeMagnitude": 0,
+      "rawNegativeMagnitudeAll": 0,
+      "rawNegativeMagnitudeGameplay": 0,
+      "rawPositiveCreditsOutsideGameplay": 0
+    },
+    "independentTrooperDeathReplication": {
+      "positiveControlDefinition": "Economic Trooper death with assignedGoldCandidateCount > 0.",
+      "outcomeDefinition": "At least one exact-tick opposing-player m_iLastHits signal in replication_trooper_deaths_v01.jsonl.",
+      "strictOutcomeDefinition": "uniqueExactOpposing is non-null: a unique exact-tick opposing-player last-hit signal.",
+      "contextControls": [
+        "Economic Trooper death with assignedGoldCandidateCount = 0.",
+        "Non-economic Trooper death."
+      ],
+      "aggregate": {
+        "positiveControl": {
+          "total": 5666,
+          "anyExact": 5665,
+          "anyExactRate": 0.9998235086480762,
+          "exactOpposing": 5664,
+          "exactOpposingRate": 0.9996470172961525,
+          "uniqueExactOpposing": 5630,
+          "uniqueExactOpposingRate": 0.9936463113307448
+        },
+        "controls": {
+          "economicNoAssignedGold": {
+            "total": 1135,
+            "anyExact": 106,
+            "anyExactRate": 0.0933920704845815,
+            "exactOpposing": 102,
+            "exactOpposingRate": 0.08986784140969163,
+            "uniqueExactOpposing": 101,
+            "uniqueExactOpposingRate": 0.08898678414096917
+          },
+          "nonEconomic": {
+            "total": 11484,
+            "anyExact": 544,
+            "anyExactRate": 0.04737025426680599,
+            "exactOpposing": 483,
+            "exactOpposingRate": 0.04205851619644723,
+            "uniqueExactOpposing": 481,
+            "uniqueExactOpposingRate": 0.041884360849878094
+          }
+        },
+        "contrasts": {
+          "positiveVsEconomicNoAssignedGoldRateDifference": 0.9097791758864608,
+          "positiveVsEconomicNoAssignedGoldRiskRatio": 11.123523182658166,
+          "positiveVsNonEconomicRateDifference": 0.9575885010997053,
+          "positiveVsNonEconomicRiskRatio": 23.768004858445167
+        }
+      },
+      "replays": [
+        {
+          "replayName": "rep01",
+          "success": true,
+          "totalTrooperDeaths": 3145,
+          "economicTrooperDeaths": 1125,
+          "positiveControl": {
+            "total": 909,
+            "anyExact": 909,
+            "anyExactRate": 1,
+            "exactOpposing": 909,
+            "exactOpposingRate": 1,
+            "uniqueExactOpposing": 907,
+            "uniqueExactOpposingRate": 0.9977997799779978
+          },
+          "controls": {
+            "economicNoAssignedGold": {
+              "total": 216,
+              "anyExact": 23,
+              "anyExactRate": 0.10648148148148148,
+              "exactOpposing": 23,
+              "exactOpposingRate": 0.10648148148148148,
+              "uniqueExactOpposing": 23,
+              "uniqueExactOpposingRate": 0.10648148148148148
+            },
+            "nonEconomic": {
+              "total": 2020,
+              "anyExact": 111,
+              "anyExactRate": 0.05495049504950495,
+              "exactOpposing": 99,
+              "exactOpposingRate": 0.04900990099009901,
+              "uniqueExactOpposing": 99,
+              "uniqueExactOpposingRate": 0.04900990099009901
+            }
+          },
+          "positiveControlMismatchExamples": []
+        },
+        {
+          "replayName": "rep02",
+          "success": true,
+          "totalTrooperDeaths": 3354,
+          "economicTrooperDeaths": 1282,
+          "positiveControl": {
+            "total": 1080,
+            "anyExact": 1080,
+            "anyExactRate": 1,
+            "exactOpposing": 1080,
+            "exactOpposingRate": 1,
+            "uniqueExactOpposing": 1071,
+            "uniqueExactOpposingRate": 0.9916666666666667
+          },
+          "controls": {
+            "economicNoAssignedGold": {
+              "total": 202,
+              "anyExact": 21,
+              "anyExactRate": 0.10396039603960396,
+              "exactOpposing": 21,
+              "exactOpposingRate": 0.10396039603960396,
+              "uniqueExactOpposing": 21,
+              "uniqueExactOpposingRate": 0.10396039603960396
+            },
+            "nonEconomic": {
+              "total": 2072,
+              "anyExact": 67,
+              "anyExactRate": 0.032335907335907334,
+              "exactOpposing": 54,
+              "exactOpposingRate": 0.026061776061776062,
+              "uniqueExactOpposing": 54,
+              "uniqueExactOpposingRate": 0.026061776061776062
+            }
+          },
+          "positiveControlMismatchExamples": []
+        },
+        {
+          "replayName": "rep03",
+          "success": true,
+          "totalTrooperDeaths": 5081,
+          "economicTrooperDeaths": 1881,
+          "positiveControl": {
+            "total": 1550,
+            "anyExact": 1549,
+            "anyExactRate": 0.9993548387096775,
+            "exactOpposing": 1548,
+            "exactOpposingRate": 0.9987096774193548,
+            "uniqueExactOpposing": 1532,
+            "uniqueExactOpposingRate": 0.9883870967741936
+          },
+          "controls": {
+            "economicNoAssignedGold": {
+              "total": 331,
+              "anyExact": 27,
+              "anyExactRate": 0.08157099697885196,
+              "exactOpposing": 26,
+              "exactOpposingRate": 0.07854984894259819,
+              "uniqueExactOpposing": 25,
+              "uniqueExactOpposingRate": 0.0755287009063444
+            },
+            "nonEconomic": {
+              "total": 3200,
+              "anyExact": 147,
+              "anyExactRate": 0.0459375,
+              "exactOpposing": 132,
+              "exactOpposingRate": 0.04125,
+              "uniqueExactOpposing": 132,
+              "uniqueExactOpposingRate": 0.04125
+            }
+          },
+          "positiveControlMismatchExamples": [
+            {
+              "entityIndex": 3016,
+              "tick": 106827,
+              "clock": "27:19",
+              "team": 3,
+              "lane": 6,
+              "subclassId": "2943225653",
+              "baseType": "MELEE",
+              "assignedGoldCandidateCount": 1,
+              "lastHitEvidence": {
+                "exactTick": [],
+                "nearbyPlusMinus1": [],
+                "exactOpposing": [],
+                "uniqueExactOpposing": null
+              }
+            },
+            {
+              "entityIndex": 2961,
+              "tick": 161535,
+              "clock": "41:33",
+              "team": 3,
+              "lane": 6,
+              "subclassId": "1003135509",
+              "baseType": "MEDIC",
+              "assignedGoldCandidateCount": 1,
+              "lastHitEvidence": {
+                "exactTick": [
+                  {
+                    "schemaVersion": 1,
+                    "canonical": false,
+                    "tick": 161535,
+                    "timeSeconds": 2493.984375,
+                    "clock": "41:33",
+                    "controllerEntityIndex": 13,
+                    "playerName": "Spiirit0",
+                    "team": 3,
+                    "heroId": 16,
+                    "previousLastHits": 110,
+                    "currentLastHits": 111,
+                    "delta": 1
+                  }
+                ],
+                "nearbyPlusMinus1": [
+                  {
+                    "schemaVersion": 1,
+                    "canonical": false,
+                    "tick": 161535,
+                    "timeSeconds": 2493.984375,
+                    "clock": "41:33",
+                    "controllerEntityIndex": 13,
+                    "playerName": "Spiirit0",
+                    "team": 3,
+                    "heroId": 16,
+                    "previousLastHits": 110,
+                    "currentLastHits": 111,
+                    "delta": 1
+                  }
+                ],
+                "exactOpposing": [],
+                "uniqueExactOpposing": null
+              }
+            }
+          ]
+        },
+        {
+          "replayName": "rep04",
+          "success": true,
+          "totalTrooperDeaths": 3216,
+          "economicTrooperDeaths": 1212,
+          "positiveControl": {
+            "total": 1042,
+            "anyExact": 1042,
+            "anyExactRate": 1,
+            "exactOpposing": 1042,
+            "exactOpposingRate": 1,
+            "uniqueExactOpposing": 1040,
+            "uniqueExactOpposingRate": 0.9980806142034548
+          },
+          "controls": {
+            "economicNoAssignedGold": {
+              "total": 170,
+              "anyExact": 17,
+              "anyExactRate": 0.1,
+              "exactOpposing": 17,
+              "exactOpposingRate": 0.1,
+              "uniqueExactOpposing": 17,
+              "uniqueExactOpposingRate": 0.1
+            },
+            "nonEconomic": {
+              "total": 2004,
+              "anyExact": 113,
+              "anyExactRate": 0.056387225548902194,
+              "exactOpposing": 104,
+              "exactOpposingRate": 0.05189620758483034,
+              "uniqueExactOpposing": 102,
+              "uniqueExactOpposingRate": 0.05089820359281437
+            }
+          },
+          "positiveControlMismatchExamples": []
+        },
+        {
+          "replayName": "rep05",
+          "success": true,
+          "totalTrooperDeaths": 3489,
+          "economicTrooperDeaths": 1301,
+          "positiveControl": {
+            "total": 1085,
+            "anyExact": 1085,
+            "anyExactRate": 1,
+            "exactOpposing": 1085,
+            "exactOpposingRate": 1,
+            "uniqueExactOpposing": 1080,
+            "uniqueExactOpposingRate": 0.9953917050691244
+          },
+          "controls": {
+            "economicNoAssignedGold": {
+              "total": 216,
+              "anyExact": 18,
+              "anyExactRate": 0.08333333333333333,
+              "exactOpposing": 15,
+              "exactOpposingRate": 0.06944444444444445,
+              "uniqueExactOpposing": 15,
+              "uniqueExactOpposingRate": 0.06944444444444445
+            },
+            "nonEconomic": {
+              "total": 2188,
+              "anyExact": 106,
+              "anyExactRate": 0.048446069469835464,
+              "exactOpposing": 94,
+              "exactOpposingRate": 0.04296160877513711,
+              "uniqueExactOpposing": 94,
+              "uniqueExactOpposingRate": 0.04296160877513711
+            }
+          },
+          "positiveControlMismatchExamples": []
+        }
+      ]
+    }
+  },
+  "thresholds": {
+    "allReplicationReplaysPresent": true,
+    "counterIntegrityPass": true,
+    "positiveControlAggregateAtLeast99Percent": true,
+    "positiveControlEveryReplayAtLeast99Percent": true,
+    "uniquePositiveControlAggregateAtLeast98Percent": true,
+    "economicNoAssignedGoldControlBelow15Percent": true,
+    "nonEconomicControlBelow10Percent": true
+  },
+  "semanticClosurePass": true,
+  "recommendedValidationIfPromoted": {
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated"
+  },
+  "authorityBoundary": {
+    "establishedIfPass": "m_iLastHits is a game-awarded per-player last-hit credit counter.",
+    "explicitlyNotEstablished": [
+      "specific victim identity for every m_iLastHits increment",
+      "all target classes eligible for last-hit credit",
+      "all distance or economic eligibility rules",
+      "direct damage ownership or final-blow mechanics",
+      "Ground Soul collection",
+      "economic recipient attribution",
+      "deny semantics"
+    ]
+  },
+  "residualMechanismStatus": {
+    "fullyReverseEngineered": false,
+    "statement": "Semantic validation of the scoreboard carrier does not require complete reverse engineering of every last-hit eligibility mechanism. Scripts 213-218 retain the unresolved event-substrate work separately."
+  }
+}

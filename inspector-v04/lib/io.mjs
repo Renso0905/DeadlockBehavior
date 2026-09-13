@@ -11,7 +11,7 @@ export async function *readJsonl(path) {
   const rl = createInterface({ input:createReadStream(path,{encoding:'utf8'}), crlfDelay:Infinity });
   for await (const line of rl) {
     if (!line.trim()) continue;
-    try { yield JSON.parse(line); } catch { /* preserve processing: bad rows are skipped and health exposes source file */ }
+    let row;try { row=JSON.parse(line); } catch { throw new Error(`Malformed JSONL in ${path}`); } yield row;
   }
 }
 
@@ -23,6 +23,8 @@ export async function listReplayDirs(outputRoot) {
 
 export async function sourceHealth(replayDir) {
   const defs = [
+    ['runtime_melee','runtime_melee_production_v01.json','A','Observed executed melee summary'],
+    ['runtime_melee_events','runtime_melee_events_v01.jsonl','A','Observed melee execution evidence'],
     ['player_state','player_state.jsonl','A','Core state / scoreboard / trajectory'],
     ['runtime_health_regen','runtime_health_regen_production_v01.json','A','Direct observed CCitadelPlayerController.m_flHealthRegen production summary'],
     ['runtime_health_regen_events','runtime_health_regen_events_v01.jsonl','A','Observed health-regeneration change boundaries'],
@@ -68,7 +70,7 @@ export async function sourceHealth(replayDir) {
 export async function fileFingerprint(paths) {
   const rows=[];
   for (const path of paths) {
-    try { const s=await fs.stat(path); rows.push(`${path}:${s.size}:${Math.trunc(s.mtimeMs)}`); } catch { rows.push(`${path}:missing`); }
+    try { const s=await fs.stat(path); rows.push(`${path}:${s.size}:${s.mtimeMs}:${s.ctimeMs}`); } catch { rows.push(`${path}:missing`); }
   }
   return rows.join('|');
 }
@@ -86,6 +88,7 @@ export async function jsonlPage(path,{player=null,offset=0,limit=100,predicate=n
 }
 
 export function rowMatchesPlayer(row,player) {
+  if(player&&typeof player==='object')return identityMatches(row,player);
   const target=String(player);
   return containsPlayerReference(row,target);
 }
@@ -110,4 +113,14 @@ function replaySort(a,b) {
   if (a==='test') return -1; if (b==='test') return 1;
   const na=Number(a.match(/\d+/)?.[0]??Infinity), nb=Number(b.match(/\d+/)?.[0]??Infinity);
   return na-nb || a.localeCompare(b);
+}
+
+function identityMatches(value,player,key=''){
+ if(value==null)return false;
+ if(Array.isArray(value))return value.some(x=>identityMatches(x,player,key));
+ if(typeof value!=='object')return false;
+ if(player.controllerEntityIndex!=null&&(value.controllerEntityIndex===player.controllerEntityIndex||(key==='controller'&&value.entityIndex===player.controllerEntityIndex)))return true;
+ if(player.steamId!=null&&value.steamId!=null&&String(value.steamId)===String(player.steamId))return true;
+ if(player.allowName&&value.playerName===player.playerName)return true;
+ return Object.entries(value).some(([k,x])=>identityMatches(x,player,k));
 }

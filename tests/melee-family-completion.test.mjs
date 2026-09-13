@@ -21,7 +21,7 @@ const contract = json('contracts/production_metric_registry_v01.json');
 const pipeline = json('inspector-v04/pipeline.json');
 const registrySource = text('inspector-v04/lib/metric-registry.mjs');
 const modelSource = text('inspector-v04/lib/replay-model.mjs');
-const authSource = text('inspector-v04/public/authoritative.js');
+const authSource = text('inspector-v04/public/metric-values.mjs');
 const extractorSource = text('inspector-v04/production/extract-runtime-melee.mjs');
 
 test('Script 227 complete Melee-family evidence passes', () => {

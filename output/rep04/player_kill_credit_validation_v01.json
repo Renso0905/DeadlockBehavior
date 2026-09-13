@@ -1,0 +1,417 @@
+{
+  "version": "PLAYER_KILL_CREDIT_VALIDATION_V01",
+  "canonical": false,
+  "replay": "rep04",
+  "success": true,
+  "status": "RESEARCH_EVIDENCE_EXTRACTED",
+  "createdAt": "2026-09-11T03:33:31.957Z",
+  "purpose": [
+    "Test whether CCitadelPlayerController.m_iPlayerKills behaves as player kill credit using independent terminal player-damage telemetry.",
+    "Use the independently validated m_iDeaths counter only to confirm that a terminal damage observation belongs to a scored victim death before testing attacker kill credit.",
+    "Treat direct enemy player-pawn attacker attribution as a high-specificity semantic subset; do not infer ownership for unresolved projectile, summon, pet, DoT, or environment attackers.",
+    "Preserve unmatched evidence and shifted-time placebo rates rather than forcing a semantic interpretation."
+  ],
+  "policy": {
+    "matchWindowTicks": 32,
+    "matchWindowSeconds": 0.5,
+    "terminalDamageSignal": "victimHealthNew <= 0",
+    "fatalGrouping": "same victim pawn + exact replay tick",
+    "highConfidenceAttacker": "exactly one resolved enemy player-pawn attacker and no conflicting resolved self/friendly/player attacker in the fatal group",
+    "victimDeathConfirmation": "one-to-one nearest m_iDeaths positive counter credit within match window",
+    "killCreditTest": "one-to-one nearest m_iPlayerKills positive counter credit for the resolved attacker within match window",
+    "batchedCounterDeltaPolicy": "positive delta N expands to N same-tick credit slots",
+    "placeboShiftsSeconds": [
+      10,
+      30
+    ],
+    "promotionPolicy": "NO_AUTOMATIC_PROMOTION_FROM_THIS_SCRIPT"
+  },
+  "telemetry": {
+    "entityPackets": 149640,
+    "entityEvents": 9967059,
+    "controllerEvents": 317902,
+    "messagePackets": 3469963,
+    "damageLikeMessages": 156527,
+    "playerVictimTerminalDamageMessages": 111,
+    "unresolvedVictimTerminalDamageMessages": 53486
+  },
+  "integrityValidation": {
+    "status": "pass",
+    "counterRegressions": 0,
+    "nonZeroInitialCounterObservations": 0,
+    "examples": {
+      "counterRegressions": [],
+      "nonZeroInitialCounterObservations": []
+    }
+  },
+  "counts": {
+    "playersObserved": 12,
+    "killCounterTransitions": 80,
+    "scoreboardKillCredits": 80,
+    "deathCounterTransitions": 81,
+    "scoreboardDeathCredits": 81,
+    "terminalPlayerDamageMessages": 111,
+    "fatalDamageGroups": 84,
+    "directEnemyFatalGroups": 80,
+    "deathConfirmedDirectEnemyFatalAnchors": 78,
+    "anchorsMatchedToAttackerKillCredit": 78,
+    "anchorsUnmatchedToAttackerKillCredit": 0,
+    "killCreditsNotSupportedByDirectFatalAnchor": 2,
+    "placeboMatches10s": 1,
+    "placeboMatches30s": 0
+  },
+  "fatalGroupClassification": {
+    "DIRECT_ENEMY_PLAYER": 80,
+    "UNRESOLVED_ATTACKER": 4
+  },
+  "evidence": {
+    "directFatalVictimDeathAgreement": 0.975,
+    "directFatalAnchorKillAgreement": 1,
+    "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.975,
+    "placeboAgreement10s": 0.01282051282051282,
+    "placeboAgreement30s": 0,
+    "killMatchTickResiduals": {
+      "n": 78,
+      "minTicks": 0,
+      "medianTicks": 0,
+      "maxTicks": 0,
+      "meanAbsTicks": 0,
+      "medianAbsTicks": 0
+    },
+    "deathMatchTickResiduals": {
+      "n": 78,
+      "minTicks": 0,
+      "medianTicks": 0,
+      "maxTicks": 0,
+      "meanAbsTicks": 0,
+      "medianAbsTicks": 0
+    }
+  },
+  "unmatched": {
+    "directEnemyFatalWithoutVictimDeathCredit": [
+      {
+        "id": "fatal|91|121184",
+        "tick": 121184,
+        "victimIndex": 91,
+        "victimPlayer": {
+          "controllerEntityIndex": 5,
+          "pawnEntityIndex": 91,
+          "playerName": "butterflyflyhig",
+          "team": 3,
+          "heroId": 6,
+          "playerSlot": null,
+          "steamId": "76561198086537147"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 8,
+          "pawnEntityIndex": 89,
+          "playerName": "Coochieman",
+          "team": 2,
+          "heroId": 76,
+          "playerSlot": null,
+          "steamId": "76561199212745051"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 8,
+            "pawnEntityIndex": 89,
+            "playerName": "Coochieman",
+            "team": 2,
+            "heroId": 76,
+            "playerSlot": null,
+            "steamId": "76561199212745051"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 121184,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 91,
+            "attackerIndex": 89,
+            "victimHealthNew": -140,
+            "victimPlayer": {
+              "controllerEntityIndex": 5,
+              "pawnEntityIndex": 91,
+              "playerName": "butterflyflyhig",
+              "team": 3,
+              "heroId": 6,
+              "playerSlot": null,
+              "steamId": "76561198086537147"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 8,
+              "pawnEntityIndex": 89,
+              "playerName": "Coochieman",
+              "team": 2,
+              "heroId": 76,
+              "playerSlot": null,
+              "steamId": "76561199212745051"
+            },
+            "damage": 422,
+            "abilityId": 2001589780,
+            "entindexAbility": 2638,
+            "entindexInflictor": 89
+          }
+        ]
+      },
+      {
+        "id": "fatal|95|144320",
+        "tick": 144320,
+        "victimIndex": 95,
+        "victimPlayer": {
+          "controllerEntityIndex": 7,
+          "pawnEntityIndex": 95,
+          "playerName": "renso",
+          "team": 3,
+          "heroId": 35,
+          "playerSlot": null,
+          "steamId": "76561198107069146"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 12,
+          "pawnEntityIndex": 79,
+          "playerName": "giga jimmy",
+          "team": 2,
+          "heroId": 18,
+          "playerSlot": null,
+          "steamId": "76561198041920601"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 12,
+            "pawnEntityIndex": 79,
+            "playerName": "giga jimmy",
+            "team": 2,
+            "heroId": 18,
+            "playerSlot": null,
+            "steamId": "76561198041920601"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 144320,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 95,
+            "attackerIndex": 79,
+            "victimHealthNew": -17,
+            "victimPlayer": {
+              "controllerEntityIndex": 7,
+              "pawnEntityIndex": 95,
+              "playerName": "renso",
+              "team": 3,
+              "heroId": 35,
+              "playerSlot": null,
+              "steamId": "76561198107069146"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 12,
+              "pawnEntityIndex": 79,
+              "playerName": "giga jimmy",
+              "team": 2,
+              "heroId": 18,
+              "playerSlot": null,
+              "steamId": "76561198041920601"
+            },
+            "damage": 19,
+            "abilityId": 1895060499,
+            "entindexAbility": 2561,
+            "entindexInflictor": 79
+          }
+        ]
+      }
+    ],
+    "deathConfirmedAnchorWithoutAttackerKillCredit": [],
+    "killCreditsWithoutDirectFatalAnchor": [
+      {
+        "id": "kill|13|90971|0",
+        "kind": "kill",
+        "tick": 90971,
+        "controllerEntityIndex": 13,
+        "pawnEntityIndex": 77,
+        "playerName": "aHUNTER360",
+        "team": 2,
+        "heroId": 1,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      },
+      {
+        "id": "kill|12|92733|0",
+        "kind": "kill",
+        "tick": 92733,
+        "controllerEntityIndex": 12,
+        "pawnEntityIndex": 79,
+        "playerName": "giga jimmy",
+        "team": 2,
+        "heroId": 18,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      }
+    ]
+  },
+  "finalCounters": [
+    {
+      "controllerEntityIndex": 13,
+      "pawnEntityIndex": 77,
+      "playerName": "aHUNTER360",
+      "team": 2,
+      "heroId": 1,
+      "playerSlot": null,
+      "steamId": "76561198361346119",
+      "kills": 7,
+      "deaths": 9,
+      "tick": 147703
+    },
+    {
+      "controllerEntityIndex": 8,
+      "pawnEntityIndex": 89,
+      "playerName": "Coochieman",
+      "team": 2,
+      "heroId": 76,
+      "playerSlot": null,
+      "steamId": "76561199212745051",
+      "kills": 6,
+      "deaths": 4,
+      "tick": 148176
+    },
+    {
+      "controllerEntityIndex": 12,
+      "pawnEntityIndex": 79,
+      "playerName": "giga jimmy",
+      "team": 2,
+      "heroId": 18,
+      "playerSlot": null,
+      "steamId": "76561198041920601",
+      "kills": 5,
+      "deaths": 8,
+      "tick": 148809
+    },
+    {
+      "controllerEntityIndex": 6,
+      "pawnEntityIndex": 78,
+      "playerName": "HPE",
+      "team": 2,
+      "heroId": 27,
+      "playerSlot": null,
+      "steamId": "76561198708169259",
+      "kills": 13,
+      "deaths": 9,
+      "tick": 147703
+    },
+    {
+      "controllerEntityIndex": 4,
+      "pawnEntityIndex": 92,
+      "playerName": "Roronoa Zoro",
+      "team": 2,
+      "heroId": 2,
+      "playerSlot": null,
+      "steamId": "76561199068854076",
+      "kills": 4,
+      "deaths": 7,
+      "tick": 148032
+    },
+    {
+      "controllerEntityIndex": 10,
+      "pawnEntityIndex": 87,
+      "playerName": "shoto",
+      "team": 2,
+      "heroId": 67,
+      "playerSlot": null,
+      "steamId": "76561199504960506",
+      "kills": 2,
+      "deaths": 7,
+      "tick": 147234
+    },
+    {
+      "controllerEntityIndex": 5,
+      "pawnEntityIndex": 91,
+      "playerName": "butterflyflyhig",
+      "team": 3,
+      "heroId": 6,
+      "playerSlot": null,
+      "steamId": "76561198086537147",
+      "kills": 3,
+      "deaths": 8,
+      "tick": 147703
+    },
+    {
+      "controllerEntityIndex": 3,
+      "pawnEntityIndex": 94,
+      "playerName": "Normal Canard",
+      "team": 3,
+      "heroId": 31,
+      "playerSlot": null,
+      "steamId": "76561198852992173",
+      "kills": 3,
+      "deaths": 6,
+      "tick": 147703
+    },
+    {
+      "controllerEntityIndex": 2,
+      "pawnEntityIndex": 90,
+      "playerName": "Queenie Juices",
+      "team": 3,
+      "heroId": 81,
+      "playerSlot": null,
+      "steamId": "76561199090036683",
+      "kills": 5,
+      "deaths": 8,
+      "tick": 147710
+    },
+    {
+      "controllerEntityIndex": 7,
+      "pawnEntityIndex": 95,
+      "playerName": "renso",
+      "team": 3,
+      "heroId": 35,
+      "playerSlot": null,
+      "steamId": "76561198107069146",
+      "kills": 3,
+      "deaths": 5,
+      "tick": 147703
+    },
+    {
+      "controllerEntityIndex": 9,
+      "pawnEntityIndex": 80,
+      "playerName": "Solace",
+      "team": 3,
+      "heroId": 8,
+      "playerSlot": null,
+      "steamId": "76561198855099357",
+      "kills": 8,
+      "deaths": 2,
+      "tick": 147703
+    },
+    {
+      "controllerEntityIndex": 11,
+      "pawnEntityIndex": 83,
+      "playerName": "Sympathy",
+      "team": 3,
+      "heroId": 13,
+      "playerSlot": null,
+      "steamId": "76561198084827738",
+      "kills": 21,
+      "deaths": 8,
+      "tick": 147542
+    }
+  ],
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\rep04\\player_kill_credit_validation_v01.json",
+    "anchors": "G:\\DeadlockBehavior\\output\\rep04\\player_kill_credit_anchors_v01.jsonl"
+  },
+  "interpretationBoundary": {
+    "supportedIfAgreementIsHigh": "Direct enemy player-pawn terminal damage that produces a scored victim death is followed by kill-credit increments on the resolved attacker.",
+    "notEstablishedByThisScript": [
+      "That every m_iPlayerKills credit is caused by a directly attributed player-pawn damage packet.",
+      "Ownership attribution for projectile, summon, pet, DoT, reflected, environmental, or other indirect damage.",
+      "Assist semantics.",
+      "Last-hit or deny semantics.",
+      "Production/A-tier status."
+    ]
+  }
+}

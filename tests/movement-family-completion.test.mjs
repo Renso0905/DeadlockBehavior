@@ -83,7 +83,7 @@ const authSource =
       root,
       'inspector-v04',
       'public',
-      'authoritative.js'
+      'metric-values.mjs'
     ),
     'utf8'
   );

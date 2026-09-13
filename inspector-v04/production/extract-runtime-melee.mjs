@@ -325,12 +325,12 @@ function summarizePlayers(roster, events) {
   const eventMap = new Map();
   for (const event of events) {
     if (!event.playerName) continue;
-    if (!eventMap.has(event.playerName)) eventMap.set(event.playerName, []);
-    eventMap.get(event.playerName).push(event);
+    if (!eventMap.has(event.controllerEntityIndex)) eventMap.set(event.controllerEntityIndex, []);
+    eventMap.get(event.controllerEntityIndex).push(event);
   }
 
   return roster.map(player => {
-    const rows = eventMap.get(player.playerName) ?? [];
+    const rows = eventMap.get(player.controllerEntityIndex) ?? [];
     const attackCount = rows.length;
     const hitCount = rows.filter(row => row.hit === true).length;
     const byType = countBy(rows, row => row.attackType);

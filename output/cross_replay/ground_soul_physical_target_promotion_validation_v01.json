@@ -1,0 +1,1094 @@
+{
+  "version": "GROUND_SOUL_PHYSICAL_TARGET_PROMOTION_VALIDATION_V01",
+  "createdAt": "2026-09-13T00:41:53.564Z",
+  "status": "READY",
+  "definition": "Per-player count of resolved first physical m_hVacuumTarget links from observed AssignedGold lifecycles, joined to a player pawn observed no more than 16 ticks earlier.",
+  "semanticBoundary": "Physical attraction target only. Does not claim economic receipt, collection, last hit, payout, ownership, or reward value.",
+  "replication": {
+    "replays": 7,
+    "passing": 7,
+    "totalTargeted": 12183,
+    "totalResolved": 12181,
+    "resolutionShare": 0.9998358368218009
+  },
+  "reports": [
+    {
+      "replayName": "test",
+      "pass": true,
+      "definition": "First valid m_hVacuumTarget per observed AssignedGold lifecycle, joined to a fresh sampled player pawn identity; this is physical attraction telemetry, not economic receipt.",
+      "maxIdentityLagTicks": 16,
+      "targetedActivations": 2103,
+      "resolvedPhysicalTargets": 2103,
+      "unresolvedPhysicalTargets": 0,
+      "resolutionShare": 1,
+      "byPlayer": [
+        {
+          "controllerEntityIndex": 2,
+          "steamId": "76561197983209811",
+          "playerName": "Nacho4Sure",
+          "team": 2,
+          "heroId": 2,
+          "pawnEntityIndex": 78,
+          "identityObservedTick": 4944,
+          "identityLagTicks": 13,
+          "resolvedPhysicalTargets": 74
+        },
+        {
+          "controllerEntityIndex": 3,
+          "steamId": "76561199827569844",
+          "playerName": "blooop354",
+          "team": 3,
+          "heroId": 58,
+          "pawnEntityIndex": 81,
+          "identityObservedTick": 4944,
+          "identityLagTicks": 15,
+          "resolvedPhysicalTargets": 175
+        },
+        {
+          "controllerEntityIndex": 4,
+          "steamId": "76561197982948887",
+          "playerName": "flem",
+          "team": 2,
+          "heroId": 1,
+          "pawnEntityIndex": 79,
+          "identityObservedTick": 9472,
+          "identityLagTicks": 2,
+          "resolvedPhysicalTargets": 200
+        },
+        {
+          "controllerEntityIndex": 5,
+          "steamId": "76561198079477113",
+          "playerName": "Zaeleth",
+          "team": 3,
+          "heroId": 77,
+          "pawnEntityIndex": 84,
+          "identityObservedTick": 4448,
+          "identityLagTicks": 9,
+          "resolvedPhysicalTargets": 156
+        },
+        {
+          "controllerEntityIndex": 6,
+          "steamId": "76561198322712152",
+          "playerName": "Yosafire Worshipper [K]",
+          "team": 2,
+          "heroId": 50,
+          "pawnEntityIndex": 89,
+          "identityObservedTick": 4528,
+          "identityLagTicks": 0,
+          "resolvedPhysicalTargets": 158
+        },
+        {
+          "controllerEntityIndex": 7,
+          "steamId": "76561198200463289",
+          "playerName": "Nebula",
+          "team": 3,
+          "heroId": 25,
+          "pawnEntityIndex": 87,
+          "identityObservedTick": 4496,
+          "identityLagTicks": 11,
+          "resolvedPhysicalTargets": 193
+        },
+        {
+          "controllerEntityIndex": 8,
+          "steamId": "76561199751953144",
+          "playerName": "Snazzy314",
+          "team": 2,
+          "heroId": 4,
+          "pawnEntityIndex": 90,
+          "identityObservedTick": 8432,
+          "identityLagTicks": 12,
+          "resolvedPhysicalTargets": 157
+        },
+        {
+          "controllerEntityIndex": 9,
+          "steamId": "76561198259248348",
+          "playerName": "TheWoogler",
+          "team": 3,
+          "heroId": 52,
+          "pawnEntityIndex": 77,
+          "identityObservedTick": 6992,
+          "identityLagTicks": 12,
+          "resolvedPhysicalTargets": 203
+        },
+        {
+          "controllerEntityIndex": 10,
+          "steamId": "76561198101422226",
+          "playerName": "Goldinfer",
+          "team": 3,
+          "heroId": 79,
+          "pawnEntityIndex": 80,
+          "identityObservedTick": 6624,
+          "identityLagTicks": 1,
+          "resolvedPhysicalTargets": 164
+        },
+        {
+          "controllerEntityIndex": 11,
+          "steamId": "76561198107069146",
+          "playerName": "renso",
+          "team": 3,
+          "heroId": 31,
+          "pawnEntityIndex": 86,
+          "identityObservedTick": 4304,
+          "identityLagTicks": 10,
+          "resolvedPhysicalTargets": 218
+        },
+        {
+          "controllerEntityIndex": 12,
+          "steamId": "76561198215558379",
+          "playerName": "Eriansan",
+          "team": 2,
+          "heroId": 69,
+          "pawnEntityIndex": 88,
+          "identityObservedTick": 5744,
+          "identityLagTicks": 15,
+          "resolvedPhysicalTargets": 197
+        },
+        {
+          "controllerEntityIndex": 13,
+          "steamId": "76561198307482194",
+          "playerName": "viggoth 300",
+          "team": 2,
+          "heroId": 18,
+          "pawnEntityIndex": 91,
+          "identityObservedTick": 4304,
+          "identityLagTicks": 4,
+          "resolvedPhysicalTargets": 208
+        }
+      ],
+      "negativeControl": {
+        "substitution": "AssignedGold entity index substituted for player pawn target",
+        "resolvedPhysicalTargets": 0,
+        "pass": true
+      },
+      "checks": {
+        "exactPartition": true,
+        "badIdentityLagCount": 0,
+        "duplicateControllerRows": 0
+      }
+    },
+    {
+      "replayName": "rep01",
+      "pass": true,
+      "definition": "First valid m_hVacuumTarget per observed AssignedGold lifecycle, joined to a fresh sampled player pawn identity; this is physical attraction telemetry, not economic receipt.",
+      "maxIdentityLagTicks": 16,
+      "targetedActivations": 1463,
+      "resolvedPhysicalTargets": 1463,
+      "unresolvedPhysicalTargets": 0,
+      "resolutionShare": 1,
+      "byPlayer": [
+        {
+          "controllerEntityIndex": 2,
+          "steamId": "76561198079477113",
+          "playerName": "Zaeleth",
+          "team": 3,
+          "heroId": 64,
+          "pawnEntityIndex": 82,
+          "identityObservedTick": 4240,
+          "identityLagTicks": 1,
+          "resolvedPhysicalTargets": 149
+        },
+        {
+          "controllerEntityIndex": 3,
+          "steamId": "76561198107069146",
+          "playerName": "renso",
+          "team": 3,
+          "heroId": 35,
+          "pawnEntityIndex": 84,
+          "identityObservedTick": 4336,
+          "identityLagTicks": 4,
+          "resolvedPhysicalTargets": 109
+        },
+        {
+          "controllerEntityIndex": 4,
+          "steamId": "76561198891919908",
+          "playerName": "Mushie",
+          "team": 2,
+          "heroId": 4,
+          "pawnEntityIndex": 85,
+          "identityObservedTick": 5808,
+          "identityLagTicks": 5,
+          "resolvedPhysicalTargets": 107
+        },
+        {
+          "controllerEntityIndex": 5,
+          "steamId": "76561199011253074",
+          "playerName": "The White Samoan",
+          "team": 2,
+          "heroId": 13,
+          "pawnEntityIndex": 80,
+          "identityObservedTick": 5760,
+          "identityLagTicks": 10,
+          "resolvedPhysicalTargets": 130
+        },
+        {
+          "controllerEntityIndex": 6,
+          "steamId": "76561198796221441",
+          "playerName": "Kabuto",
+          "team": 3,
+          "heroId": 25,
+          "pawnEntityIndex": 92,
+          "identityObservedTick": 4176,
+          "identityLagTicks": 3,
+          "resolvedPhysicalTargets": 175
+        },
+        {
+          "controllerEntityIndex": 7,
+          "steamId": "76561198082593367",
+          "playerName": "Parker",
+          "team": 2,
+          "heroId": 1,
+          "pawnEntityIndex": 79,
+          "identityObservedTick": 5728,
+          "identityLagTicks": 13,
+          "resolvedPhysicalTargets": 143
+        },
+        {
+          "controllerEntityIndex": 8,
+          "steamId": "76561198101422226",
+          "playerName": "Goldinfer",
+          "team": 3,
+          "heroId": 27,
+          "pawnEntityIndex": 78,
+          "identityObservedTick": 4784,
+          "identityLagTicks": 3,
+          "resolvedPhysicalTargets": 181
+        },
+        {
+          "controllerEntityIndex": 9,
+          "steamId": "76561198017909943",
+          "playerName": "ArsonBoy5996",
+          "team": 2,
+          "heroId": 69,
+          "pawnEntityIndex": 88,
+          "identityObservedTick": 5344,
+          "identityLagTicks": 13,
+          "resolvedPhysicalTargets": 166
+        },
+        {
+          "controllerEntityIndex": 10,
+          "steamId": "76561199221184484",
+          "playerName": "Quackinator17",
+          "team": 3,
+          "heroId": 2,
+          "pawnEntityIndex": 96,
+          "identityObservedTick": 4576,
+          "identityLagTicks": 10,
+          "resolvedPhysicalTargets": 65
+        },
+        {
+          "controllerEntityIndex": 11,
+          "steamId": "76561198885630319",
+          "playerName": "BlamBlam50",
+          "team": 2,
+          "heroId": 10,
+          "pawnEntityIndex": 87,
+          "identityObservedTick": 5408,
+          "identityLagTicks": 8,
+          "resolvedPhysicalTargets": 101
+        },
+        {
+          "controllerEntityIndex": 12,
+          "steamId": "76561198055181753",
+          "playerName": "Archivist Eris",
+          "team": 2,
+          "heroId": 3,
+          "pawnEntityIndex": 77,
+          "identityObservedTick": 15056,
+          "identityLagTicks": 4,
+          "resolvedPhysicalTargets": 46
+        },
+        {
+          "controllerEntityIndex": 13,
+          "steamId": "76561198200463289",
+          "playerName": "Nebula",
+          "team": 3,
+          "heroId": 14,
+          "pawnEntityIndex": 90,
+          "identityObservedTick": 4288,
+          "identityLagTicks": 5,
+          "resolvedPhysicalTargets": 91
+        }
+      ],
+      "negativeControl": {
+        "substitution": "AssignedGold entity index substituted for player pawn target",
+        "resolvedPhysicalTargets": 0,
+        "pass": true
+      },
+      "checks": {
+        "exactPartition": true,
+        "badIdentityLagCount": 0,
+        "duplicateControllerRows": 0
+      }
+    },
+    {
+      "replayName": "rep02",
+      "pass": true,
+      "definition": "First valid m_hVacuumTarget per observed AssignedGold lifecycle, joined to a fresh sampled player pawn identity; this is physical attraction telemetry, not economic receipt.",
+      "maxIdentityLagTicks": 16,
+      "targetedActivations": 1585,
+      "resolvedPhysicalTargets": 1585,
+      "unresolvedPhysicalTargets": 0,
+      "resolutionShare": 1,
+      "byPlayer": [
+        {
+          "controllerEntityIndex": 2,
+          "steamId": "76561197971062728",
+          "playerName": "Nameless Shado",
+          "team": 3,
+          "heroId": 7,
+          "pawnEntityIndex": 78,
+          "identityObservedTick": 4400,
+          "identityLagTicks": 8,
+          "resolvedPhysicalTargets": 148
+        },
+        {
+          "controllerEntityIndex": 3,
+          "steamId": "76561198405983351",
+          "playerName": "Rupa",
+          "team": 2,
+          "heroId": 76,
+          "pawnEntityIndex": 80,
+          "identityObservedTick": 4144,
+          "identityLagTicks": 15,
+          "resolvedPhysicalTargets": 153
+        },
+        {
+          "controllerEntityIndex": 4,
+          "steamId": "76561198079477113",
+          "playerName": "Zaeleth",
+          "team": 3,
+          "heroId": 63,
+          "pawnEntityIndex": 89,
+          "identityObservedTick": 4608,
+          "identityLagTicks": 2,
+          "resolvedPhysicalTargets": 132
+        },
+        {
+          "controllerEntityIndex": 5,
+          "steamId": "76561198064630040",
+          "playerName": "Moodamu",
+          "team": 2,
+          "heroId": 25,
+          "pawnEntityIndex": 101,
+          "identityObservedTick": 4768,
+          "identityLagTicks": 7,
+          "resolvedPhysicalTargets": 93
+        },
+        {
+          "controllerEntityIndex": 6,
+          "steamId": "76561197984673741",
+          "playerName": "cloudlightfellow",
+          "team": 3,
+          "heroId": 15,
+          "pawnEntityIndex": 77,
+          "identityObservedTick": 4400,
+          "identityLagTicks": 15,
+          "resolvedPhysicalTargets": 165
+        },
+        {
+          "controllerEntityIndex": 7,
+          "steamId": "76561198107069146",
+          "playerName": "renso",
+          "team": 3,
+          "heroId": 35,
+          "pawnEntityIndex": 85,
+          "identityObservedTick": 5056,
+          "identityLagTicks": 11,
+          "resolvedPhysicalTargets": 164
+        },
+        {
+          "controllerEntityIndex": 8,
+          "steamId": "76561198058509674",
+          "playerName": "pistachio",
+          "team": 2,
+          "heroId": 60,
+          "pawnEntityIndex": 86,
+          "identityObservedTick": 12192,
+          "identityLagTicks": 0,
+          "resolvedPhysicalTargets": 67
+        },
+        {
+          "controllerEntityIndex": 9,
+          "steamId": "76561198021129801",
+          "playerName": "Gnome Garden",
+          "team": 2,
+          "heroId": 66,
+          "pawnEntityIndex": 91,
+          "identityObservedTick": 4688,
+          "identityLagTicks": 2,
+          "resolvedPhysicalTargets": 169
+        },
+        {
+          "controllerEntityIndex": 10,
+          "steamId": "76561198072582515",
+          "playerName": "Ripoleon BonerFarts",
+          "team": 2,
+          "heroId": 80,
+          "pawnEntityIndex": 95,
+          "identityObservedTick": 4512,
+          "identityLagTicks": 11,
+          "resolvedPhysicalTargets": 151
+        },
+        {
+          "controllerEntityIndex": 11,
+          "steamId": "76561198200463289",
+          "playerName": "Nebula",
+          "team": 3,
+          "heroId": 31,
+          "pawnEntityIndex": 87,
+          "identityObservedTick": 4960,
+          "identityLagTicks": 9,
+          "resolvedPhysicalTargets": 89
+        },
+        {
+          "controllerEntityIndex": 12,
+          "steamId": "76561197966910759",
+          "playerName": "Wild Willy",
+          "team": 2,
+          "heroId": 67,
+          "pawnEntityIndex": 79,
+          "identityObservedTick": 6736,
+          "identityLagTicks": 8,
+          "resolvedPhysicalTargets": 100
+        },
+        {
+          "controllerEntityIndex": 13,
+          "steamId": "76561198101422226",
+          "playerName": "Goldinfer",
+          "team": 3,
+          "heroId": 19,
+          "pawnEntityIndex": 98,
+          "identityObservedTick": 4688,
+          "identityLagTicks": 8,
+          "resolvedPhysicalTargets": 154
+        }
+      ],
+      "negativeControl": {
+        "substitution": "AssignedGold entity index substituted for player pawn target",
+        "resolvedPhysicalTargets": 0,
+        "pass": true
+      },
+      "checks": {
+        "exactPartition": true,
+        "badIdentityLagCount": 0,
+        "duplicateControllerRows": 0
+      }
+    },
+    {
+      "replayName": "rep03",
+      "pass": true,
+      "definition": "First valid m_hVacuumTarget per observed AssignedGold lifecycle, joined to a fresh sampled player pawn identity; this is physical attraction telemetry, not economic receipt.",
+      "maxIdentityLagTicks": 16,
+      "targetedActivations": 2249,
+      "resolvedPhysicalTargets": 2249,
+      "unresolvedPhysicalTargets": 0,
+      "resolutionShare": 1,
+      "byPlayer": [
+        {
+          "controllerEntityIndex": 2,
+          "steamId": "76561198840286728",
+          "playerName": "jmillay",
+          "team": 3,
+          "heroId": 31,
+          "pawnEntityIndex": 99,
+          "identityObservedTick": 4432,
+          "identityLagTicks": 0,
+          "resolvedPhysicalTargets": 233
+        },
+        {
+          "controllerEntityIndex": 3,
+          "steamId": "76561198375104685",
+          "playerName": "phishymundo",
+          "team": 3,
+          "heroId": 1,
+          "pawnEntityIndex": 81,
+          "identityObservedTick": 14960,
+          "identityLagTicks": 15,
+          "resolvedPhysicalTargets": 239
+        },
+        {
+          "controllerEntityIndex": 4,
+          "steamId": "76561199208301420",
+          "playerName": "MiggyTCD",
+          "team": 2,
+          "heroId": 65,
+          "pawnEntityIndex": 89,
+          "identityObservedTick": 4144,
+          "identityLagTicks": 10,
+          "resolvedPhysicalTargets": 253
+        },
+        {
+          "controllerEntityIndex": 5,
+          "steamId": "76561198064370048",
+          "playerName": "Jake",
+          "team": 3,
+          "heroId": 2,
+          "pawnEntityIndex": 77,
+          "identityObservedTick": 4832,
+          "identityLagTicks": 0,
+          "resolvedPhysicalTargets": 187
+        },
+        {
+          "controllerEntityIndex": 6,
+          "steamId": "76561198133598777",
+          "playerName": "SpookFist Tha Strong",
+          "team": 3,
+          "heroId": 67,
+          "pawnEntityIndex": 93,
+          "identityObservedTick": 5248,
+          "identityLagTicks": 11,
+          "resolvedPhysicalTargets": 206
+        },
+        {
+          "controllerEntityIndex": 7,
+          "steamId": "76561198107069146",
+          "playerName": "renso",
+          "team": 2,
+          "heroId": 35,
+          "pawnEntityIndex": 84,
+          "identityObservedTick": 4576,
+          "identityLagTicks": 11,
+          "resolvedPhysicalTargets": 174
+        },
+        {
+          "controllerEntityIndex": 8,
+          "steamId": "76561198245443086",
+          "playerName": "Pattern",
+          "team": 3,
+          "heroId": 66,
+          "pawnEntityIndex": 96,
+          "identityObservedTick": 6176,
+          "identityLagTicks": 11,
+          "resolvedPhysicalTargets": 178
+        },
+        {
+          "controllerEntityIndex": 9,
+          "steamId": "76561197981048677",
+          "playerName": "FwankToo",
+          "team": 2,
+          "heroId": 11,
+          "pawnEntityIndex": 94,
+          "identityObservedTick": 4144,
+          "identityLagTicks": 14,
+          "resolvedPhysicalTargets": 182
+        },
+        {
+          "controllerEntityIndex": 10,
+          "steamId": "76561198740302968",
+          "playerName": "Paradox_Cowkitty",
+          "team": 2,
+          "heroId": 4,
+          "pawnEntityIndex": 78,
+          "identityObservedTick": 10736,
+          "identityLagTicks": 8,
+          "resolvedPhysicalTargets": 114
+        },
+        {
+          "controllerEntityIndex": 11,
+          "steamId": "76561199670727770",
+          "playerName": "4rM4D1110",
+          "team": 2,
+          "heroId": 58,
+          "pawnEntityIndex": 86,
+          "identityObservedTick": 4352,
+          "identityLagTicks": 15,
+          "resolvedPhysicalTargets": 146
+        },
+        {
+          "controllerEntityIndex": 12,
+          "steamId": "76561198032744376",
+          "playerName": "McThiccems",
+          "team": 2,
+          "heroId": 79,
+          "pawnEntityIndex": 85,
+          "identityObservedTick": 5216,
+          "identityLagTicks": 9,
+          "resolvedPhysicalTargets": 212
+        },
+        {
+          "controllerEntityIndex": 13,
+          "steamId": "76561199001931467",
+          "playerName": "Spiirit0",
+          "team": 3,
+          "heroId": 16,
+          "pawnEntityIndex": 91,
+          "identityObservedTick": 5136,
+          "identityLagTicks": 7,
+          "resolvedPhysicalTargets": 125
+        }
+      ],
+      "negativeControl": {
+        "substitution": "AssignedGold entity index substituted for player pawn target",
+        "resolvedPhysicalTargets": 0,
+        "pass": true
+      },
+      "checks": {
+        "exactPartition": true,
+        "badIdentityLagCount": 0,
+        "duplicateControllerRows": 0
+      }
+    },
+    {
+      "replayName": "rep04",
+      "pass": true,
+      "definition": "First valid m_hVacuumTarget per observed AssignedGold lifecycle, joined to a fresh sampled player pawn identity; this is physical attraction telemetry, not economic receipt.",
+      "maxIdentityLagTicks": 16,
+      "targetedActivations": 1496,
+      "resolvedPhysicalTargets": 1496,
+      "unresolvedPhysicalTargets": 0,
+      "resolutionShare": 1,
+      "byPlayer": [
+        {
+          "controllerEntityIndex": 2,
+          "steamId": "76561199090036683",
+          "playerName": "Queenie Juices",
+          "team": 3,
+          "heroId": 81,
+          "pawnEntityIndex": 90,
+          "identityObservedTick": 4592,
+          "identityLagTicks": 4,
+          "resolvedPhysicalTargets": 127
+        },
+        {
+          "controllerEntityIndex": 3,
+          "steamId": "76561198852992173",
+          "playerName": "Normal Canard",
+          "team": 3,
+          "heroId": 31,
+          "pawnEntityIndex": 94,
+          "identityObservedTick": 4160,
+          "identityLagTicks": 8,
+          "resolvedPhysicalTargets": 171
+        },
+        {
+          "controllerEntityIndex": 4,
+          "steamId": "76561199068854076",
+          "playerName": "Roronoa Zoro",
+          "team": 2,
+          "heroId": 2,
+          "pawnEntityIndex": 92,
+          "identityObservedTick": 5008,
+          "identityLagTicks": 3,
+          "resolvedPhysicalTargets": 163
+        },
+        {
+          "controllerEntityIndex": 5,
+          "steamId": "76561198086537147",
+          "playerName": "butterflyflyhig",
+          "team": 3,
+          "heroId": 6,
+          "pawnEntityIndex": 91,
+          "identityObservedTick": 7504,
+          "identityLagTicks": 3,
+          "resolvedPhysicalTargets": 93
+        },
+        {
+          "controllerEntityIndex": 6,
+          "steamId": "76561198708169259",
+          "playerName": "HPE",
+          "team": 2,
+          "heroId": 27,
+          "pawnEntityIndex": 78,
+          "identityObservedTick": 4992,
+          "identityLagTicks": 2,
+          "resolvedPhysicalTargets": 108
+        },
+        {
+          "controllerEntityIndex": 7,
+          "steamId": "76561198107069146",
+          "playerName": "renso",
+          "team": 3,
+          "heroId": 35,
+          "pawnEntityIndex": 95,
+          "identityObservedTick": 10656,
+          "identityLagTicks": 1,
+          "resolvedPhysicalTargets": 90
+        },
+        {
+          "controllerEntityIndex": 8,
+          "steamId": "76561199212745051",
+          "playerName": "Coochieman",
+          "team": 2,
+          "heroId": 76,
+          "pawnEntityIndex": 89,
+          "identityObservedTick": 4608,
+          "identityLagTicks": 10,
+          "resolvedPhysicalTargets": 156
+        },
+        {
+          "controllerEntityIndex": 9,
+          "steamId": "76561198855099357",
+          "playerName": "Solace",
+          "team": 3,
+          "heroId": 8,
+          "pawnEntityIndex": 80,
+          "identityObservedTick": 5120,
+          "identityLagTicks": 8,
+          "resolvedPhysicalTargets": 149
+        },
+        {
+          "controllerEntityIndex": 10,
+          "steamId": "76561199504960506",
+          "playerName": "shoto",
+          "team": 2,
+          "heroId": 67,
+          "pawnEntityIndex": 87,
+          "identityObservedTick": 5856,
+          "identityLagTicks": 8,
+          "resolvedPhysicalTargets": 109
+        },
+        {
+          "controllerEntityIndex": 11,
+          "steamId": "76561198084827738",
+          "playerName": "Sympathy",
+          "team": 3,
+          "heroId": 13,
+          "pawnEntityIndex": 83,
+          "identityObservedTick": 5760,
+          "identityLagTicks": 1,
+          "resolvedPhysicalTargets": 111
+        },
+        {
+          "controllerEntityIndex": 12,
+          "steamId": "76561198041920601",
+          "playerName": "giga jimmy",
+          "team": 2,
+          "heroId": 18,
+          "pawnEntityIndex": 79,
+          "identityObservedTick": 4480,
+          "identityLagTicks": 14,
+          "resolvedPhysicalTargets": 125
+        },
+        {
+          "controllerEntityIndex": 13,
+          "steamId": "76561198361346119",
+          "playerName": "aHUNTER360",
+          "team": 2,
+          "heroId": 1,
+          "pawnEntityIndex": 77,
+          "identityObservedTick": 4416,
+          "identityLagTicks": 3,
+          "resolvedPhysicalTargets": 94
+        }
+      ],
+      "negativeControl": {
+        "substitution": "AssignedGold entity index substituted for player pawn target",
+        "resolvedPhysicalTargets": 0,
+        "pass": true
+      },
+      "checks": {
+        "exactPartition": true,
+        "badIdentityLagCount": 0,
+        "duplicateControllerRows": 0
+      }
+    },
+    {
+      "replayName": "rep05",
+      "pass": true,
+      "definition": "First valid m_hVacuumTarget per observed AssignedGold lifecycle, joined to a fresh sampled player pawn identity; this is physical attraction telemetry, not economic receipt.",
+      "maxIdentityLagTicks": 16,
+      "targetedActivations": 1643,
+      "resolvedPhysicalTargets": 1641,
+      "unresolvedPhysicalTargets": 2,
+      "resolutionShare": 0.9987827145465612,
+      "byPlayer": [
+        {
+          "controllerEntityIndex": 2,
+          "steamId": "76561198307535491",
+          "playerName": "Aleister",
+          "team": 3,
+          "heroId": 50,
+          "pawnEntityIndex": 77,
+          "identityObservedTick": 4688,
+          "identityLagTicks": 8,
+          "resolvedPhysicalTargets": 161
+        },
+        {
+          "controllerEntityIndex": 3,
+          "steamId": "76561197980274031",
+          "playerName": "Sugon",
+          "team": 3,
+          "heroId": 31,
+          "pawnEntityIndex": 92,
+          "identityObservedTick": 5392,
+          "identityLagTicks": 6,
+          "resolvedPhysicalTargets": 137
+        },
+        {
+          "controllerEntityIndex": 4,
+          "steamId": "76561198370355602",
+          "playerName": "Ghostt",
+          "team": 2,
+          "heroId": 13,
+          "pawnEntityIndex": 80,
+          "identityObservedTick": 5568,
+          "identityLagTicks": 15,
+          "resolvedPhysicalTargets": 168
+        },
+        {
+          "controllerEntityIndex": 5,
+          "steamId": "76561198107069146",
+          "playerName": "renso",
+          "team": 3,
+          "heroId": 35,
+          "pawnEntityIndex": 88,
+          "identityObservedTick": 4480,
+          "identityLagTicks": 4,
+          "resolvedPhysicalTargets": 149
+        },
+        {
+          "controllerEntityIndex": 6,
+          "steamId": "76561199322325405",
+          "playerName": "ACE_Lazzy",
+          "team": 3,
+          "heroId": 63,
+          "pawnEntityIndex": 84,
+          "identityObservedTick": 7024,
+          "identityLagTicks": 6,
+          "resolvedPhysicalTargets": 138
+        },
+        {
+          "controllerEntityIndex": 7,
+          "steamId": "76561198300773879",
+          "playerName": "Jack",
+          "team": 3,
+          "heroId": 19,
+          "pawnEntityIndex": 78,
+          "identityObservedTick": 5568,
+          "identityLagTicks": 2,
+          "resolvedPhysicalTargets": 138
+        },
+        {
+          "controllerEntityIndex": 8,
+          "steamId": "76561198123784134",
+          "playerName": "JustJorsh",
+          "team": 2,
+          "heroId": 4,
+          "pawnEntityIndex": 94,
+          "identityObservedTick": 4640,
+          "identityLagTicks": 9,
+          "resolvedPhysicalTargets": 191
+        },
+        {
+          "controllerEntityIndex": 9,
+          "steamId": "76561197960960996",
+          "playerName": "Mirzero",
+          "team": 2,
+          "heroId": 11,
+          "pawnEntityIndex": 86,
+          "identityObservedTick": 4352,
+          "identityLagTicks": 0,
+          "resolvedPhysicalTargets": 140
+        },
+        {
+          "controllerEntityIndex": 10,
+          "steamId": "76561198047054872",
+          "playerName": "Dolan_161",
+          "team": 3,
+          "heroId": 25,
+          "pawnEntityIndex": 93,
+          "identityObservedTick": 4432,
+          "identityLagTicks": 10,
+          "resolvedPhysicalTargets": 92
+        },
+        {
+          "controllerEntityIndex": 11,
+          "steamId": "76561199437907897",
+          "playerName": "Senor watermelon",
+          "team": 2,
+          "heroId": 60,
+          "pawnEntityIndex": 82,
+          "identityObservedTick": 6592,
+          "identityLagTicks": 5,
+          "resolvedPhysicalTargets": 99
+        },
+        {
+          "controllerEntityIndex": 12,
+          "steamId": "76561198306286724",
+          "playerName": "Spk",
+          "team": 2,
+          "heroId": 81,
+          "pawnEntityIndex": 85,
+          "identityObservedTick": 4240,
+          "identityLagTicks": 15,
+          "resolvedPhysicalTargets": 135
+        },
+        {
+          "controllerEntityIndex": 13,
+          "steamId": "76561199007206598",
+          "playerName": "FlameHead58",
+          "team": 2,
+          "heroId": 27,
+          "pawnEntityIndex": 95,
+          "identityObservedTick": 4512,
+          "identityLagTicks": 1,
+          "resolvedPhysicalTargets": 93
+        }
+      ],
+      "negativeControl": {
+        "substitution": "AssignedGold entity index substituted for player pawn target",
+        "resolvedPhysicalTargets": 0,
+        "pass": true
+      },
+      "checks": {
+        "exactPartition": true,
+        "badIdentityLagCount": 0,
+        "duplicateControllerRows": 0
+      }
+    },
+    {
+      "replayName": "104373259",
+      "pass": true,
+      "definition": "First valid m_hVacuumTarget per observed AssignedGold lifecycle, joined to a fresh sampled player pawn identity; this is physical attraction telemetry, not economic receipt.",
+      "maxIdentityLagTicks": 16,
+      "targetedActivations": 1644,
+      "resolvedPhysicalTargets": 1644,
+      "unresolvedPhysicalTargets": 0,
+      "resolutionShare": 1,
+      "byPlayer": [
+        {
+          "controllerEntityIndex": 2,
+          "steamId": "76561199005061018",
+          "playerName": "YoungDomTheGod",
+          "team": 3,
+          "heroId": 15,
+          "pawnEntityIndex": 90,
+          "identityObservedTick": 6336,
+          "identityLagTicks": 6,
+          "resolvedPhysicalTargets": 168
+        },
+        {
+          "controllerEntityIndex": 3,
+          "steamId": "76561198856682072",
+          "playerName": "Kibo",
+          "team": 3,
+          "heroId": 77,
+          "pawnEntityIndex": 80,
+          "identityObservedTick": 4304,
+          "identityLagTicks": 15,
+          "resolvedPhysicalTargets": 154
+        },
+        {
+          "controllerEntityIndex": 4,
+          "steamId": "76561198415800852",
+          "playerName": "ModularRook0",
+          "team": 3,
+          "heroId": 13,
+          "pawnEntityIndex": 88,
+          "identityObservedTick": 4992,
+          "identityLagTicks": 10,
+          "resolvedPhysicalTargets": 106
+        },
+        {
+          "controllerEntityIndex": 5,
+          "steamId": "76561198097883302",
+          "playerName": "bobchuk",
+          "team": 3,
+          "heroId": 25,
+          "pawnEntityIndex": 97,
+          "identityObservedTick": 4528,
+          "identityLagTicks": 10,
+          "resolvedPhysicalTargets": 170
+        },
+        {
+          "controllerEntityIndex": 6,
+          "steamId": "76561198385577676",
+          "playerName": "Gank of America",
+          "team": 3,
+          "heroId": 11,
+          "pawnEntityIndex": 95,
+          "identityObservedTick": 4624,
+          "identityLagTicks": 1,
+          "resolvedPhysicalTargets": 92
+        },
+        {
+          "controllerEntityIndex": 7,
+          "steamId": "76561198079477113",
+          "playerName": "Zaeleth",
+          "team": 2,
+          "heroId": 81,
+          "pawnEntityIndex": 82,
+          "identityObservedTick": 4592,
+          "identityLagTicks": 2,
+          "resolvedPhysicalTargets": 165
+        },
+        {
+          "controllerEntityIndex": 8,
+          "steamId": "76561198370436718",
+          "playerName": "shortfordirt",
+          "team": 2,
+          "heroId": 65,
+          "pawnEntityIndex": 81,
+          "identityObservedTick": 5056,
+          "identityLagTicks": 9,
+          "resolvedPhysicalTargets": 134
+        },
+        {
+          "controllerEntityIndex": 9,
+          "steamId": "76561198200463289",
+          "playerName": "Nebula",
+          "team": 2,
+          "heroId": 10,
+          "pawnEntityIndex": 86,
+          "identityObservedTick": 4384,
+          "identityLagTicks": 12,
+          "resolvedPhysicalTargets": 145
+        },
+        {
+          "controllerEntityIndex": 10,
+          "steamId": "76561198107069146",
+          "playerName": "renso",
+          "team": 2,
+          "heroId": 35,
+          "pawnEntityIndex": 87,
+          "identityObservedTick": 4672,
+          "identityLagTicks": 12,
+          "resolvedPhysicalTargets": 137
+        },
+        {
+          "controllerEntityIndex": 11,
+          "steamId": "76561198802517078",
+          "playerName": "Sinram",
+          "team": 3,
+          "heroId": 50,
+          "pawnEntityIndex": 77,
+          "identityObservedTick": 4256,
+          "identityLagTicks": 1,
+          "resolvedPhysicalTargets": 151
+        },
+        {
+          "controllerEntityIndex": 12,
+          "steamId": "76561199013757710",
+          "playerName": "TexyDeer",
+          "team": 2,
+          "heroId": 60,
+          "pawnEntityIndex": 79,
+          "identityObservedTick": 5168,
+          "identityLagTicks": 11,
+          "resolvedPhysicalTargets": 103
+        },
+        {
+          "controllerEntityIndex": 13,
+          "steamId": "76561198101422226",
+          "playerName": "Goldinfer",
+          "team": 2,
+          "heroId": 19,
+          "pawnEntityIndex": 93,
+          "identityObservedTick": 5312,
+          "identityLagTicks": 12,
+          "resolvedPhysicalTargets": 119
+        }
+      ],
+      "negativeControl": {
+        "substitution": "AssignedGold entity index substituted for player pawn target",
+        "resolvedPhysicalTargets": 0,
+        "pass": true
+      },
+      "checks": {
+        "exactPartition": true,
+        "badIdentityLagCount": 0,
+        "duplicateControllerRows": 0
+      }
+    }
+  ]
+}

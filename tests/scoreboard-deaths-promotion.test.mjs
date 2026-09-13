@@ -209,7 +209,7 @@ test('deaths_scoreboard production and Authoritative Stats display paths remain 
     fs.readFileSync(
       path.resolve(
         __dirname,
-        '../inspector-v04/public/authoritative.js'
+        '../inspector-v04/public/metric-values.mjs'
       ),
       'utf8'
     );
@@ -226,7 +226,7 @@ test('deaths_scoreboard production and Authoritative Stats display paths remain 
 
   assert.match(
     replayModel,
-    /const deaths=f\.deaths\?\?p\.deathsObserved\.length/
+    /const deaths=f\.deaths\?\?null/
   );
 
   assert.match(

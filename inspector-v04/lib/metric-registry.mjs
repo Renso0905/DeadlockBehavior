@@ -188,7 +188,7 @@ export const METRIC_REGISTRY = [
     m('nearest_opponent_distance','Nearest opposing-player distance',B,'hu','trooper_ground_soul_one_to_one_v01','Nearest resolved opposing player at eligibility context.'),
     m('ground_soul_matched','Matched ground souls',B,'integer','trooper_ground_soul_one_to_one_v01','One-to-one death→AssignedGold lifecycle matches.'),
     m('ground_soul_unmatched','Unmatched eligible deaths',B,'integer','trooper_ground_soul_one_to_one_v01','Preserved unresolved cases; never labeled missed souls.'),
-    m('ground_soul_vacuum_target','Ground soul targeted to player',B,'integer','trooper_ground_soul_one_to_one_v01','Resolved m_hVacuumTarget; NOT labeled final collection.', true),
+    m('ground_soul_vacuum_target','Ground Soul physical targets received',A,'integer','runtime_ground_soul_lifecycle_events','Resolved first m_hVacuumTarget links attributed to this sampled player pawn. Physical attraction only; not collection, reward credit, or last-hit identity.', true),
   ]),
   section('soul_orbs', 'Flying Trooper soul orbs', [
     m('trooper_orbs','Validated flying Trooper orbs',B,'integer','citemxp_inspector_events_v01','Source-linked Trooper soul objects.'),

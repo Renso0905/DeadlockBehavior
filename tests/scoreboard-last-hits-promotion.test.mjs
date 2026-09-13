@@ -97,7 +97,7 @@ test('last_hits production and Authoritative Stats display paths remain wired', 
   );
 
   const authoritativeUi = fs.readFileSync(
-    path.resolve(__dirname, '../inspector-v04/public/authoritative.js'),
+    path.resolve(__dirname, '../inspector-v04/public/metric-values.mjs'),
     'utf8'
   );
 
@@ -113,7 +113,7 @@ test('last_hits production and Authoritative Stats display paths remain wired', 
 
   assert.match(
     replayModel,
-    /lastHits:f\.lastHits\?\?0/
+    /lastHits:f\.lastHits\?\?null/
   );
 
   assert.match(

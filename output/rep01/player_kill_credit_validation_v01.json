@@ -1,0 +1,856 @@
+{
+  "version": "PLAYER_KILL_CREDIT_VALIDATION_V01",
+  "canonical": false,
+  "replay": "rep01",
+  "success": true,
+  "status": "RESEARCH_EVIDENCE_EXTRACTED",
+  "createdAt": "2026-09-11T03:31:46.015Z",
+  "purpose": [
+    "Test whether CCitadelPlayerController.m_iPlayerKills behaves as player kill credit using independent terminal player-damage telemetry.",
+    "Use the independently validated m_iDeaths counter only to confirm that a terminal damage observation belongs to a scored victim death before testing attacker kill credit.",
+    "Treat direct enemy player-pawn attacker attribution as a high-specificity semantic subset; do not infer ownership for unresolved projectile, summon, pet, DoT, or environment attackers.",
+    "Preserve unmatched evidence and shifted-time placebo rates rather than forcing a semantic interpretation."
+  ],
+  "policy": {
+    "matchWindowTicks": 32,
+    "matchWindowSeconds": 0.5,
+    "terminalDamageSignal": "victimHealthNew <= 0",
+    "fatalGrouping": "same victim pawn + exact replay tick",
+    "highConfidenceAttacker": "exactly one resolved enemy player-pawn attacker and no conflicting resolved self/friendly/player attacker in the fatal group",
+    "victimDeathConfirmation": "one-to-one nearest m_iDeaths positive counter credit within match window",
+    "killCreditTest": "one-to-one nearest m_iPlayerKills positive counter credit for the resolved attacker within match window",
+    "batchedCounterDeltaPolicy": "positive delta N expands to N same-tick credit slots",
+    "placeboShiftsSeconds": [
+      10,
+      30
+    ],
+    "promotionPolicy": "NO_AUTOMATIC_PROMOTION_FROM_THIS_SCRIPT"
+  },
+  "telemetry": {
+    "entityPackets": 151805,
+    "entityEvents": 9619301,
+    "controllerEvents": 317262,
+    "messagePackets": 3181046,
+    "damageLikeMessages": 129806,
+    "playerVictimTerminalDamageMessages": 120,
+    "unresolvedVictimTerminalDamageMessages": 43505
+  },
+  "integrityValidation": {
+    "status": "pass",
+    "counterRegressions": 0,
+    "nonZeroInitialCounterObservations": 0,
+    "examples": {
+      "counterRegressions": [],
+      "nonZeroInitialCounterObservations": []
+    }
+  },
+  "counts": {
+    "playersObserved": 12,
+    "killCounterTransitions": 86,
+    "scoreboardKillCredits": 86,
+    "deathCounterTransitions": 89,
+    "scoreboardDeathCredits": 89,
+    "terminalPlayerDamageMessages": 120,
+    "fatalDamageGroups": 96,
+    "directEnemyFatalGroups": 90,
+    "deathConfirmedDirectEnemyFatalAnchors": 83,
+    "anchorsMatchedToAttackerKillCredit": 83,
+    "anchorsUnmatchedToAttackerKillCredit": 0,
+    "killCreditsNotSupportedByDirectFatalAnchor": 3,
+    "placeboMatches10s": 0,
+    "placeboMatches30s": 0
+  },
+  "fatalGroupClassification": {
+    "DIRECT_ENEMY_PLAYER": 90,
+    "UNRESOLVED_ATTACKER": 6
+  },
+  "evidence": {
+    "directFatalVictimDeathAgreement": 0.9222222222222223,
+    "directFatalAnchorKillAgreement": 1,
+    "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.9651162790697675,
+    "placeboAgreement10s": 0,
+    "placeboAgreement30s": 0,
+    "killMatchTickResiduals": {
+      "n": 83,
+      "minTicks": 0,
+      "medianTicks": 0,
+      "maxTicks": 0,
+      "meanAbsTicks": 0,
+      "medianAbsTicks": 0
+    },
+    "deathMatchTickResiduals": {
+      "n": 83,
+      "minTicks": 0,
+      "medianTicks": 0,
+      "maxTicks": 0,
+      "meanAbsTicks": 0,
+      "medianAbsTicks": 0
+    }
+  },
+  "unmatched": {
+    "directEnemyFatalWithoutVictimDeathCredit": [
+      {
+        "id": "fatal|78|105798",
+        "tick": 105798,
+        "victimIndex": 78,
+        "victimPlayer": {
+          "controllerEntityIndex": 8,
+          "pawnEntityIndex": 78,
+          "playerName": "Goldinfer",
+          "team": 3,
+          "heroId": 27,
+          "playerSlot": null,
+          "steamId": "76561198101422226"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 7,
+          "pawnEntityIndex": 79,
+          "playerName": "Parker",
+          "team": 2,
+          "heroId": 1,
+          "playerSlot": null,
+          "steamId": "76561198082593367"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 79,
+            "playerName": "Parker",
+            "team": 2,
+            "heroId": 1,
+            "playerSlot": null,
+            "steamId": "76561198082593367"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 105798,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 78,
+            "attackerIndex": 79,
+            "victimHealthNew": -43,
+            "victimPlayer": {
+              "controllerEntityIndex": 8,
+              "pawnEntityIndex": 78,
+              "playerName": "Goldinfer",
+              "team": 3,
+              "heroId": 27,
+              "playerSlot": null,
+              "steamId": "76561198101422226"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 7,
+              "pawnEntityIndex": 79,
+              "playerName": "Parker",
+              "team": 2,
+              "heroId": 1,
+              "playerSlot": null,
+              "steamId": "76561198082593367"
+            },
+            "damage": 58,
+            "abilityId": 1593133799,
+            "entindexAbility": 2571,
+            "entindexInflictor": 79
+          }
+        ]
+      },
+      {
+        "id": "fatal|92|108932",
+        "tick": 108932,
+        "victimIndex": 92,
+        "victimPlayer": {
+          "controllerEntityIndex": 6,
+          "pawnEntityIndex": 92,
+          "playerName": "Kabuto",
+          "team": 3,
+          "heroId": 25,
+          "playerSlot": null,
+          "steamId": "76561198796221441"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 11,
+          "pawnEntityIndex": 87,
+          "playerName": "BlamBlam50",
+          "team": 2,
+          "heroId": 10,
+          "playerSlot": null,
+          "steamId": "76561198885630319"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 2,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 11,
+            "pawnEntityIndex": 87,
+            "playerName": "BlamBlam50",
+            "team": 2,
+            "heroId": 10,
+            "playerSlot": null,
+            "steamId": "76561198885630319"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 108932,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 92,
+            "attackerIndex": 87,
+            "victimHealthNew": -342,
+            "victimPlayer": {
+              "controllerEntityIndex": 6,
+              "pawnEntityIndex": 92,
+              "playerName": "Kabuto",
+              "team": 3,
+              "heroId": 25,
+              "playerSlot": null,
+              "steamId": "76561198796221441"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 11,
+              "pawnEntityIndex": 87,
+              "playerName": "BlamBlam50",
+              "team": 2,
+              "heroId": 10,
+              "playerSlot": null,
+              "steamId": "76561198885630319"
+            },
+            "damage": 374,
+            "abilityId": 3577481646,
+            "entindexAbility": 3217,
+            "entindexInflictor": 87
+          },
+          {
+            "tick": 108932,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 92,
+            "attackerIndex": 87,
+            "victimHealthNew": -357,
+            "victimPlayer": {
+              "controllerEntityIndex": 6,
+              "pawnEntityIndex": 92,
+              "playerName": "Kabuto",
+              "team": 3,
+              "heroId": 25,
+              "playerSlot": null,
+              "steamId": "76561198796221441"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 11,
+              "pawnEntityIndex": 87,
+              "playerName": "BlamBlam50",
+              "team": 2,
+              "heroId": 10,
+              "playerSlot": null,
+              "steamId": "76561198885630319"
+            },
+            "damage": 15,
+            "abilityId": 58655583,
+            "entindexAbility": 2649,
+            "entindexInflictor": 87
+          }
+        ]
+      },
+      {
+        "id": "fatal|84|109427",
+        "tick": 109427,
+        "victimIndex": 84,
+        "victimPlayer": {
+          "controllerEntityIndex": 3,
+          "pawnEntityIndex": 84,
+          "playerName": "renso",
+          "team": 3,
+          "heroId": 35,
+          "playerSlot": null,
+          "steamId": "76561198107069146"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 7,
+          "pawnEntityIndex": 79,
+          "playerName": "Parker",
+          "team": 2,
+          "heroId": 1,
+          "playerSlot": null,
+          "steamId": "76561198082593367"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 79,
+            "playerName": "Parker",
+            "team": 2,
+            "heroId": 1,
+            "playerSlot": null,
+            "steamId": "76561198082593367"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 109427,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 84,
+            "attackerIndex": 79,
+            "victimHealthNew": -4,
+            "victimPlayer": {
+              "controllerEntityIndex": 3,
+              "pawnEntityIndex": 84,
+              "playerName": "renso",
+              "team": 3,
+              "heroId": 35,
+              "playerSlot": null,
+              "steamId": "76561198107069146"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 7,
+              "pawnEntityIndex": 79,
+              "playerName": "Parker",
+              "team": 2,
+              "heroId": 1,
+              "playerSlot": null,
+              "steamId": "76561198082593367"
+            },
+            "damage": 13,
+            "abilityId": 556186193,
+            "entindexAbility": 2513,
+            "entindexInflictor": 79
+          }
+        ]
+      },
+      {
+        "id": "fatal|82|133183",
+        "tick": 133183,
+        "victimIndex": 82,
+        "victimPlayer": {
+          "controllerEntityIndex": 2,
+          "pawnEntityIndex": 82,
+          "playerName": "Zaeleth",
+          "team": 3,
+          "heroId": 64,
+          "playerSlot": null,
+          "steamId": "76561198079477113"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 7,
+          "pawnEntityIndex": 79,
+          "playerName": "Parker",
+          "team": 2,
+          "heroId": 1,
+          "playerSlot": null,
+          "steamId": "76561198082593367"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 79,
+            "playerName": "Parker",
+            "team": 2,
+            "heroId": 1,
+            "playerSlot": null,
+            "steamId": "76561198082593367"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 133183,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 82,
+            "attackerIndex": 79,
+            "victimHealthNew": -15,
+            "victimPlayer": {
+              "controllerEntityIndex": 2,
+              "pawnEntityIndex": 82,
+              "playerName": "Zaeleth",
+              "team": 3,
+              "heroId": 64,
+              "playerSlot": null,
+              "steamId": "76561198079477113"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 7,
+              "pawnEntityIndex": 79,
+              "playerName": "Parker",
+              "team": 2,
+              "heroId": 1,
+              "playerSlot": null,
+              "steamId": "76561198082593367"
+            },
+            "damage": 22,
+            "abilityId": 556186193,
+            "entindexAbility": 2513,
+            "entindexInflictor": 79
+          }
+        ]
+      },
+      {
+        "id": "fatal|92|133767",
+        "tick": 133767,
+        "victimIndex": 92,
+        "victimPlayer": {
+          "controllerEntityIndex": 6,
+          "pawnEntityIndex": 92,
+          "playerName": "Kabuto",
+          "team": 3,
+          "heroId": 25,
+          "playerSlot": null,
+          "steamId": "76561198796221441"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 11,
+          "pawnEntityIndex": 87,
+          "playerName": "BlamBlam50",
+          "team": 2,
+          "heroId": 10,
+          "playerSlot": null,
+          "steamId": "76561198885630319"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 2,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 11,
+            "pawnEntityIndex": 87,
+            "playerName": "BlamBlam50",
+            "team": 2,
+            "heroId": 10,
+            "playerSlot": null,
+            "steamId": "76561198885630319"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 133767,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 92,
+            "attackerIndex": 87,
+            "victimHealthNew": -121,
+            "victimPlayer": {
+              "controllerEntityIndex": 6,
+              "pawnEntityIndex": 92,
+              "playerName": "Kabuto",
+              "team": 3,
+              "heroId": 25,
+              "playerSlot": null,
+              "steamId": "76561198796221441"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 11,
+              "pawnEntityIndex": 87,
+              "playerName": "BlamBlam50",
+              "team": 2,
+              "heroId": 10,
+              "playerSlot": null,
+              "steamId": "76561198885630319"
+            },
+            "damage": 377,
+            "abilityId": 3577481646,
+            "entindexAbility": 3217,
+            "entindexInflictor": 87
+          },
+          {
+            "tick": 133767,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 92,
+            "attackerIndex": 87,
+            "victimHealthNew": -163,
+            "victimPlayer": {
+              "controllerEntityIndex": 6,
+              "pawnEntityIndex": 92,
+              "playerName": "Kabuto",
+              "team": 3,
+              "heroId": 25,
+              "playerSlot": null,
+              "steamId": "76561198796221441"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 11,
+              "pawnEntityIndex": 87,
+              "playerName": "BlamBlam50",
+              "team": 2,
+              "heroId": 10,
+              "playerSlot": null,
+              "steamId": "76561198885630319"
+            },
+            "damage": 42,
+            "abilityId": 58655583,
+            "entindexAbility": 2649,
+            "entindexInflictor": 87
+          }
+        ]
+      },
+      {
+        "id": "fatal|90|136852",
+        "tick": 136852,
+        "victimIndex": 90,
+        "victimPlayer": {
+          "controllerEntityIndex": 13,
+          "pawnEntityIndex": 90,
+          "playerName": "Nebula",
+          "team": 3,
+          "heroId": 14,
+          "playerSlot": null,
+          "steamId": "76561198200463289"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 11,
+          "pawnEntityIndex": 87,
+          "playerName": "BlamBlam50",
+          "team": 2,
+          "heroId": 10,
+          "playerSlot": null,
+          "steamId": "76561198885630319"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 11,
+            "pawnEntityIndex": 87,
+            "playerName": "BlamBlam50",
+            "team": 2,
+            "heroId": 10,
+            "playerSlot": null,
+            "steamId": "76561198885630319"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 136852,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 90,
+            "attackerIndex": 87,
+            "victimHealthNew": -267,
+            "victimPlayer": {
+              "controllerEntityIndex": 13,
+              "pawnEntityIndex": 90,
+              "playerName": "Nebula",
+              "team": 3,
+              "heroId": 14,
+              "playerSlot": null,
+              "steamId": "76561198200463289"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 11,
+              "pawnEntityIndex": 87,
+              "playerName": "BlamBlam50",
+              "team": 2,
+              "heroId": 10,
+              "playerSlot": null,
+              "steamId": "76561198885630319"
+            },
+            "damage": 493,
+            "abilityId": 3577481646,
+            "entindexAbility": 3217,
+            "entindexInflictor": 87
+          }
+        ]
+      },
+      {
+        "id": "fatal|88|149386",
+        "tick": 149386,
+        "victimIndex": 88,
+        "victimPlayer": {
+          "controllerEntityIndex": 9,
+          "pawnEntityIndex": 88,
+          "playerName": "ArsonBoy5996",
+          "team": 2,
+          "heroId": 69,
+          "playerSlot": null,
+          "steamId": "76561198017909943"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 10,
+          "pawnEntityIndex": 96,
+          "playerName": "Quackinator17",
+          "team": 3,
+          "heroId": 2,
+          "playerSlot": null,
+          "steamId": "76561199221184484"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 2,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 10,
+            "pawnEntityIndex": 96,
+            "playerName": "Quackinator17",
+            "team": 3,
+            "heroId": 2,
+            "playerSlot": null,
+            "steamId": "76561199221184484"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 149386,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 88,
+            "attackerIndex": 96,
+            "victimHealthNew": -53,
+            "victimPlayer": {
+              "controllerEntityIndex": 9,
+              "pawnEntityIndex": 88,
+              "playerName": "ArsonBoy5996",
+              "team": 2,
+              "heroId": 69,
+              "playerSlot": null,
+              "steamId": "76561198017909943"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 10,
+              "pawnEntityIndex": 96,
+              "playerName": "Quackinator17",
+              "team": 3,
+              "heroId": 2,
+              "playerSlot": null,
+              "steamId": "76561199221184484"
+            },
+            "damage": 55,
+            "abilityId": 2061574352,
+            "entindexAbility": 2717,
+            "entindexInflictor": 96
+          },
+          {
+            "tick": 149386,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 88,
+            "attackerIndex": 96,
+            "victimHealthNew": -63,
+            "victimPlayer": {
+              "controllerEntityIndex": 9,
+              "pawnEntityIndex": 88,
+              "playerName": "ArsonBoy5996",
+              "team": 2,
+              "heroId": 69,
+              "playerSlot": null,
+              "steamId": "76561198017909943"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 10,
+              "pawnEntityIndex": 96,
+              "playerName": "Quackinator17",
+              "team": 3,
+              "heroId": 2,
+              "playerSlot": null,
+              "steamId": "76561199221184484"
+            },
+            "damage": 10,
+            "abilityId": 3005970438,
+            "entindexAbility": 3306,
+            "entindexInflictor": 96
+          }
+        ]
+      }
+    ],
+    "deathConfirmedAnchorWithoutAttackerKillCredit": [],
+    "killCreditsWithoutDirectFatalAnchor": [
+      {
+        "id": "kill|8|33003|0",
+        "kind": "kill",
+        "tick": 33003,
+        "controllerEntityIndex": 8,
+        "pawnEntityIndex": 78,
+        "playerName": "Goldinfer",
+        "team": 3,
+        "heroId": 27,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      },
+      {
+        "id": "kill|13|51343|0",
+        "kind": "kill",
+        "tick": 51343,
+        "controllerEntityIndex": 13,
+        "pawnEntityIndex": 90,
+        "playerName": "Nebula",
+        "team": 3,
+        "heroId": 14,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      },
+      {
+        "id": "kill|9|57145|0",
+        "kind": "kill",
+        "tick": 57145,
+        "controllerEntityIndex": 9,
+        "pawnEntityIndex": 88,
+        "playerName": "ArsonBoy5996",
+        "team": 2,
+        "heroId": 69,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      }
+    ]
+  },
+  "finalCounters": [
+    {
+      "controllerEntityIndex": 12,
+      "pawnEntityIndex": 77,
+      "playerName": "Archivist Eris",
+      "team": 2,
+      "heroId": 3,
+      "playerSlot": null,
+      "steamId": "76561198055181753",
+      "kills": 0,
+      "deaths": 8,
+      "tick": 149872
+    },
+    {
+      "controllerEntityIndex": 9,
+      "pawnEntityIndex": 88,
+      "playerName": "ArsonBoy5996",
+      "team": 2,
+      "heroId": 69,
+      "playerSlot": null,
+      "steamId": "76561198017909943",
+      "kills": 5,
+      "deaths": 4,
+      "tick": 149865
+    },
+    {
+      "controllerEntityIndex": 11,
+      "pawnEntityIndex": 87,
+      "playerName": "BlamBlam50",
+      "team": 2,
+      "heroId": 10,
+      "playerSlot": null,
+      "steamId": "76561198885630319",
+      "kills": 7,
+      "deaths": 11,
+      "tick": 149872
+    },
+    {
+      "controllerEntityIndex": 4,
+      "pawnEntityIndex": 85,
+      "playerName": "Mushie",
+      "team": 2,
+      "heroId": 4,
+      "playerSlot": null,
+      "steamId": "76561198891919908",
+      "kills": 2,
+      "deaths": 10,
+      "tick": 150628
+    },
+    {
+      "controllerEntityIndex": 7,
+      "pawnEntityIndex": 79,
+      "playerName": "Parker",
+      "team": 2,
+      "heroId": 1,
+      "playerSlot": null,
+      "steamId": "76561198082593367",
+      "kills": 10,
+      "deaths": 9,
+      "tick": 150742
+    },
+    {
+      "controllerEntityIndex": 5,
+      "pawnEntityIndex": 80,
+      "playerName": "The White Samoan",
+      "team": 2,
+      "heroId": 13,
+      "playerSlot": null,
+      "steamId": "76561199011253074",
+      "kills": 10,
+      "deaths": 10,
+      "tick": 149872
+    },
+    {
+      "controllerEntityIndex": 8,
+      "pawnEntityIndex": 78,
+      "playerName": "Goldinfer",
+      "team": 3,
+      "heroId": 27,
+      "playerSlot": null,
+      "steamId": "76561198101422226",
+      "kills": 20,
+      "deaths": 5,
+      "tick": 149872
+    },
+    {
+      "controllerEntityIndex": 6,
+      "pawnEntityIndex": 92,
+      "playerName": "Kabuto",
+      "team": 3,
+      "heroId": 25,
+      "playerSlot": null,
+      "steamId": "76561198796221441",
+      "kills": 5,
+      "deaths": 3,
+      "tick": 149879
+    },
+    {
+      "controllerEntityIndex": 13,
+      "pawnEntityIndex": 90,
+      "playerName": "Nebula",
+      "team": 3,
+      "heroId": 14,
+      "playerSlot": null,
+      "steamId": "76561198200463289",
+      "kills": 11,
+      "deaths": 8,
+      "tick": 149865
+    },
+    {
+      "controllerEntityIndex": 10,
+      "pawnEntityIndex": 96,
+      "playerName": "Quackinator17",
+      "team": 3,
+      "heroId": 2,
+      "playerSlot": null,
+      "steamId": "76561199221184484",
+      "kills": 5,
+      "deaths": 5,
+      "tick": 149872
+    },
+    {
+      "controllerEntityIndex": 3,
+      "pawnEntityIndex": 84,
+      "playerName": "renso",
+      "team": 3,
+      "heroId": 35,
+      "playerSlot": null,
+      "steamId": "76561198107069146",
+      "kills": 4,
+      "deaths": 7,
+      "tick": 149865
+    },
+    {
+      "controllerEntityIndex": 2,
+      "pawnEntityIndex": 82,
+      "playerName": "Zaeleth",
+      "team": 3,
+      "heroId": 64,
+      "playerSlot": null,
+      "steamId": "76561198079477113",
+      "kills": 7,
+      "deaths": 9,
+      "tick": 149865
+    }
+  ],
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\rep01\\player_kill_credit_validation_v01.json",
+    "anchors": "G:\\DeadlockBehavior\\output\\rep01\\player_kill_credit_anchors_v01.jsonl"
+  },
+  "interpretationBoundary": {
+    "supportedIfAgreementIsHigh": "Direct enemy player-pawn terminal damage that produces a scored victim death is followed by kill-credit increments on the resolved attacker.",
+    "notEstablishedByThisScript": [
+      "That every m_iPlayerKills credit is caused by a directly attributed player-pawn damage packet.",
+      "Ownership attribution for projectile, summon, pet, DoT, reflected, environmental, or other indirect damage.",
+      "Assist semantics.",
+      "Last-hit or deny semantics.",
+      "Production/A-tier status."
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # DeadlockBehavior Research Inspector V04
 
-A dependency-free local research inspector for the DeadlockBehavior replay-mining repository.
+A local replay-to-statistics pipeline and research inspector for the DeadlockBehavior repository.
 
 ## What V04 does
 
@@ -11,13 +11,14 @@ A dependency-free local research inspector for the DeadlockBehavior replay-minin
 - Lets aggregate cards drill into their underlying JSON/JSONL evidence rows.
 - Shows source health instead of inventing metrics when an upstream output is absent.
 - Keeps unresolved semantics explicit: item removal is not called a sale, vacuum targeting is not called collection, camp clear during exposure is not called player-caused, and current ammo/effective magazine/effective DPS are excluded.
-- Supports `.dem` import and a **versioned explicit processing manifest** (`pipeline.json`).
+- Imports a `.dem`, runs all required production producers, validates their artifacts, and publishes a versioned immutable snapshot.
+- Exposes every canonical A metric through the UI and `GET /api/replay/:name/metrics` with per-player availability and provenance.
 
 ## Scientific boundary
 
 The inspector is a consumer of the repository's evidence/authority layer. It does **not** reinterpret a numbered script passing as scientific validation, and it does not automatically run the historical research notebook as a production ETL.
 
-`pipeline.json` is intentionally empty in V04 until replay-safe current entrypoints are consolidated. Importing a `.dem` therefore saves it to `replays/` and reports `PROCESSING_MANIFEST_EMPTY` instead of silently guessing which of 200+ historical scripts should run.
+`pipeline.json` contains the replay-safe production chain. Historical numbered research scripts remain outside the automated pipeline. A run becomes READY only when the exact canonical metric set is owned, all required stages pass, input fingerprints remain stable, and every published output matches its SHA-256 proof.
 
 ## Install
 
@@ -78,6 +79,7 @@ GET  /api/config
 GET  /api/metrics
 GET  /api/replays
 GET  /api/replay/:name/model
+GET  /api/replay/:name/metrics?player=:playerId&time=:seconds
 GET  /api/replay/:name/health
 GET  /api/replay/:name/evidence/:kind
 POST /api/import
@@ -107,17 +109,16 @@ Trooper death rows are replay-global because that stream does not encode player 
 
 The first load of a replay scans the needed JSON/JSONL files and writes a fingerprinted cache under `inspector-v04/.cache/`. Use **Rebuild cache** in the UI when you intentionally want to force reconstruction. Cache files are derived and should generally remain untracked.
 
-Recommended `.gitignore` entry:
-
-```gitignore
-inspector-v04/.cache/
-```
+Incomplete runs work in `output/.pipeline-work/`. Completed runs move atomically to `output/<replay>/.production-runs/<run-id>/`; the production manifest is published last. The visualizer reads that immutable run. Compatibility copies remain at the replay output root for historical research scripts.
 
 ## Processing new replays
 
-V04 deliberately separates two concerns:
+Use **Import .dem** to save and process a replay in one flow. Use **Process / retry** for an existing unprocessed, stale, incomplete, or failed replay. With the default launcher, new `.dem` files placed in `replays/` are also detected and queued automatically. Required-step failures remain visible and the last valid published snapshot is preserved.
 
-1. **Inspector** — consumes current output contracts and makes them inspectable.
-2. **Replay processing** — must be promoted into explicit replay-safe entrypoints before being automated.
+To validate published metrics independently:
 
-When consolidation produces those entrypoints, add ordered steps to `pipeline.json`; the existing import/process API and UI are already wired for them. Required-step failures are surfaced rather than suppressed.
+```powershell
+G:\Node\node.exe scripts\228-validate-production-reliability.mjs test rep01 rep02 rep03 rep04 rep05 104373259
+```
+
+The current contract contains 109 A metrics: 99 core and 10 extended. `ground_soul_vacuum_target` is the only promotion in this reliability pass and means resolved physical attraction targets only.

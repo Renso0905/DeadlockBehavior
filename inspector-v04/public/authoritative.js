@@ -1,25 +1,13 @@
+import { AUTH_IDS, metricValue, clock, escapeHtml, apiJson } from './metric-values.mjs';
 const AUTH_TAB_ID='authoritative-ready';
 const AUTH_STYLE_ID='authoritative-ready-style';
 let authActive=false;
 let authRegistry=null;
+let authModel=null,authReplay=null;
 let authRenderToken=0;
+document.addEventListener('replay-model-loaded',e=>{authModel=e.detail.model;authReplay=e.detail.replay;queueAuthoritativeRender();});
 
-const AUTH_IDS=[
-  'match_clock','match_duration','player_name','steam_id','hero_id','team','controller_entity','pawn_entity','roster','composition',
-  'level','level_timing','level_rate','alive_time','dead_time','alive_share','death_count','death_timing','survival_intervals','average_life',
-  'respawn_time','respawn_downtime','health','health_max','health_percent','health_minmax','low_health_25','low_health_50','health_regen',
-  'gold_networth','ap_networth','networth_rate','networth_checkpoints','networth_rank','kills','assists','last_hits','denies','deaths_scoreboard','kd','kda','kills_rate','assists_rate','last_hits_rate','denies_rate','scoreboard_timelines',
-  'team_networth','team_networth_diff','player_team_share','team_ahead_time','team_behind_time','max_team_lead','max_team_deficit','largest_lead_swing',
-  'current_items','final_build','item_acquisition_time','item_acquisition_order','item_count','item_ownership_duration','item_removals','checkpoint_builds',
-  'permanent_current','permanent_acquisitions','permanent_count','permanent_by_family','permanent_value','permanent_team_diff',
-  'bridge_collections','bridge_current','bridge_uptime','bridge_uptime_share','bridge_overlaps','bridge_termination','bridge_team_uptime',
-  'trooper_deaths','trooper_death_timing',
-  'ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration',
-  'ground_soul_economic_credit_events','ground_soul_economic_recipient_transitions','ground_soul_multi_recipient_share','ground_soul_economic_gain',
-  'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay',
-  'xy_distance','xyz_distance','distance_per_min','distance_per_alive_min','mean_xy_speed','mean_xyz_speed','moving_time','moving_share','low_motion_time','low_motion_share','position_trajectory',
-  'melee_attacks','melee_hits','melee_hit_rate','light_melee','heavy_melee','air_heavy_melee','melee_type_share','melee_per_alive_min'
-];
+
 
 installAuthoritativeStyles();
 installAuthoritativeTab();
@@ -36,7 +24,7 @@ for(const sel of ['#playerSelect','#timeSlider']){
   document.querySelector(sel)?.addEventListener(sel==='#timeSlider'?'input':'change',()=>queueAuthoritativeRender());
 }
 document.querySelector('#replaySelect')?.addEventListener('change',()=>queueAuthoritativeRender(50));
-document.querySelector('#refreshBtn')?.addEventListener('click',()=>queueAuthoritativeRender(400));
+document.querySelector('#refreshBtn')?.addEventListener('click',()=>{authModel=null;queueAuthoritativeRender(400);});
 const playerSelect=document.querySelector('#playerSelect');
 if(playerSelect)new MutationObserver(()=>queueAuthoritativeRender()).observe(playerSelect,{childList:true});
 
@@ -72,16 +60,16 @@ async function renderAuthoritative(){
   try{
     const [registryData,model]=await Promise.all([
       authRegistry?Promise.resolve(authRegistry):apiJson('/api/metrics').then(x=>(authRegistry=x)),
-      apiJson(`/api/replay/${encodeURIComponent(replay)}/model`)
+      authModel&&authReplay===replay?Promise.resolve(authModel):apiJson(`/api/replay/${encodeURIComponent(replay)}/model`).then(x=>{authModel=x;authReplay=replay;return x;})
     ]);
     if(token!==authRenderToken||!authActive)return;
-    const p=model.players?.find(x=>String(x.playerName)===String(playerName))??model.players?.[0];
+    const p=model.players?.find(x=>String(x.playerId??x.playerName)===String(playerName))??model.players?.[0];
     if(!p){main.innerHTML='<div class="warning-box">No player model is available for this replay.</div>';return;}
     const aSections=(registryData.sections??[]).map(s=>({...s,metrics:(s.metrics??[]).filter(m=>m.status==='A')})).filter(s=>s.metrics.length);
     const aMetrics=aSections.flatMap(s=>s.metrics);
     const unknownRegistry=aMetrics.filter(m=>!AUTH_IDS.includes(m.id));
     const missingContract=AUTH_IDS.filter(id=>!aMetrics.some(m=>m.id===id));
-    const weaponReady=await latestNextPrimaryReady(replay,p.playerName,model.match?.matchClockOffsetSeconds??0);
+    const weaponReady=null;
     if(token!==authRenderToken||!authActive)return;
     const ctx={model,p,time,weaponReady};
     const rendered=aSections.map(section=>{
@@ -89,7 +77,8 @@ async function renderAuthoritative(){
       return authSection(section,rows);
     }).join('');
     const wired=aMetrics.filter(m=>metricValue(m.id,ctx).wired!==false).length;
-    const complete=wired===aMetrics.length && unknownRegistry.length===0 && missingContract.length===0;
+    const available=aMetrics.filter(m=>metricValue(m.id,ctx).available).length;
+    const complete=available===aMetrics.length && wired===aMetrics.length && unknownRegistry.length===0 && missingContract.length===0;
     main.innerHTML=`
       <div class="section-head auth-head">
         <div>
@@ -97,8 +86,8 @@ async function renderAuthoritative(){
           <p>Every current <strong>A-status</strong> metric contract is shown here with a value, source, and definition. Scrub the match clock for time-dependent state.</p>
         </div>
         <div class="auth-coverage ${complete?'complete':'incomplete'}">
-          <strong>${wired}/${aMetrics.length}</strong>
-          <span>${complete?'A metrics wired':'A metrics wired'}</span>
+          <strong>${available}/${aMetrics.length}</strong>
+          <span>A metrics available · ${wired} mapped</span>
         </div>
       </div>
       ${unknownRegistry.length?`<div class="warning-box danger-box"><strong>Registry drift:</strong> new A metrics are not mapped: ${escapeHtml(unknownRegistry.map(x=>x.id).join(', '))}</div>`:''}
@@ -131,277 +120,10 @@ function authCard(metric,result){
     <div class="auth-card-top"><span class="badge a">A</span><span class="auth-unit">${escapeHtml(metric.unit??'')}</span></div>
     <h3>${escapeHtml(metric.label)}</h3>
     <div class="auth-value">${unwired?'NOT WIRED':escapeHtml(result?.value??'—')}</div>
+    ${result?.scope?`<div class="auth-detail">${result.scope==='at_selected_time'?'At selected time':'Full observed match'}</div>`:''}
     ${result?.detail?`<div class="auth-detail">${escapeHtml(result.detail)}</div>`:''}
     <div class="auth-meta"><span>${escapeHtml(metric.source??'')}</span><span>${escapeHtml(metric.definition??'')}</span></div>
   </article>`;
-}
-
-function authGroundSoulEconomicGainAtTime(summary,p,time){const rows=summary?.byPlayer??[];const steam=String(p?.identity?.steamId??'');const name=String(p?.playerName??'');const row=rows.find(x=>steam&&String(x.steamId??'')===steam)??rows.find(x=>String(x.playerName??'')===name);const timeline=row?.cumulativeTimeline??[];let gain=0,creditEvents=0;for(const x of timeline){if(Number(x.matchTime)<=Number(time)){gain=Number(x.cumulativeCurrency0Delta)||0;creditEvents=Number(x.creditEvents)||0;}else break;}return {gain,creditEvents,fullMatch:Number(row?.observedCurrency0DeltaTotal)||0};}
-
-function movementTrajectoryAt(p,time){
-  const rows=p?.movement?.trajectory??[];
-  if(!Array.isArray(rows)||!rows.length)return null;
-  let lo=0,hi=rows.length-1,best=null;
-  while(lo<=hi){
-    const mid=(lo+hi)>>1;
-    const row=rows[mid];
-    const t=Number(row?.[1]);
-    if(!Number.isFinite(t)){lo=mid+1;continue;}
-    if(t<=time){best=row;lo=mid+1;}else hi=mid-1;
-  }
-  return best;
-}
-
-function metricValue(id,{model,p,time,weaponReady}){
-  const s=stateAt(p,time);
-  const teamNow=teamAt(model,p.team,time);
-  const otherNow=otherTeamAt(model,p.team,time);
-  const teamFinal=(model.teams??[]).find(t=>String(t.team)===String(p.team));
-  const otherFinal=(model.teams??[]).find(t=>String(t.team)!==String(p.team));
-  const teamRoster=(model.match?.roster??[]).filter(r=>String(r.team)===String(p.team));
-  const currentItems=itemsAt(p,time);
-  const additions=(p.items?.events??[]).filter(e=>e.eventType==='ITEM_ADDED').sort((a,b)=>(a.time??0)-(b.time??0));
-  const removals=(p.items?.events??[]).filter(e=>e.eventType==='ITEM_REMOVED').sort((a,b)=>(a.time??0)-(b.time??0));
-  const permNow=permanentAt(p,time);
-  const permFinal=p.permanentBuffs?.final??{};
-  const permEvents=(p.permanentBuffs?.events??[]).sort((a,b)=>(a.time??0)-(b.time??0));
-  const bridges=(p.bridgeBuffs?.intervals??[]).slice().sort((a,b)=>(a.startTime??0)-(b.startTime??0));
-  const activeBridges=bridges.filter(x=>(x.startTime??Infinity)<=time && time<(x.endTime??-Infinity));
-  const bridgeUptime=bridges.reduce((n,x)=>n+(Number(x.durationSeconds)||0),0);
-  const matchDuration=Number(model.match?.matchDurationSeconds)||0;
-  const overlaps=bridgeOverlapSummary(bridges);
-  const weapon=p.weapon??{};
-  switch(id){
-    case 'match_clock': return v(clock(time,true),s?.tick!=null?`tick ${num(s.tick)}`:'tick unavailable');
-    case 'match_duration': return v(duration(matchDuration),`${num(matchDuration,2)} seconds observed`);
-    case 'player_name': return v(p.playerName??'—');
-    case 'steam_id': return v(p.identity?.steamId??'—');
-    case 'hero_id': return v(p.heroId??p.identity?.heroId??'—');
-    case 'team': return v(p.team??p.identity?.team??'—');
-    case 'controller_entity': return v(p.identity?.controllerEntityIndex??'—');
-    case 'pawn_entity': return v(p.identity?.pawnEntityIndex??'—');
-    case 'roster': return v(`${teamRoster.length} players`,teamRoster.map(x=>x.playerName).filter(Boolean).join(' · ')||'—');
-    case 'composition': return v(`${teamRoster.length} heroes`,teamRoster.map(x=>`H${x.heroId??'?'}`).join(' · ')||'—');
-
-    case 'level': return v(s?.level??p.core?.level??'—',`final ${p.core?.level??'—'}`);
-    case 'level_timing': return v(`${Object.keys(p.core?.levelTimings??{}).length} observed levels`,formatLevelTimes(p.core?.levelTimings));
-    case 'level_rate': return v(perMin(p.core?.levelRatePerMinute));
-    case 'alive_time': return v(duration(p.core?.aliveSeconds));
-    case 'dead_time': return v(duration(p.core?.deadSeconds));
-    case 'alive_share': return v(percent(p.core?.aliveShare));
-    case 'death_count': return v(p.core?.deathsObserved??0,'Observed alive → dead transitions');
-    case 'death_timing': return v(`${(p.core?.deathTimings??[]).length} transitions`,(p.core?.deathTimings??[]).map(x=>clock(x.time)).join(' · ')||'None');
-    case 'survival_intervals': return v(`${(p.core?.survivalIntervals??[]).length} completed`,formatDurations(p.core?.survivalIntervals));
-    case 'average_life': return v(duration(p.core?.averageLifeSeconds));
-    case 'respawn_time': return v(`${(p.core?.respawns??[]).length} observed`,formatDurations((p.core?.respawns??[]).map(x=>x.duration)));
-    case 'respawn_downtime': return v(duration(p.core?.totalRespawnDowntimeSeconds));
-    case 'health': return v(s?.health??p.core?.health??'—');
-    case 'health_max': return v(s?.healthMax??p.core?.healthMax??'—');
-    case 'health_percent': return v(percent(s?.healthMax>0?s.health/s.healthMax:p.core?.healthPercent));
-    case 'health_minmax': return v(`${num(p.core?.minHealth)} → ${num(p.core?.maxHealth)}`,'Observed minimum → maximum');
-    case 'low_health_25': return v(duration(p.core?.low25Seconds));
-    case 'low_health_50': return v(duration(p.core?.low50Seconds));
-    case 'health_regen': return v(num(s?.healthRegen??p.core?.healthRegen,2));
-    case 'gold_networth': return v(num(s?.goldNetWorth??p.scoreboard?.goldNetWorth),`final ${num(p.scoreboard?.goldNetWorth)}`);
-    case 'ap_networth': return v(num(s?.apNetWorth??p.scoreboard?.apNetWorth),`final ${num(p.scoreboard?.apNetWorth)}`);
-    case 'networth_rate': return v(perMin(p.core?.netWorthGainPerMinute),'Observed net-worth change; not relabeled Souls/min');
-    case 'networth_checkpoints': return v(`${Object.keys(p.core?.checkpoints??{}).length} checkpoints`,formatCheckpoints(p.core?.checkpoints));
-    case 'networth_rank': return v(`#${p.rank?.matchNetWorth??'—'} match`,`#${p.rank?.teamNetWorth??'—'} on team`);
-    case 'kills': return v(s?.kills??p.scoreboard?.kills??0,`final ${num(p.scoreboard?.kills??0)}`);
-    case 'assists': return v(s?.assists??p.scoreboard?.assists??0,`final ${num(p.scoreboard?.assists??0)}`);
-    case 'last_hits': return v(s?.lastHits??p.scoreboard?.lastHits??0,`final ${num(p.scoreboard?.lastHits??0)}`);
-    case 'denies': return v(s?.denies??p.scoreboard?.denies??0,`final ${num(p.scoreboard?.denies??0)}`);
-    case 'deaths_scoreboard': return v(s?.deaths??p.scoreboard?.deaths??0,`final ${num(p.scoreboard?.deaths??0)} · distinct from observed death_count`);
-    case 'kd': return Number.isFinite(p.scoreboard?.kd)?v(p.scoreboard.kd,`${num(p.scoreboard?.kills??0)} kills / ${num(p.scoreboard?.deaths??0)} deaths`):v(null,'N/A · 0 deaths');
-    case 'kda': return Number.isFinite(p.scoreboard?.kda)?v(p.scoreboard.kda,`(${num(p.scoreboard?.kills??0)} kills + ${num(p.scoreboard?.assists??0)} assists) / ${num(p.scoreboard?.deaths??0)} deaths`):v(null,'N/A · 0 deaths');
-    case 'kills_rate': return Number.isFinite(p.scoreboard?.killsPerMinute)?v(p.scoreboard.killsPerMinute,`${num(p.scoreboard?.kills??0)} kills / match minute`):v(null,'N/A · nonpositive match duration');
-    case 'assists_rate': return Number.isFinite(p.scoreboard?.assistsPerMinute)?v(p.scoreboard.assistsPerMinute,`${num(p.scoreboard?.assists??0)} assists / match minute`):v(null,'N/A · nonpositive match duration');
-    case 'last_hits_rate': return Number.isFinite(p.scoreboard?.lastHitsPerMinute)?v(p.scoreboard.lastHitsPerMinute,`${num(p.scoreboard?.lastHits??0)} last hits / match minute`):v(null,'N/A · nonpositive match duration');
-    case 'denies_rate': return Number.isFinite(p.scoreboard?.deniesPerMinute)?v(p.scoreboard.deniesPerMinute,`${num(p.scoreboard?.denies??0)} denies / match minute`):v(null,'N/A · nonpositive match duration');
-    case 'scoreboard_timelines': { const t=p.scoreboard?.timelines??{}; const groups=[['K',t.kills],['A',t.assists],['LH',t.lastHits],['D',t.denies]]; const total=groups.reduce((n,[,rows])=>n+(rows?.length??0),0); const detail=groups.map(([label,rows])=>`${label}: ${formatScoreboardTimeline(rows)}`).join(' · '); return v(`${total} observed counter transitions`,`${detail} · first observed sample; not exact server award time`); }
-
-    case 'position_trajectory': { const row=movementTrajectoryAt(p,time); const count=p.movement?.trajectorySampleCount??p.movement?.trajectory?.length??0; return row?v(`(${num(row[2],1)}, ${num(row[3],1)}, ${num(row[4],1)})`,`tick ${num(row[0])} · ${clock(row[1],true)} · ${num(count)} discrete raw samples · alive=${row[5]===1?'yes':'no'} · movement-valid=${row[6]===1?'yes':'no'}`):v('—',`${num(count)} discrete raw samples`); }
-    case 'xy_distance': return v(num(p.movement?.travelDistanceXY,1),`${num(p.movement?.acceptedStepCount??0)} valid steps · >2000-HU 3D jumps excluded`);
-    case 'xyz_distance': return v(num(p.movement?.travelDistance3D,1),`${num(p.movement?.acceptedStepCount??0)} valid steps · >2000-HU 3D jumps excluded`);
-    case 'distance_per_min': return Number.isFinite(p.movement?.distancePerMinute)?v(num(p.movement.distancePerMinute,1),'XY distance / observed full-match minute'):v('N/A','nonpositive match duration');
-    case 'distance_per_alive_min': return Number.isFinite(p.movement?.distancePerAliveMinute)?v(num(p.movement.distancePerAliveMinute,1),`XY distance / ${duration(p.movement?.movementAliveSeconds)} both-endpoints-alive time`):v('N/A','nonpositive movement-alive denominator');
-    case 'mean_xy_speed': return Number.isFinite(p.movement?.meanSpeedXY)?v(num(p.movement.meanSpeedXY,2),`XY distance / ${duration(p.movement?.validMovementSeconds)} valid movement time`):v('N/A','no valid movement duration');
-    case 'mean_xyz_speed': return Number.isFinite(p.movement?.meanSpeed3D)?v(num(p.movement.meanSpeed3D,2),`3D distance / ${duration(p.movement?.validMovementSeconds)} valid movement time`):v('N/A','no valid movement duration');
-    case 'moving_time': return v(duration(p.movement?.movingSeconds),'>=25 HU/s observed 3D step speed');
-    case 'moving_share': return Number.isFinite(p.movement?.movingShare)?v(percent(p.movement.movingShare),'>=25 HU/s duration / valid movement duration'):v('N/A','no valid movement duration');
-    case 'low_motion_time': return v(duration(p.movement?.lowMotionSeconds),'<25 HU/s observed 3D step speed');
-    case 'low_motion_share': return Number.isFinite(p.movement?.lowMotionShare)?v(percent(p.movement.lowMotionShare),'<25 HU/s duration / valid movement duration'):v('N/A','no valid movement duration');
-
-    case 'melee_attacks': return v(num(p.melee?.attacks??0),'Observed executed melee episodes; raw button presses are not counted');
-    case 'melee_hits': return v(num(p.melee?.hits??0),'Executions where m_bHitWithThisAttack became true');
-    case 'melee_hit_rate': return Number.isFinite(p.melee?.hitRate)?v(percent(p.melee.hitRate),'hit-flag executions / executed melee episodes'):v('N/A','0 executed melee attacks');
-    case 'light_melee': return v(num(p.melee?.light??0),'Direct m_eCurrentAttackType=LIGHT');
-    case 'heavy_melee': return v(num(p.melee?.heavy??0),'Direct m_eCurrentAttackType=HEAVY');
-    case 'air_heavy_melee': return v(num(p.melee?.airHeavy??0),'Direct m_eCurrentAttackType=HEAVY_AIR');
-    case 'melee_type_share': { const sh=p.melee?.typeShare??{}; return v(`L ${percent(sh.LIGHT)} · H ${percent(sh.HEAVY)} · Air ${percent(sh.HEAVY_AIR)}`,Number(sh.SLIDE)>0?`Slide ${percent(sh.SLIDE)} · direct runtime attack types`:'Direct runtime attack types'); }
-    case 'melee_per_alive_min': return Number.isFinite(p.melee?.attacksPerAliveMinute)?v(perMin(p.melee.attacksPerAliveMinute),`executions / ${duration(p.melee?.movementAliveSeconds)} Movement alive-observation time`):v('N/A','nonpositive Movement alive-observation denominator');
-
-    case 'team_networth': return v(num(teamNow?.goldNetWorth??teamFinal?.goldNetWorth));
-    case 'team_networth_diff': return v(signed((teamNow?.goldNetWorth??teamFinal?.goldNetWorth??0)-(otherNow?.goldNetWorth??otherFinal?.goldNetWorth??0)));
-    case 'player_team_share': return v(percent(safeDiv(s?.goldNetWorth??p.scoreboard?.goldNetWorth,teamNow?.goldNetWorth??teamFinal?.goldNetWorth)));
-    case 'team_ahead_time': return v(duration(teamFinal?.advantage?.aheadSeconds));
-    case 'team_behind_time': return v(duration(teamFinal?.advantage?.behindSeconds));
-    case 'max_team_lead': return v(num(teamFinal?.advantage?.maxLead));
-    case 'max_team_deficit': return v(num(teamFinal?.advantage?.maxDeficit));
-    case 'largest_lead_swing': return v(num(teamFinal?.advantage?.largestSwing));
-
-    case 'current_items': return v(`${currentItems.length} owned`,itemNames(currentItems));
-    case 'final_build': return v(`${(p.items?.finalItems??[]).length} owned`,itemNames(p.items?.finalItems??[]));
-    case 'item_acquisition_time': return v(`${additions.length} additions`,additions.map(e=>`${clock(e.time)} ${itemName(e.item)}`).join(' · ')||'None');
-    case 'item_acquisition_order': return v(`${additions.length} items`,additions.map((e,i)=>`${i+1}. ${itemName(e.item)}`).join(' · ')||'None');
-    case 'item_count': return v(currentItems.length,`at ${clock(time)}`);
-    case 'item_ownership_duration': return v(`${(p.items?.ownershipIntervals??[]).length} intervals`,(p.items?.ownershipIntervals??[]).map(x=>`${itemName(x.item)} ${duration(x.durationSeconds)}`).join(' · ')||'None');
-    case 'item_removals': return v(removals.length,removals.map(e=>`${clock(e.time)} ${itemName(e.item)}`).join(' · ')||'None');
-    case 'checkpoint_builds': return v(`${checkpointTimes(matchDuration).length} checkpoints`,formatCheckpointBuilds(p,matchDuration));
-
-    case 'permanent_current': return v(`${permanentUnits(permNow)} units`,formatPermanent(permNow));
-    case 'permanent_acquisitions': return v(permEvents.length,permEvents.map(e=>`${clock(e.time)} ${formatPermanentDelta(e.state)}`).join(' · ')||'None');
-    case 'permanent_count': return v(permanentUnits(permFinal),`${Object.keys(permFinal).length} populated families at replay end`);
-    case 'permanent_by_family': return v(`${Object.keys(permFinal).length} families`,formatPermanent(permFinal));
-    case 'permanent_value': return v(`${Object.keys(permFinal).length} families`,Object.entries(permFinal).map(([k,x])=>`${pretty(k)} ${num(x?.totalValue,3)}`).join(' · ')||'None');
-    case 'permanent_team_diff': {
-      const mine=teamFinal?.permanentBuffUnits??0,other=otherFinal?.permanentBuffUnits??0;
-      return v(signed(mine-other),`${mine} team units vs ${other} opponent units`);
-    }
-
-    case 'bridge_collections': return v(bridges.length,countByText(bridges,x=>pretty(x.buffType??x.recordKey)));
-    case 'bridge_current': return v(`${activeBridges.length} active`,activeBridges.map(x=>`${pretty(x.buffType??x.recordKey)} until ${clock(x.endTime)}`).join(' · ')||'None');
-    case 'bridge_uptime': return v(duration(bridgeUptime),countByDuration(bridges,x=>pretty(x.buffType??x.recordKey)));
-    case 'bridge_uptime_share': return v(percent(safeDiv(bridgeUptime,matchDuration)),'Aggregate buff-seconds / observed match duration; overlaps can make this exceed 100%.');
-    case 'bridge_overlaps': return v(`max ${overlaps.maxConcurrent} concurrent`,`${duration(overlaps.overlapSeconds)} with 2+ buffs active`);
-    case 'bridge_termination': return v(`${bridges.length} intervals`,countByText(bridges,x=>pretty(x.terminationReason??'UNRESOLVED')));
-    case 'bridge_team_uptime': return v(duration(teamFinal?.bridgeUptimeSeconds));
-
-    case 'trooper_deaths': return v(model.troopers?.deaths??model.troopers?.summary?.deaths??'—','Observed CNPC_Trooper positive-health → 0 transitions');
-    case 'trooper_death_timing': { const ts=model.troopers?.summary??{}; const times=ts.deathTimesSeconds??[]; return v(`${ts.gameplayDeaths??times.length} gameplay deaths`,times.length?`first ${clock(ts.firstGameplayDeathSeconds)} · median ${clock(ts.medianGameplayDeathSeconds)} · last ${clock(ts.lastGameplayDeathSeconds)}`:'No gameplay deaths observed'); }
-    case 'ground_soul_activations': return v(model.groundSoulLifecycle?.summary?.activations??'—','Match-level observed CCitadel_Pickup_AssignedGold active episodes');
-    case 'ground_soul_targeted_activations': { const gs=model.groundSoulLifecycle?.summary??{}; return v(gs.targetedActivations??'—',`${percent(gs.targetedShare)} of observed activations · physical m_hVacuumTarget only`); }
-    case 'ground_soul_lifecycle_duration': { const gs=model.groundSoulLifecycle?.summary??{}; return v(gs.medianCompletedDurationSeconds!=null?duration(gs.medianCompletedDurationSeconds):'—',`${gs.completedActiveToInactive??0} completed active → inactive · ${gs.censoredActivations??0} censored`); }
-    case 'ground_soul_economic_credit_events': { const ge=model.groundSoulEconomicCredit?.summary??{}; return v(ge.resolvedCreditEvents??'—',`${percent(ge.resolutionShare)} of isolated targeted candidates · ${ge.unresolvedCandidateEvents??0} unresolved candidates`); }
-    case 'ground_soul_economic_recipient_transitions': { const ge=model.groundSoulEconomicCredit?.summary??{}; return v(ge.recipientTransitions??'—',`${ge.resolvedCreditEvents??0} resolved events · exact terminal-tick currency transitions`); }
-    case 'ground_soul_multi_recipient_share': { const ge=model.groundSoulEconomicCredit?.summary??{}; return v(percent(ge.multiRecipientShare),`${ge.multiRecipientEvents??0} / ${ge.resolvedCreditEvents??0} resolved events`); }
-    case 'ground_soul_economic_gain': { const g=authGroundSoulEconomicGainAtTime(model.groundSoulEconomicCredit?.summary,p,time); return v(num(g.gain),`${g.creditEvents} resolved credit events through ${clock(time)} · full-match ${num(g.fullMatch)}`); }
-    case 'primary_discharges': return v(weapon.discharges??0,`${weapon.events??0} weapon telemetry events`);
-    case 'primary_attack_rate': return v(perMin(safeDiv(weapon.discharges,p.aliveMinutes)));
-    case 'inter_attack_interval': return v(`${num(weapon.medianInterAttackSeconds,4)} s median`,`mean ${num(weapon.meanInterAttackSeconds,4)} s · n=${weapon.interAttackSampleCount??0}`);
-    case 'next_primary_ready': return weaponReady?v(num(weaponReady.nextPrimaryAttack,6),`latest observed carrier · row at ${clock(weaponReady.matchTime)} · raw runtime schedule time`):v('—','No next-primary-ready carrier found in available weapon evidence');
-    case 'ready_delay': return v(`${num(weapon.medianReadyDelaySeconds,4)} s median`,`mean ${num(weapon.meanReadyDelaySeconds,4)} s · n=${weapon.readyDelaySampleCount??0}`);
-    default: return {wired:false,value:'NOT WIRED',detail:''};
-  }
-}
-
-async function latestNextPrimaryReady(replay,playerName,offset){
-  try{
-    const q=`player=${encodeURIComponent(playerName)}&limit=1&offset=0`;
-    const first=await apiJson(`/api/replay/${encodeURIComponent(replay)}/evidence/weapon?${q}`);
-    const matched=Number(first.matched??0);
-    if(!matched)return null;
-    const start=Math.max(0,matched-250);
-    const tail=await apiJson(`/api/replay/${encodeURIComponent(replay)}/evidence/weapon?player=${encodeURIComponent(playerName)}&limit=250&offset=${start}`);
-    const rows=tail.rows??[];
-    for(let i=rows.length-1;i>=0;i--){
-      const r=rows[i];
-      const next=finite(r?.observedWeaponState?.nextPrimaryAttack ?? r?.directRuntime?.after?.nextPrimaryAttack ?? r?.directRuntime?.after?.m_flNextPrimaryAttack);
-      if(next!==null){
-        const demo=finite(r.demoSeconds)??(finite(r.tick)!==null?Number(r.tick)/64:null);
-        return {nextPrimaryAttack:next,matchTime:demo===null?null:demo-offset,tick:r.tick??null};
-      }
-    }
-  }catch{}
-  return null;
-}
-
-function stateAt(p,time){
-  const tl=p?.timeline??[]; if(!tl.length)return null;
-  let lo=0,hi=tl.length-1,best=tl[0];
-  while(lo<=hi){const mid=(lo+hi)>>1;const x=tl[mid];if((x.matchTime??-Infinity)<=time){best=x;lo=mid+1;}else hi=mid-1;}
-  return best;
-}
-function teamAt(model,team,time){
-  const series=model.teamSeries??[]; if(!series.length)return null;
-  const idx=Math.max(0,Math.min(series.length-1,Math.floor(time)));
-  const row=series[idx]??series[series.length-1];
-  return row?.teams?.[String(team)]??null;
-}
-function otherTeamAt(model,team,time){
-  const series=model.teamSeries??[]; if(!series.length)return null;
-  const idx=Math.max(0,Math.min(series.length-1,Math.floor(time)));const teams=series[idx]?.teams??{};
-  const key=Object.keys(teams).find(k=>String(k)!==String(team));return key?teams[key]:null;
-}
-function itemsAt(p,time){
-  const intervals=p.items?.ownershipIntervals??[];
-  return intervals.filter(x=>(x.startTime??Infinity)<=time && (x.endReason==='REPLAY_END'?time<=(x.endTime??-Infinity):time<(x.endTime??-Infinity))).map(x=>x.item);
-}
-function permanentAt(p,time){
-  let state={};
-  for(const e of p.permanentBuffs?.events??[]){if((e.time??Infinity)<=time)state=e.state??state;else break;}
-  return state;
-}
-function permanentUnits(state){return Object.values(state??{}).reduce((n,x)=>n+(Number(x?.inferredUnits)||0),0);}
-function bridgeOverlapSummary(intervals){
-  const events=[];for(const x of intervals){const a=finite(x.startTime),b=finite(x.endTime);if(a===null||b===null||b<a)continue;events.push([a,1],[b,-1]);}
-  events.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);
-  let n=0,max=0,last=null,overlapSeconds=0;
-  for(const [t,d] of events){if(last!==null&&n>=2)overlapSeconds+=Math.max(0,t-last);n+=d;max=Math.max(max,n);last=t;}
-  return {maxConcurrent:max,overlapSeconds};
-}
-function checkpointTimes(matchDuration){return [300,600,900,1200,1500,1800,2100,2400,2700,3000].filter(x=>x<=matchDuration);}
-function formatCheckpointBuilds(p,matchDuration){
-  return checkpointTimes(matchDuration).map(t=>`${clock(t)}: ${itemNames(itemsAt(p,t))}`).join(' • ')||'No standard checkpoint reached';
-}
-function itemName(item){return item?.recordKey??item?.itemName??item?.name??(item?.itemId!=null?`item ${item.itemId}`:'unknown item');}
-function itemNames(items){return items?.length?items.map(itemName).join(' · '):'None';}
-function formatPermanent(state){
-  const parts=Object.entries(state??{}).map(([k,x])=>`${pretty(k)} ×${Number(x?.inferredUnits)||0} (${num(x?.totalValue,3)})`);
-  return parts.join(' · ')||'None';
-}
-function formatPermanentDelta(state){return formatPermanent(state);}
-function formatLevelTimes(o){
-  const xs=Object.entries(o??{}).sort((a,b)=>Number(a[0])-Number(b[0])).map(([lvl,x])=>`L${lvl} ${clock(x?.time)}`);
-  return xs.join(' · ')||'None';
-}
-function formatDurations(xs){
-  const a=(xs??[]).filter(x=>finite(x)!==null);
-  return a.length?a.map(duration).join(' · '):'None';
-}
-function formatCheckpoints(o){
-  const xs=Object.entries(o??{}).sort((a,b)=>Number(a[0])-Number(b[0]));
-  return xs.map(([sec,x])=>`${clock(Number(sec))}: ${num(x?.goldNetWorth)}`).join(' · ')||'None';
-}
-function countByText(xs,keyFn){
-  const m=new Map();for(const x of xs){const k=keyFn(x)||'Unknown';m.set(k,(m.get(k)||0)+1);}
-  return [...m].map(([k,n])=>`${k} ${n}`).join(' · ')||'None';
-}
-function countByDuration(xs,keyFn){
-  const m=new Map();for(const x of xs){const k=keyFn(x)||'Unknown';m.set(k,(m.get(k)||0)+(Number(x.durationSeconds)||0));}
-  return [...m].map(([k,n])=>`${k} ${duration(n)}`).join(' · ')||'None';
-}
-function pretty(s){return String(s??'').replace(/_powerup_pickup$/,'').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());}
-function v(value,detail=''){return {wired:true,value:String(value??'—'),detail:String(detail??'')};}
-function finite(x){const n=Number(x);return Number.isFinite(n)?n:null;}
-function safeDiv(a,b){const x=finite(a),y=finite(b);return x!==null&&y!==null&&y!==0?x/y:null;}
-function num(x,digits=0){const n=finite(x);if(n===null)return '—';return n.toLocaleString(undefined,{maximumFractionDigits:digits,minimumFractionDigits:digits});}
-function signed(x){const n=finite(x);if(n===null)return '—';return `${n>0?'+':''}${num(n)}`;}
-function percent(x){const n=finite(x);return n===null?'—':`${num(n*100,1)}%`;}
-function perMin(x){const n=finite(x);return n===null?'—':`${num(n,2)} / min`;}
-function duration(x){const n=finite(x);if(n===null)return '—';return clock(Math.max(0,n),n<60);}
-function clock(sec,millis=false){
-  const n=finite(sec);if(n===null)return '—';const sign=n<0?'-':'';const a=Math.abs(n),m=Math.floor(a/60),s=a-m*60;
-  return millis?`${sign}${m}:${s.toFixed(3).padStart(6,'0')}`:`${sign}${m}:${Math.floor(s).toString().padStart(2,'0')}`;
-}
-function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-async function apiJson(path){
-  const r=await fetch(path,{headers:{accept:'application/json'}});const data=await r.json().catch(()=>({}));
-  if(!r.ok)throw new Error(data.error||`${r.status} ${r.statusText}`);return data;
-}
-function formatScoreboardTimeline(rows){
-  if(!Array.isArray(rows)||!rows.length)return 'none';
-  return rows.map(x=>`${clock(x.observedMatchTime)} +${num(x.delta??0)}`).join(', ');
 }
 
 function installAuthoritativeStyles(){

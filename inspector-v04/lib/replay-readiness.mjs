@@ -1,3 +1,5 @@
+import { validatePublishedRun, inputFingerprint } from './run-integrity.mjs';
+import { AUTHORITATIVE_PRODUCTION_METRIC_IDS } from './production-capabilities.mjs';
 import { promises as fs } from 'node:fs';
 import { basename, join } from 'node:path';
 
@@ -25,10 +27,10 @@ export async function replayReadiness({repoRoot,outputRoot,replayName,authoritat
   const manifest=await readJsonMaybe(manifestPath);
   const currentTotal=Number(authoritativeTotal);
 
-  if(processing?.state==='PROCESSING') {
+  if(['PROCESSING','QUEUED'].includes(processing?.state)) {
     const coverage=manifest?.coverage??{};
     return {
-      state:'PROCESSING',replayPresent:Boolean(replayStat),outputPresent:Boolean(outputStat),manifestPresent:Boolean(manifest),
+      state:processing.state,replayPresent:Boolean(replayStat),outputPresent:Boolean(outputStat),manifestPresent:Boolean(manifest),
       authoritativeTotal:Number.isFinite(currentTotal)?currentTotal:Number(coverage.authoritativeTotal??0),
       completeAuthoritative:Number(coverage.completeAuthoritative??0),
       missingAuthoritative:null,currentStage:processing.currentStage??null,processingOrigin:processing.origin??null,
@@ -58,14 +60,17 @@ export async function replayReadiness({repoRoot,outputRoot,replayName,authoritat
   const contractCurrent=manifestTotal===currentTotal;
   const coverageClean=complete===currentTotal&&failed===0&&blocked===0&&notSupported===0&&unclassified===0&&missingOwners.length===0&&duplicateOwners.length===0;
   const runComplete=manifest.runStatus==='COMPLETE';
-  const state=!contractCurrent?'STALE_CONTRACT':coverageClean&&runComplete?'READY':'INCOMPLETE';
+  const verification=await validatePublishedRun(outputDir,manifest);
+  const currentFingerprint=await inputFingerprint(repoRoot,replayName);
+  const inputsCurrent=manifest.inputFingerprint===currentFingerprint;
+  const state=!contractCurrent?'STALE_CONTRACT':coverageClean&&runComplete&&verification.available&&inputsCurrent?'READY':'INCOMPLETE';
 
   return {
     state,replayPresent:Boolean(replayStat),outputPresent:Boolean(outputStat),manifestPresent:true,
     authoritativeTotal:currentTotal,manifestAuthoritativeTotal:manifestTotal,completeAuthoritative:complete,
     missingAuthoritative:Math.max(0,currentTotal-complete),failedAuthoritative:failed,blockedAuthoritative:blocked,
     notSupportedAuthoritative:notSupported,unclassifiedAuthoritative:unclassified,runStatus:manifest.runStatus??null,
-    contractCurrent,manifestGeneratedAt:manifest.generatedAt??null,replayMtimeMs:replayStat?.mtimeMs??null,
+    reason:verification.reason??(!inputsCurrent?'Inputs changed; reprocess.':null),inputsCurrent,contractCurrent,manifestGeneratedAt:manifest.generatedAt??null,replayMtimeMs:replayStat?.mtimeMs??null,
     manifestMtimeMs:(await statMaybe(manifestPath))?.mtimeMs??null,
     contractErrors:{missingMetricOwners:missingOwners,duplicateMetricOwners:duplicateOwners},
     metricIds:coverage.metricIds??null
@@ -79,10 +84,11 @@ export async function needsReplayProcessing({repoRoot,outputRoot,replayName}) {
   if(!replayStat)return{needed:false,reason:'replay_missing'};
   const manifest=await readJsonMaybe(manifestPath);
   if(!manifest)return{needed:true,reason:'manifest_missing'};
-  const manifestStat=await statMaybe(manifestPath);
-  if(!manifestStat)return{needed:true,reason:'manifest_missing'};
-  if(replayStat.mtimeMs>manifestStat.mtimeMs)return{needed:true,reason:'replay_newer_than_manifest'};
-  return{needed:false,reason:'already_processed'};
+  const readiness=await replayReadiness({repoRoot,outputRoot,replayName,authoritativeTotal:AUTHORITATIVE_PRODUCTION_METRIC_IDS.length});
+  if(readiness.state==='READY')return{needed:false,reason:'already_processed'};
+  const job=await readJsonMaybe(join(outputRoot,replayName,'production_job.json'));
+  if(job?.state==='FAILED'&&job.inputFingerprint===await inputFingerprint(repoRoot,replayName))return{needed:false,reason:'failed_run_requires_manual_retry'};
+  return{needed:true,reason:readiness.state==='STALE_CONTRACT'?'contract_changed':'outputs_or_inputs_stale'};
 }
 
 async function readJsonMaybe(path){try{return JSON.parse(await fs.readFile(path,'utf8'));}catch{return null;}}

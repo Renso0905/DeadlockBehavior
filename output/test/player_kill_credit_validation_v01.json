@@ -1,0 +1,786 @@
+{
+  "version": "PLAYER_KILL_CREDIT_VALIDATION_V01",
+  "canonical": false,
+  "replay": "test",
+  "success": true,
+  "status": "RESEARCH_EVIDENCE_EXTRACTED",
+  "createdAt": "2026-09-11T03:31:16.697Z",
+  "purpose": [
+    "Test whether CCitadelPlayerController.m_iPlayerKills behaves as player kill credit using independent terminal player-damage telemetry.",
+    "Use the independently validated m_iDeaths counter only to confirm that a terminal damage observation belongs to a scored victim death before testing attacker kill credit.",
+    "Treat direct enemy player-pawn attacker attribution as a high-specificity semantic subset; do not infer ownership for unresolved projectile, summon, pet, DoT, or environment attackers.",
+    "Preserve unmatched evidence and shifted-time placebo rates rather than forcing a semantic interpretation."
+  ],
+  "policy": {
+    "matchWindowTicks": 32,
+    "matchWindowSeconds": 0.5,
+    "terminalDamageSignal": "victimHealthNew <= 0",
+    "fatalGrouping": "same victim pawn + exact replay tick",
+    "highConfidenceAttacker": "exactly one resolved enemy player-pawn attacker and no conflicting resolved self/friendly/player attacker in the fatal group",
+    "victimDeathConfirmation": "one-to-one nearest m_iDeaths positive counter credit within match window",
+    "killCreditTest": "one-to-one nearest m_iPlayerKills positive counter credit for the resolved attacker within match window",
+    "batchedCounterDeltaPolicy": "positive delta N expands to N same-tick credit slots",
+    "placeboShiftsSeconds": [
+      10,
+      30
+    ],
+    "promotionPolicy": "NO_AUTOMATIC_PROMOTION_FROM_THIS_SCRIPT"
+  },
+  "telemetry": {
+    "entityPackets": 204616,
+    "entityEvents": 15075367,
+    "controllerEvents": 467762,
+    "messagePackets": 4493855,
+    "damageLikeMessages": 204893,
+    "playerVictimTerminalDamageMessages": 157,
+    "unresolvedVictimTerminalDamageMessages": 63315
+  },
+  "integrityValidation": {
+    "status": "pass",
+    "counterRegressions": 0,
+    "nonZeroInitialCounterObservations": 0,
+    "examples": {
+      "counterRegressions": [],
+      "nonZeroInitialCounterObservations": []
+    }
+  },
+  "counts": {
+    "playersObserved": 12,
+    "killCounterTransitions": 113,
+    "scoreboardKillCredits": 113,
+    "deathCounterTransitions": 114,
+    "scoreboardDeathCredits": 114,
+    "terminalPlayerDamageMessages": 157,
+    "fatalDamageGroups": 121,
+    "directEnemyFatalGroups": 118,
+    "deathConfirmedDirectEnemyFatalAnchors": 111,
+    "anchorsMatchedToAttackerKillCredit": 111,
+    "anchorsUnmatchedToAttackerKillCredit": 0,
+    "killCreditsNotSupportedByDirectFatalAnchor": 2,
+    "placeboMatches10s": 2,
+    "placeboMatches30s": 0
+  },
+  "fatalGroupClassification": {
+    "DIRECT_ENEMY_PLAYER": 118,
+    "UNRESOLVED_ATTACKER": 3
+  },
+  "evidence": {
+    "directFatalVictimDeathAgreement": 0.940677966101695,
+    "directFatalAnchorKillAgreement": 1,
+    "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.9823008849557522,
+    "placeboAgreement10s": 0.018018018018018018,
+    "placeboAgreement30s": 0,
+    "killMatchTickResiduals": {
+      "n": 111,
+      "minTicks": 0,
+      "medianTicks": 0,
+      "maxTicks": 0,
+      "meanAbsTicks": 0,
+      "medianAbsTicks": 0
+    },
+    "deathMatchTickResiduals": {
+      "n": 111,
+      "minTicks": 0,
+      "medianTicks": 0,
+      "maxTicks": 0,
+      "meanAbsTicks": 0,
+      "medianAbsTicks": 0
+    }
+  },
+  "unmatched": {
+    "directEnemyFatalWithoutVictimDeathCredit": [
+      {
+        "id": "fatal|90|112033",
+        "tick": 112033,
+        "victimIndex": 90,
+        "victimPlayer": {
+          "controllerEntityIndex": 8,
+          "pawnEntityIndex": 90,
+          "playerName": "Snazzy314",
+          "team": 2,
+          "heroId": 4,
+          "playerSlot": null,
+          "steamId": "76561199751953144"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 3,
+          "pawnEntityIndex": 81,
+          "playerName": "blooop354",
+          "team": 3,
+          "heroId": 58,
+          "playerSlot": null,
+          "steamId": "76561199827569844"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 3,
+            "pawnEntityIndex": 81,
+            "playerName": "blooop354",
+            "team": 3,
+            "heroId": 58,
+            "playerSlot": null,
+            "steamId": "76561199827569844"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 112033,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 90,
+            "attackerIndex": 81,
+            "victimHealthNew": -21,
+            "victimPlayer": {
+              "controllerEntityIndex": 8,
+              "pawnEntityIndex": 90,
+              "playerName": "Snazzy314",
+              "team": 2,
+              "heroId": 4,
+              "playerSlot": null,
+              "steamId": "76561199751953144"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 3,
+              "pawnEntityIndex": 81,
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "playerSlot": null,
+              "steamId": "76561199827569844"
+            },
+            "damage": 26,
+            "abilityId": 988091080,
+            "entindexAbility": 2588,
+            "entindexInflictor": 81
+          }
+        ]
+      },
+      {
+        "id": "fatal|78|112847",
+        "tick": 112847,
+        "victimIndex": 78,
+        "victimPlayer": {
+          "controllerEntityIndex": 2,
+          "pawnEntityIndex": 78,
+          "playerName": "Nacho4Sure",
+          "team": 2,
+          "heroId": 2,
+          "playerSlot": null,
+          "steamId": "76561197983209811"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 5,
+          "pawnEntityIndex": 84,
+          "playerName": "Zaeleth",
+          "team": 3,
+          "heroId": 77,
+          "playerSlot": null,
+          "steamId": "76561198079477113"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 2,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 5,
+            "pawnEntityIndex": 84,
+            "playerName": "Zaeleth",
+            "team": 3,
+            "heroId": 77,
+            "playerSlot": null,
+            "steamId": "76561198079477113"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 112847,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 78,
+            "attackerIndex": 84,
+            "victimHealthNew": -36,
+            "victimPlayer": {
+              "controllerEntityIndex": 2,
+              "pawnEntityIndex": 78,
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "playerSlot": null,
+              "steamId": "76561197983209811"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 5,
+              "pawnEntityIndex": 84,
+              "playerName": "Zaeleth",
+              "team": 3,
+              "heroId": 77,
+              "playerSlot": null,
+              "steamId": "76561198079477113"
+            },
+            "damage": 806,
+            "abilityId": 494112189,
+            "entindexAbility": 2619,
+            "entindexInflictor": 84
+          },
+          {
+            "tick": 112847,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 78,
+            "attackerIndex": 84,
+            "victimHealthNew": -36,
+            "victimPlayer": {
+              "controllerEntityIndex": 2,
+              "pawnEntityIndex": 78,
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "playerSlot": null,
+              "steamId": "76561197983209811"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 5,
+              "pawnEntityIndex": 84,
+              "playerName": "Zaeleth",
+              "team": 3,
+              "heroId": 77,
+              "playerSlot": null,
+              "steamId": "76561198079477113"
+            },
+            "damage": 0,
+            "abilityId": 1998374645,
+            "entindexAbility": 3070,
+            "entindexInflictor": 84
+          }
+        ]
+      },
+      {
+        "id": "fatal|89|114351",
+        "tick": 114351,
+        "victimIndex": 89,
+        "victimPlayer": {
+          "controllerEntityIndex": 6,
+          "pawnEntityIndex": 89,
+          "playerName": "Yosafire Worshipper [K]",
+          "team": 2,
+          "heroId": 50,
+          "playerSlot": null,
+          "steamId": "76561198322712152"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 7,
+          "pawnEntityIndex": 87,
+          "playerName": "Nebula",
+          "team": 3,
+          "heroId": 25,
+          "playerSlot": null,
+          "steamId": "76561198200463289"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 87,
+            "playerName": "Nebula",
+            "team": 3,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198200463289"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 114351,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 89,
+            "attackerIndex": 87,
+            "victimHealthNew": -44,
+            "victimPlayer": {
+              "controllerEntityIndex": 6,
+              "pawnEntityIndex": 89,
+              "playerName": "Yosafire Worshipper [K]",
+              "team": 2,
+              "heroId": 50,
+              "playerSlot": null,
+              "steamId": "76561198322712152"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 7,
+              "pawnEntityIndex": 87,
+              "playerName": "Nebula",
+              "team": 3,
+              "heroId": 25,
+              "playerSlot": null,
+              "steamId": "76561198200463289"
+            },
+            "damage": 68,
+            "abilityId": 816395058,
+            "entindexAbility": 2638,
+            "entindexInflictor": 87
+          }
+        ]
+      },
+      {
+        "id": "fatal|89|163251",
+        "tick": 163251,
+        "victimIndex": 89,
+        "victimPlayer": {
+          "controllerEntityIndex": 6,
+          "pawnEntityIndex": 89,
+          "playerName": "Yosafire Worshipper [K]",
+          "team": 2,
+          "heroId": 50,
+          "playerSlot": null,
+          "steamId": "76561198322712152"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 3,
+          "pawnEntityIndex": 81,
+          "playerName": "blooop354",
+          "team": 3,
+          "heroId": 58,
+          "playerSlot": null,
+          "steamId": "76561199827569844"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 3,
+            "pawnEntityIndex": 81,
+            "playerName": "blooop354",
+            "team": 3,
+            "heroId": 58,
+            "playerSlot": null,
+            "steamId": "76561199827569844"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 163251,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 89,
+            "attackerIndex": 81,
+            "victimHealthNew": -9,
+            "victimPlayer": {
+              "controllerEntityIndex": 6,
+              "pawnEntityIndex": 89,
+              "playerName": "Yosafire Worshipper [K]",
+              "team": 2,
+              "heroId": 50,
+              "playerSlot": null,
+              "steamId": "76561198322712152"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 3,
+              "pawnEntityIndex": 81,
+              "playerName": "blooop354",
+              "team": 3,
+              "heroId": 58,
+              "playerSlot": null,
+              "steamId": "76561199827569844"
+            },
+            "damage": 31,
+            "abilityId": 3647584222,
+            "entindexAbility": 3552,
+            "entindexInflictor": 81
+          }
+        ]
+      },
+      {
+        "id": "fatal|91|164300",
+        "tick": 164300,
+        "victimIndex": 91,
+        "victimPlayer": {
+          "controllerEntityIndex": 13,
+          "pawnEntityIndex": 91,
+          "playerName": "viggoth 300",
+          "team": 2,
+          "heroId": 18,
+          "playerSlot": null,
+          "steamId": "76561198307482194"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 7,
+          "pawnEntityIndex": 87,
+          "playerName": "Nebula",
+          "team": 3,
+          "heroId": 25,
+          "playerSlot": null,
+          "steamId": "76561198200463289"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 87,
+            "playerName": "Nebula",
+            "team": 3,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198200463289"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 164300,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 91,
+            "attackerIndex": 87,
+            "victimHealthNew": -36,
+            "victimPlayer": {
+              "controllerEntityIndex": 13,
+              "pawnEntityIndex": 91,
+              "playerName": "viggoth 300",
+              "team": 2,
+              "heroId": 18,
+              "playerSlot": null,
+              "steamId": "76561198307482194"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 7,
+              "pawnEntityIndex": 87,
+              "playerName": "Nebula",
+              "team": 3,
+              "heroId": 25,
+              "playerSlot": null,
+              "steamId": "76561198200463289"
+            },
+            "damage": 42,
+            "abilityId": 816395058,
+            "entindexAbility": 2638,
+            "entindexInflictor": 87
+          }
+        ]
+      },
+      {
+        "id": "fatal|79|164843",
+        "tick": 164843,
+        "victimIndex": 79,
+        "victimPlayer": {
+          "controllerEntityIndex": 4,
+          "pawnEntityIndex": 79,
+          "playerName": "flem",
+          "team": 2,
+          "heroId": 1,
+          "playerSlot": null,
+          "steamId": "76561197982948887"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 9,
+          "pawnEntityIndex": 77,
+          "playerName": "TheWoogler",
+          "team": 3,
+          "heroId": 52,
+          "playerSlot": null,
+          "steamId": "76561198259248348"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 9,
+            "pawnEntityIndex": 77,
+            "playerName": "TheWoogler",
+            "team": 3,
+            "heroId": 52,
+            "playerSlot": null,
+            "steamId": "76561198259248348"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 164843,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 79,
+            "attackerIndex": 77,
+            "victimHealthNew": -44,
+            "victimPlayer": {
+              "controllerEntityIndex": 4,
+              "pawnEntityIndex": 79,
+              "playerName": "flem",
+              "team": 2,
+              "heroId": 1,
+              "playerSlot": null,
+              "steamId": "76561197982948887"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 9,
+              "pawnEntityIndex": 77,
+              "playerName": "TheWoogler",
+              "team": 3,
+              "heroId": 52,
+              "playerSlot": null,
+              "steamId": "76561198259248348"
+            },
+            "damage": 137,
+            "abilityId": 3005970438,
+            "entindexAbility": 3148,
+            "entindexInflictor": 77
+          }
+        ]
+      },
+      {
+        "id": "fatal|78|200552",
+        "tick": 200552,
+        "victimIndex": 78,
+        "victimPlayer": {
+          "controllerEntityIndex": 2,
+          "pawnEntityIndex": 78,
+          "playerName": "Nacho4Sure",
+          "team": 2,
+          "heroId": 2,
+          "playerSlot": null,
+          "steamId": "76561197983209811"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 7,
+          "pawnEntityIndex": 87,
+          "playerName": "Nebula",
+          "team": 3,
+          "heroId": 25,
+          "playerSlot": null,
+          "steamId": "76561198200463289"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 87,
+            "playerName": "Nebula",
+            "team": 3,
+            "heroId": 25,
+            "playerSlot": null,
+            "steamId": "76561198200463289"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 200552,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 78,
+            "attackerIndex": 87,
+            "victimHealthNew": -375,
+            "victimPlayer": {
+              "controllerEntityIndex": 2,
+              "pawnEntityIndex": 78,
+              "playerName": "Nacho4Sure",
+              "team": 2,
+              "heroId": 2,
+              "playerSlot": null,
+              "steamId": "76561197983209811"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 7,
+              "pawnEntityIndex": 87,
+              "playerName": "Nebula",
+              "team": 3,
+              "heroId": 25,
+              "playerSlot": null,
+              "steamId": "76561198200463289"
+            },
+            "damage": 391,
+            "abilityId": 1656913918,
+            "entindexAbility": 2651,
+            "entindexInflictor": 87
+          }
+        ]
+      }
+    ],
+    "deathConfirmedAnchorWithoutAttackerKillCredit": [],
+    "killCreditsWithoutDirectFatalAnchor": [
+      {
+        "id": "kill|13|32238|0",
+        "kind": "kill",
+        "tick": 32238,
+        "controllerEntityIndex": 13,
+        "pawnEntityIndex": 91,
+        "playerName": "viggoth 300",
+        "team": 2,
+        "heroId": 18,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      },
+      {
+        "id": "kill|12|95353|0",
+        "kind": "kill",
+        "tick": 95353,
+        "controllerEntityIndex": 12,
+        "pawnEntityIndex": 88,
+        "playerName": "Eriansan",
+        "team": 2,
+        "heroId": 69,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      }
+    ]
+  },
+  "finalCounters": [
+    {
+      "controllerEntityIndex": 12,
+      "pawnEntityIndex": 88,
+      "playerName": "Eriansan",
+      "team": 2,
+      "heroId": 69,
+      "playerSlot": null,
+      "steamId": "76561198215558379",
+      "kills": 16,
+      "deaths": 2,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 4,
+      "pawnEntityIndex": 79,
+      "playerName": "flem",
+      "team": 2,
+      "heroId": 1,
+      "playerSlot": null,
+      "steamId": "76561197982948887",
+      "kills": 12,
+      "deaths": 11,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 2,
+      "pawnEntityIndex": 78,
+      "playerName": "Nacho4Sure",
+      "team": 2,
+      "heroId": 2,
+      "playerSlot": null,
+      "steamId": "76561197983209811",
+      "kills": 8,
+      "deaths": 12,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 8,
+      "pawnEntityIndex": 90,
+      "playerName": "Snazzy314",
+      "team": 2,
+      "heroId": 4,
+      "playerSlot": null,
+      "steamId": "76561199751953144",
+      "kills": 7,
+      "deaths": 15,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 13,
+      "pawnEntityIndex": 91,
+      "playerName": "viggoth 300",
+      "team": 2,
+      "heroId": 18,
+      "playerSlot": null,
+      "steamId": "76561198307482194",
+      "kills": 10,
+      "deaths": 2,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 6,
+      "pawnEntityIndex": 89,
+      "playerName": "Yosafire Worshipper [K]",
+      "team": 2,
+      "heroId": 50,
+      "playerSlot": null,
+      "steamId": "76561198322712152",
+      "kills": 14,
+      "deaths": 4,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 3,
+      "pawnEntityIndex": 81,
+      "playerName": "blooop354",
+      "team": 3,
+      "heroId": 58,
+      "playerSlot": null,
+      "steamId": "76561199827569844",
+      "kills": 15,
+      "deaths": 11,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 10,
+      "pawnEntityIndex": 80,
+      "playerName": "Goldinfer",
+      "team": 3,
+      "heroId": 79,
+      "playerSlot": null,
+      "steamId": "76561198101422226",
+      "kills": 1,
+      "deaths": 9,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 7,
+      "pawnEntityIndex": 87,
+      "playerName": "Nebula",
+      "team": 3,
+      "heroId": 25,
+      "playerSlot": null,
+      "steamId": "76561198200463289",
+      "kills": 18,
+      "deaths": 10,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 11,
+      "pawnEntityIndex": 86,
+      "playerName": "renso",
+      "team": 3,
+      "heroId": 31,
+      "playerSlot": null,
+      "steamId": "76561198107069146",
+      "kills": 3,
+      "deaths": 11,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 9,
+      "pawnEntityIndex": 77,
+      "playerName": "TheWoogler",
+      "team": 3,
+      "heroId": 52,
+      "playerSlot": null,
+      "steamId": "76561198259248348",
+      "kills": 6,
+      "deaths": 16,
+      "tick": 203521
+    },
+    {
+      "controllerEntityIndex": 5,
+      "pawnEntityIndex": 84,
+      "playerName": "Zaeleth",
+      "team": 3,
+      "heroId": 77,
+      "playerSlot": null,
+      "steamId": "76561198079477113",
+      "kills": 3,
+      "deaths": 11,
+      "tick": 203521
+    }
+  ],
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\test\\player_kill_credit_validation_v01.json",
+    "anchors": "G:\\DeadlockBehavior\\output\\test\\player_kill_credit_anchors_v01.jsonl"
+  },
+  "interpretationBoundary": {
+    "supportedIfAgreementIsHigh": "Direct enemy player-pawn terminal damage that produces a scored victim death is followed by kill-credit increments on the resolved attacker.",
+    "notEstablishedByThisScript": [
+      "That every m_iPlayerKills credit is caused by a directly attributed player-pawn damage packet.",
+      "Ownership attribution for projectile, summon, pet, DoT, reflected, environmental, or other indirect damage.",
+      "Assist semantics.",
+      "Last-hit or deny semantics.",
+      "Production/A-tier status."
+    ]
+  }
+}

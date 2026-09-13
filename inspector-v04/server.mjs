@@ -1,3 +1,5 @@
+import { metricValue, AUTH_IDS } from './public/metric-values.mjs';
+import { publishedDirectory, validReplayName } from './lib/run-integrity.mjs';
 import { createServer } from 'node:http';
 import { createReadStream, existsSync, promises as fs } from 'node:fs';
 import { extname, join, resolve } from 'node:path';
@@ -20,6 +22,7 @@ const host=process.env.DEADLOCK_INSPECTOR_HOST ?? '127.0.0.1';
 const modelPromises=new Map();
 const processingPromises=new Map();
 const processingState=new Map();
+let processQueue=Promise.resolve();
 
 const server=createServer(async(req,res)=>{
   try {
@@ -52,13 +55,22 @@ async function api(req,res,url){
     for(const name of names){const health=await sourceHealth(join(outputRoot,name));const readiness=await replayReadiness({repoRoot,outputRoot,replayName:name,authoritativeTotal:AUTHORITATIVE_PRODUCTION_METRIC_IDS.length,processing:processingState.get(name)??null});rows.push({name,ready:readiness.completeAuthoritative,total:readiness.authoritativeTotal,coreReady:health.find(x=>x.id==='player_state')?.present===true,...readiness});}
     return sendJson(res,200,{authoritativeTotal:AUTHORITATIVE_PRODUCTION_METRIC_IDS.length,replays:rows});
   }
+  const valuesMatch=url.pathname.match(/^\/api\/replay\/([^/]+)\/metrics$/);
+  if(req.method==='GET'&&valuesMatch){
+    const replay=decodeURIComponent(valuesMatch[1]);const model=await getModel(replay);
+    const identifier=url.searchParams.get('player');const candidates=model.players.filter(p=>p.playerId===identifier||p.playerName===identifier);
+    if(identifier&&candidates.length!==1)return sendJson(res,400,{error:'Player identity is missing or ambiguous; use playerId.'});
+    const players=identifier?candidates:model.players;const requested=Number(url.searchParams.get('time')??model.match.matchDurationSeconds);
+    if(!Number.isFinite(requested))return sendJson(res,400,{error:'Invalid time'});const time=Math.max(0,Math.min(requested,model.match.matchDurationSeconds));
+    return sendJson(res,200,{replay,runId:model.productionManifest?.runId??null,time,players:players.map(p=>({playerId:p.playerId,playerName:p.playerName,metrics:AUTH_IDS.map(id=>({metricId:id,...metricValue(id,{model,p,time})}))}))});
+  }
   let m=url.pathname.match(/^\/api\/replay\/([^/]+)\/model$/);
   if(req.method==='GET'&&m){const replay=decodeURIComponent(m[1]);const force=url.searchParams.get('force')==='1';return sendJson(res,200,await getModel(replay,force));}
   m=url.pathname.match(/^\/api\/replay\/([^/]+)\/health$/);
-  if(req.method==='GET'&&m){const replay=decodeURIComponent(m[1]);return sendJson(res,200,{replay,sources:await sourceHealth(join(outputRoot,replay))});}
+  if(req.method==='GET'&&m){const replay=decodeURIComponent(m[1]);if(!validReplayName(replay))throw new Error('Invalid replay name');return sendJson(res,200,{replay,sources:await sourceHealth(join(outputRoot,replay))});}
   m=url.pathname.match(/^\/api\/replay\/([^/]+)\/ground-soul-coverage$/);
   if(req.method==='GET'&&m){
-    const replay=decodeURIComponent(m[1]);if(!/^[A-Za-z0-9._-]+$/.test(replay))throw new Error('Invalid replay name');
+    const replay=decodeURIComponent(m[1]);if(!validReplayName(replay))throw new Error('Invalid replay name');
     const path=join(outputRoot,replay,'ground_soul_economic_coverage_audit_v01.json');
     if(!existsSync(path))return sendJson(res,404,{error:'Ground Soul economic coverage audit has not been generated for this replay.',replay,file:'ground_soul_economic_coverage_audit_v01.json'});
     const data=await readJson(path,null);if(!data)return sendJson(res,500,{error:'Ground Soul economic coverage audit could not be read.',replay});
@@ -66,7 +78,7 @@ async function api(req,res,url){
   }
   m=url.pathname.match(/^\/api\/replay\/([^/]+)\/ground-soul-collisions$/);
   if(req.method==='GET'&&m){
-    const replay=decodeURIComponent(m[1]);if(!/^[A-Za-z0-9._-]+$/.test(replay))throw new Error('Invalid replay name');
+    const replay=decodeURIComponent(m[1]);if(!validReplayName(replay))throw new Error('Invalid replay name');
     const path=join(outputRoot,replay,'ground_soul_collision_resolution_audit_v02.json');
     if(!existsSync(path))return sendJson(res,404,{error:'Ground Soul collision-resolution audit V02 has not been generated for this replay.',replay,file:'ground_soul_collision_resolution_audit_v02.json'});
     const data=await readJson(path,null);if(!data)return sendJson(res,500,{error:'Ground Soul collision-resolution audit V02 could not be read.',replay});
@@ -96,11 +108,12 @@ async function startAutoIngestion(){
 }
 
 async function processReplayOnce(replayName,{origin='api'}={}){
-  if(!/^[A-Za-z0-9._-]+$/.test(replayName))throw new Error('Invalid replay name');
+  if(!validReplayName(replayName))throw new Error('Invalid replay name');
   if(processingPromises.has(replayName))return processingPromises.get(replayName);
   const startedAt=new Date().toISOString();
-  processingState.set(replayName,{state:'PROCESSING',origin,currentStage:null,startedAt});
-  const promise=(async()=>{
+  processingState.set(replayName,{state:'QUEUED',origin,currentStage:null,startedAt});
+  const promise=processQueue.catch(()=>{}).then(async()=>{
+    processingState.set(replayName,{state:'PROCESSING',origin,currentStage:null,startedAt});
     try{
       const result=await runPipeline({repoRoot,inspectorRoot,replayName,onEvent:event=>{
         if(event?.type==='step-start'){const current=processingState.get(replayName)??{};processingState.set(replayName,{...current,state:'PROCESSING',currentStage:event.id??null,currentStageLabel:event.label??null});}
@@ -112,15 +125,16 @@ async function processReplayOnce(replayName,{origin='api'}={}){
       processingState.set(replayName,{state:'INCOMPLETE',origin,currentStage:null,startedAt,finishedAt:new Date().toISOString(),runStatus:'PROCESSING_EXCEPTION',error:error?.message??String(error)});
       throw error;
     }finally{processingPromises.delete(replayName);}
-  })();
+  });
+  processQueue=promise.catch(()=>{});
   processingPromises.set(replayName,promise);
   return promise;
 }
 
 async function getModel(replay,force=false){
-  if(!/^[A-Za-z0-9._-]+$/.test(replay))throw new Error('Invalid replay name');
+  if(!validReplayName(replay))throw new Error('Invalid replay name');
   if(force)modelPromises.delete(replay);
-  if(!modelPromises.has(replay))modelPromises.set(replay,buildReplayModel({outputRoot,replayName:replay,cacheRoot,force}).catch(e=>{modelPromises.delete(replay);throw e;}));
+  if(!modelPromises.has(replay))modelPromises.set(replay,buildReplayModel({outputRoot,replayName:replay,cacheRoot,force}).finally(()=>modelPromises.delete(replay)));
   return modelPromises.get(replay);
 }
 
@@ -138,8 +152,9 @@ const evidenceFiles={
   autoAwards:['jsonl','citemxp_auto_award_units_v02.jsonl'],
   urnBursts:['jsonl','citemxp_auto_award_urn_bursts_v02.jsonl'],
   weapon:['jsonl','runtime_primary_fire_events_v01.jsonl'],
-  melee:['jsonl','verified_melee_events.jsonl'],
+  melee:['jsonl','runtime_melee_events_v01.jsonl'],
   playerState:['jsonl','player_state.jsonl'],
+  scoreboard:['jsonl','player_state.jsonl'],
   healthRegen:['jsonl','runtime_health_regen_events_v01.jsonl'],
   orbs:['json','citemxp_inspector_events_v01.json','events'],
   items:['jsonl','runtime_item_ownership_events_v01.jsonl'],
@@ -147,24 +162,29 @@ const evidenceFiles={
   bridgeBuffs:['jsonl','runtime_bridge_buff_events_v01.jsonl'],
 };
 async function getEvidence(replay,kind,url){
+  if(!validReplayName(replay))throw new Error('Invalid replay name');
+  const manifest=await readJson(join(outputRoot,replay,'production_manifest_v01.json'));
+  const productionDir=publishedDirectory(join(outputRoot,replay),manifest);
   let def=evidenceFiles[kind];if(!def)return{error:`Unknown evidence kind: ${kind}`,available:Object.keys(evidenceFiles)};
-  let path=join(outputRoot,replay,def[1]);
+  let path=/^(runtime_|player_state)/.test(def[1])?join(productionDir,def[1]):join(outputRoot,replay,def[1]);
   if(kind==='items'&&!existsSync(path)){def=['json','integrated_authoritative_player_state_substrate_v01.json','players'];path=join(outputRoot,replay,def[1]);}
   if(kind==='weapon'&&!existsSync(path)){def=['jsonl','effective_weapon_runtime_events_v01.jsonl'];path=join(outputRoot,replay,def[1]);}
   if(!existsSync(path))return{kind,rows:[],matched:0,missing:true,file:def[1]};
-  const player=url.searchParams.get('player');const offset=Math.max(0,Number(url.searchParams.get('offset')??0));const limit=Math.min(500,Math.max(1,Number(url.searchParams.get('limit')??100)));
+  const identifier=url.searchParams.get('player');let player=identifier;
+  if(identifier){const model=await getModel(replay);const matches=model.players.filter(p=>p.playerId===identifier||p.playerName===identifier);if(matches.length!==1)throw new Error('Player identity is missing or ambiguous; use playerId.');const p=matches[0];player={controllerEntityIndex:p.identity.controllerEntityIndex,steamId:p.identity.steamId,pawnEntityIndexes:p.identity.pawnEntityIndexes??[p.identity.pawnEntityIndex],playerName:p.playerName,allowName:model.players.filter(x=>x.playerName===p.playerName).length===1};}
+  const offset=Math.max(0,Number(url.searchParams.get('offset')??0));const limit=Math.min(500,Math.max(1,Number(url.searchParams.get('limit')??100)));
   if(def[0]==='jsonl'){
     const filterPlayer=(kind==='troopers'||kind==='groundSoulCoverage'||kind==='groundSoulCollisions')?null:player;
     const page=await jsonlPage(path,{player:filterPlayer,offset,limit});
     if(kind==='playerState'&&player)page.rows=page.rows.map(r=>{
       if(!Array.isArray(r.players)) return r;
-      return {...r,players:r.players.filter(p=>String(p.playerName)===String(player))};
+      return {...r,players:r.players.filter(p=>rowMatchesPlayer(p,player))};
     });
     return{kind,file:def[1],...page};
   }
   const data=await readJson(path,{});let rows=data?.[def[2]]??[];
   if(kind==='items'){
-    const flat=[];for(const p of rows){const name=p.identity?.playerName??p.playerKey;if(player&&String(name)!==String(player))continue;for(const e of p.events??[]){const causes=e.causes??[];const material=(e.itemAdds?.length??0)||(e.itemRemoves?.length??0)||causes.some(c=>String(c).includes('PERMANENT_WORLD_BUFF')||String(c).includes('BRIDGE_')||String(c)==='NATURAL_EXPIRATION');if(material)flat.push({playerName:name,...e});}}rows=flat;
+    const flat=[];for(const p of rows){const name=p.identity?.playerName??p.playerKey;if(player&&String(name)!==String(player.playerName??player))continue;for(const e of p.events??[]){const causes=e.causes??[];const material=(e.itemAdds?.length??0)||(e.itemRemoves?.length??0)||causes.some(c=>String(c).includes('PERMANENT_WORLD_BUFF')||String(c).includes('BRIDGE_')||String(c)==='NATURAL_EXPIRATION');if(material)flat.push({playerName:name,...e});}}rows=flat;
   }else if(player)rows=rows.filter(r=>rowMatchesPlayer(r,player));
   const matched=rows.length;return{kind,file:def[1],matched,offset,limit,rows:rows.slice(offset,offset+limit)};
 }
@@ -172,7 +192,7 @@ async function getEvidence(replay,kind,url){
 async function staticFile(res,pathname){
   let rel=decodeURIComponent(pathname==='/'?'/index.html':pathname).replace(/^\/+/, '');if(rel.includes('..'))return sendText(res,403,'Forbidden');
   const path=join(publicRoot,rel);if(!existsSync(path))return sendText(res,404,'Not found');
-  const type=({'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml'})[extname(path)]??'application/octet-stream';
+  const type=({'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml'})[extname(path)]??'application/octet-stream';
   const st=await fs.stat(path);res.writeHead(200,{'content-type':type,'content-length':st.size,'cache-control':'no-cache'});createReadStream(path).pipe(res);
 }
 function sendJson(res,status,obj){const body=JSON.stringify(obj);res.writeHead(status,{'content-type':'application/json; charset=utf-8','content-length':Buffer.byteLength(body),'cache-control':'no-store'});res.end(body);}

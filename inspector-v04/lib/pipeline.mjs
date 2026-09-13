@@ -1,3 +1,5 @@
+import { isolatedRun } from './isolated-run.mjs';
+import { randomUUID } from 'node:crypto';
 import { existsSync, promises as fs } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { basename, join, resolve } from 'node:path';
@@ -13,16 +15,22 @@ export async function loadPipelineConfig(inspectorRoot) {
 }
 
 export async function importReplay({repoRoot,filename,bytes}) {
-  const safe=sanitizeReplayName(filename);
+  const safe=sanitizeReplayName(filename).replace(/\.dem$/i,'.dem');
   if (!safe.toLowerCase().endsWith('.dem')) throw new Error('Replay file must end in .dem');
   const replaysDir=join(repoRoot,'replays');
   await fs.mkdir(replaysDir,{recursive:true});
   const path=join(replaysDir,safe);
-  await fs.writeFile(path,bytes);
+  const temp=path+`.${randomUUID()}.upload`;
+  await fs.writeFile(temp,bytes);
+  await fs.rename(temp,path);
   return { replayName:basename(safe,'.dem'), path };
 }
 
-export async function runPipeline({repoRoot,inspectorRoot,replayName,onEvent=()=>{}}) {
+export async function runPipeline(options) {
+  const config=await loadPipelineConfig(options.inspectorRoot);
+  return config.isolatedRuns ? isolatedRun({...options,onEvent:options.onEvent??(()=>{}),runDirect:runPipelineDirect}) : runPipelineDirect(options);
+}
+async function runPipelineDirect({repoRoot,inspectorRoot,replayName,onEvent=()=>{}}) {
   const config=await loadPipelineConfig(inspectorRoot);
   const context={ repoRoot, replayName };
   const results=[];
@@ -105,9 +113,10 @@ function spawnStep(command,args,{repoRoot,replayName,step,onEvent}) {
   return new Promise(resolvePromise=>{
     const child=spawn(command,args,{cwd:repoRoot,shell:false,env:{...process.env,DEADLOCK_REPLAY_NAME:replayName}});
     let stdout='',stderr=''; let settled=false;
-    const finish=value=>{if(!settled){settled=true;resolvePromise(value);}};
-    child.stdout?.on('data',d=>{stdout+=d; onEvent({type:'stdout',id:step.id,text:String(d)});});
-    child.stderr?.on('data',d=>{stderr+=d; onEvent({type:'stderr',id:step.id,text:String(d)});});
+    const timeout=setTimeout(()=>{child.kill();finish({ok:false,error:'Stage timed out',stdout:tail(stdout),stderr:tail(stderr)});},Number(step.timeoutMs??900000));
+    const finish=value=>{if(!settled){settled=true;clearTimeout(timeout);resolvePromise(value);}};
+    child.stdout?.on('data',d=>{stdout=tail(stdout+String(d)); onEvent({type:'stdout',id:step.id,text:String(d)});});
+    child.stderr?.on('data',d=>{stderr=tail(stderr+String(d)); onEvent({type:'stderr',id:step.id,text:String(d)});});
     child.on('error',err=>finish({ok:false,error:err.message,stdout:tail(stdout),stderr:tail(stderr)}));
     child.on('close',code=>finish({ok:code===0,code,stdout:tail(stdout),stderr:tail(stderr)}));
   });

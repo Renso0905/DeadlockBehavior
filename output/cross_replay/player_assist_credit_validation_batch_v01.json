@@ -1,0 +1,323 @@
+{
+  "version": "PLAYER_ASSIST_CREDIT_VALIDATION_BATCH_V01",
+  "canonical": false,
+  "createdAt": "2026-09-11T04:42:28.137Z",
+  "requestedReplays": [
+    "test",
+    "rep01",
+    "rep02",
+    "rep03",
+    "rep04",
+    "rep05"
+  ],
+  "replayCount": 6,
+  "successCount": 6,
+  "allRequestedReplaysSucceeded": true,
+  "construct": "game-awarded per-player assist credit counter",
+  "authorityBoundary": {
+    "researchOnly": true,
+    "promotesClaim": false,
+    "promotesMetric": false,
+    "establishedIfSupported": "m_iPlayerAssists behaves as a game-awarded assist-credit counter",
+    "explicitlyNotEstablished": [
+      "assist eligibility rule",
+      "required damage contribution",
+      "required healing contribution",
+      "required debuff contribution",
+      "assist time window",
+      "causal magnitude of assistance"
+    ]
+  },
+  "matching": {
+    "windowTicks": 32,
+    "windowSeconds": 0.5,
+    "placeboShift10SecondsTicks": 640,
+    "placeboShift30SecondsTicks": 1920
+  },
+  "aggregate": {
+    "counts": {
+      "assistCredits": 1113,
+      "assistCreditsWithEnemyDeath": 1113,
+      "assistCreditsWithSameTeamKillContext": 1099,
+      "assistCreditsWithVictimTeamConflict": 0,
+      "unmatchedAssistCredits": 0
+    },
+    "validation": {
+      "enemyDeathAgreementRate": 1,
+      "sameTeamKillContextRate": 0.9874213836477987,
+      "victimTeamConflictRate": 0,
+      "placebo10EnemyDeathAgreementRate": 0.042228212039532795,
+      "placebo30EnemyDeathAgreementRate": 0.015274034141958671
+    }
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "telemetry": {
+        "controllerEvents": 467762,
+        "assistTransitions": 237,
+        "deathTransitions": 114,
+        "killTransitions": 113
+      },
+      "counts": {
+        "assistTransitions": 237,
+        "assistCredits": 237,
+        "deathCredits": 114,
+        "killCredits": 113,
+        "assistCreditsWithEnemyDeath": 237,
+        "assistCreditsWithSameTeamKillContext": 235,
+        "assistCreditsWithVictimTeamConflict": 0,
+        "unmatchedAssistCredits": 0
+      },
+      "validation": {
+        "enemyDeathAgreementRate": 1,
+        "sameTeamKillContextRate": 0.9915611814345991,
+        "victimTeamConflictRate": 0,
+        "placebo10EnemyDeathAgreementRate": 0.07172995780590717,
+        "placebo30EnemyDeathAgreementRate": 0
+      },
+      "distributions": {
+        "assistTransitionDelta": {
+          "1": 237
+        },
+        "assistCreditsPerMatchedDeath": {
+          "1": 36,
+          "2": 31,
+          "3": 18,
+          "4": 16,
+          "5": 3,
+          "6": 2
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\test\\player_assist_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\test\\player_assist_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "telemetry": {
+        "controllerEvents": 317262,
+        "assistTransitions": 159,
+        "deathTransitions": 89,
+        "killTransitions": 86
+      },
+      "counts": {
+        "assistTransitions": 159,
+        "assistCredits": 159,
+        "deathCredits": 89,
+        "killCredits": 86,
+        "assistCreditsWithEnemyDeath": 159,
+        "assistCreditsWithSameTeamKillContext": 149,
+        "assistCreditsWithVictimTeamConflict": 0,
+        "unmatchedAssistCredits": 0
+      },
+      "validation": {
+        "enemyDeathAgreementRate": 1,
+        "sameTeamKillContextRate": 0.9371069182389937,
+        "victimTeamConflictRate": 0,
+        "placebo10EnemyDeathAgreementRate": 0.03773584905660377,
+        "placebo30EnemyDeathAgreementRate": 0.031446540880503145
+      },
+      "distributions": {
+        "assistTransitionDelta": {
+          "1": 159
+        },
+        "assistCreditsPerMatchedDeath": {
+          "1": 36,
+          "2": 20,
+          "3": 14,
+          "4": 9,
+          "5": 1
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep01\\player_assist_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep01\\player_assist_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "telemetry": {
+        "controllerEvents": 333130,
+        "assistTransitions": 164,
+        "deathTransitions": 92,
+        "killTransitions": 92
+      },
+      "counts": {
+        "assistTransitions": 164,
+        "assistCredits": 164,
+        "deathCredits": 92,
+        "killCredits": 92,
+        "assistCreditsWithEnemyDeath": 164,
+        "assistCreditsWithSameTeamKillContext": 164,
+        "assistCreditsWithVictimTeamConflict": 0,
+        "unmatchedAssistCredits": 0
+      },
+      "validation": {
+        "enemyDeathAgreementRate": 1,
+        "sameTeamKillContextRate": 1,
+        "victimTeamConflictRate": 0,
+        "placebo10EnemyDeathAgreementRate": 0.04878048780487805,
+        "placebo30EnemyDeathAgreementRate": 0.006097560975609756
+      },
+      "distributions": {
+        "assistTransitionDelta": {
+          "1": 164
+        },
+        "assistCreditsPerMatchedDeath": {
+          "1": 34,
+          "2": 20,
+          "3": 20,
+          "4": 5,
+          "5": 2
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep02\\player_assist_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep02\\player_assist_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "telemetry": {
+        "controllerEvents": 492836,
+        "assistTransitions": 206,
+        "deathTransitions": 87,
+        "killTransitions": 86
+      },
+      "counts": {
+        "assistTransitions": 206,
+        "assistCredits": 209,
+        "deathCredits": 87,
+        "killCredits": 87,
+        "assistCreditsWithEnemyDeath": 209,
+        "assistCreditsWithSameTeamKillContext": 209,
+        "assistCreditsWithVictimTeamConflict": 0,
+        "unmatchedAssistCredits": 0
+      },
+      "validation": {
+        "enemyDeathAgreementRate": 1,
+        "sameTeamKillContextRate": 1,
+        "victimTeamConflictRate": 0,
+        "placebo10EnemyDeathAgreementRate": 0.019138755980861243,
+        "placebo30EnemyDeathAgreementRate": 0
+      },
+      "distributions": {
+        "assistTransitionDelta": {
+          "1": 203,
+          "2": 3
+        },
+        "assistCreditsPerMatchedDeath": {
+          "1": 25,
+          "2": 10,
+          "3": 17,
+          "4": 14,
+          "5": 10,
+          "7": 2
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep03\\player_assist_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep03\\player_assist_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "telemetry": {
+        "controllerEvents": 317902,
+        "assistTransitions": 149,
+        "deathTransitions": 81,
+        "killTransitions": 80
+      },
+      "counts": {
+        "assistTransitions": 149,
+        "assistCredits": 149,
+        "deathCredits": 81,
+        "killCredits": 80,
+        "assistCreditsWithEnemyDeath": 149,
+        "assistCreditsWithSameTeamKillContext": 149,
+        "assistCreditsWithVictimTeamConflict": 0,
+        "unmatchedAssistCredits": 0
+      },
+      "validation": {
+        "enemyDeathAgreementRate": 1,
+        "sameTeamKillContextRate": 1,
+        "victimTeamConflictRate": 0,
+        "placebo10EnemyDeathAgreementRate": 0.013422818791946308,
+        "placebo30EnemyDeathAgreementRate": 0.04697986577181208
+      },
+      "distributions": {
+        "assistTransitionDelta": {
+          "1": 149
+        },
+        "assistCreditsPerMatchedDeath": {
+          "1": 30,
+          "2": 23,
+          "3": 10,
+          "4": 7,
+          "5": 1,
+          "10": 2
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep04\\player_assist_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep04\\player_assist_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "telemetry": {
+        "controllerEvents": 340008,
+        "assistTransitions": 195,
+        "deathTransitions": 100,
+        "killTransitions": 99
+      },
+      "counts": {
+        "assistTransitions": 195,
+        "assistCredits": 195,
+        "deathCredits": 100,
+        "killCredits": 99,
+        "assistCreditsWithEnemyDeath": 195,
+        "assistCreditsWithSameTeamKillContext": 193,
+        "assistCreditsWithVictimTeamConflict": 0,
+        "unmatchedAssistCredits": 0
+      },
+      "validation": {
+        "enemyDeathAgreementRate": 1,
+        "sameTeamKillContextRate": 0.9897435897435898,
+        "victimTeamConflictRate": 0,
+        "placebo10EnemyDeathAgreementRate": 0.05128205128205128,
+        "placebo30EnemyDeathAgreementRate": 0.020512820512820513
+      },
+      "distributions": {
+        "assistTransitionDelta": {
+          "1": 195
+        },
+        "assistCreditsPerMatchedDeath": {
+          "1": 35,
+          "2": 21,
+          "3": 16,
+          "4": 10,
+          "5": 6
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep05\\player_assist_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep05\\player_assist_credit_events_v01.jsonl"
+      }
+    }
+  ]
+}

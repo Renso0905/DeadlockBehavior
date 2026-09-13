@@ -1,0 +1,112 @@
+{
+  "version": "PLAYER_SCOREBOARD_DEATH_VALIDATION_V01",
+  "canonical": false,
+  "replay": "rep04",
+  "rowCount": 112200,
+  "construct": "game-awarded/scored player death counter",
+  "counts": {
+    "scoreboardDeathTransitions": 81,
+    "scoreboardDeathCredits": 81,
+    "aliveToDeadTransitions": 84,
+    "scoreboardDeathsMatchedToAliveDead": 81,
+    "unmatchedScoreboardDeathCredits": 0,
+    "aliveToDeadWithoutScoreboardDeath": 3,
+    "completedExtraStateDeathEpisodes": 2,
+    "censoredExtraStateDeathEpisodes": 1,
+    "extraEpisodesExactly3Seconds": 1,
+    "counterRegressions": 0
+  },
+  "validation": {
+    "scoreboardDeathToAliveDeadAgreementRate": 1,
+    "placebo10AgreementRate": 0,
+    "placebo30AgreementRate": 0,
+    "counterRegressionCount": 0
+  },
+  "timingResiduals": {
+    "count": 81,
+    "minTicks": 0,
+    "medianTicks": 0,
+    "maxTicks": 16,
+    "zeroTickMatches": 60,
+    "zeroTickShare": 0.7407407407407407,
+    "minSeconds": 0,
+    "medianSeconds": 0,
+    "maxSeconds": 0.25
+  },
+  "extraStateDeathEpisodeDurations": {
+    "count": 2,
+    "minSeconds": 3,
+    "medianSeconds": 3.125,
+    "maxSeconds": 3.25,
+    "modeSeconds": 3
+  },
+  "unmatchedScoreboardDeathCredits": [],
+  "extraAliveToDeadEpisodes": [
+    {
+      "start": {
+        "id": "aliveToDead|5|121184",
+        "tick": 121184,
+        "matchTimeSeconds": 1863.5,
+        "controllerEntityIndex": 5,
+        "playerName": "butterflyflyhig",
+        "team": 3,
+        "heroId": 6
+      },
+      "completed": true,
+      "end": {
+        "id": "deadToAlive|5|121392",
+        "tick": 121392,
+        "matchTimeSeconds": 1866.75,
+        "controllerEntityIndex": 5,
+        "playerName": "butterflyflyhig",
+        "team": 3,
+        "heroId": 6
+      },
+      "durationTicks": 208,
+      "durationSeconds": 3.25
+    },
+    {
+      "start": {
+        "id": "aliveToDead|7|144336",
+        "tick": 144336,
+        "matchTimeSeconds": 2225.25,
+        "controllerEntityIndex": 7,
+        "playerName": "renso",
+        "team": 3,
+        "heroId": 35
+      },
+      "completed": true,
+      "end": {
+        "id": "deadToAlive|7|144528",
+        "tick": 144528,
+        "matchTimeSeconds": 2228.25,
+        "controllerEntityIndex": 7,
+        "playerName": "renso",
+        "team": 3,
+        "heroId": 35
+      },
+      "durationTicks": 192,
+      "durationSeconds": 3
+    },
+    {
+      "start": {
+        "id": "aliveToDead|4|147664",
+        "tick": 147664,
+        "matchTimeSeconds": 2277.25,
+        "controllerEntityIndex": 4,
+        "playerName": "Roronoa Zoro",
+        "team": 2,
+        "heroId": 2
+      },
+      "completed": false,
+      "end": null,
+      "durationTicks": null,
+      "durationSeconds": null
+    }
+  ],
+  "counterRegressions": [],
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\rep04\\player_scoreboard_death_validation_v01.json",
+    "events": "G:\\DeadlockBehavior\\output\\rep04\\player_scoreboard_death_events_v01.jsonl"
+  }
+}

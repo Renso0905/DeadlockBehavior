@@ -1,0 +1,942 @@
+{
+  "version": "MOVEMENT_DISTANCE_SUBSTRATE_VALIDATION_V01",
+  "canonical": false,
+  "researchOnly": true,
+  "createdAt": "2026-09-12T18:40:58.451Z",
+  "requestedReplays": [
+    "test",
+    "rep01",
+    "rep02",
+    "rep03",
+    "rep04",
+    "rep05"
+  ],
+  "successCount": 6,
+  "replayCount": 6,
+  "metricsUnderTest": [
+    "position_trajectory",
+    "xy_distance",
+    "xyz_distance"
+  ],
+  "frozenRule": {
+    "trajectory": "Observed finite pawn.positionWorld samples at nonnegative match time, with alive and positionValidForMovement retained as sample metadata.",
+    "distanceStep": "Consecutive same-player PlayerState samples; both match times nonnegative; both alive; both positionValidForMovement; finite positions; dt > 0; 3D displacement <= 2000.",
+    "xyDistance": "Sum sqrt(dx^2 + dy^2) over valid steps.",
+    "xyzDistance": "Sum sqrt(dx^2 + dy^2 + dz^2) over valid steps.",
+    "hardJumpRule": "The 2000-unit cutoff is evaluated on 3D displacement, not XY displacement.",
+    "invalidStepRule": "Rejected transitions contribute neither distance nor valid movement time. Distances are not clamped.",
+    "continuousPathClaim": false
+  },
+  "calibrationReference": {
+    "artifact": "output/test/behavioral_metrics_v02.json",
+    "version": "BEHAVIORAL_METRICS_V02",
+    "maxAcceptedStep": 2000,
+    "lowMotionSpeedThreshold": 25,
+    "note": "Low-motion classification is not promoted in this phase; it is reconstructed only as an additional exact-calibration check."
+  },
+  "aggregate": {
+    "successfulReplays": 6,
+    "playerReplayCount": 72,
+    "trajectorySamples": 764376,
+    "acceptedSteps": 656360,
+    "rejectedHardJumps": 297,
+    "excludedPrematchTransitions": 8568,
+    "excludedDeadEndpointTransitions": 107527,
+    "excludedMovementInvalidTransitions": 120,
+    "nonfinitePositionTransitions": 0,
+    "nonpositiveDtTransitions": 0,
+    "maxAcceptedStep3D": 1980.7062150535003,
+    "minRejectedHardJump3D": 2005.003809564258,
+    "maxRejectedHardJump3D": 14083.77659523788,
+    "xyDistance": 61908328.58971024,
+    "xyzDistance": 66174210.04472519,
+    "validMovementSeconds": 164098.75,
+    "cadence": {
+      "totalPositiveIntervals": 772872,
+      "quarterSecondIntervals": 772824,
+      "quarterSecondShare": 0.9999378939850324,
+      "counts": {
+        "0.250000": 772824,
+        "0.500000": 24,
+        "0.750000": 24
+      }
+    }
+  },
+  "gates": {
+    "allRequestedReplaysSucceeded": true,
+    "twelvePlayersEveryReplay": true,
+    "legacyThresholdFrozenAt2000": true,
+    "legacyLowMotionThresholdRecoveredAt25": true,
+    "exactLegacyTestReproduction": true,
+    "noLegacyNumericMismatch": true,
+    "noNonpositiveDtTransitions": true,
+    "noNonfiniteAcceptedEndpointTransitions": true,
+    "acceptedStepsRespect3dCutoff": true,
+    "rejectedHardJumpsExceed3dCutoff": true,
+    "substantialTrajectoryCoverage": true,
+    "substantialValidStepCoverage": true,
+    "finiteAggregateDistances": true,
+    "dominantQuarterSecondCadence": true
+  },
+  "validationPass": true,
+  "recommendedStatusIfPass": {
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated"
+  },
+  "authorityBoundary": {
+    "positionTrajectory": "Discrete observed PlayerState position samples, not a continuous path between observations.",
+    "xyDistance": "Cumulative planar displacement across the frozen valid-step rule.",
+    "xyzDistance": "Cumulative 3D displacement across the frozen valid-step rule.",
+    "explicitlyNotEstablished": [
+      "continuous geometric path length between samples",
+      "player locomotion intent",
+      "whether displacement was voluntary versus forced movement",
+      "distance traveled while dead",
+      "distance across movement-invalid endpoints",
+      "distance represented by excluded >2000-unit hard jumps",
+      "pathing around geometry between samples",
+      "moving-versus-low-motion classification as an authoritative metric in this phase"
+    ]
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "playerCount": 12,
+      "trajectorySamples": 151992,
+      "acceptedSteps": 126757,
+      "rejectedHardJumps": 188,
+      "excludedPrematchTransitions": 1428,
+      "excludedDeadEndpointTransitions": 25004,
+      "excludedMovementInvalidTransitions": 31,
+      "nonfinitePositionTransitions": 0,
+      "nonpositiveDtTransitions": 0,
+      "maxAcceptedStep3D": 1944.6533845734084,
+      "minRejectedHardJump3D": 2128.168691961545,
+      "maxRejectedHardJump3D": 13676.927771848734,
+      "xyDistance": 12157987.891014785,
+      "xyzDistance": 13011273.311541276,
+      "validMovementSeconds": 31689.25,
+      "cadence": {
+        "totalPositiveIntervals": 153408,
+        "quarterSecondIntervals": 153408,
+        "quarterSecondShare": 1,
+        "counts": {
+          "0.250000": 153408
+        }
+      },
+      "legacyReproduction": {
+        "referenceVersion": "BEHAVIORAL_METRICS_V02",
+        "comparedPlayers": 12,
+        "comparedValues": 108,
+        "maxAbsoluteError": 2.3283064365386963e-10,
+        "mismatchCount": 0,
+        "mismatches": [],
+        "pass": true
+      },
+      "players": [
+        {
+          "playerName": "Nacho4Sure",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 10110,
+          "rejectedHardJumps": 2,
+          "xyDistance": 942158.5604062873,
+          "xyzDistance": 997598.7587912605,
+          "validMovementSeconds": 2527.5
+        },
+        {
+          "playerName": "blooop354",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 9233,
+          "rejectedHardJumps": 10,
+          "xyDistance": 843563.3083267498,
+          "xyzDistance": 892275.8643211442,
+          "validMovementSeconds": 2308.25
+        },
+        {
+          "playerName": "flem",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 10456,
+          "rejectedHardJumps": 6,
+          "xyDistance": 969575.112722399,
+          "xyzDistance": 1015012.3106732158,
+          "validMovementSeconds": 2614
+        },
+        {
+          "playerName": "Zaeleth",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 9938,
+          "rejectedHardJumps": 21,
+          "xyDistance": 900546.4658717795,
+          "xyzDistance": 961395.606587189,
+          "validMovementSeconds": 2484.5
+        },
+        {
+          "playerName": "Yosafire Worshipper [K]",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 12206,
+          "rejectedHardJumps": 11,
+          "xyDistance": 1365055.4359237896,
+          "xyzDistance": 1470978.4378535454,
+          "validMovementSeconds": 3051.5
+        },
+        {
+          "playerName": "Nebula",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 10429,
+          "rejectedHardJumps": 14,
+          "xyDistance": 998019.1862383162,
+          "xyzDistance": 1072571.118085227,
+          "validMovementSeconds": 2607.25
+        },
+        {
+          "playerName": "Snazzy314",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 10266,
+          "rejectedHardJumps": 2,
+          "xyDistance": 921465.360703929,
+          "xyzDistance": 969786.268351355,
+          "validMovementSeconds": 2566.5
+        },
+        {
+          "playerName": "TheWoogler",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 9292,
+          "rejectedHardJumps": 14,
+          "xyDistance": 834666.3609977438,
+          "xyzDistance": 876101.9398144187,
+          "validMovementSeconds": 2323
+        },
+        {
+          "playerName": "Goldinfer",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 10283,
+          "rejectedHardJumps": 2,
+          "xyDistance": 923153.2602258744,
+          "xyzDistance": 1013145.377355599,
+          "validMovementSeconds": 2570.75
+        },
+        {
+          "playerName": "renso",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 10515,
+          "rejectedHardJumps": 20,
+          "xyDistance": 1047214.2833695549,
+          "xyzDistance": 1152220.8577285728,
+          "validMovementSeconds": 2628.75
+        },
+        {
+          "playerName": "Eriansan",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 11863,
+          "rejectedHardJumps": 79,
+          "xyDistance": 1204699.342484755,
+          "xyzDistance": 1303882.5509411562,
+          "validMovementSeconds": 2965.75
+        },
+        {
+          "playerName": "viggoth 300",
+          "trajectorySamples": 12666,
+          "acceptedSteps": 12166,
+          "rejectedHardJumps": 7,
+          "xyDistance": 1207871.2137433696,
+          "xyzDistance": 1286304.2210385231,
+          "validMovementSeconds": 3041.5
+        }
+      ]
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "playerCount": 12,
+      "trajectorySamples": 112392,
+      "acceptedSteps": 97811,
+      "rejectedHardJumps": 97,
+      "excludedPrematchTransitions": 1428,
+      "excludedDeadEndpointTransitions": 14459,
+      "excludedMovementInvalidTransitions": 13,
+      "nonfinitePositionTransitions": 0,
+      "nonpositiveDtTransitions": 0,
+      "maxAcceptedStep3D": 1980.7062150535003,
+      "minRejectedHardJump3D": 2005.003809564258,
+      "maxRejectedHardJump3D": 14083.77659523788,
+      "xyDistance": 9222954.016677927,
+      "xyzDistance": 9828830.077785263,
+      "validMovementSeconds": 24452.75,
+      "cadence": {
+        "totalPositiveIntervals": 113808,
+        "quarterSecondIntervals": 113808,
+        "quarterSecondShare": 1,
+        "counts": {
+          "0.250000": 113808
+        }
+      },
+      "legacyReproduction": null,
+      "players": [
+        {
+          "playerName": "Zaeleth",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 7947,
+          "rejectedHardJumps": 8,
+          "xyDistance": 804979.4368385826,
+          "xyzDistance": 853428.373361248,
+          "validMovementSeconds": 1986.75
+        },
+        {
+          "playerName": "renso",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 8135,
+          "rejectedHardJumps": 4,
+          "xyDistance": 731107.4448219382,
+          "xyzDistance": 773896.9845952694,
+          "validMovementSeconds": 2033.75
+        },
+        {
+          "playerName": "Mushie",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 7769,
+          "rejectedHardJumps": 3,
+          "xyDistance": 742879.1424382371,
+          "xyzDistance": 779382.6129415925,
+          "validMovementSeconds": 1942.25
+        },
+        {
+          "playerName": "The White Samoan",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 7583,
+          "rejectedHardJumps": 0,
+          "xyDistance": 725185.8180530837,
+          "xyzDistance": 788007.8560529402,
+          "validMovementSeconds": 1895.75
+        },
+        {
+          "playerName": "Kabuto",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 8926,
+          "rejectedHardJumps": 8,
+          "xyDistance": 813664.5213232443,
+          "xyzDistance": 873076.4880070186,
+          "validMovementSeconds": 2231.5
+        },
+        {
+          "playerName": "Parker",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 7619,
+          "rejectedHardJumps": 0,
+          "xyDistance": 838658.8425272382,
+          "xyzDistance": 887506.4186729093,
+          "validMovementSeconds": 1904.75
+        },
+        {
+          "playerName": "Goldinfer",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 8813,
+          "rejectedHardJumps": 7,
+          "xyDistance": 698839.3294809951,
+          "xyzDistance": 748469.5299839911,
+          "validMovementSeconds": 2203.25
+        },
+        {
+          "playerName": "ArsonBoy5996",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 8679,
+          "rejectedHardJumps": 40,
+          "xyDistance": 981812.1336777832,
+          "xyzDistance": 1045918.9451503112,
+          "validMovementSeconds": 2169.75
+        },
+        {
+          "playerName": "Quackinator17",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 8638,
+          "rejectedHardJumps": 5,
+          "xyDistance": 720599.2934117258,
+          "xyzDistance": 765838.392193954,
+          "validMovementSeconds": 2159.5
+        },
+        {
+          "playerName": "BlamBlam50",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 7714,
+          "rejectedHardJumps": 2,
+          "xyDistance": 730151.294108299,
+          "xyzDistance": 776426.794840141,
+          "validMovementSeconds": 1928.5
+        },
+        {
+          "playerName": "Archivist Eris",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 7644,
+          "rejectedHardJumps": 13,
+          "xyDistance": 652533.9093842024,
+          "xyzDistance": 685207.3620235843,
+          "validMovementSeconds": 1911
+        },
+        {
+          "playerName": "Nebula",
+          "trajectorySamples": 9366,
+          "acceptedSteps": 8344,
+          "rejectedHardJumps": 7,
+          "xyDistance": 782542.8506125576,
+          "xyzDistance": 851670.3199623355,
+          "validMovementSeconds": 2086
+        }
+      ]
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "playerCount": 12,
+      "trajectorySamples": 112440,
+      "acceptedSteps": 96196,
+      "rejectedHardJumps": 6,
+      "excludedPrematchTransitions": 1428,
+      "excludedDeadEndpointTransitions": 16209,
+      "excludedMovementInvalidTransitions": 17,
+      "nonfinitePositionTransitions": 0,
+      "nonpositiveDtTransitions": 0,
+      "maxAcceptedStep3D": 1505.3616392877368,
+      "minRejectedHardJump3D": 2228.4717005421426,
+      "maxRejectedHardJump3D": 7559.100716267239,
+      "xyDistance": 8693720.729998799,
+      "xyzDistance": 9291267.683607811,
+      "validMovementSeconds": 24052.75,
+      "cadence": {
+        "totalPositiveIntervals": 113856,
+        "quarterSecondIntervals": 113832,
+        "quarterSecondShare": 0.9997892074198989,
+        "counts": {
+          "0.250000": 113832,
+          "0.500000": 24
+        }
+      },
+      "legacyReproduction": null,
+      "players": [
+        {
+          "playerName": "Nameless Shado",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 7752,
+          "rejectedHardJumps": 0,
+          "xyDistance": 591719.1086825712,
+          "xyzDistance": 620717.7490240458,
+          "validMovementSeconds": 1938
+        },
+        {
+          "playerName": "Rupa",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 8900,
+          "rejectedHardJumps": 1,
+          "xyDistance": 822764.1094440335,
+          "xyzDistance": 878309.3650773806,
+          "validMovementSeconds": 2225.5
+        },
+        {
+          "playerName": "Zaeleth",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 7649,
+          "rejectedHardJumps": 0,
+          "xyDistance": 692055.5013217886,
+          "xyzDistance": 747416.3861104759,
+          "validMovementSeconds": 1912.5
+        },
+        {
+          "playerName": "Moodamu",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 8053,
+          "rejectedHardJumps": 0,
+          "xyDistance": 686830.8958314547,
+          "xyzDistance": 725597.3829293586,
+          "validMovementSeconds": 2013.75
+        },
+        {
+          "playerName": "cloudlightfellow",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 8315,
+          "rejectedHardJumps": 0,
+          "xyDistance": 756696.479313462,
+          "xyzDistance": 801232.1263824607,
+          "validMovementSeconds": 2078.75
+        },
+        {
+          "playerName": "renso",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 7689,
+          "rejectedHardJumps": 0,
+          "xyDistance": 700372.1576844119,
+          "xyzDistance": 743965.3045112471,
+          "validMovementSeconds": 1922.25
+        },
+        {
+          "playerName": "pistachio",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 7190,
+          "rejectedHardJumps": 2,
+          "xyDistance": 753757.6434106563,
+          "xyzDistance": 812357.3218669068,
+          "validMovementSeconds": 1798
+        },
+        {
+          "playerName": "Gnome Garden",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 7972,
+          "rejectedHardJumps": 3,
+          "xyDistance": 727929.3020393531,
+          "xyzDistance": 774316.5917885834,
+          "validMovementSeconds": 1993.5
+        },
+        {
+          "playerName": "Ripoleon BonerFarts",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 7779,
+          "rejectedHardJumps": 0,
+          "xyDistance": 650318.9457897544,
+          "xyzDistance": 674531.1789613179,
+          "validMovementSeconds": 1945.25
+        },
+        {
+          "playerName": "Nebula",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 7961,
+          "rejectedHardJumps": 0,
+          "xyDistance": 735110.6958939923,
+          "xyzDistance": 837232.6439776317,
+          "validMovementSeconds": 1990.5
+        },
+        {
+          "playerName": "Wild Willy",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 8662,
+          "rejectedHardJumps": 0,
+          "xyDistance": 933121.9010227452,
+          "xyzDistance": 982535.258867917,
+          "validMovementSeconds": 2166
+        },
+        {
+          "playerName": "Goldinfer",
+          "trajectorySamples": 9370,
+          "acceptedSteps": 8274,
+          "rejectedHardJumps": 0,
+          "xyDistance": 643043.989564704,
+          "xyzDistance": 693056.3741104833,
+          "validMovementSeconds": 2068.75
+        }
+      ]
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "playerCount": 12,
+      "trajectorySamples": 159828,
+      "acceptedSteps": 141082,
+      "rejectedHardJumps": 1,
+      "excludedPrematchTransitions": 1428,
+      "excludedDeadEndpointTransitions": 18717,
+      "excludedMovementInvalidTransitions": 16,
+      "nonfinitePositionTransitions": 0,
+      "nonpositiveDtTransitions": 0,
+      "maxAcceptedStep3D": 1489.2755651605833,
+      "minRejectedHardJump3D": 7519.477171883466,
+      "maxRejectedHardJump3D": 7519.477171883466,
+      "xyDistance": 13412666.336931676,
+      "xyzDistance": 14410927.738937495,
+      "validMovementSeconds": 35270.5,
+      "cadence": {
+        "totalPositiveIntervals": 161244,
+        "quarterSecondIntervals": 161244,
+        "quarterSecondShare": 1,
+        "counts": {
+          "0.250000": 161244
+        }
+      },
+      "legacyReproduction": null,
+      "players": [
+        {
+          "playerName": "jmillay",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 12185,
+          "rejectedHardJumps": 0,
+          "xyDistance": 1275129.1919842737,
+          "xyzDistance": 1412264.8680611455,
+          "validMovementSeconds": 3046.25
+        },
+        {
+          "playerName": "phishymundo",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 11755,
+          "rejectedHardJumps": 0,
+          "xyDistance": 997605.4099296128,
+          "xyzDistance": 1064953.85770758,
+          "validMovementSeconds": 2938.75
+        },
+        {
+          "playerName": "MiggyTCD",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 11789,
+          "rejectedHardJumps": 0,
+          "xyDistance": 1180985.919883435,
+          "xyzDistance": 1275030.866183246,
+          "validMovementSeconds": 2947.25
+        },
+        {
+          "playerName": "Jake",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 12511,
+          "rejectedHardJumps": 0,
+          "xyDistance": 1128669.7366536313,
+          "xyzDistance": 1197608.2592914829,
+          "validMovementSeconds": 3127.75
+        },
+        {
+          "playerName": "SpookFist Tha Strong",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 12731,
+          "rejectedHardJumps": 0,
+          "xyDistance": 1129232.884446632,
+          "xyzDistance": 1220354.1994748649,
+          "validMovementSeconds": 3182.75
+        },
+        {
+          "playerName": "renso",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 11217,
+          "rejectedHardJumps": 0,
+          "xyDistance": 1165682.2000453689,
+          "xyzDistance": 1251810.5069921445,
+          "validMovementSeconds": 2804.25
+        },
+        {
+          "playerName": "Pattern",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 11817,
+          "rejectedHardJumps": 0,
+          "xyDistance": 985688.5088826697,
+          "xyzDistance": 1050725.780711477,
+          "validMovementSeconds": 2954.25
+        },
+        {
+          "playerName": "FwankToo",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 11520,
+          "rejectedHardJumps": 0,
+          "xyDistance": 992019.2772704383,
+          "xyzDistance": 1077090.8524118273,
+          "validMovementSeconds": 2880
+        },
+        {
+          "playerName": "Paradox_Cowkitty",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 10622,
+          "rejectedHardJumps": 0,
+          "xyDistance": 877384.1208234082,
+          "xyzDistance": 940851.4054959521,
+          "validMovementSeconds": 2655.5
+        },
+        {
+          "playerName": "4rM4D1110",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 10998,
+          "rejectedHardJumps": 0,
+          "xyDistance": 1193885.9559036056,
+          "xyzDistance": 1278747.5835440895,
+          "validMovementSeconds": 2749.5
+        },
+        {
+          "playerName": "McThiccems",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 12130,
+          "rejectedHardJumps": 1,
+          "xyDistance": 1138922.611480536,
+          "xyzDistance": 1220800.1759729616,
+          "validMovementSeconds": 3032.5
+        },
+        {
+          "playerName": "Spiirit0",
+          "trajectorySamples": 13319,
+          "acceptedSteps": 11807,
+          "rejectedHardJumps": 0,
+          "xyDistance": 1347460.5196282659,
+          "xyzDistance": 1420689.3830908267,
+          "validMovementSeconds": 2951.75
+        }
+      ]
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "playerCount": 12,
+      "trajectorySamples": 110772,
+      "acceptedSteps": 95760,
+      "rejectedHardJumps": 2,
+      "excludedPrematchTransitions": 1428,
+      "excludedDeadEndpointTransitions": 14976,
+      "excludedMovementInvalidTransitions": 22,
+      "nonfinitePositionTransitions": 0,
+      "nonpositiveDtTransitions": 0,
+      "maxAcceptedStep3D": 972.339749208385,
+      "minRejectedHardJump3D": 7520.819629561038,
+      "maxRejectedHardJump3D": 7553.214442801509,
+      "xyDistance": 8915372.527239818,
+      "xyzDistance": 9488210.539636085,
+      "validMovementSeconds": 23940,
+      "cadence": {
+        "totalPositiveIntervals": 112188,
+        "quarterSecondIntervals": 112188,
+        "quarterSecondShare": 1,
+        "counts": {
+          "0.250000": 112188
+        }
+      },
+      "legacyReproduction": null,
+      "players": [
+        {
+          "playerName": "Queenie Juices",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 7842,
+          "rejectedHardJumps": 1,
+          "xyDistance": 679925.5830116889,
+          "xyzDistance": 738324.3876956074,
+          "validMovementSeconds": 1960.5
+        },
+        {
+          "playerName": "Normal Canard",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 8236,
+          "rejectedHardJumps": 1,
+          "xyDistance": 960749.6322287702,
+          "xyzDistance": 1045572.394886525,
+          "validMovementSeconds": 2059
+        },
+        {
+          "playerName": "Roronoa Zoro",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 7766,
+          "rejectedHardJumps": 0,
+          "xyDistance": 618716.3601035898,
+          "xyzDistance": 657427.6934446674,
+          "validMovementSeconds": 1941.5
+        },
+        {
+          "playerName": "butterflyflyhig",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 8073,
+          "rejectedHardJumps": 0,
+          "xyDistance": 770203.9745588392,
+          "xyzDistance": 829507.9777581122,
+          "validMovementSeconds": 2018.25
+        },
+        {
+          "playerName": "HPE",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 7775,
+          "rejectedHardJumps": 0,
+          "xyDistance": 725984.0481308186,
+          "xyzDistance": 775281.6622369838,
+          "validMovementSeconds": 1943.75
+        },
+        {
+          "playerName": "renso",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 8330,
+          "rejectedHardJumps": 0,
+          "xyDistance": 790118.0396287887,
+          "xyzDistance": 825340.6776019672,
+          "validMovementSeconds": 2082.5
+        },
+        {
+          "playerName": "Coochieman",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 8608,
+          "rejectedHardJumps": 0,
+          "xyDistance": 897377.8803873587,
+          "xyzDistance": 949874.3522505326,
+          "validMovementSeconds": 2152
+        },
+        {
+          "playerName": "Solace",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 8683,
+          "rejectedHardJumps": 0,
+          "xyDistance": 669998.7588199491,
+          "xyzDistance": 704895.982731845,
+          "validMovementSeconds": 2170.75
+        },
+        {
+          "playerName": "shoto",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 7781,
+          "rejectedHardJumps": 0,
+          "xyDistance": 689801.6435215054,
+          "xyzDistance": 734399.4614264505,
+          "validMovementSeconds": 1945.25
+        },
+        {
+          "playerName": "Sympathy",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 7427,
+          "rejectedHardJumps": 0,
+          "xyDistance": 737121.0466268868,
+          "xyzDistance": 774083.4537281707,
+          "validMovementSeconds": 1856.75
+        },
+        {
+          "playerName": "giga jimmy",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 7547,
+          "rejectedHardJumps": 0,
+          "xyDistance": 603439.2511207961,
+          "xyzDistance": 632930.3975427717,
+          "validMovementSeconds": 1886.75
+        },
+        {
+          "playerName": "aHUNTER360",
+          "trajectorySamples": 9231,
+          "acceptedSteps": 7692,
+          "rejectedHardJumps": 0,
+          "xyDistance": 771936.3091007331,
+          "xyzDistance": 820572.0983324471,
+          "validMovementSeconds": 1923
+        }
+      ]
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "playerCount": 12,
+      "trajectorySamples": 116952,
+      "acceptedSteps": 98754,
+      "rejectedHardJumps": 3,
+      "excludedPrematchTransitions": 1428,
+      "excludedDeadEndpointTransitions": 18162,
+      "excludedMovementInvalidTransitions": 21,
+      "nonfinitePositionTransitions": 0,
+      "nonpositiveDtTransitions": 0,
+      "maxAcceptedStep3D": 1725.7582951732768,
+      "minRejectedHardJump3D": 2117.86387143501,
+      "maxRejectedHardJump3D": 2779.355210429604,
+      "xyDistance": 9505627.08784724,
+      "xyzDistance": 10143700.693217253,
+      "validMovementSeconds": 24693.5,
+      "cadence": {
+        "totalPositiveIntervals": 118368,
+        "quarterSecondIntervals": 118344,
+        "quarterSecondShare": 0.9997972424979724,
+        "counts": {
+          "0.250000": 118344,
+          "0.750000": 24
+        }
+      },
+      "legacyReproduction": null,
+      "players": [
+        {
+          "playerName": "Aleister",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 6991,
+          "rejectedHardJumps": 1,
+          "xyDistance": 692893.6804848429,
+          "xyzDistance": 735460.8690985037,
+          "validMovementSeconds": 1748.75
+        },
+        {
+          "playerName": "Sugon",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 8501,
+          "rejectedHardJumps": 0,
+          "xyDistance": 803763.7184377275,
+          "xyzDistance": 891981.5124051748,
+          "validMovementSeconds": 2125.75
+        },
+        {
+          "playerName": "Ghostt",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 9016,
+          "rejectedHardJumps": 0,
+          "xyDistance": 924304.2795491596,
+          "xyzDistance": 973713.7964881898,
+          "validMovementSeconds": 2255
+        },
+        {
+          "playerName": "renso",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 8464,
+          "rejectedHardJumps": 0,
+          "xyDistance": 847926.190430934,
+          "xyzDistance": 891993.515741835,
+          "validMovementSeconds": 2116.5
+        },
+        {
+          "playerName": "ACE_Lazzy",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 7469,
+          "rejectedHardJumps": 0,
+          "xyDistance": 732396.5016054433,
+          "xyzDistance": 781819.9123738665,
+          "validMovementSeconds": 1867.25
+        },
+        {
+          "playerName": "Jack",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 8290,
+          "rejectedHardJumps": 0,
+          "xyDistance": 832326.2572406444,
+          "xyzDistance": 896580.5791685698,
+          "validMovementSeconds": 2072.5
+        },
+        {
+          "playerName": "JustJorsh",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 9010,
+          "rejectedHardJumps": 0,
+          "xyDistance": 844030.078125534,
+          "xyzDistance": 890162.7854437231,
+          "validMovementSeconds": 2253.5
+        },
+        {
+          "playerName": "Mirzero",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 8902,
+          "rejectedHardJumps": 0,
+          "xyDistance": 739807.9713184016,
+          "xyzDistance": 774420.6081901742,
+          "validMovementSeconds": 2225.5
+        },
+        {
+          "playerName": "Dolan_161",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 7269,
+          "rejectedHardJumps": 0,
+          "xyDistance": 692507.3482270604,
+          "xyzDistance": 731839.0876129442,
+          "validMovementSeconds": 1817.25
+        },
+        {
+          "playerName": "Senor watermelon",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 8238,
+          "rejectedHardJumps": 2,
+          "xyDistance": 754707.098242347,
+          "xyzDistance": 822062.6053907776,
+          "validMovementSeconds": 2059.5
+        },
+        {
+          "playerName": "Spk",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 8169,
+          "rejectedHardJumps": 0,
+          "xyDistance": 903301.3629465614,
+          "xyzDistance": 970416.2932208816,
+          "validMovementSeconds": 2042.25
+        },
+        {
+          "playerName": "FlameHead58",
+          "trajectorySamples": 9746,
+          "acceptedSteps": 8435,
+          "rejectedHardJumps": 0,
+          "xyDistance": 737662.6012385915,
+          "xyzDistance": 783249.1280825607,
+          "validMovementSeconds": 2109.75
+        }
+      ]
+    }
+  ]
+}

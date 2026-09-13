@@ -1,0 +1,325 @@
+{
+  "version": "PLAYER_SCOREBOARD_DEATH_VALIDATION_BATCH_V01",
+  "canonical": false,
+  "createdAt": "2026-09-11T23:28:07.636Z",
+  "requestedReplays": [
+    "test",
+    "rep01",
+    "rep02",
+    "rep03",
+    "rep04",
+    "rep05"
+  ],
+  "replayCount": 6,
+  "successCount": 6,
+  "allRequestedReplaysSucceeded": true,
+  "construct": "game-awarded/scored player death counter",
+  "authorityBoundary": {
+    "researchOnly": true,
+    "promotesClaim": false,
+    "promotesMetric": false,
+    "establishedIfSupported": "m_iDeaths behaves as the game-awarded/scored player death counter",
+    "explicitlyNotEstablished": [
+      "every alive-to-dead state transition is a scoreboard death",
+      "cause of death",
+      "killer attribution",
+      "revive mechanic identity"
+    ]
+  },
+  "matching": {
+    "windowTicks": 32,
+    "windowSeconds": 0.5,
+    "placeboShift10SecondsTicks": 640,
+    "placeboShift30SecondsTicks": 1920
+  },
+  "aggregate": {
+    "counts": {
+      "scoreboardDeathCredits": 563,
+      "aliveToDeadTransitions": 597,
+      "scoreboardDeathsMatchedToAliveDead": 563,
+      "unmatchedScoreboardDeathCredits": 0,
+      "aliveToDeadWithoutScoreboardDeath": 34,
+      "completedExtraStateDeathEpisodes": 31,
+      "censoredExtraStateDeathEpisodes": 3,
+      "extraEpisodesExactly3Seconds": 30,
+      "counterRegressions": 0
+    },
+    "validation": {
+      "scoreboardDeathToAliveDeadAgreementRate": 1,
+      "placebo10AgreementRate": 0,
+      "placebo30AgreementRate": 0
+    }
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "scoreboardDeathTransitions": 114,
+        "scoreboardDeathCredits": 114,
+        "aliveToDeadTransitions": 121,
+        "scoreboardDeathsMatchedToAliveDead": 114,
+        "unmatchedScoreboardDeathCredits": 0,
+        "aliveToDeadWithoutScoreboardDeath": 7,
+        "completedExtraStateDeathEpisodes": 7,
+        "censoredExtraStateDeathEpisodes": 0,
+        "extraEpisodesExactly3Seconds": 7,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "scoreboardDeathToAliveDeadAgreementRate": 1,
+        "placebo10AgreementRate": 0,
+        "placebo30AgreementRate": 0,
+        "counterRegressionCount": 0
+      },
+      "timingResiduals": {
+        "count": 114,
+        "minTicks": 0,
+        "medianTicks": 0,
+        "maxTicks": 16,
+        "zeroTickMatches": 87,
+        "zeroTickShare": 0.7631578947368421,
+        "minSeconds": 0,
+        "medianSeconds": 0,
+        "maxSeconds": 0.25
+      },
+      "extraStateDeathEpisodeDurations": {
+        "count": 7,
+        "minSeconds": 3,
+        "medianSeconds": 3,
+        "maxSeconds": 3,
+        "modeSeconds": 3
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\test\\player_scoreboard_death_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\test\\player_scoreboard_death_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "scoreboardDeathTransitions": 89,
+        "scoreboardDeathCredits": 89,
+        "aliveToDeadTransitions": 96,
+        "scoreboardDeathsMatchedToAliveDead": 89,
+        "unmatchedScoreboardDeathCredits": 0,
+        "aliveToDeadWithoutScoreboardDeath": 7,
+        "completedExtraStateDeathEpisodes": 6,
+        "censoredExtraStateDeathEpisodes": 1,
+        "extraEpisodesExactly3Seconds": 6,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "scoreboardDeathToAliveDeadAgreementRate": 1,
+        "placebo10AgreementRate": 0,
+        "placebo30AgreementRate": 0,
+        "counterRegressionCount": 0
+      },
+      "timingResiduals": {
+        "count": 89,
+        "minTicks": 0,
+        "medianTicks": 0,
+        "maxTicks": 16,
+        "zeroTickMatches": 77,
+        "zeroTickShare": 0.8651685393258427,
+        "minSeconds": 0,
+        "medianSeconds": 0,
+        "maxSeconds": 0.25
+      },
+      "extraStateDeathEpisodeDurations": {
+        "count": 6,
+        "minSeconds": 3,
+        "medianSeconds": 3,
+        "maxSeconds": 3,
+        "modeSeconds": 3
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep01\\player_scoreboard_death_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep01\\player_scoreboard_death_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "scoreboardDeathTransitions": 92,
+        "scoreboardDeathCredits": 92,
+        "aliveToDeadTransitions": 98,
+        "scoreboardDeathsMatchedToAliveDead": 92,
+        "unmatchedScoreboardDeathCredits": 0,
+        "aliveToDeadWithoutScoreboardDeath": 6,
+        "completedExtraStateDeathEpisodes": 6,
+        "censoredExtraStateDeathEpisodes": 0,
+        "extraEpisodesExactly3Seconds": 6,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "scoreboardDeathToAliveDeadAgreementRate": 1,
+        "placebo10AgreementRate": 0,
+        "placebo30AgreementRate": 0,
+        "counterRegressionCount": 0
+      },
+      "timingResiduals": {
+        "count": 92,
+        "minTicks": 0,
+        "medianTicks": 0,
+        "maxTicks": 16,
+        "zeroTickMatches": 75,
+        "zeroTickShare": 0.8152173913043478,
+        "minSeconds": 0,
+        "medianSeconds": 0,
+        "maxSeconds": 0.25
+      },
+      "extraStateDeathEpisodeDurations": {
+        "count": 6,
+        "minSeconds": 3,
+        "medianSeconds": 3,
+        "maxSeconds": 3,
+        "modeSeconds": 3
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep02\\player_scoreboard_death_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep02\\player_scoreboard_death_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "scoreboardDeathTransitions": 87,
+        "scoreboardDeathCredits": 87,
+        "aliveToDeadTransitions": 93,
+        "scoreboardDeathsMatchedToAliveDead": 87,
+        "unmatchedScoreboardDeathCredits": 0,
+        "aliveToDeadWithoutScoreboardDeath": 6,
+        "completedExtraStateDeathEpisodes": 6,
+        "censoredExtraStateDeathEpisodes": 0,
+        "extraEpisodesExactly3Seconds": 6,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "scoreboardDeathToAliveDeadAgreementRate": 1,
+        "placebo10AgreementRate": 0,
+        "placebo30AgreementRate": 0,
+        "counterRegressionCount": 0
+      },
+      "timingResiduals": {
+        "count": 87,
+        "minTicks": 0,
+        "medianTicks": 0,
+        "maxTicks": 16,
+        "zeroTickMatches": 71,
+        "zeroTickShare": 0.8160919540229885,
+        "minSeconds": 0,
+        "medianSeconds": 0,
+        "maxSeconds": 0.25
+      },
+      "extraStateDeathEpisodeDurations": {
+        "count": 6,
+        "minSeconds": 3,
+        "medianSeconds": 3,
+        "maxSeconds": 3,
+        "modeSeconds": 3
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep03\\player_scoreboard_death_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep03\\player_scoreboard_death_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "scoreboardDeathTransitions": 81,
+        "scoreboardDeathCredits": 81,
+        "aliveToDeadTransitions": 84,
+        "scoreboardDeathsMatchedToAliveDead": 81,
+        "unmatchedScoreboardDeathCredits": 0,
+        "aliveToDeadWithoutScoreboardDeath": 3,
+        "completedExtraStateDeathEpisodes": 2,
+        "censoredExtraStateDeathEpisodes": 1,
+        "extraEpisodesExactly3Seconds": 1,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "scoreboardDeathToAliveDeadAgreementRate": 1,
+        "placebo10AgreementRate": 0,
+        "placebo30AgreementRate": 0,
+        "counterRegressionCount": 0
+      },
+      "timingResiduals": {
+        "count": 81,
+        "minTicks": 0,
+        "medianTicks": 0,
+        "maxTicks": 16,
+        "zeroTickMatches": 60,
+        "zeroTickShare": 0.7407407407407407,
+        "minSeconds": 0,
+        "medianSeconds": 0,
+        "maxSeconds": 0.25
+      },
+      "extraStateDeathEpisodeDurations": {
+        "count": 2,
+        "minSeconds": 3,
+        "medianSeconds": 3.125,
+        "maxSeconds": 3.25,
+        "modeSeconds": 3
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep04\\player_scoreboard_death_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep04\\player_scoreboard_death_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "scoreboardDeathTransitions": 100,
+        "scoreboardDeathCredits": 100,
+        "aliveToDeadTransitions": 105,
+        "scoreboardDeathsMatchedToAliveDead": 100,
+        "unmatchedScoreboardDeathCredits": 0,
+        "aliveToDeadWithoutScoreboardDeath": 5,
+        "completedExtraStateDeathEpisodes": 4,
+        "censoredExtraStateDeathEpisodes": 1,
+        "extraEpisodesExactly3Seconds": 4,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "scoreboardDeathToAliveDeadAgreementRate": 1,
+        "placebo10AgreementRate": 0,
+        "placebo30AgreementRate": 0,
+        "counterRegressionCount": 0
+      },
+      "timingResiduals": {
+        "count": 100,
+        "minTicks": 0,
+        "medianTicks": 0,
+        "maxTicks": 16,
+        "zeroTickMatches": 80,
+        "zeroTickShare": 0.8,
+        "minSeconds": 0,
+        "medianSeconds": 0,
+        "maxSeconds": 0.25
+      },
+      "extraStateDeathEpisodeDurations": {
+        "count": 4,
+        "minSeconds": 3,
+        "medianSeconds": 3,
+        "maxSeconds": 3,
+        "modeSeconds": 3
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep05\\player_scoreboard_death_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep05\\player_scoreboard_death_events_v01.jsonl"
+      }
+    }
+  ]
+}

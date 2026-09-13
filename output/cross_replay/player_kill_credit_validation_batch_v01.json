@@ -1,0 +1,386 @@
+{
+  "version": "PLAYER_KILL_CREDIT_VALIDATION_BATCH_V01",
+  "canonical": false,
+  "createdAt": "2026-09-11T03:34:02.014Z",
+  "requestedReplays": [
+    "test",
+    "rep01",
+    "rep02",
+    "rep03",
+    "rep04",
+    "rep05"
+  ],
+  "successCount": 6,
+  "replayCount": 6,
+  "allRequestedReplaysSucceeded": true,
+  "researchQuestion": "Does CCitadelPlayerController.m_iPlayerKills behave as player kill credit when tested against independently observed direct enemy player terminal-damage events that are confirmed by scored victim deaths?",
+  "validationTaxonomy": {
+    "integrityValidation": "Counter monotonicity and zero-start are tested here.",
+    "semanticValidation": "This script provides evidence only; promotion requires review of cross-replay agreement, residuals, placebos, and unresolved cases.",
+    "replicationStatus": "Cross-replay only if independent rep01-rep05 all run successfully and support the same interpretation."
+  },
+  "aggregate": {
+    "counts": {
+      "scoreboardKillCredits": 557,
+      "scoreboardDeathCredits": 563,
+      "directEnemyFatalGroups": 570,
+      "deathConfirmedDirectEnemyFatalAnchors": 537,
+      "anchorsMatchedToAttackerKillCredit": 537
+    },
+    "evidence": {
+      "directFatalVictimDeathAgreement": 0.9421052631578948,
+      "directFatalAnchorKillAgreement": 1,
+      "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.9640933572710951,
+      "placeboAgreement10s": 0.0148975791433892,
+      "placeboAgreement30s": 0
+    }
+  },
+  "replayResults": [
+    {
+      "replayName": "test",
+      "success": true,
+      "status": "RESEARCH_EVIDENCE_EXTRACTED",
+      "counts": {
+        "playersObserved": 12,
+        "killCounterTransitions": 113,
+        "scoreboardKillCredits": 113,
+        "deathCounterTransitions": 114,
+        "scoreboardDeathCredits": 114,
+        "terminalPlayerDamageMessages": 157,
+        "fatalDamageGroups": 121,
+        "directEnemyFatalGroups": 118,
+        "deathConfirmedDirectEnemyFatalAnchors": 111,
+        "anchorsMatchedToAttackerKillCredit": 111,
+        "anchorsUnmatchedToAttackerKillCredit": 0,
+        "killCreditsNotSupportedByDirectFatalAnchor": 2,
+        "placeboMatches10s": 2,
+        "placeboMatches30s": 0
+      },
+      "evidence": {
+        "directFatalVictimDeathAgreement": 0.940677966101695,
+        "directFatalAnchorKillAgreement": 1,
+        "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.9823008849557522,
+        "placeboAgreement10s": 0.018018018018018018,
+        "placeboAgreement30s": 0,
+        "killMatchTickResiduals": {
+          "n": 111,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        },
+        "deathMatchTickResiduals": {
+          "n": 111,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        }
+      },
+      "integrityValidation": {
+        "status": "pass",
+        "counterRegressions": 0,
+        "nonZeroInitialCounterObservations": 0,
+        "examples": {
+          "counterRegressions": [],
+          "nonZeroInitialCounterObservations": []
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\test\\player_kill_credit_validation_v01.json",
+        "anchors": "G:\\DeadlockBehavior\\output\\test\\player_kill_credit_anchors_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "status": "RESEARCH_EVIDENCE_EXTRACTED",
+      "counts": {
+        "playersObserved": 12,
+        "killCounterTransitions": 86,
+        "scoreboardKillCredits": 86,
+        "deathCounterTransitions": 89,
+        "scoreboardDeathCredits": 89,
+        "terminalPlayerDamageMessages": 120,
+        "fatalDamageGroups": 96,
+        "directEnemyFatalGroups": 90,
+        "deathConfirmedDirectEnemyFatalAnchors": 83,
+        "anchorsMatchedToAttackerKillCredit": 83,
+        "anchorsUnmatchedToAttackerKillCredit": 0,
+        "killCreditsNotSupportedByDirectFatalAnchor": 3,
+        "placeboMatches10s": 0,
+        "placeboMatches30s": 0
+      },
+      "evidence": {
+        "directFatalVictimDeathAgreement": 0.9222222222222223,
+        "directFatalAnchorKillAgreement": 1,
+        "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.9651162790697675,
+        "placeboAgreement10s": 0,
+        "placeboAgreement30s": 0,
+        "killMatchTickResiduals": {
+          "n": 83,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        },
+        "deathMatchTickResiduals": {
+          "n": 83,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        }
+      },
+      "integrityValidation": {
+        "status": "pass",
+        "counterRegressions": 0,
+        "nonZeroInitialCounterObservations": 0,
+        "examples": {
+          "counterRegressions": [],
+          "nonZeroInitialCounterObservations": []
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep01\\player_kill_credit_validation_v01.json",
+        "anchors": "G:\\DeadlockBehavior\\output\\rep01\\player_kill_credit_anchors_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "status": "RESEARCH_EVIDENCE_EXTRACTED",
+      "counts": {
+        "playersObserved": 12,
+        "killCounterTransitions": 92,
+        "scoreboardKillCredits": 92,
+        "deathCounterTransitions": 92,
+        "scoreboardDeathCredits": 92,
+        "terminalPlayerDamageMessages": 137,
+        "fatalDamageGroups": 98,
+        "directEnemyFatalGroups": 93,
+        "deathConfirmedDirectEnemyFatalAnchors": 87,
+        "anchorsMatchedToAttackerKillCredit": 87,
+        "anchorsUnmatchedToAttackerKillCredit": 0,
+        "killCreditsNotSupportedByDirectFatalAnchor": 5,
+        "placeboMatches10s": 1,
+        "placeboMatches30s": 0
+      },
+      "evidence": {
+        "directFatalVictimDeathAgreement": 0.9354838709677419,
+        "directFatalAnchorKillAgreement": 1,
+        "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.9456521739130435,
+        "placeboAgreement10s": 0.011494252873563218,
+        "placeboAgreement30s": 0,
+        "killMatchTickResiduals": {
+          "n": 87,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        },
+        "deathMatchTickResiduals": {
+          "n": 87,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        }
+      },
+      "integrityValidation": {
+        "status": "pass",
+        "counterRegressions": 0,
+        "nonZeroInitialCounterObservations": 0,
+        "examples": {
+          "counterRegressions": [],
+          "nonZeroInitialCounterObservations": []
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep02\\player_kill_credit_validation_v01.json",
+        "anchors": "G:\\DeadlockBehavior\\output\\rep02\\player_kill_credit_anchors_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "status": "RESEARCH_EVIDENCE_EXTRACTED",
+      "counts": {
+        "playersObserved": 12,
+        "killCounterTransitions": 86,
+        "scoreboardKillCredits": 87,
+        "deathCounterTransitions": 87,
+        "scoreboardDeathCredits": 87,
+        "terminalPlayerDamageMessages": 133,
+        "fatalDamageGroups": 93,
+        "directEnemyFatalGroups": 91,
+        "deathConfirmedDirectEnemyFatalAnchors": 85,
+        "anchorsMatchedToAttackerKillCredit": 85,
+        "anchorsUnmatchedToAttackerKillCredit": 0,
+        "killCreditsNotSupportedByDirectFatalAnchor": 2,
+        "placeboMatches10s": 1,
+        "placeboMatches30s": 0
+      },
+      "evidence": {
+        "directFatalVictimDeathAgreement": 0.9340659340659341,
+        "directFatalAnchorKillAgreement": 1,
+        "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.9770114942528736,
+        "placeboAgreement10s": 0.011764705882352941,
+        "placeboAgreement30s": 0,
+        "killMatchTickResiduals": {
+          "n": 85,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        },
+        "deathMatchTickResiduals": {
+          "n": 85,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        }
+      },
+      "integrityValidation": {
+        "status": "pass",
+        "counterRegressions": 0,
+        "nonZeroInitialCounterObservations": 0,
+        "examples": {
+          "counterRegressions": [],
+          "nonZeroInitialCounterObservations": []
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep03\\player_kill_credit_validation_v01.json",
+        "anchors": "G:\\DeadlockBehavior\\output\\rep03\\player_kill_credit_anchors_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "status": "RESEARCH_EVIDENCE_EXTRACTED",
+      "counts": {
+        "playersObserved": 12,
+        "killCounterTransitions": 80,
+        "scoreboardKillCredits": 80,
+        "deathCounterTransitions": 81,
+        "scoreboardDeathCredits": 81,
+        "terminalPlayerDamageMessages": 111,
+        "fatalDamageGroups": 84,
+        "directEnemyFatalGroups": 80,
+        "deathConfirmedDirectEnemyFatalAnchors": 78,
+        "anchorsMatchedToAttackerKillCredit": 78,
+        "anchorsUnmatchedToAttackerKillCredit": 0,
+        "killCreditsNotSupportedByDirectFatalAnchor": 2,
+        "placeboMatches10s": 1,
+        "placeboMatches30s": 0
+      },
+      "evidence": {
+        "directFatalVictimDeathAgreement": 0.975,
+        "directFatalAnchorKillAgreement": 1,
+        "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.975,
+        "placeboAgreement10s": 0.01282051282051282,
+        "placeboAgreement30s": 0,
+        "killMatchTickResiduals": {
+          "n": 78,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        },
+        "deathMatchTickResiduals": {
+          "n": 78,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        }
+      },
+      "integrityValidation": {
+        "status": "pass",
+        "counterRegressions": 0,
+        "nonZeroInitialCounterObservations": 0,
+        "examples": {
+          "counterRegressions": [],
+          "nonZeroInitialCounterObservations": []
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep04\\player_kill_credit_validation_v01.json",
+        "anchors": "G:\\DeadlockBehavior\\output\\rep04\\player_kill_credit_anchors_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "status": "RESEARCH_EVIDENCE_EXTRACTED",
+      "counts": {
+        "playersObserved": 12,
+        "killCounterTransitions": 99,
+        "scoreboardKillCredits": 99,
+        "deathCounterTransitions": 100,
+        "scoreboardDeathCredits": 100,
+        "terminalPlayerDamageMessages": 158,
+        "fatalDamageGroups": 105,
+        "directEnemyFatalGroups": 98,
+        "deathConfirmedDirectEnemyFatalAnchors": 93,
+        "anchorsMatchedToAttackerKillCredit": 93,
+        "anchorsUnmatchedToAttackerKillCredit": 0,
+        "killCreditsNotSupportedByDirectFatalAnchor": 6,
+        "placeboMatches10s": 3,
+        "placeboMatches30s": 0
+      },
+      "evidence": {
+        "directFatalVictimDeathAgreement": 0.9489795918367347,
+        "directFatalAnchorKillAgreement": 1,
+        "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.9393939393939394,
+        "placeboAgreement10s": 0.03225806451612903,
+        "placeboAgreement30s": 0,
+        "killMatchTickResiduals": {
+          "n": 93,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        },
+        "deathMatchTickResiduals": {
+          "n": 93,
+          "minTicks": 0,
+          "medianTicks": 0,
+          "maxTicks": 0,
+          "meanAbsTicks": 0,
+          "medianAbsTicks": 0
+        }
+      },
+      "integrityValidation": {
+        "status": "pass",
+        "counterRegressions": 0,
+        "nonZeroInitialCounterObservations": 0,
+        "examples": {
+          "counterRegressions": [],
+          "nonZeroInitialCounterObservations": []
+        }
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep05\\player_kill_credit_validation_v01.json",
+        "anchors": "G:\\DeadlockBehavior\\output\\rep05\\player_kill_credit_anchors_v01.jsonl"
+      }
+    }
+  ],
+  "decision": {
+    "promotionPerformed": false,
+    "nextAction": "Review evidence. If direct-fatal attacker attribution shows near-deterministic cross-replay agreement with low placebo rates, create a separate claim-registry promotion and production/inspector patch. Otherwise diagnose residual cases before promotion."
+  }
+}

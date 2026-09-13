@@ -95,6 +95,7 @@ export function buildPlayerPrimaryFireSummary(player, events) {
     team:player?.team??null,
     aliveSeconds,
     dischargeEvents:ordered.length,
+    nextPrimaryReadyTimeline:ordered.map(e=>({tick:e.tick,matchTime:e.matchTimeSeconds,nextPrimaryAttack:e.nextPrimaryAttack})),
     discharges:dischargeUnits,
     primaryAttacksPerAliveMinute:aliveMinutes>0?dischargeUnits/aliveMinutes:null,
     corroboratedDischargeUnits:corroboratedUnits,

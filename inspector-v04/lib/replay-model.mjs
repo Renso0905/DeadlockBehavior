@@ -1,6 +1,14 @@
 import { existsSync, promises as fs } from 'node:fs';
 import { join } from 'node:path';
 import { readJson, readJsonl, sourceHealth, fileFingerprint } from './io.mjs';
+import { publishedDirectory, validatePublishedRun, inputFingerprint } from './run-integrity.mjs';
+import { attachMetricAvailability } from './metric-availability.mjs';
+const MODEL_SCHEMA='RELIABLE_PLAYER_MODEL_V02';
+class PlayerMap extends Map {
+  get(key) { const direct=super.get(key); if(direct)return direct; const matches=[...this.values()].filter(p=>p.playerName===key); return matches.length===1?matches[0]:undefined; }
+}
+function playerKey(s){return s.controllerEntityIndex!=null?`controller:${s.controllerEntityIndex}`:s.steamId!=null?`steam:${s.steamId}`:`name:${s.playerName}`;}
+function resolvePlayer(map,row){return [...map.values()].find(p=>row.controllerEntityIndex!=null&&p.identity.controllerEntityIndex===row.controllerEntityIndex)??[...map.values()].find(p=>row.steamId!=null&&String(p.identity.steamId)===String(row.steamId))??map.get(row.playerName);}
 
 const TICKS_PER_SECOND=64;
 const MOVING_SPEED_THRESHOLD_3D=25;
@@ -9,13 +17,18 @@ const CHECKPOINTS=[300,600,900,1200,1500,1800,2100,2400,2700,3000];
 
 export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,force=false}) {
   const dir=join(outputRoot,replayName);
+  const publishedManifest=await readJson(join(dir,'production_manifest_v01.json'));
+  const productionDir=publishedDirectory(dir,publishedManifest);
+  const productionPath=f=>join(/^(player_state|runtime_)/.test(f)?productionDir:dir,f);
   const sourceFiles=[
     'player_state.jsonl','player_state_summary.json','integrated_authoritative_player_state_substrate_v01.json','runtime_item_ownership_production_v01.json','runtime_permanent_buff_ownership_production_v01.json','runtime_bridge_buff_ownership_production_v01.json','runtime_primary_fire_production_v01.json','runtime_primary_fire_events_v01.jsonl','runtime_melee_production_v01.json','runtime_melee_events_v01.jsonl','production_manifest_v01.json','runtime_health_regen_production_v01.json','runtime_health_regen_events_v01.jsonl','runtime_trooper_deaths_production_v01.json','runtime_trooper_death_events_v01.jsonl','runtime_ground_soul_lifecycle_production_v01.json','runtime_ground_soul_lifecycle_events_v01.jsonl','runtime_assigned_gold_economic_credit_production_v01.json','runtime_assigned_gold_economic_credit_events_v01.jsonl','behavioral_metrics_v02.json',
     'behavioral_resource_features_summary_v01.json','breakable_catalog_v1.json','breakable_action_stream_summary_v1.json',
     'breakable_reward_acquisition_summary_v1.json','trooper_ground_soul_one_to_one_summary_v01.json',
     'citemxp_inspector_events_v01.json','citemxp_auto_award_resolution_validation_v02.json','effective_weapon_runtime_events_v01.jsonl'
-  ].map(f=>join(dir,f));
-  const fingerprint=await fileFingerprint(sourceFiles);
+    ,'trooper_deaths_typed_v02.jsonl'
+  ].map(productionPath);
+  const currentInputs=await inputFingerprint(join(outputRoot,'..'),replayName);
+  const fingerprint=MODEL_SCHEMA+currentInputs+await fileFingerprint([...sourceFiles,new URL(import.meta.url),new URL('../../contracts/production_metric_registry_v01.json',import.meta.url),new URL('../public/metric-values.mjs',import.meta.url)]);
   const cachePath=cacheRoot?join(cacheRoot,`${safeName(replayName)}.json`):null;
   if (!force && cachePath && existsSync(cachePath)) {
     try {
@@ -25,20 +38,20 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
   }
 
   const health=await sourceHealth(dir);
-  const playerStateSummary=await readJson(join(dir,'player_state_summary.json'));
+  const playerStateSummary=await readJson(productionPath('player_state_summary.json'));
   const integrated=await readJson(join(dir,'integrated_authoritative_player_state_substrate_v01.json'));
-  const runtimeItems=await readJson(join(dir,'runtime_item_ownership_production_v01.json'));
-  const runtimePermanent=await readJson(join(dir,'runtime_permanent_buff_ownership_production_v01.json'));
-  const runtimeBridge=await readJson(join(dir,'runtime_bridge_buff_ownership_production_v01.json'));
-  const runtimeHealthRegen=await readJson(join(dir,'runtime_health_regen_production_v01.json'));
-  const runtimeTrooperDeaths=await readJson(join(dir,'runtime_trooper_deaths_production_v01.json'));
-  const runtimeGroundSoulLifecycle=await readJson(join(dir,'runtime_ground_soul_lifecycle_production_v01.json'));
-  const runtimeAssignedGoldEconomicCredit=await readJson(join(dir,'runtime_assigned_gold_economic_credit_production_v01.json'));  
-  const runtimePrimaryFire=await readJson(join(dir,'runtime_primary_fire_production_v01.json'));
-  const runtimeMelee=await readJson(join(dir,'runtime_melee_production_v01.json'));
+  const runtimeItems=await readJson(productionPath('runtime_item_ownership_production_v01.json'));
+  const runtimePermanent=await readJson(productionPath('runtime_permanent_buff_ownership_production_v01.json'));
+  const runtimeBridge=await readJson(productionPath('runtime_bridge_buff_ownership_production_v01.json'));
+  const runtimeHealthRegen=await readJson(productionPath('runtime_health_regen_production_v01.json'));
+  const runtimeTrooperDeaths=await readJson(productionPath('runtime_trooper_deaths_production_v01.json'));
+  const runtimeGroundSoulLifecycle=await readJson(productionPath('runtime_ground_soul_lifecycle_production_v01.json'));
+  const runtimeAssignedGoldEconomicCredit=await readJson(productionPath('runtime_assigned_gold_economic_credit_production_v01.json'));  
+  const runtimePrimaryFire=await readJson(productionPath('runtime_primary_fire_production_v01.json'));
+  const runtimeMelee=await readJson(productionPath('runtime_melee_production_v01.json'));
   const productionManifest=await readJson(join(dir,'production_manifest_v01.json'));
   const offset=Number(runtimeItems?.replay?.matchClockOffsetSeconds ?? runtimePermanent?.replay?.matchClockOffsetSeconds ?? runtimeBridge?.replay?.matchClockOffsetSeconds ?? playerStateSummary?.matchClockOffsetSeconds ?? integrated?.replay?.matchClockOffsetSeconds ?? 0);
-  const core=await aggregatePlayerState(join(dir,'player_state.jsonl'),offset);
+  const core=await aggregatePlayerState(productionPath('player_state.jsonl'),offset);
   const behavioral=await readJson(join(dir,'behavioral_metrics_v02.json'));
   const resourceFeatures=await readJson(join(dir,'behavioral_resource_features_summary_v01.json'));
   const breakCatalog=await readJson(join(dir,'breakable_catalog_v1.json'));
@@ -48,7 +61,7 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
   const citemxp=await readJson(join(dir,'citemxp_inspector_events_v01.json'));
   const autoAwardSummary=await readJson(join(dir,'citemxp_auto_award_resolution_validation_v02.json'));
 
-  const playerByName=new Map(core.players.map(p=>[p.playerName,p]));
+  const playerByName=new PlayerMap(core.players.map(p=>[p.playerId,p]));
   applyIntegrated(playerByName,integrated,offset,core.matchEndSeconds);
   applyRuntimeItems(playerByName,runtimeItems);
   applyRuntimePermanent(playerByName,runtimePermanent);
@@ -72,6 +85,7 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
 
   const players=core.players.map(p=>finalizePlayer(p,core)).sort((a,b)=>a.team-b.team || b.scoreboard.goldNetWorth-a.scoreboard.goldNetWorth);
   const teams=finalizeTeams(players,core.teamSeries);
+  for(const p of players){p.weapon??=undefined;}
   const model={
     version:'DEADLOCK_INSPECTOR_MATCH_MODEL_V04',
     replayName,
@@ -84,7 +98,7 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
       matchDurationSeconds:core.matchEndSeconds,
       replayEndTick:integrated?.replay?.replayEndTick ?? core.lastTick,
       postGameTick:integrated?.replay?.postGameTick ?? null,
-      roster:players.map(p=>pick(p.identity,['playerName','steamId','heroId','team','controllerEntityIndex','pawnEntityIndex'])),
+      roster:players.map(p=>pick(p.identity,['playerId','playerName','steamId','heroId','team','controllerEntityIndex','pawnEntityIndex'])),
     },
     sourceHealth:health,
     productionManifest,
@@ -130,15 +144,20 @@ export async function buildReplayModel({outputRoot,replayName,cacheRoot=null,for
     ]
   };
 
+  model.productionReadiness=await validatePublishedRun(dir,publishedManifest);
+  if(publishedManifest?.inputFingerprint!==currentInputs)model.productionReadiness={available:false,reason:'Replay, code, or resource inputs changed; reprocess this replay.',runId:publishedManifest?.runId??null};
+  attachMetricAvailability(model);
   if (cachePath) {
-    await fs.mkdir(cacheRoot,{recursive:true});
-    await fs.writeFile(cachePath,JSON.stringify({fingerprint,model}));
+    try {
+      await fs.mkdir(cacheRoot,{recursive:true});
+      await fs.writeFile(cachePath,JSON.stringify({fingerprint,model}));
+    } catch(error) { model.cacheWarning=`Model built, but cache could not be saved: ${error.message}`; }
   }
   return model;
 }
 
 async function aggregatePlayerState(path,offset) {
-  const byName=new Map(); let startDemo=Infinity,endDemo=-Infinity,lastTick=0;
+  const byName=new PlayerMap(); let startDemo=Infinity,endDemo=-Infinity,lastTick=0;
   for await (const row of readJsonl(path)) {
     const demoTime=finite(row.demoSeconds ?? row.time) ?? (finite(row.demoTick ?? row.tick)!==null?(row.demoTick??row.tick)/TICKS_PER_SECOND:null);
     if (demoTime===null) continue;
@@ -168,46 +187,51 @@ async function aggregatePlayerState(path,offset) {
     p.averageLifeSeconds=mean(p.survivalIntervals);
     p.totalRespawnDowntimeSeconds=p.respawnIntervals.reduce((a,b)=>a+b.duration,0);
     p.matchMinutes=matchEndSeconds/60;
-    p.netWorthGainPerMinute=safeDiv((p.finalState?.goldNetWorth??0)-(p.initialState?.goldNetWorth??0),p.matchMinutes);
-    p.levelRatePerMinute=safeDiv((p.finalState?.level??0)-(p.initialState?.level??0),p.matchMinutes);
+    p.netWorthGainPerMinute=safeDiv(Number.isFinite(p.finalState?.goldNetWorth)&&Number.isFinite(p.initialState?.goldNetWorth)?p.finalState.goldNetWorth-p.initialState.goldNetWorth:null,p.matchMinutes);
+    p.levelRatePerMinute=safeDiv(Number.isFinite(p.finalState?.level)&&Number.isFinite(p.initialState?.level)?p.finalState.level-p.initialState.level:null,p.matchMinutes);
     p.checkpoints=checkpointStates(p.timeline,CHECKPOINTS);
     players.push(p);
   }
-  const teamSeries=buildTeamSeries(players,matchEndSeconds);
+  const teamSeries=buildTeamSeries(players,matchEndSeconds,offset);
   return {players,startDemoSeconds:Number.isFinite(startDemo)?startDemo:0,endDemoSeconds:Number.isFinite(endDemo)?endDemo:0,matchEndSeconds,lastTick,teamSeries};
 }
 
 function updatePlayer(map,s,demoTime,offset,tick,matchTimeOverride=null) {
   const name=s.playerName ?? s.steamId ?? `controller-${s.controllerEntityIndex}`;
-  let p=map.get(name);
+  const id=playerKey(s);
+  let p=map.get(id);
   if (!p) {
     p={
-      playerName:name, team:s.team??null, heroId:s.heroId??null,
-      identity:{playerName:name,steamId:s.steamId??null,heroId:s.heroId??null,team:s.team??null,controllerEntityIndex:s.controllerEntityIndex??null,pawnEntityIndex:s.heroEntityIndex??null,laneColor:s.laneColor??null},
+      playerId:id, playerName:name, team:s.team??null, heroId:s.heroId??null,
+      identity:{playerId:id,playerName:name,steamId:s.steamId??null,heroId:s.heroId??null,team:s.team??null,controllerEntityIndex:s.controllerEntityIndex??null,pawnEntityIndex:s.heroEntityIndex??null,laneColor:s.laneColor??null},
       initialState:null,finalState:null,prev:null,aliveSeconds:0,deadSeconds:0,low25Seconds:0,low50Seconds:0,
       minHealth:Infinity,maxHealth:-Infinity,minHealthMax:Infinity,maxHealthMax:-Infinity,
       deathsObserved:[],respawnsObserved:[],survivalIntervals:[],respawnIntervals:[],levelTimings:{},scoreboardTimelines:{kills:[],assists:[],lastHits:[],denies:[]},timeline:[],lastSampleMatch:-Infinity,
       lifeStartDemo:null,deathStartDemo:null,
       movementCore:{trajectory:[],trajectorySampleCount:0,acceptedStepCount:0,rejectedJumpCount:0,movementAliveSeconds:0,validMovementSeconds:0,travelDistanceXY:0,travelDistance3D:0,movingSeconds:0,lowMotionSeconds:0}
-    }; map.set(name,p);
+    }; map.set(id,p);
   }
   const matchTime=matchTimeOverride ?? (demoTime-offset); const state=normalizeState(s,tick,demoTime,matchTime);
+  p.identity.pawnEntityIndexes??=[];
+  if(s.heroEntityIndex!=null&&!p.identity.pawnEntityIndexes.includes(s.heroEntityIndex))p.identity.pawnEntityIndexes.push(s.heroEntityIndex);
+  if(matchTime<0){p.prev=state;return;}
+  p.missingFields??={};for(const key of ['alive','health','healthMax','level','kills','deaths','assists','lastHits','denies','goldNetWorth','apNetWorth'])if(state[key]===null)p.missingFields[key]=(p.missingFields[key]??0)+1;
   recordMovementTrajectorySample(p,state);
-  if (!p.initialState) { p.initialState=state; if(state.alive) p.lifeStartDemo=demoTime; else p.deathStartDemo=demoTime; }
+  if (!p.initialState) { p.initialState=state; if(state.alive===true) p.lifeStartDemo=Math.max(offset,p.prev?.demoTime??demoTime); else if(state.alive===false)p.deathStartDemo=Math.max(offset,p.prev?.demoTime??demoTime); }
   if (p.prev) {
     accumulateMovementStep(p,p.prev,state);
     recordScoreboardCounterTransitions(p,p.prev,state);
-    const dt=Math.max(0,demoTime-p.prev.demoTime);
-    if (p.prev.alive) p.aliveSeconds+=dt; else p.deadSeconds+=dt;
-    const ratio=(p.prev.healthMax>0)?p.prev.health/p.prev.healthMax:null;
+    const dt=Math.max(0,demoTime-Math.max(offset,p.prev.demoTime));
+    if (p.prev.alive===true) p.aliveSeconds+=dt; else if(p.prev.alive===false)p.deadSeconds+=dt; else p.unknownStateSeconds=(p.unknownStateSeconds??0)+dt;
+    const ratio=(p.prev.health!==null&&p.prev.healthMax>0)?p.prev.health/p.prev.healthMax:null;
     if (ratio!==null && ratio<0.25) p.low25Seconds+=dt;
     if (ratio!==null && ratio<0.50) p.low50Seconds+=dt;
-    if (p.prev.alive && !state.alive) {
+    if (p.prev.alive===true && state.alive===false) {
       p.deathsObserved.push({tick,time:matchTime,demoTime,health:s.health??null});
       if (p.lifeStartDemo!==null) p.survivalIntervals.push(Math.max(0,demoTime-p.lifeStartDemo));
       p.lifeStartDemo=null; p.deathStartDemo=demoTime;
     }
-    if (!p.prev.alive && state.alive) {
+    if (p.prev.alive===false && state.alive===true) {
       const duration=p.deathStartDemo===null?null:Math.max(0,demoTime-p.deathStartDemo);
       p.respawnsObserved.push({tick,time:matchTime,demoTime,duration});
       if (duration!==null) p.respawnIntervals.push({startDemo:p.deathStartDemo,endDemo:demoTime,duration});
@@ -216,8 +240,8 @@ function updatePlayer(map,s,demoTime,offset,tick,matchTimeOverride=null) {
   }
   if (Number.isFinite(s.health)) {p.minHealth=Math.min(p.minHealth,s.health);p.maxHealth=Math.max(p.maxHealth,s.health);}
   if (Number.isFinite(s.healthMax)){p.minHealthMax=Math.min(p.minHealthMax,s.healthMax);p.maxHealthMax=Math.max(p.maxHealthMax,s.healthMax);}
-  if (s.level!==undefined && p.levelTimings[String(s.level)]===undefined && matchTime>=0) p.levelTimings[String(s.level)]={tick,time:matchTime};
-  if (matchTime>=0 && (matchTime-p.lastSampleMatch>=1 || p.timeline.length===0)) {
+  if (finite(s.level)!==null && p.levelTimings[String(s.level)]===undefined && matchTime>=0) p.levelTimings[String(s.level)]={tick,time:matchTime};
+  if (matchTime>=0) {
     p.timeline.push(compactState(state)); p.lastSampleMatch=matchTime;
   }
   p.prev=state; p.finalState=state;
@@ -228,7 +252,7 @@ function recordScoreboardCounterTransitions(p,previous,current){
   const specs=[['kills','kills'],['assists','assists'],['lastHits','lastHits'],['denies','denies']];
   for(const [key,bucket] of specs){
     const prev=finite(previous?.[key]),cur=finite(current?.[key]);
-    if(prev===null||cur===null||cur<=prev)continue;
+    if(current.matchTime<0||prev===null||cur===null||cur<=prev)continue;
     p.scoreboardTimelines[bucket].push({
       observedSampleTick:current.tick,
       observedMatchTime:current.matchTime,
@@ -240,10 +264,10 @@ function recordScoreboardCounterTransitions(p,previous,current){
 }
 
 function closePlayerIntervals(p,endDemo) {
-  if (!p.prev) return;
+  if (!p.prev||p.prev.matchTime<0) return;
   const dt=Math.max(0,endDemo-p.prev.demoTime);
-  if (p.prev.alive) p.aliveSeconds+=dt; else p.deadSeconds+=dt;
-  const ratio=p.prev.healthMax>0?p.prev.health/p.prev.healthMax:null;
+  if (p.prev.alive===true) p.aliveSeconds+=dt; else if(p.prev.alive===false) p.deadSeconds+=dt; else p.unknownStateSeconds+=dt;
+  const ratio=p.prev.health!==null&&p.prev.healthMax>0?p.prev.health/p.prev.healthMax:null;
   if (ratio!==null && ratio<.25)p.low25Seconds+=dt;if(ratio!==null&&ratio<.5)p.low50Seconds+=dt;
 }
 
@@ -299,9 +323,9 @@ function accumulateMovementStep(p,previous,current){
 }
 
 function normalizeState(s,tick,demoTime,matchTime){return{
-  tick:finite(tick),demoTime,matchTime,alive:Boolean(s.alive),health:finite(s.health),healthMax:finite(s.healthMax),healthRegen:finite(s.healthRegen),
-  level:finite(s.level),kills:finite(s.kills)??0,deaths:finite(s.deaths)??0,assists:finite(s.assists)??0,denies:finite(s.denies)??0,lastHits:finite(s.lastHits)??0,
-  goldNetWorth:finite(s.goldNetWorth)??0,apNetWorth:finite(s.apNetWorth)??0,respawnTime:finite(s.respawnTime),position:movementPosition(s.position),positionValidForMovement:s.positionValidForMovement===true
+  tick:finite(tick),demoTime,matchTime,alive:typeof s.alive==='boolean'?s.alive:null,health:finite(s.health),healthMax:finite(s.healthMax),healthRegen:finite(s.healthRegen),
+  level:finite(s.level),kills:finite(s.kills),deaths:finite(s.deaths),assists:finite(s.assists),denies:finite(s.denies),lastHits:finite(s.lastHits),
+  goldNetWorth:finite(s.goldNetWorth),apNetWorth:finite(s.apNetWorth),respawnTime:finite(s.respawnTime),position:movementPosition(s.position),positionValidForMovement:s.positionValidForMovement===true
 };}
 function compactState(s){return pick(s,['tick','matchTime','alive','health','healthMax','healthRegen','level','kills','deaths','assists','denies','lastHits','goldNetWorth','apNetWorth','respawnTime','position']);}
 
@@ -406,7 +430,7 @@ function applyBehavioral(playerByName,behavioral,resourceFeatures){
 function applyRuntimeMelee(playerByName,runtimeMelee){
   if(runtimeMelee?.status!=='RUNTIME_MELEE_PRODUCTION_V01_READY')return;
   for(const row of runtimeMelee?.players??[]){
-    const p=playerByName.get(row.playerName);if(!p)continue;
+    const p=resolvePlayer(playerByName,row);if(!p)continue;
     const attacks=Number(row.attackCount)||0,hits=Number(row.hitCount)||0,byType=row.byType??{},movementAliveSeconds=Number(p.movementCore?.movementAliveSeconds)||0;
     p.melee={source:'runtime_melee_production_v01.json',attacks,hits,hitRate:safeDiv(hits,attacks),light:Number(byType.LIGHT)||0,heavy:Number(byType.HEAVY)||0,airHeavy:Number(byType.HEAVY_AIR)||0,slide:Number(byType.SLIDE)||0,typeShare:row.typeShare??{},movementAliveSeconds,attacksPerAliveMinute:safeDiv(attacks,movementAliveSeconds/60)};
   }
@@ -445,6 +469,7 @@ function applyRuntimePrimaryFire(playerByName,artifact,legacyWeapon=null){
       meanReadyDelaySeconds:row.readyDelaySeconds?.mean??null,
       medianReadyDelaySeconds:row.readyDelaySeconds?.median??null,
       readyDelaySampleCount:row.readyDelaySeconds?.count??0,
+      nextPrimaryReadyTimeline:row.nextPrimaryReadyTimeline??[],
       lastObservedNextPrimaryReady:row.lastObservedNextPrimaryReady??null,
       lastAttackCorroborationRate:row.lastAttackCorroborationRate??null,
       authority:'runtime_primary_attack_ready_schedule',
@@ -496,11 +521,11 @@ async function aggregateTroopers(path){
 }
 
 function finalizePlayer(p,core){
-  const f=p.finalState??{};const minutes=core.matchEndSeconds>0?core.matchEndSeconds/60:null;const deaths=f.deaths??p.deathsObserved.length;
-  p.scoreboard={kills:f.kills??0,deaths,assists:f.assists??0,lastHits:f.lastHits??0,denies:f.denies??0,timelines:p.scoreboardTimelines,goldNetWorth:f.goldNetWorth??0,apNetWorth:f.apNetWorth??0,
-    kd:safeDiv(f.kills??0,deaths),kda:safeDiv((f.kills??0)+(f.assists??0),deaths),killsPerMinute:safeDiv((f.kills??0),minutes),assistsPerMinute:safeDiv((f.assists??0),minutes),lastHitsPerMinute:safeDiv((f.lastHits??0),minutes),deniesPerMinute:safeDiv((f.denies??0),minutes)};
+  const f=p.finalState??{};const minutes=core.matchEndSeconds>0?core.matchEndSeconds/60:null;const deaths=f.deaths??null;
+  p.scoreboard={kills:f.kills??null,deaths,assists:f.assists??null,lastHits:f.lastHits??null,denies:f.denies??null,timelines:p.scoreboardTimelines,goldNetWorth:f.goldNetWorth??null,apNetWorth:f.apNetWorth??null,
+    kd:safeDiv(f.kills??null,deaths),kda:safeDiv(Number.isFinite(f.kills)&&Number.isFinite(f.assists)?f.kills+f.assists:null,deaths),killsPerMinute:safeDiv((f.kills??null),minutes),assistsPerMinute:safeDiv((f.assists??null),minutes),lastHitsPerMinute:safeDiv((f.lastHits??null),minutes),deniesPerMinute:safeDiv((f.denies??null),minutes)};
   p.core={level:f.level,alive:f.alive,health:f.health,healthMax:f.healthMax,healthPercent:f.healthMax>0?f.health/f.healthMax:null,healthRegen:f.healthRegen,
-    aliveSeconds:p.aliveSeconds,deadSeconds:p.deadSeconds,aliveShare:p.aliveShare,deathsObserved:p.deathsObserved.length,deathTimings:p.deathsObserved,respawns:p.respawnsObserved,
+    unknownStateSeconds:p.unknownStateSeconds??0,aliveSeconds:p.aliveSeconds,deadSeconds:p.deadSeconds,aliveShare:p.aliveShare,deathsObserved:p.deathsObserved.length,deathTimings:p.deathsObserved,respawns:p.respawnsObserved,
     survivalIntervals:p.survivalIntervals,averageLifeSeconds:p.averageLifeSeconds,totalRespawnDowntimeSeconds:p.totalRespawnDowntimeSeconds,
     minHealth:Number.isFinite(p.minHealth)?p.minHealth:null,maxHealth:Number.isFinite(p.maxHealth)?p.maxHealth:null,low25Seconds:p.low25Seconds,low50Seconds:p.low50Seconds,
     levelTimings:p.levelTimings,levelRatePerMinute:p.levelRatePerMinute,netWorthGainPerMinute:p.netWorthGainPerMinute,checkpoints:p.checkpoints};
@@ -512,39 +537,40 @@ function finalizePlayer(p,core){
 function finalizeTeams(players,series){
   const grouped=new Map();for(const p of players){const t=String(p.team);if(!grouped.has(t))grouped.set(t,[]);grouped.get(t).push(p);}
   const finalTeams={};
-  for(const [team,ps] of grouped){finalTeams[team]={team:Number(team),players:ps.map(p=>p.playerName),goldNetWorth:sum(ps,p=>p.scoreboard.goldNetWorth),apNetWorth:sum(ps,p=>p.scoreboard.apNetWorth),level:sum(ps,p=>p.core.level??0),kills:sum(ps,p=>p.scoreboard.kills),deaths:sum(ps,p=>p.scoreboard.deaths),assists:sum(ps,p=>p.scoreboard.assists),lastHits:sum(ps,p=>p.scoreboard.lastHits),denies:sum(ps,p=>p.scoreboard.denies),permanentBuffUnits:sum(ps,p=>p.permanentBuffs?.summary?.totalUnits??0),bridgeUptimeSeconds:sum(ps,p=>(p.bridgeBuffs?.intervals??[]).reduce((a,b)=>a+(b.durationSeconds??0),0))};}
+  for(const [team,ps] of grouped){finalTeams[team]={team:Number(team),players:ps.map(p=>p.playerName),playerIds:ps.map(p=>p.playerId),goldNetWorth:sum(ps,p=>p.scoreboard.goldNetWorth),apNetWorth:sum(ps,p=>p.scoreboard.apNetWorth),level:sum(ps,p=>p.core.level??0),kills:sum(ps,p=>p.scoreboard.kills),deaths:sum(ps,p=>p.scoreboard.deaths),assists:sum(ps,p=>p.scoreboard.assists),lastHits:sum(ps,p=>p.scoreboard.lastHits),denies:sum(ps,p=>p.scoreboard.denies),permanentBuffUnits:sum(ps,p=>p.permanentBuffs?.summary?.totalUnits??0),bridgeUptimeSeconds:sum(ps,p=>(p.bridgeBuffs?.intervals??[]).reduce((a,b)=>a+(b.durationSeconds??0),0))};}
   const teamIds=Object.keys(finalTeams); if(teamIds.length===2){for(const team of teamIds){const other=teamIds.find(x=>x!==team);finalTeams[team].goldNetWorthDiff=finalTeams[team].goldNetWorth-finalTeams[other].goldNetWorth;}}
   const advantage={};for(const team of teamIds)advantage[team]={aheadSeconds:0,behindSeconds:0,tiedSeconds:0,maxLead:0,maxDeficit:0,minDiff:Infinity,maxDiff:-Infinity};
   for(let i=0;i<series.length-1;i++){const row=series[i],next=series[i+1],dt=Math.max(0,next.time-row.time);for(const team of teamIds){const other=teamIds.find(x=>x!==team);if(!other)continue;const diff=(row.teams?.[team]?.goldNetWorth??0)-(row.teams?.[other]?.goldNetWorth??0);const a=advantage[team];if(diff>0)a.aheadSeconds+=dt;else if(diff<0)a.behindSeconds+=dt;else a.tiedSeconds+=dt;a.maxLead=Math.max(a.maxLead,diff);a.maxDeficit=Math.min(a.maxDeficit,diff);a.minDiff=Math.min(a.minDiff,diff);a.maxDiff=Math.max(a.maxDiff,diff);}}
   for(const team of teamIds){advantage[team].largestSwing=(Number.isFinite(advantage[team].maxDiff)&&Number.isFinite(advantage[team].minDiff))?advantage[team].maxDiff-advantage[team].minDiff:null;finalTeams[team].advantage=advantage[team];}
-  const matchRank=[...players].sort((a,b)=>b.scoreboard.goldNetWorth-a.scoreboard.goldNetWorth);matchRank.forEach((p,i)=>p.rank.matchNetWorth=i+1);
-  for(const ps of grouped.values()){[...ps].sort((a,b)=>b.scoreboard.goldNetWorth-a.scoreboard.goldNetWorth).forEach((p,i)=>p.rank.teamNetWorth=i+1);for(const p of ps)p.teamNetWorthShare=safeDiv(p.scoreboard.goldNetWorth,finalTeams[String(p.team)].goldNetWorth);}
+  const matchRank=players.filter(p=>Number.isFinite(p.scoreboard.goldNetWorth)).sort((a,b)=>b.scoreboard.goldNetWorth-a.scoreboard.goldNetWorth);matchRank.forEach((p,i)=>p.rank.matchNetWorth=i+1);
+  for(const ps of grouped.values()){ps.filter(p=>Number.isFinite(p.scoreboard.goldNetWorth)).sort((a,b)=>b.scoreboard.goldNetWorth-a.scoreboard.goldNetWorth).forEach((p,i)=>p.rank.teamNetWorth=i+1);for(const p of ps)p.teamNetWorthShare=safeDiv(p.scoreboard.goldNetWorth,finalTeams[String(p.team)].goldNetWorth);}
   return Object.values(finalTeams);
 }
 
-function buildTeamSeries(players,matchEndSeconds){
+function buildTeamSeries(players,matchEndSeconds,offset){
   const out=[];const end=Math.max(0,Math.floor(matchEndSeconds));
-  const cursors=new Map(players.map(p=>[p.playerName,0]));
-  for(let sec=0;sec<=end;sec++){
+  const cursors=new Map(players.map(p=>[p.playerId,0]));
+  const times=Array.from({length:end+1},(_,i)=>i);if(matchEndSeconds>end)times.push(matchEndSeconds);
+  for(const sec of times){
     const teams={};
     for(const p of players){
-      const tl=p.timeline??[];if(!tl.length)continue;let i=cursors.get(p.playerName)??0;
-      while(i+1<tl.length&&tl[i+1].matchTime<=sec)i++;cursors.set(p.playerName,i);const st=tl[i];
+      const tl=p.timeline??[];if(!tl.length)continue;let i=cursors.get(p.playerId)??0;
+      while(i+1<tl.length&&tl[i+1].matchTime<=sec)i++;cursors.set(p.playerId,i);const st=tl[i];
       if(st.matchTime>sec)continue;
       const team=String(p.team??'unknown');teams[team]??={goldNetWorth:0,apNetWorth:0,level:0,alive:0,players:0};
-      const t=teams[team];t.goldNetWorth+=st.goldNetWorth??0;t.apNetWorth+=st.apNetWorth??0;t.level+=st.level??0;t.alive+=st.alive?1:0;t.players++;
+      const t=teams[team];t.goldNetWorth=t.goldNetWorth!==null&&st.goldNetWorth!==null?t.goldNetWorth+st.goldNetWorth:null;t.apNetWorth=t.apNetWorth!==null&&st.apNetWorth!==null?t.apNetWorth+st.apNetWorth:null;t.level=t.level!==null&&st.level!==null?t.level+st.level:null;t.alive+=st.alive?1:0;t.players++;
     }
-    out.push({time:sec,tick:Math.round((sec+30)*TICKS_PER_SECOND),teams});
+    out.push({time:sec,tick:Math.round((sec+offset)*TICKS_PER_SECOND),teams});
   }
   return out;
 }
 
-function checkpointStates(timeline,points){const out={};for(const sec of points){let best=null;for(const s of timeline){if(s.matchTime<=sec)best=s;else break;}if(best)out[String(sec)]={time:best.matchTime,level:best.level,goldNetWorth:best.goldNetWorth,apNetWorth:best.apNetWorth,kills:best.kills,deaths:best.deaths,assists:best.assists,lastHits:best.lastHits,denies:best.denies,health:best.health,healthMax:best.healthMax};}return out;}
-function finite(v){const n=Number(v);return Number.isFinite(n)?n:null;}
-function safeDiv(a,b){return Number.isFinite(Number(a))&&Number.isFinite(Number(b))&&Number(b)!==0?Number(a)/Number(b):null;}
+function checkpointStates(timeline,points){const out={};for(const sec of points){if(!timeline.length||sec>timeline.at(-1).matchTime)continue;let best=null;for(const s of timeline){if(s.matchTime<=sec)best=s;else break;}if(best)out[String(sec)]={time:best.matchTime,level:best.level,goldNetWorth:best.goldNetWorth,apNetWorth:best.apNetWorth,kills:best.kills,deaths:best.deaths,assists:best.assists,lastHits:best.lastHits,denies:best.denies,health:best.health,healthMax:best.healthMax};}return out;}
+function finite(v){if(v===null||v===undefined||v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null;}
+function safeDiv(a,b){return finite(a)!==null&&finite(b)!==null&&Number(b)!==0?Number(a)/Number(b):null;}
 function mean(a){const b=(a??[]).filter(Number.isFinite);return b.length?b.reduce((x,y)=>x+y,0)/b.length:null;}
 function median(a){const b=(a??[]).filter(Number.isFinite).sort((x,y)=>x-y);if(!b.length)return null;const m=Math.floor(b.length/2);return b.length%2?b[m]:(b[m-1]+b[m])/2;}
-function sum(a,f){return a.reduce((n,x)=>n+(Number(f(x))||0),0);}
+function sum(a,f){const values=a.map(f);return values.every(x=>finite(x)!==null)?values.reduce((n,x)=>n+Number(x),0):null;}
 function inc(o,k){o[k]=(o[k]??0)+1;}
 function pick(o,keys){return Object.fromEntries(keys.map(k=>[k,o?.[k]]));}
 function safeName(s){return String(s).replace(/[^A-Za-z0-9._-]/g,'_');}

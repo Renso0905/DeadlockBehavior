@@ -1,0 +1,528 @@
+{
+  "version": "GROUND_SOUL_NARROW_ISOLATION_VALIDATION_V03",
+  "status": "GROUND_SOUL_NARROW_ISOLATION_VALIDATION_V03_READY",
+  "authorityLayer": "research_validation_B",
+  "validation": {
+    "integrityValidation": "pass",
+    "semanticValidation": "strong_support",
+    "replicationStatus": "cross_replay_supported_5_of_5",
+    "checks": {
+      "expectedReplicationCohortComplete": {
+        "actual": [
+          "rep01",
+          "rep02",
+          "rep03",
+          "rep04",
+          "rep05"
+        ],
+        "expected": [
+          "rep01",
+          "rep02",
+          "rep03",
+          "rep04",
+          "rep05"
+        ],
+        "pass": true
+      },
+      "everyReplayIntegrityPass": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "recoveredCandidateObservedInEveryReplay": {
+        "actual": 5,
+        "expected": 5,
+        "pass": true
+      },
+      "noSameTeamResolutionBoundaryReuseAcrossReplayLocalSets": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "noRecipientTransitionReuseAcrossReplayLocalSets": {
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      "aggregateRadiusSweepMonotonic": {
+        "actual": [
+          3323,
+          3013,
+          2730,
+          2239,
+          1550,
+          665
+        ],
+        "expected": "non-increasing",
+        "pass": true
+      }
+    }
+  },
+  "interpretation": {
+    "result": "CROSS_REPLAY_MECHANICAL_SUPPORT_FOR_EXACT_TICK_SAME_TEAM_ISOLATION",
+    "productionRecommendation": "candidate_for_production_resolver_review_not_promoted",
+    "semanticBoundary": "Even READY means the narrower isolation rule has cross-replay mechanical/semantic support within the existing exact-tick economic-carrier model. It does not itself change the production resolver or A ledger."
+  },
+  "cohort": {
+    "expectedReplayNames": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "presentExpectedReplayNames": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ],
+    "missingExpectedReplayNames": [],
+    "replayCount": 5
+  },
+  "aggregate": {
+    "lifecycleActivations": 9317,
+    "currentResolvedAEvents": 4392,
+    "currentNonisolatedEvents": 3764,
+    "exactTickRecoveredEvents": 3323,
+    "exactTickHypotheticalResolvedTotal": 7715,
+    "combinedRecipientTransitions": 14298,
+    "duplicateSameTeamResolutionBoundaryKeys": 0,
+    "duplicateRecipientTransitionKeys": 0,
+    "exactTickHypotheticalResolvedShareOfLifecycle": 0.8280562412793818,
+    "exactTickRecoveryShareOfNonisolated": 0.8828374070138151
+  },
+  "aggregateSameTeamRadiusSweep": [
+    {
+      "sameTeamIsolationRadiusTicks": 0,
+      "recoveredFromCurrentNonisolated": 3323,
+      "hypotheticalResolvedTotal": 7715,
+      "totalShareOfLifecycle": 0.8280562412793818
+    },
+    {
+      "sameTeamIsolationRadiusTicks": 1,
+      "recoveredFromCurrentNonisolated": 3013,
+      "hypotheticalResolvedTotal": 7405,
+      "totalShareOfLifecycle": 0.7947837286680262
+    },
+    {
+      "sameTeamIsolationRadiusTicks": 2,
+      "recoveredFromCurrentNonisolated": 2730,
+      "hypotheticalResolvedTotal": 7122,
+      "totalShareOfLifecycle": 0.7644091445744339
+    },
+    {
+      "sameTeamIsolationRadiusTicks": 4,
+      "recoveredFromCurrentNonisolated": 2239,
+      "hypotheticalResolvedTotal": 6631,
+      "totalShareOfLifecycle": 0.7117097778254803
+    },
+    {
+      "sameTeamIsolationRadiusTicks": 8,
+      "recoveredFromCurrentNonisolated": 1550,
+      "hypotheticalResolvedTotal": 5942,
+      "totalShareOfLifecycle": 0.6377589352795965
+    },
+    {
+      "sameTeamIsolationRadiusTicks": 16,
+      "recoveredFromCurrentNonisolated": 665,
+      "hypotheticalResolvedTotal": 5057,
+      "totalShareOfLifecycle": 0.5427712783084684
+    }
+  ],
+  "replayResults": [
+    {
+      "replayName": "rep01",
+      "integrityPass": true,
+      "sourceCounts": {
+        "lifecycleActivations": 1619,
+        "currentResolvedAEvents": 785,
+        "currentNonisolatedEvents": 628,
+        "v02DeclaredExactTickPassEvents": 557
+      },
+      "exactTickSameTeamRule": {
+        "recoveredEvents": 557,
+        "hypotheticalResolvedTotal": 1342,
+        "hypotheticalResolvedShareOfLifecycle": 0.8289067325509574,
+        "combinedRecipientTransitions": 2412,
+        "currentAPhysicalTargetInRecipientSetShare": 0.9834394904458599,
+        "recoveredPhysicalTargetInRecipientSetShare": 0.9658886894075404
+      },
+      "sameTeamRadiusSweep": [
+        {
+          "sameTeamIsolationRadiusTicks": 0,
+          "recoveredFromCurrentNonisolated": 557,
+          "hypotheticalResolvedTotal": 1342,
+          "recoveredShareOfNonisolated": 0.8869426751592356,
+          "totalShareOfLifecycle": 0.8289067325509574
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 1,
+          "recoveredFromCurrentNonisolated": 512,
+          "hypotheticalResolvedTotal": 1297,
+          "recoveredShareOfNonisolated": 0.8152866242038217,
+          "totalShareOfLifecycle": 0.8011117974058061
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 2,
+          "recoveredFromCurrentNonisolated": 468,
+          "hypotheticalResolvedTotal": 1253,
+          "recoveredShareOfNonisolated": 0.7452229299363057,
+          "totalShareOfLifecycle": 0.7739345274861026
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 4,
+          "recoveredFromCurrentNonisolated": 385,
+          "hypotheticalResolvedTotal": 1170,
+          "recoveredShareOfNonisolated": 0.6130573248407644,
+          "totalShareOfLifecycle": 0.7226683137739345
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 8,
+          "recoveredFromCurrentNonisolated": 269,
+          "hypotheticalResolvedTotal": 1054,
+          "recoveredShareOfNonisolated": 0.428343949044586,
+          "totalShareOfLifecycle": 0.6510191476219889
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 16,
+          "recoveredFromCurrentNonisolated": 128,
+          "hypotheticalResolvedTotal": 913,
+          "recoveredShareOfNonisolated": 0.20382165605095542,
+          "totalShareOfLifecycle": 0.5639283508338481
+        }
+      ],
+      "nearestSameTeamTerminationDistanceBuckets": {
+        "2_TICKS": 50,
+        "9_TO_16_TICKS": 150,
+        "5_TO_8_TICKS": 126,
+        "0_TICKS": 31,
+        "NO_SAME_TEAM_NEIGHBOR_WITHIN_SOURCE_RADIUS": 136,
+        "3_TO_4_TICKS": 87,
+        "1_TICK": 48
+      }
+    },
+    {
+      "replayName": "rep02",
+      "integrityPass": true,
+      "sourceCounts": {
+        "lifecycleActivations": 1722,
+        "currentResolvedAEvents": 835,
+        "currentNonisolatedEvents": 691,
+        "v02DeclaredExactTickPassEvents": 601
+      },
+      "exactTickSameTeamRule": {
+        "recoveredEvents": 601,
+        "hypotheticalResolvedTotal": 1436,
+        "hypotheticalResolvedShareOfLifecycle": 0.8339140534262486,
+        "combinedRecipientTransitions": 2642,
+        "currentAPhysicalTargetInRecipientSetShare": 0.9748502994011976,
+        "recoveredPhysicalTargetInRecipientSetShare": 0.9767054908485857
+      },
+      "sameTeamRadiusSweep": [
+        {
+          "sameTeamIsolationRadiusTicks": 0,
+          "recoveredFromCurrentNonisolated": 601,
+          "hypotheticalResolvedTotal": 1436,
+          "recoveredShareOfNonisolated": 0.869753979739508,
+          "totalShareOfLifecycle": 0.8339140534262486
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 1,
+          "recoveredFromCurrentNonisolated": 531,
+          "hypotheticalResolvedTotal": 1366,
+          "recoveredShareOfNonisolated": 0.768451519536903,
+          "totalShareOfLifecycle": 0.7932636469221835
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 2,
+          "recoveredFromCurrentNonisolated": 474,
+          "hypotheticalResolvedTotal": 1309,
+          "recoveredShareOfNonisolated": 0.6859623733719248,
+          "totalShareOfLifecycle": 0.7601626016260162
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 4,
+          "recoveredFromCurrentNonisolated": 380,
+          "hypotheticalResolvedTotal": 1215,
+          "recoveredShareOfNonisolated": 0.5499276410998553,
+          "totalShareOfLifecycle": 0.705574912891986
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 8,
+          "recoveredFromCurrentNonisolated": 272,
+          "hypotheticalResolvedTotal": 1107,
+          "recoveredShareOfNonisolated": 0.39363241678726485,
+          "totalShareOfLifecycle": 0.6428571428571429
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 16,
+          "recoveredFromCurrentNonisolated": 118,
+          "hypotheticalResolvedTotal": 953,
+          "recoveredShareOfNonisolated": 0.170767004341534,
+          "totalShareOfLifecycle": 0.5534262485481998
+        }
+      ],
+      "nearestSameTeamTerminationDistanceBuckets": {
+        "2_TICKS": 60,
+        "NO_SAME_TEAM_NEIGHBOR_WITHIN_SOURCE_RADIUS": 129,
+        "1_TICK": 79,
+        "3_TO_4_TICKS": 101,
+        "5_TO_8_TICKS": 119,
+        "9_TO_16_TICKS": 170,
+        "0_TICKS": 33
+      }
+    },
+    {
+      "replayName": "rep03",
+      "integrityPass": true,
+      "sourceCounts": {
+        "lifecycleActivations": 2539,
+        "currentResolvedAEvents": 1139,
+        "currentNonisolatedEvents": 1039,
+        "v02DeclaredExactTickPassEvents": 924
+      },
+      "exactTickSameTeamRule": {
+        "recoveredEvents": 924,
+        "hypotheticalResolvedTotal": 2063,
+        "hypotheticalResolvedShareOfLifecycle": 0.8125246159905475,
+        "combinedRecipientTransitions": 3898,
+        "currentAPhysicalTargetInRecipientSetShare": 0.9771729587357331,
+        "recoveredPhysicalTargetInRecipientSetShare": 0.9718614718614719
+      },
+      "sameTeamRadiusSweep": [
+        {
+          "sameTeamIsolationRadiusTicks": 0,
+          "recoveredFromCurrentNonisolated": 924,
+          "hypotheticalResolvedTotal": 2063,
+          "recoveredShareOfNonisolated": 0.8893166506256015,
+          "totalShareOfLifecycle": 0.8125246159905475
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 1,
+          "recoveredFromCurrentNonisolated": 839,
+          "hypotheticalResolvedTotal": 1978,
+          "recoveredShareOfNonisolated": 0.8075072184793071,
+          "totalShareOfLifecycle": 0.7790468688460024
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 2,
+          "recoveredFromCurrentNonisolated": 761,
+          "hypotheticalResolvedTotal": 1900,
+          "recoveredShareOfNonisolated": 0.7324350336862367,
+          "totalShareOfLifecycle": 0.7483261126427727
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 4,
+          "recoveredFromCurrentNonisolated": 635,
+          "hypotheticalResolvedTotal": 1774,
+          "recoveredShareOfNonisolated": 0.6111645813282002,
+          "totalShareOfLifecycle": 0.6987002756990941
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 8,
+          "recoveredFromCurrentNonisolated": 434,
+          "hypotheticalResolvedTotal": 1573,
+          "recoveredShareOfNonisolated": 0.4177093358999038,
+          "totalShareOfLifecycle": 0.619535250098464
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 16,
+          "recoveredFromCurrentNonisolated": 160,
+          "hypotheticalResolvedTotal": 1299,
+          "recoveredShareOfNonisolated": 0.15399422521655437,
+          "totalShareOfLifecycle": 0.511618747538401
+        }
+      ],
+      "nearestSameTeamTerminationDistanceBuckets": {
+        "9_TO_16_TICKS": 295,
+        "2_TICKS": 82,
+        "NO_SAME_TEAM_NEIGHBOR_WITHIN_SOURCE_RADIUS": 173,
+        "1_TICK": 86,
+        "5_TO_8_TICKS": 212,
+        "3_TO_4_TICKS": 140,
+        "0_TICKS": 51
+      }
+    },
+    {
+      "replayName": "rep04",
+      "integrityPass": true,
+      "sourceCounts": {
+        "lifecycleActivations": 1696,
+        "currentResolvedAEvents": 806,
+        "currentNonisolatedEvents": 642,
+        "v02DeclaredExactTickPassEvents": 570
+      },
+      "exactTickSameTeamRule": {
+        "recoveredEvents": 570,
+        "hypotheticalResolvedTotal": 1376,
+        "hypotheticalResolvedShareOfLifecycle": 0.8113207547169812,
+        "combinedRecipientTransitions": 2488,
+        "currentAPhysicalTargetInRecipientSetShare": 0.9727047146401985,
+        "recoveredPhysicalTargetInRecipientSetShare": 0.9631578947368421
+      },
+      "sameTeamRadiusSweep": [
+        {
+          "sameTeamIsolationRadiusTicks": 0,
+          "recoveredFromCurrentNonisolated": 570,
+          "hypotheticalResolvedTotal": 1376,
+          "recoveredShareOfNonisolated": 0.8878504672897196,
+          "totalShareOfLifecycle": 0.8113207547169812
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 1,
+          "recoveredFromCurrentNonisolated": 529,
+          "hypotheticalResolvedTotal": 1335,
+          "recoveredShareOfNonisolated": 0.82398753894081,
+          "totalShareOfLifecycle": 0.7871462264150944
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 2,
+          "recoveredFromCurrentNonisolated": 492,
+          "hypotheticalResolvedTotal": 1298,
+          "recoveredShareOfNonisolated": 0.7663551401869159,
+          "totalShareOfLifecycle": 0.7653301886792453
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 4,
+          "recoveredFromCurrentNonisolated": 411,
+          "hypotheticalResolvedTotal": 1217,
+          "recoveredShareOfNonisolated": 0.6401869158878505,
+          "totalShareOfLifecycle": 0.7175707547169812
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 8,
+          "recoveredFromCurrentNonisolated": 273,
+          "hypotheticalResolvedTotal": 1079,
+          "recoveredShareOfNonisolated": 0.4252336448598131,
+          "totalShareOfLifecycle": 0.6362028301886793
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 16,
+          "recoveredFromCurrentNonisolated": 112,
+          "hypotheticalResolvedTotal": 918,
+          "recoveredShareOfNonisolated": 0.17445482866043613,
+          "totalShareOfLifecycle": 0.5412735849056604
+        }
+      ],
+      "nearestSameTeamTerminationDistanceBuckets": {
+        "NO_SAME_TEAM_NEIGHBOR_WITHIN_SOURCE_RADIUS": 120,
+        "9_TO_16_TICKS": 177,
+        "5_TO_8_TICKS": 152,
+        "1_TICK": 42,
+        "3_TO_4_TICKS": 91,
+        "2_TICKS": 39,
+        "0_TICKS": 21
+      }
+    },
+    {
+      "replayName": "rep05",
+      "integrityPass": true,
+      "sourceCounts": {
+        "lifecycleActivations": 1741,
+        "currentResolvedAEvents": 827,
+        "currentNonisolatedEvents": 764,
+        "v02DeclaredExactTickPassEvents": 671
+      },
+      "exactTickSameTeamRule": {
+        "recoveredEvents": 671,
+        "hypotheticalResolvedTotal": 1498,
+        "hypotheticalResolvedShareOfLifecycle": 0.8604250430786904,
+        "combinedRecipientTransitions": 2858,
+        "currentAPhysicalTargetInRecipientSetShare": 0.9794437726723095,
+        "recoveredPhysicalTargetInRecipientSetShare": 0.9806259314456036
+      },
+      "sameTeamRadiusSweep": [
+        {
+          "sameTeamIsolationRadiusTicks": 0,
+          "recoveredFromCurrentNonisolated": 671,
+          "hypotheticalResolvedTotal": 1498,
+          "recoveredShareOfNonisolated": 0.8782722513089005,
+          "totalShareOfLifecycle": 0.8604250430786904
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 1,
+          "recoveredFromCurrentNonisolated": 602,
+          "hypotheticalResolvedTotal": 1429,
+          "recoveredShareOfNonisolated": 0.7879581151832461,
+          "totalShareOfLifecycle": 0.8207926479035037
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 2,
+          "recoveredFromCurrentNonisolated": 535,
+          "hypotheticalResolvedTotal": 1362,
+          "recoveredShareOfNonisolated": 0.7002617801047121,
+          "totalShareOfLifecycle": 0.7823090178058587
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 4,
+          "recoveredFromCurrentNonisolated": 428,
+          "hypotheticalResolvedTotal": 1255,
+          "recoveredShareOfNonisolated": 0.5602094240837696,
+          "totalShareOfLifecycle": 0.7208500861573808
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 8,
+          "recoveredFromCurrentNonisolated": 302,
+          "hypotheticalResolvedTotal": 1129,
+          "recoveredShareOfNonisolated": 0.39528795811518325,
+          "totalShareOfLifecycle": 0.6484778862722573
+        },
+        {
+          "sameTeamIsolationRadiusTicks": 16,
+          "recoveredFromCurrentNonisolated": 147,
+          "hypotheticalResolvedTotal": 974,
+          "recoveredShareOfNonisolated": 0.19240837696335078,
+          "totalShareOfLifecycle": 0.55944859276278
+        }
+      ],
+      "nearestSameTeamTerminationDistanceBuckets": {
+        "NO_SAME_TEAM_NEIGHBOR_WITHIN_SOURCE_RADIUS": 155,
+        "9_TO_16_TICKS": 161,
+        "5_TO_8_TICKS": 131,
+        "3_TO_4_TICKS": 112,
+        "1_TICK": 74,
+        "2_TICKS": 70,
+        "0_TICKS": 61
+      }
+    }
+  ],
+  "pooledNearestSameTeamTerminationDistanceBuckets": {
+    "2_TICKS": 301,
+    "9_TO_16_TICKS": 953,
+    "5_TO_8_TICKS": 740,
+    "0_TICKS": 197,
+    "NO_SAME_TEAM_NEIGHBOR_WITHIN_SOURCE_RADIUS": 713,
+    "3_TO_4_TICKS": 531,
+    "1_TICK": 329
+  },
+  "pooledRecoveredCollisionClassCounts": {
+    "NEARBY_DIFFERENT_TICK_SAME_TEAM": 2321,
+    "NEARBY_DIFFERENT_TICK_OTHER_TEAM_ONLY": 640,
+    "SAME_TICK_OTHER_TEAM_ONLY": 25,
+    "NEARBY_DIFFERENT_TICK_MIXED_TEAM": 326,
+    "SAME_TICK_OTHER_TEAM_PLUS_NEARBY_SAME_TEAM": 11
+  },
+  "createdAt": "2026-09-10T20:22:27.239Z",
+  "inputs": {
+    "requiredPerReplay": [
+      "ground_soul_economic_coverage_audit_v01.json",
+      "ground_soul_economic_coverage_audit_events_v01.jsonl",
+      "ground_soul_collision_resolution_audit_v02.json",
+      "ground_soul_collision_resolution_audit_events_v02.jsonl"
+    ],
+    "replicationCohort": [
+      "rep01",
+      "rep02",
+      "rep03",
+      "rep04",
+      "rep05"
+    ]
+  },
+  "authorityBoundary": {
+    "currentALedger": "77/77 unchanged by this validation script",
+    "productionResolver": "unchanged; runtime-assigned-gold-economic-credit.mjs is not modified",
+    "nextDecision": "If V03 is READY, review the exact-tick same-team isolation rule for a separate production promotion patch rather than silently changing A attribution here."
+  }
+}

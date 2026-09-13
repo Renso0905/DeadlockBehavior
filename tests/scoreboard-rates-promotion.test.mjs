@@ -183,22 +183,22 @@ test('runtime scoreboard rates use literal safe division by observed match minut
 
   assert.match(
     replayModel,
-    /killsPerMinute:safeDiv\(\(f\.kills\?\?0\),minutes\)/
+    /killsPerMinute:safeDiv\(\(f\.kills\?\?null\),minutes\)/
   );
 
   assert.match(
     replayModel,
-    /assistsPerMinute:safeDiv\(\(f\.assists\?\?0\),minutes\)/
+    /assistsPerMinute:safeDiv\(\(f\.assists\?\?null\),minutes\)/
   );
 
   assert.match(
     replayModel,
-    /lastHitsPerMinute:safeDiv\(\(f\.lastHits\?\?0\),minutes\)/
+    /lastHitsPerMinute:safeDiv\(\(f\.lastHits\?\?null\),minutes\)/
   );
 
   assert.match(
     replayModel,
-    /deniesPerMinute:safeDiv\(\(f\.denies\?\?0\),minutes\)/
+    /deniesPerMinute:safeDiv\(\(f\.denies\?\?null\),minutes\)/
   );
 
   assert.doesNotMatch(
@@ -212,7 +212,7 @@ test('Authoritative Stats exposes all four scoreboard rates', () => {
     fs.readFileSync(
       path.resolve(
         __dirname,
-        '../inspector-v04/public/authoritative.js'
+        '../inspector-v04/public/metric-values.mjs'
       ),
       'utf8'
     );

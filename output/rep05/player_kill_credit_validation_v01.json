@@ -1,0 +1,785 @@
+{
+  "version": "PLAYER_KILL_CREDIT_VALIDATION_V01",
+  "canonical": false,
+  "replay": "rep05",
+  "success": true,
+  "status": "RESEARCH_EVIDENCE_EXTRACTED",
+  "createdAt": "2026-09-11T03:34:02.012Z",
+  "purpose": [
+    "Test whether CCitadelPlayerController.m_iPlayerKills behaves as player kill credit using independent terminal player-damage telemetry.",
+    "Use the independently validated m_iDeaths counter only to confirm that a terminal damage observation belongs to a scored victim death before testing attacker kill credit.",
+    "Treat direct enemy player-pawn attacker attribution as a high-specificity semantic subset; do not infer ownership for unresolved projectile, summon, pet, DoT, or environment attackers.",
+    "Preserve unmatched evidence and shifted-time placebo rates rather than forcing a semantic interpretation."
+  ],
+  "policy": {
+    "matchWindowTicks": 32,
+    "matchWindowSeconds": 0.5,
+    "terminalDamageSignal": "victimHealthNew <= 0",
+    "fatalGrouping": "same victim pawn + exact replay tick",
+    "highConfidenceAttacker": "exactly one resolved enemy player-pawn attacker and no conflicting resolved self/friendly/player attacker in the fatal group",
+    "victimDeathConfirmation": "one-to-one nearest m_iDeaths positive counter credit within match window",
+    "killCreditTest": "one-to-one nearest m_iPlayerKills positive counter credit for the resolved attacker within match window",
+    "batchedCounterDeltaPolicy": "positive delta N expands to N same-tick credit slots",
+    "placeboShiftsSeconds": [
+      10,
+      30
+    ],
+    "promotionPolicy": "NO_AUTOMATIC_PROMOTION_FROM_THIS_SCRIPT"
+  },
+  "telemetry": {
+    "entityPackets": 157944,
+    "entityEvents": 10075353,
+    "controllerEvents": 340008,
+    "messagePackets": 3313483,
+    "damageLikeMessages": 137592,
+    "playerVictimTerminalDamageMessages": 158,
+    "unresolvedVictimTerminalDamageMessages": 41107
+  },
+  "integrityValidation": {
+    "status": "pass",
+    "counterRegressions": 0,
+    "nonZeroInitialCounterObservations": 0,
+    "examples": {
+      "counterRegressions": [],
+      "nonZeroInitialCounterObservations": []
+    }
+  },
+  "counts": {
+    "playersObserved": 12,
+    "killCounterTransitions": 99,
+    "scoreboardKillCredits": 99,
+    "deathCounterTransitions": 100,
+    "scoreboardDeathCredits": 100,
+    "terminalPlayerDamageMessages": 158,
+    "fatalDamageGroups": 105,
+    "directEnemyFatalGroups": 98,
+    "deathConfirmedDirectEnemyFatalAnchors": 93,
+    "anchorsMatchedToAttackerKillCredit": 93,
+    "anchorsUnmatchedToAttackerKillCredit": 0,
+    "killCreditsNotSupportedByDirectFatalAnchor": 6,
+    "placeboMatches10s": 3,
+    "placeboMatches30s": 0
+  },
+  "fatalGroupClassification": {
+    "DIRECT_ENEMY_PLAYER": 98,
+    "UNRESOLVED_ATTACKER": 7
+  },
+  "evidence": {
+    "directFatalVictimDeathAgreement": 0.9489795918367347,
+    "directFatalAnchorKillAgreement": 1,
+    "scoreboardKillCreditsSupportedByDirectFatalAnchor": 0.9393939393939394,
+    "placeboAgreement10s": 0.03225806451612903,
+    "placeboAgreement30s": 0,
+    "killMatchTickResiduals": {
+      "n": 93,
+      "minTicks": 0,
+      "medianTicks": 0,
+      "maxTicks": 0,
+      "meanAbsTicks": 0,
+      "medianAbsTicks": 0
+    },
+    "deathMatchTickResiduals": {
+      "n": 93,
+      "minTicks": 0,
+      "medianTicks": 0,
+      "maxTicks": 0,
+      "meanAbsTicks": 0,
+      "medianAbsTicks": 0
+    }
+  },
+  "unmatched": {
+    "directEnemyFatalWithoutVictimDeathCredit": [
+      {
+        "id": "fatal|77|100407",
+        "tick": 100407,
+        "victimIndex": 77,
+        "victimPlayer": {
+          "controllerEntityIndex": 2,
+          "pawnEntityIndex": 77,
+          "playerName": "Aleister",
+          "team": 3,
+          "heroId": 50,
+          "playerSlot": null,
+          "steamId": "76561198307535491"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 13,
+          "pawnEntityIndex": 95,
+          "playerName": "FlameHead58",
+          "team": 2,
+          "heroId": 27,
+          "playerSlot": null,
+          "steamId": "76561199007206598"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 2,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 95,
+            "playerName": "FlameHead58",
+            "team": 2,
+            "heroId": 27,
+            "playerSlot": null,
+            "steamId": "76561199007206598"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 100407,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 77,
+            "attackerIndex": 95,
+            "victimHealthNew": -33,
+            "victimPlayer": {
+              "controllerEntityIndex": 2,
+              "pawnEntityIndex": 77,
+              "playerName": "Aleister",
+              "team": 3,
+              "heroId": 50,
+              "playerSlot": null,
+              "steamId": "76561198307535491"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 13,
+              "pawnEntityIndex": 95,
+              "playerName": "FlameHead58",
+              "team": 2,
+              "heroId": 27,
+              "playerSlot": null,
+              "steamId": "76561199007206598"
+            },
+            "damage": 250,
+            "abilityId": 2366960452,
+            "entindexAbility": 2722,
+            "entindexInflictor": 95
+          },
+          {
+            "tick": 100407,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 77,
+            "attackerIndex": 95,
+            "victimHealthNew": -54,
+            "victimPlayer": {
+              "controllerEntityIndex": 2,
+              "pawnEntityIndex": 77,
+              "playerName": "Aleister",
+              "team": 3,
+              "heroId": 50,
+              "playerSlot": null,
+              "steamId": "76561198307535491"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 13,
+              "pawnEntityIndex": 95,
+              "playerName": "FlameHead58",
+              "team": 2,
+              "heroId": 27,
+              "playerSlot": null,
+              "steamId": "76561199007206598"
+            },
+            "damage": 21,
+            "abilityId": 2121044373,
+            "entindexAbility": 3250,
+            "entindexInflictor": 95
+          }
+        ]
+      },
+      {
+        "id": "fatal|93|106543",
+        "tick": 106543,
+        "victimIndex": 93,
+        "victimPlayer": {
+          "controllerEntityIndex": 10,
+          "pawnEntityIndex": 93,
+          "playerName": "Dolan_161",
+          "team": 3,
+          "heroId": 25,
+          "playerSlot": null,
+          "steamId": "76561198047054872"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 13,
+          "pawnEntityIndex": 95,
+          "playerName": "FlameHead58",
+          "team": 2,
+          "heroId": 27,
+          "playerSlot": null,
+          "steamId": "76561199007206598"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 2,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 95,
+            "playerName": "FlameHead58",
+            "team": 2,
+            "heroId": 27,
+            "playerSlot": null,
+            "steamId": "76561199007206598"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 106543,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 93,
+            "attackerIndex": 95,
+            "victimHealthNew": -97,
+            "victimPlayer": {
+              "controllerEntityIndex": 10,
+              "pawnEntityIndex": 93,
+              "playerName": "Dolan_161",
+              "team": 3,
+              "heroId": 25,
+              "playerSlot": null,
+              "steamId": "76561198047054872"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 13,
+              "pawnEntityIndex": 95,
+              "playerName": "FlameHead58",
+              "team": 2,
+              "heroId": 27,
+              "playerSlot": null,
+              "steamId": "76561199007206598"
+            },
+            "damage": 753,
+            "abilityId": 3255651252,
+            "entindexAbility": 2720,
+            "entindexInflictor": 95
+          },
+          {
+            "tick": 106543,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 93,
+            "attackerIndex": 95,
+            "victimHealthNew": -101,
+            "victimPlayer": {
+              "controllerEntityIndex": 10,
+              "pawnEntityIndex": 93,
+              "playerName": "Dolan_161",
+              "team": 3,
+              "heroId": 25,
+              "playerSlot": null,
+              "steamId": "76561198047054872"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 13,
+              "pawnEntityIndex": 95,
+              "playerName": "FlameHead58",
+              "team": 2,
+              "heroId": 27,
+              "playerSlot": null,
+              "steamId": "76561199007206598"
+            },
+            "damage": 4,
+            "abilityId": 2121044373,
+            "entindexAbility": 3250,
+            "entindexInflictor": 95
+          }
+        ]
+      },
+      {
+        "id": "fatal|88|108531",
+        "tick": 108531,
+        "victimIndex": 88,
+        "victimPlayer": {
+          "controllerEntityIndex": 5,
+          "pawnEntityIndex": 88,
+          "playerName": "renso",
+          "team": 3,
+          "heroId": 35,
+          "playerSlot": null,
+          "steamId": "76561198107069146"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 12,
+          "pawnEntityIndex": 85,
+          "playerName": "Spk",
+          "team": 2,
+          "heroId": 81,
+          "playerSlot": null,
+          "steamId": "76561198306286724"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 2,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 12,
+            "pawnEntityIndex": 85,
+            "playerName": "Spk",
+            "team": 2,
+            "heroId": 81,
+            "playerSlot": null,
+            "steamId": "76561198306286724"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 108531,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 88,
+            "attackerIndex": 85,
+            "victimHealthNew": -75,
+            "victimPlayer": {
+              "controllerEntityIndex": 5,
+              "pawnEntityIndex": 88,
+              "playerName": "renso",
+              "team": 3,
+              "heroId": 35,
+              "playerSlot": null,
+              "steamId": "76561198107069146"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 12,
+              "pawnEntityIndex": 85,
+              "playerName": "Spk",
+              "team": 2,
+              "heroId": 81,
+              "playerSlot": null,
+              "steamId": "76561198306286724"
+            },
+            "damage": 107,
+            "abilityId": 3443575800,
+            "entindexAbility": 2639,
+            "entindexInflictor": 85
+          },
+          {
+            "tick": 108531,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 88,
+            "attackerIndex": 85,
+            "victimHealthNew": -94,
+            "victimPlayer": {
+              "controllerEntityIndex": 5,
+              "pawnEntityIndex": 88,
+              "playerName": "renso",
+              "team": 3,
+              "heroId": 35,
+              "playerSlot": null,
+              "steamId": "76561198107069146"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 12,
+              "pawnEntityIndex": 85,
+              "playerName": "Spk",
+              "team": 2,
+              "heroId": 81,
+              "playerSlot": null,
+              "steamId": "76561198306286724"
+            },
+            "damage": 19,
+            "abilityId": 3005970438,
+            "entindexAbility": 3220,
+            "entindexInflictor": 85
+          }
+        ]
+      },
+      {
+        "id": "fatal|86|138824",
+        "tick": 138824,
+        "victimIndex": 86,
+        "victimPlayer": {
+          "controllerEntityIndex": 9,
+          "pawnEntityIndex": 86,
+          "playerName": "Mirzero",
+          "team": 2,
+          "heroId": 11,
+          "playerSlot": null,
+          "steamId": "76561197960960996"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 7,
+          "pawnEntityIndex": 78,
+          "playerName": "Jack",
+          "team": 3,
+          "heroId": 19,
+          "playerSlot": null,
+          "steamId": "76561198300773879"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 1,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 7,
+            "pawnEntityIndex": 78,
+            "playerName": "Jack",
+            "team": 3,
+            "heroId": 19,
+            "playerSlot": null,
+            "steamId": "76561198300773879"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 138824,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 86,
+            "attackerIndex": 78,
+            "victimHealthNew": -12,
+            "victimPlayer": {
+              "controllerEntityIndex": 9,
+              "pawnEntityIndex": 86,
+              "playerName": "Mirzero",
+              "team": 2,
+              "heroId": 11,
+              "playerSlot": null,
+              "steamId": "76561197960960996"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 7,
+              "pawnEntityIndex": 78,
+              "playerName": "Jack",
+              "team": 3,
+              "heroId": 19,
+              "playerSlot": null,
+              "steamId": "76561198300773879"
+            },
+            "damage": 29,
+            "abilityId": 3005970438,
+            "entindexAbility": 3425,
+            "entindexInflictor": 78
+          }
+        ]
+      },
+      {
+        "id": "fatal|77|155501",
+        "tick": 155501,
+        "victimIndex": 77,
+        "victimPlayer": {
+          "controllerEntityIndex": 2,
+          "pawnEntityIndex": 77,
+          "playerName": "Aleister",
+          "team": 3,
+          "heroId": 50,
+          "playerSlot": null,
+          "steamId": "76561198307535491"
+        },
+        "attackerPlayer": {
+          "controllerEntityIndex": 13,
+          "pawnEntityIndex": 95,
+          "playerName": "FlameHead58",
+          "team": 2,
+          "heroId": 27,
+          "playerSlot": null,
+          "steamId": "76561199007206598"
+        },
+        "classification": "DIRECT_ENEMY_PLAYER",
+        "terminalMessageCount": 2,
+        "unresolvedAttackerMessageCount": 0,
+        "resolvedAttackers": [
+          {
+            "controllerEntityIndex": 13,
+            "pawnEntityIndex": 95,
+            "playerName": "FlameHead58",
+            "team": 2,
+            "heroId": 27,
+            "playerSlot": null,
+            "steamId": "76561199007206598"
+          }
+        ],
+        "messages": [
+          {
+            "tick": 155501,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 77,
+            "attackerIndex": 95,
+            "victimHealthNew": -705,
+            "victimPlayer": {
+              "controllerEntityIndex": 2,
+              "pawnEntityIndex": 77,
+              "playerName": "Aleister",
+              "team": 3,
+              "heroId": 50,
+              "playerSlot": null,
+              "steamId": "76561198307535491"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 13,
+              "pawnEntityIndex": 95,
+              "playerName": "FlameHead58",
+              "team": 2,
+              "heroId": 27,
+              "playerSlot": null,
+              "steamId": "76561199007206598"
+            },
+            "damage": 919,
+            "abilityId": 3255651252,
+            "entindexAbility": 2720,
+            "entindexInflictor": 95
+          },
+          {
+            "tick": 155501,
+            "messageType": "k_EUserMsg_Damage",
+            "victimIndex": 77,
+            "attackerIndex": 95,
+            "victimHealthNew": -705,
+            "victimPlayer": {
+              "controllerEntityIndex": 2,
+              "pawnEntityIndex": 77,
+              "playerName": "Aleister",
+              "team": 3,
+              "heroId": 50,
+              "playerSlot": null,
+              "steamId": "76561198307535491"
+            },
+            "attackerPlayer": {
+              "controllerEntityIndex": 13,
+              "pawnEntityIndex": 95,
+              "playerName": "FlameHead58",
+              "team": 2,
+              "heroId": 27,
+              "playerSlot": null,
+              "steamId": "76561199007206598"
+            },
+            "damage": 0,
+            "abilityId": 2121044373,
+            "entindexAbility": 3250,
+            "entindexInflictor": 95
+          }
+        ]
+      }
+    ],
+    "deathConfirmedAnchorWithoutAttackerKillCredit": [],
+    "killCreditsWithoutDirectFatalAnchor": [
+      {
+        "id": "kill|4|29456|0",
+        "kind": "kill",
+        "tick": 29456,
+        "controllerEntityIndex": 4,
+        "pawnEntityIndex": 80,
+        "playerName": "Ghostt",
+        "team": 2,
+        "heroId": 13,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      },
+      {
+        "id": "kill|2|32035|0",
+        "kind": "kill",
+        "tick": 32035,
+        "controllerEntityIndex": 2,
+        "pawnEntityIndex": 77,
+        "playerName": "Aleister",
+        "team": 3,
+        "heroId": 50,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      },
+      {
+        "id": "kill|12|43417|0",
+        "kind": "kill",
+        "tick": 43417,
+        "controllerEntityIndex": 12,
+        "pawnEntityIndex": 85,
+        "playerName": "Spk",
+        "team": 2,
+        "heroId": 81,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      },
+      {
+        "id": "kill|4|70148|0",
+        "kind": "kill",
+        "tick": 70148,
+        "controllerEntityIndex": 4,
+        "pawnEntityIndex": 80,
+        "playerName": "Ghostt",
+        "team": 2,
+        "heroId": 13,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      },
+      {
+        "id": "kill|3|84558|0",
+        "kind": "kill",
+        "tick": 84558,
+        "controllerEntityIndex": 3,
+        "pawnEntityIndex": 92,
+        "playerName": "Sugon",
+        "team": 3,
+        "heroId": 31,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      },
+      {
+        "id": "kill|4|155111|0",
+        "kind": "kill",
+        "tick": 155111,
+        "controllerEntityIndex": 4,
+        "pawnEntityIndex": 80,
+        "playerName": "Ghostt",
+        "team": 2,
+        "heroId": 13,
+        "transitionDelta": 1,
+        "ordinalWithinTransition": 1
+      }
+    ]
+  },
+  "finalCounters": [
+    {
+      "controllerEntityIndex": 13,
+      "pawnEntityIndex": 95,
+      "playerName": "FlameHead58",
+      "team": 2,
+      "heroId": 27,
+      "playerSlot": null,
+      "steamId": "76561199007206598",
+      "kills": 11,
+      "deaths": 9,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 4,
+      "pawnEntityIndex": 80,
+      "playerName": "Ghostt",
+      "team": 2,
+      "heroId": 13,
+      "playerSlot": null,
+      "steamId": "76561198370355602",
+      "kills": 16,
+      "deaths": 4,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 8,
+      "pawnEntityIndex": 94,
+      "playerName": "JustJorsh",
+      "team": 2,
+      "heroId": 4,
+      "playerSlot": null,
+      "steamId": "76561198123784134",
+      "kills": 10,
+      "deaths": 6,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 9,
+      "pawnEntityIndex": 86,
+      "playerName": "Mirzero",
+      "team": 2,
+      "heroId": 11,
+      "playerSlot": null,
+      "steamId": "76561197960960996",
+      "kills": 8,
+      "deaths": 4,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 11,
+      "pawnEntityIndex": 82,
+      "playerName": "Senor watermelon",
+      "team": 2,
+      "heroId": 60,
+      "playerSlot": null,
+      "steamId": "76561199437907897",
+      "kills": 7,
+      "deaths": 10,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 12,
+      "pawnEntityIndex": 85,
+      "playerName": "Spk",
+      "team": 2,
+      "heroId": 81,
+      "playerSlot": null,
+      "steamId": "76561198306286724",
+      "kills": 5,
+      "deaths": 10,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 6,
+      "pawnEntityIndex": 84,
+      "playerName": "ACE_Lazzy",
+      "team": 3,
+      "heroId": 63,
+      "playerSlot": null,
+      "steamId": "76561199322325405",
+      "kills": 6,
+      "deaths": 11,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 2,
+      "pawnEntityIndex": 77,
+      "playerName": "Aleister",
+      "team": 3,
+      "heroId": 50,
+      "playerSlot": null,
+      "steamId": "76561198307535491",
+      "kills": 6,
+      "deaths": 16,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 10,
+      "pawnEntityIndex": 93,
+      "playerName": "Dolan_161",
+      "team": 3,
+      "heroId": 25,
+      "playerSlot": null,
+      "steamId": "76561198047054872",
+      "kills": 6,
+      "deaths": 11,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 7,
+      "pawnEntityIndex": 78,
+      "playerName": "Jack",
+      "team": 3,
+      "heroId": 19,
+      "playerSlot": null,
+      "steamId": "76561198300773879",
+      "kills": 11,
+      "deaths": 6,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 5,
+      "pawnEntityIndex": 88,
+      "playerName": "renso",
+      "team": 3,
+      "heroId": 35,
+      "playerSlot": null,
+      "steamId": "76561198107069146",
+      "kills": 8,
+      "deaths": 5,
+      "tick": 157441
+    },
+    {
+      "controllerEntityIndex": 3,
+      "pawnEntityIndex": 92,
+      "playerName": "Sugon",
+      "team": 3,
+      "heroId": 31,
+      "playerSlot": null,
+      "steamId": "76561197980274031",
+      "kills": 5,
+      "deaths": 8,
+      "tick": 157441
+    }
+  ],
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\rep05\\player_kill_credit_validation_v01.json",
+    "anchors": "G:\\DeadlockBehavior\\output\\rep05\\player_kill_credit_anchors_v01.jsonl"
+  },
+  "interpretationBoundary": {
+    "supportedIfAgreementIsHigh": "Direct enemy player-pawn terminal damage that produces a scored victim death is followed by kill-credit increments on the resolved attacker.",
+    "notEstablishedByThisScript": [
+      "That every m_iPlayerKills credit is caused by a directly attributed player-pawn damage packet.",
+      "Ownership attribution for projectile, summon, pet, DoT, reflected, environmental, or other indirect damage.",
+      "Assist semantics.",
+      "Last-hit or deny semantics.",
+      "Production/A-tier status."
+    ]
+  }
+}

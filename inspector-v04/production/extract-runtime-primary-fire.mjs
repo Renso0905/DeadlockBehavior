@@ -81,7 +81,7 @@ parser.registerPostInterceptor(InterceptorStage.ENTITY_PACKET,(demoPacket,messag
     if (event.operation===EntityOperation.CREATE || !previous) continue;
 
     const transition=deriveDischargeTransition(previous,current,{tick,demoSeconds:tick===null?null:tick/TICKS_PER_SECOND,matchClockOffsetSeconds});
-    if (!transition) continue;
+    if (!transition || tick/TICKS_PER_SECOND-matchClockOffsetSeconds<0) continue;
     positiveShotTransitions++;
     if (!player) { unlinkedDischargeUnits+=transition.dischargeUnits; continue; }
     if (!transition.lastAttackTimeAdvancedSameTick) nonCorroboratedDischargeUnits+=transition.dischargeUnits;
@@ -172,12 +172,12 @@ async function loadPlayerState(path){
     p.playerName=name??p.playerName;p.steamId=c.steamId??p.steamId;p.heroId=c.heroId??p.heroId;p.team=c.team??p.team;
     const pawnIndex=finite(pawn.entityIndex);if(pawnIndex!==null)p.pawnEntityIndexes.add(pawnIndex);
     const ds=finite(r.demoSeconds)??(finite(r.demoTick)!==null?Number(r.demoTick)/TICKS_PER_SECOND:null);
-    if(ds!==null&&p.lastDemoSeconds!==null&&ds>=p.lastDemoSeconds&&p.lastAlive===true)p.aliveSeconds+=ds-p.lastDemoSeconds;
+    if(ds!==null&&p.lastDemoSeconds!==null&&ds>=p.lastDemoSeconds&&p.lastAlive===true)p.aliveSeconds+=Math.max(0,ds-Math.max(matchClockOffsetSeconds,p.lastDemoSeconds));
     if(ds!==null)p.lastDemoSeconds=ds;p.lastAlive=c.alive===true;
   }
   return{players:[...map.values()]};
 }
 function findPreviousPlayerWeaponEvent(all,controllerEntityIndex,weaponEntityIndex){for(let i=all.length-1;i>=0;i--){const e=all[i];if(e.controllerEntityIndex===controllerEntityIndex&&e.weaponEntityIndex===weaponEntityIndex)return e;}return null;}
 function check(actual,expected,pass){return{actual,expected,pass:Boolean(pass)};}
-function finite(v){const n=Number(v);return Number.isFinite(n)?n:null;}
+function finite(v){if(v===null||v===undefined||v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null;}
 function serializable(v){if(v===undefined)return null;if(v===null||typeof v==='string'||typeof v==='number'||typeof v==='boolean')return v;if(typeof v==='object'){try{return JSON.parse(JSON.stringify(v));}catch{return String(v);}}return String(v);}

@@ -1,0 +1,576 @@
+{
+  "version": "PLAYER_SCOREBOARD_DEATH_SEMANTIC_CLOSURE_V01",
+  "canonical": false,
+  "researchOnly": true,
+  "createdAt": "2026-09-12T16:56:36.746Z",
+  "field": "CCitadelPlayerController.m_iDeaths",
+  "construct": "game-awarded per-player scored-death counter",
+  "design": {
+    "playerStateSampleRateHz": 4,
+    "tickRate": 64,
+    "matchWindowTicks": 16,
+    "matchWindowSeconds": 0.25,
+    "positiveControl": "Observed m_bAlive true -> false transition for the same player.",
+    "placebo10": "Death-credit tick shifted +10 seconds, then matched to same-player alive->dead transitions.",
+    "placebo30": "Death-credit tick shifted +30 seconds, then matched to same-player alive->dead transitions."
+  },
+  "aggregate": {
+    "counts": {
+      "players": 72,
+      "deathCredits": 563,
+      "aliveToDeadTransitions": 597,
+      "matchedDeathCredits": 563,
+      "unmatchedDeathCredits": 0,
+      "unmatchedAliveToDead": 34,
+      "completedUnmatchedAliveToDead": 31,
+      "censoredUnmatchedAliveToDead": 3
+    },
+    "integrity": {
+      "nonNumericValues": 0,
+      "nonIntegerValues": 0,
+      "negativeValues": 0,
+      "negativeTransitions": 0,
+      "playersStartingNonzero": 0,
+      "finalCounterTotal": 563
+    },
+    "semantic": {
+      "creditToAliveDeathAgreementRate": 1,
+      "signedTickOffsets": {
+        "0": 450,
+        "16": 113
+      }
+    },
+    "controls": {
+      "placebo10Matches": 0,
+      "placebo10Rate": 0,
+      "placebo30Matches": 0,
+      "placebo30Rate": 0
+    },
+    "unmatchedAliveToDeadEpisodes": {
+      "durationCounts": {
+        "3.00": 30,
+        "3.25": 1
+      }
+    }
+  },
+  "thresholds": {
+    "allRequestedReplaysSucceeded": true,
+    "counterIntegrityPass": true,
+    "allCreditsMatchAliveToDead": true,
+    "everyReplayAllCreditsMatch": true,
+    "placebo10AtMostOnePercent": true,
+    "placebo30AtMostOnePercent": true,
+    "extraAliveToDeadEpisodesRemainDistinct": true
+  },
+  "semanticClosurePass": true,
+  "recommendedValidationIfPromoted": {
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated"
+  },
+  "authorityBoundary": {
+    "establishedIfPass": "m_iDeaths is the game-awarded per-player scored-death counter.",
+    "explicitlyNotEstablished": [
+      "that every observed alive->dead episode increments the scoreboard counter",
+      "killer identity or kill attribution",
+      "damage source or lethal ability attribution",
+      "death cause",
+      "revive mechanics",
+      "whether any particular unmatched short dead episode should be called a scored death"
+    ],
+    "requiredDistinction": "death_count remains observed alive->dead state transitions; deaths_scoreboard is the game-awarded m_iDeaths counter. They must remain separate metrics."
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "counts": {
+        "players": 12,
+        "deathCredits": 114,
+        "aliveToDeadTransitions": 121,
+        "matchedDeathCredits": 114,
+        "unmatchedDeathCredits": 0,
+        "unmatchedAliveToDead": 7,
+        "completedUnmatchedAliveToDead": 7,
+        "censoredUnmatchedAliveToDead": 0
+      },
+      "integrity": {
+        "nonNumericValues": 0,
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "playersStartingNonzero": 0,
+        "finalCounterTotal": 114
+      },
+      "semantic": {
+        "creditToAliveDeathAgreementRate": 1,
+        "signedTickOffsets": {
+          "0": 87,
+          "16": 27
+        }
+      },
+      "controls": {
+        "placebo10Matches": 0,
+        "placebo10Rate": 0,
+        "placebo30Matches": 0,
+        "placebo30Rate": 0
+      },
+      "unmatchedAliveToDeadEpisodes": {
+        "durationCounts": {
+          "3.00": 7
+        },
+        "examples": [
+          {
+            "playerName": "Nacho4Sure",
+            "tick": 112864,
+            "matchTime": 1733.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Nacho4Sure",
+            "tick": 200560,
+            "matchTime": 3103.75,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "flem",
+            "tick": 164864,
+            "matchTime": 2546,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Yosafire Worshipper [K]",
+            "tick": 114368,
+            "matchTime": 1757,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Yosafire Worshipper [K]",
+            "tick": 163264,
+            "matchTime": 2521,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Snazzy314",
+            "tick": 112048,
+            "matchTime": 1720.75,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "viggoth 300",
+            "tick": 164320,
+            "matchTime": 2537.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          }
+        ]
+      }
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "counts": {
+        "players": 12,
+        "deathCredits": 89,
+        "aliveToDeadTransitions": 96,
+        "matchedDeathCredits": 89,
+        "unmatchedDeathCredits": 0,
+        "unmatchedAliveToDead": 7,
+        "completedUnmatchedAliveToDead": 6,
+        "censoredUnmatchedAliveToDead": 1
+      },
+      "integrity": {
+        "nonNumericValues": 0,
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "playersStartingNonzero": 0,
+        "finalCounterTotal": 89
+      },
+      "semantic": {
+        "creditToAliveDeathAgreementRate": 1,
+        "signedTickOffsets": {
+          "0": 77,
+          "16": 12
+        }
+      },
+      "controls": {
+        "placebo10Matches": 0,
+        "placebo10Rate": 0,
+        "placebo30Matches": 0,
+        "placebo30Rate": 0
+      },
+      "unmatchedAliveToDeadEpisodes": {
+        "durationCounts": {
+          "3.00": 6
+        },
+        "examples": [
+          {
+            "playerName": "Zaeleth",
+            "tick": 133200,
+            "matchTime": 2051.25,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "renso",
+            "tick": 109440,
+            "matchTime": 1680,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Kabuto",
+            "tick": 108944,
+            "matchTime": 1672.25,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Kabuto",
+            "tick": 133776,
+            "matchTime": 2060.25,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Goldinfer",
+            "tick": 105808,
+            "matchTime": 1623.25,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "ArsonBoy5996",
+            "tick": 149392,
+            "matchTime": 2304.25,
+            "episodeDurationSeconds": null,
+            "censored": true
+          },
+          {
+            "playerName": "Nebula",
+            "tick": 136864,
+            "matchTime": 2108.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          }
+        ]
+      }
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "counts": {
+        "players": 12,
+        "deathCredits": 92,
+        "aliveToDeadTransitions": 98,
+        "matchedDeathCredits": 92,
+        "unmatchedDeathCredits": 0,
+        "unmatchedAliveToDead": 6,
+        "completedUnmatchedAliveToDead": 6,
+        "censoredUnmatchedAliveToDead": 0
+      },
+      "integrity": {
+        "nonNumericValues": 0,
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "playersStartingNonzero": 0,
+        "finalCounterTotal": 92
+      },
+      "semantic": {
+        "creditToAliveDeathAgreementRate": 1,
+        "signedTickOffsets": {
+          "0": 75,
+          "16": 17
+        }
+      },
+      "controls": {
+        "placebo10Matches": 0,
+        "placebo10Rate": 0,
+        "placebo30Matches": 0,
+        "placebo30Rate": 0
+      },
+      "unmatchedAliveToDeadEpisodes": {
+        "durationCounts": {
+          "3.00": 6
+        },
+        "examples": [
+          {
+            "playerName": "Rupa",
+            "tick": 146080,
+            "matchTime": 2252.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Moodamu",
+            "tick": 114176,
+            "matchTime": 1754,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Moodamu",
+            "tick": 146064,
+            "matchTime": 2252.25,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "pistachio",
+            "tick": 113872,
+            "matchTime": 1749.25,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Wild Willy",
+            "tick": 110560,
+            "matchTime": 1697.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Goldinfer",
+            "tick": 146592,
+            "matchTime": 2260.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          }
+        ]
+      }
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "counts": {
+        "players": 12,
+        "deathCredits": 87,
+        "aliveToDeadTransitions": 93,
+        "matchedDeathCredits": 87,
+        "unmatchedDeathCredits": 0,
+        "unmatchedAliveToDead": 6,
+        "completedUnmatchedAliveToDead": 6,
+        "censoredUnmatchedAliveToDead": 0
+      },
+      "integrity": {
+        "nonNumericValues": 0,
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "playersStartingNonzero": 0,
+        "finalCounterTotal": 87
+      },
+      "semantic": {
+        "creditToAliveDeathAgreementRate": 1,
+        "signedTickOffsets": {
+          "0": 71,
+          "16": 16
+        }
+      },
+      "controls": {
+        "placebo10Matches": 0,
+        "placebo10Rate": 0,
+        "placebo30Matches": 0,
+        "placebo30Rate": 0
+      },
+      "unmatchedAliveToDeadEpisodes": {
+        "durationCounts": {
+          "3.00": 6
+        },
+        "examples": [
+          {
+            "playerName": "renso",
+            "tick": 166944,
+            "matchTime": 2578.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "renso",
+            "tick": 189104,
+            "matchTime": 2924.75,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "FwankToo",
+            "tick": 190112,
+            "matchTime": 2940.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Paradox_Cowkitty",
+            "tick": 162944,
+            "matchTime": 2516,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "4rM4D1110",
+            "tick": 162912,
+            "matchTime": 2515.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "4rM4D1110",
+            "tick": 189984,
+            "matchTime": 2938.5,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          }
+        ]
+      }
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "counts": {
+        "players": 12,
+        "deathCredits": 81,
+        "aliveToDeadTransitions": 84,
+        "matchedDeathCredits": 81,
+        "unmatchedDeathCredits": 0,
+        "unmatchedAliveToDead": 3,
+        "completedUnmatchedAliveToDead": 2,
+        "censoredUnmatchedAliveToDead": 1
+      },
+      "integrity": {
+        "nonNumericValues": 0,
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "playersStartingNonzero": 0,
+        "finalCounterTotal": 81
+      },
+      "semantic": {
+        "creditToAliveDeathAgreementRate": 1,
+        "signedTickOffsets": {
+          "0": 60,
+          "16": 21
+        }
+      },
+      "controls": {
+        "placebo10Matches": 0,
+        "placebo10Rate": 0,
+        "placebo30Matches": 0,
+        "placebo30Rate": 0
+      },
+      "unmatchedAliveToDeadEpisodes": {
+        "durationCounts": {
+          "3.00": 1,
+          "3.25": 1
+        },
+        "examples": [
+          {
+            "playerName": "Roronoa Zoro",
+            "tick": 147664,
+            "matchTime": 2277.25,
+            "episodeDurationSeconds": null,
+            "censored": true
+          },
+          {
+            "playerName": "butterflyflyhig",
+            "tick": 121184,
+            "matchTime": 1863.5,
+            "episodeDurationSeconds": 3.25,
+            "censored": false
+          },
+          {
+            "playerName": "renso",
+            "tick": 144336,
+            "matchTime": 2225.25,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          }
+        ]
+      }
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "counts": {
+        "players": 12,
+        "deathCredits": 100,
+        "aliveToDeadTransitions": 105,
+        "matchedDeathCredits": 100,
+        "unmatchedDeathCredits": 0,
+        "unmatchedAliveToDead": 5,
+        "completedUnmatchedAliveToDead": 4,
+        "censoredUnmatchedAliveToDead": 1
+      },
+      "integrity": {
+        "nonNumericValues": 0,
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "playersStartingNonzero": 0,
+        "finalCounterTotal": 100
+      },
+      "semantic": {
+        "creditToAliveDeathAgreementRate": 1,
+        "signedTickOffsets": {
+          "0": 80,
+          "16": 20
+        }
+      },
+      "controls": {
+        "placebo10Matches": 0,
+        "placebo10Rate": 0,
+        "placebo30Matches": 0,
+        "placebo30Rate": 0
+      },
+      "unmatchedAliveToDeadEpisodes": {
+        "durationCounts": {
+          "3.00": 4
+        },
+        "examples": [
+          {
+            "playerName": "Aleister",
+            "tick": 100416,
+            "matchTime": 1539,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Aleister",
+            "tick": 155504,
+            "matchTime": 2399.75,
+            "episodeDurationSeconds": null,
+            "censored": true
+          },
+          {
+            "playerName": "renso",
+            "tick": 108544,
+            "matchTime": 1666,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Mirzero",
+            "tick": 138832,
+            "matchTime": 2139.25,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          },
+          {
+            "playerName": "Dolan_161",
+            "tick": 106560,
+            "matchTime": 1635,
+            "episodeDurationSeconds": 3,
+            "censored": false
+          }
+        ]
+      }
+    }
+  ]
+}

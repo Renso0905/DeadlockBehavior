@@ -1,0 +1,402 @@
+{
+  "version": "PLAYER_KILL_INDIRECT_ATTRIBUTION_DISCOVERY_BATCH_V01",
+  "canonical": false,
+  "createdAt": "2026-09-11T04:17:19.820Z",
+  "requestedReplays": [
+    "test",
+    "rep01",
+    "rep02",
+    "rep03",
+    "rep04",
+    "rep05"
+  ],
+  "replayCount": 6,
+  "successCount": 6,
+  "allRequestedReplaysSucceeded": true,
+  "purpose": [
+    "Investigate Script 208 kill-credit residuals that were not explained by death-confirmed direct player-pawn fatal damage.",
+    "Capture nearby player-victim damage messages and attacker / inflictor / ability entity snapshots.",
+    "Identify conservative direct or single-hop player-reference ownership candidates without treating them as established game semantics.",
+    "Preserve unresolved residuals for the next research step."
+  ],
+  "authorityBoundary": {
+    "researchOnly": true,
+    "promotesClaim": false,
+    "promotesMetric": false,
+    "ownerReferenceInterpretation": "DISCOVERY_CANDIDATE_ONLY",
+    "warning": "A field or entity reference that points to a player is not automatically a validated causal/ownership relation."
+  },
+  "windows": {
+    "killContextTicks": 64,
+    "killContextSeconds": 1,
+    "victimDeathConfirmationTicks": 32,
+    "victimDeathConfirmationSeconds": 0.5
+  },
+  "aggregate": {
+    "counts": {
+      "residualKillCredits": 20,
+      "residualKillsWithDeathConfirmedTerminalContext": 20,
+      "residualKillsWithDirectKnownPlayerMatch": 3,
+      "residualKillsWithUniqueSingleHopOwnerMatch": 0,
+      "residualKillsWithAmbiguousOwnerMatch": 0,
+      "residualKillsWithDeathConfirmedContextNoOwnerMatch": 17,
+      "residualKillsWithoutOwnerMatchedTerminalContext": 17
+    },
+    "classification": {
+      "DEATH_CONFIRMED_TERMINAL_CONTEXT_NO_OWNER_MATCH": 17,
+      "DIRECT_KNOWN_PLAYER_MATCH": 3
+    },
+    "attackerEntityClassesNearResidualKills": {
+      "CNPC_Boss_Tier2": 22,
+      "CCitadelPlayerPawn": 550,
+      "UNKNOWN": 12,
+      "CNPC_BarrackBoss": 19,
+      "CNPC_Trooper": 63,
+      "CNPC_TrooperBoss": 61,
+      "CNPC_TrooperNeutral": 4,
+      "CNPC_MidBoss": 6,
+      "CNPC_Boss_Tier3": 1
+    },
+    "inflictorEntityClassesNearResidualKills": {
+      "UNKNOWN": 710,
+      "CCitadelPlayerPawn": 11,
+      "CNPC_Boss_Tier2": 3,
+      "CNPC_BarrackBoss": 2,
+      "CNPC_Trooper": 8,
+      "CNPC_TrooperBoss": 3,
+      "CNPC_MidBoss": 1
+    },
+    "ownerCandidateFieldNames": {
+      "attacker:m_hOwnerEntity": 550,
+      "attacker:m_nOwnerId": 550,
+      "attacker:m_hController": 550,
+      "attacker:m_hDefaultController": 550,
+      "attacker:m_hPlayerEntToStore": 550,
+      "attacker:m_hEnemyPlayerAimTarget": 230,
+      "attacker:m_nHeroID": 221,
+      "inflictor:m_hOwnerEntity": 11,
+      "inflictor:m_nOwnerId": 11,
+      "inflictor:m_hController": 11,
+      "inflictor:m_hDefaultController": 11,
+      "inflictor:m_hPlayerEntToStore": 11,
+      "inflictor:m_hEnemyPlayerAimTarget": 5,
+      "ability:m_hOwnerEntity": 11,
+      "ability:CBodyComponent.m_hParent": 11,
+      "attacker:CBodyComponent.m_nOwnerOnlyBoolVariablesCount": 67,
+      "inflictor:CBodyComponent.m_nOwnerOnlyBoolVariablesCount": 4,
+      "attacker:m_unHeroBuildID": 77
+    }
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "status": "RESEARCH_DISCOVERY_COMPLETE",
+      "counts": {
+        "residualKillCredits": 2,
+        "terminalGroupsNearResidualKills": 33,
+        "deathConfirmedTerminalGroupsNearResidualKills": 3,
+        "residualKillsWithDeathConfirmedTerminalContext": 2,
+        "residualKillsWithDirectKnownPlayerMatch": 0,
+        "residualKillsWithUniqueSingleHopOwnerMatch": 0,
+        "residualKillsWithAmbiguousOwnerMatch": 0,
+        "residualKillsWithDeathConfirmedContextNoOwnerMatch": 2,
+        "residualKillsWithoutOwnerMatchedTerminalContext": 2,
+        "classification": {
+          "DEATH_CONFIRMED_TERMINAL_CONTEXT_NO_OWNER_MATCH": 2
+        }
+      },
+      "distributions": {
+        "attackerEntityClassesNearResidualKills": {
+          "CNPC_Boss_Tier2": 7,
+          "CCitadelPlayerPawn": 23,
+          "UNKNOWN": 1,
+          "CNPC_BarrackBoss": 8,
+          "CNPC_Trooper": 1
+        },
+        "inflictorEntityClassesNearResidualKills": {
+          "UNKNOWN": 37,
+          "CCitadelPlayerPawn": 1,
+          "CNPC_Boss_Tier2": 1,
+          "CNPC_BarrackBoss": 1
+        },
+        "ownerCandidateFieldNames": {
+          "attacker:m_hOwnerEntity": 23,
+          "attacker:m_nOwnerId": 23,
+          "attacker:m_hController": 23,
+          "attacker:m_hDefaultController": 23,
+          "attacker:m_hPlayerEntToStore": 23,
+          "attacker:m_hEnemyPlayerAimTarget": 14,
+          "attacker:m_nHeroID": 7,
+          "inflictor:m_hOwnerEntity": 1,
+          "inflictor:m_nOwnerId": 1,
+          "inflictor:m_hController": 1,
+          "inflictor:m_hDefaultController": 1,
+          "inflictor:m_hPlayerEntToStore": 1,
+          "inflictor:m_hEnemyPlayerAimTarget": 1,
+          "ability:m_hOwnerEntity": 1,
+          "ability:CBodyComponent.m_hParent": 1
+        }
+      },
+      "output": {
+        "summary": "G:\\DeadlockBehavior\\output\\test\\player_kill_indirect_attribution_discovery_v01.json",
+        "context": "G:\\DeadlockBehavior\\output\\test\\player_kill_indirect_attribution_context_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "status": "RESEARCH_DISCOVERY_COMPLETE",
+      "counts": {
+        "residualKillCredits": 3,
+        "terminalGroupsNearResidualKills": 55,
+        "deathConfirmedTerminalGroupsNearResidualKills": 3,
+        "residualKillsWithDeathConfirmedTerminalContext": 3,
+        "residualKillsWithDirectKnownPlayerMatch": 0,
+        "residualKillsWithUniqueSingleHopOwnerMatch": 0,
+        "residualKillsWithAmbiguousOwnerMatch": 0,
+        "residualKillsWithDeathConfirmedContextNoOwnerMatch": 3,
+        "residualKillsWithoutOwnerMatchedTerminalContext": 3,
+        "classification": {
+          "DEATH_CONFIRMED_TERMINAL_CONTEXT_NO_OWNER_MATCH": 3
+        }
+      },
+      "distributions": {
+        "attackerEntityClassesNearResidualKills": {
+          "CCitadelPlayerPawn": 57,
+          "CNPC_Trooper": 17,
+          "CNPC_Boss_Tier2": 1,
+          "UNKNOWN": 2
+        },
+        "inflictorEntityClassesNearResidualKills": {
+          "UNKNOWN": 74,
+          "CNPC_Trooper": 3
+        },
+        "ownerCandidateFieldNames": {
+          "attacker:m_hOwnerEntity": 57,
+          "attacker:m_nOwnerId": 57,
+          "attacker:m_hController": 57,
+          "attacker:m_hDefaultController": 57,
+          "attacker:m_hPlayerEntToStore": 57,
+          "attacker:m_nHeroID": 35,
+          "attacker:m_hEnemyPlayerAimTarget": 40
+        }
+      },
+      "output": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep01\\player_kill_indirect_attribution_discovery_v01.json",
+        "context": "G:\\DeadlockBehavior\\output\\rep01\\player_kill_indirect_attribution_context_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "status": "RESEARCH_DISCOVERY_COMPLETE",
+      "counts": {
+        "residualKillCredits": 5,
+        "terminalGroupsNearResidualKills": 141,
+        "deathConfirmedTerminalGroupsNearResidualKills": 7,
+        "residualKillsWithDeathConfirmedTerminalContext": 5,
+        "residualKillsWithDirectKnownPlayerMatch": 3,
+        "residualKillsWithUniqueSingleHopOwnerMatch": 0,
+        "residualKillsWithAmbiguousOwnerMatch": 0,
+        "residualKillsWithDeathConfirmedContextNoOwnerMatch": 2,
+        "residualKillsWithoutOwnerMatchedTerminalContext": 2,
+        "classification": {
+          "DEATH_CONFIRMED_TERMINAL_CONTEXT_NO_OWNER_MATCH": 2,
+          "DIRECT_KNOWN_PLAYER_MATCH": 3
+        }
+      },
+      "distributions": {
+        "attackerEntityClassesNearResidualKills": {
+          "CCitadelPlayerPawn": 152,
+          "CNPC_TrooperBoss": 16,
+          "CNPC_Trooper": 11,
+          "UNKNOWN": 4,
+          "CNPC_TrooperNeutral": 1,
+          "CNPC_MidBoss": 6
+        },
+        "inflictorEntityClassesNearResidualKills": {
+          "UNKNOWN": 180,
+          "CNPC_TrooperBoss": 1,
+          "CCitadelPlayerPawn": 8,
+          "CNPC_MidBoss": 1
+        },
+        "ownerCandidateFieldNames": {
+          "attacker:m_hOwnerEntity": 152,
+          "attacker:m_nOwnerId": 152,
+          "attacker:m_hController": 152,
+          "attacker:m_hDefaultController": 152,
+          "attacker:m_hPlayerEntToStore": 152,
+          "attacker:m_nHeroID": 7,
+          "attacker:m_hEnemyPlayerAimTarget": 66,
+          "attacker:CBodyComponent.m_nOwnerOnlyBoolVariablesCount": 22,
+          "inflictor:CBodyComponent.m_nOwnerOnlyBoolVariablesCount": 2,
+          "inflictor:m_hOwnerEntity": 8,
+          "inflictor:m_nOwnerId": 8,
+          "inflictor:m_hController": 8,
+          "inflictor:m_hDefaultController": 8,
+          "inflictor:m_hPlayerEntToStore": 8,
+          "inflictor:m_hEnemyPlayerAimTarget": 4,
+          "ability:m_hOwnerEntity": 8,
+          "ability:CBodyComponent.m_hParent": 8
+        }
+      },
+      "output": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep02\\player_kill_indirect_attribution_discovery_v01.json",
+        "context": "G:\\DeadlockBehavior\\output\\rep02\\player_kill_indirect_attribution_context_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "status": "RESEARCH_DISCOVERY_COMPLETE",
+      "counts": {
+        "residualKillCredits": 2,
+        "terminalGroupsNearResidualKills": 118,
+        "deathConfirmedTerminalGroupsNearResidualKills": 2,
+        "residualKillsWithDeathConfirmedTerminalContext": 2,
+        "residualKillsWithDirectKnownPlayerMatch": 0,
+        "residualKillsWithUniqueSingleHopOwnerMatch": 0,
+        "residualKillsWithAmbiguousOwnerMatch": 0,
+        "residualKillsWithDeathConfirmedContextNoOwnerMatch": 2,
+        "residualKillsWithoutOwnerMatchedTerminalContext": 2,
+        "classification": {
+          "DEATH_CONFIRMED_TERMINAL_CONTEXT_NO_OWNER_MATCH": 2
+        }
+      },
+      "distributions": {
+        "attackerEntityClassesNearResidualKills": {
+          "CCitadelPlayerPawn": 115,
+          "CNPC_Trooper": 11,
+          "CNPC_TrooperBoss": 12
+        },
+        "inflictorEntityClassesNearResidualKills": {
+          "UNKNOWN": 136,
+          "CNPC_TrooperBoss": 1,
+          "CNPC_Trooper": 1
+        },
+        "ownerCandidateFieldNames": {
+          "attacker:m_hOwnerEntity": 115,
+          "attacker:m_nOwnerId": 115,
+          "attacker:m_hController": 115,
+          "attacker:m_hDefaultController": 115,
+          "attacker:m_hPlayerEntToStore": 115,
+          "attacker:m_nHeroID": 41,
+          "attacker:m_hEnemyPlayerAimTarget": 25,
+          "attacker:CBodyComponent.m_nOwnerOnlyBoolVariablesCount": 12,
+          "attacker:m_unHeroBuildID": 1,
+          "inflictor:CBodyComponent.m_nOwnerOnlyBoolVariablesCount": 1
+        }
+      },
+      "output": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep03\\player_kill_indirect_attribution_discovery_v01.json",
+        "context": "G:\\DeadlockBehavior\\output\\rep03\\player_kill_indirect_attribution_context_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "status": "RESEARCH_DISCOVERY_COMPLETE",
+      "counts": {
+        "residualKillCredits": 2,
+        "terminalGroupsNearResidualKills": 43,
+        "deathConfirmedTerminalGroupsNearResidualKills": 2,
+        "residualKillsWithDeathConfirmedTerminalContext": 2,
+        "residualKillsWithDirectKnownPlayerMatch": 0,
+        "residualKillsWithUniqueSingleHopOwnerMatch": 0,
+        "residualKillsWithAmbiguousOwnerMatch": 0,
+        "residualKillsWithDeathConfirmedContextNoOwnerMatch": 2,
+        "residualKillsWithoutOwnerMatchedTerminalContext": 2,
+        "classification": {
+          "DEATH_CONFIRMED_TERMINAL_CONTEXT_NO_OWNER_MATCH": 2
+        }
+      },
+      "distributions": {
+        "attackerEntityClassesNearResidualKills": {
+          "CCitadelPlayerPawn": 40,
+          "CNPC_BarrackBoss": 11,
+          "CNPC_Boss_Tier2": 10,
+          "CNPC_Trooper": 1
+        },
+        "inflictorEntityClassesNearResidualKills": {
+          "UNKNOWN": 60,
+          "CNPC_BarrackBoss": 1,
+          "CNPC_Boss_Tier2": 1
+        },
+        "ownerCandidateFieldNames": {
+          "attacker:m_hOwnerEntity": 40,
+          "attacker:m_nOwnerId": 40,
+          "attacker:m_hController": 40,
+          "attacker:m_hDefaultController": 40,
+          "attacker:m_hPlayerEntToStore": 40,
+          "attacker:m_nHeroID": 13,
+          "attacker:m_hEnemyPlayerAimTarget": 1
+        }
+      },
+      "output": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep04\\player_kill_indirect_attribution_discovery_v01.json",
+        "context": "G:\\DeadlockBehavior\\output\\rep04\\player_kill_indirect_attribution_context_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "status": "RESEARCH_DISCOVERY_COMPLETE",
+      "counts": {
+        "residualKillCredits": 6,
+        "terminalGroupsNearResidualKills": 162,
+        "deathConfirmedTerminalGroupsNearResidualKills": 7,
+        "residualKillsWithDeathConfirmedTerminalContext": 6,
+        "residualKillsWithDirectKnownPlayerMatch": 0,
+        "residualKillsWithUniqueSingleHopOwnerMatch": 0,
+        "residualKillsWithAmbiguousOwnerMatch": 0,
+        "residualKillsWithDeathConfirmedContextNoOwnerMatch": 6,
+        "residualKillsWithoutOwnerMatchedTerminalContext": 6,
+        "classification": {
+          "DEATH_CONFIRMED_TERMINAL_CONTEXT_NO_OWNER_MATCH": 6
+        }
+      },
+      "distributions": {
+        "attackerEntityClassesNearResidualKills": {
+          "CNPC_TrooperBoss": 33,
+          "CNPC_Trooper": 22,
+          "UNKNOWN": 5,
+          "CCitadelPlayerPawn": 163,
+          "CNPC_TrooperNeutral": 3,
+          "CNPC_Boss_Tier2": 4,
+          "CNPC_Boss_Tier3": 1
+        },
+        "inflictorEntityClassesNearResidualKills": {
+          "UNKNOWN": 223,
+          "CNPC_TrooperBoss": 1,
+          "CNPC_Trooper": 4,
+          "CCitadelPlayerPawn": 2,
+          "CNPC_Boss_Tier2": 1
+        },
+        "ownerCandidateFieldNames": {
+          "attacker:CBodyComponent.m_nOwnerOnlyBoolVariablesCount": 33,
+          "inflictor:CBodyComponent.m_nOwnerOnlyBoolVariablesCount": 1,
+          "attacker:m_hOwnerEntity": 163,
+          "attacker:m_nOwnerId": 163,
+          "attacker:m_hController": 163,
+          "attacker:m_hDefaultController": 163,
+          "attacker:m_hPlayerEntToStore": 163,
+          "attacker:m_hEnemyPlayerAimTarget": 84,
+          "attacker:m_nHeroID": 118,
+          "inflictor:m_hOwnerEntity": 2,
+          "inflictor:m_nOwnerId": 2,
+          "inflictor:m_hController": 2,
+          "inflictor:m_hDefaultController": 2,
+          "inflictor:m_hPlayerEntToStore": 2,
+          "ability:m_hOwnerEntity": 2,
+          "ability:CBodyComponent.m_hParent": 2,
+          "attacker:m_unHeroBuildID": 76
+        }
+      },
+      "output": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep05\\player_kill_indirect_attribution_discovery_v01.json",
+        "context": "G:\\DeadlockBehavior\\output\\rep05\\player_kill_indirect_attribution_context_v01.jsonl"
+      }
+    }
+  ]
+}

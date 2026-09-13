@@ -1,0 +1,41 @@
+{
+  "version": "PLAYER_ASSIST_CREDIT_VALIDATION_V01",
+  "canonical": false,
+  "replay": "rep04",
+  "construct": "game-awarded per-player assist credit counter",
+  "counts": {
+    "assistTransitions": 149,
+    "assistCredits": 149,
+    "deathCredits": 81,
+    "killCredits": 80,
+    "assistCreditsWithEnemyDeath": 149,
+    "assistCreditsWithSameTeamKillContext": 149,
+    "assistCreditsWithVictimTeamConflict": 0,
+    "unmatchedAssistCredits": 0
+  },
+  "validation": {
+    "enemyDeathAgreementRate": 1,
+    "sameTeamKillContextRate": 1,
+    "victimTeamConflictRate": 0,
+    "placebo10EnemyDeathAgreementRate": 0.013422818791946308,
+    "placebo30EnemyDeathAgreementRate": 0.04697986577181208
+  },
+  "distributions": {
+    "assistTransitionDelta": {
+      "1": 149
+    },
+    "assistCreditsPerMatchedDeath": {
+      "1": 30,
+      "2": 23,
+      "3": 10,
+      "4": 7,
+      "5": 1,
+      "10": 2
+    }
+  },
+  "unmatchedAssistCredits": [],
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\rep04\\player_assist_credit_validation_v01.json",
+    "events": "G:\\DeadlockBehavior\\output\\rep04\\player_assist_credit_events_v01.jsonl"
+  }
+}

@@ -1,0 +1,697 @@
+{
+  "version": "PLAYER_SCOREBOARD_DENY_VALIDATION_BATCH_V01",
+  "canonical": false,
+  "researchOnly": true,
+  "createdAt": "2026-09-12T17:56:25.796Z",
+  "requestedReplays": [
+    "rep01",
+    "rep02",
+    "rep03",
+    "rep04",
+    "rep05"
+  ],
+  "successCount": 5,
+  "replayCount": 5,
+  "field": "CCitadelPlayerController.m_iDenies",
+  "constructUnderTest": "game-awarded per-player deny-credit counter",
+  "design": {
+    "tickRate": 64,
+    "playerStateSampleIntervalTicks": 16,
+    "reportedForwardWindowsTicks": [
+      16,
+      24,
+      32
+    ],
+    "primaryForwardWindowTicks": 32,
+    "primaryForwardWindowSeconds": 0.5,
+    "positiveControl": "The final observed flying-soul full-damage hit in an orb episode is DENY_HIT, and the same attacker player receives a positive m_iDenies credit within the forward observation window.",
+    "negativeControl": "The final observed flying-soul full-damage hit in an orb episode is SECURE_HIT, tested against the same player m_iDenies outcome.",
+    "shiftedControls": [
+      "+10 seconds",
+      "+30 seconds"
+    ],
+    "relationSemantics": "DENY_HIT and SECURE_HIT are taken from the independent flying_soul_full_damage_hits_v01 artifact. This script does not derive those labels from m_iDenies."
+  },
+  "aggregate": {
+    "counts": {
+      "denyCredits": 266,
+      "terminalOrbAnchors": 414,
+      "terminalDenyAnchors": 100,
+      "terminalSecureAnchors": 314
+    },
+    "counterIntegrity": {
+      "nonIntegerValues": 0,
+      "negativeValues": 0,
+      "negativeTransitions": 0,
+      "firstObservedNonzeroPlayers": 0,
+      "positiveCreditUnits": 266,
+      "finalCounterTotal": 266
+    },
+    "windows": {
+      "16": {
+        "terminalDenyMatches": 59,
+        "terminalDenyMatchRate": 0.59,
+        "denyCreditsCovered": 59,
+        "denyCreditCoverageRate": 0.22180451127819548,
+        "terminalSecureMatches": 0,
+        "terminalSecureMatchRate": 0,
+        "placebo10Matches": 0,
+        "placebo10Rate": 0,
+        "placebo30Matches": 1,
+        "placebo30Rate": 0.01,
+        "positiveVsSecureRiskRatio": null,
+        "signedTickOffsets": {
+          "1": 2,
+          "5": 1,
+          "6": 3,
+          "7": 6,
+          "8": 7,
+          "9": 2,
+          "10": 3,
+          "11": 2,
+          "12": 6,
+          "13": 7,
+          "14": 6,
+          "15": 6,
+          "16": 8
+        }
+      },
+      "24": {
+        "terminalDenyMatches": 89,
+        "terminalDenyMatchRate": 0.89,
+        "denyCreditsCovered": 89,
+        "denyCreditCoverageRate": 0.33458646616541354,
+        "terminalSecureMatches": 2,
+        "terminalSecureMatchRate": 0.006369426751592357,
+        "placebo10Matches": 0,
+        "placebo10Rate": 0,
+        "placebo30Matches": 1,
+        "placebo30Rate": 0.01,
+        "positiveVsSecureRiskRatio": 139.73,
+        "signedTickOffsets": {
+          "1": 2,
+          "5": 1,
+          "6": 3,
+          "7": 6,
+          "8": 7,
+          "9": 2,
+          "10": 3,
+          "11": 2,
+          "12": 6,
+          "13": 7,
+          "14": 6,
+          "15": 6,
+          "16": 8,
+          "17": 6,
+          "18": 5,
+          "19": 3,
+          "20": 5,
+          "21": 4,
+          "22": 3,
+          "23": 2,
+          "24": 2
+        }
+      },
+      "32": {
+        "terminalDenyMatches": 89,
+        "terminalDenyMatchRate": 0.89,
+        "denyCreditsCovered": 89,
+        "denyCreditCoverageRate": 0.33458646616541354,
+        "terminalSecureMatches": 3,
+        "terminalSecureMatchRate": 0.009554140127388535,
+        "placebo10Matches": 0,
+        "placebo10Rate": 0,
+        "placebo30Matches": 1,
+        "placebo30Rate": 0.01,
+        "positiveVsSecureRiskRatio": 93.15333333333334,
+        "signedTickOffsets": {
+          "1": 2,
+          "5": 1,
+          "6": 3,
+          "7": 6,
+          "8": 7,
+          "9": 2,
+          "10": 3,
+          "11": 2,
+          "12": 6,
+          "13": 7,
+          "14": 6,
+          "15": 6,
+          "16": 8,
+          "17": 6,
+          "18": 5,
+          "19": 3,
+          "20": 5,
+          "21": 4,
+          "22": 3,
+          "23": 2,
+          "24": 2
+        }
+      }
+    },
+    "replayLevel": {
+      "primaryDenyMatchRates": [
+        {
+          "replayName": "rep01",
+          "rate": 0.9444444444444444
+        },
+        {
+          "replayName": "rep02",
+          "rate": 0.875
+        },
+        {
+          "replayName": "rep03",
+          "rate": 0.9166666666666666
+        },
+        {
+          "replayName": "rep04",
+          "rate": 0.7692307692307693
+        },
+        {
+          "replayName": "rep05",
+          "rate": 1
+        }
+      ]
+    }
+  },
+  "thresholds": {
+    "allRequestedReplaysSucceeded": true,
+    "counterIntegrityPass": true,
+    "positiveControlAggregateAtLeast80Percent": true,
+    "positiveControlEveryReplayAtLeast75Percent": true,
+    "secureControlBelow5Percent": true,
+    "placebo10Below5Percent": true,
+    "placebo30Below5Percent": true,
+    "positiveVsSecureLiftAtLeast10x": true
+  },
+  "validationPass": true,
+  "recommendedStatusIfPass": {
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated"
+  },
+  "authorityBoundary": {
+    "establishedIfPass": "m_iDenies is strongly supported as the game-awarded per-player deny-credit counter.",
+    "explicitlyNotEstablished": [
+      "that every DENY_HIT damage message is a scored deny",
+      "the hidden server winner-adjudication rule for contested orb races",
+      "every denyable entity or object class",
+      "all deny eligibility rules",
+      "projectile causal identity for every deny",
+      "economic recipient attribution",
+      "Urn deny semantics unless separately validated"
+    ],
+    "behavioralDistinction": "DENY_HIT rows are observed deny-side hit behavior. m_iDenies increments are game-awarded scoreboard outcomes. They must not be collapsed into the same construct."
+  },
+  "replays": [
+    {
+      "replayName": "rep01",
+      "success": true,
+      "status": "SCOREBOARD_DENY_VALIDATION_COMPLETE",
+      "counts": {
+        "denyCredits": 54,
+        "terminalOrbAnchors": 71,
+        "terminalDenyAnchors": 18,
+        "terminalSecureAnchors": 53
+      },
+      "counterIntegrity": {
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "firstObservedNonzeroPlayers": 0,
+        "positiveCreditUnits": 54,
+        "finalCounterTotal": 54
+      },
+      "windows": {
+        "16": {
+          "terminalDenyMatches": 8,
+          "terminalDenyMatchRate": 0.4444444444444444,
+          "denyCreditsCovered": 8,
+          "denyCreditCoverageRate": 0.14814814814814814,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "8": 2,
+            "10": 2,
+            "14": 1,
+            "16": 3
+          }
+        },
+        "24": {
+          "terminalDenyMatches": 17,
+          "terminalDenyMatchRate": 0.9444444444444444,
+          "denyCreditsCovered": 17,
+          "denyCreditCoverageRate": 0.3148148148148148,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "8": 2,
+            "10": 2,
+            "14": 1,
+            "16": 3,
+            "17": 1,
+            "18": 2,
+            "19": 1,
+            "21": 1,
+            "22": 1,
+            "23": 1,
+            "24": 2
+          }
+        },
+        "32": {
+          "terminalDenyMatches": 17,
+          "terminalDenyMatchRate": 0.9444444444444444,
+          "denyCreditsCovered": 17,
+          "denyCreditCoverageRate": 0.3148148148148148,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "8": 2,
+            "10": 2,
+            "14": 1,
+            "16": 3,
+            "17": 1,
+            "18": 2,
+            "19": 1,
+            "21": 1,
+            "22": 1,
+            "23": 1,
+            "24": 2
+          }
+        }
+      },
+      "authorityBoundary": "Observed deny-side terminal orb hits are independent behavioral anchors. m_iDenies is the scoreboard outcome carrier. This validator does not equate all deny-side hits with scored denies."
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "status": "SCOREBOARD_DENY_VALIDATION_COMPLETE",
+      "counts": {
+        "denyCredits": 44,
+        "terminalOrbAnchors": 80,
+        "terminalDenyAnchors": 16,
+        "terminalSecureAnchors": 64
+      },
+      "counterIntegrity": {
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "firstObservedNonzeroPlayers": 0,
+        "positiveCreditUnits": 44,
+        "finalCounterTotal": 44
+      },
+      "windows": {
+        "16": {
+          "terminalDenyMatches": 8,
+          "terminalDenyMatchRate": 0.5,
+          "denyCreditsCovered": 8,
+          "denyCreditCoverageRate": 0.18181818181818182,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "11": 1,
+            "12": 1,
+            "14": 3
+          }
+        },
+        "24": {
+          "terminalDenyMatches": 14,
+          "terminalDenyMatchRate": 0.875,
+          "denyCreditsCovered": 14,
+          "denyCreditCoverageRate": 0.3181818181818182,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "11": 1,
+            "12": 1,
+            "14": 3,
+            "17": 2,
+            "18": 1,
+            "19": 1,
+            "20": 1,
+            "22": 1
+          }
+        },
+        "32": {
+          "terminalDenyMatches": 14,
+          "terminalDenyMatchRate": 0.875,
+          "denyCreditsCovered": 14,
+          "denyCreditCoverageRate": 0.3181818181818182,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "11": 1,
+            "12": 1,
+            "14": 3,
+            "17": 2,
+            "18": 1,
+            "19": 1,
+            "20": 1,
+            "22": 1
+          }
+        }
+      },
+      "authorityBoundary": "Observed deny-side terminal orb hits are independent behavioral anchors. m_iDenies is the scoreboard outcome carrier. This validator does not equate all deny-side hits with scored denies."
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "status": "SCOREBOARD_DENY_VALIDATION_COMPLETE",
+      "counts": {
+        "denyCredits": 68,
+        "terminalOrbAnchors": 106,
+        "terminalDenyAnchors": 24,
+        "terminalSecureAnchors": 82
+      },
+      "counterIntegrity": {
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "firstObservedNonzeroPlayers": 0,
+        "positiveCreditUnits": 68,
+        "finalCounterTotal": 68
+      },
+      "windows": {
+        "16": {
+          "terminalDenyMatches": 16,
+          "terminalDenyMatchRate": 0.6666666666666666,
+          "denyCreditsCovered": 16,
+          "denyCreditCoverageRate": 0.23529411764705882,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "1": 2,
+            "6": 1,
+            "7": 2,
+            "8": 1,
+            "12": 2,
+            "13": 3,
+            "15": 4,
+            "16": 1
+          }
+        },
+        "24": {
+          "terminalDenyMatches": 22,
+          "terminalDenyMatchRate": 0.9166666666666666,
+          "denyCreditsCovered": 22,
+          "denyCreditCoverageRate": 0.3235294117647059,
+          "terminalSecureMatches": 1,
+          "terminalSecureMatchRate": 0.012195121951219513,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": 75.16666666666666,
+          "signedTickOffsets": {
+            "1": 2,
+            "6": 1,
+            "7": 2,
+            "8": 1,
+            "12": 2,
+            "13": 3,
+            "15": 4,
+            "16": 1,
+            "17": 3,
+            "18": 1,
+            "20": 1,
+            "23": 1
+          }
+        },
+        "32": {
+          "terminalDenyMatches": 22,
+          "terminalDenyMatchRate": 0.9166666666666666,
+          "denyCreditsCovered": 22,
+          "denyCreditCoverageRate": 0.3235294117647059,
+          "terminalSecureMatches": 2,
+          "terminalSecureMatchRate": 0.024390243902439025,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": 37.58333333333333,
+          "signedTickOffsets": {
+            "1": 2,
+            "6": 1,
+            "7": 2,
+            "8": 1,
+            "12": 2,
+            "13": 3,
+            "15": 4,
+            "16": 1,
+            "17": 3,
+            "18": 1,
+            "20": 1,
+            "23": 1
+          }
+        }
+      },
+      "authorityBoundary": "Observed deny-side terminal orb hits are independent behavioral anchors. m_iDenies is the scoreboard outcome carrier. This validator does not equate all deny-side hits with scored denies."
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "status": "SCOREBOARD_DENY_VALIDATION_COMPLETE",
+      "counts": {
+        "denyCredits": 62,
+        "terminalOrbAnchors": 97,
+        "terminalDenyAnchors": 26,
+        "terminalSecureAnchors": 71
+      },
+      "counterIntegrity": {
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "firstObservedNonzeroPlayers": 0,
+        "positiveCreditUnits": 62,
+        "finalCounterTotal": 62
+      },
+      "windows": {
+        "16": {
+          "terminalDenyMatches": 15,
+          "terminalDenyMatchRate": 0.5769230769230769,
+          "denyCreditsCovered": 15,
+          "denyCreditCoverageRate": 0.24193548387096775,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "5": 1,
+            "6": 1,
+            "7": 2,
+            "8": 3,
+            "9": 1,
+            "10": 1,
+            "12": 1,
+            "13": 3,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "24": {
+          "terminalDenyMatches": 20,
+          "terminalDenyMatchRate": 0.7692307692307693,
+          "denyCreditsCovered": 20,
+          "denyCreditCoverageRate": 0.3225806451612903,
+          "terminalSecureMatches": 1,
+          "terminalSecureMatchRate": 0.014084507042253521,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": 54.61538461538462,
+          "signedTickOffsets": {
+            "5": 1,
+            "6": 1,
+            "7": 2,
+            "8": 3,
+            "9": 1,
+            "10": 1,
+            "12": 1,
+            "13": 3,
+            "14": 1,
+            "15": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1,
+            "21": 1,
+            "22": 1
+          }
+        },
+        "32": {
+          "terminalDenyMatches": 20,
+          "terminalDenyMatchRate": 0.7692307692307693,
+          "denyCreditsCovered": 20,
+          "denyCreditCoverageRate": 0.3225806451612903,
+          "terminalSecureMatches": 1,
+          "terminalSecureMatchRate": 0.014084507042253521,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 0,
+          "placebo30Rate": 0,
+          "positiveVsSecureRiskRatio": 54.61538461538462,
+          "signedTickOffsets": {
+            "5": 1,
+            "6": 1,
+            "7": 2,
+            "8": 3,
+            "9": 1,
+            "10": 1,
+            "12": 1,
+            "13": 3,
+            "14": 1,
+            "15": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1,
+            "21": 1,
+            "22": 1
+          }
+        }
+      },
+      "authorityBoundary": "Observed deny-side terminal orb hits are independent behavioral anchors. m_iDenies is the scoreboard outcome carrier. This validator does not equate all deny-side hits with scored denies."
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "status": "SCOREBOARD_DENY_VALIDATION_COMPLETE",
+      "counts": {
+        "denyCredits": 38,
+        "terminalOrbAnchors": 60,
+        "terminalDenyAnchors": 16,
+        "terminalSecureAnchors": 44
+      },
+      "counterIntegrity": {
+        "nonIntegerValues": 0,
+        "negativeValues": 0,
+        "negativeTransitions": 0,
+        "firstObservedNonzeroPlayers": 0,
+        "positiveCreditUnits": 38,
+        "finalCounterTotal": 38
+      },
+      "windows": {
+        "16": {
+          "terminalDenyMatches": 12,
+          "terminalDenyMatchRate": 0.75,
+          "denyCreditsCovered": 12,
+          "denyCreditCoverageRate": 0.3157894736842105,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 1,
+          "placebo30Rate": 0.0625,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "6": 1,
+            "7": 1,
+            "11": 1,
+            "12": 2,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 4
+          }
+        },
+        "24": {
+          "terminalDenyMatches": 16,
+          "terminalDenyMatchRate": 1,
+          "denyCreditsCovered": 16,
+          "denyCreditCoverageRate": 0.42105263157894735,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 1,
+          "placebo30Rate": 0.0625,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "6": 1,
+            "7": 1,
+            "11": 1,
+            "12": 2,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 4,
+            "20": 2,
+            "21": 2
+          }
+        },
+        "32": {
+          "terminalDenyMatches": 16,
+          "terminalDenyMatchRate": 1,
+          "denyCreditsCovered": 16,
+          "denyCreditCoverageRate": 0.42105263157894735,
+          "terminalSecureMatches": 0,
+          "terminalSecureMatchRate": 0,
+          "placebo10Matches": 0,
+          "placebo10Rate": 0,
+          "placebo30Matches": 1,
+          "placebo30Rate": 0.0625,
+          "positiveVsSecureRiskRatio": null,
+          "signedTickOffsets": {
+            "6": 1,
+            "7": 1,
+            "11": 1,
+            "12": 2,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 4,
+            "20": 2,
+            "21": 2
+          }
+        }
+      },
+      "authorityBoundary": "Observed deny-side terminal orb hits are independent behavioral anchors. m_iDenies is the scoreboard outcome carrier. This validator does not equate all deny-side hits with scored denies."
+    }
+  ]
+}

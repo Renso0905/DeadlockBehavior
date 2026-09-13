@@ -9,16 +9,16 @@ const here=dirname(fileURLToPath(import.meta.url));
 const publicRoot=join(here,'..','public');
 
 test('every A-status metric is explicitly wired in Authoritative Stats', async()=>{
-  const source=await readFile(join(publicRoot,'authoritative.js'),'utf8');
+  const source=await readFile(join(publicRoot,'metric-values.mjs'),'utf8');
   const authoritative=METRIC_REGISTRY.flatMap(section=>section.metrics).filter(metric=>metric.status==='A');
-  assert.equal(authoritative.length,108,'A-status metric count changed; review the display contract intentionally');
+  assert.equal(authoritative.length,109,'A-status metric count changed; review the display contract intentionally');
   for(const metric of authoritative){
     assert.match(source,new RegExp(`case ['"]${escapeRegex(metric.id)}['"]\\s*:`),`A metric ${metric.id} is not wired`);
   }
 });
 
 test('authoritative display contract has no stale metric ids', async()=>{
-  const source=await readFile(join(publicRoot,'authoritative.js'),'utf8');
+  const source=await readFile(join(publicRoot,'metric-values.mjs'),'utf8');
   const array=source.match(/const AUTH_IDS=\[(.*?)\];/s);
   assert.ok(array,'AUTH_IDS contract not found');
   const ids=[...array[1].matchAll(/'([^']+)'/g)].map(x=>x[1]);

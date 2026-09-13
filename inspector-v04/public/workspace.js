@@ -1,3 +1,4 @@
+import { getMetricAvailability } from './metric-values.mjs';
 const WORKSPACE_TAB_ID='modular-workspace';
 const WORKSPACE_STORAGE_KEY='deadlockBehavior.modularWorkspace.v01';
 let workspaceActive=false;
@@ -328,13 +329,14 @@ function renderGroundSoulIsolationValidationPanel(panel,index,model,validation){
 function renderMetricPanel(panel,index,model,registry,currentTime,baselineTime){
   const metric=METRICS[panel.metricId]??METRICS.gold_networth;
   const player=resolvePanelPlayer(panel,model);
-  const current=player?finite(metric.valueAt(player,model,currentTime)):null;
-  const baseline=player?finite(metric.valueAt(player,model,baselineTime)):null;
+  const available=player&&getMetricAvailability(model,player,metric.sourceMetricId).available;
+  const current=available?finite(metric.valueAt(player,model,currentTime)):null;
+  const baseline=available?finite(metric.valueAt(player,model,baselineTime)):null;
   const delta=current===null||baseline===null?null:current-baseline;
   const source=registry.get(metric.sourceMetricId);
   const authority=source?.status??'—';
   const playerLabel=metric.matchScoped?'Match-wide':(player?.playerName??'No player');
-  const chart=player?miniChart(metric,player,model,currentTime,baselineTime):'<div class="ws-chart-empty">No player data.</div>';
+  const chart=available?miniChart(metric,player,model,currentTime,baselineTime):'<div class="ws-chart-empty">No player data.</div>';
   const detail=deltaDetail(metric,current,baseline,delta,currentTime,baselineTime);
   return `<article class="ws-card" draggable="true" data-ws-panel="${escapeHtml(panel.id)}">
     <div class="ws-card-head">
@@ -449,7 +451,7 @@ function deltaDetail(metric,current,baseline,delta,currentTime,baselineTime){
 }
 
 function metricOptions(selected){return Object.entries(METRICS).map(([id,m])=>`<option value="${escapeHtml(id)}" ${id===selected?'selected':''}>${escapeHtml(m.label)}</option>`).join('');}
-function playerOptions(model,selected){return (model.players??[]).map(p=>`<option value="${escapeHtml(p.playerName)}" ${String(p.playerName)===String(selected)?'selected':''}>T${escapeHtml(p.team??'—')} · ${escapeHtml(p.identity?.heroDisplayName??`H${p.heroId??'?'}`)} · ${escapeHtml(p.playerName)}</option>`).join('');}
+function playerOptions(model,selected){return (model.players??[]).map(p=>`<option value="${escapeHtml(p.playerId??p.playerName)}" ${String(p.playerId??p.playerName)===String(selected)?'selected':''}>T${escapeHtml(p.team??'—')} · ${escapeHtml(p.identity?.heroDisplayName??`H${p.heroId??'?'}`)} · ${escapeHtml(p.playerName)}</option>`).join('');}
 
 function ensureWorkspacePanels(model){
   const players=model.players??[];const selected=document.querySelector('#playerSelect')?.value??players[0]?.playerName??null;
@@ -458,7 +460,7 @@ function ensureWorkspacePanels(model){
     p.kind=p.kind==='spatial'?'spatial':p.kind==='groundSoulAudit'?'groundSoulAudit':p.kind==='groundSoulCollision'?'groundSoulCollision':p.kind==='groundSoulIsolationValidation'?'groundSoulIsolationValidation':'metric';
     if(p.kind==='metric'&&!METRICS[p.metricId])p.metricId='gold_networth';
     if(p.kind==='spatial'){p.spatialView=p.spatialView??'heat-trail';p.heatWindow=p.heatWindow??'120';}
-    if(!['groundSoulAudit','groundSoulCollision','groundSoulIsolationValidation'].includes(p.kind)&&!players.some(x=>String(x.playerName)===String(p.playerName)))p.playerName=selected;
+    if(!['groundSoulAudit','groundSoulCollision','groundSoulIsolationValidation'].includes(p.kind)&&!players.some(x=>String(x.playerId??x.playerName)===String(p.playerName)))p.playerName=selected;
   }
 }
 function resetWorkspaceState(model){const selected=document.querySelector('#playerSelect')?.value??model.players?.[0]?.playerName??null;workspaceState.baseline=0;workspaceState.columns='auto';workspaceState.panels=[makePanel('gold_networth',selected),makePanel('health',selected),makePanel('ground_soul_economic_gain',selected)];}
@@ -469,7 +471,7 @@ function makeGroundSoulCollisionPanel(){return {id:newPanelId(),kind:'groundSoul
 function makeGroundSoulIsolationValidationPanel(){return {id:newPanelId(),kind:'groundSoulIsolationValidation'};}
 function newPanelId(){return `ws-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;}
 function findPanel(id){return workspaceState.panels.find(p=>p.id===id);}
-function resolvePanelPlayer(panel,model){return (model.players??[]).find(p=>String(p.playerName)===String(panel.playerName))??model.players?.[0]??null;}
+function resolvePanelPlayer(panel,model){return (model.players??[]).find(p=>String(p.playerId??p.playerName)===String(panel.playerName))??model.players?.[0]??null;}
 
 async function getWorkspaceModel(replay){if(workspaceModel&&workspaceReplay===replay)return workspaceModel;workspaceModel=await apiJson(`/api/replay/${encodeURIComponent(replay)}/model`);workspaceReplay=replay;return workspaceModel;}
 async function getWorkspaceRegistry(){if(workspaceRegistry)return workspaceRegistry;const data=await apiJson('/api/metrics');const map=new Map();for(const s of data.sections??[])for(const m of s.metrics??[])map.set(m.id,m);workspaceRegistry=map;return map;}
@@ -478,7 +480,7 @@ async function getWorkspaceCollisionAudit(replay){if(workspaceCollisionReplay===
 async function getWorkspaceNarrowValidation(){if(workspaceNarrowValidation)return workspaceNarrowValidation;try{workspaceNarrowValidation=await apiJson('/api/research/ground-soul-narrow-isolation-validation');}catch(err){if(String(err?.message??err).startsWith('404'))workspaceNarrowValidation={missing:true};else throw err;}return workspaceNarrowValidation;}
 async function apiJson(url){const r=await fetch(url);if(!r.ok)throw new Error(`${r.status} ${await r.text()}`);return r.json();}
 
-function stateAt(p,time){const tl=p?.timeline??[];if(!tl.length)return null;let lo=0,hi=tl.length-1,best=tl[0];while(lo<=hi){const mid=(lo+hi)>>1,x=tl[mid];if((x.matchTime??-Infinity)<=time){best=x;lo=mid+1;}else hi=mid-1;}return best;}
+function stateAt(p,time){const tl=p?.timeline??[];if(!tl.length)return null;let lo=0,hi=tl.length-1,best=null;while(lo<=hi){const mid=(lo+hi)>>1,x=tl[mid];if((x.matchTime??-Infinity)<=time){best=x;lo=mid+1;}else hi=mid-1;}return best;}
 function teamAt(model,team,time){const series=model.teamSeries??[];if(!series.length)return null;const idx=Math.max(0,Math.min(series.length-1,Math.floor(time)));return series[idx]?.teams?.[String(team)]??null;}
 function otherTeamAt(model,team,time){const series=model.teamSeries??[];if(!series.length)return null;const idx=Math.max(0,Math.min(series.length-1,Math.floor(time))),teams=series[idx]?.teams??{};const key=Object.keys(teams).find(k=>String(k)!==String(team));return key?teams[key]:null;}
 function itemsAt(p,time){return (p.items?.ownershipIntervals??[]).filter(x=>(x.startTime??Infinity)<=time&&(x.endReason==='REPLAY_END'?time<=(x.endTime??-Infinity):time<(x.endTime??-Infinity)));}
@@ -575,7 +577,7 @@ function formatDelta(metric,delta){if(delta===null)return '—';if(metric.format
 function deltaPercent(metric,baseline,delta){if(delta===null||baseline===null||baseline===0||metric.format==='percent'||metric.signed)return '';const pct=delta/Math.abs(baseline);if(!Number.isFinite(pct))return '';return `<span>${pct>=0?'+':''}${(pct*100).toFixed(1)}%</span>`;}
 function duration(seconds){const n=Math.max(0,Number(seconds)||0),m=Math.floor(n/60),s=n-m*60;return `${m}:${s.toFixed(s<10?1:0).padStart(s<10?4:2,'0')}`;}
 function clock(seconds,ms=false){const n=Math.max(0,Number(seconds)||0),m=Math.floor(n/60),s=n-m*60;if(ms)return `${m}:${s.toFixed(3).padStart(6,'0')}`;return `${m}:${Math.floor(s).toString().padStart(2,'0')}`;}
-function finite(v){const n=Number(v);return Number.isFinite(n)?n:null;}
+function finite(v){if(v===null||v===undefined||v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null;}
 function clampTime(v,model){const end=Math.max(0,Number(model.match?.matchDurationSeconds)||0);return Math.min(end,Math.max(0,Number.isFinite(v)?v:0));}
 function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
 

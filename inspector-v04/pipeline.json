@@ -5,7 +5,8 @@
   "notes": [
     "Only replay-generic production entrypoints belong here. Historical numbered research scripts remain evidence history and are not mass-run as ETL.",
     "A stage is complete only when the current run executes successfully and its expected outputs are freshly written.",
-    "Validated capabilities without a replay-generic producer are explicitly reported as not_supported rather than inferred from stale output files."
+    "Validated capabilities without a replay-generic producer are explicitly reported as not_supported rather than inferred from stale output files.",
+    "Each run is isolated, validated and published atomically; the visualizer reads immutable published outputs."
   ],
   "steps": [
     {
@@ -245,5 +246,6 @@
         }
       ]
     }
-  ]
+  ],
+  "isolatedRuns": true
 }

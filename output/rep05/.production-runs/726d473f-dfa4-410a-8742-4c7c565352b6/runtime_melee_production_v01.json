@@ -1,0 +1,435 @@
+{
+  "version": "RUNTIME_MELEE_PRODUCTION_V01",
+  "canonical": false,
+  "createdAt": "2026-09-13T00:13:39.833Z",
+  "status": "RUNTIME_MELEE_PRODUCTION_V01_READY",
+  "replay": {
+    "replayName": "rep05",
+    "replayPath": "G:\\DeadlockBehavior\\output\\.pipeline-work\\726d473f-dfa4-410a-8742-4c7c565352b6\\replays\\rep05.dem",
+    "tickRate": 64,
+    "matchClockOffsetSeconds": 30,
+    "replayEndTick": 157918
+  },
+  "source": {
+    "entityClass": "CCitadel_Ability_HoldMelee",
+    "executionIdentity": "abilityEntityIndex + m_flAttackTriggeredTime + m_eCurrentAttackType",
+    "attackTypeField": "m_eCurrentAttackType",
+    "attackStateField": "m_eCurrentAttackState",
+    "attackTriggeredTimeField": "m_flAttackTriggeredTime",
+    "hitField": "m_bHitWithThisAttack",
+    "ownerField": "m_hOwnerEntity (CBodyComponent.m_hParent fallback)",
+    "ownerResolution": "Source-2 entity handle -> player pawn index (0x3fff mask) -> player_state roster"
+  },
+  "operationalContract": {
+    "rawEvent": "Unique observed melee-ability execution keyed by ability entity, attack-trigger time, and attack type.",
+    "matchEligibility": "firstObservedMatchTimeSeconds >= 0",
+    "hit": "m_bHitWithThisAttack became true for the execution.",
+    "type": "Observed m_eCurrentAttackType. LIGHT=1, HEAVY=2, HEAVY_AIR=3, SLIDE=4.",
+    "semanticBoundary": "Executed melee telemetry, not raw input/attempt telemetry. Hit is the observed ability hit flag; it does not independently reconstruct collision, damage amount, target identity, final blow, or economic outcome."
+  },
+  "attackTypeEnum": {
+    "0": "NONE",
+    "1": "LIGHT",
+    "2": "HEAVY",
+    "3": "HEAVY_AIR",
+    "4": "SLIDE"
+  },
+  "attackStateEnum": {
+    "0": "NONE",
+    "1": "CHARGING",
+    "2": "GROUND_DASHING",
+    "3": "AIR_DASHING",
+    "4": "ATTACKING",
+    "5": "SLIDE_DASHING"
+  },
+  "rawTotals": {
+    "attacks": 1348,
+    "hits": 1343,
+    "byType": {
+      "HEAVY": 817,
+      "HEAVY_AIR": 37,
+      "LIGHT": 494
+    },
+    "hitsByType": {
+      "HEAVY_AIR": 37,
+      "HEAVY": 812,
+      "LIGHT": 494
+    },
+    "unresolvedOwner": 0,
+    "unknownAttackType": 0
+  },
+  "preMatch": {
+    "attacksExcluded": 0,
+    "hitsExcluded": 0
+  },
+  "totals": {
+    "attacks": 1348,
+    "hits": 1343,
+    "hitRate": 0.9962908011869436,
+    "byType": {
+      "HEAVY": 817,
+      "HEAVY_AIR": 37,
+      "LIGHT": 494
+    },
+    "hitsByType": {
+      "HEAVY_AIR": 37,
+      "HEAVY": 812,
+      "LIGHT": 494
+    },
+    "unresolvedOwner": 0,
+    "unknownAttackType": 0
+  },
+  "players": [
+    {
+      "controllerEntityIndex": 6,
+      "pawnEntityIndexes": [
+        84
+      ],
+      "playerName": "ACE_Lazzy",
+      "steamId": "76561199322325405",
+      "heroId": 63,
+      "team": 3,
+      "attackCount": 41,
+      "hitCount": 40,
+      "hitRate": 0.975609756097561,
+      "byType": {
+        "HEAVY": 24,
+        "LIGHT": 17
+      },
+      "hitsByType": {
+        "LIGHT": 17,
+        "HEAVY": 23
+      },
+      "typeShare": {
+        "HEAVY": 0.5853658536585366,
+        "LIGHT": 0.4146341463414634
+      }
+    },
+    {
+      "controllerEntityIndex": 2,
+      "pawnEntityIndexes": [
+        77
+      ],
+      "playerName": "Aleister",
+      "steamId": "76561198307535491",
+      "heroId": 50,
+      "team": 3,
+      "attackCount": 80,
+      "hitCount": 80,
+      "hitRate": 1,
+      "byType": {
+        "HEAVY": 30,
+        "LIGHT": 50
+      },
+      "hitsByType": {
+        "HEAVY": 30,
+        "LIGHT": 50
+      },
+      "typeShare": {
+        "HEAVY": 0.375,
+        "LIGHT": 0.625
+      }
+    },
+    {
+      "controllerEntityIndex": 10,
+      "pawnEntityIndexes": [
+        93
+      ],
+      "playerName": "Dolan_161",
+      "steamId": "76561198047054872",
+      "heroId": 25,
+      "team": 3,
+      "attackCount": 128,
+      "hitCount": 127,
+      "hitRate": 0.9921875,
+      "byType": {
+        "HEAVY": 35,
+        "LIGHT": 91,
+        "HEAVY_AIR": 2
+      },
+      "hitsByType": {
+        "HEAVY": 34,
+        "LIGHT": 91,
+        "HEAVY_AIR": 2
+      },
+      "typeShare": {
+        "HEAVY": 0.2734375,
+        "LIGHT": 0.7109375,
+        "HEAVY_AIR": 0.015625
+      }
+    },
+    {
+      "controllerEntityIndex": 13,
+      "pawnEntityIndexes": [
+        95
+      ],
+      "playerName": "FlameHead58",
+      "steamId": "76561199007206598",
+      "heroId": 27,
+      "team": 2,
+      "attackCount": 168,
+      "hitCount": 168,
+      "hitRate": 1,
+      "byType": {
+        "HEAVY": 120,
+        "HEAVY_AIR": 7,
+        "LIGHT": 41
+      },
+      "hitsByType": {
+        "HEAVY": 120,
+        "HEAVY_AIR": 7,
+        "LIGHT": 41
+      },
+      "typeShare": {
+        "HEAVY": 0.7142857142857143,
+        "HEAVY_AIR": 0.041666666666666664,
+        "LIGHT": 0.24404761904761904
+      }
+    },
+    {
+      "controllerEntityIndex": 4,
+      "pawnEntityIndexes": [
+        80
+      ],
+      "playerName": "Ghostt",
+      "steamId": "76561198370355602",
+      "heroId": 13,
+      "team": 2,
+      "attackCount": 102,
+      "hitCount": 101,
+      "hitRate": 0.9901960784313726,
+      "byType": {
+        "HEAVY": 69,
+        "LIGHT": 31,
+        "HEAVY_AIR": 2
+      },
+      "hitsByType": {
+        "HEAVY": 68,
+        "LIGHT": 31,
+        "HEAVY_AIR": 2
+      },
+      "typeShare": {
+        "HEAVY": 0.6764705882352942,
+        "LIGHT": 0.30392156862745096,
+        "HEAVY_AIR": 0.0196078431372549
+      }
+    },
+    {
+      "controllerEntityIndex": 7,
+      "pawnEntityIndexes": [
+        78
+      ],
+      "playerName": "Jack",
+      "steamId": "76561198300773879",
+      "heroId": 19,
+      "team": 3,
+      "attackCount": 115,
+      "hitCount": 115,
+      "hitRate": 1,
+      "byType": {
+        "HEAVY": 91,
+        "LIGHT": 23,
+        "HEAVY_AIR": 1
+      },
+      "hitsByType": {
+        "HEAVY": 91,
+        "LIGHT": 23,
+        "HEAVY_AIR": 1
+      },
+      "typeShare": {
+        "HEAVY": 0.7913043478260869,
+        "LIGHT": 0.2,
+        "HEAVY_AIR": 0.008695652173913044
+      }
+    },
+    {
+      "controllerEntityIndex": 8,
+      "pawnEntityIndexes": [
+        94
+      ],
+      "playerName": "JustJorsh",
+      "steamId": "76561198123784134",
+      "heroId": 4,
+      "team": 2,
+      "attackCount": 186,
+      "hitCount": 185,
+      "hitRate": 0.9946236559139785,
+      "byType": {
+        "HEAVY": 140,
+        "LIGHT": 40,
+        "HEAVY_AIR": 6
+      },
+      "hitsByType": {
+        "HEAVY": 139,
+        "LIGHT": 40,
+        "HEAVY_AIR": 6
+      },
+      "typeShare": {
+        "HEAVY": 0.7526881720430108,
+        "LIGHT": 0.21505376344086022,
+        "HEAVY_AIR": 0.03225806451612903
+      }
+    },
+    {
+      "controllerEntityIndex": 9,
+      "pawnEntityIndexes": [
+        86
+      ],
+      "playerName": "Mirzero",
+      "steamId": "76561197960960996",
+      "heroId": 11,
+      "team": 2,
+      "attackCount": 77,
+      "hitCount": 76,
+      "hitRate": 0.987012987012987,
+      "byType": {
+        "HEAVY": 46,
+        "LIGHT": 29,
+        "HEAVY_AIR": 2
+      },
+      "hitsByType": {
+        "LIGHT": 29,
+        "HEAVY": 45,
+        "HEAVY_AIR": 2
+      },
+      "typeShare": {
+        "HEAVY": 0.5974025974025974,
+        "LIGHT": 0.37662337662337664,
+        "HEAVY_AIR": 0.025974025974025976
+      }
+    },
+    {
+      "controllerEntityIndex": 5,
+      "pawnEntityIndexes": [
+        88
+      ],
+      "playerName": "renso",
+      "steamId": "76561198107069146",
+      "heroId": 35,
+      "team": 3,
+      "attackCount": 143,
+      "hitCount": 143,
+      "hitRate": 1,
+      "byType": {
+        "HEAVY": 90,
+        "LIGHT": 50,
+        "HEAVY_AIR": 3
+      },
+      "hitsByType": {
+        "HEAVY": 90,
+        "LIGHT": 50,
+        "HEAVY_AIR": 3
+      },
+      "typeShare": {
+        "HEAVY": 0.6293706293706294,
+        "LIGHT": 0.34965034965034963,
+        "HEAVY_AIR": 0.02097902097902098
+      }
+    },
+    {
+      "controllerEntityIndex": 11,
+      "pawnEntityIndexes": [
+        82
+      ],
+      "playerName": "Senor watermelon",
+      "steamId": "76561199437907897",
+      "heroId": 60,
+      "team": 2,
+      "attackCount": 107,
+      "hitCount": 107,
+      "hitRate": 1,
+      "byType": {
+        "HEAVY_AIR": 7,
+        "HEAVY": 69,
+        "LIGHT": 31
+      },
+      "hitsByType": {
+        "HEAVY_AIR": 7,
+        "HEAVY": 69,
+        "LIGHT": 31
+      },
+      "typeShare": {
+        "HEAVY_AIR": 0.06542056074766354,
+        "HEAVY": 0.6448598130841121,
+        "LIGHT": 0.2897196261682243
+      }
+    },
+    {
+      "controllerEntityIndex": 12,
+      "pawnEntityIndexes": [
+        85
+      ],
+      "playerName": "Spk",
+      "steamId": "76561198306286724",
+      "heroId": 81,
+      "team": 2,
+      "attackCount": 122,
+      "hitCount": 122,
+      "hitRate": 1,
+      "byType": {
+        "HEAVY_AIR": 5,
+        "HEAVY": 60,
+        "LIGHT": 57
+      },
+      "hitsByType": {
+        "HEAVY_AIR": 5,
+        "HEAVY": 60,
+        "LIGHT": 57
+      },
+      "typeShare": {
+        "HEAVY_AIR": 0.040983606557377046,
+        "HEAVY": 0.4918032786885246,
+        "LIGHT": 0.4672131147540984
+      }
+    },
+    {
+      "controllerEntityIndex": 3,
+      "pawnEntityIndexes": [
+        92
+      ],
+      "playerName": "Sugon",
+      "steamId": "76561197980274031",
+      "heroId": 31,
+      "team": 3,
+      "attackCount": 79,
+      "hitCount": 79,
+      "hitRate": 1,
+      "byType": {
+        "HEAVY": 43,
+        "LIGHT": 34,
+        "HEAVY_AIR": 2
+      },
+      "hitsByType": {
+        "HEAVY": 43,
+        "LIGHT": 34,
+        "HEAVY_AIR": 2
+      },
+      "typeShare": {
+        "HEAVY": 0.5443037974683544,
+        "LIGHT": 0.43037974683544306,
+        "HEAVY_AIR": 0.02531645569620253
+      }
+    }
+  ],
+  "integrity": {
+    "entityPacketsObserved": 157944,
+    "meleeAbilityEntityEvents": 5562,
+    "duplicateKeyCount": 0,
+    "ownerResolutionRateRaw": 1,
+    "ownerResolutionRateMatch": 1,
+    "eventCountMatchesPlayerSum": true,
+    "hitCountMatchesPlayerSum": true
+  },
+  "validation": {
+    "pass": true,
+    "checks": {
+      "twelvePlayerRoster": true,
+      "uniqueExecutionKeys": true,
+      "allPostStartExecutionsPlayerLinked": true,
+      "allPostStartTypesKnown": true,
+      "hitCountBoundedByExecutions": true,
+      "playerAttackSumReconciles": true,
+      "playerHitSumReconciles": true
+    }
+  }
+}

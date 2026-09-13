@@ -63,11 +63,11 @@ test('denies is A through canonical core production',()=>{
 test('denies extraction, replay transport, and Authoritative Stats remain wired',()=>{
   const extractor=fs.readFileSync(path.resolve(__dirname,'../scripts/03-extract-player-state.mjs'),'utf8');
   const replayModel=fs.readFileSync(path.resolve(__dirname,'../inspector-v04/lib/replay-model.mjs'),'utf8');
-  const ui=fs.readFileSync(path.resolve(__dirname,'../inspector-v04/public/authoritative.js'),'utf8');
+  const ui=fs.readFileSync(path.resolve(__dirname,'../inspector-v04/public/metric-values.mjs'),'utf8');
 
   assert.match(extractor,/denies:\s*controller\.getField\(\s*['"]m_iDenies['"]\s*\)/);
   assert.match(replayModel,/denies:c\.denies/);
-  assert.match(replayModel,/denies:f\.denies\?\?0/);
+  assert.match(replayModel,/denies:f\.denies\?\?null/);
   assert.match(ui,/['"]denies['"]/);
   assert.match(ui,/case ['"]denies['"]\s*:/);
 });

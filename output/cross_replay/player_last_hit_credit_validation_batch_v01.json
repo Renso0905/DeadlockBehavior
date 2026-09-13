@@ -1,0 +1,273 @@
+{
+  "version": "PLAYER_LAST_HIT_CREDIT_VALIDATION_BATCH_V01",
+  "canonical": false,
+  "createdAt": "2026-09-11T23:32:06.434Z",
+  "requestedReplays": [
+    "test",
+    "rep01",
+    "rep02",
+    "rep03",
+    "rep04",
+    "rep05"
+  ],
+  "replayCount": 6,
+  "successCount": 6,
+  "allRequestedReplaysSucceeded": true,
+  "construct": "game-awarded NPC last-hit credit counter",
+  "authorityBoundary": {
+    "researchOnly": true,
+    "promotesClaim": false,
+    "promotesMetric": false,
+    "establishedIfSupported": "m_iLastHits behaves as a game-awarded NPC last-hit credit counter",
+    "explicitlyNotEstablished": [
+      "victim identity on multi-death collision ticks",
+      "damage source ownership",
+      "exact game eligibility rules for every NPC class",
+      "deny semantics"
+    ]
+  },
+  "aggregate": {
+    "counts": {
+      "lastHitCredits": 14196,
+      "npcDeathTransitions": 24864,
+      "exactCreditsWithEligibleNpcDeath": 8954,
+      "isolatedExactMatches": 6704,
+      "sameTeamOnlyConflicts": 56,
+      "unmatchedLastHitCredits": 5242,
+      "counterRegressions": 0
+    },
+    "validation": {
+      "exactNpcDeathAgreementRate": 0.6307410538179768,
+      "sameTeamConflictRate": 0.0039447731755424065,
+      "placebo10AgreementRate": 0.011693434770357848,
+      "placebo30AgreementRate": 0.010566356720202874
+    },
+    "matchedNpcClasses": {
+      "CNPC_Trooper": 5586,
+      "CNPC_TrooperNeutral": 1043,
+      "CNPC_NecroSkele": 55,
+      "CNPC_Neutral_SinnersSacrifice": 20
+    }
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "lastHitTransitions": 2433,
+        "lastHitCredits": 2740,
+        "npcDeathTransitions": 5078,
+        "exactCreditsWithEligibleNpcDeath": 1717,
+        "isolatedExactMatches": 1199,
+        "sameTeamOnlyConflicts": 15,
+        "unmatchedLastHitCredits": 1023,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "exactNpcDeathAgreementRate": 0.6266423357664234,
+        "sameTeamConflictRate": 0.005474452554744526,
+        "placebo10AgreementRate": 0.012408759124087591,
+        "placebo30AgreementRate": 0.015328467153284672,
+        "counterRegressionCount": 0
+      },
+      "matchedNpcClasses": {
+        "CNPC_Trooper": 1017,
+        "CNPC_TrooperNeutral": 179,
+        "CNPC_Neutral_SinnersSacrifice": 3
+      },
+      "allExactClassEvidence": {
+        "CNPC_Trooper": 2598,
+        "CNPC_TrooperNeutral": 343,
+        "CNPC_Neutral_SinnersSacrifice": 3
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\test\\player_last_hit_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\test\\player_last_hit_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "lastHitTransitions": 1847,
+        "lastHitCredits": 1968,
+        "npcDeathTransitions": 3340,
+        "exactCreditsWithEligibleNpcDeath": 1156,
+        "isolatedExactMatches": 912,
+        "sameTeamOnlyConflicts": 8,
+        "unmatchedLastHitCredits": 812,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "exactNpcDeathAgreementRate": 0.5873983739837398,
+        "sameTeamConflictRate": 0.0040650406504065045,
+        "placebo10AgreementRate": 0.008130081300813009,
+        "placebo30AgreementRate": 0.011178861788617886,
+        "counterRegressionCount": 0
+      },
+      "matchedNpcClasses": {
+        "CNPC_Trooper": 764,
+        "CNPC_TrooperNeutral": 148
+      },
+      "allExactClassEvidence": {
+        "CNPC_Trooper": 1350,
+        "CNPC_TrooperNeutral": 221
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep01\\player_last_hit_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep01\\player_last_hit_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "lastHitTransitions": 1950,
+        "lastHitCredits": 2130,
+        "npcDeathTransitions": 3689,
+        "exactCreditsWithEligibleNpcDeath": 1368,
+        "isolatedExactMatches": 1050,
+        "sameTeamOnlyConflicts": 9,
+        "unmatchedLastHitCredits": 762,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "exactNpcDeathAgreementRate": 0.6422535211267606,
+        "sameTeamConflictRate": 0.004225352112676056,
+        "placebo10AgreementRate": 0.00892018779342723,
+        "placebo30AgreementRate": 0.008450704225352112,
+        "counterRegressionCount": 0
+      },
+      "matchedNpcClasses": {
+        "CNPC_Trooper": 861,
+        "CNPC_TrooperNeutral": 160,
+        "CNPC_NecroSkele": 28,
+        "CNPC_Neutral_SinnersSacrifice": 1
+      },
+      "allExactClassEvidence": {
+        "CNPC_Trooper": 1673,
+        "CNPC_TrooperNeutral": 239,
+        "CNPC_NecroSkele": 53,
+        "CNPC_Neutral_SinnersSacrifice": 1,
+        "CNPC_Boss_Tier2": 1
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep02\\player_last_hit_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep02\\player_last_hit_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "lastHitTransitions": 2858,
+        "lastHitCredits": 3107,
+        "npcDeathTransitions": 5474,
+        "exactCreditsWithEligibleNpcDeath": 2010,
+        "isolatedExactMatches": 1533,
+        "sameTeamOnlyConflicts": 11,
+        "unmatchedLastHitCredits": 1097,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "exactNpcDeathAgreementRate": 0.6469262954618603,
+        "sameTeamConflictRate": 0.003540392661731574,
+        "placebo10AgreementRate": 0.011586739620212423,
+        "placebo30AgreementRate": 0.012230447376890892,
+        "counterRegressionCount": 0
+      },
+      "matchedNpcClasses": {
+        "CNPC_Trooper": 1259,
+        "CNPC_TrooperNeutral": 267,
+        "CNPC_Neutral_SinnersSacrifice": 7
+      },
+      "allExactClassEvidence": {
+        "CNPC_Trooper": 2411,
+        "CNPC_TrooperNeutral": 477,
+        "CNPC_Neutral_SinnersSacrifice": 7
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep03\\player_last_hit_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep03\\player_last_hit_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "lastHitTransitions": 2012,
+        "lastHitCredits": 2142,
+        "npcDeathTransitions": 3546,
+        "exactCreditsWithEligibleNpcDeath": 1333,
+        "isolatedExactMatches": 1077,
+        "sameTeamOnlyConflicts": 6,
+        "unmatchedLastHitCredits": 809,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "exactNpcDeathAgreementRate": 0.6223155929038282,
+        "sameTeamConflictRate": 0.0028011204481792717,
+        "placebo10AgreementRate": 0.016339869281045753,
+        "placebo30AgreementRate": 0.007469654528478058,
+        "counterRegressionCount": 0
+      },
+      "matchedNpcClasses": {
+        "CNPC_Trooper": 898,
+        "CNPC_TrooperNeutral": 148,
+        "CNPC_NecroSkele": 27,
+        "CNPC_Neutral_SinnersSacrifice": 4
+      },
+      "allExactClassEvidence": {
+        "CNPC_Trooper": 1487,
+        "CNPC_TrooperNeutral": 227,
+        "CNPC_NecroSkele": 37,
+        "CNPC_Neutral_SinnersSacrifice": 5
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep04\\player_last_hit_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep04\\player_last_hit_credit_events_v01.jsonl"
+      }
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "status": "RESEARCH_VALIDATION_COMPLETE",
+      "counts": {
+        "lastHitTransitions": 1866,
+        "lastHitCredits": 2109,
+        "npcDeathTransitions": 3737,
+        "exactCreditsWithEligibleNpcDeath": 1370,
+        "isolatedExactMatches": 933,
+        "sameTeamOnlyConflicts": 7,
+        "unmatchedLastHitCredits": 739,
+        "counterRegressions": 0
+      },
+      "validation": {
+        "exactNpcDeathAgreementRate": 0.6495969653864391,
+        "sameTeamConflictRate": 0.003319108582266477,
+        "placebo10AgreementRate": 0.012328117591275486,
+        "placebo30AgreementRate": 0.006638217164532954,
+        "counterRegressionCount": 0
+      },
+      "matchedNpcClasses": {
+        "CNPC_Trooper": 787,
+        "CNPC_TrooperNeutral": 141,
+        "CNPC_Neutral_SinnersSacrifice": 5
+      },
+      "allExactClassEvidence": {
+        "CNPC_Trooper": 1888,
+        "CNPC_TrooperNeutral": 332,
+        "CNPC_Neutral_SinnersSacrifice": 5
+      },
+      "outputs": {
+        "summary": "G:\\DeadlockBehavior\\output\\rep05\\player_last_hit_credit_validation_v01.json",
+        "events": "G:\\DeadlockBehavior\\output\\rep05\\player_last_hit_credit_events_v01.jsonl"
+      }
+    }
+  ]
+}

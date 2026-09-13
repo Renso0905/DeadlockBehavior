@@ -97,7 +97,7 @@ test('assists production and Authoritative Stats display paths remain wired', ()
   );
 
   const authoritativeUi = fs.readFileSync(
-    path.resolve(__dirname, '../inspector-v04/public/authoritative.js'),
+    path.resolve(__dirname, '../inspector-v04/public/metric-values.mjs'),
     'utf8'
   );
 
@@ -113,7 +113,7 @@ test('assists production and Authoritative Stats display paths remain wired', ()
 
   assert.match(
     replayModel,
-    /assists:f\.assists\?\?0/
+    /assists:f\.assists\?\?null/
   );
 
   assert.match(

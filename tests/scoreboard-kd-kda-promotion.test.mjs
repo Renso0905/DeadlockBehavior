@@ -158,22 +158,22 @@ test('runtime formula is literal division and zero deaths remain null', () => {
 
   assert.match(
     replayModel,
-    /kd:safeDiv\(f\.kills\?\?0,deaths\)/
+    /kd:safeDiv\(f\.kills\?\?null,deaths\)/
   );
 
   assert.match(
     replayModel,
-    /kda:safeDiv\(\(f\.kills\?\?0\)\+\(f\.assists\?\?0\),deaths\)/
+    /kda:safeDiv\(Number\.isFinite\(f\.kills\)&&Number\.isFinite\(f\.assists\)\?f\.kills\+f\.assists:null,deaths\)/
   );
 
   assert.doesNotMatch(
     replayModel,
-    /kd:safeDiv\(f\.kills\?\?0,Math\.max\(deaths,1\)\)/
+    /kd:safeDiv\(f\.kills\?\?null,Math\.max\(deaths,1\)\)/
   );
 
   assert.doesNotMatch(
     replayModel,
-    /kda:safeDiv\(\(f\.kills\?\?0\)\+\(f\.assists\?\?0\),Math\.max\(deaths,1\)\)/
+    /kda:safeDiv\(\(f\.kills\?\?null\)\+\(f\.assists\?\?null\),Math\.max\(deaths,1\)\)/
   );
 });
 
@@ -182,7 +182,7 @@ test('Authoritative Stats exposes K/D and KDA with explicit zero-death presentat
     fs.readFileSync(
       path.resolve(
         __dirname,
-        '../inspector-v04/public/authoritative.js'
+        '../inspector-v04/public/metric-values.mjs'
       ),
       'utf8'
     );

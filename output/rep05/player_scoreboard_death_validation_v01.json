@@ -1,0 +1,158 @@
+{
+  "version": "PLAYER_SCOREBOARD_DEATH_VALIDATION_V01",
+  "canonical": false,
+  "replay": "rep05",
+  "rowCount": 118380,
+  "construct": "game-awarded/scored player death counter",
+  "counts": {
+    "scoreboardDeathTransitions": 100,
+    "scoreboardDeathCredits": 100,
+    "aliveToDeadTransitions": 105,
+    "scoreboardDeathsMatchedToAliveDead": 100,
+    "unmatchedScoreboardDeathCredits": 0,
+    "aliveToDeadWithoutScoreboardDeath": 5,
+    "completedExtraStateDeathEpisodes": 4,
+    "censoredExtraStateDeathEpisodes": 1,
+    "extraEpisodesExactly3Seconds": 4,
+    "counterRegressions": 0
+  },
+  "validation": {
+    "scoreboardDeathToAliveDeadAgreementRate": 1,
+    "placebo10AgreementRate": 0,
+    "placebo30AgreementRate": 0,
+    "counterRegressionCount": 0
+  },
+  "timingResiduals": {
+    "count": 100,
+    "minTicks": 0,
+    "medianTicks": 0,
+    "maxTicks": 16,
+    "zeroTickMatches": 80,
+    "zeroTickShare": 0.8,
+    "minSeconds": 0,
+    "medianSeconds": 0,
+    "maxSeconds": 0.25
+  },
+  "extraStateDeathEpisodeDurations": {
+    "count": 4,
+    "minSeconds": 3,
+    "medianSeconds": 3,
+    "maxSeconds": 3,
+    "modeSeconds": 3
+  },
+  "unmatchedScoreboardDeathCredits": [],
+  "extraAliveToDeadEpisodes": [
+    {
+      "start": {
+        "id": "aliveToDead|2|100416",
+        "tick": 100416,
+        "matchTimeSeconds": 1539,
+        "controllerEntityIndex": 2,
+        "playerName": "Aleister",
+        "team": 3,
+        "heroId": 50
+      },
+      "completed": true,
+      "end": {
+        "id": "deadToAlive|2|100608",
+        "tick": 100608,
+        "matchTimeSeconds": 1542,
+        "controllerEntityIndex": 2,
+        "playerName": "Aleister",
+        "team": 3,
+        "heroId": 50
+      },
+      "durationTicks": 192,
+      "durationSeconds": 3
+    },
+    {
+      "start": {
+        "id": "aliveToDead|10|106560",
+        "tick": 106560,
+        "matchTimeSeconds": 1635,
+        "controllerEntityIndex": 10,
+        "playerName": "Dolan_161",
+        "team": 3,
+        "heroId": 25
+      },
+      "completed": true,
+      "end": {
+        "id": "deadToAlive|10|106752",
+        "tick": 106752,
+        "matchTimeSeconds": 1638,
+        "controllerEntityIndex": 10,
+        "playerName": "Dolan_161",
+        "team": 3,
+        "heroId": 25
+      },
+      "durationTicks": 192,
+      "durationSeconds": 3
+    },
+    {
+      "start": {
+        "id": "aliveToDead|5|108544",
+        "tick": 108544,
+        "matchTimeSeconds": 1666,
+        "controllerEntityIndex": 5,
+        "playerName": "renso",
+        "team": 3,
+        "heroId": 35
+      },
+      "completed": true,
+      "end": {
+        "id": "deadToAlive|5|108736",
+        "tick": 108736,
+        "matchTimeSeconds": 1669,
+        "controllerEntityIndex": 5,
+        "playerName": "renso",
+        "team": 3,
+        "heroId": 35
+      },
+      "durationTicks": 192,
+      "durationSeconds": 3
+    },
+    {
+      "start": {
+        "id": "aliveToDead|9|138832",
+        "tick": 138832,
+        "matchTimeSeconds": 2139.25,
+        "controllerEntityIndex": 9,
+        "playerName": "Mirzero",
+        "team": 2,
+        "heroId": 11
+      },
+      "completed": true,
+      "end": {
+        "id": "deadToAlive|9|139024",
+        "tick": 139024,
+        "matchTimeSeconds": 2142.25,
+        "controllerEntityIndex": 9,
+        "playerName": "Mirzero",
+        "team": 2,
+        "heroId": 11
+      },
+      "durationTicks": 192,
+      "durationSeconds": 3
+    },
+    {
+      "start": {
+        "id": "aliveToDead|2|155504",
+        "tick": 155504,
+        "matchTimeSeconds": 2399.75,
+        "controllerEntityIndex": 2,
+        "playerName": "Aleister",
+        "team": 3,
+        "heroId": 50
+      },
+      "completed": false,
+      "end": null,
+      "durationTicks": null,
+      "durationSeconds": null
+    }
+  ],
+  "counterRegressions": [],
+  "outputs": {
+    "summary": "G:\\DeadlockBehavior\\output\\rep05\\player_scoreboard_death_validation_v01.json",
+    "events": "G:\\DeadlockBehavior\\output\\rep05\\player_scoreboard_death_events_v01.jsonl"
+  }
+}

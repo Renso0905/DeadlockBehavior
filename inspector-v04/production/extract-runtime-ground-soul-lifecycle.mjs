@@ -3,7 +3,7 @@ import { basename, dirname, extname, resolve } from 'node:path';
 import { createInterface } from 'node:readline';
 import { EntityOperation, InterceptorStage, Logger, Parser, ParserConfiguration } from 'deadem';
 import { requireClaim } from '../../src/contracts/claim-registry.mjs';
-import { beginGroundSoulEpisode, buildGroundSoulLifecycleSummary, compareActivationKeys, decodeSource2EntityHandle, finishGroundSoulEpisode, observeGroundSoulEpisode, collapseBenignSameTickReactivationFragments } from '../lib/runtime-ground-soul-lifecycle.mjs';
+import { beginGroundSoulEpisode, buildGroundSoulLifecycleSummary, compareActivationKeys, decodeSource2EntityHandle, finishGroundSoulEpisode, observeGroundSoulEpisode, collapseBenignSameTickReactivationFragments, attributePhysicalVacuumTargets } from '../lib/runtime-ground-soul-lifecycle.mjs';
 import { buildDuplicateActivationDiagnostic, duplicateDiagnosticConsoleLines } from '../lib/runtime-ground-soul-lifecycle-duplicate-diagnostic.mjs';
 
 const VERSION='RUNTIME_GROUND_SOUL_LIFECYCLE_PRODUCTION_V01';
@@ -16,11 +16,12 @@ if(!replayArgument)throw new Error('Usage: node inspector-v04/production/extract
 const replayPath=resolve(replayArgument);
 const replayName=basename(replayPath,extname(replayPath));
 const playerSummaryPath=resolve('output',replayName,'player_state_summary.json');
+const playerStatePath=resolve('output',replayName,'player_state.jsonl');
 const researchPath=resolve('output',replayName,'replication_assigned_gold_activations_v01.jsonl');
 const outputPath=resolve('output',replayName,'runtime_ground_soul_lifecycle_production_v01.json');
 const eventsPath=resolve('output',replayName,'runtime_ground_soul_lifecycle_events_v01.jsonl');
 const duplicateDiagnosticPath=resolve('output',replayName,'runtime_ground_soul_lifecycle_duplicate_activation_diagnostic_v01.json');
-for(const path of [replayPath,playerSummaryPath])if(!existsSync(path))throw new Error(`Required input missing: ${path}`);
+for(const path of [replayPath,playerSummaryPath,playerStatePath])if(!existsSync(path))throw new Error(`Required input missing: ${path}`);
 
 const claim=requireClaim('ground_soul_lifecycle',{requireSemantic:true,requireReplication:true});
 const playerSummary=JSON.parse(readFileSync(playerSummaryPath,'utf8'));
@@ -83,6 +84,7 @@ if(sameTickFragmentRepair.removedCount){
   console.log(`Same-tick reactivation fragments canonicalized: ${sameTickFragmentRepair.removedCount} across ${sameTickFragmentRepair.resolvedGroups.length} duplicate groups`);
 }
 const summary=buildGroundSoulLifecycleSummary(episodes);
+summary.physicalVacuumTargets=await attributePhysicalVacuumTargets(episodes,strictJsonl(playerStatePath));
 const duplicateKeys=findDuplicateKeys(episodes);
 // GROUND_SOUL_LIFECYCLE_DUPLICATE_DIAGNOSTIC_V01_INSTRUMENTATION
 const duplicateDiagnostic=buildDuplicateActivationDiagnostic(episodes,{replayName,replayPath,replayEndTick});
@@ -110,6 +112,7 @@ const checks={
   allEpisodesFinalized:check(episodes.filter(e=>!e.finalized).length,0,episodes.every(e=>e.finalized)),
   completedDurationsNonnegative:check(episodes.filter(e=>e.endReason==='BECAME_INACTIVE'&&!(finite(e.durationSeconds)>=0)).length,0,episodes.filter(e=>e.endReason==='BECAME_INACTIVE').every(e=>finite(e.durationSeconds)>=0)),
   targetIdentityOnlyPhysicalHandle:check(episodes.filter(e=>e.targeted&&!Number.isInteger(e.targetEntityIndex)).length,0,episodes.filter(e=>e.targeted).every(e=>Number.isInteger(e.targetEntityIndex))),
+  physicalTargetPartition:check(summary.physicalVacuumTargets.resolvedPhysicalTargets+summary.physicalVacuumTargets.unresolvedPhysicalTargets,summary.targetedActivations,summary.physicalVacuumTargets.resolvedPhysicalTargets+summary.physicalVacuumTargets.unresolvedPhysicalTargets===summary.targetedActivations),
 };
 const failed=Object.entries(checks).filter(([,v])=>!v.pass).map(([k])=>k);if(failed.length)throw new Error(`Ground-Soul lifecycle production integrity failed: ${failed.join(', ')}`);
 
@@ -140,3 +143,4 @@ function finite(v){const n=Number(v);return Number.isFinite(n)?n:null;}
 function boolish(v){if(v===true||v===false)return v;const n=Number(v);if(n===0)return false;if(n===1)return true;return null;}
 function findDuplicateKeys(rows){const seen=new Set(),dupes=[];for(const e of rows){const k=`${e.activationTick}:${e.entityIndex}`;if(seen.has(k))dupes.push(k);else seen.add(k);}return dupes;}
 async function readJsonl(path){const rows=[];const rl=createInterface({input:createReadStream(path,{encoding:'utf8'}),crlfDelay:Infinity});for await(const line of rl){if(!line.trim())continue;try{rows.push(JSON.parse(line));}catch{}}return rows;}
+async function* strictJsonl(path){const rl=createInterface({input:createReadStream(path,{encoding:'utf8'}),crlfDelay:Infinity});let lineNumber=0;for await(const line of rl){lineNumber++;if(!line.trim())continue;try{yield JSON.parse(line);}catch{throw new Error(`Malformed player-state JSONL row ${lineNumber}`);}}}

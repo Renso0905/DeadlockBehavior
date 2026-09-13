@@ -1,0 +1,440 @@
+{
+  "version": "SCOREBOARD_SAMPLED_COUNTER_TIMELINE_CONTRACT_V01",
+  "canonical": false,
+  "researchOnly": true,
+  "createdAt": "2026-09-12T18:20:16.871Z",
+  "construct": "first observed PlayerState sample where an authoritative scoreboard counter increases",
+  "counters": [
+    "kills",
+    "assists",
+    "last_hits",
+    "denies"
+  ],
+  "eventSchema": {
+    "metric": "counter identity",
+    "observedSampleTick": "demo tick of first observed sampled increased state",
+    "observedMatchTime": "match time of first observed sampled increased state",
+    "previous": "previous observed counter value",
+    "current": "current observed counter value",
+    "delta": "current - previous; positive integer"
+  },
+  "timingSemantics": {
+    "source": "player_state.jsonl",
+    "observedSampling": "PlayerState source sampling, nominally 4 Hz in the current pipeline",
+    "exactServerAwardTick": false,
+    "rule": "Timestamp the first observed sample carrying the increased counter value. Never backdate or interpolate to an unobserved hidden award tick.",
+    "multiUnitDelta": "Preserve a delta greater than one as one sampled transition. Do not invent separate timestamps for individual credit units."
+  },
+  "aggregate": {
+    "successfulReplays": 6,
+    "playerReplayScoreboards": 72,
+    "firstObservedNonzeroValues": 0,
+    "totalNegativeTransitions": 0,
+    "totalInvalidEvents": 0,
+    "positiveTransitionsBeforeMatchStart": 0,
+    "metrics": {
+      "kills": {
+        "firstObservedNonzeroValues": 0,
+        "positiveTransitionEvents": 556,
+        "positiveUnits": 557,
+        "finalCounterTotal": 557,
+        "reconciliationDifference": 0,
+        "negativeTransitions": 0,
+        "invalidEvents": 0,
+        "positiveTransitionsBeforeMatchStart": 0,
+        "multiUnitTransitions": 1
+      },
+      "assists": {
+        "firstObservedNonzeroValues": 0,
+        "positiveTransitionEvents": 1108,
+        "positiveUnits": 1113,
+        "finalCounterTotal": 1113,
+        "reconciliationDifference": 0,
+        "negativeTransitions": 0,
+        "invalidEvents": 0,
+        "positiveTransitionsBeforeMatchStart": 0,
+        "multiUnitTransitions": 5
+      },
+      "last_hits": {
+        "firstObservedNonzeroValues": 0,
+        "positiveTransitionEvents": 12479,
+        "positiveUnits": 14196,
+        "finalCounterTotal": 14196,
+        "reconciliationDifference": 0,
+        "negativeTransitions": 0,
+        "invalidEvents": 0,
+        "positiveTransitionsBeforeMatchStart": 0,
+        "multiUnitTransitions": 1106
+      },
+      "denies": {
+        "firstObservedNonzeroValues": 0,
+        "positiveTransitionEvents": 318,
+        "positiveUnits": 326,
+        "finalCounterTotal": 326,
+        "reconciliationDifference": 0,
+        "negativeTransitions": 0,
+        "invalidEvents": 0,
+        "positiveTransitionsBeforeMatchStart": 0,
+        "multiUnitTransitions": 6
+      }
+    }
+  },
+  "gates": {
+    "allRequestedReplaysSucceeded": true,
+    "allPlayersBeginAtZero": true,
+    "noNegativeCounterTransitions": true,
+    "noInvalidEvents": true,
+    "noPositiveTransitionsBeforeMatchStart": true,
+    "allMetricDeltasReconcile": true,
+    "everyReplayReconciles": true
+  },
+  "timelineValidationPass": true,
+  "recommendedStatusIfPass": {
+    "integrityValidation": "pass",
+    "semanticValidation": "pass",
+    "replicationStatus": "cross_replay_replicated"
+  },
+  "authorityBoundary": {
+    "establishedIfPromoted": "scoreboard_timelines is an observed-sample timeline of positive transitions in authoritative kill, assist, last-hit, and deny counters.",
+    "explicitlyNotEstablished": [
+      "the hidden exact server award tick",
+      "a causal event source for each credit",
+      "individual timestamps for multiple credits serialized into one sampled delta",
+      "death-counter timeline semantics",
+      "rolling performance rates",
+      "attempt timing for kills, assists, last hits, or denies"
+    ]
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "playerCount": 12,
+      "firstObservedNonzeroValues": 0,
+      "totalNegativeTransitions": 0,
+      "totalInvalidEvents": 0,
+      "positiveTransitionsBeforeMatchStart": 0,
+      "metrics": {
+        "kills": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 113,
+          "positiveUnits": 113,
+          "finalCounterTotal": 113,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        },
+        "assists": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 235,
+          "positiveUnits": 237,
+          "finalCounterTotal": 237,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 2
+        },
+        "last_hits": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 2334,
+          "positiveUnits": 2740,
+          "finalCounterTotal": 2740,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 216
+        },
+        "denies": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 55,
+          "positiveUnits": 60,
+          "finalCounterTotal": 60,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 3
+        }
+      }
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "playerCount": 12,
+      "firstObservedNonzeroValues": 0,
+      "totalNegativeTransitions": 0,
+      "totalInvalidEvents": 0,
+      "positiveTransitionsBeforeMatchStart": 0,
+      "metrics": {
+        "kills": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 86,
+          "positiveUnits": 86,
+          "finalCounterTotal": 86,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        },
+        "assists": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 159,
+          "positiveUnits": 159,
+          "finalCounterTotal": 159,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        },
+        "last_hits": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 1808,
+          "positiveUnits": 1968,
+          "finalCounterTotal": 1968,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 117
+        },
+        "denies": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 52,
+          "positiveUnits": 54,
+          "finalCounterTotal": 54,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 2
+        }
+      }
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "playerCount": 12,
+      "firstObservedNonzeroValues": 0,
+      "totalNegativeTransitions": 0,
+      "totalInvalidEvents": 0,
+      "positiveTransitionsBeforeMatchStart": 0,
+      "metrics": {
+        "kills": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 92,
+          "positiveUnits": 92,
+          "finalCounterTotal": 92,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        },
+        "assists": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 164,
+          "positiveUnits": 164,
+          "finalCounterTotal": 164,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        },
+        "last_hits": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 1891,
+          "positiveUnits": 2130,
+          "finalCounterTotal": 2130,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 161
+        },
+        "denies": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 44,
+          "positiveUnits": 44,
+          "finalCounterTotal": 44,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        }
+      }
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "playerCount": 12,
+      "firstObservedNonzeroValues": 0,
+      "totalNegativeTransitions": 0,
+      "totalInvalidEvents": 0,
+      "positiveTransitionsBeforeMatchStart": 0,
+      "metrics": {
+        "kills": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 86,
+          "positiveUnits": 87,
+          "finalCounterTotal": 87,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 1
+        },
+        "assists": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 206,
+          "positiveUnits": 209,
+          "finalCounterTotal": 209,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 3
+        },
+        "last_hits": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 2726,
+          "positiveUnits": 3107,
+          "finalCounterTotal": 3107,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 258
+        },
+        "denies": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 67,
+          "positiveUnits": 68,
+          "finalCounterTotal": 68,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 1
+        }
+      }
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "playerCount": 12,
+      "firstObservedNonzeroValues": 0,
+      "totalNegativeTransitions": 0,
+      "totalInvalidEvents": 0,
+      "positiveTransitionsBeforeMatchStart": 0,
+      "metrics": {
+        "kills": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 80,
+          "positiveUnits": 80,
+          "finalCounterTotal": 80,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        },
+        "assists": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 149,
+          "positiveUnits": 149,
+          "finalCounterTotal": 149,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        },
+        "last_hits": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 1916,
+          "positiveUnits": 2142,
+          "finalCounterTotal": 2142,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 158
+        },
+        "denies": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 62,
+          "positiveUnits": 62,
+          "finalCounterTotal": 62,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        }
+      }
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "playerCount": 12,
+      "firstObservedNonzeroValues": 0,
+      "totalNegativeTransitions": 0,
+      "totalInvalidEvents": 0,
+      "positiveTransitionsBeforeMatchStart": 0,
+      "metrics": {
+        "kills": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 99,
+          "positiveUnits": 99,
+          "finalCounterTotal": 99,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        },
+        "assists": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 195,
+          "positiveUnits": 195,
+          "finalCounterTotal": 195,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        },
+        "last_hits": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 1804,
+          "positiveUnits": 2109,
+          "finalCounterTotal": 2109,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 196
+        },
+        "denies": {
+          "firstObservedNonzeroValues": 0,
+          "positiveTransitionEvents": 38,
+          "positiveUnits": 38,
+          "finalCounterTotal": 38,
+          "reconciliationDifference": 0,
+          "negativeTransitions": 0,
+          "invalidEvents": 0,
+          "positiveTransitionsBeforeMatchStart": 0,
+          "multiUnitTransitions": 0
+        }
+      }
+    }
+  ]
+}

@@ -227,7 +227,7 @@ test('runtime builds dedicated scoreboard timelines from raw PlayerState transit
   // counter events must therefore be a distinct structure.
   assert.match(
     replayModel,
-    /matchTime-p\.lastSampleMatch>=1/
+    /if \(matchTime>=0\)/
   );
 });
 
@@ -236,7 +236,7 @@ test('Authoritative Stats exposes sampled scoreboard timelines with timing cauti
     fs.readFileSync(
       path.resolve(
         __dirname,
-        '../inspector-v04/public/authoritative.js'
+        '../inspector-v04/public/metric-values.mjs'
       ),
       'utf8'
     );

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { beginGroundSoulEpisode, buildGroundSoulLifecycleSummary, compareActivationKeys, decodeSource2EntityHandle, finishGroundSoulEpisode, observeGroundSoulEpisode } from '../lib/runtime-ground-soul-lifecycle.mjs';
+import { beginGroundSoulEpisode, buildGroundSoulLifecycleSummary, compareActivationKeys, decodeSource2EntityHandle, finishGroundSoulEpisode, observeGroundSoulEpisode, attributePhysicalVacuumTargets } from '../lib/runtime-ground-soul-lifecycle.mjs';
 
 test('Source2 vacuum handles reject sentinels and resolve low 14-bit entity index',()=>{
   assert.equal(decodeSource2EntityHandle(0),null);
@@ -34,4 +34,17 @@ test('Activation-key research comparison is exact only for the same tick/entity 
   assert.equal(compareActivationKeys(p,[...p]).exact,true);
   const c=compareActivationKeys(p,[{activationTick:10,entityIndex:2},{activationTick:21,entityIndex:3}]);
   assert.equal(c.exact,false);assert.equal(c.matched,1);
+});
+
+test('physical vacuum targets use fresh pawn identity and preserve unresolved targets',async()=>{
+  const episodes=[
+    {targeted:true,targetEntityIndex:91,targetOnsetTick:108,targetOnsetMatchTimeSeconds:1,entityIndex:200},
+    {targeted:true,targetEntityIndex:92,targetOnsetTick:200,targetOnsetMatchTimeSeconds:2,entityIndex:201},
+  ];
+  const rows=[{demoTick:100,controller:{entityIndex:7,steamId:'s7',playerName:'P7',team:2,heroId:3},pawn:{entityIndex:91}}];
+  const result=await attributePhysicalVacuumTargets(episodes,rows,{maxLagTicks:16});
+  assert.equal(result.resolvedPhysicalTargets,1);assert.equal(result.unresolvedPhysicalTargets,1);
+  assert.equal(episodes[0].physicalTargetPlayer.controllerEntityIndex,7);assert.equal(episodes[0].physicalTargetPlayer.identityLagTicks,8);
+  assert.equal(episodes[1].physicalTargetResolution,'UNRESOLVED_NO_FRESH_PAWN_IDENTITY');
+  assert.deepEqual(result.byPlayer.map(x=>x.resolvedPhysicalTargets),[1]);
 });

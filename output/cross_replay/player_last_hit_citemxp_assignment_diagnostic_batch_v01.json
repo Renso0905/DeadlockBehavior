@@ -1,0 +1,1347 @@
+{
+  "version": "PLAYER_LAST_HIT_CITEMXP_ASSIGNMENT_DIAGNOSTIC_BATCH_V01",
+  "canonical": false,
+  "researchOnly": true,
+  "createdAt": "2026-09-12T06:50:39.811Z",
+  "successCount": 6,
+  "replayCount": 6,
+  "question": "Do residual m_iLastHits credits align with sparse CItemXP first-observation/team-assignment events above shifted-time controls?",
+  "authorityBoundary": "First-observed CItemXP is not yet a validated entity-spawn event and no CItemXP signal is promoted as a last-hit mechanism by this diagnostic.",
+  "aggregate": {
+    "counts": {
+      "credits": 14196,
+      "exactMatched": 8911,
+      "residual": 5285,
+      "xpFirst": 444,
+      "xpFirstTeam": 444,
+      "xpTeamChange": 13347,
+      "xpVacuumChange": 0,
+      "exactCoverageRate": 0.6277120315581854
+    },
+    "groups": {
+      "matched": {
+        "0": {
+          "n": 8911,
+          "first": 124,
+          "firstRate": 0.013915385478621927,
+          "firstTeam": 124,
+          "firstTeamRate": 0.013915385478621927,
+          "teamChange": 3371,
+          "teamChangeRate": 0.37829648748737515,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        },
+        "4": {
+          "n": 8911,
+          "first": 141,
+          "firstRate": 0.01582313993940074,
+          "firstTeam": 141,
+          "firstTeamRate": 0.01582313993940074,
+          "teamChange": 3888,
+          "teamChangeRate": 0.43631466726517787,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        },
+        "8": {
+          "n": 8911,
+          "first": 159,
+          "firstRate": 0.017843115250813602,
+          "firstTeam": 159,
+          "firstTeamRate": 0.017843115250813602,
+          "teamChange": 4378,
+          "teamChangeRate": 0.4913028840758613,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        }
+      },
+      "residual": {
+        "0": {
+          "n": 5285,
+          "first": 125,
+          "firstRate": 0.023651844843897825,
+          "firstTeam": 125,
+          "firstTeamRate": 0.023651844843897825,
+          "teamChange": 2165,
+          "teamChangeRate": 0.4096499526963103,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        },
+        "4": {
+          "n": 5285,
+          "first": 135,
+          "firstRate": 0.02554399243140965,
+          "firstTeam": 135,
+          "firstTeamRate": 0.02554399243140965,
+          "teamChange": 2447,
+          "teamChangeRate": 0.4630085146641438,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        },
+        "8": {
+          "n": 5285,
+          "first": 146,
+          "firstRate": 0.02762535477767266,
+          "firstTeam": 146,
+          "firstTeamRate": 0.02762535477767266,
+          "teamChange": 2735,
+          "teamChangeRate": 0.5175023651844843,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        }
+      },
+      "placebo10": {
+        "0": {
+          "n": 4218,
+          "first": 2,
+          "firstRate": 0.000474158368895211,
+          "firstTeam": 2,
+          "firstTeamRate": 0.000474158368895211,
+          "teamChange": 28,
+          "teamChangeRate": 0.006638217164532954,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        },
+        "4": {
+          "n": 4218,
+          "first": 8,
+          "firstRate": 0.001896633475580844,
+          "firstTeam": 8,
+          "firstTeamRate": 0.001896633475580844,
+          "teamChange": 250,
+          "teamChangeRate": 0.05926979611190138,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        },
+        "8": {
+          "n": 4218,
+          "first": 16,
+          "firstRate": 0.003793266951161688,
+          "firstTeam": 16,
+          "firstTeamRate": 0.003793266951161688,
+          "teamChange": 478,
+          "teamChangeRate": 0.11332385016595543,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        }
+      },
+      "placebo30": {
+        "0": {
+          "n": 4188,
+          "first": 0,
+          "firstRate": 0,
+          "firstTeam": 0,
+          "firstTeamRate": 0,
+          "teamChange": 29,
+          "teamChangeRate": 0.0069245463228271254,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        },
+        "4": {
+          "n": 4188,
+          "first": 2,
+          "firstRate": 0.0004775549188156638,
+          "firstTeam": 2,
+          "firstTeamRate": 0.0004775549188156638,
+          "teamChange": 231,
+          "teamChangeRate": 0.05515759312320917,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        },
+        "8": {
+          "n": 4188,
+          "first": 4,
+          "firstRate": 0.0009551098376313276,
+          "firstTeam": 4,
+          "firstTeamRate": 0.0009551098376313276,
+          "teamChange": 442,
+          "teamChangeRate": 0.1055396370582617,
+          "vacuumChange": 0,
+          "vacuumChangeRate": 0
+        }
+      }
+    },
+    "oneToOne": {
+      "0": {
+        "residualToFirstObserved": 125,
+        "residualToFirstObservedRate": 0.023651844843897825,
+        "residualToFirstObservedTeam": 125,
+        "residualToFirstObservedTeamRate": 0.023651844843897825,
+        "combinedExactCNPCPlusFirstObservedCoverage": 0.6365173288250211
+      },
+      "4": {
+        "residualToFirstObserved": 133,
+        "residualToFirstObservedRate": 0.025165562913907286,
+        "residualToFirstObservedTeam": 133,
+        "residualToFirstObservedTeamRate": 0.025165562913907286,
+        "combinedExactCNPCPlusFirstObservedCoverage": 0.6370808678500987
+      },
+      "8": {
+        "residualToFirstObserved": 140,
+        "residualToFirstObservedRate": 0.026490066225165563,
+        "residualToFirstObservedTeam": 140,
+        "residualToFirstObservedTeamRate": 0.026490066225165563,
+        "combinedExactCNPCPlusFirstObservedCoverage": 0.6375739644970414
+      }
+    }
+  },
+  "replays": [
+    {
+      "replayName": "test",
+      "success": true,
+      "counts": {
+        "credits": 2740,
+        "exactMatched": 1708,
+        "residual": 1032,
+        "xpFirst": 91,
+        "xpFirstTeam": 91,
+        "xpTeamChange": 2693,
+        "xpVacuumChange": 0
+      },
+      "groups": {
+        "matched": {
+          "0": {
+            "n": 1708,
+            "first": 41,
+            "firstRate": 0.024004683840749413,
+            "firstTeam": 41,
+            "firstTeamRate": 0.024004683840749413,
+            "teamChange": 701,
+            "teamChangeRate": 0.4104215456674473,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 1708,
+            "first": 47,
+            "firstRate": 0.027517564402810304,
+            "firstTeam": 47,
+            "firstTeamRate": 0.027517564402810304,
+            "teamChange": 817,
+            "teamChangeRate": 0.4783372365339578,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 1708,
+            "first": 51,
+            "firstRate": 0.029859484777517563,
+            "firstTeam": 51,
+            "firstTeamRate": 0.029859484777517563,
+            "teamChange": 906,
+            "teamChangeRate": 0.5304449648711944,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "residual": {
+          "0": {
+            "n": 1032,
+            "first": 23,
+            "firstRate": 0.022286821705426358,
+            "firstTeam": 23,
+            "firstTeamRate": 0.022286821705426358,
+            "teamChange": 432,
+            "teamChangeRate": 0.4186046511627907,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 1032,
+            "first": 24,
+            "firstRate": 0.023255813953488372,
+            "firstTeam": 24,
+            "firstTeamRate": 0.023255813953488372,
+            "teamChange": 490,
+            "teamChangeRate": 0.4748062015503876,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 1032,
+            "first": 26,
+            "firstRate": 0.025193798449612403,
+            "firstTeam": 26,
+            "firstTeamRate": 0.025193798449612403,
+            "teamChange": 532,
+            "teamChangeRate": 0.5155038759689923,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo10": {
+          "0": {
+            "n": 840,
+            "first": 1,
+            "firstRate": 0.0011904761904761906,
+            "firstTeam": 1,
+            "firstTeamRate": 0.0011904761904761906,
+            "teamChange": 5,
+            "teamChangeRate": 0.005952380952380952,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 840,
+            "first": 2,
+            "firstRate": 0.002380952380952381,
+            "firstTeam": 2,
+            "firstTeamRate": 0.002380952380952381,
+            "teamChange": 53,
+            "teamChangeRate": 0.0630952380952381,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 840,
+            "first": 4,
+            "firstRate": 0.004761904761904762,
+            "firstTeam": 4,
+            "firstTeamRate": 0.004761904761904762,
+            "teamChange": 95,
+            "teamChangeRate": 0.1130952380952381,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo30": {
+          "0": {
+            "n": 837,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 6,
+            "teamChangeRate": 0.007168458781362007,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 837,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 53,
+            "teamChangeRate": 0.06332138590203107,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 837,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 96,
+            "teamChangeRate": 0.11469534050179211,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        }
+      },
+      "oneToOne": {
+        "0": {
+          "residualToFirstObserved": 23,
+          "residualToFirstObservedRate": 0.022286821705426358,
+          "residualToFirstObservedTeam": 23,
+          "residualToFirstObservedTeamRate": 0.022286821705426358,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6317518248175182,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 23,
+            "unknown": 0
+          }
+        },
+        "4": {
+          "residualToFirstObserved": 23,
+          "residualToFirstObservedRate": 0.022286821705426358,
+          "residualToFirstObservedTeam": 23,
+          "residualToFirstObservedTeamRate": 0.022286821705426358,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6317518248175182,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 23,
+            "unknown": 0
+          }
+        },
+        "8": {
+          "residualToFirstObserved": 25,
+          "residualToFirstObservedRate": 0.02422480620155039,
+          "residualToFirstObservedTeam": 25,
+          "residualToFirstObservedTeamRate": 0.02422480620155039,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6324817518248175,
+          "firstObservedTeamRelation": {
+            "sameTeam": 1,
+            "opposingTeam": 24,
+            "unknown": 0
+          }
+        }
+      }
+    },
+    {
+      "replayName": "rep01",
+      "success": true,
+      "counts": {
+        "credits": 1968,
+        "exactMatched": 1154,
+        "residual": 814,
+        "xpFirst": 55,
+        "xpFirstTeam": 55,
+        "xpTeamChange": 1833,
+        "xpVacuumChange": 0
+      },
+      "groups": {
+        "matched": {
+          "0": {
+            "n": 1154,
+            "first": 5,
+            "firstRate": 0.004332755632582322,
+            "firstTeam": 5,
+            "firstTeamRate": 0.004332755632582322,
+            "teamChange": 404,
+            "teamChangeRate": 0.35008665511265163,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 1154,
+            "first": 7,
+            "firstRate": 0.006065857885615251,
+            "firstTeam": 7,
+            "firstTeamRate": 0.006065857885615251,
+            "teamChange": 464,
+            "teamChangeRate": 0.4020797227036395,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 1154,
+            "first": 8,
+            "firstRate": 0.006932409012131715,
+            "firstTeam": 8,
+            "firstTeamRate": 0.006932409012131715,
+            "teamChange": 547,
+            "teamChangeRate": 0.47400346620450606,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "residual": {
+          "0": {
+            "n": 814,
+            "first": 19,
+            "firstRate": 0.02334152334152334,
+            "firstTeam": 19,
+            "firstTeamRate": 0.02334152334152334,
+            "teamChange": 315,
+            "teamChangeRate": 0.386977886977887,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 814,
+            "first": 20,
+            "firstRate": 0.02457002457002457,
+            "firstTeam": 20,
+            "firstTeamRate": 0.02457002457002457,
+            "teamChange": 358,
+            "teamChangeRate": 0.4398034398034398,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 814,
+            "first": 24,
+            "firstRate": 0.029484029484029485,
+            "firstTeam": 24,
+            "firstTeamRate": 0.029484029484029485,
+            "teamChange": 411,
+            "teamChangeRate": 0.504914004914005,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo10": {
+          "0": {
+            "n": 647,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 5,
+            "teamChangeRate": 0.0077279752704791345,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 647,
+            "first": 1,
+            "firstRate": 0.0015455950540958269,
+            "firstTeam": 1,
+            "firstTeamRate": 0.0015455950540958269,
+            "teamChange": 46,
+            "teamChangeRate": 0.07109737248840804,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 647,
+            "first": 2,
+            "firstRate": 0.0030911901081916537,
+            "firstTeam": 2,
+            "firstTeamRate": 0.0030911901081916537,
+            "teamChange": 81,
+            "teamChangeRate": 0.125193199381762,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo30": {
+          "0": {
+            "n": 649,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 4,
+            "teamChangeRate": 0.0061633281972265025,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 649,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 39,
+            "teamChangeRate": 0.060092449922958396,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 649,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 71,
+            "teamChangeRate": 0.10939907550077041,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        }
+      },
+      "oneToOne": {
+        "0": {
+          "residualToFirstObserved": 19,
+          "residualToFirstObservedRate": 0.02334152334152334,
+          "residualToFirstObservedTeam": 19,
+          "residualToFirstObservedTeamRate": 0.02334152334152334,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.5960365853658537,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 19,
+            "unknown": 0
+          }
+        },
+        "4": {
+          "residualToFirstObserved": 20,
+          "residualToFirstObservedRate": 0.02457002457002457,
+          "residualToFirstObservedTeam": 20,
+          "residualToFirstObservedTeamRate": 0.02457002457002457,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.5965447154471545,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 20,
+            "unknown": 0
+          }
+        },
+        "8": {
+          "residualToFirstObserved": 23,
+          "residualToFirstObservedRate": 0.028255528255528257,
+          "residualToFirstObservedTeam": 23,
+          "residualToFirstObservedTeamRate": 0.028255528255528257,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.5980691056910569,
+          "firstObservedTeamRelation": {
+            "sameTeam": 1,
+            "opposingTeam": 22,
+            "unknown": 0
+          }
+        }
+      }
+    },
+    {
+      "replayName": "rep02",
+      "success": true,
+      "counts": {
+        "credits": 2130,
+        "exactMatched": 1355,
+        "residual": 775,
+        "xpFirst": 81,
+        "xpFirstTeam": 81,
+        "xpTeamChange": 1917,
+        "xpVacuumChange": 0
+      },
+      "groups": {
+        "matched": {
+          "0": {
+            "n": 1355,
+            "first": 33,
+            "firstRate": 0.024354243542435424,
+            "firstTeam": 33,
+            "firstTeamRate": 0.024354243542435424,
+            "teamChange": 442,
+            "teamChangeRate": 0.32619926199261995,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 1355,
+            "first": 36,
+            "firstRate": 0.026568265682656828,
+            "firstTeam": 36,
+            "firstTeamRate": 0.026568265682656828,
+            "teamChange": 521,
+            "teamChangeRate": 0.3845018450184502,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 1355,
+            "first": 39,
+            "firstRate": 0.028782287822878228,
+            "firstTeam": 39,
+            "firstTeamRate": 0.028782287822878228,
+            "teamChange": 595,
+            "teamChangeRate": 0.43911439114391143,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "residual": {
+          "0": {
+            "n": 775,
+            "first": 18,
+            "firstRate": 0.023225806451612905,
+            "firstTeam": 18,
+            "firstTeamRate": 0.023225806451612905,
+            "teamChange": 302,
+            "teamChangeRate": 0.3896774193548387,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 775,
+            "first": 19,
+            "firstRate": 0.024516129032258065,
+            "firstTeam": 19,
+            "firstTeamRate": 0.024516129032258065,
+            "teamChange": 338,
+            "teamChangeRate": 0.43612903225806454,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 775,
+            "first": 21,
+            "firstRate": 0.027096774193548386,
+            "firstTeam": 21,
+            "firstTeamRate": 0.027096774193548386,
+            "teamChange": 371,
+            "teamChangeRate": 0.47870967741935483,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo10": {
+          "0": {
+            "n": 600,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 3,
+            "teamChangeRate": 0.005,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 600,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 39,
+            "teamChangeRate": 0.065,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 600,
+            "first": 1,
+            "firstRate": 0.0016666666666666668,
+            "firstTeam": 1,
+            "firstTeamRate": 0.0016666666666666668,
+            "teamChange": 64,
+            "teamChangeRate": 0.10666666666666667,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo30": {
+          "0": {
+            "n": 634,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 3,
+            "teamChangeRate": 0.00473186119873817,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 634,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 30,
+            "teamChangeRate": 0.0473186119873817,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 634,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 59,
+            "teamChangeRate": 0.09305993690851735,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        }
+      },
+      "oneToOne": {
+        "0": {
+          "residualToFirstObserved": 18,
+          "residualToFirstObservedRate": 0.023225806451612905,
+          "residualToFirstObservedTeam": 18,
+          "residualToFirstObservedTeamRate": 0.023225806451612905,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6446009389671361,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 18,
+            "unknown": 0
+          }
+        },
+        "4": {
+          "residualToFirstObserved": 19,
+          "residualToFirstObservedRate": 0.024516129032258065,
+          "residualToFirstObservedTeam": 19,
+          "residualToFirstObservedTeamRate": 0.024516129032258065,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6450704225352113,
+          "firstObservedTeamRelation": {
+            "sameTeam": 1,
+            "opposingTeam": 18,
+            "unknown": 0
+          }
+        },
+        "8": {
+          "residualToFirstObserved": 20,
+          "residualToFirstObservedRate": 0.025806451612903226,
+          "residualToFirstObservedTeam": 20,
+          "residualToFirstObservedTeamRate": 0.025806451612903226,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6455399061032864,
+          "firstObservedTeamRelation": {
+            "sameTeam": 2,
+            "opposingTeam": 18,
+            "unknown": 0
+          }
+        }
+      }
+    },
+    {
+      "replayName": "rep03",
+      "success": true,
+      "counts": {
+        "credits": 3107,
+        "exactMatched": 2001,
+        "residual": 1106,
+        "xpFirst": 66,
+        "xpFirstTeam": 66,
+        "xpTeamChange": 2939,
+        "xpVacuumChange": 0
+      },
+      "groups": {
+        "matched": {
+          "0": {
+            "n": 2001,
+            "first": 16,
+            "firstRate": 0.0079960019990005,
+            "firstTeam": 16,
+            "firstTeamRate": 0.0079960019990005,
+            "teamChange": 768,
+            "teamChangeRate": 0.383808095952024,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 2001,
+            "first": 18,
+            "firstRate": 0.008995502248875561,
+            "firstTeam": 18,
+            "firstTeamRate": 0.008995502248875561,
+            "teamChange": 883,
+            "teamChangeRate": 0.44127936031984005,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 2001,
+            "first": 23,
+            "firstRate": 0.011494252873563218,
+            "firstTeam": 23,
+            "firstTeamRate": 0.011494252873563218,
+            "teamChange": 990,
+            "teamChangeRate": 0.4947526236881559,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "residual": {
+          "0": {
+            "n": 1106,
+            "first": 18,
+            "firstRate": 0.0162748643761302,
+            "firstTeam": 18,
+            "firstTeamRate": 0.0162748643761302,
+            "teamChange": 459,
+            "teamChangeRate": 0.41500904159132007,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 1106,
+            "first": 22,
+            "firstRate": 0.019891500904159132,
+            "firstTeam": 22,
+            "firstTeamRate": 0.019891500904159132,
+            "teamChange": 523,
+            "teamChangeRate": 0.472875226039783,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 1106,
+            "first": 23,
+            "firstRate": 0.020795660036166366,
+            "firstTeam": 23,
+            "firstTeamRate": 0.020795660036166366,
+            "teamChange": 594,
+            "teamChangeRate": 0.5370705244122965,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo10": {
+          "0": {
+            "n": 861,
+            "first": 1,
+            "firstRate": 0.0011614401858304297,
+            "firstTeam": 1,
+            "firstTeamRate": 0.0011614401858304297,
+            "teamChange": 7,
+            "teamChangeRate": 0.008130081300813009,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 861,
+            "first": 2,
+            "firstRate": 0.0023228803716608595,
+            "firstTeam": 2,
+            "firstTeamRate": 0.0023228803716608595,
+            "teamChange": 55,
+            "teamChangeRate": 0.06387921022067364,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 861,
+            "first": 2,
+            "firstRate": 0.0023228803716608595,
+            "firstTeam": 2,
+            "firstTeamRate": 0.0023228803716608595,
+            "teamChange": 113,
+            "teamChangeRate": 0.13124274099883856,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo30": {
+          "0": {
+            "n": 854,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 8,
+            "teamChangeRate": 0.00936768149882904,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 854,
+            "first": 1,
+            "firstRate": 0.00117096018735363,
+            "firstTeam": 1,
+            "firstTeamRate": 0.00117096018735363,
+            "teamChange": 56,
+            "teamChangeRate": 0.06557377049180328,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 854,
+            "first": 2,
+            "firstRate": 0.00234192037470726,
+            "firstTeam": 2,
+            "firstTeamRate": 0.00234192037470726,
+            "teamChange": 106,
+            "teamChangeRate": 0.12412177985948478,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        }
+      },
+      "oneToOne": {
+        "0": {
+          "residualToFirstObserved": 18,
+          "residualToFirstObservedRate": 0.0162748643761302,
+          "residualToFirstObservedTeam": 18,
+          "residualToFirstObservedTeamRate": 0.0162748643761302,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6498229803669134,
+          "firstObservedTeamRelation": {
+            "sameTeam": 1,
+            "opposingTeam": 17,
+            "unknown": 0
+          }
+        },
+        "4": {
+          "residualToFirstObserved": 22,
+          "residualToFirstObservedRate": 0.019891500904159132,
+          "residualToFirstObservedTeam": 22,
+          "residualToFirstObservedTeamRate": 0.019891500904159132,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6511103958802703,
+          "firstObservedTeamRelation": {
+            "sameTeam": 3,
+            "opposingTeam": 19,
+            "unknown": 0
+          }
+        },
+        "8": {
+          "residualToFirstObserved": 22,
+          "residualToFirstObservedRate": 0.019891500904159132,
+          "residualToFirstObservedTeam": 22,
+          "residualToFirstObservedTeamRate": 0.019891500904159132,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6511103958802703,
+          "firstObservedTeamRelation": {
+            "sameTeam": 3,
+            "opposingTeam": 19,
+            "unknown": 0
+          }
+        }
+      }
+    },
+    {
+      "replayName": "rep04",
+      "success": true,
+      "counts": {
+        "credits": 2142,
+        "exactMatched": 1328,
+        "residual": 814,
+        "xpFirst": 77,
+        "xpFirstTeam": 77,
+        "xpTeamChange": 1997,
+        "xpVacuumChange": 0
+      },
+      "groups": {
+        "matched": {
+          "0": {
+            "n": 1328,
+            "first": 13,
+            "firstRate": 0.009789156626506024,
+            "firstTeam": 13,
+            "firstTeamRate": 0.009789156626506024,
+            "teamChange": 515,
+            "teamChangeRate": 0.3878012048192771,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 1328,
+            "first": 16,
+            "firstRate": 0.012048192771084338,
+            "firstTeam": 16,
+            "firstTeamRate": 0.012048192771084338,
+            "teamChange": 590,
+            "teamChangeRate": 0.4442771084337349,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 1328,
+            "first": 21,
+            "firstRate": 0.01581325301204819,
+            "firstTeam": 21,
+            "firstTeamRate": 0.01581325301204819,
+            "teamChange": 666,
+            "teamChangeRate": 0.5015060240963856,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "residual": {
+          "0": {
+            "n": 814,
+            "first": 24,
+            "firstRate": 0.029484029484029485,
+            "firstTeam": 24,
+            "firstTeamRate": 0.029484029484029485,
+            "teamChange": 350,
+            "teamChangeRate": 0.42997542997543,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 814,
+            "first": 27,
+            "firstRate": 0.033169533169533166,
+            "firstTeam": 27,
+            "firstTeamRate": 0.033169533169533166,
+            "teamChange": 384,
+            "teamChangeRate": 0.47174447174447176,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 814,
+            "first": 28,
+            "firstRate": 0.0343980343980344,
+            "firstTeam": 28,
+            "firstTeamRate": 0.0343980343980344,
+            "teamChange": 439,
+            "teamChangeRate": 0.5393120393120393,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo10": {
+          "0": {
+            "n": 654,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 2,
+            "teamChangeRate": 0.0030581039755351682,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 654,
+            "first": 2,
+            "firstRate": 0.0030581039755351682,
+            "firstTeam": 2,
+            "firstTeamRate": 0.0030581039755351682,
+            "teamChange": 24,
+            "teamChangeRate": 0.03669724770642202,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 654,
+            "first": 5,
+            "firstRate": 0.00764525993883792,
+            "firstTeam": 5,
+            "firstTeamRate": 0.00764525993883792,
+            "teamChange": 60,
+            "teamChangeRate": 0.09174311926605505,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo30": {
+          "0": {
+            "n": 627,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 4,
+            "teamChangeRate": 0.006379585326953748,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 627,
+            "first": 1,
+            "firstRate": 0.001594896331738437,
+            "firstTeam": 1,
+            "firstTeamRate": 0.001594896331738437,
+            "teamChange": 24,
+            "teamChangeRate": 0.03827751196172249,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 627,
+            "first": 2,
+            "firstRate": 0.003189792663476874,
+            "firstTeam": 2,
+            "firstTeamRate": 0.003189792663476874,
+            "teamChange": 56,
+            "teamChangeRate": 0.08931419457735247,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        }
+      },
+      "oneToOne": {
+        "0": {
+          "residualToFirstObserved": 24,
+          "residualToFirstObservedRate": 0.029484029484029485,
+          "residualToFirstObservedTeam": 24,
+          "residualToFirstObservedTeamRate": 0.029484029484029485,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6311858076563959,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 24,
+            "unknown": 0
+          }
+        },
+        "4": {
+          "residualToFirstObserved": 26,
+          "residualToFirstObservedRate": 0.03194103194103194,
+          "residualToFirstObservedTeam": 26,
+          "residualToFirstObservedTeamRate": 0.03194103194103194,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6321195144724556,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 26,
+            "unknown": 0
+          }
+        },
+        "8": {
+          "residualToFirstObserved": 26,
+          "residualToFirstObservedRate": 0.03194103194103194,
+          "residualToFirstObservedTeam": 26,
+          "residualToFirstObservedTeamRate": 0.03194103194103194,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6321195144724556,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 26,
+            "unknown": 0
+          }
+        }
+      }
+    },
+    {
+      "replayName": "rep05",
+      "success": true,
+      "counts": {
+        "credits": 2109,
+        "exactMatched": 1365,
+        "residual": 744,
+        "xpFirst": 74,
+        "xpFirstTeam": 74,
+        "xpTeamChange": 1968,
+        "xpVacuumChange": 0
+      },
+      "groups": {
+        "matched": {
+          "0": {
+            "n": 1365,
+            "first": 16,
+            "firstRate": 0.011721611721611722,
+            "firstTeam": 16,
+            "firstTeamRate": 0.011721611721611722,
+            "teamChange": 541,
+            "teamChangeRate": 0.3963369963369963,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 1365,
+            "first": 17,
+            "firstRate": 0.012454212454212455,
+            "firstTeam": 17,
+            "firstTeamRate": 0.012454212454212455,
+            "teamChange": 613,
+            "teamChangeRate": 0.4490842490842491,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 1365,
+            "first": 17,
+            "firstRate": 0.012454212454212455,
+            "firstTeam": 17,
+            "firstTeamRate": 0.012454212454212455,
+            "teamChange": 674,
+            "teamChangeRate": 0.4937728937728938,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "residual": {
+          "0": {
+            "n": 744,
+            "first": 23,
+            "firstRate": 0.030913978494623656,
+            "firstTeam": 23,
+            "firstTeamRate": 0.030913978494623656,
+            "teamChange": 307,
+            "teamChangeRate": 0.41263440860215056,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 744,
+            "first": 23,
+            "firstRate": 0.030913978494623656,
+            "firstTeam": 23,
+            "firstTeamRate": 0.030913978494623656,
+            "teamChange": 354,
+            "teamChangeRate": 0.47580645161290325,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 744,
+            "first": 24,
+            "firstRate": 0.03225806451612903,
+            "firstTeam": 24,
+            "firstTeamRate": 0.03225806451612903,
+            "teamChange": 388,
+            "teamChangeRate": 0.521505376344086,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo10": {
+          "0": {
+            "n": 616,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 6,
+            "teamChangeRate": 0.00974025974025974,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 616,
+            "first": 1,
+            "firstRate": 0.0016233766233766235,
+            "firstTeam": 1,
+            "firstTeamRate": 0.0016233766233766235,
+            "teamChange": 33,
+            "teamChangeRate": 0.05357142857142857,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 616,
+            "first": 2,
+            "firstRate": 0.003246753246753247,
+            "firstTeam": 2,
+            "firstTeamRate": 0.003246753246753247,
+            "teamChange": 65,
+            "teamChangeRate": 0.10551948051948051,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        },
+        "placebo30": {
+          "0": {
+            "n": 587,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 4,
+            "teamChangeRate": 0.0068143100511073255,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "4": {
+            "n": 587,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 29,
+            "teamChangeRate": 0.049403747870528106,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          },
+          "8": {
+            "n": 587,
+            "first": 0,
+            "firstRate": 0,
+            "firstTeam": 0,
+            "firstTeamRate": 0,
+            "teamChange": 54,
+            "teamChangeRate": 0.0919931856899489,
+            "vacuumChange": 0,
+            "vacuumChangeRate": 0
+          }
+        }
+      },
+      "oneToOne": {
+        "0": {
+          "residualToFirstObserved": 23,
+          "residualToFirstObservedRate": 0.030913978494623656,
+          "residualToFirstObservedTeam": 23,
+          "residualToFirstObservedTeamRate": 0.030913978494623656,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6581318160265529,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 23,
+            "unknown": 0
+          }
+        },
+        "4": {
+          "residualToFirstObserved": 23,
+          "residualToFirstObservedRate": 0.030913978494623656,
+          "residualToFirstObservedTeam": 23,
+          "residualToFirstObservedTeamRate": 0.030913978494623656,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6581318160265529,
+          "firstObservedTeamRelation": {
+            "sameTeam": 0,
+            "opposingTeam": 23,
+            "unknown": 0
+          }
+        },
+        "8": {
+          "residualToFirstObserved": 24,
+          "residualToFirstObservedRate": 0.03225806451612903,
+          "residualToFirstObservedTeam": 24,
+          "residualToFirstObservedTeamRate": 0.03225806451612903,
+          "combinedExactCNPCPlusFirstObservedCoverage": 0.6586059743954481,
+          "firstObservedTeamRelation": {
+            "sameTeam": 1,
+            "opposingTeam": 23,
+            "unknown": 0
+          }
+        }
+      }
+    }
+  ]
+}
