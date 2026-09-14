@@ -55,6 +55,31 @@
       ]
     },
     {
+      "id": "flying-souls",
+      "label": "Extract authoritative source-linked flying souls",
+      "capability": "runtime_flying_soul_lifecycle",
+      "required": true,
+      "dependsOn": [
+        "core-player-state",
+        "trooper-deaths"
+      ],
+      "args": [
+        "inspector-v04/production/extract-runtime-flying-souls.mjs",
+        "replays/{replay}.dem"
+      ],
+      "ifExists": "replays/{replay}.dem",
+      "expectedOutputs": [
+        {
+          "path": "output/{replay}/runtime_flying_soul_production_v01.json",
+          "minBytes": 2
+        },
+        {
+          "path": "output/{replay}/runtime_flying_soul_events_v01.jsonl",
+          "minBytes": 0
+        }
+      ]
+    },
+    {
       "id": "ground-soul-lifecycle",
       "label": "Extract authoritative Ground Soul lifecycle",
       "capability": "runtime_ground_soul_lifecycle",

@@ -609,7 +609,7 @@
     {
       "claimId": "assigned_gold_exact_732_735hu_threshold",
       "domain": "economy",
-      "construct": "Exact ~732\u2013735 HU AssignedGold vacuum-onset threshold",
+      "construct": "Exact ~732–735 HU AssignedGold vacuum-onset threshold",
       "authorityStatus": "withdrawn",
       "integrityValidation": "pass",
       "semanticValidation": "fail",
@@ -814,7 +814,7 @@
     {
       "claimId": "flying_soul_temporal_phases",
       "domain": "souls",
-      "construct": "Flying-soul launch \u2192 attackable \u2192 resolution phase substrate",
+      "construct": "Flying-soul launch → attackable → resolution phase substrate",
       "authorityStatus": "current",
       "integrityValidation": "pass",
       "semanticValidation": "pass",
@@ -839,7 +839,7 @@
     {
       "claimId": "flying_soul_dynamic_geometry",
       "domain": "souls",
-      "construct": "All-player dynamic player\u2013orb geometry substrate",
+      "construct": "All-player dynamic player–orb geometry substrate",
       "authorityStatus": "current",
       "integrityValidation": "pass",
       "semanticValidation": "pass",
@@ -1417,6 +1417,39 @@
       "supersedes": [],
       "supersededBy": null,
       "notes": "This promotion deliberately narrows the former research labels. The legacy trooper_base_types metric ID does not authorize Ranged, Medic, Melee, Super, Rift, or any other named class interpretation."
+    },
+    {
+      "claimId": "runtime_flying_soul_direct_lifecycle_v01",
+      "domain": "souls",
+      "construct": "Mutually unique Trooper-death-linked CItemXP episode and direct attackable-time carriers",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "Production reports CItemXP subclass 494398941 episodes only when a Trooper death in the validated raw economic-subclass set and episode form a mutually unique same-team candidate within -1 to +4 ticks and 250 HU. It reports direct m_flAttackableTime and m_flEndAttackableTime differences. It does not claim that every Trooper death yields an orb, attach human-readable type or variant names, interpret unlinked CItemXP, identify a shooter, infer secure/deny outcomes, rewards, automatic awards, projectile causality, visibility, or player opportunity.",
+      "sourceScripts": [
+        "59-citemxp-source-classification",
+        "113-flying-soul-opportunity-existence",
+        "114-flying-soul-lifecycle",
+        "115-flying-soul-attackable",
+        "232-validate-runtime-flying-soul-promotion"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/runtime_flying_soul_promotion_validation_v01.json"
+      ],
+      "dependencyClaimIds": [
+        "trooper_death_transition",
+        "citemxp_source_context_classification",
+        "flying_soul_temporal_phases"
+      ],
+      "downstreamUses": [
+        "trooper_orbs",
+        "orb_attackable_window"
+      ],
+      "valueSummary": {},
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "The source link rejects ambiguous candidate graphs; attackable duration is a direct carrier difference rather than a visibility or opportunity claim."
     }
   ]
 }

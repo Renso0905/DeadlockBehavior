@@ -143,6 +143,7 @@ const evidenceFiles={
   rewards:['jsonl','breakable_reward_acquisition_v1.jsonl'],
   resources:['jsonl','behavioral_resource_episodes_v01.jsonl'],
   troopers:['jsonl','runtime_trooper_death_events_v01.jsonl'],
+  flyingSouls:['jsonl','runtime_flying_soul_events_v01.jsonl'],
   groundSoulLifecycle:['jsonl','runtime_ground_soul_lifecycle_events_v01.jsonl'],
   groundSoulEconomicCredit:['jsonl','runtime_assigned_gold_economic_credit_events_v01.jsonl'],
   groundSoulCoverage:['jsonl','ground_soul_economic_coverage_audit_events_v01.jsonl'],

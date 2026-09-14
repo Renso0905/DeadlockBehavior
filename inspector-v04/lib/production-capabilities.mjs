@@ -58,6 +58,13 @@ export const PRODUCTION_CAPABILITIES = [
     semanticValidation: 'trooper_death_transition plus runtime_trooper_direct_context_v01. Timing and raw numeric m_nSubclassID, m_iTeamNum, and m_iLane are direct observations. Named base types, lane names, jungle semantics, variants, killer, last hitter, attack method, and Ground-Soul outcome are excluded.',
     replicationStatus: 'Death identities and direct context completeness are validated across all nine production replays. Existing replication_trooper_deaths_v01 evidence is compared by exact tick/entity identity when present.'
   }, null, 'extended'),
+  capability('runtime_flying_soul_lifecycle', 'Source-linked flying Trooper soul episodes', 'supported', [
+    'trooper_orbs','orb_attackable_window'
+  ], {
+    integrityValidation: 'Fresh runtime_flying_soul_production_v01.json and runtime_flying_soul_events_v01.jsonl must be produced. Every event must use CItemXP subclass 494398941, have a mutually unique same-team Trooper-death link inside the frozen -1..+4 tick and <=250 HU envelope, and expose a finite nonnegative direct attackable-time interval.',
+    semanticValidation: 'runtime_flying_soul_direct_lifecycle_v01. The promoted scope is limited to conservative source-linked CItemXP episodes and the direct m_flAttackableTime to m_flEndAttackableTime difference.',
+    replicationStatus: 'The exact production link and carrier rules are validated across all nine production replays against the established five-replay source-link cohort.'
+  }, null, 'extended'),
   capability('runtime_ground_soul_lifecycle', 'Observed Ground Soul / AssignedGold lifecycle', 'supported', [
     'ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration'
   ], {

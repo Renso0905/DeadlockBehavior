@@ -36,7 +36,7 @@ async function isolatedRunUnlocked({repoRoot,inspectorRoot,replayName,onEvent,ru
     const manifest={...result.productionManifest,path:undefined,runId,inputFingerprint:before,publishedOutputDir,outputDigests};
     // Historical research entrypoints still read flat files. The visualizer uses the
     // immutable run directory and switches only when the manifest is published.
-    for(const name of Object.keys(outputDigests)){const temp=join(out,`.${runId}-${name}.tmp`);await fs.copyFile(join(published,name),temp);await fs.rename(temp,join(out,name));}
+    for(const name of Object.keys(outputDigests))await publishCompatibilityCopy(join(published,name),join(out,name),runId);
     await atomicJson(join(out,'production_manifest_v01.json'),manifest);
     result.productionManifest={...manifest,path:join(out,'production_manifest_v01.json')};
     await atomicJson(join(out,'production_job.json'),{runId,state:'READY',finishedAt:new Date().toISOString(),inputFingerprint:before});
@@ -47,6 +47,26 @@ async function isolatedRunUnlocked({repoRoot,inspectorRoot,replayName,onEvent,ru
     if(result){result.status='FAILED_REQUIRED_STEP';result.error=message;return result;}
     throw error;
   }
+}
+
+async function publishCompatibilityCopy(source,target,runId){
+  const temp=join(resolve(target,'..'),`.${runId}-${basename(target)}.tmp`);
+  await fs.copyFile(source,temp);
+  try{
+    await retryWindowsFileOperation(()=>fs.rename(temp,target));
+  }catch(error){
+    if(!['EPERM','EACCES','EBUSY','EEXIST'].includes(error?.code))throw error;
+    await retryWindowsFileOperation(()=>fs.copyFile(source,target));
+    await fs.rm(temp,{force:true}).catch(()=>{});
+  }
+}
+
+async function retryWindowsFileOperation(operation){
+  let lastError;
+  for(let attempt=0;attempt<8;attempt++){
+    try{return await operation();}catch(error){lastError=error;if(!['EPERM','EACCES','EBUSY','EEXIST'].includes(error?.code))throw error;await new Promise(resolveDelay=>setTimeout(resolveDelay,25*(attempt+1)));}
+  }
+  throw lastError;
 }
 
 export async function acquireReplayPipelineLock(repoRoot,replayName){

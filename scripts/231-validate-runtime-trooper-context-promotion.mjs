@@ -17,7 +17,7 @@ for(const replayName of names){
   const errors=[];
   const check=(pass,message)=>{if(!pass)errors.push(message);};
   check(manifest?.runStatus==='COMPLETE','published manifest is not COMPLETE');
-  check(manifest?.coverage?.completeAuthoritative===114,`manifest complete A count is ${manifest?.coverage?.completeAuthoritative??'missing'}, expected 114`);
+  check(manifest?.coverage?.completeAuthoritative===116,`manifest complete A count is ${manifest?.coverage?.completeAuthoritative??'missing'}, expected 116`);
   check(artifact?.status==='RUNTIME_TROOPER_DEATH_PRODUCTION_V01_READY','Trooper artifact is not READY');
   check(artifact?.validation?.pass===true,'Trooper artifact validation did not pass');
   const bySubclassId={},byTeam={},byLane={},byTeamLane={};

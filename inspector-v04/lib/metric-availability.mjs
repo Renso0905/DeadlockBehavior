@@ -2,7 +2,7 @@ import { PRODUCTION_METRIC_CONTRACT } from '../../src/contracts/production-metri
 
 const scalarPaths={player_name:'playerName',steam_id:'identity.steamId',hero_id:'heroId',team:'team',controller_entity:'identity.controllerEntityIndex',pawn_entity:'identity.pawnEntityIndex',level:'core.level',health:'core.health',health_max:'core.healthMax',health_percent:'core.healthPercent',gold_networth:'scoreboard.goldNetWorth',ap_networth:'scoreboard.apNetWorth',kills:'scoreboard.kills',assists:'scoreboard.assists',last_hits:'scoreboard.lastHits',denies:'scoreboard.denies',deaths_scoreboard:'scoreboard.deaths'};
 const familyPaths={health_regen:'healthRegen',runtime_item_ownership:'items',runtime_permanent_buff_ownership:'permanentBuffs',runtime_bridge_buff_ownership:'bridgeBuffs',primary_fire_cadence:'weapon',runtime_melee_execution:'melee'};
-const modelPaths={runtime_trooper_death_events:'troopers',runtime_ground_soul_lifecycle:'groundSoulLifecycle',runtime_assigned_gold_economic_credit:'groundSoulEconomicCredit'};
+const modelPaths={runtime_trooper_death_events:'troopers',runtime_flying_soul_lifecycle:'flyingSouls',runtime_ground_soul_lifecycle:'groundSoulLifecycle',runtime_assigned_gold_economic_credit:'groundSoulEconomicCredit'};
 function at(object,path){return path.split('.').reduce((x,k)=>x?.[k],object);}
 export function attachMetricAvailability(model){
   model.metricAvailability={};

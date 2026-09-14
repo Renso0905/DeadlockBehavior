@@ -4,6 +4,7 @@ import { createInterface } from 'node:readline';
 import { EntityOperation, InterceptorStage, Logger, Parser, ParserConfiguration } from 'deadem';
 import { requireClaim } from '../../src/contracts/claim-registry.mjs';
 import { buildTrooperDeathSummary, compareEventKeys, deriveTrooperDeathTransition, directTrooperContext } from '../lib/runtime-trooper-deaths.mjs';
+import { readEntityWorldPosition } from '../lib/runtime-flying-soul.mjs';
 
 const VERSION='RUNTIME_TROOPER_DEATH_PRODUCTION_V01';
 const STATUS_READY='RUNTIME_TROOPER_DEATH_PRODUCTION_V01_READY';
@@ -68,6 +69,7 @@ parser.registerPostInterceptor(InterceptorStage.ENTITY_PACKET,(demoPacket,messag
       subclassId:finite(entity.getField('m_nSubclassID')),
       team:finite(entity.getField('m_iTeamNum')),
       lane:finite(entity.getField('m_iLane')),
+      position:readEntityWorldPosition(entity),
     };
     if(current.health!==null){finiteHealthObservations++;healthObservedEntities.add(entity.index);}
     const previous=stateByEntity.get(entity.index)??null;
@@ -81,7 +83,7 @@ parser.registerPostInterceptor(InterceptorStage.ENTITY_PACKET,(demoPacket,messag
     const trooperContext=directTrooperContext(previous,current);
     events.push({
       schemaVersion:'runtime_trooper_death_event_v01',replay:replayName,tick,demoSeconds,matchTimeSeconds,
-      entityIndex:entity.index,...transition,trooperContext,
+      entityIndex:entity.index,position:current.position??previous.position,...transition,trooperContext,
       semanticStatus:'OBSERVED_CNPC_TROOPER_POSITIVE_HEALTH_TO_ZERO_TRANSITION'
     });
   }

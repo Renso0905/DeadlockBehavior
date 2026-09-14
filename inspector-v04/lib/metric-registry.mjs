@@ -191,8 +191,8 @@ export const METRIC_REGISTRY = [
     m('ground_soul_vacuum_target','Ground Soul physical targets received',A,'integer','runtime_ground_soul_lifecycle_events','Resolved first m_hVacuumTarget links attributed to this sampled player pawn. Physical attraction only; not collection, reward credit, or last-hit identity.', true),
   ]),
   section('soul_orbs', 'Flying Trooper soul orbs', [
-    m('trooper_orbs','Validated flying Trooper orbs',B,'integer','citemxp_inspector_events_v01','Source-linked Trooper soul objects.'),
-    m('orb_attackable_window','Orb attackable window',B,'seconds','citemxp_inspector_events_v01','Observed attackable-start/end lifecycle.'),
+    m('trooper_orbs','Source-linked flying Trooper soul episodes',A,'integer','runtime_flying_soul_events','Mutually unique same-team Trooper-death links to observed CItemXP subclass 494398941 episodes.'),
+    m('orb_attackable_window','Observed flying-soul attackable window',A,'seconds','runtime_flying_soul_events','Direct m_flEndAttackableTime minus m_flAttackableTime for source-linked episodes.'),
     m('orb_shot_no_shot','Shot vs no-shot orbs',B,'integer','citemxp_inspector_events_v01','Whether validated player damage telemetry was observed.'),
     m('orb_shooter','Orb shooter identity',B,'events','citemxp_inspector_events_v01','Resolved shooter on damage telemetry.'),
     m('orb_secure','Trooper orb secures',B,'integer','citemxp_inspector_events_v01','Clean single-team resolution semantics.'),
