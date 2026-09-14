@@ -28,7 +28,7 @@ for (const replayName of names) {
   let mixedTeamEpisodes = 0;
 
   check(manifest?.runStatus === 'COMPLETE', 'published manifest is not COMPLETE');
-  check(manifest?.coverage?.completeAuthoritative === 122, `manifest A coverage is ${manifest?.coverage?.completeAuthoritative ?? 'missing'}, expected 122`);
+  check(manifest?.coverage?.completeAuthoritative === 124, `manifest A coverage is ${manifest?.coverage?.completeAuthoritative ?? 'missing'}, expected 124`);
   check(artifact?.status === 'RUNTIME_FLYING_SOUL_PRODUCTION_V01_READY', 'flying-soul artifact is not READY');
   check(artifact?.validation?.pass === true, 'artifact validation did not pass');
   check(artifact?.damageDiagnostics?.ambiguousEpisodeMatches === 0, 'ambiguous damage-to-episode matches were published');

@@ -8,34 +8,34 @@ import { listReplayInventory,needsReplayProcessing,replayReadiness } from '../in
 
 const A_TOTAL=AUTHORITATIVE_PRODUCTION_METRIC_IDS.length;
 
-test('one-step ingestion readiness is driven by canonical A count',()=>assert.equal(A_TOTAL,122));
+test('one-step ingestion readiness is driven by canonical A count',()=>assert.equal(A_TOTAL,124));
 
 test('new DEM with no manifest is UNPROCESSED and requires ingestion',async()=>{
   const root=await mkdtemp(join(tmpdir(),'db-ingest-new-')),replays=join(root,'replays'),output=join(root,'output');
   await mkdir(replays,{recursive:true});await writeFile(join(replays,'fresh.dem'),'fixture');
   assert.deepEqual(await listReplayInventory({repoRoot:root,outputRoot:output}),['fresh']);
   const r=await replayReadiness({repoRoot:root,outputRoot:output,replayName:'fresh',authoritativeTotal:A_TOTAL});
-  assert.equal(r.state,'UNPROCESSED');assert.equal(r.authoritativeTotal,122);assert.equal(r.completeAuthoritative,0);
+  assert.equal(r.state,'UNPROCESSED');assert.equal(r.authoritativeTotal,124);assert.equal(r.completeAuthoritative,0);
   const d=await needsReplayProcessing({repoRoot:root,outputRoot:output,replayName:'fresh'});
   assert.equal(d.needed,true);assert.equal(d.reason,'manifest_missing');
 });
 
 test('a completion counter without output provenance is INCOMPLETE',async()=>{
-  const {root,output}=await fixtureWithManifest({manifestTotal:122,complete:122,runStatus:'COMPLETE'});
+  const {root,output}=await fixtureWithManifest({manifestTotal:124,complete:124,runStatus:'COMPLETE'});
   const r=await replayReadiness({repoRoot:root,outputRoot:output,replayName:'match1',authoritativeTotal:A_TOTAL});
-  assert.equal(r.state,'INCOMPLETE');assert.equal(r.completeAuthoritative,122);assert.equal(r.missingAuthoritative,0);assert.equal(r.contractCurrent,true);
+  assert.equal(r.state,'INCOMPLETE');assert.equal(r.completeAuthoritative,124);assert.equal(r.missingAuthoritative,0);assert.equal(r.contractCurrent,true);
 });
 
 test('current contract with failed coverage is INCOMPLETE',async()=>{
-  const {root,output}=await fixtureWithManifest({manifestTotal:122,complete:121,failed:1,runStatus:'FAILED_REQUIRED_STEP'});
+  const {root,output}=await fixtureWithManifest({manifestTotal:124,complete:123,failed:1,runStatus:'FAILED_REQUIRED_STEP'});
   const r=await replayReadiness({repoRoot:root,outputRoot:output,replayName:'match1',authoritativeTotal:A_TOTAL});
-  assert.equal(r.state,'INCOMPLETE');assert.equal(r.completeAuthoritative,121);assert.equal(r.failedAuthoritative,1);
+  assert.equal(r.state,'INCOMPLETE');assert.equal(r.completeAuthoritative,123);assert.equal(r.failedAuthoritative,1);
 });
 
 test('old complete manifest is STALE_CONTRACT rather than silently READY',async()=>{
   const {root,output}=await fixtureWithManifest({manifestTotal:80,complete:80,runStatus:'COMPLETE'});
   const r=await replayReadiness({repoRoot:root,outputRoot:output,replayName:'match1',authoritativeTotal:A_TOTAL});
-  assert.equal(r.state,'STALE_CONTRACT');assert.equal(r.manifestAuthoritativeTotal,80);assert.equal(r.authoritativeTotal,122);assert.equal(r.contractCurrent,false);
+  assert.equal(r.state,'STALE_CONTRACT');assert.equal(r.manifestAuthoritativeTotal,80);assert.equal(r.authoritativeTotal,124);assert.equal(r.contractCurrent,false);
 });
 
 test('contract drift triggers replay reprocessing',async()=>{

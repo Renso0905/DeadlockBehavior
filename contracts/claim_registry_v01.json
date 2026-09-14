@@ -1440,14 +1440,79 @@
       "semanticValidation": "pass",
       "replicationStatus": "cross_replay_replicated",
       "scope": "For mutually unique Trooper-death-linked CItemXP subclass 494398941 episodes, production records k_EUserMsg_Damage messages only when the victim entity matches exactly, the message tick lies inside the direct m_flAttackableTime to m_flEndAttackableTime window, and the attacker entity resolves uniquely to a sampled player pawn. Counts describe observed damage messages and distinct observed players/teams. They do not establish projectile identity, shot attempts, misses, accuracy, secure/deny outcome, winner, reward, visibility, or opportunity.",
-      "sourceScripts": ["61-shot-outcome-validation", "62-race-resolution", "102-cross-replay-raw-extraction", "233-validate-runtime-flying-soul-damage-promotion"],
-      "currentArtifacts": ["output/cross_replay/runtime_flying_soul_damage_promotion_validation_v01.json"],
-      "dependencyClaimIds": ["runtime_flying_soul_direct_lifecycle_v01", "citemxp_shot_outcome_signal", "player_controller_pawn_identity"],
-      "downstreamUses": ["orb_shot_no_shot", "orb_shooter", "orb_multi_hit", "orb_multi_player", "orb_mixed_team", "orb_hits"],
+      "sourceScripts": [
+        "61-shot-outcome-validation",
+        "62-race-resolution",
+        "102-cross-replay-raw-extraction",
+        "233-validate-runtime-flying-soul-damage-promotion"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/runtime_flying_soul_damage_promotion_validation_v01.json"
+      ],
+      "dependencyClaimIds": [
+        "runtime_flying_soul_direct_lifecycle_v01",
+        "citemxp_shot_outcome_signal",
+        "player_controller_pawn_identity"
+      ],
+      "downstreamUses": [
+        "orb_shot_no_shot",
+        "orb_shooter",
+        "orb_multi_hit",
+        "orb_multi_player",
+        "orb_mixed_team",
+        "orb_hits"
+      ],
       "valueSummary": {},
       "supersedes": [],
       "supersededBy": null,
       "notes": "The legacy orb_shooter metric ID reports per-player source-linked episodes with an observed damage message. No causal shooter or projectile identity is inferred."
+    },
+    {
+      "claimId": "runtime_flying_soul_single_team_outcome_v01",
+      "domain": "souls",
+      "construct": "High-confidence single-team first-hit side outcome for source-linked flying Trooper souls",
+      "authorityStatus": "current",
+      "integrityValidation": "pass",
+      "semanticValidation": "pass",
+      "replicationStatus": "cross_replay_replicated",
+      "scope": "For a mutually unique Trooper-death-linked CItemXP subclass 494398941 episode with player-attributed k_EUserMsg_Damage inside its direct attackable window, production reports SECURE when exactly one observed attacker team differs from the orb team and DENY when exactly one observed attacker team equals the orb team. Credit belongs to the first observed player damage message, ordered by replay tick and message sequence. Mixed-team episodes, no-damage episodes, invalid team context, rewards, projectile causality, and hidden server winner logic are excluded.",
+      "sourceScripts": [
+        "61-shot-outcome-validation",
+        "62-race-resolution",
+        "102-cross-replay-raw-extraction",
+        "234-validate-runtime-flying-soul-single-team-outcomes"
+      ],
+      "currentArtifacts": [
+        "output/cross_replay/runtime_flying_soul_single_team_outcome_validation_v01.json"
+      ],
+      "dependencyClaimIds": [
+        "runtime_flying_soul_damage_observation_v01",
+        "runtime_flying_soul_direct_lifecycle_v01",
+        "citemxp_shot_outcome_signal",
+        "player_controller_pawn_identity"
+      ],
+      "downstreamUses": [
+        "orb_secure",
+        "orb_deny"
+      ],
+      "valueSummary": {
+        "replays": 9,
+        "replaysWithResolvedOutcomes": 9,
+        "replaysWithSecure": 9,
+        "replaysWithDeny": 9,
+        "episodes": 6816,
+        "resolvedSingleTeamEpisodes": 667,
+        "secureEpisodes": 545,
+        "denyEpisodes": 122,
+        "mixedTeamProvisionalEpisodes": 40,
+        "noPlayerDamageObservedEpisodes": 6109,
+        "establishedHits": 26,
+        "establishedHitsReproduced": 26,
+        "establishedRelationsValidated": 26
+      },
+      "supersedes": [],
+      "supersededBy": null,
+      "notes": "This is a deliberately narrow observed-side outcome. It does not resolve mixed-team races or infer reward ownership."
     }
   ]
 }

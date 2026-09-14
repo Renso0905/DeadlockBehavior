@@ -28,6 +28,11 @@ test('missing source is unavailable, while observed zero and denominator-zero ar
 test('next-ready selects production telemetry at or before the scrubber',()=>{
  const p={metricAvailability:{next_primary_ready:{available:true}},weapon:{nextPrimaryReadyTimeline:[{matchTime:5,nextPrimaryAttack:20},{matchTime:10,nextPrimaryAttack:99}]}};const ctx={model:{},p,time:7};assert.equal(metricValue('next_primary_ready',ctx).value,'20.000000');assert.equal(metricValue('next_primary_ready',{...ctx,time:0}).value,'N/A');
 });
+test('single-team orb outcomes display selected-player production counts',()=>{
+ const p={identity:{controllerEntityIndex:7},metricAvailability:{orb_secure:{available:true},orb_deny:{available:true}}};
+ const model={flyingSouls:{summary:{damageObservation:{singleTeamOutcome:{secureEpisodes:9,denyEpisodes:6},byPlayer:[{controllerEntityIndex:7,secureEpisodes:3,denyEpisodes:2}]}}}};
+ assert.equal(metricValue('orb_secure',{model,p,time:0}).value,'3');assert.equal(metricValue('orb_deny',{model,p,time:0}).value,'2');
+});
 test('JSONL corruption is surfaced instead of dropping records',async()=>{
  const root=await mkdtemp(join(tmpdir(),'db-corrupt-')),file=join(root,'rows.jsonl');await writeFile(file,'{}\ninvalid\n');await assert.rejects(async()=>{for await(const row of readJsonl(file))void row;},/Malformed JSONL/);
 });

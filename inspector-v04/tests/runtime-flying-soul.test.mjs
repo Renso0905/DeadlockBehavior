@@ -47,3 +47,48 @@ test('damage observations use exact attackable-window victim and sampled-player 
   assert.equal(result.summary.byPlayer[0].damagedEpisodes,1);assert.equal(result.summary.byPlayer[0].damageMessages,1);
   assert.equal(result.diagnostics.outsideAcceptedAttackableEpisode,2);
 });
+
+test('single-team first-hit outcomes resolve secure and deny with player credit',()=>{
+  const events=[
+    {...episode('101|1',100,2),entityIndex:101},
+    {...episode('102|1',200,3),entityIndex:102}
+  ];
+  const players=new Map([
+    [88,{playerId:'controller:7',controllerEntityIndex:7,pawnEntityIndex:88,playerName:'Secure',team:3,heroId:1}],
+    [89,{playerId:'controller:8',controllerEntityIndex:8,pawnEntityIndex:89,playerName:'Deny',team:3,heroId:2}],
+    [90,{playerId:'controller:9',controllerEntityIndex:9,pawnEntityIndex:90,playerName:'Second',team:3,heroId:3}]
+  ]);
+  const result=associatePlayerDamage(events,[
+    {sequence:1,tick:164,messageType:'k_EUserMsg_Damage',victimIndex:101,attackerIndex:88},
+    {sequence:2,tick:164,messageType:'k_EUserMsg_Damage',victimIndex:101,attackerIndex:90},
+    {sequence:3,tick:264,messageType:'k_EUserMsg_Damage',victimIndex:102,attackerIndex:89}
+  ],players,{tickRate:64});
+  assert.equal(events[0].singleTeamOutcome.outcome,'SECURE');
+  assert.equal(events[0].singleTeamOutcome.firstHit.attackerPlayer.playerId,'controller:7');
+  assert.equal(events[1].singleTeamOutcome.outcome,'DENY');
+  assert.deepEqual(result.summary.singleTeamOutcome,{resolvedEpisodes:2,secureEpisodes:1,denyEpisodes:1,mixedTeamProvisionalEpisodes:0,noPlayerDamageObservedEpisodes:0});
+  assert.equal(result.summary.byPlayer.find(x=>x.playerId==='controller:7').secureEpisodes,1);
+  assert.equal(result.summary.byPlayer.find(x=>x.playerId==='controller:9').secureEpisodes,0);
+  assert.equal(result.summary.byPlayer.find(x=>x.playerId==='controller:8').denyEpisodes,1);
+});
+
+test('mixed-team and no-damage episodes remain unresolved',()=>{
+  const events=[
+    {...episode('101|1',100,2),entityIndex:101},
+    {...episode('102|1',200,2),entityIndex:102}
+  ];
+  const players=new Map([
+    [88,{playerId:'controller:7',controllerEntityIndex:7,pawnEntityIndex:88,playerName:'A',team:2,heroId:1}],
+    [89,{playerId:'controller:8',controllerEntityIndex:8,pawnEntityIndex:89,playerName:'B',team:3,heroId:2}]
+  ]);
+  const result=associatePlayerDamage(events,[
+    {sequence:2,tick:165,messageType:'k_EUserMsg_Damage',victimIndex:101,attackerIndex:89},
+    {sequence:1,tick:164,messageType:'k_EUserMsg_Damage',victimIndex:101,attackerIndex:88}
+  ],players,{tickRate:64});
+  assert.equal(events[0].singleTeamOutcome.status,'MIXED_TEAM_PROVISIONAL');
+  assert.equal(events[0].singleTeamOutcome.outcome,null);
+  assert.equal(events[1].singleTeamOutcome.status,'NO_PLAYER_DAMAGE_OBSERVED');
+  assert.equal(result.summary.singleTeamOutcome.resolvedEpisodes,0);
+  assert.equal(result.summary.singleTeamOutcome.mixedTeamProvisionalEpisodes,1);
+  assert.equal(result.summary.singleTeamOutcome.noPlayerDamageObservedEpisodes,1);
+});

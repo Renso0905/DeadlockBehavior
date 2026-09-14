@@ -21,8 +21,8 @@ test('per-replay pipeline lock rejects a competing process and releases cleanly'
 test('production capability contract owns every A metric exactly once',()=>{
   const a=METRIC_REGISTRY.flatMap(s=>s.metrics).filter(m=>m.status==='A').map(m=>m.id).sort();
   const production=[...AUTHORITATIVE_PRODUCTION_METRIC_IDS].sort();
-  assert.equal(a.length,122);
-  assert.equal(new Set(production).size,122);
+  assert.equal(a.length,124);
+  assert.equal(new Set(production).size,124);
   assert.deepEqual(production,a);
   const core=PRODUCTION_CAPABILITIES.find(c=>c.id==='core_state_economy');
   assert.equal(core.productionStatus,'supported');
@@ -33,16 +33,16 @@ test('production capability contract owns every A metric exactly once',()=>{
   const bridge=PRODUCTION_CAPABILITIES.find(c=>c.id==='runtime_bridge_buff_ownership');assert.equal(bridge.metricIds.length,7);
   const fire=PRODUCTION_CAPABILITIES.find(c=>c.id==='primary_fire_cadence');assert.equal(fire.metricIds.length,8);
   const trooper=PRODUCTION_CAPABILITIES.find(c=>c.id==='runtime_trooper_death_events');assert.equal(trooper.authorityLayer,'extended');assert.deepEqual([...trooper.metricIds],['trooper_deaths','trooper_death_timing','trooper_base_types','trooper_team_lane']);
-  const flying=PRODUCTION_CAPABILITIES.find(c=>c.id==='runtime_flying_soul_lifecycle');assert.equal(flying.authorityLayer,'extended');assert.deepEqual([...flying.metricIds],['trooper_orbs','orb_attackable_window','orb_shot_no_shot','orb_shooter','orb_multi_hit','orb_multi_player','orb_mixed_team','orb_hits']);
+  const flying=PRODUCTION_CAPABILITIES.find(c=>c.id==='runtime_flying_soul_lifecycle');assert.equal(flying.authorityLayer,'extended');assert.deepEqual([...flying.metricIds],['trooper_orbs','orb_attackable_window','orb_shot_no_shot','orb_shooter','orb_multi_hit','orb_multi_player','orb_mixed_team','orb_hits','orb_secure','orb_deny']);
   const ground=PRODUCTION_CAPABILITIES.find(c=>c.id==='runtime_ground_soul_lifecycle');assert.equal(ground.productionStatus,'supported');assert.equal(ground.authorityLayer,'extended');assert.deepEqual([...ground.metricIds],['ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration','ground_soul_vacuum_target']);
   const econ=PRODUCTION_CAPABILITIES.find(c=>c.id==='runtime_assigned_gold_economic_credit');assert.equal(econ.productionStatus,'supported');assert.equal(econ.authorityLayer,'extended');assert.deepEqual([...econ.metricIds],['ground_soul_economic_credit_events','ground_soul_economic_recipient_transitions','ground_soul_multi_recipient_share','ground_soul_economic_gain']);
   const supported=PRODUCTION_CAPABILITIES.filter(c=>c.productionStatus==='supported');
   const coreA=supported.filter(c=>(c.authorityLayer??'core')==='core').flatMap(c=>c.metricIds);
   const extendedA=supported.filter(c=>c.authorityLayer==='extended').flatMap(c=>c.metricIds);
-  assert.equal(coreA.length,102);assert.equal(extendedA.length,20);assert.equal(supported.flatMap(c=>c.metricIds).length,122);
+  assert.equal(coreA.length,102);assert.equal(extendedA.length,22);assert.equal(supported.flatMap(c=>c.metricIds).length,124);
 });
 
-test('pipeline requires fresh outputs and records 102/102 Core A plus 20/20 Extended A coverage',async()=>{
+test('pipeline requires fresh outputs and records 102/102 Core A plus 22/22 Extended A coverage',async()=>{
   const root=await mkdtemp(join(tmpdir(),'db-production-'));const inspector=join(root,'inspector-v04');await mkdir(join(root,'replays'),{recursive:true});await mkdir(inspector,{recursive:true});await writeFile(join(root,'replays','fixture.dem'),'fixture');
   async function fixtureProducer(name,files){const path=join(root,name),payload=JSON.stringify(files);await writeFile(path,`import {mkdir,writeFile} from 'node:fs/promises';import {join} from 'node:path';const root=process.argv[2],r=process.argv[3],files=${payload};await mkdir(join(root,'output',r),{recursive:true});for(const f of files)await writeFile(join(root,'output',r,f),'{}\\n');`);return path;}
   const producer=await fixtureProducer('producer.mjs',['player_state.jsonl','player_state_summary.json']);
@@ -72,9 +72,9 @@ test('pipeline requires fresh outputs and records 102/102 Core A plus 20/20 Exte
   ]};
   await writeFile(join(inspector,'pipeline.json'),JSON.stringify(pipeline));const result=await runPipeline({repoRoot:root,inspectorRoot:inspector,replayName:'fixture'});
   assert.equal(result.status,'COMPLETE');for(const id of ['core','health','items','perm','bridge','fire','melee','trooper','flying','ground','econ'])assert.equal(result.results.find(r=>r.id===id)?.status,'complete',`${id} fixture step must complete`);
-  assert.equal(result.productionManifest.coverage.completeAuthoritative,122);assert.equal(result.productionManifest.coverage.authoritativeTotal,122);assert.equal(result.productionManifest.coverage.notSupportedAuthoritative,0);assert.equal(result.productionManifest.coverage.failedAuthoritative,0);assert.equal(result.productionManifest.coverage.blockedAuthoritative,0);assert.equal(result.productionManifest.coverage.unclassifiedAuthoritative,0);
-  assert.equal(result.productionManifest.coverage.core.completeAuthoritative,102);assert.equal(result.productionManifest.coverage.core.authoritativeTotal,102);assert.equal(result.productionManifest.coverage.extended.completeAuthoritative,20);assert.equal(result.productionManifest.coverage.extended.authoritativeTotal,20);
-  const disk=JSON.parse(await readFile(join(root,'output','fixture','production_manifest_v01.json'),'utf8'));assert.equal(disk.coverage.authoritativeTotal,122);assert.equal(disk.coverage.core.authoritativeTotal,102);assert.equal(disk.coverage.extended.authoritativeTotal,20);
+  assert.equal(result.productionManifest.coverage.completeAuthoritative,124);assert.equal(result.productionManifest.coverage.authoritativeTotal,124);assert.equal(result.productionManifest.coverage.notSupportedAuthoritative,0);assert.equal(result.productionManifest.coverage.failedAuthoritative,0);assert.equal(result.productionManifest.coverage.blockedAuthoritative,0);assert.equal(result.productionManifest.coverage.unclassifiedAuthoritative,0);
+  assert.equal(result.productionManifest.coverage.core.completeAuthoritative,102);assert.equal(result.productionManifest.coverage.core.authoritativeTotal,102);assert.equal(result.productionManifest.coverage.extended.completeAuthoritative,22);assert.equal(result.productionManifest.coverage.extended.authoritativeTotal,22);
+  const disk=JSON.parse(await readFile(join(root,'output','fixture','production_manifest_v01.json'),'utf8'));assert.equal(disk.coverage.authoritativeTotal,124);assert.equal(disk.coverage.core.authoritativeTotal,102);assert.equal(disk.coverage.extended.authoritativeTotal,22);
 });
 
 test('existing outputs are not accepted when the current producer does not rewrite them',async()=>{

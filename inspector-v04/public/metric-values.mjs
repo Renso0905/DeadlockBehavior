@@ -8,7 +8,7 @@ export const AUTH_IDS=[
   'permanent_current','permanent_acquisitions','permanent_count','permanent_by_family','permanent_value','permanent_team_diff',
   'bridge_collections','bridge_current','bridge_uptime','bridge_uptime_share','bridge_overlaps','bridge_termination','bridge_team_uptime',
   'trooper_deaths','trooper_death_timing','trooper_base_types','trooper_team_lane',
-  'trooper_orbs','orb_attackable_window','orb_shot_no_shot','orb_shooter','orb_multi_hit','orb_multi_player','orb_mixed_team','orb_hits',
+  'trooper_orbs','orb_attackable_window','orb_shot_no_shot','orb_shooter','orb_multi_hit','orb_multi_player','orb_mixed_team','orb_hits','orb_secure','orb_deny',
   'ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration','ground_soul_vacuum_target',
   'ground_soul_economic_credit_events','ground_soul_economic_recipient_transitions','ground_soul_multi_recipient_share','ground_soul_economic_gain',
   'primary_discharges','primary_attack_rate','inter_attack_interval','next_primary_ready','ready_delay','reload_state','active_fire_mode','burst_continuous_state',
@@ -169,6 +169,8 @@ function rawMetricValue(id,{model,p,time,weaponReady}){
     case 'orb_multi_player': { const d=model.flyingSouls?.summary?.damageObservation??{}; return v(d.multiPlayerEpisodes??0,'Episodes with messages attributed to more than one sampled player pawn'); }
     case 'orb_mixed_team': { const d=model.flyingSouls?.summary?.damageObservation??{}; return v(d.mixedTeamEpisodes??0,'Episodes with observed player damage from more than one team; no winner inferred'); }
     case 'orb_hits': { const d=model.flyingSouls?.summary?.damageObservation??{},row=(d.byPlayer??[]).find(x=>Number(x.controllerEntityIndex)===Number(p.identity?.controllerEntityIndex)); return v(row?.damageMessages??0,`${row?.damagedEpisodes??0} source-linked episodes with selected-player damage · not attempts, accuracy, or damage amount`); }
+    case 'orb_secure': { const d=model.flyingSouls?.summary?.damageObservation??{},row=(d.byPlayer??[]).find(x=>Number(x.controllerEntityIndex)===Number(p.identity?.controllerEntityIndex)); return v(row?.secureEpisodes??0,`${d.singleTeamOutcome?.secureEpisodes??0} replay-wide · first observed player hit · mixed-team races excluded`); }
+    case 'orb_deny': { const d=model.flyingSouls?.summary?.damageObservation??{},row=(d.byPlayer??[]).find(x=>Number(x.controllerEntityIndex)===Number(p.identity?.controllerEntityIndex)); return v(row?.denyEpisodes??0,`${d.singleTeamOutcome?.denyEpisodes??0} replay-wide · first observed player hit · mixed-team races excluded`); }
     case 'ground_soul_activations': return v(model.groundSoulLifecycle?.summary?.activations??'—','Match-level observed CCitadel_Pickup_AssignedGold active episodes');
     case 'ground_soul_targeted_activations': { const gs=model.groundSoulLifecycle?.summary??{}; return v(gs.targetedActivations??'—',`${percent(gs.targetedShare)} of observed activations · physical m_hVacuumTarget only`); }
     case 'ground_soul_lifecycle_duration': { const gs=model.groundSoulLifecycle?.summary??{}; return v(gs.medianCompletedDurationSeconds!=null?duration(gs.medianCompletedDurationSeconds):'—',`${gs.completedActiveToInactive??0} completed active → inactive · ${gs.censoredActivations??0} censored`); }
