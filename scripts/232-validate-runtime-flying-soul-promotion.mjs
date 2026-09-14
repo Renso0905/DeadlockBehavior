@@ -13,7 +13,7 @@ for(const replayName of names){
   const replayDir=resolve('output',replayName),manifest=await readJson(join(replayDir,'production_manifest_v01.json')),productionDir=publishedDirectory(replayDir,manifest);
   const artifact=await readJson(join(productionDir,'runtime_flying_soul_production_v01.json')),eventsPath=join(productionDir,'runtime_flying_soul_events_v01.jsonl'),errors=[];
   const check=(pass,message)=>{if(!pass)errors.push(message);};
-  check(manifest?.runStatus==='COMPLETE','published manifest is not COMPLETE');check(manifest?.coverage?.completeAuthoritative===116,`manifest A coverage is ${manifest?.coverage?.completeAuthoritative??'missing'}, expected 116`);
+  check(manifest?.runStatus==='COMPLETE','published manifest is not COMPLETE');check(manifest?.coverage?.completeAuthoritative===122,`manifest A coverage is ${manifest?.coverage?.completeAuthoritative??'missing'}, expected 122`);
   check(artifact?.status==='RUNTIME_FLYING_SOUL_PRODUCTION_V01_READY','flying-soul artifact is not READY');check(artifact?.validation?.pass===true,'artifact validation did not pass');
   let rows=0,attackable=0;const ids=new Set(),byTeam={};
   const rl=createInterface({input:createReadStream(eventsPath,{encoding:'utf8'}),crlfDelay:Infinity});for await(const line of rl){if(!line.trim())continue;rows++;const e=JSON.parse(line);

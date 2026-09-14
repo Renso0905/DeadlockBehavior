@@ -42,12 +42,12 @@ function duplicateValues(values) {
   return [...duplicates].sort();
 }
 
-test('production metric contract freezes the current 116 A metrics', () => {
+test('production metric contract freezes the current 122 A metrics', () => {
   assert.equal(contract.version, 'DEADLOCK_PRODUCTION_METRIC_CONTRACT_V01');
   assert.equal(contract.canonical, true);
-  assert.equal(contract.expectedAuthoritativeMetricCount, 116);
+  assert.equal(contract.expectedAuthoritativeMetricCount, 122);
   assert.equal(contract.expectedProducerCount, 11);
-  assert.equal(contract.metrics.length, 116);
+  assert.equal(contract.metrics.length, 122);
   assert.equal(contract.producers.length, 11);
 
   assert.deepEqual(
@@ -220,7 +220,7 @@ test('pipeline contains no uncontracted authoritative producer capability', () =
 
 test('canonical contract is the executable source of truth for A membership', () => {
   assert.equal(PRODUCTION_METRIC_CONTRACT.version, contract.version);
-  assert.equal(PRODUCTION_METRIC_CONTRACT.metrics.length, 116);
+  assert.equal(PRODUCTION_METRIC_CONTRACT.metrics.length, 122);
 
   for (const section of METRIC_REGISTRY) {
     for (const metric of section.metrics) {

@@ -1,7 +1,7 @@
 {
   "version": "DEADLOCK_PRODUCTION_MANIFEST_V01",
   "replayName": "test",
-  "generatedAt": "2026-09-13T22:54:14.157Z",
+  "generatedAt": "2026-09-14T16:32:02.384Z",
   "pipelineVersion": "DEADLOCK_PRODUCTION_PIPELINE_V01",
   "runStatus": "COMPLETE",
   "validationTaxonomy": [
@@ -10,8 +10,8 @@
     "replicationStatus"
   ],
   "coverage": {
-    "authoritativeTotal": 116,
-    "completeAuthoritative": 116,
+    "authoritativeTotal": 122,
+    "completeAuthoritative": 122,
     "failedAuthoritative": 0,
     "blockedAuthoritative": 0,
     "notSupportedAuthoritative": 0,
@@ -25,8 +25,8 @@
       "unclassifiedAuthoritative": 0
     },
     "extended": {
-      "authoritativeTotal": 14,
-      "completeAuthoritative": 14,
+      "authoritativeTotal": 20,
+      "completeAuthoritative": 20,
       "failedAuthoritative": 0,
       "blockedAuthoritative": 0,
       "notSupportedAuthoritative": 0,
@@ -118,6 +118,12 @@
         "networth_rate",
         "next_primary_ready",
         "orb_attackable_window",
+        "orb_hits",
+        "orb_mixed_team",
+        "orb_multi_hit",
+        "orb_multi_player",
+        "orb_shooter",
+        "orb_shot_no_shot",
         "pawn_entity",
         "permanent_acquisitions",
         "permanent_by_family",
@@ -241,8 +247,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:48:05.152Z",
-      "finishedAt": "2026-09-13T22:48:36.578Z",
+      "startedAt": "2026-09-14T16:27:19.157Z",
+      "finishedAt": "2026-09-14T16:27:46.295Z",
       "outputs": [
         {
           "path": "output/test/player_state.jsonl",
@@ -279,8 +285,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:48:36.578Z",
-      "finishedAt": "2026-09-13T22:49:17.565Z",
+      "startedAt": "2026-09-14T16:27:46.296Z",
+      "finishedAt": "2026-09-14T16:28:21.811Z",
       "outputs": [
         {
           "path": "output/test/runtime_trooper_deaths_production_v01.json",
@@ -305,30 +311,36 @@
       "required": true,
       "metricIds": [
         "trooper_orbs",
-        "orb_attackable_window"
+        "orb_attackable_window",
+        "orb_shot_no_shot",
+        "orb_shooter",
+        "orb_multi_hit",
+        "orb_multi_player",
+        "orb_mixed_team",
+        "orb_hits"
       ],
       "validation": {
-        "integrityValidation": "Fresh runtime_flying_soul_production_v01.json and runtime_flying_soul_events_v01.jsonl must be produced. Every event must use CItemXP subclass 494398941, have a mutually unique same-team Trooper-death link inside the frozen -1..+4 tick and <=250 HU envelope, and expose a finite nonnegative direct attackable-time interval.",
-        "semanticValidation": "runtime_flying_soul_direct_lifecycle_v01. The promoted scope is limited to conservative source-linked CItemXP episodes and the direct m_flAttackableTime to m_flEndAttackableTime difference.",
-        "replicationStatus": "The exact production link and carrier rules are validated across all nine production replays against the established five-replay source-link cohort."
+        "integrityValidation": "Fresh runtime_flying_soul_production_v01.json and runtime_flying_soul_events_v01.jsonl must be produced. Every event must use CItemXP subclass 494398941, have a mutually unique same-team Trooper-death link inside the frozen -1..+4 tick and <=250 HU envelope, expose a finite nonnegative direct attackable-time interval, and attach damage messages only by exact victim entity, direct attackable-window tick, and unique sampled-player attacker identity.",
+        "semanticValidation": "runtime_flying_soul_direct_lifecycle_v01 plus runtime_flying_soul_damage_observation_v01. Damage metrics describe observed k_EUserMsg_Damage messages, distinct sampled players, and distinct teams. They do not infer shot attempts, misses, accuracy, projectile causality, secure/deny, winner, reward, visibility, or opportunity.",
+        "replicationStatus": "The exact source-link, attackable-carrier, and damage-observation rules are validated across all nine production replays against the established source-link and damage-message evidence."
       },
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:49:17.566Z",
-      "finishedAt": "2026-09-13T22:49:38.106Z",
+      "startedAt": "2026-09-14T16:28:21.811Z",
+      "finishedAt": "2026-09-14T16:28:41.293Z",
       "outputs": [
         {
           "path": "output/test/runtime_flying_soul_production_v01.json",
           "present": true,
-          "size": 2946,
+          "size": 7866,
           "fresh": true,
           "minBytes": 2
         },
         {
           "path": "output/test/runtime_flying_soul_events_v01.jsonl",
           "present": true,
-          "size": 687651,
+          "size": 885653,
           "fresh": true,
           "minBytes": 0
         }
@@ -353,8 +365,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:49:38.106Z",
-      "finishedAt": "2026-09-13T22:49:58.170Z",
+      "startedAt": "2026-09-14T16:28:41.293Z",
+      "finishedAt": "2026-09-14T16:28:58.629Z",
       "outputs": [
         {
           "path": "output/test/runtime_ground_soul_lifecycle_production_v01.json",
@@ -391,8 +403,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:49:58.171Z",
-      "finishedAt": "2026-09-13T22:50:27.402Z",
+      "startedAt": "2026-09-14T16:28:58.629Z",
+      "finishedAt": "2026-09-14T16:29:23.580Z",
       "outputs": [
         {
           "path": "output/test/runtime_assigned_gold_economic_credit_production_v01.json",
@@ -426,8 +438,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:50:27.402Z",
-      "finishedAt": "2026-09-13T22:50:50.300Z",
+      "startedAt": "2026-09-14T16:29:23.580Z",
+      "finishedAt": "2026-09-14T16:29:43.694Z",
       "outputs": [
         {
           "path": "output/test/runtime_health_regen_production_v01.json",
@@ -468,8 +480,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:50:50.301Z",
-      "finishedAt": "2026-09-13T22:51:11.549Z",
+      "startedAt": "2026-09-14T16:29:43.694Z",
+      "finishedAt": "2026-09-14T16:30:02.180Z",
       "outputs": [
         {
           "path": "output/test/runtime_item_ownership_production_v01.json",
@@ -508,8 +520,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:51:11.549Z",
-      "finishedAt": "2026-09-13T22:51:33.234Z",
+      "startedAt": "2026-09-14T16:30:02.180Z",
+      "finishedAt": "2026-09-14T16:30:20.801Z",
       "outputs": [
         {
           "path": "output/test/runtime_permanent_buff_ownership_production_v01.json",
@@ -549,8 +561,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:51:33.235Z",
-      "finishedAt": "2026-09-13T22:51:57.628Z",
+      "startedAt": "2026-09-14T16:30:20.801Z",
+      "finishedAt": "2026-09-14T16:30:38.690Z",
       "outputs": [
         {
           "path": "output/test/runtime_bridge_buff_ownership_production_v01.json",
@@ -591,8 +603,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:51:57.629Z",
-      "finishedAt": "2026-09-13T22:53:04.181Z",
+      "startedAt": "2026-09-14T16:30:38.690Z",
+      "finishedAt": "2026-09-14T16:31:21.237Z",
       "outputs": [
         {
           "path": "output/test/runtime_primary_fire_production_v01.json",
@@ -640,8 +652,8 @@
       "ok": true,
       "code": 0,
       "status": "complete",
-      "startedAt": "2026-09-13T22:53:04.181Z",
-      "finishedAt": "2026-09-13T22:54:14.156Z",
+      "startedAt": "2026-09-14T16:31:21.237Z",
+      "finishedAt": "2026-09-14T16:32:02.384Z",
       "outputs": [
         {
           "path": "output/test/runtime_melee_production_v01.json",
@@ -660,9 +672,9 @@
       ]
     }
   ],
-  "runId": "bbc91133-7d7d-4a68-be85-f61a00391488",
-  "inputFingerprint": "074f85e2b331f7514674844b23ddbebe29cfc02e495d5ff1a493a589c5585e04",
-  "publishedOutputDir": ".production-runs\\bbc91133-7d7d-4a68-be85-f61a00391488",
+  "runId": "037acf6d-4c07-4c3d-b11b-b1712213675e",
+  "inputFingerprint": "637ffea318146fee922609fc88e9d09c85ef0de5b0efbe9def704fe2c4851c78",
+  "publishedOutputDir": ".production-runs\\037acf6d-4c07-4c3d-b11b-b1712213675e",
   "outputDigests": {
     "player_state.jsonl": {
       "sha256": "29f810426ada2b6481cc7e42f256eaba78a4afa87d027ee3040c3861dbf43815",
@@ -673,7 +685,7 @@
       "bytes": 869
     },
     "runtime_trooper_deaths_production_v01.json": {
-      "sha256": "f53f04d4557441a869bce1cef7aa1c5af91de6d27c1fdb8f4505f8a3999a1edf",
+      "sha256": "a7a8cdd20d61cbb6c4ea1e4cc5e18f7d851359804c44c6f04495adf7de6de56d",
       "bytes": 551922
     },
     "runtime_trooper_death_events_v01.jsonl": {
@@ -681,15 +693,15 @@
       "bytes": 2333468
     },
     "runtime_flying_soul_production_v01.json": {
-      "sha256": "aeeb46572023a35e4fce851e14c9daf8a8a3f377a1fc34234adc578e81bbee2c",
-      "bytes": 2946
+      "sha256": "ad9ef9fc67ecce12a9245d71992bd0464cd306eec3e368879ddd119609e930c1",
+      "bytes": 7866
     },
     "runtime_flying_soul_events_v01.jsonl": {
-      "sha256": "05ca8311be1df092c0aeaedd7ff40d9db261866246d246795d95c1d44ad9302a",
-      "bytes": 687651
+      "sha256": "fcfacc9dd5063ba673aea2aadcc8543aca026f83dcda9b1ba13799e6ac1687ab",
+      "bytes": 885653
     },
     "runtime_ground_soul_lifecycle_production_v01.json": {
-      "sha256": "c3b59101f15c1b827a79fb85631c2ebba9341cf138662df43c908df83843110f",
+      "sha256": "06d7a5afa37d9d9807c5a03f7806be9a57a56d5e0d31457bdbe498da137dcbd1",
       "bytes": 540508
     },
     "runtime_ground_soul_lifecycle_events_v01.jsonl": {
@@ -697,7 +709,7 @@
       "bytes": 1930442
     },
     "runtime_assigned_gold_economic_credit_production_v01.json": {
-      "sha256": "6c817c14168dfa17d9affed61297de83b901423f23a4266b890feb6fda668df6",
+      "sha256": "a154ff4e52ce643b0823dd0b3e5576bfc0b8794cc09cb7c2d843c23daf6bfa3c",
       "bytes": 510009
     },
     "runtime_assigned_gold_economic_credit_events_v01.jsonl": {
@@ -705,7 +717,7 @@
       "bytes": 1613666
     },
     "runtime_health_regen_production_v01.json": {
-      "sha256": "d5b941c216cfd7f381dfb22e965dcd3503c31dfb7fc6ee9b969b6008e1c7cec8",
+      "sha256": "220d889431c9f78168955551af5bf9fc956e18861fa7fae7a0044b032a637199",
       "bytes": 2411303
     },
     "runtime_health_regen_events_v01.jsonl": {
@@ -713,7 +725,7 @@
       "bytes": 3116472
     },
     "runtime_item_ownership_production_v01.json": {
-      "sha256": "9b93f8712e6afd957974ceebe5894749a687e84c773e6569e3ebab27044057be",
+      "sha256": "dec1e5e358dfb7264f53278bf6b86f9b7d395031e698de32619792833b32a854",
       "bytes": 2313481
     },
     "runtime_item_ownership_events_v01.jsonl": {
@@ -721,7 +733,7 @@
       "bytes": 129757
     },
     "runtime_permanent_buff_ownership_production_v01.json": {
-      "sha256": "cb985a1a4886af9b1dae6d63942cd625b949e3c12beca7a1eaecf2a4a7c2f2cb",
+      "sha256": "b40c8a26975062ffdaf87e7538fdf02f3d9a4f39bc4d1b786dde67f7f79c8c8f",
       "bytes": 1375997
     },
     "runtime_permanent_buff_events_v01.jsonl": {
@@ -729,7 +741,7 @@
       "bytes": 571501
     },
     "runtime_bridge_buff_ownership_production_v01.json": {
-      "sha256": "1ffd2562f5ec056af96f7ed094eea39948186eb1b7de97fe640467b0c0c3f9a6",
+      "sha256": "ddbc1b68c6938941b975804017faa9804286fda5e3ca2a15e87b22966fca9e6c",
       "bytes": 51549
     },
     "runtime_bridge_buff_events_v01.jsonl": {
@@ -737,7 +749,7 @@
       "bytes": 11830
     },
     "runtime_primary_fire_production_v01.json": {
-      "sha256": "92b8b17aa5ce32e3055cfae32be93214e2975601a7a5882f5580aba0f227176d",
+      "sha256": "d15bc8273bc4b5e92b83f3c26d47eb1027e42445e2d5c0015c923aac4fa060aa",
       "bytes": 22321656
     },
     "runtime_primary_fire_events_v01.jsonl": {
@@ -749,7 +761,7 @@
       "bytes": 36160107
     },
     "runtime_melee_production_v01.json": {
-      "sha256": "e92f3b04a5d452242d9e9238929caa790896e2153cc836eb8598b4be31997ee6",
+      "sha256": "73709ac922a1e592506fe8a3f345ef24f9dca51839ca69e84d1b2dcae8a36c7e",
       "bytes": 10234
     },
     "runtime_melee_events_v01.jsonl": {

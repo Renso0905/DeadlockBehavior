@@ -3,6 +3,8 @@ export const ECONOMIC_TROOPER_SUBCLASS_IDS=Object.freeze(new Set(['1003135509','
 export const SOURCE_MIN_TICK_OFFSET=-1;
 export const SOURCE_MAX_TICK_OFFSET=4;
 export const SOURCE_MAX_DISTANCE_3D_HU=250;
+export const ENTITY_INDEX_MASK=0x3fff;
+export const PLAYER_DAMAGE_MESSAGE_TYPE='k_EUserMsg_Damage';
 
 export function readEntityWorldPosition(entity){
   const field=name=>{try{return entity?.getField?.(name);}catch{return undefined;}};
@@ -78,6 +80,66 @@ export function summarizeFlyingSoulLinks(links){
   const durations=events.map(e=>finite(e.endAttackableTime)!==null&&finite(e.attackableTime)!==null?finite(e.endAttackableTime)-finite(e.attackableTime):null).filter(x=>x!==null&&x>=0).sort((a,b)=>a-b);
   const byTeam={};for(const e of events){const k=String(e.team);byTeam[k]=(byTeam[k]??0)+1;}
   return{episodes:events.length,attackableWindows:durations.length,missingAttackableWindows:events.length-durations.length,medianAttackableWindowSeconds:median(durations),minAttackableWindowSeconds:durations[0]??null,maxAttackableWindowSeconds:durations.at(-1)??null,byTeam};
+}
+
+export function extractPlayerDamageReference(messagePacket){
+  const messageType=decodeMessageType(messagePacket?.type);
+  if(messageType!==PLAYER_DAMAGE_MESSAGE_TYPE)return null;
+  const data=messagePacket?.data??messagePacket?.message??messagePacket?.payload??messagePacket??null;
+  const victimIndex=normalizeEntityReference(findValueByKeyPatterns(data,[/entindexvictim/i,/entindex_victim/i,/victimentityindex/i,/victimindex/i,/^victim$/i,/hvictim/i],4));
+  if(victimIndex===null)return null;
+  const attackerIndex=normalizeEntityReference(findValueByKeyPatterns(data,[/entindexattacker/i,/entindex_attacker/i,/attackerentityindex/i,/attackerindex/i,/^attacker$/i,/hattacker/i],4));
+  return{messageType,victimIndex,attackerIndex};
+}
+
+export function associatePlayerDamage(events,damageMessages,playerByPawn,{matchClockOffsetSeconds=0,tickRate=64}={}){
+  const byVictim=new Map();
+  for(const event of events??[]){const key=Number(event.entityIndex);if(!byVictim.has(key))byVictim.set(key,[]);byVictim.get(key).push(event);event.playerDamageMessages=[];}
+  const diagnostics={damageMessages:(damageMessages??[]).length,matchedToAttackableEpisode:0,outsideAcceptedAttackableEpisode:0,ambiguousEpisodeMatches:0,unresolvedAttacker:0};
+  for(const message of damageMessages??[]){
+    const candidates=(byVictim.get(Number(message.victimIndex))??[]).filter(event=>{
+      const start=attackableTick(event,event.attackableTime,tickRate),end=attackableTick(event,event.endAttackableTime,tickRate);
+      return start!==null&&end!==null&&Number(message.tick)>=start&&Number(message.tick)<=end;
+    });
+    if(candidates.length===0){diagnostics.outsideAcceptedAttackableEpisode++;continue;}
+    if(candidates.length!==1){diagnostics.ambiguousEpisodeMatches++;continue;}
+    const player=playerByPawn?.get(Number(message.attackerIndex))??null;
+    if(!player){diagnostics.unresolvedAttacker++;continue;}
+    diagnostics.matchedToAttackableEpisode++;
+    candidates[0].playerDamageMessages.push({tick:Number(message.tick),matchTimeSeconds:Number(message.tick)/tickRate-matchClockOffsetSeconds,messageType:message.messageType,victimIndex:Number(message.victimIndex),attackerIndex:Number(message.attackerIndex),attackerPlayer:{playerId:player.playerId,controllerEntityIndex:Number(player.controllerEntityIndex),pawnEntityIndex:Number(player.pawnEntityIndex),playerName:player.playerName,team:Number(player.team),heroId:player.heroId==null?null:Number(player.heroId)}});
+  }
+  const byPlayer=new Map();
+  for(const event of events??[]){
+    const players=new Set(),teams=new Set();
+    for(const message of event.playerDamageMessages){const p=message.attackerPlayer;players.add(p.playerId);teams.add(p.team);if(!byPlayer.has(p.playerId))byPlayer.set(p.playerId,{...p,damagedEpisodes:new Set(),damageMessages:0});const row=byPlayer.get(p.playerId);row.damagedEpisodes.add(event.episodeId);row.damageMessages++;}
+    event.damageObservation={observedPlayerDamage:event.playerDamageMessages.length>0,damageMessageCount:event.playerDamageMessages.length,distinctPlayerCount:players.size,distinctTeamCount:teams.size,multiMessage:event.playerDamageMessages.length>1,multiPlayer:players.size>1,mixedTeam:teams.size>1};
+  }
+  const episodes=events?.length??0,withDamage=(events??[]).filter(x=>x.damageObservation.observedPlayerDamage).length;
+  const summary={episodesWithObservedPlayerDamage:withDamage,episodesWithoutObservedPlayerDamage:episodes-withDamage,totalObservedPlayerDamageMessages:(events??[]).reduce((n,x)=>n+x.damageObservation.damageMessageCount,0),multiMessageEpisodes:(events??[]).filter(x=>x.damageObservation.multiMessage).length,multiPlayerEpisodes:(events??[]).filter(x=>x.damageObservation.multiPlayer).length,mixedTeamEpisodes:(events??[]).filter(x=>x.damageObservation.mixedTeam).length,byPlayer:[...byPlayer.values()].map(x=>({...x,damagedEpisodes:x.damagedEpisodes.size})).sort((a,b)=>a.controllerEntityIndex-b.controllerEntityIndex)};
+  return{events,summary,diagnostics};
+}
+
+export function normalizeEntityReference(value){
+  if(value===null||value===undefined)return null;
+  if(typeof value==='object')for(const key of['entityIndex','entindex','index','handle','value','id'])if(Object.prototype.hasOwnProperty.call(value,key)){const normalized=normalizeEntityReference(value[key]);if(normalized!==null)return normalized;}
+  const number=finite(value);if(number===null)return null;const integer=Math.trunc(number);return integer>=0&&integer<=ENTITY_INDEX_MASK?integer:integer&ENTITY_INDEX_MASK;
+}
+
+function decodeMessageType(type){
+  if(type===null||type===undefined)return null;
+  const code=type?._code??type?.code??null;if(code!==null)return String(code);
+  const id=type?._id??type?.id??null;return id!==null?`MESSAGE_ID_${id}`:String(type);
+}
+
+function findValueByKeyPatterns(root,patterns,maxDepth){
+  const seen=new Set(),queue=[{value:root,depth:0}];
+  while(queue.length){const current=queue.shift(),value=current.value;if(value===null||value===undefined||typeof value!=='object'||seen.has(value))continue;seen.add(value);for(const[key,nested]of Object.entries(value)){if(patterns.some(pattern=>pattern.test(key)))return nested;if(current.depth<maxDepth&&nested!==null&&typeof nested==='object')queue.push({value:nested,depth:current.depth+1});}}
+  return null;
+}
+
+function attackableTick(event,value,tickRate){
+  const startTick=finite(event?.startTick),timeLaunch=finite(event?.timeLaunch),time=finite(value),rate=finite(tickRate);
+  return startTick===null||timeLaunch===null||time===null||rate===null?null:Math.round(startTick+(time-timeLaunch)*rate);
 }
 
 function median(values){if(!values.length)return null;const i=Math.floor(values.length/2);return values.length%2?values[i]:(values[i-1]+values[i])/2;}

@@ -134,8 +134,17 @@ async function processReplayOnce(replayName,{origin='api'}={}){
 async function getModel(replay,force=false){
   if(!validReplayName(replay))throw new Error('Invalid replay name');
   if(force)modelPromises.delete(replay);
-  if(!modelPromises.has(replay))modelPromises.set(replay,buildReplayModel({outputRoot,replayName:replay,cacheRoot,force}).finally(()=>modelPromises.delete(replay)));
+  if(!modelPromises.has(replay))modelPromises.set(replay,(async()=>{
+    let model=await buildReplayModel({outputRoot,replayName:replay,cacheRoot,force});
+    if(!force&&!hasCompleteMetricAvailability(model))model=await buildReplayModel({outputRoot,replayName:replay,cacheRoot,force:true});
+    return model;
+  })().finally(()=>modelPromises.delete(replay)));
   return modelPromises.get(replay);
+}
+
+function hasCompleteMetricAvailability(model){
+  return AUTH_IDS.every(id=>model?.metricAvailability?.[id])
+    &&(model?.players??[]).every(player=>AUTH_IDS.every(id=>player?.metricAvailability?.[id]));
 }
 
 const evidenceFiles={

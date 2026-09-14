@@ -59,11 +59,11 @@ export const PRODUCTION_CAPABILITIES = [
     replicationStatus: 'Death identities and direct context completeness are validated across all nine production replays. Existing replication_trooper_deaths_v01 evidence is compared by exact tick/entity identity when present.'
   }, null, 'extended'),
   capability('runtime_flying_soul_lifecycle', 'Source-linked flying Trooper soul episodes', 'supported', [
-    'trooper_orbs','orb_attackable_window'
+    'trooper_orbs','orb_attackable_window','orb_shot_no_shot','orb_shooter','orb_multi_hit','orb_multi_player','orb_mixed_team','orb_hits'
   ], {
-    integrityValidation: 'Fresh runtime_flying_soul_production_v01.json and runtime_flying_soul_events_v01.jsonl must be produced. Every event must use CItemXP subclass 494398941, have a mutually unique same-team Trooper-death link inside the frozen -1..+4 tick and <=250 HU envelope, and expose a finite nonnegative direct attackable-time interval.',
-    semanticValidation: 'runtime_flying_soul_direct_lifecycle_v01. The promoted scope is limited to conservative source-linked CItemXP episodes and the direct m_flAttackableTime to m_flEndAttackableTime difference.',
-    replicationStatus: 'The exact production link and carrier rules are validated across all nine production replays against the established five-replay source-link cohort.'
+    integrityValidation: 'Fresh runtime_flying_soul_production_v01.json and runtime_flying_soul_events_v01.jsonl must be produced. Every event must use CItemXP subclass 494398941, have a mutually unique same-team Trooper-death link inside the frozen -1..+4 tick and <=250 HU envelope, expose a finite nonnegative direct attackable-time interval, and attach damage messages only by exact victim entity, direct attackable-window tick, and unique sampled-player attacker identity.',
+    semanticValidation: 'runtime_flying_soul_direct_lifecycle_v01 plus runtime_flying_soul_damage_observation_v01. Damage metrics describe observed k_EUserMsg_Damage messages, distinct sampled players, and distinct teams. They do not infer shot attempts, misses, accuracy, projectile causality, secure/deny, winner, reward, visibility, or opportunity.',
+    replicationStatus: 'The exact source-link, attackable-carrier, and damage-observation rules are validated across all nine production replays against the established source-link and damage-message evidence.'
   }, null, 'extended'),
   capability('runtime_ground_soul_lifecycle', 'Observed Ground Soul / AssignedGold lifecycle', 'supported', [
     'ground_soul_activations','ground_soul_targeted_activations','ground_soul_lifecycle_duration'
